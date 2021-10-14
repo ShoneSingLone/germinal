@@ -1,1 +1,1 @@
-[travis](https://travis-ci.com/github/ShoneSingLone/germinal)
+[![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)
