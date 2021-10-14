@@ -1,0 +1,1 @@
+[travis](https://travis-ci.com/github/ShoneSingLone/germinal)
