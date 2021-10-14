@@ -1,4 +1,7 @@
 module.exports = {
+	"globals": {
+		"defineProps": true
+	},
 	"env": {
 		"browser": true,
 	},
@@ -10,6 +13,7 @@ module.exports = {
 		"vue"
 	],
 	"rules": {
+		"vue/no-multiple-template-root": "off",
 		"linebreak-style": [
 			"error",
 			"unix"

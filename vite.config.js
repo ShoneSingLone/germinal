@@ -4,6 +4,7 @@ import {
 import useVue from "@vitejs/plugin-vue";
 import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
+import path from "path";
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
@@ -12,8 +13,17 @@ export default defineConfig({
 		libraryDirectory: "es",
 		style: "css",
 	}),],
-	base: './',
-	build:{
-		minify:false
+	base: "./",
+	resolve: {
+		alias: {
+			"@ventose/ui": path.resolve(__dirname, "./src/components/ui"),
+			"@s": path.resolve(__dirname, "./src/state"),
+			"@l": path.resolve(__dirname, "./src/language"),
+			"@layout": path.resolve(__dirname, "./src/layout"),
+			"@v": path.resolve(__dirname, "./src/views"),
+		}
+	},
+	build: {
+		minify: false
 	}
 });

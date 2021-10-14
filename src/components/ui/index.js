@@ -1,4 +1,4 @@
-import {Button, List, Checkbox, Popconfirm, Input} from "ant-design-vue";
+import {Button, List, Checkbox, Popconfirm, Input,Alert} from "ant-design-vue";
 import XRender from "./XRender/XRender.vue";
 import _ from "lodash";
 
@@ -11,6 +11,7 @@ const components = {
 	Checkbox,
 	Popconfirm,
 	Input,
+	Alert
 };
 
 export default {

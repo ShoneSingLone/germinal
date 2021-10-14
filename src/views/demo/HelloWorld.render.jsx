@@ -26,7 +26,7 @@ export const renders = {
 					</a>
 				</p>
 				<p>
-					Edit <code>components/HelloWorld.vue</code> to test hot module
+					Edit <code>views/demo/HelloWorld.vue</code> to test hot module
 					replacement.
 				</p>
 			</>
