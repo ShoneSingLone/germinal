@@ -12,4 +12,8 @@ export default defineConfig({
 		libraryDirectory: "es",
 		style: "css",
 	}),],
+	base: './',
+	build:{
+		minify:false
+	}
 });
