@@ -5,6 +5,9 @@ install:
   - npm run bs 
 script:
   - npm run build
+branches:
+  only:
+  - master
 deploy:
   provider: pages
   skip_cleanup: true
