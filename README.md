@@ -1,7 +1,4 @@
 - [Germinal](https://shonesinglone.github.io/germinal/)
 - [![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)
 
-# test Travis
-# import static assets
-# test travi
-# test Travis 20211018005700
+Travis branchs only master
