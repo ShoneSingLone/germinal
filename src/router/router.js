@@ -2,27 +2,27 @@ import {
     createRouter,
     createWebHashHistory
 } from "vue-router";
-import HW from "@v/demo/HelloWorld.vue";
-import _ from "lodash";
-import Login from "@v/user/Login.vue";
-import LayoutUser from "@layout/User.vue";
+import NotFound from "@v/system/NotFound.vue";
 
-function Route(name, component, options = {}) {
+import LayoutUser from "@layout/User.vue";
+import Login from "@v/user/Login.vue";
+
+export const NewRoute = (name, component, options = {}) => {
     return {
         name,
         path: `/${name}`,
         component,
         ...options
     };
-}
+};
 
 
-export const routes = [
-    Route("user", LayoutUser, {
+const routes = [
+    NewRoute("user", LayoutUser, {
         redirect: "/user-login",
-        children: [Route("user-login", Login)]
+        children: [NewRoute("user-login", Login)]
     }),
-    Route("demo", HW),
+    NewRoute("404", NotFound),
 ];
 
 export const router = createRouter({
@@ -32,8 +32,7 @@ export const router = createRouter({
         /* 404 not_found */
         {
             path: "/:pathMatch(.*)*",
-            redirect: "/login",
-            name: "not_found"
+            redirect: "/404",
         }
-    ],
+    ]
 });
