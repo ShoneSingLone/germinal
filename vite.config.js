@@ -8,15 +8,10 @@ import path from "path";
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
-	plugins: [useVue(), useVueJsx(), usePluginImport({
-		libraryName: "ant-design-vue",
-		libraryDirectory: "es",
-		style: "css",
-	}),],
 	base: "./",
 	resolve: {
 		alias: {
-			"vue":"vue/dist/vue.esm-bundler.js",
+			"vue": "vue/dist/vue.esm-bundler.js",
 			"@ventose/ui": path.resolve(__dirname, "./src/components/ui"),
 			"@s": path.resolve(__dirname, "./src/state"),
 			"@l": path.resolve(__dirname, "./src/language"),
@@ -26,5 +21,14 @@ export default defineConfig({
 	},
 	build: {
 		minify: false
-	}
+	},
+	plugins: [
+		useVue(),
+		useVueJsx(),
+		usePluginImport({
+			libraryName: "ant-design-vue",
+			libraryDirectory: "es",
+			style: "css",
+		}),
+	],
 });
