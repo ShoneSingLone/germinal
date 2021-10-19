@@ -1,6 +1,7 @@
 module.exports = {
 	"globals": {
-		"defineProps": true
+		"defineProps": true,
+		"Germinal":true
 	},
 	"env": {
 		"browser": true,

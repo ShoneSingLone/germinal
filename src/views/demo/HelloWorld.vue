@@ -25,8 +25,8 @@ const handlers = {
 
 <template>
   <Button @click="handlers.clickBtn">{{ $t("user.login.userName") }}</Button>
-  <XRender :render="renders.countAuto" :configs="state"/>
-  <XRender :render="renders.countAuto" :configs="AppState"/>
-  <XRender :render="renders.staticNode"/>
+  <xRender :render="renders.countAuto" :state="state"/>
+  <xRender :render="renders.countAuto" :state="AppState"/>
+  <xRender :render="renders.staticNode"/>
   <Button  @click="handlers.clickBtn">count is: {{ state.count }}</Button>
 </template>

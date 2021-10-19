@@ -9,7 +9,7 @@ return {
     menu: {
         locale: true
     },
-    title: "Ant Design Pro",
+    title: "AntDesignVue-Pro",
     pwa: false,
     iconfontUrl: "",
 };

@@ -13,6 +13,7 @@ export default defineConfig({
 		alias: {
 			"vue": "vue/dist/vue.esm-bundler.js",
 			"@ventose/ui": path.resolve(__dirname, "./src/components/ui"),
+			"@r": path.resolve(__dirname, "./src/request"),
 			"@s": path.resolve(__dirname, "./src/state"),
 			"@l": path.resolve(__dirname, "./src/language"),
 			"@layout": path.resolve(__dirname, "./src/layout"),

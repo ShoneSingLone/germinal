@@ -2,7 +2,7 @@
 import {defineComponent} from "vue";
 
 export default defineComponent({
-  props: ["render", "configs"],
-  setup: ({render, configs}) => () => render(configs),
+  props: ["render", "state"],
+  setup: ({render, state}) => () => render(state),
 });
 </script>

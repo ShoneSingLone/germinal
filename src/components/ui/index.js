@@ -1,17 +1,18 @@
 import {Button, List, Checkbox, Popconfirm, Input,Alert} from "ant-design-vue";
-import XRender from "./XRender/XRender.vue";
+import xRender from "./xRender/xRender.vue";
 import _ from "lodash";
-
+import xItem from "./xForm/xItem.vue";
 const components = {
 	/* my-ui */
-	XRender,
+	xRender,
+	xItem,
 	/* ant-d-v */
 	Button,
 	List,
 	Checkbox,
 	Popconfirm,
 	Input,
-	Alert
+	Alert,
 };
 
 export default {
