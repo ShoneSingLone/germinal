@@ -12,7 +12,8 @@ module.exports = {
 		"plugin:vue/essential"
 	],
 	"plugins": [
-		"vue"
+		"vue",
+		"prefer-optional-chaining"
 	],
 	"rules": {
 		"vue/no-multiple-template-root": "off",
