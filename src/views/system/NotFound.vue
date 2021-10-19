@@ -1,8 +1,11 @@
 <script setup>
-import { useRouter } from "vue-router";
+import {useRouter} from "vue-router";
+import {routeNames} from "../../router/router";
+
 const router = useRouter();
+
 function go() {
-  router.push({ path: "/user" });
+  router.push({name: routeNames.login});
 }
 </script>
 

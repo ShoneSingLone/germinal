@@ -1,6 +1,8 @@
 module.exports = {
 	"globals": {
-		"defineProps": true
+		"defineProps": true,
+		"_": true,
+		"Germinal": true
 	},
 	"env": {
 		"browser": true,
@@ -10,7 +12,8 @@ module.exports = {
 		"plugin:vue/essential"
 	],
 	"plugins": [
-		"vue"
+		"vue",
+		"prefer-optional-chaining"
 	],
 	"rules": {
 		"vue/no-multiple-template-root": "off",

@@ -2,7 +2,9 @@ import $ from "jquery";
 
 let $title = false;
 
-export const setHtmlTitle = (title) => {
+export const setDocumentTitle = (title) => {
+	/* document.title = title; */
+	/* 没啥特别意思，就是想用一下jQuery */
 	if (!$title) {
 		let $head = $("html head");
 		if (!$head) {

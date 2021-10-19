@@ -1,22 +1,27 @@
-import {Button, List, Checkbox, Popconfirm, Input,Alert} from "ant-design-vue";
-import XRender from "./XRender/XRender.vue";
-import _ from "lodash";
+import {Button, List, Checkbox, Popconfirm, Input, Alert} from "ant-design-vue";
+import xRender from "./xRender/xRender.vue";
+import xItem from "./xForm/xItem.vue";
+import notification from "ant-design-vue/es/notification";
+
+
+/* my-ui */
+const componentMyUI = {
+    xRender, xItem
+};
+
+/* ant-d-v */
+const componentAntdV = {
+    Button, List, Checkbox, Popconfirm, Input, Alert
+};
 
 const components = {
-	/* my-ui */
-	XRender,
-	/* ant-d-v */
-	Button,
-	List,
-	Checkbox,
-	Popconfirm,
-	Input,
-	Alert
+    ...componentMyUI,
+    ...componentAntdV
 };
 
 export default {
-	install: (app, options) => {
-		console.log(options);
-		_.each(components, (component, name) => app.component(name, component));
-	},
+    notification,
+    install: (app, options) => {
+        _.each(components, (component, name) => app.component(name, component));
+    },
 };

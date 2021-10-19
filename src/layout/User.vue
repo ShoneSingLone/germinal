@@ -6,13 +6,13 @@ import logoImg from "../assets/logo.png";
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger"/>
+        <select-lang class="select-lang-trigger" />
       </div>
       <div class="user-layout-content">
         <div class="top">
           <div class="header">
             <a href="/">
-              <img :src="logoImg" class="logo" alt="logo"/>
+              <img :src="logoImg" class="logo" alt="logo" />
               <span class="title">Ant Design</span>
             </a>
           </div>
@@ -21,7 +21,7 @@ import logoImg from "../assets/logo.png";
           </div>
         </div>
 
-        <router-view/>
+        <router-view />
 
         <div class="footer">
           <div class="links">
