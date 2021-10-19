@@ -1,3 +1,4 @@
+import "@ventose/ui/loadCommonUtil.js";
 import {createApp} from "vue";
 import App from "./App.vue";
 import {router} from "./router/router.js";

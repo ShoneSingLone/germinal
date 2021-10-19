@@ -1,5 +1,4 @@
 import $ from "jquery";
-import _ from "lodash";
 
 const ajaxOptions = (options, customOptions) => {
     return _.merge({

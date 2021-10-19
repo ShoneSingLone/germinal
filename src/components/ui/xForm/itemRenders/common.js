@@ -1,4 +1,3 @@
-import _ from "lodash";
 import {
     reactive
 } from "vue";

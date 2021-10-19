@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 export const lStorage = new Proxy(localStorage, {
     set(_localStorage, prop, value) {
         if (_.isPlainObject(value)) {
@@ -9,7 +7,7 @@ export const lStorage = new Proxy(localStorage, {
         }
         return true;
     },
-    get (_localStorage, prop) {
+    get(_localStorage, prop) {
         const objString = _localStorage[prop];
         try {
             return JSON.parse(objString);
