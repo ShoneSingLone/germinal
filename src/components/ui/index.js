@@ -10,6 +10,7 @@ import {
     Alert,
     Result
 } from "ant-design-vue";
+import {MenuItem} from "ant-design-vue/es/menu";
 import xRender from "./xRender/xRender.vue";
 import xItem from "./xForm/xItem.vue";
 import notification from "ant-design-vue/es/notification";
@@ -25,6 +26,7 @@ const componentMyUI = {
 const componentAntdV = {
     Icon,
     Menu,
+    MenuItem,
     Dropdown,
     Button,
     List,
