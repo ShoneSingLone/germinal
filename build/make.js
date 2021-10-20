@@ -5,6 +5,5 @@ const makeHandlers = {
 };
 
 const fnName = process.argv[2];
-console.log(`make ${fnName}`);
 makeHandlers[fnName]();
-console.log(`make ${fnName}`);
+console.log(`make ${fnName} success`);
