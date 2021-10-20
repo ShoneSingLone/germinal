@@ -1,19 +1,12 @@
 import NProgress from "nprogress"; // progress bar
-import {
-    createRouter,
-    createWebHashHistory
-} from "vue-router";
-import NotFound from "@v/system/NotFound.vue";
-
+import {createRouter, createWebHashHistory} from "vue-router";
+import NotFound from "@views/system/NotFound.vue";
 import LayoutUser from "@layout/User.vue";
-import Login from "@v/user/Login.vue";
-import {
-    lStorage
-} from "../components/ui/tools/storage";
-import {
-    AppState,
-    AppActions
-} from "@s/app";
+import Login from "@views/user/Login.vue";
+import {lStorage} from "../components/ui/tools/storage";
+import {AppState, AppActions} from "@state/app";
+import {setDocumentTitle} from "@ventose/ui/tools/dom";
+import {$t} from "@language";
 
 const RouteView = {
     name: "RouteView",
@@ -21,14 +14,7 @@ const RouteView = {
 };
 
 
-export const NewRoute = (name, component, options = {}) => {
-    return {
-        name,
-        path: `/${name}`,
-        component,
-        ...options
-    };
-};
+export const NewRoute = (name, component, options = {}) =>  _.merge({name, path: `/${name}`, component}, options);
 
 
 export const routeNames = {
@@ -42,12 +28,14 @@ export const routeNames = {
 };
 const toPath = name => `/${name}`;
 
-
 const routes = [
-    NewRoute(routeNames.login, LayoutUser, {
-        redirect: toPath(routeNames.userLogin),
-        children: [NewRoute(routeNames.userLogin, Login)]
-    }),
+    NewRoute(
+        routeNames.login,
+        LayoutUser,
+        {
+            redirect: toPath(routeNames.userLogin),
+            children: [NewRoute(routeNames.userLogin, Login, {meta: {title: $t("user.login.login").label}})]
+        }),
     NewRoute(routeNames[404], NotFound),
 ];
 
@@ -77,7 +65,6 @@ const allowList = [
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
 const defaultRoutePath = toPath(routeNames.dashboardWorkplace);
-
 
 router.beforeEach(async (to, from) => {
     /*NOTICE:返回 false 以取消导航*/
@@ -116,12 +103,14 @@ router.beforeEach(async (to, from) => {
         }
     } catch (e) {
         console.error(e);
-        debugger;
         /*  */
         return false;
     } finally {
         NProgress.done();
     }
+    if (to?.meta?.title) {
+        setDocumentTitle(to.meta.title);
+    } 
 });
 
 router.afterEach(() => {
