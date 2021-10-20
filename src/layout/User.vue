@@ -39,7 +39,7 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
 #userLayout.user-layout-wrapper {
   height: 100%;
 

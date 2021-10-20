@@ -1,7 +1,7 @@
 //index.ts
-import {
-	createI18n
-} from "vue-i18n"; //引入vue-i18n组件
+import { createI18n } from "vue-i18n"; //引入vue-i18n组件
+import { watchEffect } from "vue";
+import $ from "jquery";
 //假设你还有其他目录下的语言文件 它的路径是 src/views/home/locales/en-US.ts
 //那么你就可以 使用 :lower:（小写） :upper:（大写） 来引入文件
 // const viewModules = import.meta.globEager(
@@ -12,9 +12,12 @@ import {
  * 获取所有语言文件
  * @param {Object} modules
  */
+const defaultLang = "zh-CN";
+
 function getLangFiles() {
 	//引入同级目录下文件
-	const modules = import.meta.globEager("./*");
+	const modules =
+		import.meta.globEager("./*");
 	/*  */
 	return _.reduce(modules, (message, module, path) => {
 		if (module.default) {
@@ -36,7 +39,8 @@ function getLangFiles() {
 
 const i18n = createI18n({
 	legacy: false,
-	locale: "zh-CN",
+	locale: defaultLang,
+	fallbackLocale: defaultLang,
 	messages: getLangFiles(),
 });
 
@@ -54,5 +58,14 @@ export const appI18n = {
 	install: (app, AppState) => {
 		//注册i8n实例并引入语言文件
 		app.config.globalProperties.$t = $t;
+		watchEffect(() => {
+			setI18nLanguage(AppState.configs.language);
+		});
 	},
 };
+
+function setI18nLanguage(lang) {
+	i18n.global.locale.value = lang;
+	$("html").attr("lang", lang);
+	return lang;
+}

@@ -1,40 +1,33 @@
 <script setup>
-import {reactive, computed} from "vue";
-import {AppState} from "@state/app";
-
+import { reactive, computed } from "vue";
+import { AppState } from "@state/app";
 const locales = ["zh-CN", "en-US"];
 const languageLabels = {
-  "zh-CN": "简体中文",
-  "en-US": "English",
-};
-// eslint-disable-next-line
-const languageIcons = {
-  "zh-CN": "🇨🇳",
-  "en-US": "🇺🇸",
+  "zh-CN": { label: "简体中文", icon: "🇨🇳" },
+  "en-US": { label: "English", icon: "🇺🇸" },
 };
 
-const state = reactive({visibale: false, test: "hehe"});
-const visibale = computed(() => JSON.stringify(state.visibale));
-const handlers = {
-  menuClick(e) {
-    if (e.key === "3") {
-      state.visible = false;
-    }
-  },
-};
+function changeConfigsLanguage({ key }) {
+  AppState.configs.language = key;
+}
 </script>
 
 <template>
-  <Dropdown v-model:visible="state.visible">
+  <Dropdown placement="bottomRight">
     <span :class="AppState.configs.prefixCls">
-      {{ visibale }}
-      <Icon type="global" :title="$t('navBar.lang')"/>
+      <GlobalOutlined />
     </span>
     <template #overlay>
-      <Menu @click="handlers.menuClick">
-        <MenuItem key="1">Clicking me will not close the menu.</MenuItem>
-        <MenuItem key="2">Clicking me will not close the menu also.</MenuItem>
-        <MenuItem key="3">Clicking me will close the menu</MenuItem>
+      <Menu
+        :selectedKeys="[AppState.configs.language]"
+        @click="changeConfigsLanguage"
+      >
+        <MenuItem :key="locale" v-for="locale in locales">
+          <span role="img" :aria-label="languageLabels[locale].label">
+            {{ languageLabels[locale].icon }}
+          </span>
+          {{ languageLabels[locale].label }}</MenuItem
+        >
       </Menu>
     </template>
   </Dropdown>
