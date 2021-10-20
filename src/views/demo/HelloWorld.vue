@@ -1,7 +1,7 @@
 <script setup>
 import {reactive} from "vue";
 import {renders} from "./HelloWorld.render";
-import {AppState} from "@s/app";
+import {AppState} from "@state/app";
 
 defineProps({
   msg: String,

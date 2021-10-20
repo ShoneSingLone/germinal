@@ -5,7 +5,7 @@ import {
 import {
     lStorage
 } from "@ventose/ui/tools/storage";
-import ajax from "@r/ajax";
+import ajax from "@request/ajax";
 import API from "@api";
 
 console.log(

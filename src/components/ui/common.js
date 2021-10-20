@@ -1,8 +1,6 @@
-import {
-    reactive
-} from "vue";
+import { reactive } from "vue";
 
-const doNothing = () => null;
+
 
 export const ITEM_TYPE = {
     Input: "Input"
@@ -12,7 +10,7 @@ export const vModel = configs => {
     return {
         value: configs.value,
         "onUpdate:value": val => {
-            const updateValue = configs["onUpdate:value"] || doNothing;
+            const updateValue = configs["onUpdate:value"] || _.doNothing;
             updateValue(val);
         },
     };

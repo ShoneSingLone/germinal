@@ -3,17 +3,17 @@ import {
     createRouter,
     createWebHashHistory
 } from "vue-router";
-import NotFound from "@v/system/NotFound.vue";
+import NotFound from "@views/system/NotFound.vue";
 
 import LayoutUser from "@layout/User.vue";
-import Login from "@v/user/Login.vue";
+import Login from "@views/user/Login.vue";
 import {
     lStorage
 } from "../components/ui/tools/storage";
 import {
     AppState,
     AppActions
-} from "@s/app";
+} from "@state/app";
 
 const RouteView = {
     name: "RouteView",
@@ -77,7 +77,6 @@ const allowList = [
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
 const defaultRoutePath = toPath(routeNames.dashboardWorkplace);
-
 
 router.beforeEach(async (to, from) => {
     /*NOTICE:返回 false 以取消导航*/

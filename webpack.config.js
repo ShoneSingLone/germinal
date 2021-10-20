@@ -15,10 +15,10 @@ module.exports = {
             "@ventose/ui": path.resolve(__dirname, "./src/components/ui"),
             "@api": path.resolve(__dirname, "./src/api"),
             "@r": path.resolve(__dirname, "./src/request"),
-            "@s": path.resolve(__dirname, "./src/state"),
-            "@l": path.resolve(__dirname, "./src/language"),
+            "@state": path.resolve(__dirname, "./src/state"),
+            "@language": path.resolve(__dirname, "./src/language"),
             "@layout": path.resolve(__dirname, "./src/layout"),
-            "@v": path.resolve(__dirname, "./src/views"),
+            "@views": path.resolve(__dirname, "./src/views"),
         }
     },
 };

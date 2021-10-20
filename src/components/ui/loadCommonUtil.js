@@ -3,11 +3,14 @@ import each from "lodash/each";
 import isArray from "lodash/isArray";
 import isPlainObject from "lodash/isPlainObject";
 
+const doNothing = () => null;
+
 const lodashFunctions = {
     merge,
     each,
     isArray,
-    isPlainObject
+    isPlainObject,
+    doNothing
 };
 
 window._ = window._ || {};

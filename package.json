@@ -5,6 +5,7 @@
     "bs": "npm i",
     "start": "vite --host",
     "build": "vite build",
+    "make:language": "node ./build/make.js language",
     "serve": "vite preview"
   },
   "dependencies": {
