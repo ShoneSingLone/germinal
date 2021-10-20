@@ -2,13 +2,13 @@
   "name": "germinal",
   "version": "0.0.0",
   "scripts": {
-    "bs": "yarn",
+    "bs": "npm i",
     "start": "vite --host",
     "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "^2.2.8",
+    "ant-design-vue": "^3.0.0-alpha.3",
     "axios": "^0.23.0",
     "jquery": "^3.6.0",
     "nprogress": "^0.2.0",
@@ -20,7 +20,6 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-prefer-optional-chaining": "0.0.1",
     "eslint-plugin-vue": "^7.19.1",
     "vite": "^2.6.4",
     "vite-plugin-importer": "^0.2.5"

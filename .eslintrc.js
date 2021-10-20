@@ -13,7 +13,6 @@ module.exports = {
 	],
 	"plugins": [
 		"vue",
-		"prefer-optional-chaining"
 	],
 	"rules": {
 		"vue/no-multiple-template-root": "off",
