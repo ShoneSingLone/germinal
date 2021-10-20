@@ -6,7 +6,9 @@
     "make:language": "node ./build/make.js language",
     "start": "vite --host",
     "build": "npm run make:language && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "git:pull": "git pull && git pull gitee master ",
+    "git:push": "npm run changeversion && git push && git push gitee master"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
