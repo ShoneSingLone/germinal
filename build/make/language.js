@@ -1,11 +1,14 @@
 const fs = require("fs");
-const _ = require("lodash");
+const reduce = require("lodash/reduce");
 const path = require("path");
 
 const languageContent = {
     /* system */
     "BackHome": m("回到主页", "Back Home"),
     "notFoundTips": m("对不起，没有找到您要访问的页面", "Sorry, you don't have access to this page."),
+    "layouts.usermenu.dialog.title": m("信息", "Message"),
+    "layouts.usermenu.dialog.content": m("您确定要注销吗？", "Are you sure you would like to logout?"),
+    "layouts.userLayout.title": m("Ant Design 是西湖区最具影响力的 Web 设计规范", "Ant Design is the most influential web design specification in Xihu district"),
     /*  */
     "user.login.userName": m("用户名", "userName"),
     "user.login.password": m("密码", "password"),
@@ -54,11 +57,12 @@ const languageContent = {
 function m(zhCN, enUS) {
     return [zhCN, enUS];
 }
+
 const languageFileOrder = ["zh-CN", "en-US"];
 /*  */
 module.exports = () => {
     languageFileOrder.forEach((fileName, index) => {
-        const content = JSON.stringify(_.reduce(languageContent, (_content, value, prop) => {
+        const content = JSON.stringify(reduce(languageContent, (_content, value, prop) => {
             _content[prop] = value[index];
             return _content;
         }, {}), null, 2);

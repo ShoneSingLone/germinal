@@ -1,5 +1,7 @@
 <script setup></script>
 
 <template>
-  <Alert />
+  <div class="main">
+    <h1>asdfasdf</h1>
+  </div>
 </template>

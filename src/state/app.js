@@ -1,12 +1,17 @@
 import {
     reactive,
-    watch
+    watch,
+    computed
 } from "vue";
 import {
     lStorage
 } from "@ventose/ui/tools/storage";
 import ajax from "@request/ajax";
 import API from "@api";
+import {
+    setCSSVariables,
+    setDocumentTitle
+} from "../components/ui/tools/dom";
 
 console.log(
     import.meta.env);
@@ -14,8 +19,10 @@ console.log(
 export const AppState = reactive({
     count: 0,
     configs: lStorage.appConfigs,
-    isDev: import.meta.env.MODE === "development"
+    isDev: import.meta.env.MODE === "development",
 });
+
+export const currentLanguage = computed(() => AppState.configs.language);
 
 /* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 export const initAppConfigs = async (callback) => {
@@ -23,12 +30,27 @@ export const initAppConfigs = async (callback) => {
     if (isLoadConfigs) {
         AppState.configs = (await ajax.loadText("./configs.jsx"))();
     }
+    /* 加载样式变量 */
+    setDocumentTitle(AppState.configs.title);
     callback && callback(AppState);
+    return AppState;
 };
 
+/* 同步AppConfigs 到 localStorage */
 watch(
     () => AppState.configs,
-    (configs) => lStorage.appConfigs = configs
+    (configs) => lStorage.appConfigs = configs, {
+        immediate: true,
+        deep: true
+    }
+);
+
+watch(
+    () => AppState.configs.colors,
+    (colors) => setCSSVariables(colors), {
+        immediate: true,
+        deep: true
+    }
 );
 
 if (AppState.isDev) {
@@ -36,10 +58,11 @@ if (AppState.isDev) {
 }
 
 
-
 export const AppActions = {
     GetInfo: async () => {
-        const {result} = await API.user.getInfo();
+        const {
+            result
+        } = await API.user.getInfo();
 
         if (result.role && result.role.permissions.length > 0) {
             const role = result.role;

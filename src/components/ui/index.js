@@ -1,4 +1,15 @@
-import {Button, List, Checkbox, Popconfirm, Input, Alert, Result} from "ant-design-vue";
+import {
+    Icon,
+    Menu,
+    Dropdown,
+    Button,
+    List,
+    Checkbox,
+    Popconfirm,
+    Input,
+    Alert,
+    Result
+} from "ant-design-vue";
 import xRender from "./xRender/xRender.vue";
 import xItem from "./xForm/xItem.vue";
 import notification from "ant-design-vue/es/notification";
@@ -12,6 +23,9 @@ const componentMyUI = {
 
 /* ant-d-v */
 const componentAntdV = {
+    Icon,
+    Menu,
+    Dropdown,
     Button,
     List,
     Checkbox,
@@ -28,5 +42,7 @@ const components = {
 
 export default {
     notification,
-    install: (app, options) => _.each(components, (component, name) => app.component(name, component)),
+    install: (app) => {
+        _.each(components, (component, name) => app.component(name, component));
+    },
 };

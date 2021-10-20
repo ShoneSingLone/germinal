@@ -1,6 +1,9 @@
 export default {
   "BackHome": "回到主页",
   "notFoundTips": "对不起，没有找到您要访问的页面",
+  "layouts.usermenu.dialog.title": "信息",
+  "layouts.usermenu.dialog.content": "您确定要注销吗？",
+  "layouts.userLayout.title": "Ant Design 是西湖区最具影响力的 Web 设计规范",
   "user.login.userName": "用户名",
   "user.login.password": "密码",
   "user.login.username.placeholder": "账户: admin",

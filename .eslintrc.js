@@ -16,10 +16,6 @@ module.exports = {
 	],
 	"rules": {
 		"vue/no-multiple-template-root": "off",
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
 		"quotes": [
 			"error",
 			"double"
