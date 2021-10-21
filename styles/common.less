@@ -1,0 +1,75 @@
+html,body,#app {
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.flex {
+    display: flex;
+  
+    &1 {
+      flex: 1;
+    }
+  
+    &2 {
+      flex: 2;
+    }
+  
+    &3 {
+      flex: 3;
+    }
+  
+    &4 {
+      flex: 4;
+    }
+  
+    &5 {
+      flex: 5;
+    }
+  
+    &025 {
+      flex: 0 0 25%;
+    }
+  
+    &024 {
+      flex: 0 0 24%;
+    }
+  
+    &.vertical {
+      flex-flow: column nowrap;
+    }
+  
+    &.like-float {
+      flex-flow: row wrap;
+  
+      .el-button + .el-button {
+        margin-left: 0;
+      }
+    }
+  
+    &.between {
+      justify-content: space-between;
+    }
+  
+    &.start {
+      justify-content: flex-start;
+    }
+  
+    &.end {
+      justify-content: flex-end;
+    }
+  
+    &.center {
+      justify-content: center;
+    }
+  
+    &.middle {
+      align-items: center;
+    }
+  
+    &.baseline {
+      align-items: baseline;
+    }
+  }
+  
+  

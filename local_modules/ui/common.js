@@ -1,7 +1,5 @@
 import { reactive } from "vue";
 
-
-
 export const ITEM_TYPE = {
     Input: "Input"
 };

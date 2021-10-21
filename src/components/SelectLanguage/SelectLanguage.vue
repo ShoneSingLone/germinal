@@ -1,12 +1,12 @@
 <script setup>
-import { APP_LANGUAGE } from "@state/app";
+import {APP_LANGUAGE} from "@state/app";
 
 const languageLabels = {
-  "zh-CN": { label: "简体中文", icon: "🇨🇳" },
-  "en-US": { label: "English", icon: "🇺🇸" },
+  "zh-CN": {label: "简体中文", icon: "🇨🇳"},
+  "en-US": {label: "English", icon: "🇺🇸"},
 };
 
-const changeLanguage = ({ key }) => {
+const changeLanguage = ({key}) => {
   APP_LANGUAGE.value = key;
 };
 
@@ -14,9 +14,7 @@ const changeLanguage = ({ key }) => {
 
 <template>
   <Dropdown placement="bottomRight">
-    <span>
-      <GlobalOutlined />
-    </span>
+    <GlobalOutlined/>
     <template #overlay>
       <Menu :selectedKeys="[APP_LANGUAGE]" @click="changeLanguage">
         <MenuItem :key="prop" v-for="(locale,prop) in languageLabels">

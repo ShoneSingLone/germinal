@@ -1,6 +1,7 @@
 module.exports = {
 	"globals": {
 		"defineProps": true,
+		"defineEmits": true,
 		"_": true,
 		"Germinal": true
 	},

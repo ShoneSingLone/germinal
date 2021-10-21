@@ -5,9 +5,4 @@
   <RouterView />
 </template>
 
-<style>
-html,body,#app {
-  height: 100%;
-  overflow: hidden;
-}
-</style>
+<style lang="less" src="@style/App.less"> </style>

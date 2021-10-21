@@ -10,6 +10,14 @@
 /* TODO: */
 ```
 
+## 常用函数
+
+### $t 多语言转换
+
+```js
+return {label:'显示的对应语言',prop:'key'}
+```
+
 ## 状态管理
 
 ```js
@@ -35,8 +43,25 @@ export const AppMutation = {
 };
 ```
 
+## 样式
+
+```less
+/* App.less 更新后不会刷新页面  */
+/* 变量在configs.jsx中，加载为全应用的css原生变量*/
+/* less 样式可以单独使用webpack、rollup等工具打包（build目录下），生成不同主题 */
+html,body,#app {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+@import url('./layout/User.less');
+
+```
+
 ## Reference
 
+- [Vue3](https://v3.cn.vuejs.org/api/)
+- [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
 - [antv](https://next.antdv.com/components/overview-cn/)
   - [Ant Design Vue 3.0](https://mp.weixin.qq.com/s?__biz=MzU4NTgyMTM0MQ==&mid=2247484357&idx=1&sn=478c97c3ddd1703f4851863a8f4b2863&chksm=fd85fe37caf27721818cfcef9521116cb54ca4c023951445ed71a1d87786c383f2888d64035f&mpshare=1&scene=23&srcid=10203hvGd6nN3z8bEYuCS1LI&sharer_sharetime=1634692039568&sharer_shareid=966f440169937ddeabee7cec964be6bc#rd)
 - [vue-i18n](https://vue-i18n.intlify.dev/guide/advanced/composition.html#mapping-between-vuei18n-instance-and-composer-instance)

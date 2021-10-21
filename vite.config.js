@@ -13,6 +13,7 @@ export default defineConfig({
             "vue": "vue/dist/vue.esm-bundler.js",
             // "@ventose/ui": path.resolve(__dirname, "./src/components/ui"),
             // "@api": path.resolve(__dirname, "./src/api"),
+            "@style": path.resolve(__dirname, "./styles"),
             "@router": path.resolve(__dirname, "./src/router"),
             "@request": path.resolve(__dirname, "./src/request"),
             "@state": path.resolve(__dirname, "./src/state"),

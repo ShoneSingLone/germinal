@@ -8,14 +8,17 @@ import {
     Popconfirm,
     Input,
     Alert,
-    Result
+    Result,
+    Tabs
 } from "ant-design-vue";
 
-import {
-    GlobalOutlined
-} from "@ant-design/icons-vue";
-
 import { MenuItem } from "ant-design-vue/es/menu";
+import { TabPane } from "ant-design-vue/es/tabs";
+import {
+    GlobalOutlined,
+    AppleOutlined,
+    AndroidOutlined
+} from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import notification from "ant-design-vue/es/notification";
@@ -39,11 +42,15 @@ const componentAntdV = {
     Popconfirm,
     Input,
     Alert,
-    Result
+    Result,
+    Tabs,
+    TabPane
 };
 
 const componentIcons = {
-    GlobalOutlined
+    GlobalOutlined,
+    AppleOutlined,
+    AndroidOutlined
 };
 
 const components = {
