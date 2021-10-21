@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ventose/ui": "file:./local_modules/ui",
+    "germinal_api": "file:./local_modules/api",
     "@ant-design/icons-vue": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
