@@ -6,8 +6,8 @@ import {
 import {
     lStorage
 } from "@ventose/ui/tools/storage";
-import ajax from "@request/ajax";
-import API from "@api";
+import ajax from "@request/ajax/";
+import API from "@api/index.js";
 import {
     setCSSVariables,
     setDocumentTitle

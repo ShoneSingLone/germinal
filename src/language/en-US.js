@@ -44,4 +44,4 @@ export default {
   "user.phone-number.required": "Please enter your phone number!",
   "user.phone-number.wrong-format": "Please enter a valid phone number",
   "user.verification-code.required": "Please enter the verification code!"
-}
+};
