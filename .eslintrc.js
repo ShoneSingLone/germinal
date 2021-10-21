@@ -19,10 +19,7 @@ module.exports = {
 		"@typescript-eslint"
 	],
 	"rules": {
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
+		/* "linebreak-style": [ "error", "unix" ], */
 		"vue/no-multiple-template-root": "off",
 		"quotes": [
 			"error",

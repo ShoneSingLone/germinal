@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons-vue";
 
 import { MenuItem } from "ant-design-vue/es/menu";
-import xRender from "./xRender/xRender.jsx";
+import xRender from "./xRender/xRender.vue";
 import xItem from "./xForm/xItem.vue";
 import notification from "ant-design-vue/es/notification";
 
