@@ -11,7 +11,7 @@ import API from "@api";
 import {
     setCSSVariables,
     setDocumentTitle
-} from "../components/ui/tools/dom";
+} from "@ventose/ui/tools/dom";
 
 console.log(
     import.meta.env);

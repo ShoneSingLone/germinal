@@ -3,9 +3,9 @@ import {createRouter, createWebHashHistory} from "vue-router";
 import NotFound from "@views/system/NotFound.vue";
 import LayoutUser from "@layout/User.vue";
 import Login from "@views/user/Login.vue";
-import {lStorage} from "../components/ui/tools/storage";
-import {AppState, AppActions} from "@state/app";
+import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
+import {AppState, AppActions} from "@state/app";
 import {$t} from "@language";
 
 const RouteView = {
@@ -110,7 +110,7 @@ router.beforeEach(async (to, from) => {
     }
     if (to?.meta?.title) {
         setDocumentTitle(to.meta.title);
-    } 
+    }
 });
 
 router.afterEach(() => {
