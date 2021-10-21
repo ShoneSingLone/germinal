@@ -7,11 +7,11 @@ import Input from "./itemRenders/Input.jsx";
 defineProps({
   configs: Object,
 });
-
 const renders = {Input};
 // const currentComponent
 </script>
 
 <template>
-  <component :is="Input" v-model:value="configs.value"></component>
+  <!-- <component :is="Input" v-model:value="configs.value"></component> -->
+  <xRender :render="Input" :state="configs"/>
 </template>

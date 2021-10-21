@@ -1,8 +1,8 @@
 {
   "name": "germinal",
   "version": "0.0.0",
-  "main":"src/main.js",
-  "types":"types.d.ts",
+  "main": "src/main.js",
+  "types": "types.d.ts",
   "scripts": {
     "bs": "npm i",
     "make:language": "node ./build/make.js language",

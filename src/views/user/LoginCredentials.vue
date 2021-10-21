@@ -1,10 +1,27 @@
 <script setup>
 import {ITEM_TYPE} from "@ventose/ui/common.js";
-import {reactive} from "vue";
+import {reactive,defineComponent, createApp} from "vue";
 import {$t} from "@language";
-import {reactiveItemConfigs} from "@ventose/ui";
+import {reactiveItemConfigs} from "@ventose/ui/common";
 
 const handleUsernameOrEmail = _.doNoting;
+
+var a = defineComponent({
+  template:`
+    <a-input
+              size="large"
+              type="text"
+              :placeholder="$t('user.login.username.placeholder')"
+              v-decorator="[
+                'username',
+                {rules: [{ required: true, message: $t('user.userName.required') }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
+              ]"
+            >
+              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+            </a-input>
+  `
+});
+console.log(a);
 
 const state = reactive({
   configsForm: {
@@ -12,9 +29,9 @@ const state = reactive({
       value: "",
       size: "large",
       /* 变化的时候重新获取 */
-      placeholder: () => $t("user.login.username.placeholder"),
+      placeholder: () => $t("user.login.username.placeholder").label,
       rules: [
-        {required: true, message: $t("user.userName.required")},
+        {required: true, message: $t("user.userName.required").label},
         {validator: handleUsernameOrEmail},
       ],
     }),
@@ -24,6 +41,7 @@ const state = reactive({
 
 <template>
   <div class="LoginCredentials-form">
+    state.configsForm.userName: {{state.configsForm.userName.value}}
     <xItem :configs="state.configsForm.userName"/>
     <div
         data-v-1ecd471f=""
