@@ -6,13 +6,17 @@ module.exports = {
 	},
 	"env": {
 		"browser": true,
+		"node": true
 	},
+	"parser": "@typescript-eslint/parser",
 	"extends": [
 		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
 		"plugin:vue/essential"
 	],
 	"plugins": [
 		"vue",
+		"@typescript-eslint"
 	],
 	"rules": {
 		"vue/no-multiple-template-root": "off",
