@@ -58,6 +58,7 @@ export const appI18n = {
 	install: (app, AppState) => {
 		//注册i8n实例并引入语言文件
 		app.config.globalProperties.$t = $t;
+		/* readme:依赖AppState.confgs.language */
 		watchEffect(() => {
 			setI18nLanguage(AppState.configs.language);
 		});

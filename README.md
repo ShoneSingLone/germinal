@@ -1,6 +1,39 @@
 # Info
 
+>非最佳实践，尽量多样： Just for fun :)
+
 - [Germinal](https://shonesinglone.github.io/germinal/)[![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)
+
+```js
+/* README: */
+/* NOTICE: */
+/* TODO: */
+```
+
+## 状态管理
+
+```js
+/* FILE:src\state\app.js */
+/* state AppState 相当于命名空间*/
+export const AppState = reactive({ configs: lStorage.appConfigs });
+
+/* getter 就用computed代替;commit直接修改AppState  */
+export const APP_LANGUAGE = computed({
+    get: () => AppState.configs.language,
+    set: (lang) => AppState.configs.language = lang
+});
+
+/* 副作用 effect */
+/* 同步AppConfigs 到 localStorage */
+watchEffect(() => lStorage.appConfigs = AppState.configs);
+
+/* mutation 异步修改 效果同事务 自己去保证原子性 */
+export const AppMutation = {
+    GetInfo: async () => {},
+    Login: async () => {},
+    Logout: async () => {}
+};
+```
 
 ## Reference
 

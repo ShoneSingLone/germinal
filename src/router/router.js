@@ -5,7 +5,7 @@ import LayoutUser from "@layout/User.vue";
 import Login from "@views/user/Login.vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
-import {AppState, AppActions} from "@state/app";
+import {AppState, AppMutation} from "@state/app";
 import {$t} from "@language";
 
 const RouteView = {
@@ -78,7 +78,7 @@ router.beforeEach(async (to, from) => {
             };
         } else {
             if (AppState.roles?.length === 0) {
-                await AppActions.GetInfo();
+                await AppMutation.GetInfo();
             }
         }
     };

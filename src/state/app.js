@@ -1,20 +1,9 @@
-import {
-    reactive,
-    watch,
-    computed
-} from "vue";
-import {
-    lStorage
-} from "@ventose/ui/tools/storage";
-import ajax from "@request/ajax/";
+import {reactive, watch, computed} from "vue";
+import {lStorage} from "@ventose/ui/tools/storage";
+import {setCSSVariables, setDocumentTitle} from "@ventose/ui/tools/dom";
 import API from "germinal_api";
-import {
-    setCSSVariables,
-    setDocumentTitle
-} from "@ventose/ui/tools/dom";
+import ajax from "@request/ajax";
 
-console.log(
-    import.meta.env);
 
 export const AppState = reactive({
     count: 0,
@@ -22,20 +11,25 @@ export const AppState = reactive({
     isDev: import.meta.env.MODE === "development",
 });
 
-export const currentLanguage = computed(() => AppState.configs.language);
+if (AppState.isDev) {
+    console.log(
+        import.meta.env);
+    /* TODO:方便调试 have to remove */
+    window.AppState = AppState;
+}
 
-/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
-export const initAppConfigs = async (callback) => {
-    const isLoadConfigs = AppState.isDev || !AppState.configs;
-    if (isLoadConfigs) {
-        AppState.configs = (await ajax.loadText("./configs.jsx"))();
-    }
-    /* 加载样式变量 */
-    setDocumentTitle(AppState.configs.title);
-    callback && callback(AppState);
-    return AppState;
-};
+/* getter 就用computed代替 commit直接修改  */
+export const APP_LANGUAGE = computed({
+    get: () => AppState.configs.language,
+    set: (lang) => AppState.configs.language = lang
+});
 
+export const APP_CLASS_PREFIX = computed({
+    get: () => AppState.configs.prefixCls,
+    set: (prefixCls) => AppState.configs.prefixCls = prefixCls
+});
+
+/* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
 watch(
     () => AppState.configs,
@@ -53,17 +47,10 @@ watch(
     }
 );
 
-if (AppState.isDev) {
-    window.AppState = AppState;
-}
-
-
-export const AppActions = {
+/* mutation 异步修改 效果同事务 自己去保证原子性 */
+export const AppMutation = {
     GetInfo: async () => {
-        const {
-            result
-        } = await API.user.getInfo();
-
+        const { result } = await API.user.getInfo();
         if (result.role && result.role.permissions.length > 0) {
             const role = result.role;
             role.permissions = result.role.permissions;
@@ -83,21 +70,20 @@ export const AppActions = {
         } else {
             Promise.reject(new Error("getInfo: roles must be a non-null array !"));
         }
-
-        commit("SET_NAME", {
-            name: result.name,
-            welcome: welcome()
-        });
-        commit("SET_AVATAR", result.avatar);
-
-        resolve(userInfo);
-
-
     },
-    Login: async () => {
+    Login: async () => { },
+    Logout: async () => { }
+};
 
-    },
-    Logout: async () => {
 
+/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
+export const initAppConfigs = async (callback) => {
+    const isLoadConfigs = AppState.isDev || !AppState.configs;
+    if (isLoadConfigs) {
+        AppState.configs = (await ajax.loadText("./configs.jsx"))();
     }
+    /* 加载样式变量 */
+    setDocumentTitle(AppState.configs.title);
+    callback && callback(AppState);
+    return AppState;
 };
