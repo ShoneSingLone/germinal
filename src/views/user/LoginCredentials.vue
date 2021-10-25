@@ -1,6 +1,7 @@
 <script setup lang="jsx">
 import { reactive, defineComponent, createApp } from "vue";
 import { $t } from "@language";
+import {onMounted}from "vue";
 import { reactiveItemConfigs } from "@ventose/ui/common";
 import { AppState, getColor } from "../../state/app";
 const handleUsernameOrEmail = _.doNoting;
@@ -24,6 +25,7 @@ const renderLockStrok = () => {
   );
 };
 
+
 const state = reactive({
   configsForm: {
     userName: reactiveItemConfigs({
@@ -42,6 +44,7 @@ const state = reactive({
     password: reactiveItemConfigs({
       isPassword: true,
       value: "",
+
       size: "large",
       /* 变化的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
@@ -58,6 +61,7 @@ const state = reactive({
     }),
   },
 });
+
 </script>
 
 <template>

@@ -1,12 +1,13 @@
-<script lang="jsx" setup>
-import renders from "./itemRenders"
-const props = defineProps({
-  configs: Object,
-});
-const render = renders[props.configs.type] || renders.Input;
-</script>
+<script lang="jsx">
+import { defineComponent, useAttrs, h, mergeProps } from "vue";
+import renders from "./itemRenders";
 
-<template>
-  <xRender :render="render" :state="configs" />
-  {{configs.tipsInfo}}
-</template>
+export default defineComponent({
+  props: ["configs"],
+  setup(props, { attrs }) {
+    const render = renders[props.configs.type] || renders.Input;
+    console.log("🚀 ~ file: xItem.vue ~ line 9 ~ setup ~ render", render);
+    return () => <render  {...props.configs}  {...attrs}/>;
+  },
+});
+</script>

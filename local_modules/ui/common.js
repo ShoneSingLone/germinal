@@ -17,16 +17,18 @@ export const vModel = configs => {
             return _configs;
         }, {
             value: configs.value,
-            "onUpdate:value": val => {
+            /* antv 实现了 emit onUpdate:value 外层即可 */
+            /* "onUpdate:value": val => {
                 const updateValue = configs["onUpdate:value"] || _.doNothing;
                 updateValue(val);
-            }
+            } */
         });
 };
 
 export const getComponentSettings = (configs) => {
     const xItemProperties = ["infoTips","rules","slots"];
     const property = _.merge({}, configs, vModel(configs));
+    console.log("🚀 ~ file: common.js ~ line 30 ~ getComponentSettings ~ property", property);
     const slots = property.slots || {};
     _.each(xItemProperties, prop => delete property[prop]);
     return [property, slots];
@@ -48,5 +50,6 @@ export const reactiveItemConfigs = (options) => {
             /* TODO: rule检测*/
         },
     }, options));
+    console.log("🚀 ~ file: common.js ~ line 52 ~ reactiveItemConfigs ~ configs", configs);
     return configs;
 };
