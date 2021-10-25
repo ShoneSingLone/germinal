@@ -29,6 +29,8 @@ export const APP_CLASS_PREFIX = computed({
     set: (prefixCls) => AppState.configs.prefixCls = prefixCls
 });
 
+export const getColor = (colorName) => AppState.configs.colors[colorName];
+
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
 watch(

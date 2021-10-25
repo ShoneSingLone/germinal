@@ -97,3 +97,7 @@ watch(() => AppState.count, (count) => {
   <xItem :configs="inputConfigs"/>
 
 ```
+
+## xItem
+
+错误信息可以单独提供，默认是在formItem 下方展示tips ，也可以利用错误信息做其他展现方式，比如popup， 提供id定位，方便滑动定位

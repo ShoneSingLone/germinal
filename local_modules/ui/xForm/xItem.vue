@@ -1,17 +1,12 @@
 <script lang="jsx" setup>
-import {defineComponent} from "vue";
-import {reactive} from "vue";
-import {AppState} from "@state/app";
-import Input from "./itemRenders/Input.jsx";
-
-defineProps({
+import renders from "./itemRenders"
+const props = defineProps({
   configs: Object,
 });
-const renders = {Input};
-// const currentComponent
+const render = renders[props.configs.type] || renders.Input;
 </script>
 
 <template>
-  <!-- <component :is="Input" v-model:value="configs.value"></component> -->
-  <xRender :render="Input" :state="configs"/>
+  <xRender :render="render" :state="configs" />
+  {{configs.tipsInfo}}
 </template>

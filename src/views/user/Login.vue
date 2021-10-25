@@ -16,7 +16,6 @@ const mobileTab = computed(() => $t("user.login.tab-login-mobile").label);
       <Tabs v-model:activeKey="state.activeKey" id="user-layout-login_tab">
         <TabPane key="credentials" :tab="credentialsTab">
           <Alert type="error" showIcon style="margin-bottom: 24px" :message="credentialsMessage"/>
-          v-if="isLoginError"
           <LoginCredentials/>
         </TabPane>
         <TabPane key="mobile" :tab="mobileTab">

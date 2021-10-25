@@ -6,6 +6,7 @@
   "scripts": {
     "bs": "npm i",
     "make:language": "node ./build/make.js language",
+    "make:itemRender": "node ./build/make.js itemRender",
     "start": "vite --host",
     "build": "vite build",
     "serve": "vite preview",

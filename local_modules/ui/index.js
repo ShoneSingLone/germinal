@@ -12,12 +12,15 @@ import {
     Tabs
 } from "ant-design-vue";
 
-import { MenuItem } from "ant-design-vue/es/menu";
-import { TabPane } from "ant-design-vue/es/tabs";
+import {MenuItem} from "ant-design-vue/es/menu";
+import {TabPane} from "ant-design-vue/es/tabs";
+import {InputPassword} from "ant-design-vue/es/input";
 import {
     GlobalOutlined,
     AppleOutlined,
-    AndroidOutlined
+    AndroidOutlined,
+    UserOutlined,
+    LockFilled
 } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
@@ -41,6 +44,7 @@ const componentAntdV = {
     Checkbox,
     Popconfirm,
     Input,
+    InputPassword,
     Alert,
     Result,
     Tabs,
@@ -50,7 +54,9 @@ const componentAntdV = {
 const componentIcons = {
     GlobalOutlined,
     AppleOutlined,
-    AndroidOutlined
+    AndroidOutlined,
+    UserOutlined,
+    LockFilled
 };
 
 const components = {

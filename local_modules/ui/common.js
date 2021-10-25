@@ -6,7 +6,8 @@ export const ITEM_TYPE = {
     Input: "Input"
 };
 
-const special = ['placeholder']
+const special = ["placeholder"];
+
 export const vModel = configs => {
     return _.reduce(configs,
         (_configs, value, prop) => {
@@ -23,10 +24,20 @@ export const vModel = configs => {
         });
 };
 
+export const getComponentSettings = (configs) => {
+    const xItemProperties = ["infoTips","rules","slots"];
+    const property = _.merge({}, configs, vModel(configs));
+    const slots = property.slots || {};
+    _.each(xItemProperties, prop => delete property[prop]);
+    return [property, slots];
+};
+
 
 /*make item configs */
 export const reactiveItemConfigs = (options) => {
     const configs = reactive(_.merge({}, {
+        /* 提示信息，可以用于提示或者定位 */
+        infoTips: {},
         /*item 的类型 case by case 跟ui库关联*/
         type: options.type || ITEM_TYPE.Input,
         /*默认绑定的是value*/
@@ -34,6 +45,7 @@ export const reactiveItemConfigs = (options) => {
         "onUpdate:value": (val) => {
             configs.value = val;
             configs.onAfterValueChange && configs.onAfterValueChange(configs);
+            /* TODO: rule检测*/
         },
     }, options));
     return configs;
