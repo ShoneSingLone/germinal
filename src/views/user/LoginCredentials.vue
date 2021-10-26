@@ -49,11 +49,8 @@ const state = reactive({
       /* 变化的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
       rules: [
-        {
-          required: true,
-          message: $t("user.password.required").label,
-        },
-        { validator: handleUsernameOrEmail },
+        { required: true, message: $t("user.password.required").label },
+        { validator: handleUsernameOrEmail }
       ],
       slots: {
         prefix: () => <xRender render={renderLockStrok} style={styles.icon} />,
@@ -66,7 +63,7 @@ const state = reactive({
 
 <template>
   <div class="LoginCredentials-form">
-    <xItem :configs="state.configsForm.userName" />
+    <xItem :configs="state.configsForm.userName" class="mb10"/>
     <xItem :configs="state.configsForm.password" class="mt10" />
   </div>
 </template>
