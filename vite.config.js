@@ -30,7 +30,11 @@ export default defineConfig({
                 entryFileNames: "js/[name]-[hash].js",
                 assetFileNames: "[ext]/[name]-[hash].[ext]"
             }
-        }
+        },
+        /* lib: {
+			entry: path.resolve(__dirname, "src/lib.js"),
+			name: "ventose@ui"
+		} */
     },
     plugins: [
         useVue(),
