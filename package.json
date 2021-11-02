@@ -7,7 +7,7 @@
     "bs": "npm i",
     "make:language": "node ./build/make.js language",
     "make:itemRender": "node ./build/make.js itemRender",
-    "start": "vite --host",
+    "start": "vite --host --open",
     "build": "vite build",
     "serve": "vite preview",
     "git:pull": "git pull && git pull gitee master ",

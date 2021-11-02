@@ -1,7 +1,7 @@
 <script setup lang="jsx">
 import { reactive, defineComponent, createApp } from "vue";
 import { $t } from "@language";
-import {onMounted}from "vue";
+import { onMounted } from "vue";
 import { reactiveItemConfigs } from "@ventose/ui/common";
 import { AppState, getColor } from "../../state/app";
 const handleUsernameOrEmail = _.doNoting;
@@ -25,10 +25,11 @@ const renderLockStrok = () => {
   );
 };
 
-
 const state = reactive({
   configsForm: {
-    userName: reactiveItemConfigs({
+    ...reactiveItemConfigs({
+      prop: "userName",
+      label: "",
       value: "",
       size: "large",
       /* 变化的时候重新获取 */
@@ -41,16 +42,16 @@ const state = reactive({
         prefix: () => <UserOutlined style={styles.icon} />,
       },
     }),
-    password: reactiveItemConfigs({
+    ...reactiveItemConfigs({
+      prop: "password",
       isPassword: true,
       value: "",
-
       size: "large",
       /* 变化的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
       rules: [
         { required: true, message: $t("user.password.required").label },
-        { validator: handleUsernameOrEmail }
+        { validator: handleUsernameOrEmail },
       ],
       slots: {
         prefix: () => <xRender render={renderLockStrok} style={styles.icon} />,
@@ -58,12 +59,11 @@ const state = reactive({
     }),
   },
 });
-
 </script>
 
 <template>
   <div class="LoginCredentials-form">
-    <xItem :configs="state.configsForm.userName" class="mb10"/>
+    <xItem :configs="state.configsForm.userName" class="mb10" />
     <xItem :configs="state.configsForm.password" class="mt10" />
   </div>
 </template>

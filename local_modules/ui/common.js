@@ -26,9 +26,8 @@ export const vModel = configs => {
 };
 
 export const getComponentSettings = (configs) => {
-    const xItemProperties = ["infoTips","rules","slots"];
+    const xItemProperties = ["infoTips", "rules", "slots"];
     const property = _.merge({}, configs, vModel(configs));
-    console.log("🚀 ~ file: common.js ~ line 30 ~ getComponentSettings ~ property", property);
     const slots = property.slots || {};
     _.each(xItemProperties, prop => delete property[prop]);
     return [property, slots];
@@ -45,11 +44,13 @@ export const reactiveItemConfigs = (options) => {
         /*默认绑定的是value*/
         value: options.value || "",
         "onUpdate:value": (val) => {
+            console.log("🚀:xItem value change: ", configs.prop, val);
             configs.value = val;
             configs.onAfterValueChange && configs.onAfterValueChange(configs);
             /* TODO: rule检测*/
         },
     }, options));
-    console.log("🚀 ~ file: common.js ~ line 52 ~ reactiveItemConfigs ~ configs", configs);
-    return configs;
+    return {
+        [configs.prop]: configs
+    };
 };

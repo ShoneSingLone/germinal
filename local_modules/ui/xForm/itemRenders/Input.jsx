@@ -4,6 +4,7 @@ import { h } from "vue";
 import { getComponentSettings } from "../../common.js";
 
 export default (props) => {
+    debugger;
     const [property, slots] = getComponentSettings(props);
     if (property.isPassword) {
         return h(InputPassword, property, slots);
