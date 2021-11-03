@@ -15,16 +15,13 @@ import {
 import {MenuItem} from "ant-design-vue/es/menu";
 import {TabPane} from "ant-design-vue/es/tabs";
 import {InputPassword} from "ant-design-vue/es/input";
-import {
-    GlobalOutlined,
-    AppleOutlined,
-    AndroidOutlined,
-    UserOutlined,
-    LockFilled
-} from "@ant-design/icons-vue";
+import { GlobalOutlined, AppleOutlined, AndroidOutlined, UserOutlined, LockFilled } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import notification from "ant-design-vue/es/notification";
+
+/* 表单提示信息 */
+import "ant-design-vue/es/form/style/index.css";
 
 
 /* my-ui */

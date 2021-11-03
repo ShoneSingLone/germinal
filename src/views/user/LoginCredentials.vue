@@ -29,7 +29,6 @@ const state = reactive({
   configsForm: {
     ...reactiveItemConfigs({
       prop: "userName",
-      label: "",
       value: "",
       size: "large",
       /* 变化的时候重新获取 */

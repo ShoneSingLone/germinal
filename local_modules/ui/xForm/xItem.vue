@@ -1,21 +1,57 @@
 <script lang="jsx">
-import {defineComponent, useAttrs, h, mergeProps, computed} from "vue";
+import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import renders from "./itemRenders";
-import {vModel} from "../common";
+import { vModel } from "../common";
 
 export default defineComponent({
   props: ["configs"],
+  created() {
+    /* domID */
+    this.configs.FormItemId = this.FormItemId;
+  },
+  watch: {
+    "configs.rule": {
+      immediate: true,
+      deep: true,
+      handler() {
+        this.configs.validate = async () => {
+          console.log("🚀 xItem.vue  configs.validate", this.configs.validate);
+        };
+      },
+    },
+  },
   computed: {
+    /* 组件唯一标识 */
+    FormItemId() {
+      return `xItem_${this._.uid}`;
+    },
     componentSettings() {
-      console.log("componentSettings");
-      const configs = {...this.configs, ...this.$attrs};
+      const configs = { ...this.configs, ...this.$attrs };
       const xItemProperties = ["infoTips", "rules", "slots"];
       const property = _.merge({}, configs, vModel(configs));
       const slots = property.slots || {};
-      _.each(xItemProperties, prop => delete property[prop]);
-      return {property, slots};
+      _.each(xItemProperties, (prop) => delete property[prop]);
+      const componentSettings = { property, slots };
+      console.log("componentSettings", componentSettings, this.uid);
+      return componentSettings;
     },
+    /* VNode */
+    tipsVNode() {
+      if (this.configs.tipsVNodeRender) {
+        return this.configs.tipsVNodeRender(this.configs);
+      }
+      return (
+        <div class="ant-form-item-explain ant-form-item-explain-error">
+          <div role="alert">Please input Activity name</div>
+        </div>
+      );
+    },
+    /* 表单label 如果有提供String类型，就显示 */
     labelVNode() {
+      if (this.configs.labelVNodeRender) {
+        return this.configs.labelVNodeRender(this.configs);
+      }
+
       let label = (() => {
         const _label = this.configs.label;
         if (_.isFunction(_label)) {
@@ -30,34 +66,36 @@ export default defineComponent({
       if (label === false) {
         return null;
       }
-      return <label>{label}</label>;
-    }
+      return (
+        <div class="ant-form-item-label">
+          <label
+            for={this.configs.prop}
+            class="ant-form-item-required"
+            title="Activity name"
+          >
+            {label}
+          </label>
+        </div>
+      );
+    },
+    /* VNode */
   },
   render(h) {
     const CurrentFormItemRender = renders[this.configs.type] || renders.Input;
     return (
-        <>
-          <div class="ant-row ant-form-item ant-form-item-has-error ant-form-item-with-help" style="row-gap: 0px;">
-            <div class="ant-col ant-col-4 ant-form-item-label">
-              <label html-for="form_item_name" class="ant-form-item-required" title="Activity name">
-                Activity name
-              </label>
-            </div>
-            <div class="ant-col ant-col-14 ant-form-item-control">
-              <div class="ant-form-item-control-input">
-                <div class="ant-form-item-control-input-content">
-                  <input type="text" id="form_item_name" class="ant-input"/>
-                </div>
-              </div>
-              <div class="ant-form-item-explain ant-form-item-explain-error">
-                <div role="alert">Please input Activity name</div>
-              </div>
-            </div>
-          </div>
+      <>
+        <div
+          id={this.FormItemId}
+          class="ant-row ant-form-item ant-form-item-has-error ant-form-item-with-help"
+        >
           {this.labelVNode}
-          <CurrentFormItemRender {...this.componentSettings} />
-        </>
+          <div class="ant-form-item-control">
+            <CurrentFormItemRender {...this.componentSettings} />
+            {this.tipsVNode}
+          </div>
+        </div>
+      </>
     );
-  }
+  },
 });
 </script>

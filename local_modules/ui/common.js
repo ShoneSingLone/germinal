@@ -43,11 +43,13 @@ export const reactiveItemConfigs = (options) => {
         type: options.type || ITEM_TYPE.Input,
         /*默认绑定的是value*/
         value: options.value || "",
-        "onUpdate:value": (val) => {
-            console.log("🚀:xItem value change: ", configs.prop, val);
+        "onUpdate:value": (val, ...args) => {
+            console.log("🚀:xItem value change: ", configs.prop, val, args);
             configs.value = val;
             configs.onAfterValueChange && configs.onAfterValueChange(configs);
             /* TODO: rule检测*/
+            console.log("🚀 ~ file: common.js ~ line 58 ~ reactiveItemConfigs ~ reactiveItemConfigs", reactiveItemConfigs);
+            configs.validate && configs.validate();
         },
     }, options));
     return {
