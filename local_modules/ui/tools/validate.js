@@ -18,11 +18,11 @@ export const checkXItem = async (xItemConfigs) => {
 		let isFail = await (async () => {
 			await _.sleep(1000);
 			try {
-				debugger;
-				const needValidate = _.some(trigger, event => xItemConfigs.validate.queue.include(event));
+				const needValidate = _.some(trigger, event => xItemConfigs.validate.queue.includes(event));
 				if (needValidate) {
 					return await rule.validator(value);
 				}
+				debugger;
 				return false;
 			} catch (error) {
 				console.error(error);
