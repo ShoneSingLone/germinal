@@ -7,11 +7,16 @@ import isPlainObject from "lodash/isPlainObject";
 import isFunction from "lodash/isFunction";
 import isString from "lodash/isString";
 import isBoolean from "lodash/isBoolean";
+import some from "lodash/some";
+import every from "lodash/every";
+import debounce from "lodash/debounce";
 
 const doNothing = () => null;
-const is$Selected = $ele => $ele?.length > 0;
-
+/* 睡眠 t:setTimeout during time*/
+const sleep = t => new Promise(r => setTimeout(r, t));
+const is$Selected = $ele => $ele && $ele.length > 0;
 const lodashFunctions = {
+    sleep,
     merge,
     each,
     map,
@@ -22,8 +27,12 @@ const lodashFunctions = {
     is$Selected,
     isFunction,
     isBoolean,
-    isString
+    isString,
+    some,
+    every,
+    debounce
 };
 
 window._ = window._ || {};
+window._.isArrayFill = arr => isArray(arr) && arr.length > 0;
 each(lodashFunctions, (fn, prop) => window._[prop] = fn);

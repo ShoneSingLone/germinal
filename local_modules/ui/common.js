@@ -1,6 +1,9 @@
 import {
     reactive
 } from "vue";
+import {
+    EVENT_TYPE
+} from "./tools/validate";
 
 export const ITEM_TYPE = {
     Input: "Input"
@@ -34,8 +37,14 @@ export const getComponentSettings = (configs) => {
 };
 
 
+let xItemNoPropCount = 0;
 /*make item configs */
 export const reactiveItemConfigs = (options) => {
+    if (!options.prop) {
+        options.prop = `xItem${xItemNoPropCount++}`;
+        console.error(`no xItem prop replace by ${options.prop}`);
+    }
+
     const configs = reactive(_.merge({}, {
         /* 提示信息，可以用于提示或者定位 */
         infoTips: {},
@@ -47,11 +56,24 @@ export const reactiveItemConfigs = (options) => {
             console.log("🚀:xItem value change: ", configs.prop, val, args);
             configs.value = val;
             configs.onAfterValueChange && configs.onAfterValueChange(configs);
-            /* TODO: rule检测*/
             console.log("🚀 ~ file: common.js ~ line 58 ~ reactiveItemConfigs ~ reactiveItemConfigs", reactiveItemConfigs);
-            configs.validate && configs.validate();
+            /* TODO: rule检测*/
+            handleConfigsValidate(EVENT_TYPE.update);
         },
+        onChange: () => {
+            handleConfigsValidate(EVENT_TYPE.change);
+        },
+        onInput: () => {
+            handleConfigsValidate(EVENT_TYPE.input);
+        }
     }, options));
+
+    function handleConfigsValidate(eventType) {
+        if (configs.validate) {
+            configs.validate(eventType);
+            console.log("configs.validate.queue", configs.validate.queue);
+        }
+    }
     return {
         [configs.prop]: configs
     };

@@ -4,6 +4,7 @@ import { $t } from "@language";
 import { onMounted } from "vue";
 import { reactiveItemConfigs } from "@ventose/ui/common";
 import { AppState, getColor } from "../../state/app";
+import FormRules from "../../components/FormRules";
 const handleUsernameOrEmail = _.doNoting;
 const styles = {
   icon: { color: getColor("disabledColor") },
@@ -33,10 +34,7 @@ const state = reactive({
       size: "large",
       /* 变化的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
-      rules: [
-        { required: true, message: $t("user.userName.required").label },
-        { validator: handleUsernameOrEmail },
-      ],
+      rules: [FormRules.required($t("user.userName.required").label)],
       slots: {
         prefix: () => <UserOutlined style={styles.icon} />,
       },
@@ -49,7 +47,7 @@ const state = reactive({
       /* 变化的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
       rules: [
-        { required: true, message: $t("user.password.required").label },
+        FormRules.required($t("user.password.required").label),
         { validator: handleUsernameOrEmail },
       ],
       slots: {
@@ -61,8 +59,16 @@ const state = reactive({
 </script>
 
 <template>
-  <div class="LoginCredentials-form">
-    <xItem :configs="state.configsForm.userName" class="mb10" />
-    <xItem :configs="state.configsForm.password" class="mt10" />
-  </div>
+  <form class="LoginCredentials-form">
+    <xItem
+      :configs="state.configsForm.userName"
+      class="mb10"
+      autocomplete="username"
+    />
+    <xItem
+      :configs="state.configsForm.password"
+      class="mt10"
+      autocomplete="current-password"
+    />
+  </form>
 </template>

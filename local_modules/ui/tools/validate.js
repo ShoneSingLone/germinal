@@ -1,5 +1,47 @@
-export const IS = {
-	arrayFill: (arr) => _.isArray(arr) && arr.length > 0,
-	even: (num) => num % 2 === 0,
-	odd: (num) => num % 2 !== 0,
+export const EVENT_TYPE = {
+	update: "update",
+	change: "change",
+	input: "input",
+	blur: "blur",
+	focus: "focus",
+};
+export const checkXItem = async (xItemConfigs) => {
+	const {
+		value,
+		rules,
+		prop
+	} = xItemConfigs;
+
+	for (let i = 0; i < rules.length; i++) {
+		const rule = rules[i];
+		const trigger = rule.trigger;
+		let isFail = await (async () => {
+			await _.sleep(1000);
+			try {
+				debugger;
+				const needValidate = _.some(trigger, event => xItemConfigs.validate.queue.include(event));
+				if (needValidate) {
+					return await rule.validator(value);
+				}
+				return false;
+			} catch (error) {
+				console.error(error);
+			} finally {
+				debugger;
+				xItemConfigs.validate.queue = [];
+			}
+		})();
+
+		if (isFail) {
+			return {
+				[prop]: rule.msg
+			};
+		}
+	}
+
+	console.timeEnd("checkXItem");
+	return {
+		[prop]: ""
+	};
+
 };

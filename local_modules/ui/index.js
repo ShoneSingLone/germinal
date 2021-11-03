@@ -1,17 +1,5 @@
-import {
-    Icon,
-    Menu,
-    Dropdown,
-    Button,
-    List,
-    Checkbox,
-    Popconfirm,
-    Input,
-    Alert,
-    Result,
-    Tabs
-} from "ant-design-vue";
-
+import "./loadCommonUtil";
+import { Icon, Menu, Dropdown, Button, List, Checkbox, Popconfirm, Input, Alert, Result, Tabs } from "ant-design-vue";
 import {MenuItem} from "ant-design-vue/es/menu";
 import {TabPane} from "ant-design-vue/es/tabs";
 import {InputPassword} from "ant-design-vue/es/input";
@@ -25,10 +13,7 @@ import "ant-design-vue/es/form/style/index.css";
 
 
 /* my-ui */
-const componentMyUI = {
-    xRender,
-    xItem
-};
+const componentMyUI = { xRender, xItem };
 
 /* ant-d-v */
 const componentAntdV = {

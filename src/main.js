@@ -1,9 +1,8 @@
-import "@ventose/ui/loadCommonUtil.js";
+import MyUI from "@ventose/ui/index.js";
 import { createApp } from "vue";
 import { router } from "./router/router.js";
 import { appI18n } from "@language";
 import { initAppConfigs } from "./state/app";
-import MyUI from "@ventose/ui/index.js";
 import App from "./App.vue";
 
 (async () => {
