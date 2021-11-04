@@ -22,5 +22,30 @@ export default {
             },
             trigger: [EVENT_TYPE.update]
         };
+    },
+    demo() {
+        return {
+            name: "Demo",
+            msg: "Demo",
+            async validator() {
+                await _.sleep(1000);
+                return FAIL;
+            },
+            trigger: [EVENT_TYPE.update, EVENT_TYPE.input, EVENT_TYPE.change, EVENT_TYPE.blur]
+        };
+    },
+    validator({
+        name,
+        msg,
+        validator,
+        trigger
+    }) {
+        return {
+            name,
+            msg,
+            validator,
+            trigger
+        };
     }
+
 };

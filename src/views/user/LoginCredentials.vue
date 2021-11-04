@@ -34,7 +34,10 @@ const state = reactive({
       size: "large",
       /* 变化的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
-      rules: [FormRules.required($t("user.userName.required").label)],
+      rules: [
+        FormRules.required($t("user.userName.required").label),
+        FormRules.demo(),
+      ],
       slots: {
         prefix: () => <UserOutlined style={styles.icon} />,
       },

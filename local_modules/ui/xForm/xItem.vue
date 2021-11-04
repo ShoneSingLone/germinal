@@ -27,21 +27,29 @@ export default defineComponent({
     };
   },
   methods: {
+    debounceCheckXItem: _.debounce(checkXItem, 300),
     setValidateInfo(rules) {
-      const vm = this;
       let isRequired = false;
       if (_.isArrayFill(rules)) {
         /*  */
         isRequired = _.some(rules, { name: "required" });
         /*  */
-        const debounceCheckXItem = _.debounce(checkXItem, 40);
-        vm.configs.validate = async function (eventType) {
-          vm.configs.validate.queue.push(eventType);
-          debounceCheckXItem(vm.configs);
+        this.configs.validate = (eventType) => {
+          this.configs.validate.triggerEventsObj[eventType] = true;
+          console.time("debounceCheckXItem");
+          this.debounceCheckXItem(this.configs, (res) => {
+            console.timeEnd("debounceCheckXItem");
+            const errorTips = res[this.configs.prop];
+            if(error){
+              this.setTips({type:})
+            }
+            console.log("🚀 XItem 是否校验失败", res, );
+          });
         };
-        vm.configs.validate.queue = [];
+        /* init */
+        this.configs.validate.triggerEventsObj = {};
       }
-      vm.isRequired = isRequired;
+      this.isRequired = isRequired;
     },
   },
   computed: {

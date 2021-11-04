@@ -5,43 +5,39 @@ export const EVENT_TYPE = {
 	blur: "blur",
 	focus: "focus",
 };
-export const checkXItem = async (xItemConfigs) => {
-	const {
-		value,
-		rules,
-		prop
-	} = xItemConfigs;
-
-	for (let i = 0; i < rules.length; i++) {
-		const rule = rules[i];
-		const trigger = rule.trigger;
-		let isFail = await (async () => {
-			await _.sleep(1000);
-			try {
-				const needValidate = _.some(trigger, event => xItemConfigs.validate.queue.includes(event));
+export const checkXItem = async (xItemConfigs, handlerResult) => {
+	try {
+		const {
+			rules,
+			prop
+		} = xItemConfigs;
+		for (let i = 0; i < rules.length; i++) {
+			const rule = rules[i];
+			const trigger = rule.trigger;
+			/* isFail */
+			let isFail = await (async () => {
+				await _.sleep(1000);
+				const needValidate = _.some(trigger, eventName => xItemConfigs.validate.triggerEventsObj[eventName]);
 				if (needValidate) {
-					return await rule.validator(value);
+					return await rule.validator(xItemConfigs.value);
 				}
-				debugger;
 				return false;
-			} catch (error) {
-				console.error(error);
-			} finally {
-				debugger;
-				xItemConfigs.validate.queue = [];
+			})();
+			/* 但凡有一个校验不通过就可以停止循环返回结果了 */
+			if (isFail) {
+				handlerResult({
+					[prop]: rule.msg
+				});
+				return;
 			}
-		})();
-
-		if (isFail) {
-			return {
-				[prop]: rule.msg
-			};
 		}
+		handlerResult({
+			[prop]: ""
+		});
+		return;
+	} catch (error) {
+		console.error(error);
+	} finally {
+		xItemConfigs.validate.triggerEventsObj = {};
 	}
-
-	console.timeEnd("checkXItem");
-	return {
-		[prop]: ""
-	};
-
 };

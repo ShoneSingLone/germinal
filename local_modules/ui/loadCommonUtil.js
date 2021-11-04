@@ -10,6 +10,7 @@ import isBoolean from "lodash/isBoolean";
 import some from "lodash/some";
 import every from "lodash/every";
 import debounce from "lodash/debounce";
+import isNumber from "lodash/isNumber";
 
 const doNothing = () => null;
 /* 睡眠 t:setTimeout during time*/
@@ -30,7 +31,8 @@ const lodashFunctions = {
     isString,
     some,
     every,
-    debounce
+    debounce,
+    isNumber
 };
 
 window._ = window._ || {};

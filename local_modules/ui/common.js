@@ -71,7 +71,7 @@ export const reactiveItemConfigs = (options) => {
     function handleConfigsValidate(eventType) {
         if (configs.validate) {
             configs.validate(eventType);
-            console.log("configs.validate.queue", configs.validate.queue);
+            console.log("configs.validate.triggerEventsObj", configs.validate.triggerEventsObj);
         }
     }
     return {
