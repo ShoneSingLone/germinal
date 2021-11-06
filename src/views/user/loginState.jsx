@@ -21,14 +21,8 @@ const renderLockStrok = () => {
 
 export const LoginState = reactive({
     activeKey: "credentials",
+    rememberMe:true,
     configsForm: {
-        ...reactiveItemConfigs({
-            itemType: ITEM_TYPE.Checkbox,
-            prop: "rememberMe",
-            value: true,
-            checked: true,
-            label: () => $t("user.login.remember-me").label
-        }),
         ...reactiveItemConfigs({
             prop: "userName",
             value: "",

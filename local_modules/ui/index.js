@@ -30,7 +30,8 @@ const componentAntdV = {
     Alert,
     Result,
     Tabs,
-    TabPane
+    TabPane,
+    Checkbox
 };
 
 const componentIcons = {
