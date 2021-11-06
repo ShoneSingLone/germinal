@@ -1,5 +1,9 @@
+import Input from "./Input.jsx";
+import Checkbox from "./Checkbox";
 
-    import Input from "./Input.jsx";
+export default {Input, Checkbox};
 
-    export default { Input };    
-    
+export const ITEM_TYPE = {
+    Input: "Input",
+    Checkbox: "Checkbox",
+};

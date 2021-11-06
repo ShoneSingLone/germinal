@@ -8,7 +8,7 @@ const SUCCESS = false;
 const FAIL = true;
 
 export default {
-    required(msg = "必填项") {
+    required(msg = "必填项", trigger = [EVENT_TYPE.update]) {
         return {
             name: "required",
             msg,
@@ -20,7 +20,7 @@ export default {
                 if (_.isArrayFill(value)) return SUCCESS;
                 return FAIL;
             },
-            trigger: [EVENT_TYPE.update]
+            trigger
         };
     },
     demo() {
@@ -35,11 +35,11 @@ export default {
         };
     },
     validator({
-        name,
-        msg,
-        validator,
-        trigger
-    }) {
+                  name,
+                  msg,
+                  validator,
+                  trigger
+              }) {
         return {
             name,
             msg,
