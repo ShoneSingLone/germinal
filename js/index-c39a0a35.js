@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { e as each, m as merge_1, a as map_1, r as reduce_1, i as isArray_1, b as isPlainObject_1, c as isFunction_1, u as useRouter, d as resolveComponent, f as createBlock, w as withCtx, o as openBlock, g as createVNode, h as createTextVNode, t as toDisplayString, $, j as reactive, k as computed, l as watch, n as createElementBlock, p as renderList, F as Fragment, q as unref, s as createBaseVNode, v as normalizeStyle, x as normalizeClass, y as createStaticVNode, z as createI18n, A as watchEffect, B as createRouter, C as createWebHashHistory, N as NProgress, D as defineComponent, E as h, I as InputPassword, G as Input$1, H as mergeProps, J as notification, _ as _Icon, M as Menu, K as MenuItem, L as Dropdown, O as Button, P as _List, Q as Checkbox, R as _Popconfirm, S as _Alert, T as _Result, U as Tabs, V as TabPane, W as GlobalOutlined, X as AppleOutlined, Y as AndroidOutlined, Z as UserOutlined, a0 as LockFilled, a1 as createApp } from "./vendor-379e52be.js";
+import { i as isArray_1, e as each, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as defineComponent, l as h, I as InputPassword, n as Input$1, C as Checkbox$1, o as reactive, p as createVNode, q as createTextVNode, F as Fragment, t as resolveComponent, u as notification, _ as _Icon, M as Menu, v as MenuItem, D as Dropdown, B as Button, w as _List, x as _Popconfirm, y as _Alert, z as _Result, T as Tabs, A as TabPane, G as GlobalOutlined, E as AppleOutlined, H as AndroidOutlined, U as UserOutlined, L as LockFilled, J as useRouter, K as openBlock, N as createBlock, O as withCtx, P as toDisplayString, $, Q as computed, R as watch, S as createElementBlock, V as renderList, W as unref, X as createBaseVNode, Y as normalizeStyle, Z as normalizeClass, a0 as createStaticVNode, a1 as createI18n, a2 as watchEffect, a3 as createRouter, a4 as createWebHashHistory, a5 as NProgress, a6 as createApp } from "./vendor-7de614b5.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -58,8 +58,10 @@ const p = function polyfill() {
 };
 p();
 const doNothing = () => null;
-const is$Selected = ($ele) => ($ele == null ? void 0 : $ele.length) > 0;
+const sleep = (t) => new Promise((r) => setTimeout(r, t));
+const is$Selected = ($ele) => $ele && $ele.length > 0;
 const lodashFunctions = {
+  sleep,
   merge: merge_1,
   each,
   map: map_1,
@@ -68,11 +70,421 @@ const lodashFunctions = {
   isPlainObject: isPlainObject_1,
   doNothing,
   is$Selected,
-  isFunction: isFunction_1
+  isFunction: isFunction_1,
+  isBoolean: isBoolean_1,
+  isString: isString_1,
+  some: some_1,
+  every: every_1,
+  debounce: debounce_1,
+  isNumber: isNumber_1
 };
 window._ = window._ || {};
+window._.isArrayFill = (arr) => isArray_1(arr) && arr.length > 0;
 each(lodashFunctions, (fn, prop) => window._[prop] = fn);
-const _sfc_main$6 = {
+var xRender = defineComponent({
+  props: ["render", "state"],
+  setup: ({
+    render,
+    state
+  }) => () => render(state)
+});
+var Input = ({
+  property,
+  slots
+}) => {
+  if (property.isPassword) {
+    return h(InputPassword, property, slots);
+  } else {
+    return h(Input$1, property, slots);
+  }
+};
+const EVENT_TYPE = {
+  validateForm: "validateForm",
+  update: "update",
+  change: "change",
+  input: "input",
+  blur: "blur",
+  focus: "focus"
+};
+const TIPS_TYPE = {
+  success: "success",
+  error: "error"
+};
+const validateForm = async (configsForm) => {
+  let results = await Promise.all(_.map(configsForm, (configs, prop) => new Promise((resolve) => {
+    if (configs.validate) {
+      configs.validate(EVENT_TYPE.validateForm);
+      configs.validate.formCallBack = (result) => {
+        delete configs.validate.formCallBack;
+        resolve(result);
+      };
+    }
+  })));
+  return results.filter((res) => res[0] && res[1]);
+};
+const checkXItem = async (xItemConfigs, handlerResult) => {
+  xItemConfigs.checking = true;
+  try {
+    const {
+      rules,
+      prop
+    } = xItemConfigs;
+    const result = await (async () => {
+      let dontCheck = 0;
+      for (let i = 0; i < rules.length; i++) {
+        const rule = rules[i];
+        const trigger = rule.trigger || [];
+        let isFail = await (async () => {
+          const needValidate = xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm] || _.some(trigger, (eventName) => xItemConfigs.validate.triggerEventsObj[eventName]);
+          if (needValidate) {
+            return await rule.validator(xItemConfigs.value);
+          } else {
+            dontCheck++;
+          }
+          return false;
+        })();
+        if (isFail) {
+          return [prop, rule.msg, xItemConfigs.FormItemId];
+        }
+      }
+      if (dontCheck === rules.length) {
+        return [false, false];
+      } else {
+        return [prop, false];
+      }
+    })();
+    handlerResult(result);
+    if (_.isFunction(xItemConfigs.validate.formCallBack)) {
+      xItemConfigs.validate.formCallBack(result);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    xItemConfigs.validate.triggerEventsObj = {};
+  }
+};
+var Checkbox = ({
+  property
+}) => {
+  const _property = _.merge({}, property, {
+    checked: property.value,
+    "onClick"() {
+      _property["onUpdate:value"](!_property.value, EVENT_TYPE.update);
+    }
+  });
+  return h(Checkbox$1, _property);
+};
+var renders = {
+  Input,
+  Checkbox
+};
+const ITEM_TYPE = {
+  Input: "Input",
+  Checkbox: "Checkbox"
+};
+const special = ["placeholder"];
+const vModel = (configs) => {
+  return _.reduce(configs, (_configs, value, prop) => {
+    if (special.includes(prop) && _.isFunction(value)) {
+      _configs[prop] = value(configs);
+    }
+    return _configs;
+  }, {
+    value: configs.value
+  });
+};
+let xItemNoPropCount = 0;
+const reactiveItemConfigs = (options = {
+  itemType: ITEM_TYPE.Input
+}) => {
+  if (!options.prop) {
+    options.prop = `xItem${xItemNoPropCount++}`;
+    console.error(`no xItem prop replace by ${options.prop}`);
+  }
+  const configs = reactive(_.merge({}, {
+    infoTips: {},
+    type: options.type || ITEM_TYPE.Input,
+    value: options.value || "",
+    "onUpdate:value": (val, ...args) => {
+      console.log("\u{1F680}:xItem value change: ", configs.prop, val, args);
+      configs.value = val;
+      configs.onAfterValueChange && configs.onAfterValueChange(configs);
+      handleConfigsValidate(EVENT_TYPE.update);
+    },
+    onChange: () => {
+      handleConfigsValidate(EVENT_TYPE.change);
+    },
+    onInput: () => {
+      handleConfigsValidate(EVENT_TYPE.input);
+    },
+    onBlur: () => {
+      handleConfigsValidate(EVENT_TYPE.blur);
+    }
+  }, options));
+  function handleConfigsValidate(eventType) {
+    if (configs.validate) {
+      configs.validate(eventType);
+      console.log("configs.validate.triggerEventsObj", configs.validate.triggerEventsObj);
+    }
+  }
+  return {
+    [configs.prop]: configs
+  };
+};
+const domClass = {
+  tipsError: "ant-form-item-explain ant-form-item-explain-error"
+};
+var _sfc_main$7 = defineComponent({
+  props: ["configs"],
+  created() {
+    this.configs.FormItemId = this.FormItemId;
+  },
+  watch: {
+    "configs.rules": {
+      immediate: true,
+      deep: true,
+      handler(rules) {
+        this.setValidateInfo(rules);
+      }
+    }
+  },
+  data() {
+    return {
+      isRequired: false
+    };
+  },
+  methods: {
+    setTips(tips) {
+      this.configs.itemTips = tips;
+    },
+    setValidateInfo(rules) {
+      let isRequired = false;
+      if (_.isArrayFill(rules)) {
+        isRequired = _.some(rules, {
+          name: "required"
+        });
+        const afterCheckXItem = ([prop, msg]) => {
+          this.configs.checking = false;
+          console.timeEnd("debounceCheckXItem");
+          if (prop) {
+            if (msg) {
+              this.setTips({
+                type: TIPS_TYPE.error,
+                msg
+              });
+            } else {
+              this.setTips({
+                type: "",
+                msg: ""
+              });
+            }
+          }
+          console.log("\u{1F680} XItem \u662F\u5426\u6821\u9A8C\u5931\u8D25", prop, msg);
+        };
+        const debounceCheckXItem = _.debounce(checkXItem, 300);
+        this.configs.validate = (eventType) => {
+          console.time("debounceCheckXItem");
+          this.configs.validate.triggerEventsObj[eventType] = true;
+          debounceCheckXItem(this.configs, afterCheckXItem);
+        };
+        this.configs.validate.triggerEventsObj = {};
+      }
+      this.isRequired = isRequired;
+    }
+  },
+  computed: {
+    isChecking() {
+      return Boolean(this.configs.checking);
+    },
+    FormItemId() {
+      return `xItem_${this._.uid}`;
+    },
+    itemTips() {
+      var _a, _b, _c, _d;
+      const _itemTips = {
+        type: "",
+        msg: ""
+      };
+      if (this.configs.itemTips) {
+        if (_.isFunction((_a = this.configs) == null ? void 0 : _a.itemTips.msg)) {
+          return {
+            type: (_b = this.configs) == null ? void 0 : _b.itemTips.type,
+            msg: (_c = this.configs) == null ? void 0 : _c.itemTips.msg()
+          };
+        }
+        if (_.isString((_d = this.configs) == null ? void 0 : _d.itemTips.msg)) {
+          return this.configs.itemTips;
+        }
+      } else {
+        return _itemTips;
+      }
+    },
+    itemWrapperClass() {
+      return [`ant-form-item ant-form-item-with-help`, this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : ""].join(" ");
+    },
+    componentSettings() {
+      const configs = __spreadValues(__spreadValues({}, this.configs), this.$attrs);
+      const xItemProperties = ["infoTips", "rules", "slots"];
+      const property = _.merge({}, configs, vModel(configs));
+      const slots = property.slots || {};
+      _.each(xItemProperties, (prop) => delete property[prop]);
+      const componentSettings = {
+        property,
+        slots
+      };
+      console.log("componentSettings", componentSettings);
+      return componentSettings;
+    },
+    tipsVNode() {
+      if (this.isChecking) {
+        return createVNode("div", null, [createVNode("div", {
+          "data-type": "checking"
+        }, [createTextVNode("checking...")])]);
+      }
+      if (this.configs.tipsVNodeRender) {
+        return this.configs.tipsVNodeRender(this);
+      }
+      if (this.itemTips.msg) {
+        if (this.itemTips.type === TIPS_TYPE.error) {
+          return createVNode("div", {
+            "class": domClass.tipsError
+          }, [createVNode("div", {
+            "data-type": "error"
+          }, [this.itemTips.msg])]);
+        }
+      }
+    },
+    labelVNode() {
+      if (this.configs.labelVNodeRender) {
+        return this.configs.labelVNodeRender(this.configs);
+      }
+      let label = (() => {
+        const _label = this.configs.label;
+        if (_.isFunction(_label)) {
+          return _label();
+        }
+        if (_.isString(_label)) {
+          return _label;
+        }
+        return false;
+      })();
+      if (label === false) {
+        return null;
+      }
+      return createVNode("div", {
+        "class": "ant-form-item-label"
+      }, [createVNode("label", {
+        "for": this.configs.prop,
+        "class": "ant-form-item-required"
+      }, [label])]);
+    }
+  },
+  render(h2) {
+    const CurrentFormItemRender = renders[this.configs.itemType] || renders.Input;
+    return createVNode(Fragment, null, [createVNode("div", {
+      "id": this.FormItemId,
+      "class": this.itemWrapperClass
+    }, [this.labelVNode, createVNode("div", {
+      "class": "ant-form-item-control"
+    }, [createVNode(CurrentFormItemRender, this.componentSettings, null), this.tipsVNode])])]);
+  }
+});
+var _sfc_main$6 = defineComponent({
+  props: ["configs"],
+  created() {
+  },
+  data() {
+    return {
+      loading: false
+    };
+  },
+  watch: {
+    configs: {
+      immediate: true,
+      handler(configs) {
+        this.loading = !!configs.loading;
+      }
+    }
+  },
+  methods: {
+    async onClick() {
+      if (_.isFunction(this.configs.onClick)) {
+        this.loading = true;
+        try {
+          await this.configs.onClick(this);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          this.loading = false;
+        }
+      }
+    }
+  },
+  computed: {
+    propperties: {
+      get() {
+        const onClick = this.onClick;
+        const loading = this.loading;
+        return _.merge({}, this.configs, {
+          onClick,
+          loading
+        });
+      }
+    },
+    text() {
+      var _a;
+      if (_.isFunction((_a = this.$slots) == null ? void 0 : _a.default)) {
+        return this.$slots.default(this);
+      }
+      if (_.isFunction(this.configs.text)) {
+        return this.configs.text(this) || "";
+      }
+      return this.configs.text || "";
+    }
+  },
+  render(h2) {
+    return createVNode(resolveComponent("Button"), this.propperties, {
+      default: () => [this.text]
+    });
+  }
+});
+var index = "";
+const componentMyUI = {
+  xRender,
+  xItem: _sfc_main$7,
+  xButton: _sfc_main$6
+};
+const componentAntdV = {
+  Icon: _Icon,
+  Menu,
+  MenuItem,
+  Dropdown,
+  Button,
+  List: _List,
+  Checkbox: Checkbox$1,
+  Popconfirm: _Popconfirm,
+  Input: Input$1,
+  InputPassword,
+  Alert: _Alert,
+  Result: _Result,
+  Tabs,
+  TabPane
+};
+const componentIcons = {
+  GlobalOutlined,
+  AppleOutlined,
+  AndroidOutlined,
+  UserOutlined,
+  LockFilled
+};
+const components = __spreadValues(__spreadValues(__spreadValues({}, componentMyUI), componentAntdV), componentIcons);
+var MyUI = {
+  notification,
+  install: (app) => {
+    _.each(components, (component, name) => app.component(name, component));
+  }
+};
+const _sfc_main$5 = {
   setup(__props) {
     const router2 = useRouter();
     function go() {
@@ -287,7 +699,7 @@ const initAppConfigs = async (callback) => {
   return AppState;
 };
 const _hoisted_1$3 = ["aria-label"];
-const _sfc_main$5 = {
+const _sfc_main$4 = {
   setup(__props) {
     const languageLabels = {
       "zh-CN": {
@@ -341,13 +753,13 @@ const _hoisted_1$2 = {
 const _hoisted_2$1 = {
   class: "user-layout-content"
 };
-const _hoisted_3 = {
+const _hoisted_3$1 = {
   class: "top"
 };
-const _hoisted_4 = {
+const _hoisted_4$1 = {
   class: "header"
 };
-const _hoisted_5 = {
+const _hoisted_5$1 = {
   href: "/"
 };
 const _hoisted_6 = ["src"];
@@ -358,9 +770,9 @@ const _hoisted_8 = {
   class: "desc"
 };
 const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 2018 vueComponent</div></div>', 1);
-const _sfc_main$4 = {
+const _sfc_main$3 = {
   setup(__props) {
-    const styles = {
+    const styles2 = {
       container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
     };
     return (_ctx, _cache) => {
@@ -370,10 +782,10 @@ const _sfc_main$4 = {
         class: normalizeClass(["user-layout-wrapper", _ctx.isMobile && "mobile"])
       }, [createBaseVNode("div", {
         class: "container",
-        style: normalizeStyle(styles.container)
-      }, [createBaseVNode("div", _hoisted_1$2, [createVNode(_sfc_main$5, {
+        style: normalizeStyle(styles2.container)
+      }, [createBaseVNode("div", _hoisted_1$2, [createVNode(_sfc_main$4, {
         class: "select-lang-trigger"
-      })]), createBaseVNode("div", _hoisted_2$1, [createBaseVNode("div", _hoisted_3, [createBaseVNode("div", _hoisted_4, [createBaseVNode("a", _hoisted_5, [createBaseVNode("img", {
+      })]), createBaseVNode("div", _hoisted_2$1, [createBaseVNode("div", _hoisted_3$1, [createBaseVNode("div", _hoisted_4$1, [createBaseVNode("a", _hoisted_5$1, [createBaseVNode("img", {
         src: unref(logoImg),
         class: "logo",
         alt: "logo"
@@ -526,111 +938,131 @@ function setI18nLanguage(lang) {
   $("html").attr("lang", lang);
   return lang;
 }
-const ITEM_TYPE = {
-  Input: "Input"
+const SUCCESS = false;
+const FAIL = true;
+var FormRules = {
+  required(msg = "\u5FC5\u586B\u9879", trigger = [EVENT_TYPE.update]) {
+    return {
+      name: "required",
+      msg,
+      async validator(value) {
+        if (value)
+          return SUCCESS;
+        if (_.isBoolean(value))
+          return SUCCESS;
+        if (_.isNumber(value))
+          return SUCCESS;
+        if (_.isArrayFill(value))
+          return SUCCESS;
+        return FAIL;
+      },
+      trigger
+    };
+  },
+  demo() {
+    return {
+      name: "Demo",
+      msg: "Demo",
+      async validator() {
+        await _.sleep(1e3);
+        return FAIL;
+      },
+      trigger: [EVENT_TYPE.update, EVENT_TYPE.input, EVENT_TYPE.change, EVENT_TYPE.blur]
+    };
+  },
+  validator({
+    name,
+    msg,
+    validator,
+    trigger
+  }) {
+    return {
+      name,
+      msg,
+      validator,
+      trigger
+    };
+  }
 };
-const special = ["placeholder"];
-const vModel = (configs) => {
-  return _.reduce(configs, (_configs, value, prop) => {
-    if (special.includes(prop) && _.isFunction(value)) {
-      _configs[prop] = value(configs);
+const styles = {
+  icon: {
+    color: getColor("disabledColor")
+  }
+};
+const renderLockStrok = () => {
+  return createVNode("svg", {
+    "viewBox": "64 64 896 896",
+    "data-icon": "lock",
+    "width": "1em",
+    "height": "1em",
+    "fill": "currentColor",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "class": ""
+  }, [createVNode("path", {
+    "d": "M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z"
+  }, null)]);
+};
+const LoginState = reactive({
+  activeKey: "credentials",
+  rememberMe: true,
+  configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+    prop: "userName",
+    value: "",
+    size: "large",
+    placeholder: () => $t("user.login.username.placeholder").label,
+    rules: [FormRules.required($t("user.userName.required").label, [EVENT_TYPE.blur])],
+    slots: {
+      prefix: () => createVNode(resolveComponent("UserOutlined"), {
+        "style": styles.icon
+      }, null)
     }
-    return _configs;
-  }, {
-    value: configs.value
-  });
-};
-const getComponentSettings = (configs) => {
-  const xItemProperties = ["infoTips", "rules", "slots"];
-  const property = _.merge({}, configs, vModel(configs));
-  console.log("\u{1F680} ~ file: common.js ~ line 30 ~ getComponentSettings ~ property", property);
-  const slots = property.slots || {};
-  _.each(xItemProperties, (prop) => delete property[prop]);
-  return [property, slots];
-};
-const reactiveItemConfigs = (options) => {
-  const configs = reactive(_.merge({}, {
-    infoTips: {},
-    type: options.type || ITEM_TYPE.Input,
-    value: options.value || "",
-    "onUpdate:value": (val) => {
-      configs.value = val;
-      configs.onAfterValueChange && configs.onAfterValueChange(configs);
+  })), reactiveItemConfigs({
+    prop: "password",
+    isPassword: true,
+    value: "",
+    size: "large",
+    placeholder: () => $t("user.login.password.placeholder").label,
+    rules: [FormRules.required($t("user.password.required").label, [EVENT_TYPE.blur]), {
+      validator: _.doNothing
+    }],
+    slots: {
+      prefix: () => createVNode(resolveComponent("xRender"), {
+        "render": renderLockStrok,
+        "style": styles.icon
+      }, null)
     }
-  }, options));
-  console.log("\u{1F680} ~ file: common.js ~ line 52 ~ reactiveItemConfigs ~ configs", configs);
-  return configs;
-};
+  })),
+  configsSubmit: {
+    size: "large",
+    type: "primary",
+    class: "login-button",
+    text: () => $t("user.login.login").label,
+    onClick: async () => {
+      try {
+        const results = await validateForm(LoginState.configsForm);
+        console.log(results);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+});
 const _hoisted_1$1 = {
   class: "LoginCredentials-form"
 };
-var _sfc_main$3 = {
+var _sfc_main$2 = {
   setup(__props) {
-    const handleUsernameOrEmail = _.doNoting;
-    const styles = {
-      icon: {
-        color: getColor("disabledColor")
-      }
-    };
-    const renderLockStrok = () => {
-      return createVNode("svg", {
-        "viewBox": "64 64 896 896",
-        "data-icon": "lock",
-        "width": "1em",
-        "height": "1em",
-        "fill": "currentColor",
-        "aria-hidden": "true",
-        "focusable": "false",
-        "class": ""
-      }, [createVNode("path", {
-        "d": "M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z"
-      }, null)]);
-    };
-    const state = reactive({
-      configsForm: {
-        userName: reactiveItemConfigs({
-          value: "",
-          size: "large",
-          placeholder: () => $t("user.login.username.placeholder").label,
-          rules: [{
-            required: true,
-            message: $t("user.userName.required").label
-          }, {
-            validator: handleUsernameOrEmail
-          }],
-          slots: {
-            prefix: () => createVNode(resolveComponent("UserOutlined"), {
-              "style": styles.icon
-            }, null)
-          }
-        }),
-        password: reactiveItemConfigs({
-          isPassword: true,
-          value: "",
-          size: "large",
-          placeholder: () => $t("user.login.password.placeholder").label,
-          rules: [{
-            required: true,
-            message: $t("user.password.required").label
-          }, {
-            validator: handleUsernameOrEmail
-          }],
-          slots: {
-            prefix: () => createVNode(resolveComponent("xRender"), {
-              "render": renderLockStrok,
-              "style": styles.icon
-            }, null)
-          }
-        })
-      }
-    });
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [createVNode(_component_xItem, {
-        configs: unref(state).configsForm.userName
+      return openBlock(), createElementBlock("form", _hoisted_1$1, [createVNode(_component_xItem, {
+        configs: unref(LoginState).configsForm.userName,
+        class: "mb10",
+        autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xItem, {
-        configs: unref(state).configsForm.password,
-        class: "mt10"
+        configs: unref(LoginState).configsForm.password,
+        class: "mt10",
+        autocomplete: "current-password"
       }, null, 8, ["configs"])]);
     };
   }
@@ -641,26 +1073,32 @@ const _hoisted_1 = {
 const _hoisted_2 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
-const _sfc_main$2 = {
+const _hoisted_3 = {
+  class: "item-wrapper flex between"
+};
+const _hoisted_4 = {
+  href: "/user/recover",
+  class: "forge-password"
+};
+const _hoisted_5 = {
+  class: "item-wrapper"
+};
+var _sfc_main$1 = {
   setup(__props) {
-    const state = reactive({
-      activeKey: "credentials"
-    });
-    const credentialsTab = computed(() => $t("user.login.tab-login-credentials").label);
-    const credentialsMessage = computed(() => $t("user.login.message-invalid-credentials").label);
-    const mobileTab = computed(() => $t("user.login.tab-login-mobile").label);
     return (_ctx, _cache) => {
       const _component_Alert = resolveComponent("Alert");
       const _component_TabPane = resolveComponent("TabPane");
       const _component_Tabs = resolveComponent("Tabs");
+      const _component_Checkbox = resolveComponent("Checkbox");
+      const _component_xButton = resolveComponent("xButton");
       return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [createVNode(_component_Tabs, {
-        activeKey: unref(state).activeKey,
-        "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => unref(state).activeKey = $event),
+        activeKey: unref(LoginState).activeKey,
+        "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => unref(LoginState).activeKey = $event),
         id: "user-layout-login_tab"
       }, {
         default: withCtx(() => [createVNode(_component_TabPane, {
           key: "credentials",
-          tab: unref(credentialsTab)
+          tab: unref($t)("user.login.tab-login-credentials").label
         }, {
           default: withCtx(() => [createVNode(_component_Alert, {
             type: "error",
@@ -668,18 +1106,26 @@ const _sfc_main$2 = {
             style: {
               "margin-bottom": "24px"
             },
-            message: unref(credentialsMessage)
-          }, null, 8, ["message"]), createVNode(_sfc_main$3)]),
+            message: unref($t)("user.login.message-invalid-credentials").label
+          }, null, 8, ["message"]), createVNode(_sfc_main$2)]),
           _: 1
         }, 8, ["tab"]), createVNode(_component_TabPane, {
           key: "mobile",
-          tab: unref(mobileTab)
+          tab: unref($t)("user.login.tab-login-mobile").label
         }, {
-          default: withCtx(() => [createVNode(_sfc_main$3)]),
+          default: withCtx(() => [createVNode(_sfc_main$2)]),
           _: 1
         }, 8, ["tab"])]),
         _: 1
-      }, 8, ["activeKey"])])]);
+      }, 8, ["activeKey"]), createBaseVNode("div", _hoisted_3, [createVNode(_component_Checkbox, {
+        checked: unref(LoginState).rememberMe,
+        "onUpdate:checked": _cache[1] || (_cache[1] = ($event) => unref(LoginState).rememberMe = $event)
+      }, {
+        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.remember-me").label), 1)]),
+        _: 1
+      }, 8, ["checked"]), createBaseVNode("a", _hoisted_4, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5, [createVNode(_component_xButton, {
+        configs: unref(LoginState).configsSubmit
+      }, null, 8, ["configs"])])])]);
     };
   }
 };
@@ -698,14 +1144,14 @@ const routeNames = {
   "404": "404"
 };
 const toPath = (name) => `/${name}`;
-const routes = [NewRoute(routeNames.login, _sfc_main$4, {
+const routes = [NewRoute(routeNames.login, _sfc_main$3, {
   redirect: toPath(routeNames.userLogin),
-  children: [NewRoute(routeNames.userLogin, _sfc_main$2, {
+  children: [NewRoute(routeNames.userLogin, _sfc_main$1, {
     meta: {
       title: $t("user.login.login").label
     }
   })]
-}), NewRoute(routeNames[404], _sfc_main$6)];
+}), NewRoute(routeNames[404], _sfc_main$5)];
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [...routes, {
@@ -765,68 +1211,6 @@ router.beforeEach(async (to, from) => {
 router.afterEach(() => {
   NProgress.done();
 });
-var xRender = defineComponent({
-  props: ["render", "state"],
-  setup: ({
-    render,
-    state
-  }) => () => render(state)
-});
-var Input = (props) => {
-  const [property, slots] = getComponentSettings(props);
-  if (property.isPassword) {
-    return h(InputPassword, property, slots);
-  } else {
-    return h(Input$1, property, slots);
-  }
-};
-var renders = {
-  Input
-};
-var _sfc_main$1 = defineComponent({
-  props: ["configs"],
-  setup(props, {
-    attrs
-  }) {
-    const render = renders[props.configs.type] || renders.Input;
-    console.log("\u{1F680} ~ file: xItem.vue ~ line 9 ~ setup ~ render", render);
-    return () => createVNode(render, mergeProps(props.configs, attrs), null);
-  }
-});
-const componentMyUI = {
-  xRender,
-  xItem: _sfc_main$1
-};
-const componentAntdV = {
-  Icon: _Icon,
-  Menu,
-  MenuItem,
-  Dropdown,
-  Button,
-  List: _List,
-  Checkbox,
-  Popconfirm: _Popconfirm,
-  Input: Input$1,
-  InputPassword,
-  Alert: _Alert,
-  Result: _Result,
-  Tabs,
-  TabPane
-};
-const componentIcons = {
-  GlobalOutlined,
-  AppleOutlined,
-  AndroidOutlined,
-  UserOutlined,
-  LockFilled
-};
-const components = __spreadValues(__spreadValues(__spreadValues({}, componentMyUI), componentAntdV), componentIcons);
-var MyUI = {
-  notification,
-  install: (app) => {
-    _.each(components, (component, name) => app.component(name, component));
-  }
-};
 var App_less_vue_type_style_index_0_src_lang = "";
 const _sfc_main = {
   setup(__props) {
