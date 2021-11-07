@@ -30,7 +30,6 @@ export default defineComponent({
     };
   },
   methods: {
-    debounceCheckXItem: _.debounce(checkXItem, 300),
     setTips(tips) {
       this.configs.itemTips = tips;
     },
@@ -38,22 +37,24 @@ export default defineComponent({
       let isRequired = false;
       if (_.isArrayFill(rules)) {
         isRequired = _.some(rules, {name: "required"});
-        const afterCheckXItem = (result) => {
+        const afterCheckXItem = ([prop, msg]) => {
           this.configs.checking = false;
           console.timeEnd("debounceCheckXItem");
-          if (result) {
-            const errorTips = result[this.configs.prop];
-            if (errorTips) {
-              this.setTips({type: TIPS_TYPE.error, msg: errorTips});
+          if (prop) {
+            if (msg) {
+              this.setTips({type: TIPS_TYPE.error, msg});
             } else {
               this.setTips({type: "", msg: ""});
             }
           }
-          console.log("🚀 XItem 是否校验失败", result);
+          console.log("🚀 XItem 是否校验失败", prop, msg);
         };
+
+        const debounceCheckXItem = _.debounce(checkXItem, 300);
         this.configs.validate = (eventType) => {
+          console.time("debounceCheckXItem");
           this.configs.validate.triggerEventsObj[eventType] = true;
-          this.debounceCheckXItem(this.configs, afterCheckXItem);
+          debounceCheckXItem(this.configs, afterCheckXItem);
         };
         /* init */
         this.configs.validate.triggerEventsObj = {};

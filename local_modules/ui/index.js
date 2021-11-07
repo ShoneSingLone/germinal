@@ -1,11 +1,12 @@
 import "./loadCommonUtil";
-import { Icon, Menu, Dropdown, Button, List, Checkbox, Popconfirm, Input, Alert, Result, Tabs } from "ant-design-vue";
+import {Icon, Menu, Dropdown, Button, List, Checkbox, Popconfirm, Input, Alert, Result, Tabs} from "ant-design-vue";
 import {MenuItem} from "ant-design-vue/es/menu";
 import {TabPane} from "ant-design-vue/es/tabs";
 import {InputPassword} from "ant-design-vue/es/input";
-import { GlobalOutlined, AppleOutlined, AndroidOutlined, UserOutlined, LockFilled } from "@ant-design/icons-vue";
+import {GlobalOutlined, AppleOutlined, AndroidOutlined, UserOutlined, LockFilled} from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
+import xButton from "./xButton/xButton.vue";
 import notification from "ant-design-vue/es/notification";
 
 /* 表单提示信息 */
@@ -13,7 +14,7 @@ import "ant-design-vue/es/form/style/index.css";
 
 
 /* my-ui */
-const componentMyUI = { xRender, xItem };
+const componentMyUI = {xRender, xItem, xButton};
 
 /* ant-d-v */
 const componentAntdV = {
@@ -31,7 +32,6 @@ const componentAntdV = {
     Result,
     Tabs,
     TabPane,
-    Checkbox
 };
 
 const componentIcons = {

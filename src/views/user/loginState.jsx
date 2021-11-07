@@ -1,7 +1,7 @@
 import {reactive, computed} from "vue";
 import {$t} from "@language";
 import {ITEM_TYPE, reactiveItemConfigs} from "@ventose/ui/common";
-import {EVENT_TYPE} from "@ventose/ui/tools/validate";
+import {EVENT_TYPE, validateForm} from "@ventose/ui/tools/validate";
 import FormRules from "../../components/FormRules";
 import {getColor} from "../../state/app";
 
@@ -21,7 +21,7 @@ const renderLockStrok = () => {
 
 export const LoginState = reactive({
     activeKey: "credentials",
-    rememberMe:true,
+    rememberMe: true,
     configsForm: {
         ...reactiveItemConfigs({
             prop: "userName",
@@ -49,4 +49,18 @@ export const LoginState = reactive({
             },
         }),
     },
+    configsSubmit: {
+        size: "large",
+        type: "primary",
+        class: "login-button",
+        text: () => $t("user.login.login").label,
+        onClick: async () => {
+            try {
+                const results = await validateForm(LoginState.configsForm);
+                console.log(results);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
 });
