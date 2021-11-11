@@ -24,15 +24,6 @@ export const vModel = configs => {
         });
 };
 
-export const getComponentSettings = (configs) => {
-    const xItemProperties = ["infoTips", "rules", "slots"];
-    const property = _.merge({}, configs, vModel(configs));
-    const slots = property.slots || {};
-    _.each(xItemProperties, prop => delete property[prop]);
-    return [property, slots];
-};
-
-
 let xItemNoPropCount = 0;
 /*make item configs */
 export const reactiveItemConfigs = (options = {itemType: ITEM_TYPE.Input}) => {
@@ -43,7 +34,7 @@ export const reactiveItemConfigs = (options = {itemType: ITEM_TYPE.Input}) => {
 
     const configs = reactive(_.merge({}, {
         /* 提示信息，可以用于提示或者定位 */
-        infoTips: {},
+        itemTips: {},
         /*item 的类型 case by case 跟ui库关联*/
         type: options.type || ITEM_TYPE.Input,
         /*默认绑定的是value*/

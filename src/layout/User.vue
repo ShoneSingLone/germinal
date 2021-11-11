@@ -16,7 +16,7 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
           <div class="header">
             <a href="/">
               <img :src="logoImg" class="logo" alt="logo"/>
-              <span class="title">Design</span>
+              <span class="title">Demo</span>
             </a>
           </div>
           <div class="desc">

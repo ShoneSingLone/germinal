@@ -3,7 +3,7 @@ import {Icon, Menu, Dropdown, Button, List, Checkbox, Popconfirm, Input, Alert, 
 import {MenuItem} from "ant-design-vue/es/menu";
 import {TabPane} from "ant-design-vue/es/tabs";
 import {InputPassword} from "ant-design-vue/es/input";
-import {GlobalOutlined, AppleOutlined, AndroidOutlined, UserOutlined, LockFilled} from "@ant-design/icons-vue";
+import {GlobalOutlined, AppleOutlined, AndroidOutlined, UserOutlined, LockFilled,MobileOutlined} from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xButton from "./xButton/xButton.vue";
@@ -39,7 +39,8 @@ const componentIcons = {
     AppleOutlined,
     AndroidOutlined,
     UserOutlined,
-    LockFilled
+    LockFilled,
+    MobileOutlined
 };
 
 const components = {

@@ -6,6 +6,7 @@ export const EVENT_TYPE = {
     blur: "blur",
     focus: "focus",
 };
+
 export const TIPS_TYPE = {
     success: "success",
     error: "error"

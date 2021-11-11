@@ -42,6 +42,7 @@ export default defineComponent({
           console.timeEnd("debounceCheckXItem");
           if (prop) {
             if (msg) {
+              debugger;
               this.setTips({type: TIPS_TYPE.error, msg});
             } else {
               this.setTips({type: "", msg: ""});
@@ -74,14 +75,14 @@ export default defineComponent({
     itemTips() {
       const _itemTips = {type: "", msg: ""};
       if (this.configs.itemTips) {
-        if (_.isFunction(this.configs?.itemTips.msg)) {
+        if (_.isFunction(this.configs.itemTips.msg)) {
           return {
-            type: this.configs?.itemTips.type,
-            msg: this.configs?.itemTips.msg()
+            type: this.configs.itemTips.type,
+            msg: this.configs.itemTips.msg()
           };
         }
 
-        if (_.isString(this.configs?.itemTips.msg)) {
+        if (_.isString(this.configs.itemTips.msg)) {
           return this.configs.itemTips;
         }
       } else {
@@ -97,7 +98,8 @@ export default defineComponent({
     },
     componentSettings() {
       const configs = {...this.configs, ...this.$attrs};
-      const xItemProperties = ["infoTips", "rules", "slots"];
+      /* 用于form 控件，以下配置信息用不上，遂删除 */
+      const xItemProperties = ["itemTips", "rules", "slots"];
       const property = _.merge({}, configs, vModel(configs));
       const slots = property.slots || {};
       _.each(xItemProperties, (prop) => delete property[prop]);
@@ -131,6 +133,7 @@ export default defineComponent({
     },
     /* 表单label 如果有提供String类型，就显示 */
     labelVNode() {
+      debugger;
       if (this.configs.labelVNodeRender) {
         return this.configs.labelVNodeRender(this.configs);
       }
