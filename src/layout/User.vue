@@ -6,16 +6,26 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
 </script>
 
 <template>
-  <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
-    <div class="container" :style="styles.container">
+  <div
+    id="userLayout"
+    :class="['user-layout-wrapper', isMobile && 'mobile']"
+  >
+    <div
+      class="container"
+      :style="styles.container"
+    >
       <div class="user-layout-lang">
-        <SelectLanguage class="select-lang-trigger"/>
+        <SelectLanguage class="select-lang-trigger" />
       </div>
       <div class="user-layout-content">
         <div class="top">
           <div class="header">
             <a href="/">
-              <img :src="logoImg" class="logo" alt="logo"/>
+              <img
+                :src="logoImg"
+                class="logo"
+                alt="logo"
+              >
               <span class="title">Demo</span>
             </a>
           </div>
@@ -24,7 +34,7 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
           </div>
         </div>
 
-        <router-view/>
+        <router-view />
 
         <div class="footer">
           <div class="links">
@@ -32,7 +42,9 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
             <a href="_self">隐私</a>
             <a href="_self">条款</a>
           </div>
-          <div class="copyright">Copyright &copy; 2018 vueComponent</div>
+          <div class="copyright">
+            Copyright &copy; 2018 vueComponent
+          </div>
         </div>
       </div>
     </div>

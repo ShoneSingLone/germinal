@@ -7,21 +7,15 @@ import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error",
 };
-/* 
+/*
 itemWrapperClass
 */
 export default defineComponent({
-  props: ["configs"],
-  created() {
-    /* domID */
-    this.configs.FormItemId = this.FormItemId;
-  },
-  watch: {
-    "configs.rules": {
-      immediate: true,
-      deep: true,
-      handler(rules) {
-        this.setValidateInfo(rules);
+  props: {
+    configs: {
+      type: Object,
+      default() {
+        return {};
       },
     },
   },
@@ -32,39 +26,7 @@ export default defineComponent({
       /* validateInfo */
     };
   },
-  methods: {
-    setTips(tips) {
-      this.configs.itemTips = tips;
-    },
-    setValidateInfo(rules) {
-      let isRequired = false;
-      if (_.isArrayFill(rules)) {
-        isRequired = _.some(rules, { name: "required" });
-        const afterCheckXItem = ([prop, msg]) => {
-          this.configs.checking = false;
-          console.timeEnd("debounceCheckXItem");
-          if (prop) {
-            if (msg) {
-              this.setTips({ type: TIPS_TYPE.error, msg });
-            } else {
-              this.setTips({ type: "", msg: "" });
-            }
-          }
-          console.log("🚀 XItem 是否校验失败", prop, msg);
-        };
 
-        const debounceCheckXItem = _.debounce(checkXItem, 300);
-        this.configs.validate = (eventType) => {
-          console.time("debounceCheckXItem");
-          this.configs.validate.triggerEventsObj[eventType] = true;
-          debounceCheckXItem(this.configs, afterCheckXItem);
-        };
-        /* init */
-        this.configs.validate.triggerEventsObj = {};
-      }
-      this.isRequired = isRequired;
-    },
-  },
   computed: {
     isChecking() {
       return Boolean(this.configs.checking);
@@ -90,7 +52,7 @@ export default defineComponent({
     itemWrapperClass() {
       return [
         this.configs.itemWrapperClass,
-        `ant-form-item ant-form-item-with-help x-item`,
+        "ant-form-item ant-form-item-with-help x-item",
         this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : "",
       ].join(" ");
     },
@@ -118,7 +80,7 @@ export default defineComponent({
       if (this.configs.tipsVNodeRender) {
         return this.configs.tipsVNodeRender({
           xItem: this,
-          configs:this.configs,
+          configs: this.configs,
           itemTips: this.itemTips,
         });
       }
@@ -132,6 +94,7 @@ export default defineComponent({
           );
         }
       }
+      return null;
     },
     /* 表单label 如果有提供String类型，就显示 */
     labelVNode() {
@@ -163,6 +126,52 @@ export default defineComponent({
       );
     },
     /* VNode */
+  },
+  watch: {
+    "configs.rules": {
+      immediate: true,
+      deep: true,
+      handler(rules) {
+        this.setValidateInfo(rules);
+      },
+    },
+  },
+  created() {
+    /* domID */
+    this.configs.FormItemId = this.FormItemId;
+  },
+  methods: {
+    setTips(type = "", msg = "") {
+      this.configs.itemTips = { type, msg };
+    },
+    setValidateInfo(rules) {
+      let isRequired = false;
+      if (_.isArrayFill(rules)) {
+        isRequired = _.some(rules, { name: "required" });
+        const afterCheckXItem = ([prop, msg]) => {
+          this.configs.checking = false;
+          console.timeEnd("debounceCheckXItem");
+          if (prop) {
+            if (msg) {
+              this.setTips(TIPS_TYPE.error, msg);
+            } else {
+              this.setTips();
+            }
+          }
+          console.log("🚀 XItem 是否校验失败", prop, msg);
+        };
+
+        const debounceCheckXItem = _.debounce(checkXItem, 300);
+        this.configs.validate = (eventType) => {
+          console.time("debounceCheckXItem");
+          this.configs.validate.triggerEventsObj[eventType] = true;
+          debounceCheckXItem(this.configs, afterCheckXItem);
+        };
+        /* init */
+        this.configs.validate.triggerEventsObj = {};
+      }
+      this.isRequired = isRequired;
+    },
   },
   render(h) {
     const CurrentFormItemRender =

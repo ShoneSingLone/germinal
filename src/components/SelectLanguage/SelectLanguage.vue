@@ -14,11 +14,20 @@ const changeLanguage = ({key}) => {
 
 <template>
   <Dropdown placement="bottomRight">
-    <GlobalOutlined/>
+    <GlobalOutlined />
     <template #overlay>
-      <Menu :selectedKeys="[APP_LANGUAGE]" @click="changeLanguage">
-        <MenuItem :key="prop" v-for="(locale,prop) in languageLabels">
-          <span role="img" :aria-label="locale.label"> {{ locale.icon }} </span>
+      <Menu
+        :selected-keys="[APP_LANGUAGE]"
+        @click="changeLanguage"
+      >
+        <MenuItem
+          v-for="(locale,prop) in languageLabels"
+          :key="prop"
+        >
+          <span
+            role="img"
+            :aria-label="locale.label"
+          > {{ locale.icon }} </span>
           <span>{{ locale.label }}</span>
         </MenuItem>
       </Menu>

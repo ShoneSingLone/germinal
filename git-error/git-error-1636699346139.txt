@@ -1,0 +1,120 @@
+> git -c user.useConfigOnly=true commit --quiet --allow-empty-message --file -
+ > running pre-commit hook: lint-staged
+Stashing changes... [started]
+Stashing changes... [skipped]
+→ No partially staged files found...
+Running tasks... [started]
+Running tasks for *.{js,jsx,vue} [started]
+vue-cli-service lint [started]
+vue-cli-service lint [failed]
+→ 
+Running tasks for *.{js,jsx,vue} [failed]
+→ 
+Running tasks... [failed]
+
+
+
+× vue-cli-service lint found some errors. Please fix them and try committing again.
+warning: Prop "configs" should define at least its type (vue/require-prop-types) at local_modules\ui\xButton\xButton.vue:5:11:
+3 |
+4 | export default defineComponent({
+> 5 |   props: ["configs"],
+  |           ^
+6 |   data() {
+7 |     return {
+8 |       loading: false
+
+
+warning: Prop "configs" should define at least its type (vue/require-prop-types) at local_modules\ui\xForm\xItem.vue:14:11:
+12 | */
+13 | export default defineComponent({
+> 14 |   props: ["configs"],
+   |           ^
+15 |   data() {
+16 |     return {
+17 |       /* validateInfo */
+
+
+error: Expected to return a value in "tipsVNode" computed property (vue/return-in-computed-property) at local_modules\ui\xForm\xItem.vue:63:14:
+61 |     },
+62 |     /* VNode */
+> 63 |     tipsVNode() {
+   |              ^
+64 |       if (this.isChecking) {
+65 |         return (
+66 |           <div>
+
+
+error: Unexpected mutation of "configs" prop (vue/no-mutating-props) at local_modules\ui\xForm\xItem.vue:132:5:
+130 |   created() {
+131 |     /* domID */
+> 132 |     this.configs.FormItemId = this.FormItemId;
+    |     ^
+133 |   },
+134 |   methods: {
+135 |     setTips(tips) {
+
+
+error: Unexpected mutation of "configs" prop (vue/no-mutating-props) at local_modules\ui\xForm\xItem.vue:136:7:
+134 |   methods: {
+135 |     setTips(tips) {
+> 136 |       this.configs.itemTips = tips;
+    |       ^
+137 |     },
+138 |     setValidateInfo(rules) {
+139 |       let isRequired = false;
+
+
+error: Unexpected mutation of "configs" prop (vue/no-mutating-props) at local_modules\ui\xForm\xItem.vue:143:11:
+141 |         isRequired = _.some(rules, { name: "required" });
+142 |         const afterCheckXItem = ([prop, msg]) => {
+> 143 |           this.configs.checking = false;
+    |           ^
+144 |           console.timeEnd("debounceCheckXItem");
+145 |           if (prop) {
+146 |             if (msg) {
+
+
+error: Unexpected mutation of "configs" prop (vue/no-mutating-props) at local_modules\ui\xForm\xItem.vue:156:9:
+154 |
+155 |         const debounceCheckXItem = _.debounce(checkXItem, 300);
+> 156 |         this.configs.validate = (eventType) => {
+    |         ^
+157 |           console.time("debounceCheckXItem");
+158 |           this.configs.validate.triggerEventsObj[eventType] = true;
+159 |           debounceCheckXItem(this.configs, afterCheckXItem);
+
+
+error: Unexpected mutation of "configs" prop (vue/no-mutating-props) at local_modules\ui\xForm\xItem.vue:158:11:
+156 |         this.configs.validate = (eventType) => {
+157 |           console.time("debounceCheckXItem");
+> 158 |           this.configs.validate.triggerEventsObj[eventType] = true;
+    |           ^
+159 |           debounceCheckXItem(this.configs, afterCheckXItem);
+160 |         };
+161 |         /* init */
+
+
+error: Unexpected mutation of "configs" prop (vue/no-mutating-props) at local_modules\ui\xForm\xItem.vue:162:9:
+160 |         };
+161 |         /* init */
+> 162 |         this.configs.validate.triggerEventsObj = {};
+    |         ^
+163 |       }
+164 |       this.isRequired = isRequired;
+165 |     },
+
+
+warning: Prop 'configs' requires default value to be set (vue/require-default-prop) at src\views\demo\HelloWorld.vue:5:3:
+3 |
+4 | defineProps({
+> 5 |   configs: Object,
+  |   ^
+6 | });
+7 |
+8 | /* data */
+
+
+7 errors and 3 warnings found.
+
+pre-commit hook failed (add --no-verify to bypass)

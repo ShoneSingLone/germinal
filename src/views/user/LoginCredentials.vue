@@ -5,9 +5,15 @@ import { LoginState } from "@views/user/loginState.jsx";
 <template>
   <form class="LoginCredentials-form">
     <!-- 用户名 -->
-    <xItem :configs="LoginState.configsForm.userName" autocomplete="username" />
+    <xItem
+      :configs="LoginState.configsForm.userName"
+      autocomplete="username"
+    />
     <xGap t="20" />
     <!-- 密码 -->
-    <xItem :configs="LoginState.configsForm.password" autocomplete="current-password" />
+    <xItem
+      :configs="LoginState.configsForm.password"
+      autocomplete="current-password"
+    />
   </form>
 </template>

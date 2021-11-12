@@ -11,6 +11,7 @@ module.exports = {
         "node": true
     },
     "extends": [
+        /* https://eslint.vuejs.org/user-guide/#bundle-configurations */
         "plugin:vue/vue3-recommended"
     ],
     parserOptions: {
@@ -23,7 +24,8 @@ module.exports = {
     },
     "rules": {
         /* "linebreak-style": [ "error", "unix" ], */
-        "vue/no-multiple-template-root": "off",
+        // "vue/no-multiple-template-root": "off",
+        "vue/no-mutating-props": "off",
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
