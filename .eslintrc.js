@@ -10,13 +10,16 @@ module.exports = {
         "browser": true,
         "node": true
     },
+    "extends": [
+        "plugin:vue/vue3-recommended"
+    ],
     parserOptions: {
         ecmaVersion: 2020,
         sourceType: "module",
         "ecmaFeatures": {
             "jsx": true,
             "modules": true
-        }
+        },
     },
     "rules": {
         /* "linebreak-style": [ "error", "unix" ], */

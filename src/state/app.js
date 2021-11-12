@@ -12,8 +12,7 @@ export const AppState = reactive({
 });
 
 if (AppState.isDev) {
-    console.log(
-        import.meta.env);
+    console.log(import.meta.env);
     /* TODO:方便调试 have to remove */
     window.AppState = AppState;
 }
@@ -58,7 +57,7 @@ watch(
 /* mutation 异步修改 效果同事务 自己去保证原子性 */
 export const AppMutation = {
     GetInfo: async () => {
-        const { result } = await API.user.getInfo();
+        const {result} = await API.user.getInfo();
         if (result.role && result.role.permissions.length > 0) {
             const role = result.role;
             role.permissions = result.role.permissions;
@@ -79,8 +78,10 @@ export const AppMutation = {
             Promise.reject(new Error("getInfo: roles must be a non-null array !"));
         }
     },
-    Login: async () => { },
-    Logout: async () => { }
+    Login: async () => {
+    },
+    Logout: async () => {
+    }
 };
 
 

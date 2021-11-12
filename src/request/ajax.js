@@ -1,14 +1,20 @@
 import $ from "jquery";
+import {UI} from "@ventose/ui";
+
+export function logError(msg) {
+    UI.message.error(msg);
+    console.error(msg);
+}
 
 const ajaxOptions = (options, customOptions) => {
     return _.merge({
         async: true,
         statusCode: {
             404: () => {
-                console.log("statusCode 404");
+                logError("statusCode 404");
             },
             0: () => {
-                console.log("statusCode 0");
+                logError("statusCode 0");
             },
         },
     }, options, customOptions);
