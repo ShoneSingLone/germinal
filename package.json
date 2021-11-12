@@ -15,8 +15,6 @@
   "main": "src/main.js",
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.1.0",
-    "@typescript-eslint/parser": "^5.1.0",
     "@ventose/ui": "file:./local_modules/ui",
     "ant-design-vue": "^3.0.0-alpha.3",
     "axios": "^0.23.0",
@@ -32,7 +30,7 @@
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "eslint": "^7.32.0",
+    "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.19.1",
     "less": "^4.1.2",
