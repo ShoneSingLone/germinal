@@ -109,7 +109,7 @@ watch(() => AppState.count, (count) => {
 `pickValueFrom`：从xItem的configs中获取value；
 
 
-1. `no-mutating-props`:`mutatingProps`
+1. `no-mutating-props`:`MutatingProps`
 ## log
 
 1. xItem 错误提示随语言切换变更 涉及到 $t 的配置项都需要 ()=>

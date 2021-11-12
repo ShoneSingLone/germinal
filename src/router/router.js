@@ -3,6 +3,7 @@ import {createRouter, createWebHashHistory} from "vue-router";
 import NotFound from "@views/system/NotFound.vue";
 import LayoutUser from "@layout/User.vue";
 import Login from "@views/user/Login.vue";
+import Register from "@views/user/Register.vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
 import {AppState, AppMutation} from "@state/app";
@@ -34,7 +35,10 @@ const routes = [
         LayoutUser,
         {
             redirect: toPath(routeNames.userLogin),
-            children: [NewRoute(routeNames.userLogin, Login, {meta: {title: $t("user.login.login").label}})]
+            children: [
+                NewRoute(routeNames.userLogin, Login, { meta: { title: $t("user.login.login").label } }),
+                NewRoute(routeNames.register, Register, { meta: { title: $t("user.login.signup").label } }),
+            ]
         }),
     NewRoute(routeNames[404], NotFound),
 ];

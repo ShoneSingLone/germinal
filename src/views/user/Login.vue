@@ -3,8 +3,8 @@ import {reactive, computed} from "vue";
 import {$t} from "@language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
-import {LoginState} from "./loginState";
-
+import {StateLogin} from "./StateLogin";
+import {routeNames} from "@router/router";
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import {LoginState} from "./loginState";
     <div class="user-layout-login ant-form ant-form-horizontal">
       <Tabs
         id="user-layout-login_tab"
-        v-model:activeKey="LoginState.activeKey"
+        v-model:activeKey="StateLogin.activeTabKey"
       >
         <TabPane
           key="credentials"
@@ -34,7 +34,7 @@ import {LoginState} from "./loginState";
         </TabPane>
       </Tabs>
       <div class="item-wrapper flex between">
-        <Checkbox v-model:checked="LoginState.rememberMe">
+        <Checkbox v-model:checked="StateLogin.rememberMe">
           {{ $t("user.login.remember-me").label }}
         </Checkbox>
         <a
@@ -45,7 +45,36 @@ import {LoginState} from "./loginState";
         </a>
       </div>
       <div class="item-wrapper">
-        <xButton :configs="LoginState.configsSubmit" />
+        <xButton :configs="StateLogin.configsSubmit" />
+      </div>
+      <div class="item-wrapper">
+        <div class="user-login-other">
+          <span>{{ $t("user.login.sign-in-with").label }}</span>
+          <a>
+            <a-icon
+              class="item-icon"
+              type="alipay-circle"
+            />
+          </a>
+          <a>
+            <a-icon
+              class="item-icon"
+              type="taobao-circle"
+            />
+          </a>
+          <a>
+            <a-icon
+              class="item-icon"
+              type="weibo-circle"
+            />
+          </a>
+          <router-link
+            class="register"
+            :to="{ name: routeNames.register }"
+          >
+            {{ $t("user.login.signup").label }}
+          </router-link>
+        </div>
       </div>
     </div>
   </div>

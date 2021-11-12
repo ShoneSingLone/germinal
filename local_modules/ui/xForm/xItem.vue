@@ -1,7 +1,7 @@
 <script lang="jsx">
 import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import renders from "./itemRenders";
-import { mutatingProps, vModel } from "../common";
+import { MutatingProps, vModel } from "../common";
 import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
 
 const domClass = {
@@ -128,6 +128,7 @@ export default defineComponent({
     /* VNode */
   },
   watch: {
+    /* 修改rules Array 要求全量替换 */
     "configs.rules": {
       immediate: true,
       deep: true,
@@ -138,18 +139,21 @@ export default defineComponent({
   },
   created() {
     /* domID */
-    mutatingProps(this, "configs.FormItemId", this.FormItemId);
+    MutatingProps(this, "configs.FormItemId", this.FormItemId);
   },
   methods: {
     setTips(type = "", msg = "") {
-      mutatingProps(this, "configs.itemTips", { type, msg });
+      MutatingProps(this, "configs.itemTips", { type, msg });
     },
+    /* 如果有可用rules，为当前item配置校验函数 */
     setValidateInfo(rules) {
+      /* 修改rules Array 要求全量替换 */
       let isRequired = false;
       if (_.isArrayFill(rules)) {
+        /* 如果有必填项 */
         isRequired = _.some(rules, { name: "required" });
-        const afterCheckXItem = ([prop, msg]) => {
-          mutatingProps(this, "configs.checking", false);
+        const handleAfterCheck = ([prop, msg]) => {
+          MutatingProps(this, "configs.checking", false);
           console.timeEnd("debounceCheckXItem");
           if (prop) {
             if (msg) {
@@ -160,16 +164,21 @@ export default defineComponent({
           }
           console.log("🚀 XItem 是否校验失败", prop, msg);
         };
-
         const debounceCheckXItem = _.debounce(checkXItem, 300);
-        mutatingProps(this, "configs.validate", (eventType) => {
+        MutatingProps(this, "configs.validate", (eventType) => {
           console.time("debounceCheckXItem");
+          /* 短时间内，多个事件触发统一校验，使用队列，任一一个触发 */
           const prop = `configs.validate.triggerEventsObj.${eventType}`;
-          mutatingProps(this, prop, true);
-          debounceCheckXItem(this.configs, afterCheckXItem);
+          MutatingProps(this, prop, true);
+          /*  */
+          debounceCheckXItem(this.configs, handleAfterCheck /* 异步回调 */);
         });
         /* init */
-        mutatingProps(this, "configs.validate.triggerEventsObj", {});
+        MutatingProps(this, "configs.validate.triggerEventsObj", {});
+      } else {
+        if (_.isFunction(this.configs.validate)) {
+          delete this.configs.validate;
+        }
       }
       this.isRequired = isRequired;
     },

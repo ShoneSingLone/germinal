@@ -30,7 +30,7 @@ const handlers = {
   </Button>
   <xRender
     :render="renders.test"
-    :state="LoginState"
+    :state="StateLogin"
   />
   <Button @click="handlers.clickBtn">
     count is: {{ state.count }}

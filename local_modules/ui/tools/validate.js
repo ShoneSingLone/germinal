@@ -32,7 +32,6 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
             rules,
             prop
         } = xItemConfigs;
-
         const result = await (async () => {
             let dontCheck = 0;
             for (let i = 0; i < rules.length; i++) {
@@ -40,9 +39,25 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
                 const trigger = rule.trigger || [];
                 /* isFail */
                 let isFail = await (async () => {
-                    const needValidate = xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm] || _.some(trigger, eventName => xItemConfigs.validate.triggerEventsObj[eventName]);
+
+
+                    /*如果是validateForm 无视 trigger 限定的事件列表，否则根据trigger列表 */
+                    const needValidate = (() => {
+                        /*is ValidateForm*/
+                        if (xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm]) return true;
+                        /*some Event In Trigger*/
+                        if (_.some(trigger, eventName => xItemConfigs.validate.triggerEventsObj[eventName])) return true;
+                        /*trigger Include Update*/
+                        if (trigger.includes(EVENT_TYPE.update)) return true;
+                        /**/
+                        return false;
+                    })();
+
                     if (needValidate) {
-                        return await rule.validator(xItemConfigs.value);
+                        const validateResult = await rule.validator(xItemConfigs.value);
+                        if (validateResult) {
+                            return validateResult;
+                        }
                     } else {
                         dontCheck++;
                     }
@@ -51,11 +66,12 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 
                 /* 但凡有一个校验不通过就可以停止循环返回结果了 */
                 if (isFail) {
-                    return [prop, rule.msg,xItemConfigs.FormItemId];
+                    return [prop, rule.msg, xItemConfigs.FormItemId];
                 }
                 /*false 继续*/
             }
-
+            /*TODO:*/
+            /*没有一个触发校验，则不需要修改tips*/
             if (dontCheck === rules.length) {
                 /*不需要修改tips*/
                 return [false, false];

@@ -18,7 +18,7 @@ const languageContent = {
     "user.login.message-invalid-verification-code": m("验证码错误", "Invalid verification code"),
     "user.login.tab-login-credentials": m("账户密码登录", "Credentials"),
     "user.login.tab-login-mobile": m("手机号登录", "Mobile number"),
-    "user.login.mobile.placeholder": m("手机号", "Mobile number"),
+    "user.login.mobile.placeholder": m("请输入手机号", "Mobile number"),
     "user.login.mobile.verification-code.placeholder": m("验证码", "Verification code"),
     "user.login.remember-me": m("自动登录", "Remember me"),
     "user.login.forgot-password": m("忘记密码", "Forgot your password?"),

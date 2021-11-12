@@ -12,7 +12,7 @@ export default {
   "user.login.message-invalid-verification-code": "验证码错误",
   "user.login.tab-login-credentials": "账户密码登录",
   "user.login.tab-login-mobile": "手机号登录",
-  "user.login.mobile.placeholder": "手机号",
+  "user.login.mobile.placeholder": "请输入手机号",
   "user.login.mobile.verification-code.placeholder": "验证码",
   "user.login.remember-me": "自动登录",
   "user.login.forgot-password": "忘记密码",

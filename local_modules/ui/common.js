@@ -85,7 +85,7 @@ export const reactiveItemConfigs = (options = {
 
 
 /* 对object set 或 get 属性值，保证不会undefined */
-export const mutatingProps = (item, prop, val) => {
+export const MutatingProps = (item, prop, val) => {
     item = item || {};
     const propArray = prop.split(".");
     let key = "";

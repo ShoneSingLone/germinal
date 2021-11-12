@@ -1,18 +1,18 @@
 <script setup lang="jsx">
-import { LoginState } from "@views/user/loginState.jsx";
+import { StateLogin } from "@views/user/StateLogin.jsx";
 </script>
 
 <template>
-  <form class="LoginCredentials-form">
+  <form>
     <!-- 用户名 -->
     <xItem
-      :configs="LoginState.configsForm.userName"
+      :configs="StateLogin.configsForm.userName"
       autocomplete="username"
     />
     <xGap t="20" />
     <!-- 密码 -->
     <xItem
-      :configs="LoginState.configsForm.password"
+      :configs="StateLogin.configsForm.password"
       autocomplete="current-password"
     />
   </form>

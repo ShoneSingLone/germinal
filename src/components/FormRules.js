@@ -7,13 +7,14 @@ const SUCCESS = false;
 /* 未通过校验 */
 const FAIL = true;
 
-export const regexFn = {
-    email: () => /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
+export const RegexFn = {
+    email: () => /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/,
+    mobile: () => /^1[34578]\d{9}$/,
 };
 
 /**
  *  暂时没想好，之前是msg根据i18n变化
-    Object.defineProperty(options,"msg",{ get(){
+ Object.defineProperty(options,"msg",{ get(){
         debugger;
         return msg();
     } });
@@ -48,17 +49,17 @@ export default {
         };
     },
     validator({
-        name,
-        msg,
-        validator,
-        trigger
-    }) {
-        return {
+                  name,
+                  msg,
+                  validator,
+                  trigger
+              }) {
+        return makeFormRules({
             name,
             msg,
             validator,
             trigger
-        };
+        });
     }
 
 };

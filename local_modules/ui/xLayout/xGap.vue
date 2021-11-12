@@ -28,7 +28,7 @@ export default defineComponent({
     },
   },
   render(h) {
-    return <div style={this.gapStyle} class="x-gap"/>;
+    return <div style={this.gapStyle} class="x-gap" />;
   },
 });
 </script>

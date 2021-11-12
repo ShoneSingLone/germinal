@@ -1,23 +1,23 @@
 <script setup lang="jsx">
-import {LoginState} from "@views/user/loginState.jsx";
+import {StateLogin} from "@views/user/StateLogin.jsx";
 </script>
 
 <template>
-  <form class="LoginCredentials-form">
+  <form>
     <!-- 手机号 -->
     <xItem
-      :configs="LoginState.configsFormMobile.mobile"
+      :configs="StateLogin.configsFormMobile.mobile"
       autocomplete="username"
     />
     <xGap t="20" />
     <!-- 验证码 -->
     <div class="flex">
       <xItem
-        :configs="LoginState.configsFormMobile.verificationCode"
+        :configs="StateLogin.configsFormMobile.verificationCode"
         autocomplete="current-password"
       />
       <xGap l="20" />
-      <xButton :configs="LoginState.configsVerificationCode" />
+      <xButton :configs="StateLogin.configsVerificationCode" />
     </div>
   </form>
 </template>
