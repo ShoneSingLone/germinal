@@ -104,4 +104,4 @@ watch(() => AppState.count, (count) => {
 错误信息可以单独提供，默认是在formItem 下方展示tips ，也可以利用错误信息做其他展现方式，比如popup， 提供id定位，方便滑动定位
 
 ## log
-1. xItem 错误提示随语言切换变更
+1. xItem 错误提示随语言切换变更 涉及到 $t 的配置项都需要 ()=>

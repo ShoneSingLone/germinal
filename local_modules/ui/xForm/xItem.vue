@@ -1,12 +1,15 @@
 <script lang="jsx">
-import {defineComponent, useAttrs, h, mergeProps, computed} from "vue";
+import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import renders from "./itemRenders";
-import {vModel} from "../common";
-import {checkXItem, EVENT_TYPE, TIPS_TYPE} from "../tools/validate";
+import { vModel } from "../common";
+import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
 
 const domClass = {
-  tipsError: "ant-form-item-explain ant-form-item-explain-error"
+  tipsError: "ant-form-item-explain ant-form-item-explain-error",
 };
+/* 
+itemWrapperClass
+*/
 export default defineComponent({
   props: ["configs"],
   created() {
@@ -36,16 +39,15 @@ export default defineComponent({
     setValidateInfo(rules) {
       let isRequired = false;
       if (_.isArrayFill(rules)) {
-        isRequired = _.some(rules, {name: "required"});
+        isRequired = _.some(rules, { name: "required" });
         const afterCheckXItem = ([prop, msg]) => {
           this.configs.checking = false;
           console.timeEnd("debounceCheckXItem");
           if (prop) {
             if (msg) {
-              debugger;
-              this.setTips({type: TIPS_TYPE.error, msg});
+              this.setTips({ type: TIPS_TYPE.error, msg });
             } else {
-              this.setTips({type: "", msg: ""});
+              this.setTips({ type: "", msg: "" });
             }
           }
           console.log("🚀 XItem 是否校验失败", prop, msg);
@@ -73,37 +75,33 @@ export default defineComponent({
     },
     /* 提示信息的类型及提示信息 */
     itemTips() {
-      const _itemTips = {type: "", msg: ""};
-      if (this.configs.itemTips) {
-        if (_.isFunction(this.configs.itemTips.msg)) {
-          return {
-            type: this.configs.itemTips.type,
-            msg: this.configs.itemTips.msg()
-          };
-        }
-
-        if (_.isString(this.configs.itemTips.msg)) {
-          return this.configs.itemTips;
-        }
+      const _itemTips = { type: "", msg: "" };
+      if (this.configs.itemTips.type) {
+        return {
+          type: this.configs.itemTips.type,
+          msg: _.isFunction(this.configs.itemTips.msg)
+            ? this.configs.itemTips.msg()
+            : this.configs.itemTips.msg,
+        };
       } else {
         return _itemTips;
       }
     },
-
     itemWrapperClass() {
       return [
-        `ant-form-item ant-form-item-with-help`,
+        this.configs.itemWrapperClass,
+        `ant-form-item ant-form-item-with-help x-item`,
         this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : "",
       ].join(" ");
     },
     componentSettings() {
-      const configs = {...this.configs, ...this.$attrs};
+      const configs = { ...this.configs, ...this.$attrs };
       /* 用于form 控件，以下配置信息用不上，遂删除 */
       const xItemProperties = ["itemTips", "rules", "slots"];
       const property = _.merge({}, configs, vModel(configs));
       const slots = property.slots || {};
       _.each(xItemProperties, (prop) => delete property[prop]);
-      const componentSettings = {property, slots};
+      const componentSettings = { property, slots };
       console.log("componentSettings", componentSettings);
       return componentSettings;
     },
@@ -111,29 +109,32 @@ export default defineComponent({
     tipsVNode() {
       if (this.isChecking) {
         return (
-            <div>
-              <div data-type="checking">checking...</div>
-            </div>
+          <div>
+            <div data-type="checking">checking...</div>
+          </div>
         );
       }
 
       if (this.configs.tipsVNodeRender) {
-        return this.configs.tipsVNodeRender(this);
+        return this.configs.tipsVNodeRender({
+          xItem: this,
+          configs:this.configs,
+          itemTips: this.itemTips,
+        });
       }
 
       if (this.itemTips.msg) {
         if (this.itemTips.type === TIPS_TYPE.error) {
           return (
-              <div class={domClass.tipsError}>
-                <div data-type="error">{this.itemTips.msg}</div>
-              </div>
+            <div class={domClass.tipsError}>
+              <div data-type="error">{this.itemTips.msg}</div>
+            </div>
           );
         }
       }
     },
     /* 表单label 如果有提供String类型，就显示 */
     labelVNode() {
-      debugger;
       if (this.configs.labelVNodeRender) {
         return this.configs.labelVNodeRender(this.configs);
       }
@@ -154,27 +155,28 @@ export default defineComponent({
         return null;
       }
       return (
-          <div class="ant-form-item-label">
-            <label for={this.configs.prop} class="ant-form-item-required">
-              {label}
-            </label>
-          </div>
+        <div class="ant-form-item-label">
+          <label for={this.configs.prop} class="ant-form-item-required">
+            {label}
+          </label>
+        </div>
       );
     },
     /* VNode */
   },
   render(h) {
-    const CurrentFormItemRender = renders[this.configs.itemType] || renders.Input;
+    const CurrentFormItemRender =
+      renders[this.configs.itemType] || renders.Input;
     return (
-        <>
-          <div id={this.FormItemId} class={this.itemWrapperClass}>
-            {this.labelVNode}
-            <div class="ant-form-item-control">
-              <CurrentFormItemRender {...this.componentSettings} />
-              {this.tipsVNode}
-            </div>
+      <>
+        <div id={this.FormItemId} class={this.itemWrapperClass}>
+          {this.labelVNode}
+          <div class="ant-form-item-control">
+            <CurrentFormItemRender {...this.componentSettings} />
+            {this.tipsVNode}
           </div>
-        </>
+        </div>
+      </>
     );
   },
 });

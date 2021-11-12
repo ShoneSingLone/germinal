@@ -11,26 +11,25 @@ export const regexFn = {
     email: () => /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
 }
 
-function makeFormRules(options) {
-    const msg = options.msg;
-    /* if(_.isFunction(msg)){
-        Object.defineProperty(options,"msg",{ get(){
-            debugger;
-            return msg();
-        } });
-    } */
-    return options
-}
+/**
+ *  暂时没想好，之前是msg根据i18n变化 
+    Object.defineProperty(options,"msg",{ get(){
+        debugger;
+        return msg();
+    } });
+ */
+const makeFormRules = (options) => options;
 
 export default {
     required(msg = "必填项", trigger = [EVENT_TYPE.update]) {
         return makeFormRules({
-            name: "required", msg,
+            name: "required",
+            msg,
             async validator(value) {
                 /*必填的简单验证*/
                 if (value) return SUCCESS;
                 if (_.isBoolean(value)) return SUCCESS;
-                if (_.isNumber(value)&&!_.isNaN(value)) return SUCCESS;
+                if (_.isNumber(value) && !_.isNaN(value)) return SUCCESS;
                 if (_.isArrayFill(value)) return SUCCESS;
                 return FAIL;
             },

@@ -15,11 +15,11 @@ export const TIPS_TYPE = {
 export const validateForm = async (configsForm) => {
     let results = await Promise.all(_.map(configsForm, (configs, prop) => new Promise(resolve => {
         if (configs.validate) {
-            configs.validate(EVENT_TYPE.validateForm);
             configs.validate.formCallBack = (result) => {
                 delete configs.validate.formCallBack;
                 resolve(result);
             };
+            configs.validate(EVENT_TYPE.validateForm);
         }
     })));
     return results.filter(res => res[0] && res[1]);
