@@ -31,7 +31,7 @@ export const APP_CLASS_PREFIX = computed({
 
 export const getColor = (colorName) => {
     if (AppState.configs) {
-        return AppState.configs.colors[colorName]
+        return AppState.configs.colors[colorName];
     } else {
         return "";
     }

@@ -9,10 +9,10 @@ const FAIL = true;
 
 export const regexFn = {
     email: () => /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
-}
+};
 
 /**
- *  暂时没想好，之前是msg根据i18n变化 
+ *  暂时没想好，之前是msg根据i18n变化
     Object.defineProperty(options,"msg",{ get(){
         debugger;
         return msg();
