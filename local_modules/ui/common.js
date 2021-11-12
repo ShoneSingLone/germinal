@@ -86,10 +86,7 @@ export const reactiveItemConfigs = (options = {
 
 /* 对object set 或 get 属性值，保证不会undefined */
 export const mutatingProps = (item, prop, val) => {
-    debugger;
     item = item || {};
-    const isVue2 = item._isVue;
-    const fnVue$set = item.$set;
     const propArray = prop.split(".");
     let key = "";
     let nextItem = item;
@@ -98,21 +95,13 @@ export const mutatingProps = (item, prop, val) => {
         while ((key = propArray.shift())) {
             /* 如果是最后一项，就赋值后退出 */
             if (propArray.length === 0) {
-                if (isVue2) {
-                    fnVue$set(nextItem, key, val);
-                } else {
-                    nextItem[key] = val;
-                }
+                nextItem[key] = val;
                 return;
             } else {
                 /* 继续循环，如果中间有undefined，添加中间项 */
                 const _nextItem = nextItem[key];
                 if (!_nextItem) {
-                    if (isVue2) {
-                        fnVue$set(nextItem, key, {});
-                    } else {
-                        nextItem[key] = {};
-                    }
+                    nextItem[key] = {};
                 }
                 nextItem = nextItem[key];
             }
@@ -135,11 +124,11 @@ export const mutatingProps = (item, prop, val) => {
         return nextItem;
     };
 
-    /* 如果有输入 */
-    if (val || _.isNumber(val) || _.isBoolean(val)) {
-        setVal(isVue2, key, propArray, nextItem, val);
+    /* 如果有输入 类似jQuery val() */
+    if (val || _.isBoolean(val) || (_.isNumber(val) && !_.isNaN(val))) {
+        setVal(key, propArray, nextItem, val);
     } else {
-        return getVal(isVue2, key, propArray, nextItem);
+        return getVal(key, propArray, nextItem);
     }
     return item;
 };
