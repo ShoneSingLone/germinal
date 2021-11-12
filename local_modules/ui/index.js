@@ -12,8 +12,10 @@ import {
     Alert,
     Result,
     Tabs,
+    /* global */
+    message,
+    notification
 } from "ant-design-vue";
-import Message from "ant-design-vue/es/message";
 import {
     MenuItem
 } from "ant-design-vue/es/menu";
@@ -35,7 +37,6 @@ import {
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xButton from "./xButton/xButton.vue";
-import notification from "ant-design-vue/es/notification";
 import xGap from "./xLayout/xGap.vue";
 
 /* 表单提示信息 */
@@ -83,10 +84,10 @@ const components = {
     ...componentIcons
 };
 export const UI = {
-    Message
+    message,
+    notification
 };
 export default {
-    notification,
     install: (app) => {
         _.each(components, (component, name) => app.component(name, component));
     },

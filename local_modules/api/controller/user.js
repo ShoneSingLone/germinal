@@ -9,7 +9,7 @@ function genSmsCaptcha() {
 export default {
     getSmsCaptcha: async () => {
         return {
-            result: genSmsCaptcha()
+            result: {code: genSmsCaptcha()}
         };
     },
     getInfo: async () => {

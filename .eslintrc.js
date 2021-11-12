@@ -11,7 +11,12 @@ module.exports = {
         "node": true
     },
     parserOptions: {
-        ecmaVersion: 2020
+        ecmaVersion: 2020,
+        sourceType: "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
     },
     "rules": {
         /* "linebreak-style": [ "error", "unix" ], */

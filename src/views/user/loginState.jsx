@@ -6,7 +6,6 @@ import {EVENT_TYPE, validateForm} from "@ventose/ui/tools/validate";
 import FormRules from "../../components/FormRules";
 import {getColor} from "../../state/app";
 import API from "germinal_api";
-import {loadConfigFromFile} from "vite";
 
 const styles = {
     icon: {color: getColor("disabledColor")},
@@ -102,9 +101,9 @@ export const LoginState = reactive({
         onClick: async () => {
             try {
                 const results = await validateForm({mobile: LoginState.configsFormMobile.mobile});
-                await getCaptcha();
-                debugger;
-                console.log(results);
+                if (results.length === 0) {
+                    await getCaptcha();
+                }
             } catch (e) {
                 debugger;
                 console.error(e);
@@ -135,37 +134,60 @@ export const LoginState = reactive({
     },
 });
 
-watch(() => LoginState.captchaCount, (captchaCount) => {
-    if (captchaCount) {
-        LoginState.configsVerificationCode.text = `${60 - captchaCount} s`;
-    } else {
-        LoginState.configsVerificationCode.text = getConfigsSubmitText();
-        LoginState.configsVerificationCode.disabled = false;
-    }
-});
+/*等待时间 秒*/
+const CAPTCHA_COUNT = 5;
 
-function countDown() {
-    LoginState.captchaCount++;
-    if (LoginState.captchaCount <= 5) {
-        setTimeout(countDown, 1000);
+watch(() => LoginState.captchaCount, handleCaptchaCountChange);
+
+function handleCaptchaCountChange(captchaCount) {
+    if (captchaCount === 0) {
+        /*按钮显示*/
+        LoginState.configsVerificationCode.text = getConfigsSubmitText();
+        /*按钮可点击状态*/
+        LoginState.configsVerificationCode.disabled = false;
+        return;
+    }
+
+    const setCounDownText = () => LoginState.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount} s`;
+
+    if (captchaCount === 1) {
+        setCounDownText();
+        LoginState.configsVerificationCode.disabled = true;
+        return;
+    }
+
+    if (captchaCount && captchaCount <= CAPTCHA_COUNT) {
+        setCounDownText();
+        return;
     }
 }
 
+function countDown() {
+    LoginState.captchaCount++;
+    /*未达到限制时间则继续增加，间隔一秒*/
+    if (LoginState.captchaCount <= CAPTCHA_COUNT) {
+        setTimeout(countDown, 1000);
+    } else {
+        LoginState.captchaCount = 0;
+    }
+}
+
+/*获取验证码*/
 async function getCaptcha() {
     try {
+        /*已发送，正在倒计时*/
         if (LoginState.captchaCount) return;
-        debugger;
-        const validate = await validateForm({mobile: LoginState.configsFormMobile});
-        console.log(validate);
-        debugger;
-        if (validate[0]) return;
 
-        LoginState.configsVerificationCode.disabled = true;
-        const hide = UI.Message.loading("验证码发送中..", 0);
+        /*开始倒计时*/
         countDown();
+        /*理论上是发送到手机*/
+        const res = await API.user.getSmsCaptcha();
+        UI.message.success(res.result.code);
+        UI.notification.success({
+            message: "Captcha",
+            description: res.result.code,
+          });
 
-        await _.sleep(1000 * 1);
-        const smsCaptcha = await API.user.getSmsCaptcha();
     } catch (e) {
         debugger;
 

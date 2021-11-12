@@ -22,7 +22,8 @@ export const validateForm = async (configsForm) => {
             configs.validate(EVENT_TYPE.validateForm);
         }
     })));
-    return results.filter(res => res[0] && res[1]);
+    results = results.filter(res => res[0] && res[1]);
+    return results;
 };
 export const checkXItem = async (xItemConfigs, handlerResult) => {
     xItemConfigs.checking = true;
