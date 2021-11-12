@@ -1,9 +1,21 @@
-import {reactive} from "vue";
-import {EVENT_TYPE} from "./tools/validate";
-import {ITEM_TYPE} from "./xForm/itemRenders/index";
+import {
+    reactive
+} from "vue";
+import {
+    EVENT_TYPE
+} from "./tools/validate";
+import {
+    ITEM_TYPE
+} from "./xForm/itemRenders/index";
 
-export {ITEM_TYPE} from "./xForm/itemRenders/index";
-export {EVENT_TYPE} from "./tools/validate";
+export {
+    ITEM_TYPE
+}
+from "./xForm/itemRenders/index";
+export {
+    EVENT_TYPE
+}
+from "./tools/validate";
 
 const special = ["placeholder"];
 
@@ -26,7 +38,9 @@ export const vModel = configs => {
 
 let xItemNoPropCount = 0;
 /*make item configs */
-export const reactiveItemConfigs = (options = {itemType: ITEM_TYPE.Input}) => {
+export const reactiveItemConfigs = (options = {
+    itemType: ITEM_TYPE.Input
+}) => {
     if (!options.prop) {
         options.prop = `xItem${xItemNoPropCount++}`;
         console.error(`no xItem prop replace by ${options.prop}`);
@@ -67,4 +81,65 @@ export const reactiveItemConfigs = (options = {itemType: ITEM_TYPE.Input}) => {
     return {
         [configs.prop]: configs
     };
+};
+
+
+/* 对object set 或 get 属性值，保证不会undefined */
+export const mutatingProps = (item, prop, val) => {
+    debugger;
+    item = item || {};
+    const isVue2 = item._isVue;
+    const fnVue$set = item.$set;
+    const propArray = prop.split(".");
+    let key = "";
+    let nextItem = item;
+
+    const setVal = () => {
+        while ((key = propArray.shift())) {
+            /* 如果是最后一项，就赋值后退出 */
+            if (propArray.length === 0) {
+                if (isVue2) {
+                    fnVue$set(nextItem, key, val);
+                } else {
+                    nextItem[key] = val;
+                }
+                return;
+            } else {
+                /* 继续循环，如果中间有undefined，添加中间项 */
+                const _nextItem = nextItem[key];
+                if (!_nextItem) {
+                    if (isVue2) {
+                        fnVue$set(nextItem, key, {});
+                    } else {
+                        nextItem[key] = {};
+                    }
+                }
+                nextItem = nextItem[key];
+            }
+        }
+    };
+
+    const getVal = () => {
+        while ((key = propArray.shift())) {
+            const _nextItem = nextItem[key];
+            if (!_nextItem) {
+                return nextItem[key];
+            } else {
+                if (propArray.length === 0) {
+                    return _nextItem;
+                } else {
+                    nextItem = nextItem[key];
+                }
+            }
+        }
+        return nextItem;
+    };
+
+    /* 如果有输入 */
+    if (val || _.isNumber(val) || _.isBoolean(val)) {
+        setVal(isVue2, key, propArray, nextItem, val);
+    } else {
+        return getVal(isVue2, key, propArray, nextItem);
+    }
+    return item;
 };

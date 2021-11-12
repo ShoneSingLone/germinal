@@ -1,8 +1,8 @@
 <script lang="jsx">
-import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
+import {defineComponent, useAttrs, h, mergeProps, computed} from "vue";
 import renders from "./itemRenders";
-import { vModel } from "../common";
-import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
+import {mutatingProps, vModel} from "../common";
+import {checkXItem, EVENT_TYPE, TIPS_TYPE} from "../tools/validate";
 
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error",
@@ -37,13 +37,13 @@ export default defineComponent({
     },
     /* 提示信息的类型及提示信息 */
     itemTips() {
-      const _itemTips = { type: "", msg: "" };
+      const _itemTips = {type: "", msg: ""};
       if (this.configs.itemTips.type) {
         return {
           type: this.configs.itemTips.type,
           msg: _.isFunction(this.configs.itemTips.msg)
-            ? this.configs.itemTips.msg()
-            : this.configs.itemTips.msg,
+              ? this.configs.itemTips.msg()
+              : this.configs.itemTips.msg,
         };
       } else {
         return _itemTips;
@@ -57,13 +57,13 @@ export default defineComponent({
       ].join(" ");
     },
     componentSettings() {
-      const configs = { ...this.configs, ...this.$attrs };
+      const configs = {...this.configs, ...this.$attrs};
       /* 用于form 控件，以下配置信息用不上，遂删除 */
       const xItemProperties = ["itemTips", "rules", "slots"];
       const property = _.merge({}, configs, vModel(configs));
       const slots = property.slots || {};
       _.each(xItemProperties, (prop) => delete property[prop]);
-      const componentSettings = { property, slots };
+      const componentSettings = {property, slots};
       console.log("componentSettings", componentSettings);
       return componentSettings;
     },
@@ -71,9 +71,9 @@ export default defineComponent({
     tipsVNode() {
       if (this.isChecking) {
         return (
-          <div>
-            <div data-type="checking">checking...</div>
-          </div>
+            <div>
+              <div data-type="checking">checking...</div>
+            </div>
         );
       }
 
@@ -88,9 +88,9 @@ export default defineComponent({
       if (this.itemTips.msg) {
         if (this.itemTips.type === TIPS_TYPE.error) {
           return (
-            <div class={domClass.tipsError}>
-              <div data-type="error">{this.itemTips.msg}</div>
-            </div>
+              <div class={domClass.tipsError}>
+                <div data-type="error">{this.itemTips.msg}</div>
+              </div>
           );
         }
       }
@@ -118,11 +118,11 @@ export default defineComponent({
         return null;
       }
       return (
-        <div class="ant-form-item-label">
-          <label for={this.configs.prop} class="ant-form-item-required">
-            {label}
-          </label>
-        </div>
+          <div class="ant-form-item-label">
+            <label for={this.configs.prop} class="ant-form-item-required">
+              {label}
+            </label>
+          </div>
       );
     },
     /* VNode */
@@ -138,16 +138,16 @@ export default defineComponent({
   },
   created() {
     /* domID */
-    this.configs.FormItemId = this.FormItemId;
+    mutatingProps(this, "configs.FormItemId", this.FormItemId);
   },
   methods: {
     setTips(type = "", msg = "") {
-      this.configs.itemTips = { type, msg };
+      this.configs.itemTips = {type, msg};
     },
     setValidateInfo(rules) {
       let isRequired = false;
       if (_.isArrayFill(rules)) {
-        isRequired = _.some(rules, { name: "required" });
+        isRequired = _.some(rules, {name: "required"});
         const afterCheckXItem = ([prop, msg]) => {
           this.configs.checking = false;
           console.timeEnd("debounceCheckXItem");
@@ -175,17 +175,17 @@ export default defineComponent({
   },
   render(h) {
     const CurrentFormItemRender =
-      renders[this.configs.itemType] || renders.Input;
+        renders[this.configs.itemType] || renders.Input;
     return (
-      <>
-        <div id={this.FormItemId} class={this.itemWrapperClass}>
-          {this.labelVNode}
-          <div class="ant-form-item-control">
-            <CurrentFormItemRender {...this.componentSettings} />
-            {this.tipsVNode}
+        <>
+          <div id={this.FormItemId} class={this.itemWrapperClass}>
+            {this.labelVNode}
+            <div class="ant-form-item-control">
+              <CurrentFormItemRender {...this.componentSettings} />
+              {this.tipsVNode}
+            </div>
           </div>
-        </div>
-      </>
+        </>
     );
   },
 });
