@@ -14,11 +14,6 @@ const styles = {
 };
 
 
-const LOGIN_TYPE = {
-    username: "username",
-    email: "email",
-    mobile: "mobile",
-};
 
 const getConfigsSubmitText = () => () => $t("user.register.get-verification-code").label;
 
@@ -29,9 +24,6 @@ export const StateRegister = reactive({
         passwordLevel: 0,
         percent: 0
     }, captchaCount: 0,
-    loginType: LOGIN_TYPE.username,
-    activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
-    rememberMe: true,
     configsForm: {
         ...reactiveItemConfigs({
             prop: "userName",
