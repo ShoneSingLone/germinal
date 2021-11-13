@@ -24,6 +24,7 @@ export default defineConfig({
         }
     },
     build: {
+        /* 没有混缩 */
         minify: false,
         rollupOptions: {
             output: {
@@ -40,9 +41,12 @@ export default defineConfig({
     plugins: [
         useVue(),
         useVueJsx(),
+        /* 懒加载antd 自动加载对应的css */
         usePluginImport({
             libraryName: "ant-design-vue",
+            /* css位置 */
             libraryDirectory: "es",
+            /* 加载的类型（less、css） */
             style: "css",
         }),
     ],

@@ -4,6 +4,7 @@ import {UI} from "@ventose/ui";
 import {ITEM_TYPE, reactiveItemConfigs} from "@ventose/ui/common";
 import {EVENT_TYPE, validateForm} from "@ventose/ui/tools/validate";
 import FormRules, {RegexFn} from "@components/FormRules";
+import SvgRender from "@components/SvgRender/SvgRender";
 import {getColor} from "@state/app";
 import API from "germinal_api";
 import {pickValueFrom} from "@ventose/ui/tools/form";
@@ -17,8 +18,6 @@ const TAB_KEYS_MAP = {
     credentials: "configsForm",
     mobile: "configsFormMobile"
 };
-
-
 
 const LOGIN_TYPE = {
     username: "username",
@@ -51,9 +50,26 @@ export const StateRegister = reactive({
             /* render的时候重新获取 */
             placeholder: () => $t("user.login.password.placeholder").label,
             rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
-            slots: {prefix: () => <xRender render={renderLockStrok} style={styles.icon}/>},
+            slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
+        }),
+        ...reactiveItemConfigs({
+            prop: "passwordConfirm",
+            isPassword: true,
+            value: "",
+            size: "large",
+            /* render的时候重新获取 */
+            placeholder: () => $t("user.register.confirm-password.placeholder").label,
+            rules: [
+                FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur]),
+                FormRules.validator({
+                    msg: () => $t("user.password.twice.msg").label,
+                    validator: async (passwordConfirm) => StateRegister.configsForm.password.value!==passwordConfirm,
+                    trigger: [EVENT_TYPE.update]
+                })],
+            slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
         }),
     },
+    /*手机*/
     configsFormMobile: {
         ...reactiveItemConfigs({
             prop: "mobile",
@@ -72,6 +88,7 @@ export const StateRegister = reactive({
                 prefix: () => <MobileOutlined style={styles.icon}/>,
             },
         }),
+        /*验证码*/
         ...reactiveItemConfigs({
             prop: "verificationCode",
             value: "",
@@ -82,7 +99,7 @@ export const StateRegister = reactive({
             rules: [
                 FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
             slots: {
-                prefix: () => <xRender render={renderMail} style={styles.icon}/>,
+                prefix: () => <xRender render={SvgRender.mail} style={styles.icon}/>,
             },
         }),
     },
@@ -99,7 +116,7 @@ export const StateRegister = reactive({
                     await getCaptcha();
                 }
             } catch (e) {
-                
+
             }
         }
     },
@@ -125,16 +142,6 @@ export const StateRegister = reactive({
     },
 });
 
-/*检查userName的类型*/
-watch(() => StateRegister.configsForm.userName.value, checkUserNameType);
-
-function checkUserNameType(userName) {
-    if (RegexFn.email().test(userName)) {
-        StateRegister.loginType = LOGIN_TYPE.email;
-    } else {
-        StateRegister.loginType = LOGIN_TYPE.username;
-    }
-}
 
 /*获取验证码 ：等待时间 秒*/
 const CAPTCHA_COUNT = 5;

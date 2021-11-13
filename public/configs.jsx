@@ -1,6 +1,7 @@
 return {
+    API_BASE_URL: 'https://www.ventose.xyz/https/app',
     language: "zh-CN",
-    prefixCls:"germinal",
+    prefixCls: "germinal",
     colors: {
         primaryColor: "#1890ff", // 全局主色
         linkColor: "#1890ff", // 链接色

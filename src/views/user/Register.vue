@@ -3,7 +3,7 @@ import {reactive, computed} from "vue";
 import {$t} from "@language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
-import {StateLogin} from "./StateLogin";
+import {StateRegister} from "./StateRegister";
 import {routeNames} from "@router/router";
 </script>
 
@@ -16,46 +16,47 @@ import {routeNames} from "@router/router";
       <form>
         <!-- 用户名 -->
         <xItem
-          :configs="StateLogin.configsForm.userName"
+          :configs="StateRegister.configsForm.userName"
           autocomplete="username"
         />
         <xGap t="20" />
         <!-- 密码 -->
         <xItem
-          :configs="StateLogin.configsForm.password"
+          :configs="StateRegister.configsForm.password"
           autocomplete="current-password"
         />
         <xGap t="20" />
-        <!-- 密码 -->
+        <!-- 确认密码 -->
         <xItem
-          :configs="StateLogin.configsForm.password"
+          :configs="StateRegister.configsForm.passwordConfirm"
           autocomplete="current-password"
         />
         <xGap t="20" />
         <!-- 手机号 -->
         <xItem
-          :configs="StateLogin.configsFormMobile.mobile"
+          :configs="StateRegister.configsFormMobile.mobile"
           autocomplete="username"
         />
         <xGap t="20" />
         <!-- 验证码 -->
         <div class="flex">
           <xItem
-            :configs="StateLogin.configsFormMobile.verificationCode"
+            :configs="StateRegister.configsFormMobile.verificationCode"
             autocomplete="current-password"
           />
           <xGap l="20" />
-          <xButton :configs="StateLogin.configsVerificationCode" />
+          <xButton :configs="StateRegister.configsVerificationCode" />
         </div>
       </form>
+      <xGap t="20" />
       <div class="item-wrapper flex">
-        <xButton :configs="StateLogin.configsSubmit" />
-        <xGap l="20" />
+        <xButton :configs="StateRegister.configsSubmit" />
+        <xGap l="80" />
         <RouterLink
           class="register"
           :to="{ name: routeNames.login }"
         >
-          {{ $t("user.login.signup").label }}
+          {{ $t("user.register.sign-in").label }}
         </RouterLink>
       </div>
     </div>

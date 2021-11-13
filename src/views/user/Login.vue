@@ -19,6 +19,7 @@ import {routeNames} from "@router/router";
           :tab="$t('user.login.tab-login-credentials').label"
         >
           <Alert
+            v-if="false"
             type="error"
             show-icon
             style="margin-bottom: 24px"
