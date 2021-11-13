@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { i as isArray_1, e as each, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as defineComponent, l as h, I as InputPassword, n as Input$1, C as Checkbox$1, o as reactive, p as createVNode, q as createTextVNode, F as Fragment, t as resolveComponent, _ as _message, u as _notification, v as _Icon, M as Menu, w as MenuItem, D as Dropdown, B as Button, x as _List, y as _Popconfirm, z as _Alert, A as _Result, T as Tabs, E as TabPane, G as GlobalOutlined, H as AppleOutlined, J as AndroidOutlined, U as UserOutlined, L as LockFilled, K as MobileOutlined, N as useRouter, O as openBlock, P as createBlock, Q as withCtx, R as toDisplayString, $, S as computed, V as watch, W as createElementBlock, X as renderList, Y as unref, Z as createBaseVNode, a0 as normalizeStyle, a1 as normalizeClass, a2 as createStaticVNode, a3 as createI18n, a4 as watchEffect, a5 as createRouter, a6 as createWebHashHistory, a7 as NProgress, a8 as createApp } from "./vendor-cf5668c2.js";
+import { i as isArray_1, e as each, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as defineComponent, l as h, I as InputPassword, n as Input$1, C as Checkbox$1, o as reactive, p as createVNode, q as createTextVNode, t as resolveComponent, _ as _message, u as _notification, v as _Progress, w as _Popover, x as _Icon, M as Menu, y as MenuItem, D as Dropdown, B as Button, z as _List, A as _Popconfirm, E as _Alert, F as _Result, T as Tabs, G as TabPane, H as GlobalOutlined, J as AppleOutlined, K as AndroidOutlined, U as UserOutlined, L as LockFilled, N as MobileOutlined, O as useRouter, P as createBlock, Q as withCtx, R as openBlock, S as toDisplayString, $, V as computed, W as watch, X as createElementBlock, Y as renderList, Z as Fragment, a0 as unref, a1 as createBaseVNode, a2 as normalizeStyle, a3 as normalizeClass, a4 as createStaticVNode, a5 as createI18n, a6 as watchEffect, a7 as createCommentVNode, a8 as createRouter, a9 as createWebHashHistory, aa as NProgress, ab as createApp } from "./vendor-6fbe236b.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -137,9 +137,20 @@ const checkXItem = async (xItemConfigs, handlerResult) => {
         const rule = rules[i];
         const trigger = rule.trigger || [];
         let isFail = await (async () => {
-          const needValidate = xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm] || _.some(trigger, (eventName) => xItemConfigs.validate.triggerEventsObj[eventName]);
+          const needValidate = (() => {
+            if (xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm])
+              return true;
+            if (_.some(trigger, (eventName) => xItemConfigs.validate.triggerEventsObj[eventName]))
+              return true;
+            if (trigger.includes(EVENT_TYPE.update))
+              return true;
+            return false;
+          })();
           if (needValidate) {
-            return await rule.validator(xItemConfigs.value);
+            const validateResult = await rule.validator(xItemConfigs.value);
+            if (validateResult) {
+              return validateResult;
+            }
           } else {
             dontCheck++;
           }
@@ -221,6 +232,9 @@ const reactiveItemConfigs = (options = {
     },
     onBlur: () => {
       handleConfigsValidate(EVENT_TYPE.blur);
+    },
+    onFocus: () => {
+      handleConfigsValidate(EVENT_TYPE.focus);
     }
   }, options));
   function handleConfigsValidate(eventType) {
@@ -233,20 +247,56 @@ const reactiveItemConfigs = (options = {
     [configs.prop]: configs
   };
 };
+const MutatingProps = (item, prop, val) => {
+  item = item || {};
+  const propArray = prop.split(".");
+  let key = "";
+  let nextItem = item;
+  const setVal = () => {
+    while (key = propArray.shift()) {
+      if (propArray.length === 0) {
+        nextItem[key] = val;
+        return;
+      } else {
+        const _nextItem = nextItem[key];
+        if (!_nextItem) {
+          nextItem[key] = {};
+        }
+        nextItem = nextItem[key];
+      }
+    }
+  };
+  const getVal = () => {
+    while (key = propArray.shift()) {
+      const _nextItem = nextItem[key];
+      if (!_nextItem) {
+        return nextItem[key];
+      } else {
+        if (propArray.length === 0) {
+          return _nextItem;
+        } else {
+          nextItem = nextItem[key];
+        }
+      }
+    }
+    return nextItem;
+  };
+  if (val || _.isBoolean(val) || _.isNumber(val) && !_.isNaN(val)) {
+    setVal();
+  } else {
+    return getVal(key, propArray, nextItem);
+  }
+  return item;
+};
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$9 = defineComponent({
-  props: ["configs"],
-  created() {
-    this.configs.FormItemId = this.FormItemId;
-  },
-  watch: {
-    "configs.rules": {
-      immediate: true,
-      deep: true,
-      handler(rules) {
-        this.setValidateInfo(rules);
+var _sfc_main$a = defineComponent({
+  props: {
+    configs: {
+      type: Object,
+      default() {
+        return {};
       }
     }
   },
@@ -254,45 +304,6 @@ var _sfc_main$9 = defineComponent({
     return {
       isRequired: false
     };
-  },
-  methods: {
-    setTips(tips) {
-      this.configs.itemTips = tips;
-    },
-    setValidateInfo(rules) {
-      let isRequired = false;
-      if (_.isArrayFill(rules)) {
-        isRequired = _.some(rules, {
-          name: "required"
-        });
-        const afterCheckXItem = ([prop, msg]) => {
-          this.configs.checking = false;
-          console.timeEnd("debounceCheckXItem");
-          if (prop) {
-            if (msg) {
-              this.setTips({
-                type: TIPS_TYPE.error,
-                msg
-              });
-            } else {
-              this.setTips({
-                type: "",
-                msg: ""
-              });
-            }
-          }
-          console.log("\u{1F680} XItem \u662F\u5426\u6821\u9A8C\u5931\u8D25", prop, msg);
-        };
-        const debounceCheckXItem = _.debounce(checkXItem, 300);
-        this.configs.validate = (eventType) => {
-          console.time("debounceCheckXItem");
-          this.configs.validate.triggerEventsObj[eventType] = true;
-          debounceCheckXItem(this.configs, afterCheckXItem);
-        };
-        this.configs.validate.triggerEventsObj = {};
-      }
-      this.isRequired = isRequired;
-    }
   },
   computed: {
     isChecking() {
@@ -316,7 +327,7 @@ var _sfc_main$9 = defineComponent({
       }
     },
     itemWrapperClass() {
-      return [this.configs.itemWrapperClass, `ant-form-item ant-form-item-with-help x-item`, this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : ""].join(" ");
+      return [this.configs.itemWrapperClass, "ant-form-item ant-form-item-with-help x-item", this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : ""].join(" ");
     },
     componentSettings() {
       const configs = __spreadValues(__spreadValues({}, this.configs), this.$attrs);
@@ -353,6 +364,7 @@ var _sfc_main$9 = defineComponent({
           }, [this.itemTips.msg])]);
         }
       }
+      return null;
     },
     labelVNode() {
       if (this.configs.labelVNodeRender) {
@@ -379,46 +391,82 @@ var _sfc_main$9 = defineComponent({
       }, [label])]);
     }
   },
+  watch: {
+    "configs.rules": {
+      immediate: true,
+      deep: true,
+      handler(rules) {
+        this.setValidateInfo(rules);
+      }
+    }
+  },
+  created() {
+    MutatingProps(this, "configs.FormItemId", this.FormItemId);
+  },
+  methods: {
+    setTips(type = "", msg = "") {
+      MutatingProps(this, "configs.itemTips", {
+        type,
+        msg
+      });
+    },
+    setValidateInfo(rules) {
+      let isRequired = false;
+      if (_.isArrayFill(rules)) {
+        isRequired = _.some(rules, {
+          name: "required"
+        });
+        const handleAfterCheck = ([prop, msg]) => {
+          MutatingProps(this, "configs.checking", false);
+          console.timeEnd("debounceCheckXItem");
+          if (prop) {
+            if (msg) {
+              this.setTips(TIPS_TYPE.error, msg);
+            } else {
+              this.setTips();
+            }
+          }
+          console.log("\u{1F680} XItem \u662F\u5426\u6821\u9A8C\u5931\u8D25", prop, msg);
+        };
+        const debounceCheckXItem = _.debounce(checkXItem, 300);
+        MutatingProps(this, "configs.validate", (eventType) => {
+          console.time("debounceCheckXItem");
+          const prop = `configs.validate.triggerEventsObj.${eventType}`;
+          MutatingProps(this, prop, true);
+          debounceCheckXItem(this.configs, handleAfterCheck);
+        });
+        MutatingProps(this, "configs.validate.triggerEventsObj", {});
+      } else {
+        if (_.isFunction(this.configs.validate)) {
+          delete this.configs.validate;
+        }
+      }
+      this.isRequired = isRequired;
+    }
+  },
   render(h2) {
     const CurrentFormItemRender = renders[this.configs.itemType] || renders.Input;
-    return createVNode(Fragment, null, [createVNode("div", {
+    return createVNode("div", {
       "id": this.FormItemId,
       "class": this.itemWrapperClass
     }, [this.labelVNode, createVNode("div", {
       "class": "ant-form-item-control"
-    }, [createVNode(CurrentFormItemRender, this.componentSettings, null), this.tipsVNode])])]);
+    }, [createVNode(CurrentFormItemRender, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$8 = defineComponent({
-  props: ["configs"],
-  created() {
+var _sfc_main$9 = defineComponent({
+  props: {
+    configs: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
   },
   data() {
     return {
       loading: false
     };
-  },
-  watch: {
-    configs: {
-      immediate: true,
-      handler(configs) {
-        this.loading = !!configs.loading;
-      }
-    }
-  },
-  methods: {
-    async onClick() {
-      if (_.isFunction(this.configs.onClick)) {
-        this.loading = true;
-        try {
-          await this.configs.onClick(this);
-        } catch (e) {
-          console.error(e);
-        } finally {
-          this.loading = false;
-        }
-      }
-    }
   },
   computed: {
     propperties: {
@@ -442,13 +490,37 @@ var _sfc_main$8 = defineComponent({
       return this.configs.text || "";
     }
   },
+  watch: {
+    configs: {
+      immediate: true,
+      handler(configs) {
+        this.loading = !!configs.loading;
+      }
+    }
+  },
+  created() {
+  },
+  methods: {
+    async onClick() {
+      if (_.isFunction(this.configs.onClick)) {
+        this.loading = true;
+        try {
+          await this.configs.onClick(this);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          this.loading = false;
+        }
+      }
+    }
+  },
   render(h2) {
     return createVNode(resolveComponent("Button"), this.propperties, {
       default: () => [this.text]
     });
   }
 });
-var _sfc_main$7 = defineComponent({
+var _sfc_main$8 = defineComponent({
   props: ["t", "l", "r", "b", "a"],
   computed: {
     gapStyle: {
@@ -484,11 +556,13 @@ var _sfc_main$7 = defineComponent({
 var index = "";
 const componentMyUI = {
   xRender,
-  xItem: _sfc_main$9,
-  xButton: _sfc_main$8,
-  xGap: _sfc_main$7
+  xItem: _sfc_main$a,
+  xButton: _sfc_main$9,
+  xGap: _sfc_main$8
 };
 const componentAntdV = {
+  Progress: _Progress,
+  Popover: _Popover,
   Icon: _Icon,
   Menu,
   MenuItem,
@@ -522,7 +596,7 @@ var MyUI = {
     _.each(components, (component, name) => app.component(name, component));
   }
 };
-const _sfc_main$6 = {
+const _sfc_main$7 = {
   setup(__props) {
     const router2 = useRouter();
     function go() {
@@ -606,15 +680,19 @@ const setCSSVariables = (colors) => {
   const cssContent = _.map(colors, (value, prop) => `--${prop}:${value}`).join(";");
   $cssVariables.text(`:root{${cssContent}}`);
 };
+function logError(msg) {
+  UI.message.error(msg);
+  console.error(msg);
+}
 const ajaxOptions = (options, customOptions) => {
   return _.merge({
     async: true,
     statusCode: {
       404: () => {
-        console.log("statusCode 404");
+        logError("statusCode 404");
       },
       0: () => {
-        console.log("statusCode 0");
+        logError("statusCode 0");
       }
     }
   }, options, customOptions);
@@ -753,7 +831,7 @@ const initAppConfigs = async (callback) => {
   return AppState;
 };
 const _hoisted_1$4 = ["aria-label"];
-const _sfc_main$5 = {
+const _sfc_main$6 = {
   setup(__props) {
     const languageLabels = {
       "zh-CN": {
@@ -779,7 +857,7 @@ const _sfc_main$5 = {
         placement: "bottomRight"
       }, {
         overlay: withCtx(() => [createVNode(_component_Menu, {
-          selectedKeys: [unref(APP_LANGUAGE)],
+          "selected-keys": [unref(APP_LANGUAGE)],
           onClick: changeLanguage
         }, {
           default: withCtx(() => [(openBlock(), createElementBlock(Fragment, null, renderList(languageLabels, (locale, prop) => {
@@ -794,7 +872,7 @@ const _sfc_main$5 = {
             }, 1024);
           }), 64))]),
           _: 1
-        }, 8, ["selectedKeys"])]),
+        }, 8, ["selected-keys"])]),
         default: withCtx(() => [createVNode(_component_GlobalOutlined)]),
         _: 1
       });
@@ -807,24 +885,24 @@ const _hoisted_1$3 = {
 const _hoisted_2$2 = {
   class: "user-layout-content"
 };
-const _hoisted_3$1 = {
+const _hoisted_3$2 = {
   class: "top"
 };
-const _hoisted_4$1 = {
+const _hoisted_4$2 = {
   class: "header"
 };
-const _hoisted_5$1 = {
+const _hoisted_5$2 = {
   href: "/"
 };
-const _hoisted_6 = ["src"];
-const _hoisted_7 = /* @__PURE__ */ createBaseVNode("span", {
+const _hoisted_6$2 = ["src"];
+const _hoisted_7$1 = /* @__PURE__ */ createBaseVNode("span", {
   class: "title"
 }, "Demo", -1);
 const _hoisted_8 = {
   class: "desc"
 };
-const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 2018 vueComponent</div></div>', 1);
-const _sfc_main$4 = {
+const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright"> Copyright \xA9 2018 vueComponent </div></div>', 1);
+const _sfc_main$5 = {
   setup(__props) {
     const styles2 = {
       container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
@@ -837,13 +915,13 @@ const _sfc_main$4 = {
       }, [createBaseVNode("div", {
         class: "container",
         style: normalizeStyle(styles2.container)
-      }, [createBaseVNode("div", _hoisted_1$3, [createVNode(_sfc_main$5, {
+      }, [createBaseVNode("div", _hoisted_1$3, [createVNode(_sfc_main$6, {
         class: "select-lang-trigger"
-      })]), createBaseVNode("div", _hoisted_2$2, [createBaseVNode("div", _hoisted_3$1, [createBaseVNode("div", _hoisted_4$1, [createBaseVNode("a", _hoisted_5$1, [createBaseVNode("img", {
+      })]), createBaseVNode("div", _hoisted_2$2, [createBaseVNode("div", _hoisted_3$2, [createBaseVNode("div", _hoisted_4$2, [createBaseVNode("a", _hoisted_5$2, [createBaseVNode("img", {
         src: unref(logoImg),
         class: "logo",
         alt: "logo"
-      }, null, 8, _hoisted_6), _hoisted_7])]), createBaseVNode("div", _hoisted_8, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+      }, null, 8, _hoisted_6$2), _hoisted_7$1])]), createBaseVNode("div", _hoisted_8, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
     };
   }
 };
@@ -913,7 +991,7 @@ var zhCN = {
   "user.login.message-invalid-verification-code": "\u9A8C\u8BC1\u7801\u9519\u8BEF",
   "user.login.tab-login-credentials": "\u8D26\u6237\u5BC6\u7801\u767B\u5F55",
   "user.login.tab-login-mobile": "\u624B\u673A\u53F7\u767B\u5F55",
-  "user.login.mobile.placeholder": "\u624B\u673A\u53F7",
+  "user.login.mobile.placeholder": "\u8BF7\u8F93\u5165\u624B\u673A\u53F7",
   "user.login.mobile.verification-code.placeholder": "\u9A8C\u8BC1\u7801",
   "user.login.remember-me": "\u81EA\u52A8\u767B\u5F55",
   "user.login.forgot-password": "\u5FD8\u8BB0\u5BC6\u7801",
@@ -994,6 +1072,10 @@ function setI18nLanguage(lang) {
 }
 const SUCCESS = false;
 const FAIL = true;
+const RegexFn = {
+  email: () => /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/,
+  mobile: () => /^1[34578]\d{9}$/
+};
 const makeFormRules = (options) => options;
 var FormRules = {
   required(msg = "\u5FC5\u586B\u9879", trigger = [EVENT_TYPE.update]) {
@@ -1031,11 +1113,335 @@ var FormRules = {
     validator,
     trigger
   }) {
-    return {
+    return makeFormRules({
       name,
       msg,
       validator,
       trigger
+    });
+  }
+};
+var SvgRender = {
+  lockStrok: () => createVNode("svg", {
+    "viewBox": "64 64 896 896",
+    "data-icon": "lock",
+    "width": "1em",
+    "height": "1em",
+    "fill": "currentColor",
+    "aria-hidden": "true",
+    "focusable": "false"
+  }, [createVNode("path", {
+    "d": "M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z"
+  }, null)]),
+  mail: () => createVNode("svg", {
+    "viewBox": "64 64 896 896",
+    "data-icon": "mail",
+    "width": "1em",
+    "height": "1em",
+    "fill": "currentColor",
+    "aria-hidden": "true",
+    "focusable": "false"
+  }, [createVNode("path", {
+    "d": "M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 110.8V792H136V270.8l-27.6-21.5 39.3-50.5 42.8 33.3h643.1l42.8-33.3 39.3 50.5-27.7 21.5zM833.6 232L512 482 190.4 232l-42.8-33.3-39.3 50.5 27.6 21.5 341.6 265.6a55.99 55.99 0 0 0 68.7 0L888 270.8l27.6-21.5-39.3-50.5-42.7 33.2z"
+  }, null)])
+};
+const pickValueFrom = (configs) => {
+  return _.reduce(configs, (target, config, prop) => {
+    target[prop] = config.value;
+    return target;
+  }, {});
+};
+const styles$1 = {
+  icon: {
+    color: getColor("disabledColor")
+  }
+};
+const TAB_KEYS_MAP$1 = {
+  credentials: "configsForm",
+  mobile: "configsFormMobile"
+};
+const LOGIN_TYPE$1 = {
+  username: "username",
+  email: "email",
+  mobile: "mobile"
+};
+const getConfigsSubmitText$1 = () => () => $t("user.register.get-verification-code").label;
+const StateLogin = reactive({
+  captchaCount: 0,
+  loginType: LOGIN_TYPE$1.username,
+  activeTabKey: Object.keys(TAB_KEYS_MAP$1)[0],
+  rememberMe: true,
+  configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+    prop: "userName",
+    value: "",
+    size: "large",
+    placeholder: () => $t("user.login.username.placeholder").label,
+    rules: [FormRules.required(() => $t("user.userName.required").label, [EVENT_TYPE.blur])],
+    slots: {
+      prefix: () => createVNode(resolveComponent("UserOutlined"), {
+        "style": styles$1.icon
+      }, null)
+    }
+  })), reactiveItemConfigs({
+    prop: "password",
+    isPassword: true,
+    value: "",
+    size: "large",
+    placeholder: () => $t("user.login.password.placeholder").label,
+    rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
+    slots: {
+      prefix: () => createVNode(resolveComponent("xRender"), {
+        "render": SvgRender.lockStrok,
+        "style": styles$1.icon
+      }, null)
+    }
+  })),
+  configsFormMobile: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+    prop: "mobile",
+    value: "",
+    size: "large",
+    placeholder: () => $t("user.login.mobile.placeholder").label,
+    rules: [FormRules.required(() => $t("user.login.mobile.placeholder").label, [EVENT_TYPE.blur]), FormRules.validator({
+      msg: () => $t("user.login.mobile.placeholder").label,
+      validator: async (mobile) => !RegexFn.mobile().test(mobile),
+      trigger: [EVENT_TYPE.update]
+    })],
+    slots: {
+      prefix: () => createVNode(resolveComponent("MobileOutlined"), {
+        "style": styles$1.icon
+      }, null)
+    }
+  })), reactiveItemConfigs({
+    prop: "verificationCode",
+    value: "",
+    size: "large",
+    itemWrapperClass: "flex1",
+    placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
+    rules: [FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
+    slots: {
+      prefix: () => createVNode(resolveComponent("xRender"), {
+        "render": SvgRender.mail,
+        "style": styles$1.icon
+      }, null)
+    }
+  })),
+  configsVerificationCode: {
+    disabled: false,
+    size: "large",
+    style: {
+      minWidth: "112px"
+    },
+    text: getConfigsSubmitText$1(),
+    async onClick() {
+      try {
+        const results = await validateForm({
+          mobile: StateLogin.configsFormMobile.mobile
+        });
+        if (results.length === 0) {
+          await getCaptcha$1();
+        }
+      } catch (e) {
+      }
+    }
+  },
+  configsSubmit: {
+    size: "large",
+    type: "primary",
+    class: "login-button",
+    text: () => $t("user.login.login").label,
+    onClick: async () => {
+      try {
+        const currentFormProp = TAB_KEYS_MAP$1[StateLogin.activeTabKey];
+        const currentFormConfigs = StateLogin[currentFormProp];
+        const validateResults = await validateForm(currentFormConfigs);
+        if (validateResults.length === 0) {
+          const formData = pickValueFrom(currentFormConfigs);
+          console.log("formData", formData);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+});
+watch(() => StateLogin.configsForm.userName.value, checkUserNameType);
+function checkUserNameType(userName) {
+  if (RegexFn.email().test(userName)) {
+    StateLogin.loginType = LOGIN_TYPE$1.email;
+  } else {
+    StateLogin.loginType = LOGIN_TYPE$1.username;
+  }
+}
+const CAPTCHA_COUNT$1 = 5;
+watch(() => StateLogin.captchaCount, handleCaptchaCountChange$1);
+function handleCaptchaCountChange$1(captchaCount) {
+  if (captchaCount === 0) {
+    StateLogin.configsVerificationCode.text = getConfigsSubmitText$1();
+    StateLogin.configsVerificationCode.disabled = false;
+    return;
+  }
+  const setCounDownText = () => StateLogin.configsVerificationCode.text = `${CAPTCHA_COUNT$1 - captchaCount} s`;
+  if (captchaCount === 1) {
+    setCounDownText();
+    StateLogin.configsVerificationCode.disabled = true;
+    return;
+  }
+  if (captchaCount && captchaCount <= CAPTCHA_COUNT$1) {
+    setCounDownText();
+    return;
+  }
+}
+function countDown$1() {
+  StateLogin.captchaCount++;
+  if (StateLogin.captchaCount <= CAPTCHA_COUNT$1) {
+    setTimeout(countDown$1, 1e3);
+  } else {
+    StateLogin.captchaCount = 0;
+  }
+}
+async function mockSmsCaptcha$1(result = {}) {
+  const captchaCode = result == null ? void 0 : result.code;
+  await _.sleep(2e3);
+  await navigator.clipboard.writeText(captchaCode);
+  UI.notification.success({
+    message: "\u7406\u8BBA\u4E0A\u662F\u53D1\u9001\u77ED\u4FE1\u5230\u624B\u673A",
+    description: createVNode("div", null, [createVNode("span", null, [createVNode("h2", null, [captchaCode]), createTextVNode("\u5DF2\u590D\u5236\u5230\u7C98\u8D34\u677F\uFF0C\u53EF\u4EE5\u76F4\u63A5 Ctrl+V")])])
+  });
+  return;
+}
+async function getCaptcha$1() {
+  try {
+    if (StateLogin.captchaCount)
+      return;
+    countDown$1();
+    const {
+      result
+    } = await API.user.getSmsCaptcha();
+    UI.message.success("\u9A8C\u8BC1\u7801\u5DF2\u53D1\u9001");
+    await mockSmsCaptcha$1(result);
+  } catch (e) {
+    console.error(e);
+  }
+}
+var _sfc_main$4 = {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      const _component_xItem = resolveComponent("xItem");
+      const _component_xGap = resolveComponent("xGap");
+      return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
+        configs: unref(StateLogin).configsForm.userName,
+        autocomplete: "username"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        t: "20"
+      }), createVNode(_component_xItem, {
+        configs: unref(StateLogin).configsForm.password,
+        autocomplete: "current-password"
+      }, null, 8, ["configs"])]);
+    };
+  }
+};
+const _hoisted_1$2 = {
+  class: "flex"
+};
+var _sfc_main$3 = {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      const _component_xItem = resolveComponent("xItem");
+      const _component_xGap = resolveComponent("xGap");
+      const _component_xButton = resolveComponent("xButton");
+      return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
+        configs: unref(StateLogin).configsFormMobile.mobile,
+        autocomplete: "username"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        t: "20"
+      }), createBaseVNode("div", _hoisted_1$2, [createVNode(_component_xItem, {
+        configs: unref(StateLogin).configsFormMobile.verificationCode,
+        autocomplete: "current-password"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        l: "20"
+      }), createVNode(_component_xButton, {
+        configs: unref(StateLogin).configsVerificationCode
+      }, null, 8, ["configs"])])]);
+    };
+  }
+};
+const _hoisted_1$1 = {
+  class: "main"
+};
+const _hoisted_2$1 = {
+  class: "user-layout-login ant-form ant-form-horizontal"
+};
+const _hoisted_3$1 = {
+  class: "item-wrapper flex between"
+};
+const _hoisted_4$1 = {
+  href: "/user/recover",
+  class: "forge-password"
+};
+const _hoisted_5$1 = {
+  class: "item-wrapper"
+};
+const _hoisted_6$1 = {
+  class: "item-wrapper"
+};
+const _hoisted_7 = {
+  class: "user-login-other"
+};
+const _sfc_main$2 = {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      resolveComponent("Alert");
+      const _component_TabPane = resolveComponent("TabPane");
+      const _component_Tabs = resolveComponent("Tabs");
+      const _component_Checkbox = resolveComponent("Checkbox");
+      const _component_xButton = resolveComponent("xButton");
+      const _component_a_icon = resolveComponent("a-icon");
+      const _component_router_link = resolveComponent("router-link");
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createVNode(_component_Tabs, {
+        id: "user-layout-login_tab",
+        activeKey: unref(StateLogin).activeTabKey,
+        "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => unref(StateLogin).activeTabKey = $event)
+      }, {
+        default: withCtx(() => [createVNode(_component_TabPane, {
+          key: "credentials",
+          tab: unref($t)("user.login.tab-login-credentials").label
+        }, {
+          default: withCtx(() => [createCommentVNode("", true), createVNode(_sfc_main$4)]),
+          _: 1
+        }, 8, ["tab"]), createVNode(_component_TabPane, {
+          key: "mobile",
+          tab: unref($t)("user.login.tab-login-mobile").label
+        }, {
+          default: withCtx(() => [createVNode(_sfc_main$3)]),
+          _: 1
+        }, 8, ["tab"])]),
+        _: 1
+      }, 8, ["activeKey"]), createBaseVNode("div", _hoisted_3$1, [createVNode(_component_Checkbox, {
+        checked: unref(StateLogin).rememberMe,
+        "onUpdate:checked": _cache[1] || (_cache[1] = ($event) => unref(StateLogin).rememberMe = $event)
+      }, {
+        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.remember-me").label), 1)]),
+        _: 1
+      }, 8, ["checked"]), createBaseVNode("a", _hoisted_4$1, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5$1, [createVNode(_component_xButton, {
+        configs: unref(StateLogin).configsSubmit
+      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$1, [createBaseVNode("div", _hoisted_7, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+        class: "item-icon",
+        type: "alipay-circle"
+      })]), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+        class: "item-icon",
+        type: "taobao-circle"
+      })]), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+        class: "item-icon",
+        type: "weibo-circle"
+      })]), createVNode(_component_router_link, {
+        class: "register",
+        to: {
+          name: unref(routeNames).register
+        }
+      }, {
+        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.signup").label), 1)]),
+        _: 1
+      }, 8, ["to"])])])])]);
     };
   }
 };
@@ -1044,46 +1450,24 @@ const styles = {
     color: getColor("disabledColor")
   }
 };
-const renderLockStrok = () => {
-  return createVNode("svg", {
-    "viewBox": "64 64 896 896",
-    "data-icon": "lock",
-    "width": "1em",
-    "height": "1em",
-    "fill": "currentColor",
-    "aria-hidden": "true",
-    "focusable": "false",
-    "class": ""
-  }, [createVNode("path", {
-    "d": "M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z"
-  }, null)]);
-};
-const renderMail = () => {
-  return createVNode("svg", {
-    "viewBox": "64 64 896 896",
-    "data-icon": "mail",
-    "width": "1em",
-    "height": "1em",
-    "fill": "currentColor",
-    "aria-hidden": "true",
-    "focusable": "false",
-    "class": ""
-  }, [createVNode("path", {
-    "d": "M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 110.8V792H136V270.8l-27.6-21.5 39.3-50.5 42.8 33.3h643.1l42.8-33.3 39.3 50.5-27.7 21.5zM833.6 232L512 482 190.4 232l-42.8-33.3-39.3 50.5 27.6 21.5 341.6 265.6a55.99 55.99 0 0 0 68.7 0L888 270.8l27.6-21.5-39.3-50.5-42.7 33.2z"
-  }, null)]);
-};
 const LOGIN_TYPE = {
   username: "username",
   email: "email",
   mobile: "mobile"
 };
 const getConfigsSubmitText = () => () => $t("user.register.get-verification-code").label;
-const LoginState = reactive({
+const StateRegister = reactive({
+  isShowCheckPasswordPopover: false,
+  statePassword: {
+    level: 0,
+    passwordLevel: 0,
+    percent: 0
+  },
   captchaCount: 0,
   loginType: LOGIN_TYPE.username,
-  activeKey: "mobile",
+  activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
-  configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+  configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues(__spreadValues({}, reactiveItemConfigs({
     prop: "userName",
     value: "",
     size: "large",
@@ -1100,22 +1484,44 @@ const LoginState = reactive({
     value: "",
     size: "large",
     placeholder: () => $t("user.login.password.placeholder").label,
-    rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur]), {
-      validator: _.doNothing
-    }],
+    rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.update]), FormRules.validator({
+      msg: () => $t("user.password.strength.msg").label,
+      validator: checkPasswordLevel,
+      trigger: [EVENT_TYPE.update]
+    })],
     slots: {
       prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": renderLockStrok,
+        "render": SvgRender.lockStrok,
         "style": styles.icon
       }, null)
     }
-  })),
-  configsFormMobile: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+  })), reactiveItemConfigs({
+    prop: "passwordConfirm",
+    isPassword: true,
+    value: "",
+    size: "large",
+    placeholder: () => $t("user.register.confirm-password.placeholder").label,
+    rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur]), FormRules.validator({
+      msg: () => $t("user.password.twice.msg").label,
+      validator: async (passwordConfirm) => StateRegister.configsForm.password.value !== passwordConfirm,
+      trigger: [EVENT_TYPE.update]
+    })],
+    slots: {
+      prefix: () => createVNode(resolveComponent("xRender"), {
+        "render": SvgRender.lockStrok,
+        "style": styles.icon
+      }, null)
+    }
+  })), reactiveItemConfigs({
     prop: "mobile",
     value: "",
     size: "large",
     placeholder: () => $t("user.login.mobile.placeholder").label,
-    rules: [FormRules.required(() => $t("user.login.mobile.placeholder").label, [EVENT_TYPE.blur])],
+    rules: [FormRules.required(() => $t("user.login.mobile.placeholder").label, [EVENT_TYPE.blur]), FormRules.validator({
+      msg: () => $t("user.login.mobile.placeholder").label,
+      validator: async (mobile) => !RegexFn.mobile().test(mobile),
+      trigger: [EVENT_TYPE.update]
+    })],
     slots: {
       prefix: () => createVNode(resolveComponent("MobileOutlined"), {
         "style": styles.icon
@@ -1127,12 +1533,10 @@ const LoginState = reactive({
     size: "large",
     itemWrapperClass: "flex1",
     placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
-    rules: [FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur]), {
-      validator: _.doNothing
-    }],
+    rules: [FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
     slots: {
       prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": renderMail,
+        "render": SvgRender.mail,
         "style": styles.icon
       }, null)
     }
@@ -1141,54 +1545,99 @@ const LoginState = reactive({
     disabled: false,
     size: "large",
     style: {
-      width: "112px"
+      minWidth: "112px"
     },
     text: getConfigsSubmitText(),
-    onClick: async () => {
+    async onClick() {
       try {
         const results = await validateForm({
-          mobile: LoginState.configsFormMobile.mobile
+          mobile: StateRegister.configsFormMobile.mobile
         });
         if (results.length === 0) {
           await getCaptcha();
         }
       } catch (e) {
-        debugger;
-        console.error(e);
       }
     }
   },
   configsSubmit: {
     size: "large",
     type: "primary",
-    class: "login-button",
-    text: () => $t("user.login.login").label,
+    class: "login-button flex1",
+    text: () => $t("user.register.register").label,
     onClick: async () => {
-      const formName = {
-        credentials: "configsForm",
-        mobile: "configsFormMobile"
-      };
       try {
-        const results = await validateForm(LoginState[formName]);
-        console.log(results);
+        const currentFormConfigs = StateRegister.configsForm;
+        const validateResults = await validateForm(currentFormConfigs);
+        if (validateResults.length === 0) {
+          const formData = pickValueFrom(currentFormConfigs);
+          console.log("formData", formData);
+        }
       } catch (e) {
         console.error(e);
       }
     }
   }
 });
+function scorePassword(pass) {
+  let score = 0;
+  if (!pass) {
+    return score;
+  }
+  const letters = {};
+  for (let i = 0; i < pass.length; i++) {
+    letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+    score += 5 / letters[pass[i]];
+  }
+  const variations = {
+    digits: /\d/.test(pass),
+    lower: /[a-z]/.test(pass),
+    upper: /[A-Z]/.test(pass),
+    nonWords: /\W/.test(pass)
+  };
+  let variationCount = 0;
+  for (var check in variations) {
+    variationCount += variations[check] === true ? 1 : 0;
+  }
+  score += (variationCount - 1) * 10;
+  return parseInt(score);
+}
+function checkPasswordLevel(value) {
+  let isFail = false;
+  StateRegister.statePassword.level = (() => {
+    if (value.length >= 6) {
+      if (scorePassword(value) >= 80) {
+        return 3;
+      }
+      if (scorePassword(value) >= 60) {
+        return 2;
+      }
+      if (scorePassword(value) >= 30) {
+        return 1;
+      }
+      return 0;
+    } else {
+      isFail = true;
+      return 0;
+    }
+  })();
+  StateRegister.statePassword.passwordLevel = StateRegister.statePassword.level;
+  StateRegister.statePassword.percent = StateRegister.statePassword.level * 33;
+  StateRegister.isShowCheckPasswordPopover = StateRegister.statePassword.level <= 3;
+  return isFail;
+}
 const CAPTCHA_COUNT = 5;
-watch(() => LoginState.captchaCount, handleCaptchaCountChange);
+watch(() => StateRegister.captchaCount, handleCaptchaCountChange);
 function handleCaptchaCountChange(captchaCount) {
   if (captchaCount === 0) {
-    LoginState.configsVerificationCode.text = getConfigsSubmitText();
-    LoginState.configsVerificationCode.disabled = false;
+    StateRegister.configsVerificationCode.text = getConfigsSubmitText();
+    StateRegister.configsVerificationCode.disabled = false;
     return;
   }
-  const setCounDownText = () => LoginState.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount} s`;
+  const setCounDownText = () => StateRegister.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount} s`;
   if (captchaCount === 1) {
     setCounDownText();
-    LoginState.configsVerificationCode.disabled = true;
+    StateRegister.configsVerificationCode.disabled = true;
     return;
   }
   if (captchaCount && captchaCount <= CAPTCHA_COUNT) {
@@ -1197,77 +1646,37 @@ function handleCaptchaCountChange(captchaCount) {
   }
 }
 function countDown() {
-  LoginState.captchaCount++;
-  if (LoginState.captchaCount <= CAPTCHA_COUNT) {
+  StateRegister.captchaCount++;
+  if (StateRegister.captchaCount <= CAPTCHA_COUNT) {
     setTimeout(countDown, 1e3);
   } else {
-    LoginState.captchaCount = 0;
+    StateRegister.captchaCount = 0;
   }
+}
+async function mockSmsCaptcha(result = {}) {
+  const captchaCode = result == null ? void 0 : result.code;
+  await _.sleep(2e3);
+  await navigator.clipboard.writeText(captchaCode);
+  UI.notification.success({
+    message: "\u7406\u8BBA\u4E0A\u662F\u53D1\u9001\u77ED\u4FE1\u5230\u624B\u673A",
+    description: createVNode("div", null, [createVNode("span", null, [createVNode("h2", null, [captchaCode]), createTextVNode("\u5DF2\u590D\u5236\u5230\u7C98\u8D34\u677F\uFF0C\u53EF\u4EE5\u76F4\u63A5 Ctrl+V")])])
+  });
+  return;
 }
 async function getCaptcha() {
   try {
-    if (LoginState.captchaCount)
+    if (StateRegister.captchaCount)
       return;
     countDown();
-    const res = await API.user.getSmsCaptcha();
-    UI.message.success(res.result.code);
-    UI.notification.success({
-      message: "Captcha",
-      description: res.result.code
-    });
+    const {
+      result
+    } = await API.user.getSmsCaptcha();
+    UI.message.success("\u9A8C\u8BC1\u7801\u5DF2\u53D1\u9001");
+    await mockSmsCaptcha(result);
   } catch (e) {
-    debugger;
-  } finally {
+    console.error(e);
   }
 }
-const _hoisted_1$2 = {
-  class: "LoginCredentials-form"
-};
-var _sfc_main$3 = {
-  setup(__props) {
-    return (_ctx, _cache) => {
-      const _component_xItem = resolveComponent("xItem");
-      const _component_xGap = resolveComponent("xGap");
-      return openBlock(), createElementBlock("form", _hoisted_1$2, [createVNode(_component_xItem, {
-        configs: unref(LoginState).configsForm.userName,
-        autocomplete: "username"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
-        t: "20"
-      }), createVNode(_component_xItem, {
-        configs: unref(LoginState).configsForm.password,
-        autocomplete: "current-password"
-      }, null, 8, ["configs"])]);
-    };
-  }
-};
-const _hoisted_1$1 = {
-  class: "LoginCredentials-form"
-};
-const _hoisted_2$1 = {
-  class: "flex"
-};
-var _sfc_main$2 = {
-  setup(__props) {
-    return (_ctx, _cache) => {
-      const _component_xItem = resolveComponent("xItem");
-      const _component_xGap = resolveComponent("xGap");
-      const _component_xButton = resolveComponent("xButton");
-      return openBlock(), createElementBlock("form", _hoisted_1$1, [createVNode(_component_xItem, {
-        configs: unref(LoginState).configsFormMobile.mobile,
-        autocomplete: "username"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
-        t: "20"
-      }), createBaseVNode("div", _hoisted_2$1, [createVNode(_component_xItem, {
-        configs: unref(LoginState).configsFormMobile.verificationCode,
-        autocomplete: "current-password"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
-        l: "20"
-      }), createVNode(_component_xButton, {
-        configs: unref(LoginState).configsVerificationCode
-      }, null, 8, ["configs"])])]);
-    };
-  }
-};
 const _hoisted_1 = {
   class: "main"
 };
@@ -1275,58 +1684,114 @@ const _hoisted_2 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
 const _hoisted_3 = {
-  class: "item-wrapper flex between"
+  style: {
+    width: "240px"
+  }
 };
 const _hoisted_4 = {
-  href: "/user/recover",
-  class: "forge-password"
+  style: {
+    "margin-top": "10px"
+  }
 };
 const _hoisted_5 = {
-  class: "item-wrapper"
+  class: "flex"
 };
-var _sfc_main$1 = {
+const _hoisted_6 = {
+  class: "item-wrapper flex"
+};
+const _sfc_main$1 = {
   setup(__props) {
+    const levelNames = {
+      0: "user.password.strength.short",
+      1: "user.password.strength.low",
+      2: "user.password.strength.medium",
+      3: "user.password.strength.strong"
+    };
+    const levelClass = {
+      0: "error",
+      1: "error",
+      2: "warning",
+      3: "success"
+    };
+    const levelColor = {
+      0: "#ff0000",
+      1: "#ff0000",
+      2: "#ff7e05",
+      3: "#52c41a"
+    };
+    const passwordLevelClass = computed(() => {
+      return levelClass[StateRegister.statePassword.passwordLevel];
+    });
+    const passwordLevelName = computed(() => {
+      return levelNames[StateRegister.statePassword.passwordLevel];
+    });
+    const passwordLevelColor = computed(() => {
+      return levelColor[StateRegister.statePassword.passwordLevel];
+    });
     return (_ctx, _cache) => {
-      const _component_Alert = resolveComponent("Alert");
-      const _component_TabPane = resolveComponent("TabPane");
-      const _component_Tabs = resolveComponent("Tabs");
-      const _component_Checkbox = resolveComponent("Checkbox");
+      const _component_xItem = resolveComponent("xItem");
+      const _component_xGap = resolveComponent("xGap");
+      const _component_Progress = resolveComponent("Progress");
+      const _component_Popover = resolveComponent("Popover");
       const _component_xButton = resolveComponent("xButton");
-      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [createVNode(_component_Tabs, {
-        activeKey: unref(LoginState).activeKey,
-        "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => unref(LoginState).activeKey = $event),
-        id: "user-layout-login_tab"
+      const _component_RouterLink = resolveComponent("RouterLink");
+      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
+        configs: unref(StateRegister).configsForm.userName,
+        autocomplete: "username"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        t: "20"
+      }), createVNode(_component_Popover, {
+        visible: unref(StateRegister).isShowCheckPasswordPopover,
+        trigger: ["click"],
+        placement: "rightTop"
       }, {
-        default: withCtx(() => [createVNode(_component_TabPane, {
-          key: "credentials",
-          tab: unref($t)("user.login.tab-login-credentials").label
-        }, {
-          default: withCtx(() => [createVNode(_component_Alert, {
-            type: "error",
-            showIcon: "",
-            style: {
-              "margin-bottom": "24px"
-            },
-            message: unref($t)("user.login.message-invalid-credentials").label
-          }, null, 8, ["message"]), createVNode(_sfc_main$3)]),
-          _: 1
-        }, 8, ["tab"]), createVNode(_component_TabPane, {
-          key: "mobile",
-          tab: unref($t)("user.login.tab-login-mobile").label
-        }, {
-          default: withCtx(() => [createVNode(_sfc_main$2)]),
-          _: 1
-        }, 8, ["tab"])]),
+        content: withCtx(() => [createBaseVNode("div", _hoisted_3, [createBaseVNode("div", {
+          class: normalizeClass(["user-register", unref(passwordLevelClass)])
+        }, toDisplayString(unref($t)(unref(passwordLevelName)).label), 3), createVNode(_component_Progress, {
+          percent: unref(StateRegister).statePassword.percent,
+          "show-info": false,
+          "stroke-color": unref(passwordLevelColor),
+          "get-popup-container": (trigger) => trigger.parentElement
+        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_4, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
+        default: withCtx(() => [createVNode(_component_xItem, {
+          configs: unref(StateRegister).configsForm.password,
+          autocomplete: "current-password"
+        }, null, 8, ["configs"])]),
         _: 1
-      }, 8, ["activeKey"]), createBaseVNode("div", _hoisted_3, [createVNode(_component_Checkbox, {
-        checked: unref(LoginState).rememberMe,
-        "onUpdate:checked": _cache[1] || (_cache[1] = ($event) => unref(LoginState).rememberMe = $event)
+      }, 8, ["visible"]), createVNode(_component_xGap, {
+        t: "20"
+      }), createVNode(_component_xItem, {
+        configs: unref(StateRegister).configsForm.passwordConfirm,
+        autocomplete: "current-password"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        t: "20"
+      }), createVNode(_component_xItem, {
+        configs: unref(StateRegister).configsForm.mobile,
+        autocomplete: "username"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        t: "20"
+      }), createBaseVNode("div", _hoisted_5, [createVNode(_component_xItem, {
+        configs: unref(StateRegister).configsForm.verificationCode,
+        autocomplete: "current-password"
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        l: "20"
+      }), createVNode(_component_xButton, {
+        configs: unref(StateRegister).configsVerificationCode
+      }, null, 8, ["configs"])])]), createVNode(_component_xGap, {
+        t: "20"
+      }), createBaseVNode("div", _hoisted_6, [createVNode(_component_xButton, {
+        configs: unref(StateRegister).configsSubmit
+      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+        l: "80"
+      }), createVNode(_component_RouterLink, {
+        class: "register",
+        to: {
+          name: unref(routeNames).login
+        }
       }, {
-        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.remember-me").label), 1)]),
+        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.register.sign-in").label), 1)]),
         _: 1
-      }, 8, ["checked"]), createBaseVNode("a", _hoisted_4, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5, [createVNode(_component_xButton, {
-        configs: unref(LoginState).configsSubmit
-      }, null, 8, ["configs"])])])]);
+      }, 8, ["to"])])])]);
     };
   }
 };
@@ -1345,14 +1810,18 @@ const routeNames = {
   "404": "404"
 };
 const toPath = (name) => `/${name}`;
-const routes = [NewRoute(routeNames.login, _sfc_main$4, {
+const routes = [NewRoute(routeNames.login, _sfc_main$5, {
   redirect: toPath(routeNames.userLogin),
-  children: [NewRoute(routeNames.userLogin, _sfc_main$1, {
+  children: [NewRoute(routeNames.userLogin, _sfc_main$2, {
     meta: {
       title: $t("user.login.login").label
     }
+  }), NewRoute(routeNames.register, _sfc_main$1, {
+    meta: {
+      title: $t("user.login.signup").label
+    }
   })]
-}), NewRoute(routeNames[404], _sfc_main$6)];
+}), NewRoute(routeNames[404], _sfc_main$7)];
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [...routes, {
