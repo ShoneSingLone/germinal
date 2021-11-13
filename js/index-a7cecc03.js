@@ -1156,11 +1156,11 @@ const styles$1 = {
     color: getColor("disabledColor")
   }
 };
-const TAB_KEYS_MAP$1 = {
+const TAB_KEYS_MAP = {
   credentials: "configsForm",
   mobile: "configsFormMobile"
 };
-const LOGIN_TYPE$1 = {
+const LOGIN_TYPE = {
   username: "username",
   email: "email",
   mobile: "mobile"
@@ -1168,8 +1168,8 @@ const LOGIN_TYPE$1 = {
 const getConfigsSubmitText$1 = () => () => $t("user.register.get-verification-code").label;
 const StateLogin = reactive({
   captchaCount: 0,
-  loginType: LOGIN_TYPE$1.username,
-  activeTabKey: Object.keys(TAB_KEYS_MAP$1)[0],
+  loginType: LOGIN_TYPE.username,
+  activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
   configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
     prop: "userName",
@@ -1251,7 +1251,7 @@ const StateLogin = reactive({
     text: () => $t("user.login.login").label,
     onClick: async () => {
       try {
-        const currentFormProp = TAB_KEYS_MAP$1[StateLogin.activeTabKey];
+        const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
         const currentFormConfigs = StateLogin[currentFormProp];
         const validateResults = await validateForm(currentFormConfigs);
         if (validateResults.length === 0) {
@@ -1267,9 +1267,9 @@ const StateLogin = reactive({
 watch(() => StateLogin.configsForm.userName.value, checkUserNameType);
 function checkUserNameType(userName) {
   if (RegexFn.email().test(userName)) {
-    StateLogin.loginType = LOGIN_TYPE$1.email;
+    StateLogin.loginType = LOGIN_TYPE.email;
   } else {
-    StateLogin.loginType = LOGIN_TYPE$1.username;
+    StateLogin.loginType = LOGIN_TYPE.username;
   }
 }
 const CAPTCHA_COUNT$1 = 5;
@@ -1450,11 +1450,6 @@ const styles = {
     color: getColor("disabledColor")
   }
 };
-const LOGIN_TYPE = {
-  username: "username",
-  email: "email",
-  mobile: "mobile"
-};
 const getConfigsSubmitText = () => () => $t("user.register.get-verification-code").label;
 const StateRegister = reactive({
   isShowCheckPasswordPopover: false,
@@ -1464,9 +1459,6 @@ const StateRegister = reactive({
     percent: 0
   },
   captchaCount: 0,
-  loginType: LOGIN_TYPE.username,
-  activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
-  rememberMe: true,
   configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues(__spreadValues({}, reactiveItemConfigs({
     prop: "userName",
     value: "",
