@@ -13,11 +13,6 @@ const styles = {
     icon: {color: getColor("disabledColor")},
 };
 
-/* 根据不同的Tab 检验不同的form 提交不同的内容 */
-const TAB_KEYS_MAP = {
-    credentials: "configsForm",
-    mobile: "configsFormMobile"
-};
 
 const LOGIN_TYPE = {
     username: "username",
@@ -28,7 +23,12 @@ const LOGIN_TYPE = {
 const getConfigsSubmitText = () => () => $t("user.register.get-verification-code").label;
 
 export const StateRegister = reactive({
-    captchaCount: 0,
+    isShowCheckPasswordPopover: false,
+    statePassword: {
+        level: 0,
+        passwordLevel: 0,
+        percent: 0
+    }, captchaCount: 0,
     loginType: LOGIN_TYPE.username,
     activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
     rememberMe: true,
@@ -49,7 +49,14 @@ export const StateRegister = reactive({
             size: "large",
             /* render的时候重新获取 */
             placeholder: () => $t("user.login.password.placeholder").label,
-            rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
+            rules: [
+                FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.update]),
+                FormRules.validator({
+                    msg: () => $t("user.password.strength.msg").label,
+                    validator: checkPasswordLevel,
+                    trigger: [EVENT_TYPE.update]
+                })
+            ],
             slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
         }),
         ...reactiveItemConfigs({
@@ -63,14 +70,12 @@ export const StateRegister = reactive({
                 FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur]),
                 FormRules.validator({
                     msg: () => $t("user.password.twice.msg").label,
-                    validator: async (passwordConfirm) => StateRegister.configsForm.password.value!==passwordConfirm,
+                    validator: async (passwordConfirm) => StateRegister.configsForm.password.value !== passwordConfirm,
                     trigger: [EVENT_TYPE.update]
                 })],
             slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
         }),
-    },
-    /*手机*/
-    configsFormMobile: {
+
         ...reactiveItemConfigs({
             prop: "mobile",
             value: "",
@@ -102,6 +107,7 @@ export const StateRegister = reactive({
                 prefix: () => <xRender render={SvgRender.mail} style={styles.icon}/>,
             },
         }),
+
     },
     /* 获取验证码按钮 */
     configsVerificationCode: {
@@ -124,12 +130,11 @@ export const StateRegister = reactive({
     configsSubmit: {
         size: "large",
         type: "primary",
-        class: "login-button",
-        text: () => $t("user.login.login").label,
+        class: "login-button flex1",
+        text: () => $t("user.register.register").label,
         onClick: async () => {
             try {
-                const currentFormProp = TAB_KEYS_MAP[StateRegister.activeTabKey];
-                const currentFormConfigs = StateRegister[currentFormProp];
+                const currentFormConfigs = StateRegister.configsForm;
                 const validateResults = await validateForm(currentFormConfigs);
                 if (validateResults.length === 0) {
                     const formData = pickValueFrom(currentFormConfigs);
@@ -142,6 +147,63 @@ export const StateRegister = reactive({
     },
 });
 
+export function scorePassword(pass) {
+    let score = 0;
+    if (!pass) {
+        return score;
+    }
+    // award every unique letter until 5 repetitions
+    const letters = {};
+    for (let i = 0; i < pass.length; i++) {
+        letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+        score += 5.0 / letters[pass[i]];
+    }
+
+    // bonus points for mixing it up
+    const variations = {
+        digits: /\d/.test(pass),
+        lower: /[a-z]/.test(pass),
+        upper: /[A-Z]/.test(pass),
+        nonWords: /\W/.test(pass)
+    };
+
+    let variationCount = 0;
+    for (var check in variations) {
+        variationCount += (variations[check] === true) ? 1 : 0;
+    }
+    score += (variationCount - 1) * 10;
+
+    return parseInt(score);
+}
+
+
+/* 校验密码强度 */
+function checkPasswordLevel(value) {
+    let isFail = false;
+    StateRegister.statePassword.level = (() => {
+        if (value.length >= 6) {
+            if (scorePassword(value) >= 80) {
+                return 3;
+            }
+            if (scorePassword(value) >= 60) {
+                return 2;
+            }
+            if (scorePassword(value) >= 30) {
+                return 1;
+            }
+            return 0;
+        } else {
+            /* 少于6个字符不通过校验 */
+            isFail = true;
+            return 0;
+        }
+    })();
+    
+    StateRegister.statePassword.passwordLevel = StateRegister.statePassword.level;
+    StateRegister.statePassword.percent = StateRegister.statePassword.level * 33;
+    StateRegister.isShowCheckPasswordPopover = StateRegister.statePassword.level <= 3;
+    return isFail;
+}
 
 /*获取验证码 ：等待时间 秒*/
 const CAPTCHA_COUNT = 5;

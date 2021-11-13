@@ -68,6 +68,9 @@ export const reactiveItemConfigs = (options = {
         },
         onBlur: () => {
             handleConfigsValidate(EVENT_TYPE.blur);
+        },
+        onFocus: () => {
+            handleConfigsValidate(EVENT_TYPE.focus);
         }
     }, options));
 

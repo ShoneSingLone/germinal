@@ -1,6 +1,8 @@
 import "./index.less";
 import "./loadCommonUtil";
 import {
+    Progress,
+    Popover,
     Icon,
     Menu,
     Dropdown,
@@ -53,6 +55,8 @@ const componentMyUI = {
 
 /* ant-d-v */
 const componentAntdV = {
+    Progress,
+    Popover,
     Icon,
     Menu,
     MenuItem,
