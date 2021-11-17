@@ -2,7 +2,7 @@
 
 >非最佳实践，尽量多样： Just for fun :)
 
-- []
+- `npm i -g mirror-config-china --registry=https://registry.npm.taobao.org`
 - [Germinal](https://shonesinglone.github.io/germinal/)[![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)
 
 ```js
@@ -105,12 +105,12 @@ watch(() => AppState.count, (count) => {
 错误信息可以单独提供，默认是在formItem 下方展示tips ，也可以利用错误信息做其他展现方式，比如popup， 提供id定位，方便滑动定位
 
 ## log
-1. xItem 错误提示随语言切换变更 涉及到 $t 的配置项都需要 ()=>
-
-`pickValueFrom`：从xItem的configs中获取value；
-
 
 1. `no-mutating-props`:`MutatingProps`
-## log
+2. `pickValueFrom`：从xItem的configs中获取value；
+3. xItem 错误提示随语言切换变更 涉及到 $t 的配置项都需要 ()=>
 
-1. xItem 错误提示随语言切换变更 涉及到 $t 的配置项都需要 ()=>
+
+## 20211117
+登陆框blur未触发update校验
+

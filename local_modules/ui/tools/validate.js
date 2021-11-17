@@ -39,8 +39,6 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
                 const trigger = rule.trigger || [];
                 /* isFail */
                 let isFail = await (async () => {
-
-
                     /*如果是validateForm 无视 trigger 限定的事件列表，否则根据trigger列表 */
                     const needValidate = (() => {
                         /*is ValidateForm*/
