@@ -11,30 +11,12 @@ import {
 export {
     ITEM_TYPE
 }
-from "./xForm/itemRenders/index";
+    from "./xForm/itemRenders/index";
 export {
     EVENT_TYPE
 }
-from "./tools/validate";
+    from "./tools/validate";
 
-const special = ["placeholder"];
-
-export const vModel = configs => {
-    return _.reduce(configs,
-        (_configs, value, prop) => {
-            if (special.includes(prop) && _.isFunction(value)) {
-                _configs[prop] = value(configs);
-            }
-            return _configs;
-        }, {
-            value: configs.value,
-            /* antv 实现了 emit onUpdate:value 外层即可 */
-            /* "onUpdate:value": val => {
-                const updateValue = configs["onUpdate:value"] || _.doNothing;
-                updateValue(val);
-            } */
-        });
-};
 
 let xItemNoPropCount = 0;
 /*make item configs */
@@ -58,7 +40,7 @@ export const reactiveItemConfigs = (options = {
             configs.value = val;
             configs.onAfterValueChange && configs.onAfterValueChange(configs);
             /* TODO: rule检测*/
-            handleConfigsValidate(EVENT_TYPE.update);
+            handleConfigsValidate( /* 默认是update触发 */);
         },
         onChange: () => {
             handleConfigsValidate(EVENT_TYPE.change);
@@ -75,9 +57,15 @@ export const reactiveItemConfigs = (options = {
     }, options));
 
     function handleConfigsValidate(eventType) {
+        console.log("🚀:", eventType);
         if (configs.validate) {
-            configs.validate(eventType);
-            console.log("configs.validate.triggerEventsObj", configs.validate.triggerEventsObj);
+            /* 任何一个事件都是update */
+            if (eventType) {
+                configs.validate(EVENT_TYPE.update);
+                configs.validate(eventType);
+            } else {
+                configs.validate(EVENT_TYPE.update);
+            }
         }
     }
 

@@ -1,7 +1,7 @@
 <script lang="jsx">
 import {defineComponent, useAttrs, h, mergeProps, computed} from "vue";
 import renders from "./itemRenders";
-import {MutatingProps, vModel} from "../common";
+import {MutatingProps} from "../common";
 import {checkXItem, EVENT_TYPE, TIPS_TYPE} from "../tools/validate";
 
 const domClass = {
@@ -57,15 +57,35 @@ export default defineComponent({
       ].join(" ");
     },
     componentSettings() {
-      const configs = {...this.configs, ...this.$attrs};
-      /* 用于form 控件，以下配置信息用不上，遂删除 */
-      const xItemProperties = ["itemTips", "rules", "slots"];
-      const property = _.merge({}, configs, vModel(configs));
-      const slots = property.slots || {};
-      _.each(xItemProperties, (prop) => delete property[prop]);
-      const componentSettings = {property, slots};
-      console.log("componentSettings", componentSettings);
-      return componentSettings;
+      const property = _.merge({}, this.configs, this.$attrs);
+      const listeners = {};
+      let slots = {};
+
+      _.each(property, (value, prop) => {
+        if ("slots" === prop) {
+          slots = value;
+          return;
+        }
+
+        if (["placeholder"].includes(prop) && _.isFunction(value)) {
+          property[prop] = value(this);
+        }
+
+        /* 用于xForm 控件，以下配置信息跟UI库控件相关，用不上，遂删除 */
+        if (["itemTips", "rules"].includes(prop)) {
+          delete property[prop];
+          return;
+        }
+
+        /* FIX: 监听函数单独出来。listener不知道在哪里被覆盖了，inputPassword  被 pop 包裹，childListener被修改了 ，估计是编译器的问题 react的代码都出来了*/
+        if (_.isListener(prop)) {
+          listeners[prop] = value;
+          delete property[prop];
+          return;
+        }
+      });
+
+      return {property, slots, listeners};
     },
     /* VNode */
     tipsVNode() {
@@ -184,13 +204,17 @@ export default defineComponent({
     },
   },
   render(h) {
-    const CurrentFormItemRender =
-        renders[this.configs.itemType] || renders.Input;
+    const CurrentFormItemRender = renders[this.configs.itemType] || renders.Input;
+    console.log(this.componentSettings.listeners);
     return (
         <div id={this.FormItemId} class={this.itemWrapperClass}>
           {this.labelVNode}
           <div class="ant-form-item-control">
-            <CurrentFormItemRender {...this.componentSettings} />
+            <CurrentFormItemRender
+                property={this.componentSettings.property}
+                listeners={this.componentSettings.listeners}
+                slots={this.componentSettings.slots}
+            />
             {this.tipsVNode}
           </div>
         </div>

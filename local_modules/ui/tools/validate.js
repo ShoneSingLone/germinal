@@ -40,16 +40,28 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
                 /* isFail */
                 let isFail = await (async () => {
                     /*如果是validateForm 无视 trigger 限定的事件列表，否则根据trigger列表 */
+                    let trigBy;
                     const needValidate = (() => {
                         /*is ValidateForm*/
-                        if (xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm]) return true;
+                        if (xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm]) {
+                            trigBy = "validateForm";
+                            return true;
+                        };
                         /*some Event In Trigger*/
-                        if (_.some(trigger, eventName => xItemConfigs.validate.triggerEventsObj[eventName])) return true;
+                        if (_.some(trigger, eventName => xItemConfigs.validate.triggerEventsObj[eventName])) {
+                            trigBy = "triggerEvent";
+                            return true;
+                        };
                         /*trigger Include Update*/
-                        if (trigger.includes(EVENT_TYPE.update)) return true;
-                        /**/
+                        if (trigger.includes(EVENT_TYPE.update)) {
+                            trigBy = "update";
+                            return true;
+                        };
+                        /* */
                         return false;
                     })();
+
+                    console.log(`%cValidate trig by [${trigBy}]`, "color:yellow;background:green;");
 
                     if (needValidate) {
                         const validateResult = await rule.validator(xItemConfigs.value);
@@ -86,6 +98,5 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
     } finally {
         /*校验执行后*/
         xItemConfigs.validate.triggerEventsObj = {};
-
     }
 };
