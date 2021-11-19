@@ -213,9 +213,9 @@ export default defineComponent({
       if (_.isArrayFill(rules)) {
         /* 如果有必填项 */
         isRequired = _.some(rules, { name: "required" });
+        /* 检测完成之后的回调 */
         const handleAfterCheck = ([prop, msg]) => {
           MutatingProps(this, "configs.checking", false);
-          console.timeEnd("debounceCheckXItem");
           if (prop) {
             if (msg) {
               this.setTips(TIPS_TYPE.error, msg);
@@ -223,11 +223,10 @@ export default defineComponent({
               this.setTips();
             }
           }
-          console.log("🚀 XItem 是否校验失败", prop, msg);
         };
         const debounceCheckXItem = _.debounce(checkXItem, 300);
+        /* 如果有检验规则，添加可执行校验方法 */
         MutatingProps(this, "configs.validate", (eventType) => {
-          console.time("debounceCheckXItem");
           /* 短时间内，多个事件触发统一校验，使用队列，任一一个触发 */
           const prop = `configs.validate.triggerEventsObj.${eventType}`;
           MutatingProps(this, prop, true);
