@@ -81,33 +81,7 @@ const passwordLevelColor = computed(() => {
             </div>
           </template>
         </Popover>
-        <!-- <Popover
-          v-model:visible="StateRegister.isShowCheckPasswordPopover"
-          placement="rightTop"
-          :trigger="['click']"
-          :get-popup-container="(trigger) => trigger.parentElement"
-        >
-          <template #content>
-            <div :style="{ width: '240px' }">
-              <div :class="['user-register', passwordLevelClass]">
-                {{ $t(passwordLevelName) }}
-              </div>
-              <Progress
-                :percent="state.percent"
-                :show-info="false"
-                :stroke-color="passwordLevelColor"
-              />
-              <div style="margin-top: 10px;">
-                <span>{{ $t('user.register.password.popover-message') }}
-                </span>
-              </div>
-            </div>
-          </template>
-          <xItem
-            :configs="StateRegister.configsForm.passwordConfirm"
-            autocomplete="current-password"
-          />
-        </Popover> -->
+
         <xGap t="20" />
         <!-- 确认密码 -->
         <xItem

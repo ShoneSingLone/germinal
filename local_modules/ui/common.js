@@ -17,24 +17,6 @@ export {
 }
 from "./tools/validate";
 
-const special = ["placeholder"];
-
-export const vModel = configs => {
-    return _.reduce(configs,
-        (_configs, value, prop) => {
-            if (special.includes(prop) && _.isFunction(value)) {
-                _configs[prop] = value(configs);
-            }
-            return _configs;
-        }, {
-            value: configs.value,
-            /* antv 实现了 emit onUpdate:value 外层即可 */
-            /* "onUpdate:value": val => {
-                const updateValue = configs["onUpdate:value"] || _.doNothing;
-                updateValue(val);
-            } */
-        });
-};
 
 let xItemNoPropCount = 0;
 /*make item configs */
@@ -53,33 +35,7 @@ export const reactiveItemConfigs = (options = {
         type: options.type || ITEM_TYPE.Input,
         /*默认绑定的是value*/
         value: options.value || "",
-        "onUpdate:value": (val, ...args) => {
-            console.log("🚀:xItem value change: ", configs.prop, val, args);
-            configs.value = val;
-            configs.onAfterValueChange && configs.onAfterValueChange(configs);
-            /* TODO: rule检测*/
-            handleConfigsValidate(EVENT_TYPE.update);
-        },
-        onChange: () => {
-            handleConfigsValidate(EVENT_TYPE.change);
-        },
-        onInput: () => {
-            handleConfigsValidate(EVENT_TYPE.input);
-        },
-        onBlur: () => {
-            handleConfigsValidate(EVENT_TYPE.blur);
-        },
-        onFocus: () => {
-            handleConfigsValidate(EVENT_TYPE.focus);
-        }
     }, options));
-
-    function handleConfigsValidate(eventType) {
-        if (configs.validate) {
-            configs.validate(eventType);
-            console.log("configs.validate.triggerEventsObj", configs.validate.triggerEventsObj);
-        }
-    }
 
     return {
         [configs.prop]: configs

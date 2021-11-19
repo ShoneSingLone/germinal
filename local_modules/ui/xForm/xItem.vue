@@ -1,8 +1,8 @@
 <script lang="jsx">
-import {defineComponent, useAttrs, h, mergeProps, computed} from "vue";
+import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import renders from "./itemRenders";
-import {MutatingProps, vModel} from "../common";
-import {checkXItem, EVENT_TYPE, TIPS_TYPE} from "../tools/validate";
+import { MutatingProps } from "../common";
+import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
 
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error",
@@ -37,13 +37,13 @@ export default defineComponent({
     },
     /* 提示信息的类型及提示信息 */
     itemTips() {
-      const _itemTips = {type: "", msg: ""};
+      const _itemTips = { type: "", msg: "" };
       if (this.configs.itemTips.type) {
         return {
           type: this.configs.itemTips.type,
           msg: _.isFunction(this.configs.itemTips.msg)
-              ? this.configs.itemTips.msg()
-              : this.configs.itemTips.msg,
+            ? this.configs.itemTips.msg()
+            : this.configs.itemTips.msg,
         };
       } else {
         return _itemTips;
@@ -57,23 +57,84 @@ export default defineComponent({
       ].join(" ");
     },
     componentSettings() {
-      const configs = {...this.configs, ...this.$attrs};
-      /* 用于form 控件，以下配置信息用不上，遂删除 */
-      const xItemProperties = ["itemTips", "rules", "slots"];
-      const property = _.merge({}, configs, vModel(configs));
-      const slots = property.slots || {};
-      _.each(xItemProperties, (prop) => delete property[prop]);
-      const componentSettings = {property, slots};
-      console.log("componentSettings", componentSettings);
-      return componentSettings;
+      const configs = this.configs;
+      const property = {};
+      const listeners = {};
+      let slots = {};
+      let vm = this;
+
+      const pickAttrs = (properties) => {
+        _.each(properties, (value, prop) => {
+          if ("slots" === prop) {
+            slots = value;
+            return;
+          }
+
+          if (["placeholder"].includes(prop) && _.isFunction(value)) {
+            property[prop] = value(this);
+            return;
+          }
+
+          /* 用于xForm 控件，以下配置信息跟UI库控件相关，用不上，遂删除 */
+          if (["itemTips", "rules"].includes(prop)) {
+            return;
+          }
+
+          /* FIX: 监听函数单独出来。listener不知道在哪里被覆盖了，inputPassword  被 pop 包裹，childListener被修改了,UI库？？*/
+          if (_.isListener(prop)) {
+            if (listeners[prop]) {
+              listeners[prop].queue.push(value);
+              return;
+            } else {
+              listeners[prop] = function (...args) {
+                listeners[prop].queue.forEach((listener) => listener(...args));
+              };
+              listeners[prop].queue = [value];
+              return;
+            }
+          }
+          property[prop] = value;
+          return;
+        });
+      };
+
+      const handleConfigsValidate = (eventType) => {
+        configs.validate && configs.validate(eventType);
+      };
+
+      /* 后面的属性覆盖前面的属性 */
+      pickAttrs({
+        "onUpdate:value": (val, ...args) => {
+          console.log("🚀:xItem value change: ", configs.prop, val, args);
+          configs.value = val;
+          configs.onAfterValueChange && configs.onAfterValueChange(configs);
+          /* TODO: rule检测*/
+          handleConfigsValidate(EVENT_TYPE.update);
+        },
+        onChange: () => {
+          handleConfigsValidate(EVENT_TYPE.change);
+        },
+        onInput: () => {
+          handleConfigsValidate(EVENT_TYPE.input);
+        },
+        onBlur: () => {
+          handleConfigsValidate(EVENT_TYPE.blur);
+        },
+        onFocus: () => {
+          handleConfigsValidate(EVENT_TYPE.focus);
+        },
+      });
+      pickAttrs(this.configs);
+      pickAttrs(this.$attrs);
+      return { property, slots, listeners };
     },
     /* VNode */
     tipsVNode() {
       if (this.isChecking) {
         return (
-            <div>
-              <div data-type="checking">checking...</div>
-            </div>
+          <div>
+            <div data-type="checking">checking...</div>
+          </div>
         );
       }
 
@@ -88,9 +149,9 @@ export default defineComponent({
       if (this.itemTips.msg) {
         if (this.itemTips.type === TIPS_TYPE.error) {
           return (
-              <div class={domClass.tipsError}>
-                <div data-type="error">{this.itemTips.msg}</div>
-              </div>
+            <div class={domClass.tipsError}>
+              <div data-type="error">{this.itemTips.msg}</div>
+            </div>
           );
         }
       }
@@ -118,11 +179,11 @@ export default defineComponent({
         return null;
       }
       return (
-          <div class="ant-form-item-label">
-            <label for={this.configs.prop} class="ant-form-item-required">
-              {label}
-            </label>
-          </div>
+        <div class="ant-form-item-label">
+          <label for={this.configs.prop} class="ant-form-item-required">
+            {label}
+          </label>
+        </div>
       );
     },
     /* VNode */
@@ -143,7 +204,7 @@ export default defineComponent({
   },
   methods: {
     setTips(type = "", msg = "") {
-      MutatingProps(this, "configs.itemTips", {type, msg});
+      MutatingProps(this, "configs.itemTips", { type, msg });
     },
     /* 如果有可用rules，为当前item配置校验函数 */
     setValidateInfo(rules) {
@@ -151,7 +212,7 @@ export default defineComponent({
       let isRequired = false;
       if (_.isArrayFill(rules)) {
         /* 如果有必填项 */
-        isRequired = _.some(rules, {name: "required"});
+        isRequired = _.some(rules, { name: "required" });
         const handleAfterCheck = ([prop, msg]) => {
           MutatingProps(this, "configs.checking", false);
           console.timeEnd("debounceCheckXItem");
@@ -184,16 +245,21 @@ export default defineComponent({
     },
   },
   render(h) {
-    const CurrentFormItemRender =
-        renders[this.configs.itemType] || renders.Input;
+    const CurrentXItem = (() => {
+      return renders[this.configs.itemType] || renders.Input;
+    })();
+
     return (
-        <div id={this.FormItemId} class={this.itemWrapperClass}>
-          {this.labelVNode}
-          <div class="ant-form-item-control">
-            <CurrentFormItemRender {...this.componentSettings} />
-            {this.tipsVNode}
-          </div>
+      <div id={this.FormItemId} class={this.itemWrapperClass}>
+        {/* label */}
+        {this.labelVNode}
+        {/* 控件 */}
+        <div class="ant-form-item-control">
+          <CurrentXItem {...this.componentSettings} />
+          {/* 提示信息 */}
+          {this.tipsVNode}
         </div>
+      </div>
     );
   },
 });
