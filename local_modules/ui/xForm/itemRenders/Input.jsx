@@ -11,7 +11,6 @@ import {h} from "vue";
  */
 export default ({property, slots, listeners}) => {
     if (property.isPassword) {
-        console.log( "🚀 ~ listeners.onBlur", listeners.onBlur);
         return h(InputPassword, {...property, ...listeners}, slots);
     } else {
         return h(Input, {...property, ...listeners}, slots);
