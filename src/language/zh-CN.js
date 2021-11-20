@@ -1,4 +1,5 @@
 export default {
+  "login.title": "demo",
   "BackHome": "回到主页",
   "notFoundTips": "对不起，没有找到您要访问的页面",
   "layouts.usermenu.dialog.title": "信息",

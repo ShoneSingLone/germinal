@@ -49,6 +49,10 @@ export const StateRegister = reactive({
                     trigger: [EVENT_TYPE.update]
                 })
             ],
+            onValidateFial:(thisConfigs)=>{
+                console.log(thisConfigs.itemTips);
+
+            },
             slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
         }),
         ...reactiveItemConfigs({
@@ -190,7 +194,7 @@ function checkPasswordLevel(value) {
             return 0;
         }
     })();
-    
+
     StateRegister.statePassword.passwordLevel = StateRegister.statePassword.level;
     StateRegister.statePassword.percent = StateRegister.statePassword.level * 33;
     StateRegister.isShowCheckPasswordPopover = StateRegister.statePassword.level <= 3;

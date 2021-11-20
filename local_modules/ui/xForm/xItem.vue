@@ -219,6 +219,10 @@ export default defineComponent({
           if (prop) {
             if (msg) {
               this.setTips(TIPS_TYPE.error, msg);
+              /*校验未通过，如果有其他操作，可以提供一个onValidateFail的回调函数*/
+              if(_.isFunction(this.configs.onValidateFial)){
+                this.configs.onValidateFial(this.configs);
+              }
             } else {
               this.setTips();
             }

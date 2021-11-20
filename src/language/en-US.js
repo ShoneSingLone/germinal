@@ -1,4 +1,5 @@
 export default {
+  "login.title": "antd vue3 admin",
   "BackHome": "Back Home",
   "notFoundTips": "Sorry, you don't have access to this page.",
   "layouts.usermenu.dialog.title": "Message",

@@ -5,12 +5,12 @@
     "serve": "vite preview",
     "build": "vite build",
     "lint": "vue-cli-service lint",
-    "bs": "npm i",
+    "bs": "npm i && npm run make:language",
+    "start": "npm run bs && vite --host --open",
     "git:pull": "git pull && git pull gitee master ",
     "git:push": "git push && git push gitee master",
     "make:itemRender": "node ./build/make.js itemRender",
-    "make:language": "node ./build/make.js language",
-    "start": "npm run bs && vite --host --open"
+    "make:language": "node ./build/make.js language"
   },
   "main": "src/main.js",
   "dependencies": {

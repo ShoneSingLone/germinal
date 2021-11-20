@@ -2,6 +2,7 @@
 import logoImg from "../assets/logo.png";
 import backgroundImg from "../assets/background.svg";
 import SelectLanguage from "@components/SelectLanguage/SelectLanguage.vue";
+
 const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`};
 </script>
 
@@ -26,7 +27,7 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
                 class="logo"
                 alt="logo"
               >
-              <span class="title">Demo</span>
+              <span class="title">{{ $t("login.title").label }}</span>
             </a>
           </div>
           <div class="desc">

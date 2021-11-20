@@ -3,6 +3,7 @@ const reduce = require("lodash/reduce");
 const path = require("path");
 
 const languageContent = {
+    "login.title": m("demo", "antd vue3 admin"),
     /* system */
     "BackHome": m("回到主页", "Back Home"),
     "notFoundTips": m("对不起，没有找到您要访问的页面", "Sorry, you don't have access to this page."),
