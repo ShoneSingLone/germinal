@@ -10,11 +10,12 @@
     "git:push": "git push && git push gitee master",
     "make:itemRender": "node ./build/make.js itemRender",
     "make:language": "node ./build/make.js language",
-    "start": "vite --host --open"
+    "start": "npm run bs && vite --host --open"
   },
   "main": "src/main.js",
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
+    "@popperjs/core": "^2.10.2",
     "@ventose/ui": "file:./local_modules/ui",
     "ant-design-vue": "^3.0.0-alpha.3",
     "germinal_api": "file:./local_modules/api",

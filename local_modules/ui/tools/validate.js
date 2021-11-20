@@ -11,7 +11,11 @@ export const TIPS_TYPE = {
     success: "success",
     error: "error"
 };
-
+/*
+*d单独调用校验表单的方法
+* 需要提供 configsForm 包含哥哥xItem configs
+* 有value 有rules => configs有validate属性（有rules才动态添加的属性）
+* */
 export const validateForm = async (configsForm) => {
     let results = await Promise.all(_.map(configsForm, (configs, prop) => new Promise(resolve => {
         if (configs.validate) {
@@ -19,12 +23,15 @@ export const validateForm = async (configsForm) => {
                 delete configs.validate.formCallBack;
                 resolve(result);
             };
+            /*触发方式是校验表单，将无视其他trigger规则，权重最大*/
             configs.validate(EVENT_TYPE.validateForm);
         }
     })));
     results = results.filter(res => res[0] && res[1]);
     return results;
 };
+
+
 export const checkXItem = async (xItemConfigs, handlerResult) => {
     xItemConfigs.checking = true;
     try {
