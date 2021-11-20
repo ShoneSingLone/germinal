@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { i as isArray_1, e as each, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as defineComponent, l as h, I as InputPassword, n as Input$1, C as Checkbox$1, o as reactive, p as createVNode, q as createTextVNode, t as resolveComponent, _ as _message, u as _notification, v as _Progress, w as _Popover, x as _Icon, M as Menu, y as MenuItem, D as Dropdown, B as Button, z as _List, A as _Popconfirm, E as _Alert, F as _Result, T as Tabs, G as TabPane, H as GlobalOutlined, J as AppleOutlined, K as AndroidOutlined, U as UserOutlined, L as LockFilled, N as MobileOutlined, O as useRouter, P as createBlock, Q as withCtx, R as openBlock, S as toDisplayString, $, V as computed, W as watch, X as createElementBlock, Y as renderList, Z as Fragment, a0 as unref, a1 as createBaseVNode, a2 as normalizeStyle, a3 as normalizeClass, a4 as createStaticVNode, a5 as createI18n, a6 as watchEffect, a7 as createCommentVNode, a8 as createRouter, a9 as createWebHashHistory, aa as NProgress, ab as createApp } from "./vendor-6fbe236b.js";
+import { e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, l as defineComponent, n as h, I as InputPassword, o as Input$1, C as Checkbox$1, p as reactive, q as createVNode, t as createTextVNode, u as resolveComponent, _ as _message, v as _notification, w as _Progress, x as _Popover, y as _Icon, M as Menu, z as MenuItem, D as Dropdown, B as Button, A as _List, E as _Popconfirm, F as _Alert, G as _Result, T as Tabs, H as TabPane, J as GlobalOutlined, K as AppleOutlined, L as AndroidOutlined, U as UserOutlined, N as LockFilled, O as MobileOutlined, P as useRouter, Q as createBlock, R as withCtx, S as openBlock, V as toDisplayString, $, W as computed, X as watch, Y as createElementBlock, Z as renderList, a0 as Fragment, a1 as unref, a2 as createBaseVNode, a3 as normalizeStyle, a4 as normalizeClass, a5 as createStaticVNode, a6 as createI18n, a7 as watchEffect, a8 as createCommentVNode, a9 as createRouter, aa as createWebHashHistory, ab as NProgress, ac as createApp } from "./vendor-f0bef0a1.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -58,30 +58,32 @@ const p = function polyfill() {
 };
 p();
 var index$1 = "";
-const doNothing = () => null;
-const sleep = (t) => new Promise((r) => setTimeout(r, t));
-const is$Selected = ($ele) => $ele && $ele.length > 0;
+window._ = window._ || {};
 const lodashFunctions = {
-  sleep,
   merge: merge_1,
   each,
   map: map_1,
   reduce: reduce_1,
   isArray: isArray_1,
   isPlainObject: isPlainObject_1,
-  doNothing,
-  is$Selected,
   isFunction: isFunction_1,
   isBoolean: isBoolean_1,
   isString: isString_1,
   some: some_1,
   every: every_1,
   debounce: debounce_1,
-  isNumber: isNumber_1
+  isNumber: isNumber_1,
+  filter: filter_1
 };
-window._ = window._ || {};
-window._.isArrayFill = (arr) => isArray_1(arr) && arr.length > 0;
 each(lodashFunctions, (fn, prop) => window._[prop] = fn);
+window._.isArrayFill = (arr) => isArray_1(arr) && arr.length > 0;
+window._.sleep = (t) => new Promise((r) => setTimeout(r, t));
+window._.is$Selected = ($ele) => $ele && $ele.length > 0;
+const onRE = /^on[^a-z]/;
+const isOn = (key) => onRE.test(key);
+const isModelListener = (key) => key.startsWith("onUpdate:");
+const isListener = (key) => isOn(key) || isModelListener(key);
+window._.isListener = isListener;
 var xRender = defineComponent({
   props: ["render", "state"],
   setup: ({
@@ -91,12 +93,13 @@ var xRender = defineComponent({
 });
 var Input = ({
   property,
-  slots
+  slots,
+  listeners
 }) => {
   if (property.isPassword) {
-    return h(InputPassword, property, slots);
+    return h(InputPassword, __spreadValues(__spreadValues({}, property), listeners), slots);
   } else {
-    return h(Input$1, property, slots);
+    return h(Input$1, __spreadValues(__spreadValues({}, property), listeners), slots);
   }
 };
 const EVENT_TYPE = {
@@ -137,15 +140,30 @@ const checkXItem = async (xItemConfigs, handlerResult) => {
         const rule = rules[i];
         const trigger = rule.trigger || [];
         let isFail = await (async () => {
+          let trigBy;
           const needValidate = (() => {
-            if (xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm])
+            if (xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm]) {
+              trigBy = "validateForm";
               return true;
-            if (_.some(trigger, (eventName) => xItemConfigs.validate.triggerEventsObj[eventName]))
+            }
+            ;
+            const isInTrigger = (eventName) => xItemConfigs.validate.triggerEventsObj[eventName];
+            if (_.some(trigger, isInTrigger)) {
+              trigBy = `triggerEvent ${trigger.toString()}`;
               return true;
-            if (trigger.includes(EVENT_TYPE.update))
-              return true;
+            }
+            ;
+            if (trigger.includes(EVENT_TYPE.update)) {
+              const updateTrigger = [EVENT_TYPE.change, EVENT_TYPE.input, EVENT_TYPE.blur];
+              if (_.some(updateTrigger, isInTrigger)) {
+                trigBy = "update";
+                return true;
+              }
+            }
+            ;
             return false;
           })();
+          trigBy && console.log(`%cValidate trig by [${trigBy}]`, "color:yellow;background:green;");
           if (needValidate) {
             const validateResult = await rule.validator(xItemConfigs.value);
             if (validateResult) {
@@ -195,17 +213,6 @@ const ITEM_TYPE = {
   Input: "Input",
   Checkbox: "Checkbox"
 };
-const special = ["placeholder"];
-const vModel = (configs) => {
-  return _.reduce(configs, (_configs, value, prop) => {
-    if (special.includes(prop) && _.isFunction(value)) {
-      _configs[prop] = value(configs);
-    }
-    return _configs;
-  }, {
-    value: configs.value
-  });
-};
 let xItemNoPropCount = 0;
 const reactiveItemConfigs = (options = {
   itemType: ITEM_TYPE.Input
@@ -217,32 +224,8 @@ const reactiveItemConfigs = (options = {
   const configs = reactive(_.merge({}, {
     itemTips: {},
     type: options.type || ITEM_TYPE.Input,
-    value: options.value || "",
-    "onUpdate:value": (val, ...args) => {
-      console.log("\u{1F680}:xItem value change: ", configs.prop, val, args);
-      configs.value = val;
-      configs.onAfterValueChange && configs.onAfterValueChange(configs);
-      handleConfigsValidate(EVENT_TYPE.update);
-    },
-    onChange: () => {
-      handleConfigsValidate(EVENT_TYPE.change);
-    },
-    onInput: () => {
-      handleConfigsValidate(EVENT_TYPE.input);
-    },
-    onBlur: () => {
-      handleConfigsValidate(EVENT_TYPE.blur);
-    },
-    onFocus: () => {
-      handleConfigsValidate(EVENT_TYPE.focus);
-    }
+    value: options.value || ""
   }, options));
-  function handleConfigsValidate(eventType) {
-    if (configs.validate) {
-      configs.validate(eventType);
-      console.log("configs.validate.triggerEventsObj", configs.validate.triggerEventsObj);
-    }
-  }
   return {
     [configs.prop]: configs
   };
@@ -330,17 +313,69 @@ var _sfc_main$a = defineComponent({
       return [this.configs.itemWrapperClass, "ant-form-item ant-form-item-with-help x-item", this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : ""].join(" ");
     },
     componentSettings() {
-      const configs = __spreadValues(__spreadValues({}, this.configs), this.$attrs);
-      const xItemProperties = ["itemTips", "rules", "slots"];
-      const property = _.merge({}, configs, vModel(configs));
-      const slots = property.slots || {};
-      _.each(xItemProperties, (prop) => delete property[prop]);
-      const componentSettings = {
-        property,
-        slots
+      const configs = this.configs;
+      const property = {};
+      const listeners = {};
+      let slots = {};
+      const pickAttrs = (properties) => {
+        _.each(properties, (value, prop) => {
+          if (prop === "slots") {
+            slots = value;
+            return;
+          }
+          if (["placeholder"].includes(prop) && _.isFunction(value)) {
+            property[prop] = value(this);
+            return;
+          }
+          if (["itemTips", "rules"].includes(prop)) {
+            return;
+          }
+          if (_.isListener(prop)) {
+            if (listeners[prop]) {
+              listeners[prop].queue.push(value);
+              return;
+            } else {
+              listeners[prop] = function(...args) {
+                listeners[prop].queue.forEach((listener) => listener(...args));
+              };
+              listeners[prop].queue = [value];
+              return;
+            }
+          }
+          property[prop] = value;
+          return;
+        });
       };
-      console.log("componentSettings", componentSettings);
-      return componentSettings;
+      const handleConfigsValidate = (eventType) => {
+        configs.validate && configs.validate(eventType);
+      };
+      pickAttrs({
+        "onUpdate:value": (val, ...args) => {
+          console.log("\u{1F680}:xItem value change: ", configs.prop, val, args);
+          configs.value = val;
+          configs.onAfterValueChange && configs.onAfterValueChange(configs);
+          handleConfigsValidate(EVENT_TYPE.update);
+        },
+        onChange: () => {
+          handleConfigsValidate(EVENT_TYPE.change);
+        },
+        onInput: () => {
+          handleConfigsValidate(EVENT_TYPE.input);
+        },
+        onBlur: () => {
+          handleConfigsValidate(EVENT_TYPE.blur);
+        },
+        onFocus: () => {
+          handleConfigsValidate(EVENT_TYPE.focus);
+        }
+      });
+      pickAttrs(this.configs);
+      pickAttrs(this.$attrs);
+      return {
+        property,
+        slots,
+        listeners
+      };
     },
     tipsVNode() {
       if (this.isChecking) {
@@ -418,19 +453,19 @@ var _sfc_main$a = defineComponent({
         });
         const handleAfterCheck = ([prop, msg]) => {
           MutatingProps(this, "configs.checking", false);
-          console.timeEnd("debounceCheckXItem");
           if (prop) {
             if (msg) {
               this.setTips(TIPS_TYPE.error, msg);
+              if (_.isFunction(this.configs.onValidateFial)) {
+                this.configs.onValidateFial(this.configs);
+              }
             } else {
               this.setTips();
             }
           }
-          console.log("\u{1F680} XItem \u662F\u5426\u6821\u9A8C\u5931\u8D25", prop, msg);
         };
         const debounceCheckXItem = _.debounce(checkXItem, 300);
         MutatingProps(this, "configs.validate", (eventType) => {
-          console.time("debounceCheckXItem");
           const prop = `configs.validate.triggerEventsObj.${eventType}`;
           MutatingProps(this, prop, true);
           debounceCheckXItem(this.configs, handleAfterCheck);
@@ -445,13 +480,15 @@ var _sfc_main$a = defineComponent({
     }
   },
   render(h2) {
-    const CurrentFormItemRender = renders[this.configs.itemType] || renders.Input;
+    const CurrentXItem = (() => {
+      return renders[this.configs.itemType] || renders.Input;
+    })();
     return createVNode("div", {
       "id": this.FormItemId,
       "class": this.itemWrapperClass
     }, [this.labelVNode, createVNode("div", {
       "class": "ant-form-item-control"
-    }, [createVNode(CurrentFormItemRender, this.componentSettings, null), this.tipsVNode])]);
+    }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
 var _sfc_main$9 = defineComponent({
@@ -895,9 +932,9 @@ const _hoisted_5$2 = {
   href: "/"
 };
 const _hoisted_6$2 = ["src"];
-const _hoisted_7$1 = /* @__PURE__ */ createBaseVNode("span", {
+const _hoisted_7$1 = {
   class: "title"
-}, "Demo", -1);
+};
 const _hoisted_8 = {
   class: "desc"
 };
@@ -921,11 +958,12 @@ const _sfc_main$5 = {
         src: unref(logoImg),
         class: "logo",
         alt: "logo"
-      }, null, 8, _hoisted_6$2), _hoisted_7$1])]), createBaseVNode("div", _hoisted_8, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+      }, null, 8, _hoisted_6$2), createBaseVNode("span", _hoisted_7$1, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
     };
   }
 };
 var enUS = {
+  "login.title": "antd vue3 admin",
   "BackHome": "Back Home",
   "notFoundTips": "Sorry, you don't have access to this page.",
   "layouts.usermenu.dialog.title": "Message",
@@ -978,6 +1016,7 @@ var __glob_3_0 = /* @__PURE__ */ Object.freeze({
   "default": enUS
 });
 var zhCN = {
+  "login.title": "demo",
   "BackHome": "\u56DE\u5230\u4E3B\u9875",
   "notFoundTips": "\u5BF9\u4E0D\u8D77\uFF0C\u6CA1\u6709\u627E\u5230\u60A8\u8981\u8BBF\u95EE\u7684\u9875\u9762",
   "layouts.usermenu.dialog.title": "\u4FE1\u606F",
@@ -1481,6 +1520,9 @@ const StateRegister = reactive({
       validator: checkPasswordLevel,
       trigger: [EVENT_TYPE.update]
     })],
+    onValidateFial: (thisConfigs) => {
+      console.log(thisConfigs.itemTips);
+    },
     slots: {
       prefix: () => createVNode(resolveComponent("xRender"), {
         "render": SvgRender.lockStrok,
