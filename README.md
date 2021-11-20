@@ -3,7 +3,9 @@
 >非最佳实践，尽量多样： Just for fun :)
 
 - `npm i -g mirror-config-china --registry=https://registry.npm.taobao.org`
-- [Germinal](https://shonesinglone.github.io/germinal/)[![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)
+~~[Germinal](https://shonesinglone.github.io/germinal/)[![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)~~
+
+- [Actions](https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco)
 
 ```js
 /* README: */
