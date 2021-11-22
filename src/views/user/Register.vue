@@ -1,31 +1,30 @@
 <script setup>
-import {reactive, computed} from "vue";
-import {$t} from "@language";
+import { reactive, computed } from "vue";
+import { $t } from "@language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
-import {StateRegister} from "./StateRegister";
-import {routeNames} from "@router/router";
-
+import { StateRegister } from "./StateRegister";
+import { routeNames } from "@router/router";
+import PopoverContentVue from "./PopoverContent.vue";
 
 const levelNames = {
   0: "user.password.strength.short",
   1: "user.password.strength.low",
   2: "user.password.strength.medium",
-  3: "user.password.strength.strong"
+  3: "user.password.strength.strong",
 };
 const levelClass = {
   0: "error",
   1: "error",
   2: "warning",
-  3: "success"
+  3: "success",
 };
 const levelColor = {
   0: "#ff0000",
   1: "#ff0000",
   2: "#ff7e05",
-  3: "#52c41a"
+  3: "#52c41a",
 };
-
 
 const passwordLevelClass = computed(() => {
   return levelClass[StateRegister.statePassword.passwordLevel];
@@ -37,7 +36,18 @@ const passwordLevelColor = computed(() => {
   return levelColor[StateRegister.statePassword.passwordLevel];
 });
 
-
+const configsTestPopover = {
+  width: 400,
+  content: PopoverContentVue,
+  preventHide: true,
+  trigger: "hover",
+  onShow() {
+    console.log("Popover shown.");
+  },
+  onHide() {
+    console.log("Popover hidden.");
+  },
+};
 </script>
 
 <template>
@@ -46,9 +56,13 @@ const passwordLevelColor = computed(() => {
       <h3>
         <span>{{ $t("user.register.register").label }}</span>
       </h3>
+      <h1 v-uiPopover="configsTestPopover">
+        Test Popover
+      </h1>
       <form>
         <!-- 用户名 -->
         <xItem
+          ref="username"
           :configs="StateRegister.configsForm.userName"
           autocomplete="username"
         />
@@ -74,7 +88,7 @@ const passwordLevelColor = computed(() => {
                 :stroke-color="passwordLevelColor"
                 :get-popup-container="(trigger) => trigger.parentElement"
               />
-              <div style="margin-top: 10px;">
+              <div style="margin-top: 10px">
                 <span>{{ $t("user.register.password.popover-message").label }}
                 </span>
               </div>

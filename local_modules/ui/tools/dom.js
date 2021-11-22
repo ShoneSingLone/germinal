@@ -1,5 +1,6 @@
 import $ from "jquery";
 
+
 const get$head = () => {
     let $head = $("html head");
     if (!_.is$Selected($head)) {

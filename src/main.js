@@ -8,7 +8,8 @@ import App from "./App.vue";
 (async () => {
     const AppState = await initAppConfigs();
     const app = createApp(App);
-    app.use(MyUI);
+    /* isUsePopover 全局监听 [data-ui-popover] */
+    app.use(MyUI, {isUsePopover:true});
     app.use(appI18n, AppState);
     app.use(router);
     app.mount("#app");

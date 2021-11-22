@@ -113,7 +113,10 @@ watch(() => AppState.count, (count) => {
 2. `pickValueFrom`：从xItem的configs中获取value；
 3. xItem 错误提示随语言切换变更 涉及到 $t 的配置项都需要 ()=>
 
-
 ## 20211117
+
 登陆框blur未触发update校验
 
+## 20211122134700
+
+popover click单独使用

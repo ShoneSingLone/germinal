@@ -43,6 +43,14 @@ import xGap from "./xLayout/xGap.vue";
 
 /* 表单提示信息 */
 import "ant-design-vue/es/form/style/index.css";
+import {
+    initPopover
+} from "./xSingle/popover";
+import $ from "jquery";
+
+if (import.meta.env.MODE === "development") {
+    window.jquery = $;
+}
 
 
 /* my-ui */
@@ -91,8 +99,17 @@ export const UI = {
     message,
     notification
 };
+
+let usedPopover = false;
+
 export default {
-    install: (app) => {
+    install: (app, options) => {
         _.each(components, (component, name) => app.component(name, component));
+        if (options.isUsePopover) {
+            if (!usedPopover) {
+                initPopover(app);
+                usedPopover = true;
+            }
+        }
     },
 };
