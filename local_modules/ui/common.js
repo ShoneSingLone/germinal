@@ -91,3 +91,10 @@ export const MutatingProps = (item, prop, val) => {
     }
     return item;
 };
+
+
+let idCount = 1;
+export function genId(category) {
+    if (idCount > 1000) idCount = 1;
+    return `${category}_${Date.now()}_${idCount++}`;
+}

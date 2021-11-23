@@ -1,16 +1,14 @@
-import MyUI from "@ventose/ui/index.js";
 import {createApp} from "vue";
-import {router} from "./router/router.js";
-import {appI18n} from "@language";
-import {initAppConfigs} from "./state/app";
 import App from "./App.vue";
+import {addPlugins} from "./utils/common";
+import {initAppConfigs} from "@state/app";
 
+let app;
 (async () => {
-    const AppState = await initAppConfigs();
-    const app = createApp(App);
-    /* isUsePopover 全局监听 [data-ui-popover] */
-    app.use(MyUI, {isUsePopover:true});
-    app.use(appI18n, AppState);
-    app.use(router);
+    await initAppConfigs();
+    app = createApp(App);
+    addPlugins(app);
     app.mount("#app");
 })();
+
+export const getPopover = () => app;

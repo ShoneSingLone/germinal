@@ -3,6 +3,6 @@
 </script>
 <template>
   <RouterView />
-</template>
+</template>;
 
-<style lang="less" src="@style/App.less"> </style>
+<style lang="less" src="@style/App.less"></style>;

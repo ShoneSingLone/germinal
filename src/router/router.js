@@ -4,6 +4,7 @@ import NotFound from "@views/system/NotFound.vue";
 import LayoutUser from "@layout/User.vue";
 import Login from "@views/user/Login.vue";
 import Register from "@views/user/Register.vue";
+import DevDemo from "@views/demo/HelloWorld.vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
 import {AppState, AppMutation} from "@state/app";
@@ -19,6 +20,7 @@ export const NewRoute = (name, component, options = {}) =>  _.merge({name, path:
 
 
 export const routeNames = {
+    devDemo: "dev-demo",
     user: "user",
     userLogin: "user-login",
     login: "login",
@@ -30,6 +32,7 @@ export const routeNames = {
 const toPath = name => `/${name}`;
 
 const routes = [
+    NewRoute(routeNames.devDemo, DevDemo),
     NewRoute(
         routeNames.login,
         LayoutUser,
@@ -89,7 +92,6 @@ router.beforeEach(async (to, from) => {
     const noAccessTokenHandler = () => {
         if (!allowList.includes(to.name)) {
             // 在免登录名单，直接进入
-            debugger;
             return {
                 path: loginRoutePath,
                 query: {

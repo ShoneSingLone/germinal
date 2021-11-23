@@ -3,6 +3,8 @@ import {lStorage} from "@ventose/ui/tools/storage";
 import {setCSSVariables, setDocumentTitle} from "@ventose/ui/tools/dom";
 import API from "germinal_api";
 import ajax from "@request/ajax";
+import MyUI from "@ventose/ui";
+import {router} from "../router/router";
 
 
 export const AppState = reactive({
@@ -96,3 +98,5 @@ export const initAppConfigs = async (callback) => {
     callback && callback(AppState);
     return AppState;
 };
+
+

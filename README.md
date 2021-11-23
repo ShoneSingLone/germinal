@@ -120,3 +120,17 @@ watch(() => AppState.count, (count) => {
 ## 20211122134700
 
 popover click单独使用
+UI.Popover 有问题，难道还要考虑多个app同时共存多个UI.Popover????
+```js
+            /* Vue3 组件方式加载 popover content */
+            if (this.options.component) {
+                this.$popoverMountDOM = $(`<div id="${this.id}" class="x-popover-content"/>`).prependTo($("body"));
+                const popoverApp = createApp(this.options.component);
+                addPlugins(popoverApp);
+                const vm = popoverApp.mount(`#${this.id}`);
+                this.$popoverDOM = $(vm.$el);
+                this.$popoverDOM.appendTo(this.$popoverMountDOM);
+                return;
+            }
+```
+跟Vue2 有不同的处理方式在于addPlugins的使用。主要是Vue app 化后无法共享component 这类的配置信息
