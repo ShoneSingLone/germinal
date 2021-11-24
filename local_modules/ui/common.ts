@@ -1,47 +1,42 @@
-import {
-    reactive
-} from "vue";
-import {
-    EVENT_TYPE
-} from "./tools/validate";
-import {
-    ITEM_TYPE
-} from "./xForm/itemRenders/index";
+import {reactive} from "vue";
+import {EVENT_TYPE} from "./tools/validate";
+import {ITEM_TYPE} from "./xForm/itemRenders/index";
 
-export {
-    ITEM_TYPE
-}
-from "./xForm/itemRenders/index";
-export {
-    EVENT_TYPE
-}
-from "./tools/validate";
-
+export {ITEM_TYPE} from "./xForm/itemRenders/index";
+export {EVENT_TYPE} from "./tools/validate";
 
 let xItemNoPropCount = 0;
+type t_itemConfigs = {
+    itemType?: keyof typeof ITEM_TYPE;
+    value: any;
+    prop: string;
+};
 /*make item configs */
-export const reactiveItemConfigs = (options = {
-    itemType: ITEM_TYPE.Input
-}) => {
+export const reactiveItemConfigs = (options: t_itemConfigs) => {
     if (!options.prop) {
         options.prop = `xItem${xItemNoPropCount++}`;
         console.error(`no xItem prop replace by ${options.prop}`);
     }
 
-    const configs = reactive(_.merge({}, {
-        /* 提示信息，可以用于提示或者定位 */
-        itemTips: {},
-        /*item 的类型 case by case 跟ui库关联*/
-        type: options.type || ITEM_TYPE.Input,
-        /*默认绑定的是value*/
-        value: options.value || "",
-    }, options));
+    const configs = reactive(
+        _.merge(
+            {},
+            {
+                /* 提示信息，可以用于提示或者定位 */
+                itemTips: {},
+                /*item 的类型 case by case 跟ui库关联*/
+                itemType: options.itemType || ITEM_TYPE.Input,
+                /*默认绑定的是value*/
+                value: options.value || "",
+            },
+            options
+        )
+    );
 
     return {
         [configs.prop]: configs
     };
 };
-
 
 /* 对object set 或 get 属性值，保证不会undefined */
 export const MutatingProps = (item, prop, val) => {
@@ -92,8 +87,8 @@ export const MutatingProps = (item, prop, val) => {
     return item;
 };
 
-
 let idCount = 1;
+
 export function genId(category) {
     if (idCount > 1000) idCount = 1;
     return `${category}_${Date.now()}_${idCount++}`;
