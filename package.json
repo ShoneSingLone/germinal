@@ -6,7 +6,7 @@
     "build": "vite build",
     "lint": "vue-cli-service lint",
     "bs": "npm i && npm run make:language",
-    "start": "npm run bs && vite --host --open",
+    "start": "vite --host --open",
     "git:pull": "git pull && git pull gitee master ",
     "git:push": "git push && git push gitee master",
     "make:itemRender": "node ./build/make.js itemRender",

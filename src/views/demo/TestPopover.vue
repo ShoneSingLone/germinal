@@ -24,8 +24,16 @@ const PopoverContent = defineComponent({
 /* methods */
 const handlers = {
   clickBtn() {
-    const testPopover = new UI.Popover("#target", {component: PopoverContent});
-    console.log(testPopover);
+    const testPopover = UI.layer.open({
+    type: 2,
+    title: "欢迎页",
+    maxmin: true,
+    area: ["800px", "500px"],
+    content: "http://layer.layui.com/test/welcome.html",
+    end: function(){
+      layer.tips("Hi", "#about", {tips: 1});
+    }
+  });
   },
 };
 </script>

@@ -50,6 +50,8 @@ if (import.meta.env.MODE === "development") {
     window.jquery = $;
 }
 
+import layer from "./xSingle/layer/layer";
+
 
 /* my-ui */
 const componentMyUI = {
@@ -95,7 +97,8 @@ const components = {
 };
 export const UI = {
     message,
-    notification
+    notification,
+    layer
     /* Popover: installPopoverDirective动态添加*/
 };
 let usedPopover = false;
