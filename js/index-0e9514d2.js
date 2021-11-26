@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, l as defineComponent, n as h, I as InputPassword, o as Input$1, C as Checkbox$1, p as reactive, q as createVNode, t as createTextVNode, u as resolveComponent, _ as _message, v as _notification, w as _Progress, x as _Popover, y as _Icon, M as Menu, z as MenuItem, D as Dropdown, B as Button, A as _List, E as _Popconfirm, F as _Alert, G as _Result, T as Tabs, H as TabPane, J as GlobalOutlined, K as AppleOutlined, L as AndroidOutlined, U as UserOutlined, N as LockFilled, O as MobileOutlined, P as useRouter, Q as createBlock, R as withCtx, S as openBlock, V as toDisplayString, $, W as computed, X as watch, Y as createElementBlock, Z as renderList, a0 as Fragment, a1 as unref, a2 as createBaseVNode, a3 as normalizeStyle, a4 as normalizeClass, a5 as createStaticVNode, a6 as createI18n, a7 as watchEffect, a8 as createCommentVNode, a9 as createRouter, aa as createWebHashHistory, ab as NProgress, ac as createApp } from "./vendor-f0bef0a1.js";
+import { r as resolveComponent, c as createBlock, o as openBlock, e as each, i as isArray_1, m as merge_1, a as map_1, b as reduce_1, d as isPlainObject_1, f as isFunction_1, g as isBoolean_1, h as isString_1, s as some_1, j as every_1, k as debounce_1, l as isNumber_1, n as filter_1, p as defineComponent, q as h, I as InputPassword, t as Input$1, C as Checkbox$1, u as reactive, v as createVNode, w as createTextVNode, $, _ as _message, x as _notification, y as _Progress, z as _Popover, A as _Icon, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as useRouter, S as withCtx, V as toDisplayString, W as computed, X as watch, Y as createElementBlock, Z as renderList, a0 as Fragment, a1 as unref, a2 as createBaseVNode, a3 as normalizeStyle, a4 as normalizeClass, a5 as createStaticVNode, a6 as createI18n, a7 as watchEffect, a8 as createCommentVNode, a9 as resolveDirective, aa as withDirectives, ab as pushScopeId, ac as popScopeId, ad as createRouter, ae as createWebHashHistory, af as NProgress, ag as createApp } from "./vendor-563c9e76.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -57,6 +57,15 @@ const p = function polyfill() {
   }
 };
 p();
+var App_less_vue_type_style_index_0_src_lang = "";
+const _sfc_main$d = {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      const _component_RouterView = resolveComponent("RouterView");
+      return openBlock(), createBlock(_component_RouterView);
+    };
+  }
+};
 var index$1 = "";
 window._ = window._ || {};
 const lodashFunctions = {
@@ -214,16 +223,14 @@ const ITEM_TYPE = {
   Checkbox: "Checkbox"
 };
 let xItemNoPropCount = 0;
-const reactiveItemConfigs = (options = {
-  itemType: ITEM_TYPE.Input
-}) => {
+const reactiveItemConfigs = (options) => {
   if (!options.prop) {
     options.prop = `xItem${xItemNoPropCount++}`;
     console.error(`no xItem prop replace by ${options.prop}`);
   }
   const configs = reactive(_.merge({}, {
     itemTips: {},
-    type: options.type || ITEM_TYPE.Input,
+    itemType: options.itemType || ITEM_TYPE.Input,
     value: options.value || ""
   }, options));
   return {
@@ -271,10 +278,16 @@ const MutatingProps = (item, prop, val) => {
   }
   return item;
 };
+let idCount = 1;
+function genId(category) {
+  if (idCount > 1e3)
+    idCount = 1;
+  return `${category}_${Date.now()}_${idCount++}`;
+}
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$a = defineComponent({
+var _sfc_main$c = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -439,9 +452,9 @@ var _sfc_main$a = defineComponent({
     MutatingProps(this, "configs.FormItemId", this.FormItemId);
   },
   methods: {
-    setTips(type = "", msg = "") {
+    setTips(type2 = "", msg = "") {
       MutatingProps(this, "configs.itemTips", {
-        type,
+        type: type2,
         msg
       });
     },
@@ -491,7 +504,7 @@ var _sfc_main$a = defineComponent({
     }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$9 = defineComponent({
+var _sfc_main$b = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -557,7 +570,7 @@ var _sfc_main$9 = defineComponent({
     });
   }
 });
-var _sfc_main$8 = defineComponent({
+var _sfc_main$a = defineComponent({
   props: ["t", "l", "r", "b", "a"],
   computed: {
     gapStyle: {
@@ -591,11 +604,1103 @@ var _sfc_main$8 = defineComponent({
   }
 });
 var index = "";
+const $win = $(window);
+const $html = $("html");
+const DOMS = ["layui-layer", ".layui-layer-title", ".layui-layer-main", ".layui-layer-dialog", "layui-layer-iframe", "layui-layer-content", "layui-layer-btn", "layui-layer-close"];
+DOMS.anim = ["layer-anim-00", "layer-anim-01", "layer-anim-02", "layer-anim-03", "layer-anim-04", "layer-anim-05", "layer-anim-06"];
+DOMS.SHADE = "layui-layer-shade";
+DOMS.MOVE = "layui-layer-move";
+const READY = {
+  getPath: function() {
+    var jsPath = document.currentScript ? document.currentScript.src : function() {
+      var js = document.scripts, last = js.length - 1, src;
+      for (var i = last; i > 0; i--) {
+        if (js[i].readyState === "interactive") {
+          src = js[i].src;
+          break;
+        }
+      }
+      return src || js[last].src;
+    }();
+    return jsPath.substring(0, jsPath.lastIndexOf("/") + 1);
+  }(),
+  config: {},
+  end: {},
+  minIndex: 0,
+  minLeft: [],
+  btn: ["&#x786E;&#x5B9A;", "&#x53D6;&#x6D88;"],
+  type: ["dialog", "page", "iframe", "loading", "tips"],
+  getStyle: function(node, name) {
+    var style = node.currentStyle ? node.currentStyle : window.getComputedStyle(node, null);
+    return style[style.getPropertyValue ? "getPropertyValue" : "getAttribute"](name);
+  }
+};
+const layer = {
+  MSG: 0,
+  DIALOG: 1,
+  IFRAME: 2,
+  LOADING: 3,
+  TIPS: 4,
+  UP: 1,
+  RIGHT: 2,
+  BOTTOM: 3,
+  LEFT: 4,
+  v: "3.5.1",
+  ie: function() {
+    var agent = navigator.userAgent.toLowerCase();
+    return !!window.ActiveXObject || "ActiveXObject" in window ? (agent.match(/msie\s(\d+)/) || [])[1] || "11" : false;
+  }(),
+  index: 1,
+  path: READY.getPath,
+  config: function(options, fn) {
+    options = options || {};
+    layer.cache = READY.config = $.extend({}, READY.config, options);
+    layer.path = READY.config.path || layer.path;
+    typeof options.extend === "string" && (options.extend = [options.extend]);
+    if (READY.config.path)
+      layer.ready();
+    if (!options.extend)
+      return this;
+    return this;
+  },
+  ready(callback) {
+    return this;
+  },
+  alert: function(content, options, yes) {
+    var type2 = typeof options === "function";
+    if (type2)
+      yes = options;
+    return layer.open($.extend({
+      content,
+      yes
+    }, type2 ? {} : options));
+  },
+  confirm: function(content, options, yes, cancel) {
+    if (isFunction_1(options)) {
+      cancel = yes;
+      yes = options;
+    }
+    return layer.open($.extend({
+      content,
+      btn: READY.btn,
+      yes,
+      btn2: cancel
+    }, type ? {} : options));
+  },
+  msg: function(content, options, end) {
+    var isOptionsIsFunction = isFunction_1(options), rskin = READY.config.skin;
+    var skin2 = (rskin ? rskin + " " + rskin + "-msg" : "") || "layui-layer-msg";
+    var anim = DOMS.anim.length - 1;
+    if (isOptionsIsFunction)
+      end = options;
+    return layer.open($.extend({
+      content,
+      time: 3e3,
+      shade: false,
+      skin: skin2,
+      title: false,
+      closeBtn: false,
+      btn: false,
+      resize: false,
+      end
+    }, isOptionsIsFunction && !READY.config.skin ? {
+      skin: skin2 + " layui-layer-hui",
+      anim
+    } : function() {
+      options = options || {};
+      if (options.icon === -1 || options.icon === void 0 && !READY.config.skin) {
+        options.skin = skin2 + " " + (options.skin || "layui-layer-hui");
+      }
+      return options;
+    }()));
+  },
+  load: function(icon, options) {
+    return layer.open($.extend({
+      type: 3,
+      icon: icon || 0,
+      resize: false,
+      shade: 0.01
+    }, options));
+  },
+  tips(content, follow, options) {
+    return layer.open($.extend({
+      type: layer.TIPS,
+      content: [content, follow],
+      closeBtn: false,
+      time: 3e3,
+      shade: false,
+      resize: false,
+      fixed: false,
+      maxWidth: 260
+    }, options));
+  }
+};
+function ClassLayer(setings) {
+  var that = this;
+  that.index = ++layer.index;
+  that.config.maxWidth = $($win).width() - 15 * 2;
+  that.config = $.extend({}, that.config, READY.config, setings);
+  that.creat();
+}
+ClassLayer.pt = ClassLayer.prototype;
+ClassLayer.pt.config = {
+  type: 0,
+  shade: 0.3,
+  fixed: true,
+  move: DOMS[1],
+  title: "&#x4FE1;&#x606F;",
+  offset: "auto",
+  area: "auto",
+  closeBtn: 1,
+  time: 0,
+  zIndex: 1,
+  maxWidth: 360,
+  anim: 0,
+  isOutAnim: true,
+  minStack: true,
+  icon: -1,
+  moveType: 1,
+  resize: true,
+  scrollbar: true,
+  tips: 2
+};
+ClassLayer.pt.vessel = function(conType, callback) {
+  var that = this, times = that.index, config = that.config;
+  var zIndex = config.zIndex + times, titype = typeof config.title === "object";
+  var ismax = config.maxmin && (config.type === 1 || config.type === 2);
+  var titleHTML = config.title ? `
+  <div class="layui-layer-title" style="${titype ? config.title[1] : ""}">
+    ${titype ? config.title[0] : config.title}
+  </div >` : "";
+  config.zIndex = zIndex;
+  callback([
+    config.shade ? '<div class="' + DOMS.SHADE + '" id="' + DOMS.SHADE + times + '" times="' + times + '" style="' + ("z-index:" + (zIndex - 1) + "; ") + '"></div>' : "",
+    '<div class="' + DOMS[0] + (" layui-layer-" + READY.type[config.type]) + ((config.type == 0 || config.type == 2) && !config.shade ? " layui-layer-border" : "") + " " + (config.skin || "") + '" id="' + DOMS[0] + times + '" type="' + READY.type[config.type] + '" times="' + times + '" showtime="' + config.time + '" conType="' + (conType ? "object" : "string") + '" style="z-index: ' + zIndex + "; width:" + config.area[0] + ";height:" + config.area[1] + ";position:" + (config.fixed ? "fixed;" : "absolute;") + '">' + (conType && config.type != 2 ? "" : titleHTML) + '<div id="' + (config.id || "") + '" class="layui-layer-content' + (config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : "") + (config.type == 3 ? " layui-layer-loading" + config.icon : "") + '">' + (config.type == 0 && config.icon !== -1 ? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>' : "") + (config.type == 1 && conType ? "" : config.content || "") + '</div><span class="layui-layer-setwin">' + function() {
+      var closebtn = ismax ? '<a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a>' : "";
+      config.closeBtn && (closebtn += '<a class="layui-layer-ico ' + DOMS[7] + " " + DOMS[7] + (config.title ? config.closeBtn : config.type == 4 ? "1" : "2") + '" href="javascript:;"></a>');
+      return closebtn;
+    }() + "</span>" + (config.btn ? function() {
+      var button = "";
+      typeof config.btn === "string" && (config.btn = [config.btn]);
+      for (var i = 0, len = config.btn.length; i < len; i++) {
+        button += '<a class="' + DOMS[6] + "" + i + '">' + config.btn[i] + "</a>";
+      }
+      return '<div class="' + DOMS[6] + " layui-layer-btn-" + (config.btnAlign || "") + '">' + button + "</div>";
+    }() : "") + (config.resize ? '<span class="layui-layer-resize"></span>' : "") + "</div>"
+  ], titleHTML, $('<div class="' + DOMS.MOVE + '" id="' + DOMS.MOVE + '"></div>'));
+  return that;
+};
+ClassLayer.pt.creat = function() {
+  var that = this, config = that.config, times = that.index, content = config.content, conType = typeof content === "object", body = $("body");
+  if (config.id && $("#" + config.id)[0])
+    return;
+  if (typeof config.area === "string") {
+    config.area = config.area === "auto" ? ["", ""] : [config.area, ""];
+  }
+  if (config.shift) {
+    config.anim = config.shift;
+  }
+  if (layer.ie == 6) {
+    config.fixed = false;
+  }
+  switch (config.type) {
+    case layer.MSG:
+      config.btn = "btn" in config ? config.btn : READY.btn[0];
+      layer.closeAll("dialog");
+      break;
+    case layer.IFRAME:
+      var content = config.content = conType ? config.content : [config.content || "", "auto"];
+      config.content = '<iframe scrolling="' + (config.content[1] || "auto") + '" allowtransparency="true" id="' + DOMS[4] + "" + times + '" name="' + DOMS[4] + "" + times + `" onload="this.className='';" class="layui-layer-load" frameborder="0" src="` + config.content[0] + '"></iframe>';
+      break;
+    case layer.LOADING:
+      delete config.title;
+      delete config.closeBtn;
+      config.icon === -1 && config.icon === 0;
+      layer.closeAll("loading");
+      break;
+    case layer.TIPS: {
+      conType || (config.content = [config.content, "body"]);
+      config.follow = config.content[1];
+      const arrow = `<i class="layui-layer-TipsG"></i>`;
+      config.content = `${config.content[0]}${arrow}`;
+      delete config.title;
+      config.tips = typeof config.tips === "object" ? config.tips : [config.tips, true];
+      config.tipsMore || layer.closeAll("tips");
+      break;
+    }
+  }
+  that.vessel(conType, function(html, titleHTML, moveElem) {
+    body.append(html[0]);
+    conType ? function() {
+      config.type == 2 || config.type == 4 ? function() {
+        $("body").append(html[1]);
+      }() : function() {
+        if (!content.parents("." + DOMS[0])[0]) {
+          content.data("display", content.css("display")).show().addClass("layui-layer-wrap").wrap(html[1]);
+          $("#" + DOMS[0] + times).find("." + DOMS[5]).before(titleHTML);
+        }
+      }();
+    }() : body.append(html[1]);
+    $("#" + DOMS.MOVE)[0] || body.append(READY.moveElem = moveElem);
+    that.layero = $("#" + DOMS[0] + times);
+    that.shadeo = $("#" + DOMS.SHADE + times);
+    config.scrollbar || $html.css("overflow", "hidden").attr("layer-full", times);
+  }).auto(times);
+  that.shadeo.css({
+    "background-color": config.shade[1] || "#000",
+    "opacity": config.shade[0] || config.shade
+  });
+  config.type == 2 && layer.ie == 6 && that.layero.find("iframe").attr("src", content[0]);
+  config.type == 4 ? that.tips() : function() {
+    that.offset();
+    parseInt(READY.getStyle(document.getElementById(DOMS.MOVE), "z-index")) || function() {
+      that.layero.css("visibility", "hidden");
+      layer.ready(function() {
+        that.offset();
+        that.layero.css("visibility", "visible");
+      });
+    }();
+  }();
+  if (config.fixed) {
+    $win.on("resize", function() {
+      that.offset();
+      (/^\d+%$/.test(config.area[0]) || /^\d+%$/.test(config.area[1])) && that.auto(times);
+      config.type == 4 && that.tips();
+    });
+  }
+  config.time <= 0 || setTimeout(function() {
+    layer.close(that.index);
+  }, config.time);
+  that.move().callback();
+  if (DOMS.anim[config.anim]) {
+    var animClass = "layer-anim " + DOMS.anim[config.anim];
+    that.layero.addClass(animClass).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function() {
+      $(this).removeClass(animClass);
+    });
+  }
+  if (config.isOutAnim) {
+    that.layero.data("isOutAnim", true);
+  }
+};
+ClassLayer.pt.auto = function(index2) {
+  var that = this, config = that.config, layero = $("#" + DOMS[0] + index2);
+  if (config.area[0] === "" && config.maxWidth > 0) {
+    if (layer.ie && layer.ie < 8 && config.btn) {
+      layero.width(layero.innerWidth());
+    }
+    layero.outerWidth() > config.maxWidth && layero.width(config.maxWidth);
+  }
+  var area = [layero.innerWidth(), layero.innerHeight()], titHeight = layero.find(DOMS[1]).outerHeight() || 0, btnHeight = layero.find("." + DOMS[6]).outerHeight() || 0, setHeight = function(elem) {
+    elem = layero.find(elem);
+    elem.height(area[1] - titHeight - btnHeight - 2 * (parseFloat(elem.css("padding-top")) | 0));
+  };
+  switch (config.type) {
+    case 2:
+      setHeight("iframe");
+      break;
+    default:
+      if (config.area[1] === "") {
+        if (config.maxHeight > 0 && layero.outerHeight() > config.maxHeight) {
+          area[1] = config.maxHeight;
+          setHeight("." + DOMS[5]);
+        } else if (config.fixed && area[1] >= $win.height()) {
+          area[1] = $win.height();
+          setHeight("." + DOMS[5]);
+        }
+      } else {
+        setHeight("." + DOMS[5]);
+      }
+      break;
+  }
+  return that;
+};
+ClassLayer.pt.offset = function() {
+  var that = this, config = that.config, layero = that.layero;
+  var area = [layero.outerWidth(), layero.outerHeight()];
+  var type2 = typeof config.offset === "object";
+  that.offsetTop = ($win.height() - area[1]) / 2;
+  that.offsetLeft = ($win.width() - area[0]) / 2;
+  if (type2) {
+    that.offsetTop = config.offset[0];
+    that.offsetLeft = config.offset[1] || that.offsetLeft;
+  } else if (config.offset !== "auto") {
+    if (config.offset === "t") {
+      that.offsetTop = 0;
+    } else if (config.offset === "r") {
+      that.offsetLeft = $win.width() - area[0];
+    } else if (config.offset === "b") {
+      that.offsetTop = $win.height() - area[1];
+    } else if (config.offset === "l") {
+      that.offsetLeft = 0;
+    } else if (config.offset === "lt") {
+      that.offsetTop = 0;
+      that.offsetLeft = 0;
+    } else if (config.offset === "lb") {
+      that.offsetTop = $win.height() - area[1];
+      that.offsetLeft = 0;
+    } else if (config.offset === "rt") {
+      that.offsetTop = 0;
+      that.offsetLeft = $win.width() - area[0];
+    } else if (config.offset === "rb") {
+      that.offsetTop = $win.height() - area[1];
+      that.offsetLeft = $win.width() - area[0];
+    } else {
+      that.offsetTop = config.offset;
+    }
+  }
+  if (!config.fixed) {
+    that.offsetTop = /%$/.test(that.offsetTop) ? $win.height() * parseFloat(that.offsetTop) / 100 : parseFloat(that.offsetTop);
+    that.offsetLeft = /%$/.test(that.offsetLeft) ? $win.width() * parseFloat(that.offsetLeft) / 100 : parseFloat(that.offsetLeft);
+    that.offsetTop += $win.scrollTop();
+    that.offsetLeft += $win.scrollLeft();
+  }
+  if (layero.attr("minLeft")) {
+    that.offsetTop = $win.height() - (layero.find(DOMS[1]).outerHeight() || 0);
+    that.offsetLeft = layero.css("left");
+  }
+  layero.css({
+    top: that.offsetTop,
+    left: that.offsetLeft
+  });
+};
+ClassLayer.pt.tips = function() {
+  var that = this, config = that.config, layero = that.layero;
+  var layArea = [layero.outerWidth(), layero.outerHeight()], follow = $(config.follow);
+  if (!follow[0])
+    follow = $("body");
+  var goal = {
+    width: follow.outerWidth(),
+    height: follow.outerHeight(),
+    top: follow.offset().top,
+    left: follow.offset().left
+  }, tipsG = layero.find(".layui-layer-TipsG");
+  var guide = config.tips[0];
+  config.tips[1] || tipsG.remove();
+  goal.autoLeft = function() {
+    if (goal.left + layArea[0] - $win.width() > 0) {
+      goal.tipLeft = goal.left + goal.width - layArea[0];
+      tipsG.css({
+        right: 12,
+        left: "auto"
+      });
+    } else {
+      goal.tipLeft = goal.left;
+    }
+  };
+  goal.where = [function() {
+    goal.autoLeft();
+    goal.tipTop = goal.top - layArea[1] - 10;
+    tipsG.removeClass("layui-layer-TipsB").addClass("layui-layer-TipsT").css("border-right-color", config.tips[1]);
+  }, function() {
+    goal.tipLeft = goal.left + goal.width + 10;
+    goal.tipTop = goal.top;
+    tipsG.removeClass("layui-layer-TipsL").addClass("layui-layer-TipsR").css("border-bottom-color", config.tips[1]);
+  }, function() {
+    goal.autoLeft();
+    goal.tipTop = goal.top + goal.height + 10;
+    tipsG.removeClass("layui-layer-TipsT").addClass("layui-layer-TipsB").css("border-right-color", config.tips[1]);
+  }, function() {
+    goal.tipLeft = goal.left - layArea[0] - 10;
+    goal.tipTop = goal.top;
+    tipsG.removeClass("layui-layer-TipsR").addClass("layui-layer-TipsL").css("border-bottom-color", config.tips[1]);
+  }];
+  goal.where[guide - 1]();
+  if (guide === 1) {
+    goal.top - ($win.scrollTop() + layArea[1] + 8 * 2) < 0 && goal.where[2]();
+  } else if (guide === 2) {
+    $win.width() - (goal.left + goal.width + layArea[0] + 8 * 2) > 0 || goal.where[3]();
+  } else if (guide === 3) {
+    goal.top - $win.scrollTop() + goal.height + layArea[1] + 8 * 2 - $win.height() > 0 && goal.where[0]();
+  } else if (guide === 4) {
+    layArea[0] + 8 * 2 - goal.left > 0 && goal.where[1]();
+  }
+  layero[0].dataset["layerTipsId"] = config.follow.substring(1);
+  layero.find("." + DOMS[5]).css({
+    "background-color": config.tips[1],
+    "padding-right": config.closeBtn ? "30px" : ""
+  });
+  layero.css({
+    left: goal.tipLeft - (config.fixed ? $win.scrollLeft() : 0),
+    top: goal.tipTop - (config.fixed ? $win.scrollTop() : 0)
+  });
+};
+ClassLayer.pt.move = function() {
+  var that = this, config = that.config, _DOC = $(document), layero = that.layero, moveElem = layero.find(config.move), resizeElem = layero.find(".layui-layer-resize"), dict = {};
+  if (config.move) {
+    moveElem.css("cursor", "move");
+  }
+  moveElem.on("mousedown", function(e) {
+    e.preventDefault();
+    if (config.move) {
+      dict.moveStart = true;
+      dict.offset = [e.clientX - parseFloat(layero.css("left")), e.clientY - parseFloat(layero.css("top"))];
+      READY.moveElem.css("cursor", "move").show();
+    }
+  });
+  resizeElem.on("mousedown", function(e) {
+    e.preventDefault();
+    dict.resizeStart = true;
+    dict.offset = [e.clientX, e.clientY];
+    dict.area = [layero.outerWidth(), layero.outerHeight()];
+    READY.moveElem.css("cursor", "se-resize").show();
+  });
+  _DOC.on("mousemove", function(e) {
+    if (dict.moveStart) {
+      var X = e.clientX - dict.offset[0], Y = e.clientY - dict.offset[1], fixed = layero.css("position") === "fixed";
+      e.preventDefault();
+      dict.stX = fixed ? 0 : $win.scrollLeft();
+      dict.stY = fixed ? 0 : $win.scrollTop();
+      if (!config.moveOut) {
+        var setRig = $win.width() - layero.outerWidth() + dict.stX, setBot = $win.height() - layero.outerHeight() + dict.stY;
+        X < dict.stX && (X = dict.stX);
+        X > setRig && (X = setRig);
+        Y < dict.stY && (Y = dict.stY);
+        Y > setBot && (Y = setBot);
+      }
+      layero.css({
+        left: X,
+        top: Y
+      });
+    }
+    if (config.resize && dict.resizeStart) {
+      var X = e.clientX - dict.offset[0], Y = e.clientY - dict.offset[1];
+      e.preventDefault();
+      layer.style(that.index, {
+        width: dict.area[0] + X,
+        height: dict.area[1] + Y
+      });
+      dict.isResize = true;
+      config.resizing && config.resizing(layero);
+    }
+  }).on("mouseup", function(e) {
+    if (dict.moveStart) {
+      delete dict.moveStart;
+      READY.moveElem.hide();
+      config.moveEnd && config.moveEnd(layero);
+    }
+    if (dict.resizeStart) {
+      delete dict.resizeStart;
+      READY.moveElem.hide();
+    }
+  });
+  return that;
+};
+ClassLayer.pt.callback = function() {
+  var that = this, layero = that.layero, config = that.config;
+  that.openLayer();
+  if (config.success) {
+    if (config.type == 2) {
+      layero.find("iframe").on("load", function() {
+        config.success(layero, that.index);
+      });
+    } else {
+      config.success(layero, that.index);
+    }
+  }
+  layer.ie == 6 && that.IE6(layero);
+  layero.find("." + DOMS[6]).children("a").on("click", function() {
+    var index2 = $(this).index();
+    if (index2 === 0) {
+      if (config.yes) {
+        config.yes(that.index, layero);
+      } else if (config["btn1"]) {
+        config["btn1"](that.index, layero);
+      } else {
+        layer.close(that.index);
+      }
+    } else {
+      var close = config["btn" + (index2 + 1)] && config["btn" + (index2 + 1)](that.index, layero);
+      close === false || layer.close(that.index);
+    }
+  });
+  function cancel() {
+    var close = config.cancel && config.cancel(that.index, layero);
+    close === false || layer.close(that.index);
+  }
+  layero.find("." + DOMS[7]).on("click", cancel);
+  if (config.shadeClose) {
+    that.shadeo.on("click", function() {
+      layer.close(that.index);
+    });
+  }
+  layero.find(".layui-layer-min").on("click", function() {
+    var min = config.min && config.min(layero, that.index);
+    min === false || layer.min(that.index, config);
+  });
+  layero.find(".layui-layer-max").on("click", function() {
+    if ($(this).hasClass("layui-layer-maxmin")) {
+      layer.restore(that.index);
+      config.restore && config.restore(layero, that.index);
+    } else {
+      layer.full(that.index, config);
+      setTimeout(function() {
+        config.full && config.full(layero, that.index);
+      }, 100);
+    }
+  });
+  config.end && (READY.end[that.index] = config.end);
+};
+READY.reselect = function() {
+  $.each($("select"), function(index2, value) {
+    var sthis = $(this);
+    if (!sthis.parents("." + DOMS[0])[0]) {
+      sthis.attr("layer") == 1 && $("." + DOMS[0]).length < 1 && sthis.removeAttr("layer").show();
+    }
+    sthis = null;
+  });
+};
+ClassLayer.pt.IE6 = function(layero) {
+  $("select").each(function(index2, value) {
+    var sthis = $(this);
+    if (!sthis.parents("." + DOMS[0])[0]) {
+      sthis.css("display") === "none" || sthis.attr({
+        "layer": "1"
+      }).hide();
+    }
+    sthis = null;
+  });
+};
+ClassLayer.pt.openLayer = function() {
+  var that = this;
+  layer.zIndex = that.config.zIndex;
+  layer.setTop = function(layero) {
+    var setZindex = function() {
+      layer.zIndex++;
+      layero.css("z-index", layer.zIndex + 1);
+    };
+    layer.zIndex = parseInt(layero[0].style.zIndex);
+    layero.on("mousedown", setZindex);
+    return layer.zIndex;
+  };
+};
+READY.record = function(layero) {
+  var area = [layero.width(), layero.height(), layero.position().top, layero.position().left + parseFloat(layero.css("margin-left"))];
+  layero.find(".layui-layer-max").addClass("layui-layer-maxmin");
+  layero.attr({
+    area
+  });
+};
+READY.rescollbar = function(index2) {
+  if ($html.attr("layer-full") == index2) {
+    if ($html[0].style.removeProperty) {
+      $html[0].style.removeProperty("overflow");
+    } else {
+      $html[0].style.removeAttribute("overflow");
+    }
+    $html.removeAttr("layer-full");
+  }
+};
+layer.getChildFrame = function(selector, index2) {
+  index2 = index2 || $("." + DOMS[4]).attr("times");
+  return $("#" + DOMS[0] + index2).find("iframe").contents().find(selector);
+};
+layer.getFrameIndex = function(name) {
+  return $("#" + name).parents("." + DOMS[4]).attr("times");
+};
+layer.iframeAuto = function(index2) {
+  if (!index2)
+    return;
+  var heg = layer.getChildFrame("html", index2).outerHeight();
+  var layero = $("#" + DOMS[0] + index2);
+  var titHeight = layero.find(DOMS[1]).outerHeight() || 0;
+  var btnHeight = layero.find("." + DOMS[6]).outerHeight() || 0;
+  layero.css({
+    height: heg + titHeight + btnHeight
+  });
+  layero.find("iframe").css({
+    height: heg
+  });
+};
+layer.iframeSrc = function(index2, url) {
+  $("#" + DOMS[0] + index2).find("iframe").attr("src", url);
+};
+layer.style = function(index2, options, limit) {
+  var $layero = $("#" + DOMS[0] + index2), contElem = $layero.find(".layui-layer-content"), type2 = $layero.attr("type"), titHeight = $layero.find(DOMS[1]).outerHeight() || 0, btnHeight = $layero.find("." + DOMS[6]).outerHeight() || 0;
+  $layero.attr("minLeft");
+  if (type2 === READY.type[3] || type2 === READY.type[4]) {
+    return;
+  }
+  if (!limit) {
+    if (parseFloat(options.width) <= 260) {
+      options.width = 260;
+    }
+    if (parseFloat(options.height) - titHeight - btnHeight <= 64) {
+      options.height = 64 + titHeight + btnHeight;
+    }
+  }
+  $layero.css(options);
+  btnHeight = $layero.find("." + DOMS[6]).outerHeight();
+  if (type2 === READY.type[2]) {
+    $layero.find("iframe").css({
+      height: parseFloat(options.height) - titHeight - btnHeight
+    });
+  } else {
+    contElem.css({
+      height: parseFloat(options.height) - titHeight - btnHeight - parseFloat(contElem.css("padding-top")) - parseFloat(contElem.css("padding-bottom"))
+    });
+  }
+};
+layer.min = function(index2, options) {
+  options = options || {};
+  var layero = $("#" + DOMS[0] + index2), shadeo = $("#" + DOMS.SHADE + index2), titHeight = layero.find(DOMS[1]).outerHeight() || 0, left = layero.attr("minLeft") || 181 * READY.minIndex + "px", position = layero.css("position"), settings = {
+    width: 180,
+    height: titHeight,
+    position: "fixed",
+    overflow: "hidden"
+  };
+  READY.record(layero);
+  if (READY.minLeft[0]) {
+    left = READY.minLeft[0];
+    READY.minLeft.shift();
+  }
+  if (options.minStack) {
+    settings.left = left;
+    settings.top = $win.height() - titHeight;
+    layero.attr("minLeft") || READY.minIndex++;
+    layero.attr("minLeft", left);
+  }
+  layero.attr("position", position);
+  layer.style(index2, settings, true);
+  layero.find(".layui-layer-min").hide();
+  layero.attr("type") === "page" && layero.find(DOMS[4]).hide();
+  READY.rescollbar(index2);
+  shadeo.hide();
+};
+layer.restore = function(index2) {
+  var layero = $("#" + DOMS[0] + index2), shadeo = $("#" + DOMS.SHADE + index2), area = layero.attr("area").split(",");
+  layero.attr("type");
+  layer.style(index2, {
+    width: parseFloat(area[0]),
+    height: parseFloat(area[1]),
+    top: parseFloat(area[2]),
+    left: parseFloat(area[3]),
+    position: layero.attr("position"),
+    overflow: "visible"
+  }, true);
+  layero.find(".layui-layer-max").removeClass("layui-layer-maxmin");
+  layero.find(".layui-layer-min").show();
+  layero.attr("type") === "page" && layero.find(DOMS[4]).show();
+  READY.rescollbar(index2);
+  shadeo.show();
+};
+layer.full = function(index2) {
+  var layero = $("#" + DOMS[0] + index2), timer;
+  READY.record(layero);
+  if (!$html.attr("layer-full")) {
+    $html.css("overflow", "hidden").attr("layer-full", index2);
+  }
+  clearTimeout(timer);
+  timer = setTimeout(function() {
+    var isfix = layero.css("position") === "fixed";
+    layer.style(index2, {
+      top: isfix ? 0 : $win.scrollTop(),
+      left: isfix ? 0 : $win.scrollLeft(),
+      width: $win.width(),
+      height: $win.height()
+    }, true);
+    layero.find(".layui-layer-min").hide();
+  }, 100);
+};
+layer.title = function(name, index2) {
+  var title = $("#" + DOMS[0] + (index2 || layer.index)).find(DOMS[1]);
+  title.html(name);
+};
+layer.close = function(index2, callback) {
+  var layero = $("#" + DOMS[0] + index2), type2 = layero.attr("type"), closeAnim = "layer-anim-close";
+  if (!layero[0])
+    return;
+  var WRAP = "layui-layer-wrap", remove = function() {
+    if (type2 === READY.type[1] && layero.attr("conType") === "object") {
+      layero.children(":not(." + DOMS[5] + ")").remove();
+      var wrap = layero.find("." + WRAP);
+      for (var i = 0; i < 2; i++) {
+        wrap.unwrap();
+      }
+      wrap.css("display", wrap.data("display")).removeClass(WRAP);
+    } else {
+      if (type2 === READY.type[2]) {
+        try {
+          var iframe = $("#" + DOMS[4] + index2)[0];
+          iframe.contentWindow.document.write("");
+          iframe.contentWindow.close();
+          layero.find("." + DOMS[5])[0].removeChild(iframe);
+        } catch (e) {
+        }
+      }
+      layero[0].innerHTML = "";
+      layero.remove();
+    }
+    typeof READY.end[index2] === "function" && READY.end[index2]();
+    delete READY.end[index2];
+    typeof callback === "function" && callback();
+  };
+  if (layero.data("isOutAnim")) {
+    layero.addClass("layer-anim " + closeAnim);
+  }
+  $("#layui-layer-moves, #" + DOMS.SHADE + index2).remove();
+  layer.ie == 6 && READY.reselect();
+  READY.rescollbar(index2);
+  if (layero.attr("minLeft")) {
+    READY.minIndex--;
+    READY.minLeft.push(layero.attr("minLeft"));
+  }
+  if (layer.ie && layer.ie < 10 || !layero.data("isOutAnim")) {
+    remove();
+  } else {
+    setTimeout(function() {
+      remove();
+    }, 200);
+  }
+};
+layer.closeAll = function(type2, callback) {
+  if (typeof type2 === "function") {
+    callback = type2;
+    type2 = null;
+  }
+  var domsElem = $("." + DOMS[0]);
+  $.each(domsElem, function(_index) {
+    var othis = $(this);
+    var is = type2 ? othis.attr("type") === type2 : 1;
+    is && layer.close(othis.attr("times"), _index === domsElem.length - 1 ? callback : null);
+    is = null;
+  });
+  if (domsElem.length === 0)
+    typeof callback === "function" && callback();
+};
+var cache = layer.cache || {}, skin = function(type2) {
+  return cache.skin ? " " + cache.skin + " " + cache.skin + "-" + type2 : "";
+};
+layer.prompt = function(options = {}, yes) {
+  var style = "";
+  if (typeof options === "function") {
+    yes = options;
+  }
+  if (options.area) {
+    var area = options.area;
+    style = `style="width: ${area[0]}; height: ${area[1]};"`;
+    delete options.area;
+  }
+  var prompt;
+  var content = options.formType == 2 ? `<textarea class="layui-layer-input" ${style}></textarea>` : `<input type="${options.formType === 1 ? "password" : "text"}" class="layui-layer-input">`;
+  var success = options.success;
+  delete options.success;
+  return layer.open($.extend({
+    type: 1,
+    btn: ["&#x786E;&#x5B9A;", "&#x53D6;&#x6D88;"],
+    content,
+    skin: "layui-layer-prompt" + skin("prompt"),
+    maxWidth: $win.width(),
+    success(layero) {
+      prompt = layero.find(".layui-layer-input");
+      prompt.val(options.value || "").focus();
+      typeof success === "function" && success(layero);
+    },
+    resize: false,
+    yes(index2) {
+      var value = prompt.val();
+      if (value === "") {
+        prompt.focus();
+      } else if (value.length > (options.maxlength || 500)) {
+        layer.tips("&#x6700;&#x591A;&#x8F93;&#x5165;" + (options.maxlength || 500) + "&#x4E2A;&#x5B57;&#x6570;", prompt, {
+          tips: 1
+        });
+      } else {
+        yes && yes(value, index2, prompt);
+      }
+    }
+  }, options));
+};
+layer.tab = function(options) {
+  options = options || {};
+  var tab = options.tab || {}, THIS = "layui-this", success = options.success;
+  delete options.success;
+  return layer.open($.extend({
+    type: 1,
+    skin: "layui-layer-tab" + skin("tab"),
+    resize: false,
+    title: function() {
+      var len = tab.length, ii = 1, str = "";
+      if (len > 0) {
+        str = '<span class="' + THIS + '">' + tab[0].title + "</span>";
+        for (; ii < len; ii++) {
+          str += "<span>" + tab[ii].title + "</span>";
+        }
+      }
+      return str;
+    }(),
+    content: '<ul class="layui-layer-tabmain">' + function() {
+      var len = tab.length, ii = 1, str = "";
+      if (len > 0) {
+        str = '<li class="layui-layer-tabli ' + THIS + '">' + (tab[0].content || "no content") + "</li>";
+        for (; ii < len; ii++) {
+          str += '<li class="layui-layer-tabli">' + (tab[ii].content || "no  content") + "</li>";
+        }
+      }
+      return str;
+    }() + "</ul>",
+    success(layero) {
+      var btn = layero.find(".layui-layer-title").children();
+      var main = layero.find(".layui-layer-tabmain").children();
+      btn.on("mousedown", function(e) {
+        e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+        var othis = $(this), index2 = othis.index();
+        othis.addClass(THIS).siblings().removeClass(THIS);
+        main.eq(index2).show().siblings().hide();
+        typeof options.change === "function" && options.change(index2);
+      });
+      typeof success === "function" && success(layero);
+    }
+  }, options));
+};
+layer.photos = function(options, loop, key) {
+  var dict = {};
+  options = options || {};
+  if (!options.photos)
+    return;
+  var isObject = !(typeof options.photos === "string" || options.photos instanceof $), photos = isObject ? options.photos : {}, data = photos.data || [], start = photos.start || 0;
+  dict.imgIndex = (start | 0) + 1;
+  options.img = options.img || "img";
+  var success = options.success;
+  delete options.success;
+  if (!isObject) {
+    var parent = $(options.photos), pushData = function() {
+      data = [];
+      parent.find(options.img).each(function(index2) {
+        var othis = $(this);
+        othis.attr("layer-index", index2);
+        data.push({
+          alt: othis.attr("alt"),
+          pid: othis.attr("layer-pid"),
+          src: othis.attr("layer-src") || othis.attr("src"),
+          thumb: othis.attr("src")
+        });
+      });
+    };
+    pushData();
+    if (data.length === 0)
+      return;
+    loop || parent.on("click", options.img, function() {
+      pushData();
+      var othis = $(this), index2 = othis.attr("layer-index");
+      layer.photos($.extend(options, {
+        photos: {
+          start: index2,
+          data,
+          tab: options.tab
+        },
+        full: options.full
+      }), true);
+    });
+    if (!loop)
+      return;
+  } else if (data.length === 0) {
+    return layer.msg("&#x6CA1;&#x6709;&#x56FE;&#x7247;");
+  }
+  dict.imgprev = function(key2) {
+    dict.imgIndex--;
+    if (dict.imgIndex < 1) {
+      dict.imgIndex = data.length;
+    }
+    dict.tabimg(key2);
+  };
+  dict.imgnext = function(key2, errorMsg) {
+    dict.imgIndex++;
+    if (dict.imgIndex > data.length) {
+      dict.imgIndex = 1;
+      if (errorMsg) {
+        return;
+      }
+    }
+    dict.tabimg(key2);
+  };
+  dict.keyup = function(event) {
+    if (!dict.end) {
+      var code = event.keyCode;
+      event.preventDefault();
+      if (code === 37) {
+        dict.imgprev(true);
+      } else if (code === 39) {
+        dict.imgnext(true);
+      } else if (code === 27) {
+        layer.close(dict.index);
+      }
+    }
+  };
+  dict.tabimg = function(key2) {
+    if (data.length <= 1)
+      return;
+    photos.start = dict.imgIndex - 1;
+    layer.close(dict.index);
+    return layer.photos(options, true, key2);
+  };
+  dict.event = function() {
+    dict.bigimg.find(".layui-layer-imgprev").on("click", function(event) {
+      event.preventDefault();
+      dict.imgprev(true);
+    });
+    dict.bigimg.find(".layui-layer-imgnext").on("click", function(event) {
+      event.preventDefault();
+      dict.imgnext(true);
+    });
+    $(document).on("keyup", dict.keyup);
+  };
+  function loadImage(url, callback, error) {
+    var img = new Image();
+    img.src = url;
+    if (img.complete) {
+      return callback(img);
+    }
+    img.onload = function() {
+      img.onload = null;
+      callback(img);
+    };
+    img.onerror = function(e) {
+      img.onerror = null;
+      error(e);
+    };
+  }
+  dict.loadi = layer.load(1, {
+    shade: "shade" in options ? false : 0.9,
+    scrollbar: false
+  });
+  loadImage(data[start].src, function(img) {
+    layer.close(dict.loadi);
+    if (key)
+      options.anim = -1;
+    dict.index = layer.open($.extend({
+      type: 1,
+      id: "layui-layer-photos",
+      area: function() {
+        var imgarea = [img.width, img.height];
+        var winarea = [$(window).width() - 100, $(window).height() - 100];
+        if (!options.full && (imgarea[0] > winarea[0] || imgarea[1] > winarea[1])) {
+          var wh = [imgarea[0] / winarea[0], imgarea[1] / winarea[1]];
+          if (wh[0] > wh[1]) {
+            imgarea[0] = imgarea[0] / wh[0];
+            imgarea[1] = imgarea[1] / wh[0];
+          } else if (wh[0] < wh[1]) {
+            imgarea[0] = imgarea[0] / wh[1];
+            imgarea[1] = imgarea[1] / wh[1];
+          }
+        }
+        return [imgarea[0] + "px", imgarea[1] + "px"];
+      }(),
+      title: false,
+      shade: 0.9,
+      shadeClose: true,
+      closeBtn: false,
+      move: ".layui-layer-phimg img",
+      moveType: 1,
+      scrollbar: false,
+      moveOut: true,
+      anim: 5,
+      isOutAnim: false,
+      skin: "layui-layer-photos" + skin("photos"),
+      content: '<div class="layui-layer-phimg"><img src="' + data[start].src + '" alt="' + (data[start].alt || "") + '" layer-pid="' + data[start].pid + '">' + function() {
+        if (data.length > 1) {
+          return '<div class="layui-layer-imgsee"><span class="layui-layer-imguide"><a href="javascript:;" class="layui-layer-iconext layui-layer-imgprev"></a><a href="javascript:;" class="layui-layer-iconext layui-layer-imgnext"></a></span><div class="layui-layer-imgbar" style="display:' + (key ? "block" : "") + '"><span class="layui-layer-imgtit"><a href="javascript:;">' + (data[start].alt || "") + "</a><em>" + dict.imgIndex + " / " + data.length + "</em></span></div></div>";
+        }
+        return "";
+      }() + "</div>",
+      success: function(layero, index2) {
+        dict.bigimg = layero.find(".layui-layer-phimg");
+        dict.imgsee = layero.find(".layui-layer-imgbar");
+        dict.event(layero);
+        options.tab && options.tab(data[start], layero);
+        typeof success === "function" && success(layero);
+      },
+      end: function() {
+        dict.end = true;
+        $(document).off("keyup", dict.keyup);
+      }
+    }, options));
+  }, function() {
+    layer.close(dict.loadi);
+    layer.msg("&#x5F53;&#x524D;&#x56FE;&#x7247;&#x5730;&#x5740;&#x5F02;&#x5E38;<br>&#x662F;&#x5426;&#x7EE7;&#x7EED;&#x67E5;&#x770B;&#x4E0B;&#x4E00;&#x5F20;&#xFF1F;", {
+      time: 3e4,
+      btn: ["&#x4E0B;&#x4E00;&#x5F20;", "&#x4E0D;&#x770B;&#x4E86;"],
+      yes: function() {
+        data.length > 1 && dict.imgnext(true, true);
+      }
+    });
+  });
+};
+layer.open = (deliver) => new ClassLayer(deliver).index;
+const timeoutDelay = 400;
+const popverOptionsCollection = {};
+const popverIndexCollection = {};
+const appAddPlugin = {};
+const timerCollection = {};
+const visibleArea = {};
+function installPopoverDirective(app2, appSettings) {
+  const appId = genId("appId");
+  appAddPlugin[appId] = appSettings.addPlugins;
+  app2.directive("uiPopover", {
+    mounted(el, binding) {
+      const followId = genId("xPopoverTarget");
+      $(el).addClass("x-ui-popover").attr("id", followId);
+      el.dataset["followId"] = followId;
+      el.dataset["appId"] = appId;
+      if (binding.value) {
+        popverOptionsCollection[followId] = binding.value;
+      }
+    },
+    unmounted(el) {
+      const followId = el.dataset["followId"];
+      layer.close(popverIndexCollection[followId]);
+      delete popverOptionsCollection[followId];
+      delete popverIndexCollection[followId];
+    }
+  });
+}
+$(document).on("click.uiPopver", "[data-follow-id]", function(event) {
+  const followId = this.dataset["followId"];
+  const popverOptions = popverOptionsCollection[followId];
+  new Popover(this, popverOptions);
+});
+function inVisibleArea(followId) {
+  if (timerCollection[followId]) {
+    clearTimeout(timerCollection[followId]);
+    delete timerCollection[followId];
+  }
+  visibleArea[followId] = true;
+}
+function closeTips(followId) {
+  delete visibleArea[followId];
+  timerCollection[followId] = setTimeout(() => {
+    layer.close(popverIndexCollection[followId]);
+    delete popverIndexCollection[followId];
+  }, timeoutDelay);
+}
+$(document).on("mouseenter.uiPopver", "[data-follow-id]", function(event) {
+  console.log("hover.uiPopver,this", this.dataset);
+  const followId = this.dataset.followId;
+  inVisibleArea(followId);
+  if (popverIndexCollection[followId]) {
+    console.log("\u5982\u679C\u5B58\u5728\uFF0C\u4E0D\u91CD\u590D\u6DFB\u52A0");
+    return;
+  }
+  const options = popverOptionsCollection[followId] || {};
+  const popoverIndex = layer.tips(options.content || "", `#${followId}`, {
+    tips: [layer.UP, "#0FA6D8"],
+    time: 0
+  });
+  popverIndexCollection[followId] = popoverIndex;
+});
+$(document).on("mouseleave.uiPopver", "[data-follow-id]", function(event) {
+  closeTips(this.dataset.followId);
+});
+$(document).on("mouseenter.uiPopverTips", "[data-layer-tips-id]", function(event) {
+  inVisibleArea(this.dataset.layerTipsId);
+});
+$(document).on("mouseleave.uiPopverTips", "[data-layer-tips-id]", function(event) {
+  closeTips(this.dataset.layerTipsId);
+});
 const componentMyUI = {
   xRender,
-  xItem: _sfc_main$a,
-  xButton: _sfc_main$9,
-  xGap: _sfc_main$8
+  xItem: _sfc_main$c,
+  xButton: _sfc_main$b,
+  xGap: _sfc_main$a
 };
 const componentAntdV = {
   Progress: _Progress,
@@ -626,14 +1731,18 @@ const componentIcons = {
 const components = __spreadValues(__spreadValues(__spreadValues({}, componentMyUI), componentAntdV), componentIcons);
 const UI = {
   message: _message,
-  notification: _notification
+  notification: _notification,
+  layer
 };
 var MyUI = {
-  install: (app) => {
-    _.each(components, (component, name) => app.component(name, component));
+  install: (app2, options) => {
+    installPopoverDirective(app2, options);
+    _.each(components, (component, name) => {
+      app2.component(name, component);
+    });
   }
 };
-const _sfc_main$7 = {
+const _sfc_main$9 = {
   setup(__props) {
     const router2 = useRouter();
     function go() {
@@ -867,8 +1976,8 @@ const initAppConfigs = async (callback) => {
   callback && callback(AppState);
   return AppState;
 };
-const _hoisted_1$4 = ["aria-label"];
-const _sfc_main$6 = {
+const _hoisted_1$5 = ["aria-label"];
+const _sfc_main$8 = {
   setup(__props) {
     const languageLabels = {
       "zh-CN": {
@@ -904,7 +2013,7 @@ const _sfc_main$6 = {
               default: withCtx(() => [createBaseVNode("span", {
                 role: "img",
                 "aria-label": locale.label
-              }, toDisplayString(locale.icon), 9, _hoisted_1$4), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
+              }, toDisplayString(locale.icon), 9, _hoisted_1$5), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
               _: 2
             }, 1024);
           }), 64))]),
@@ -916,30 +2025,30 @@ const _sfc_main$6 = {
     };
   }
 };
-const _hoisted_1$3 = {
+const _hoisted_1$4 = {
   class: "user-layout-lang"
 };
-const _hoisted_2$2 = {
+const _hoisted_2$3 = {
   class: "user-layout-content"
 };
-const _hoisted_3$2 = {
+const _hoisted_3$3 = {
   class: "top"
 };
-const _hoisted_4$2 = {
+const _hoisted_4$3 = {
   class: "header"
 };
-const _hoisted_5$2 = {
+const _hoisted_5$3 = {
   href: "/"
 };
-const _hoisted_6$2 = ["src"];
-const _hoisted_7$1 = {
+const _hoisted_6$3 = ["src"];
+const _hoisted_7$3 = {
   class: "title"
 };
-const _hoisted_8 = {
+const _hoisted_8$2 = {
   class: "desc"
 };
 const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright"> Copyright \xA9 2018 vueComponent </div></div>', 1);
-const _sfc_main$5 = {
+const _sfc_main$7 = {
   setup(__props) {
     const styles2 = {
       container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
@@ -952,13 +2061,13 @@ const _sfc_main$5 = {
       }, [createBaseVNode("div", {
         class: "container",
         style: normalizeStyle(styles2.container)
-      }, [createBaseVNode("div", _hoisted_1$3, [createVNode(_sfc_main$6, {
+      }, [createBaseVNode("div", _hoisted_1$4, [createVNode(_sfc_main$8, {
         class: "select-lang-trigger"
-      })]), createBaseVNode("div", _hoisted_2$2, [createBaseVNode("div", _hoisted_3$2, [createBaseVNode("div", _hoisted_4$2, [createBaseVNode("a", _hoisted_5$2, [createBaseVNode("img", {
+      })]), createBaseVNode("div", _hoisted_2$3, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
         src: unref(logoImg),
         class: "logo",
         alt: "logo"
-      }, null, 8, _hoisted_6$2), createBaseVNode("span", _hoisted_7$1, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+      }, null, 8, _hoisted_6$3), createBaseVNode("span", _hoisted_7$3, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8$2, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
     };
   }
 };
@@ -1097,8 +2206,8 @@ const $t = (prop) => {
   };
 };
 const appI18n = {
-  install: (app, AppState2) => {
-    app.config.globalProperties.$t = $t;
+  install: (app2, AppState2) => {
+    app2.config.globalProperties.$t = $t;
     watchEffect(() => {
       setI18nLanguage(AppState2.configs.language);
     });
@@ -1362,7 +2471,7 @@ async function getCaptcha$1() {
     console.error(e);
   }
 }
-var _sfc_main$4 = {
+var _sfc_main$6 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
@@ -1379,10 +2488,10 @@ var _sfc_main$4 = {
     };
   }
 };
-const _hoisted_1$2 = {
+const _hoisted_1$3 = {
   class: "flex"
 };
-var _sfc_main$3 = {
+var _sfc_main$5 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
@@ -1393,7 +2502,7 @@ var _sfc_main$3 = {
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_1$2, [createVNode(_component_xItem, {
+      }), createBaseVNode("div", _hoisted_1$3, [createVNode(_component_xItem, {
         configs: unref(StateLogin).configsFormMobile.verificationCode,
         autocomplete: "current-password"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
@@ -1404,29 +2513,29 @@ var _sfc_main$3 = {
     };
   }
 };
-const _hoisted_1$1 = {
+const _hoisted_1$2 = {
   class: "main"
 };
-const _hoisted_2$1 = {
+const _hoisted_2$2 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
-const _hoisted_3$1 = {
+const _hoisted_3$2 = {
   class: "item-wrapper flex between"
 };
-const _hoisted_4$1 = {
+const _hoisted_4$2 = {
   href: "/user/recover",
   class: "forge-password"
 };
-const _hoisted_5$1 = {
+const _hoisted_5$2 = {
   class: "item-wrapper"
 };
-const _hoisted_6$1 = {
+const _hoisted_6$2 = {
   class: "item-wrapper"
 };
-const _hoisted_7 = {
+const _hoisted_7$2 = {
   class: "user-login-other"
 };
-const _sfc_main$2 = {
+const _sfc_main$4 = {
   setup(__props) {
     return (_ctx, _cache) => {
       resolveComponent("Alert");
@@ -1436,7 +2545,7 @@ const _sfc_main$2 = {
       const _component_xButton = resolveComponent("xButton");
       const _component_a_icon = resolveComponent("a-icon");
       const _component_router_link = resolveComponent("router-link");
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createVNode(_component_Tabs, {
+      return openBlock(), createElementBlock("div", _hoisted_1$2, [createBaseVNode("div", _hoisted_2$2, [createVNode(_component_Tabs, {
         id: "user-layout-login_tab",
         activeKey: unref(StateLogin).activeTabKey,
         "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => unref(StateLogin).activeTabKey = $event)
@@ -1445,25 +2554,25 @@ const _sfc_main$2 = {
           key: "credentials",
           tab: unref($t)("user.login.tab-login-credentials").label
         }, {
-          default: withCtx(() => [createCommentVNode("", true), createVNode(_sfc_main$4)]),
+          default: withCtx(() => [createCommentVNode("", true), createVNode(_sfc_main$6)]),
           _: 1
         }, 8, ["tab"]), createVNode(_component_TabPane, {
           key: "mobile",
           tab: unref($t)("user.login.tab-login-mobile").label
         }, {
-          default: withCtx(() => [createVNode(_sfc_main$3)]),
+          default: withCtx(() => [createVNode(_sfc_main$5)]),
           _: 1
         }, 8, ["tab"])]),
         _: 1
-      }, 8, ["activeKey"]), createBaseVNode("div", _hoisted_3$1, [createVNode(_component_Checkbox, {
+      }, 8, ["activeKey"]), createBaseVNode("div", _hoisted_3$2, [createVNode(_component_Checkbox, {
         checked: unref(StateLogin).rememberMe,
         "onUpdate:checked": _cache[1] || (_cache[1] = ($event) => unref(StateLogin).rememberMe = $event)
       }, {
         default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.remember-me").label), 1)]),
         _: 1
-      }, 8, ["checked"]), createBaseVNode("a", _hoisted_4$1, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5$1, [createVNode(_component_xButton, {
+      }, 8, ["checked"]), createBaseVNode("a", _hoisted_4$2, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5$2, [createVNode(_component_xButton, {
         configs: unref(StateLogin).configsSubmit
-      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$1, [createBaseVNode("div", _hoisted_7, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$2, [createBaseVNode("div", _hoisted_7$2, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_a_icon, {
         class: "item-icon",
         type: "alipay-circle"
       })]), createBaseVNode("a", null, [createVNode(_component_a_icon, {
@@ -1711,29 +2820,74 @@ async function getCaptcha() {
     console.error(e);
   }
 }
-const _hoisted_1 = {
+var _sfc_main$3 = {
+  props: {
+    configs: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  setup(__props) {
+    const state = reactive({
+      count: 0
+    });
+    const renders2 = {
+      test: (state2) => createVNode(resolveComponent("Button"), null, {
+        default: () => [state2.count]
+      })
+    };
+    const handlers = {
+      clickBtn() {
+        state.count++;
+      }
+    };
+    return (_ctx, _cache) => {
+      const _component_Button = resolveComponent("Button");
+      const _component_xRender = resolveComponent("xRender");
+      return openBlock(), createElementBlock(Fragment, null, [createVNode(_component_Button, {
+        onClick: handlers.clickBtn
+      }, {
+        default: withCtx(() => [createTextVNode(toDisplayString(_ctx.$t("user.login.userName").label), 1)]),
+        _: 1
+      }, 8, ["onClick"]), createVNode(_component_xRender, {
+        render: renders2.test,
+        state: _ctx.StateLogin
+      }, null, 8, ["render", "state"]), createVNode(_component_Button, {
+        onClick: handlers.clickBtn
+      }, {
+        default: withCtx(() => [createTextVNode(" count is: " + toDisplayString(unref(state).count), 1)]),
+        _: 1
+      }, 8, ["onClick"])], 64);
+    };
+  }
+};
+const _hoisted_1$1 = {
   class: "main"
 };
-const _hoisted_2 = {
+const _hoisted_2$1 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
-const _hoisted_3 = {
+const _hoisted_3$1 = /* @__PURE__ */ createTextVNode(" Test Popover ");
+const _hoisted_4$1 = [_hoisted_3$1];
+const _hoisted_5$1 = {
   style: {
     width: "240px"
   }
 };
-const _hoisted_4 = {
+const _hoisted_6$1 = {
   style: {
     "margin-top": "10px"
   }
 };
-const _hoisted_5 = {
+const _hoisted_7$1 = {
   class: "flex"
 };
-const _hoisted_6 = {
+const _hoisted_8$1 = {
   class: "item-wrapper flex"
 };
-const _sfc_main$1 = {
+const _sfc_main$2 = {
   setup(__props) {
     const levelNames = {
       0: "user.password.strength.short",
@@ -1762,6 +2916,18 @@ const _sfc_main$1 = {
     const passwordLevelColor = computed(() => {
       return levelColor[StateRegister.statePassword.passwordLevel];
     });
+    const configsTestPopover = {
+      width: 400,
+      content: _sfc_main$3,
+      preventHide: true,
+      trigger: "hover",
+      onShow() {
+        console.log("Popover shown.");
+      },
+      onHide() {
+        console.log("Popover hidden.");
+      }
+    };
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
       const _component_xGap = resolveComponent("xGap");
@@ -1769,7 +2935,11 @@ const _sfc_main$1 = {
       const _component_Popover = resolveComponent("Popover");
       const _component_xButton = resolveComponent("xButton");
       const _component_RouterLink = resolveComponent("RouterLink");
-      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
+      const _directive_uiPopover = resolveDirective("uiPopover");
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), withDirectives(createBaseVNode("h1", null, _hoisted_4$1, 512), [[_directive_uiPopover, configsTestPopover]]), createBaseVNode("form", null, [createVNode(_component_xItem, {
+        ref: (_value, _refs) => {
+          _refs["username"] = _value;
+        },
         configs: unref(StateRegister).configsForm.userName,
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
@@ -1779,14 +2949,14 @@ const _sfc_main$1 = {
         trigger: ["click"],
         placement: "rightTop"
       }, {
-        content: withCtx(() => [createBaseVNode("div", _hoisted_3, [createBaseVNode("div", {
+        content: withCtx(() => [createBaseVNode("div", _hoisted_5$1, [createBaseVNode("div", {
           class: normalizeClass(["user-register", unref(passwordLevelClass)])
         }, toDisplayString(unref($t)(unref(passwordLevelName)).label), 3), createVNode(_component_Progress, {
           percent: unref(StateRegister).statePassword.percent,
           "show-info": false,
           "stroke-color": unref(passwordLevelColor),
           "get-popup-container": (trigger) => trigger.parentElement
-        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_4, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
+        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_6$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
         default: withCtx(() => [createVNode(_component_xItem, {
           configs: unref(StateRegister).configsForm.password,
           autocomplete: "current-password"
@@ -1804,7 +2974,7 @@ const _sfc_main$1 = {
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_5, [createVNode(_component_xItem, {
+      }), createBaseVNode("div", _hoisted_7$1, [createVNode(_component_xItem, {
         configs: unref(StateRegister).configsForm.verificationCode,
         autocomplete: "current-password"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
@@ -1813,7 +2983,7 @@ const _sfc_main$1 = {
         configs: unref(StateRegister).configsVerificationCode
       }, null, 8, ["configs"])])]), createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_6, [createVNode(_component_xButton, {
+      }), createBaseVNode("div", _hoisted_8$1, [createVNode(_component_xButton, {
         configs: unref(StateRegister).configsSubmit
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         l: "80"
@@ -1829,12 +2999,115 @@ const _sfc_main$1 = {
     };
   }
 };
+const _withScopeId = (n) => (pushScopeId("data-v-bda00c9e"), n = n(), popScopeId(), n);
+const _hoisted_1 = {
+  class: "container flex middle"
+};
+const _hoisted_2 = {
+  class: "flex width100"
+};
+const _hoisted_3 = /* @__PURE__ */ createTextVNode("v-uiPopover");
+const _hoisted_4 = /* @__PURE__ */ createTextVNode("v-uiPopover");
+const _hoisted_5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("div", null, null, -1));
+const _hoisted_6 = /* @__PURE__ */ createTextVNode("iframe");
+const _hoisted_7 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("div", null, null, -1));
+const _hoisted_8 = /* @__PURE__ */ createTextVNode("popover");
+var _sfc_main$1 = {
+  setup(__props) {
+    const state = reactive({
+      count: 0
+    });
+    defineComponent({
+      setup() {
+        function add() {
+          state.count++;
+        }
+        return () => {
+          return createVNode(resolveComponent("Button"), {
+            "type": "primary",
+            "onClick": add
+          }, {
+            default: () => [state.count]
+          });
+        };
+      }
+    });
+    const handlers = {
+      openTips() {
+        UI.layer.tips("tips", "#target2", {
+          tips: [UI.layer.UP, "#0FA6D8"],
+          tipsMore: true,
+          time: 0
+        });
+      },
+      clickBtn() {
+        UI.layer.open({
+          type: 2,
+          title: "\u6B22\u8FCE\u9875",
+          maxmin: true,
+          area: ["800px", "500px"],
+          content: "https://shonesinglone.github.io/germinal",
+          end() {
+            UI.layer.tips("Hi", "#tips", {
+              tips: 1
+            });
+          }
+        });
+      }
+    };
+    return (_ctx, _cache) => {
+      const _component_Button = resolveComponent("Button");
+      const _directive_uiPopover = resolveDirective("uiPopover");
+      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [withDirectives(createVNode(_component_Button, {
+        id: "tips"
+      }, {
+        default: withCtx(() => [_hoisted_3]),
+        _: 1
+      }, 512), [[_directive_uiPopover, {
+        content: "tips1"
+      }]]), withDirectives(createVNode(_component_Button, null, {
+        default: withCtx(() => [_hoisted_4]),
+        _: 1
+      }, 512), [[_directive_uiPopover, {
+        content: "tips2"
+      }]]), _hoisted_5, createVNode(_component_Button, {
+        id: "target",
+        onClick: handlers.clickBtn
+      }, {
+        default: withCtx(() => [_hoisted_6]),
+        _: 1
+      }, 8, ["onClick"]), _hoisted_7, createVNode(_component_Button, {
+        id: "target2",
+        onClick: handlers.openTips
+      }, {
+        default: withCtx(() => [_hoisted_8]),
+        _: 1
+      }, 8, ["onClick"])])]);
+    };
+  }
+};
+var TestPopover_vue_vue_type_style_index_0_scoped_true_lang = "";
+var _export_sfc = (sfc, props) => {
+  for (const [key, val] of props) {
+    sfc[key] = val;
+  }
+  return sfc;
+};
+var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-bda00c9e"]]);
+var _sfc_main = {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createBlock(TestPopover);
+    };
+  }
+};
 const NewRoute = (name, component, options = {}) => _.merge({
   name,
   path: `/${name}`,
   component
 }, options);
 const routeNames = {
+  devDemo: "dev-demo",
   user: "user",
   userLogin: "user-login",
   login: "login",
@@ -1844,18 +3117,18 @@ const routeNames = {
   "404": "404"
 };
 const toPath = (name) => `/${name}`;
-const routes = [NewRoute(routeNames.login, _sfc_main$5, {
+const routes = [NewRoute(routeNames.devDemo, _sfc_main), NewRoute(routeNames.login, _sfc_main$7, {
   redirect: toPath(routeNames.userLogin),
-  children: [NewRoute(routeNames.userLogin, _sfc_main$2, {
+  children: [NewRoute(routeNames.userLogin, _sfc_main$4, {
     meta: {
       title: $t("user.login.login").label
     }
-  }), NewRoute(routeNames.register, _sfc_main$1, {
+  }), NewRoute(routeNames.register, _sfc_main$2, {
     meta: {
       title: $t("user.login.signup").label
     }
   })]
-}), NewRoute(routeNames[404], _sfc_main$7)];
+}), NewRoute(routeNames[404], _sfc_main$9)];
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [...routes, {
@@ -1887,7 +3160,6 @@ router.beforeEach(async (to, from) => {
   };
   const noAccessTokenHandler = () => {
     if (!allowList.includes(to.name)) {
-      debugger;
       return {
         path: loginRoutePath,
         query: {
@@ -1915,20 +3187,18 @@ router.beforeEach(async (to, from) => {
 router.afterEach(() => {
   NProgress.done();
 });
-var App_less_vue_type_style_index_0_src_lang = "";
-const _sfc_main = {
-  setup(__props) {
-    return (_ctx, _cache) => {
-      const _component_RouterView = resolveComponent("RouterView");
-      return openBlock(), createBlock(_component_RouterView);
-    };
-  }
+const addPlugins = (app2) => {
+  app2.use(MyUI, {
+    addPlugins
+  });
+  app2.use(appI18n, AppState);
+  app2.use(router);
+  return app2;
 };
+let app;
 (async () => {
-  const AppState2 = await initAppConfigs();
-  const app = createApp(_sfc_main);
-  app.use(MyUI);
-  app.use(appI18n, AppState2);
-  app.use(router);
+  await initAppConfigs();
+  app = createApp(_sfc_main$d);
+  addPlugins(app);
   app.mount("#app");
 })();
