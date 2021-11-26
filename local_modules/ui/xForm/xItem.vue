@@ -7,9 +7,9 @@ import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error",
 };
-/*
-itemWrapperClass
-*/
+
+/* itemWrapperClass */
+
 export default defineComponent({
   props: {
     configs: {

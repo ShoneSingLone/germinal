@@ -43,10 +43,10 @@ import xGap from "./xLayout/xGap.vue";
 
 /* 表单提示信息 */
 import "ant-design-vue/es/form/style/index.css";
-import {installPopoverDirective} from "./xSingle/popover";
 import $ from "jquery";
 
-if (import.meta.env.MODE === "development") {
+if (
+    import.meta.env.MODE === "development") {
     window.jquery = $;
 }
 
@@ -95,22 +95,19 @@ const components = {
     ...componentAntdV,
     ...componentIcons
 };
+
+
+/* 静态方法，与APP实例无关，引用有直接可用 */
 export const UI = {
     message,
     notification,
     layer
-    /* Popover: installPopoverDirective动态添加*/
 };
-let usedPopover = false;
+
 export default {
     install: (app, options) => {
         _.each(components, (component, name) => {
             app.component(name, component);
         });
-
-        if (options.isUsePopover && options.addPlugins) {
-            installPopoverDirective(app, UI, options.addPlugins);
-            usedPopover = true;
-        }
     },
 };
