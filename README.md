@@ -61,6 +61,10 @@ html,body,#app {
 
 ```
 
+## 开发测试demo页面
+
+[/dev-demo](http://localhost:3000/#/dev-demo)
+
 ## Reference
 
 - [Vue3](https://v3.cn.vuejs.org/api/)
