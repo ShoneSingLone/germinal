@@ -6,10 +6,7 @@ import {AppState} from "@state/app";
 
 export const addPlugins = (app) => {
     /* isUsePopover 全局监听 [data-ui-popover] */
-    app.use(MyUI, {
-        isUsePopover: true,
-        addPlugins
-    });
+    app.use(MyUI, {addPlugins});
     app.use(appI18n, AppState);
     app.use(router);
     return app;

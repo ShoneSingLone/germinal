@@ -51,6 +51,7 @@ if (
 }
 
 import layer from "./xSingle/layer/layer";
+import {installPopoverDirective} from "./xSingle/popover";
 
 
 /* my-ui */
@@ -106,6 +107,7 @@ export const UI = {
 
 export default {
     install: (app, options) => {
+        installPopoverDirective(app, options);
         _.each(components, (component, name) => {
             app.component(name, component);
         });
