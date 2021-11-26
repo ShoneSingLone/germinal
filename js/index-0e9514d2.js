@@ -1770,8 +1770,8 @@ const _sfc_main$9 = {
     };
   }
 };
-var logoImg = "./png/logo-e06e25bf.png";
-var backgroundImg = "./svg/background-d7103c44.svg";
+var logoImg = "./assets/logo.e06e25bf.png";
+var backgroundImg = "./assets/background.d7103c44.svg";
 const lStorage = new Proxy(localStorage, {
   set(_localStorage, prop, value) {
     if (_.isPlainObject(value)) {
