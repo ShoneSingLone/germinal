@@ -1,5 +1,7 @@
 import $ from "jquery";
-import {genId} from "../common";
+import {
+    genId
+} from "../common";
 import layer from "./layer/layer";
 
 const timeoutDelay = 400;
@@ -71,15 +73,13 @@ $(document).on("mouseenter.uiPopver", "[data-follow-id]", function (event) {
     inVisibleArea(followId);
     /*如果存在，不重复添加*/
     if (popverIndexCollection[followId]) {
-        console.log("如果存在，不重复添加");
         return;
     }
     const options = popverOptionsCollection[followId] || {};
 
     const popoverIndex = layer.tips(
-        options.content || "",
-        `#${followId}`,
-        {
+        options.content,
+        `#${followId}`, {
             tips: [layer.UP, "#0FA6D8"],
             /*hover 不允许 同时多个 tips出现*/
             /*tipsMore: false,*/
@@ -87,6 +87,7 @@ $(document).on("mouseenter.uiPopver", "[data-follow-id]", function (event) {
         });
     popverIndexCollection[followId] = popoverIndex;
 });
+
 
 $(document).on("mouseleave.uiPopver", "[data-follow-id]", function (event) {
     /*如果鼠标又移动到TIPS范围内，则不close*/
