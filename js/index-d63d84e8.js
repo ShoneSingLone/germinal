@@ -1677,11 +1677,10 @@ $(document).on("mouseenter.uiPopver", "[data-follow-id]", function(event) {
   const followId = this.dataset.followId;
   inVisibleArea(followId);
   if (popverIndexCollection[followId]) {
-    console.log("\u5982\u679C\u5B58\u5728\uFF0C\u4E0D\u91CD\u590D\u6DFB\u52A0");
     return;
   }
   const options = popverOptionsCollection[followId] || {};
-  const popoverIndex = layer.tips(options.content || "", `#${followId}`, {
+  const popoverIndex = layer.tips(options.content, `#${followId}`, {
     tips: [layer.UP, "#0FA6D8"],
     time: 0
   });
