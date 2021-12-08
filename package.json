@@ -14,11 +14,12 @@
   },
   "main": "src/main.js",
   "dependencies": {
+    "@ventose/ui": "file:./local_modules/ui",
+    "germinal_api": "file:./local_modules/api",
+    "lsrc": "file:./src/",
     "@ant-design/icons-vue": "^6.0.1",
     "@popperjs/core": "^2.10.2",
-    "@ventose/ui": "file:./local_modules/ui",
     "ant-design-vue": "^3.0.0-alpha.3",
-    "germinal_api": "file:./local_modules/api",
     "jquery": "^3.6.0",
     "nprogress": "^0.2.0",
     "vue": "^3.2.16",
@@ -50,4 +51,5 @@
     ]
   },
   "types": "types.d.ts"
+
 }

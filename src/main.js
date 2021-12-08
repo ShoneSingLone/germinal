@@ -1,8 +1,8 @@
 import {createApp} from "vue";
 import App from "./App.vue";
-import {addPlugins} from "./utils/common";
-import {initAppConfigs} from "@state/app";
-
+import {addPlugins} from "lsrc/utils/common";
+import {initAppConfigs} from "lsrc/state/app";
+console.log(addPlugins);
 let app;
 (async () => {
     await initAppConfigs();

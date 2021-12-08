@@ -84,7 +84,7 @@ import "@ventose/ui/loadCommonUtil.js";
 ```
 
 ```js
-import {AppState} from "@state/app";
+import {AppState} from "lsrc/state/app";
 import {reactiveItemConfigs, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
 import {watch} from "vue";
 
