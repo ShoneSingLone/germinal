@@ -131,6 +131,7 @@ export const StateRegister = reactive({
         onClick: async () => {
             try {
                 const currentFormConfigs = StateRegister.configsForm;
+                debugger;
                 const validateResults = await validateForm(currentFormConfigs);
                 if (validateResults.length === 0) {
                     const formData = pickValueFrom(currentFormConfigs);

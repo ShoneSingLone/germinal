@@ -214,7 +214,7 @@ ClassLayer.pt.vessel = function (conType, callback) {
     config.zIndex = zIndex;
     callback([
         //遮罩
-        config.shade ? ("<div class=\"" + DOMS.SHADE + "\" id=\"" + DOMS.SHADE + times + "\" times=\"" + times + "\" style=\"" + ("z-index:" + (zIndex - 1) + "; ") + "\"></div>") : "",
+        config.shade ? (`<div class="${DOMS.SHADE}" id="${DOMS.SHADE}${times}" times="${times}" style="z-index:${zIndex - 1};"></div>`) : "",
 
         //主体
         "<div class=\"" + DOMS[0] + (" layui-layer-" + READY.type[config.type]) + (((config.type == 0 || config.type == 2) && !config.shade) ? " layui-layer-border" : "") + " " + (config.skin || "") + "\" id=\"" + DOMS[0] + times + "\" type=\"" + READY.type[config.type] + "\" times=\"" + times + "\" showtime=\"" + config.time + "\" conType=\"" + (conType ? "object" : "string") + "\" style=\"z-index: " + zIndex + "; width:" + config.area[0] + ";height:" + config.area[1] + ";position:" + (config.fixed ? "fixed;" : "absolute;") + "\">" +
@@ -238,7 +238,10 @@ ClassLayer.pt.vessel = function (conType, callback) {
         }() : "") +
         (config.resize ? "<span class=\"layui-layer-resize\"></span>" : "") +
         "</div>"
-    ], titleHTML, $("<div class=\"" + DOMS.MOVE + "\" id=\"" + DOMS.MOVE + "\"></div>"));
+    ], 
+    titleHTML, 
+    $(`<div class="${DOMS.MOVE}" id="${DOMS.MOVE}"></div>`)
+    );
     return that;
 };
 
@@ -284,7 +287,7 @@ ClassLayer.pt.creat = function () {
         case layer.TIPS: {
             conType || (config.content = [config.content, "body"]);
             config.follow = config.content[1];
-            const arrow = `<i class="layui-layer-TipsG"></i>`;
+            const arrow = "<i class=\"layui-layer-TipsG\"></i>";
             config.content = `${config.content[0]}${arrow}`;
             delete config.title;
             config.tips = typeof config.tips === "object" ? config.tips : [config.tips, true];
@@ -481,11 +484,11 @@ ClassLayer.pt.tips = function () {
         follow = $(config.follow);
     if (!follow[0]) follow = $("body");
     var goal = {
-            width: follow.outerWidth(),
-            height: follow.outerHeight(),
-            top: follow.offset().top,
-            left: follow.offset().left
-        },
+        width: follow.outerWidth(),
+        height: follow.outerHeight(),
+        top: follow.offset().top,
+        left: follow.offset().left
+    },
         tipsG = layero.find(".layui-layer-TipsG");
 
     var guide = config.tips[0];
