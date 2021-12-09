@@ -53,18 +53,23 @@ export default defineComponent({
   },
   created() {},
   methods: {
-    async onClick() {
-      debugger;
-      if (_.isFunction(this.configs.onClick)) {
+     onClick() {
+       if (_.isFunction(this.configs.onClick)) {
+        (async ()=>{
+        const onClick = this.configs.onClick;
         this.loading = true;
         try {
-          await this.configs.onClick(this);
+          console.log(onClick());
+          await onClick(this);
+          debugger;
         } catch (e) {
           console.error(e);
         } finally {
           this.loading = false;
         }
+       })();
       }
+
     },
   },
   render(h) {

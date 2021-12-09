@@ -59,9 +59,6 @@ const configsTestPopover = {
       <h3>
         <span>{{ $t("user.register.register").label }}</span>
       </h3>
-      <h1 v-uiPopover="configsTestPopover">
-        Test Popover
-      </h1>
       <form>
         <!-- 用户名 -->
         <xItem
