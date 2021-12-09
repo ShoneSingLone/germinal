@@ -2,9 +2,9 @@ import {reactive, watch, computed} from "vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setCSSVariables, setDocumentTitle} from "@ventose/ui/tools/dom";
 import API from "germinal_api";
-import ajax from "@request/ajax";
+import ajax from "lsrc/request/ajax";
 import MyUI from "@ventose/ui";
-import {router} from "../router/router";
+import {router} from "lsrc/router/router";
 
 
 export const AppState = reactive({

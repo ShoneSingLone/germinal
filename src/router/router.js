@@ -1,14 +1,14 @@
 import NProgress from "nprogress"; // progress bar
 import {createRouter, createWebHashHistory} from "vue-router";
-import NotFound from "@views/system/NotFound.vue";
-import LayoutUser from "@layout/User.vue";
-import Login from "@views/user/Login.vue";
-import Register from "@views/user/Register.vue";
-import DevDemo from "@views/demo/HelloWorld.vue";
+import NotFound from "lsrc/views/system/NotFound.vue";
+import LayoutUser from "lsrc/layout/User.vue";
+import Login from "lsrc/views/user/Login.vue";
+import Register from "lsrc/views/user/Register.vue";
+import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
-import {AppState, AppMutation} from "@state/app";
-import {$t} from "@language";
+import {AppState, AppMutation} from "lsrc/state/app";
+import {$t} from "lsrc/language";
 
 const RouteView = {
     name: "RouteView",

@@ -54,6 +54,7 @@ export default defineComponent({
   created() {},
   methods: {
     async onClick() {
+      debugger;
       if (_.isFunction(this.configs.onClick)) {
         this.loading = true;
         try {

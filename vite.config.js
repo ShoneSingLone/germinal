@@ -1,6 +1,4 @@
-import {
-    defineConfig
-} from "vite";
+import { defineConfig } from "vite";
 import useVue from "@vitejs/plugin-vue";
 import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
@@ -9,19 +7,8 @@ import path from "path";
 export default defineConfig({
     base: "./",
     resolve: {
-        alias: {
-            "vue": "vue/dist/vue.esm-bundler.js",
-            // "@ventose/ui": path.resolve(__dirname, "./src/components/ui"),
-            // "@api": path.resolve(__dirname, "./src/api"),
-            "@components": path.resolve(__dirname, "./src/components"),
-            "@style": path.resolve(__dirname, "./styles"),
-            "@router": path.resolve(__dirname, "./src/router"),
-            "@request": path.resolve(__dirname, "./src/request"),
-            "@state": path.resolve(__dirname, "./src/state"),
-            "@language": path.resolve(__dirname, "./src/language"),
-            "@layout": path.resolve(__dirname, "./src/layout"),
-            "@views": path.resolve(__dirname, "./src/views"),
-        }
+        alias: { "vue": "vue/dist/vue.esm-bundler.js",
+            "lsrc": path.resolve(__dirname, "./src")}
     },
     build: {
         /* 没有混缩 */
@@ -33,9 +20,9 @@ export default defineConfig({
             }
         },
         /* lib: {
-			entry: path.resolve(__dirname, "src/lib.js"),
-			name: "ventose@ui"
-		} */
+            entry: path.resolve(__dirname, "lsrc/lib.js"),
+            name: "ventose@ui"
+        } */
     },
     plugins: [
         useVue(),

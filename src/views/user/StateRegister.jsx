@@ -1,11 +1,11 @@
 import {reactive, computed, watch} from "vue";
-import {$t} from "@language";
+import {$t} from "lsrc/language";
 import {UI} from "@ventose/ui";
 import {ITEM_TYPE, reactiveItemConfigs} from "@ventose/ui/common";
 import {EVENT_TYPE, validateForm} from "@ventose/ui/tools/validate";
-import FormRules, {RegexFn} from "@components/FormRules";
-import SvgRender from "@components/SvgRender/SvgRender";
-import {getColor} from "@state/app";
+import FormRules, {RegexFn} from "lsrc/components/FormRules";
+import SvgRender from "lsrc/components/SvgRender/SvgRender";
+import {getColor} from "lsrc/state/app";
 import API from "germinal_api";
 import {pickValueFrom} from "@ventose/ui/tools/form";
 
@@ -131,6 +131,7 @@ export const StateRegister = reactive({
         onClick: async () => {
             try {
                 const currentFormConfigs = StateRegister.configsForm;
+                debugger;
                 const validateResults = await validateForm(currentFormConfigs);
                 if (validateResults.length === 0) {
                     const formData = pickValueFrom(currentFormConfigs);

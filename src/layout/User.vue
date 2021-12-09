@@ -1,7 +1,7 @@
 <script setup>
 import logoImg from "../assets/logo.png";
 import backgroundImg from "../assets/background.svg";
-import SelectLanguage from "@components/SelectLanguage/SelectLanguage.vue";
+import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
 
 const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`};
 </script>

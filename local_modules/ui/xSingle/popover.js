@@ -25,6 +25,7 @@ export function installPopoverDirective(app, appSettings) {
             el.dataset["appId"] = appId;
 
             if (binding.value) {
+                debugger;
                 popverOptionsCollection[followId] = binding.value;
             }
         },
