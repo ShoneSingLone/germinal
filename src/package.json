@@ -1,0 +1,6 @@
+{
+  "name": "lsrc",
+  "version": "0.0.0",
+  "main": "main.js",
+  "types": "index.d.ts"
+}
