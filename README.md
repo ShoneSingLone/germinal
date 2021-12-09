@@ -13,6 +13,9 @@
 /* TODO: */
 ```
 
+## package.json
+
+file:./src 需要添加 package.json 文件
 ## 常用函数
 
 ### $t 多语言转换
