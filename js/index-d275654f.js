@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { r as resolveComponent, c as createBlock, o as openBlock, e as each, i as isArray_1, m as merge_1, a as map_1, b as reduce_1, d as isPlainObject_1, f as isFunction_1, g as isBoolean_1, h as isString_1, s as some_1, j as every_1, k as debounce_1, l as isNumber_1, n as filter_1, p as defineComponent, q as h, I as InputPassword, t as Input$1, C as Checkbox$1, u as reactive, v as createVNode, w as createTextVNode, $, _ as _message, x as _notification, y as _Progress, z as _Popover, A as _Icon, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as useRouter, S as withCtx, V as toDisplayString, W as computed, X as watch, Y as createElementBlock, Z as renderList, a0 as Fragment, a1 as unref, a2 as createBaseVNode, a3 as normalizeStyle, a4 as normalizeClass, a5 as createStaticVNode, a6 as createI18n, a7 as watchEffect, a8 as createCommentVNode, a9 as resolveDirective, aa as withDirectives, ab as pushScopeId, ac as popScopeId, ad as createRouter, ae as createWebHashHistory, af as NProgress, ag as createApp } from "./vendor-563c9e76.js";
+import { r as resolveComponent, c as createBlock, o as openBlock, e as each, i as isArray_1, m as merge_1, a as map_1, b as reduce_1, d as isPlainObject_1, f as isFunction_1, g as isBoolean_1, h as isString_1, s as some_1, j as every_1, k as debounce_1, l as isNumber_1, n as filter_1, p as omit_1, q as defineComponent, t as h, I as InputPassword, u as Input$1, C as Checkbox$1, v as reactive, w as createVNode, x as createTextVNode, y as mergeProps, $, _ as _message, z as _notification, A as _Progress, B as _Popover, D as _Icon, M as Menu, E as MenuItem, F as Dropdown, G as Button, H as _List, J as _Popconfirm, K as _Alert, L as _Result, T as Tabs, N as TabPane, O as GlobalOutlined, P as AppleOutlined, Q as AndroidOutlined, U as UserOutlined, R as LockFilled, S as MobileOutlined, V as useRouter, W as withCtx, X as toDisplayString, Y as computed, Z as watch, a0 as createElementBlock, a1 as renderList, a2 as Fragment, a3 as unref, a4 as createBaseVNode, a5 as normalizeStyle, a6 as normalizeClass, a7 as createStaticVNode, a8 as createI18n, a9 as watchEffect, aa as createCommentVNode, ab as resolveDirective, ac as withDirectives, ad as pushScopeId, ae as popScopeId, af as createRouter, ag as createWebHashHistory, ah as NProgress, ai as createApp } from "./vendor-6e329da6.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -58,7 +58,7 @@ const p = function polyfill() {
 };
 p();
 var App_less_vue_type_style_index_0_src_lang = "";
-const _sfc_main$d = {
+const _sfc_main$c = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_RouterView = resolveComponent("RouterView");
@@ -82,7 +82,8 @@ const lodashFunctions = {
   every: every_1,
   debounce: debounce_1,
   isNumber: isNumber_1,
-  filter: filter_1
+  filter: filter_1,
+  omit: omit_1
 };
 each(lodashFunctions, (fn, prop) => window._[prop] = fn);
 window._.isArrayFill = (arr) => isArray_1(arr) && arr.length > 0;
@@ -278,16 +279,20 @@ const MutatingProps = (item, prop, val) => {
   }
   return item;
 };
-let idCount = 1;
+genId.idCount = 1;
+genId.ID_COUNT_MAX = 4e4;
+genId.DATE_NOW = Date.now();
 function genId(category) {
-  if (idCount > 1e3)
-    idCount = 1;
-  return `${category}_${Date.now()}_${idCount++}`;
+  if (genId.idCount > genId.ID_COUNT_MAX) {
+    genId.idCount = 1;
+    genId.DATE_NOW = Date.now();
+  }
+  return `${category}_${genId.DATE_NOW}_${genId.idCount++}`;
 }
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$c = defineComponent({
+var _sfc_main$b = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -504,7 +509,7 @@ var _sfc_main$c = defineComponent({
     }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$b = defineComponent({
+var _sfc_main$a = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -515,20 +520,10 @@ var _sfc_main$b = defineComponent({
   },
   data() {
     return {
-      loading: false
+      loading: true
     };
   },
   computed: {
-    propperties: {
-      get() {
-        const onClick = this.onClick;
-        const loading = this.loading;
-        return _.merge({}, this.configs, {
-          onClick,
-          loading
-        });
-      }
-    },
     text() {
       var _a;
       if (_.isFunction((_a = this.$slots) == null ? void 0 : _a.default)) {
@@ -565,12 +560,17 @@ var _sfc_main$b = defineComponent({
     }
   },
   render(h2) {
-    return createVNode(resolveComponent("Button"), this.propperties, {
+    const configs = _.omit(this.configs, ["text", "onClick"]);
+    console.log(configs);
+    return createVNode(resolveComponent("Button"), mergeProps(configs, {
+      "onClick": this.onClick,
+      "loading": this.loading
+    }), {
       default: () => [this.text]
     });
   }
 });
-var _sfc_main$a = defineComponent({
+var _sfc_main$9 = defineComponent({
   props: ["t", "l", "r", "b", "a"],
   computed: {
     gapStyle: {
@@ -774,7 +774,7 @@ ClassLayer.pt.vessel = function(conType, callback) {
   </div >` : "";
   config.zIndex = zIndex;
   callback([
-    config.shade ? '<div class="' + DOMS.SHADE + '" id="' + DOMS.SHADE + times + '" times="' + times + '" style="' + ("z-index:" + (zIndex - 1) + "; ") + '"></div>' : "",
+    config.shade ? `<div class="${DOMS.SHADE}" id="${DOMS.SHADE}${times}" times="${times}" style="z-index:${zIndex - 1};"></div>` : "",
     '<div class="' + DOMS[0] + (" layui-layer-" + READY.type[config.type]) + ((config.type == 0 || config.type == 2) && !config.shade ? " layui-layer-border" : "") + " " + (config.skin || "") + '" id="' + DOMS[0] + times + '" type="' + READY.type[config.type] + '" times="' + times + '" showtime="' + config.time + '" conType="' + (conType ? "object" : "string") + '" style="z-index: ' + zIndex + "; width:" + config.area[0] + ";height:" + config.area[1] + ";position:" + (config.fixed ? "fixed;" : "absolute;") + '">' + (conType && config.type != 2 ? "" : titleHTML) + '<div id="' + (config.id || "") + '" class="layui-layer-content' + (config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : "") + (config.type == 3 ? " layui-layer-loading" + config.icon : "") + '">' + (config.type == 0 && config.icon !== -1 ? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>' : "") + (config.type == 1 && conType ? "" : config.content || "") + '</div><span class="layui-layer-setwin">' + function() {
       var closebtn = ismax ? '<a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a>' : "";
       config.closeBtn && (closebtn += '<a class="layui-layer-ico ' + DOMS[7] + " " + DOMS[7] + (config.title ? config.closeBtn : config.type == 4 ? "1" : "2") + '" href="javascript:;"></a>');
@@ -787,7 +787,7 @@ ClassLayer.pt.vessel = function(conType, callback) {
       }
       return '<div class="' + DOMS[6] + " layui-layer-btn-" + (config.btnAlign || "") + '">' + button + "</div>";
     }() : "") + (config.resize ? '<span class="layui-layer-resize"></span>' : "") + "</div>"
-  ], titleHTML, $('<div class="' + DOMS.MOVE + '" id="' + DOMS.MOVE + '"></div>'));
+  ], titleHTML, $(`<div class="${DOMS.MOVE}" id="${DOMS.MOVE}"></div>`));
   return that;
 };
 ClassLayer.pt.creat = function() {
@@ -821,7 +821,7 @@ ClassLayer.pt.creat = function() {
     case layer.TIPS: {
       conType || (config.content = [config.content, "body"]);
       config.follow = config.content[1];
-      const arrow = `<i class="layui-layer-TipsG"></i>`;
+      const arrow = '<i class="layui-layer-TipsG"></i>';
       config.content = `${config.content[0]}${arrow}`;
       delete config.title;
       config.tips = typeof config.tips === "object" ? config.tips : [config.tips, true];
@@ -1632,10 +1632,10 @@ const popverIndexCollection = {};
 const appAddPlugin = {};
 const timerCollection = {};
 const visibleArea = {};
-function installPopoverDirective(app2, appSettings) {
+function installPopoverDirective(app, appSettings) {
   const appId = genId("appId");
   appAddPlugin[appId] = appSettings.addPlugins;
-  app2.directive("uiPopover", {
+  app.directive("uiPopover", {
     mounted(el, binding) {
       const followId = genId("xPopoverTarget");
       $(el).addClass("x-ui-popover").attr("id", followId);
@@ -1697,9 +1697,9 @@ $(document).on("mouseleave.uiPopverTips", "[data-layer-tips-id]", function(event
 });
 const componentMyUI = {
   xRender,
-  xItem: _sfc_main$c,
-  xButton: _sfc_main$b,
-  xGap: _sfc_main$a
+  xItem: _sfc_main$b,
+  xButton: _sfc_main$a,
+  xGap: _sfc_main$9
 };
 const componentAntdV = {
   Progress: _Progress,
@@ -1734,14 +1734,14 @@ const UI = {
   layer
 };
 var MyUI = {
-  install: (app2, options) => {
-    installPopoverDirective(app2, options);
+  install: (app, options) => {
+    installPopoverDirective(app, options);
     _.each(components, (component, name) => {
-      app2.component(name, component);
+      app.component(name, component);
     });
   }
 };
-const _sfc_main$9 = {
+const _sfc_main$8 = {
   setup(__props) {
     const router2 = useRouter();
     function go() {
@@ -1906,6 +1906,7 @@ var API = {
 };
 const AppState = reactive({
   count: 0,
+  isMobile: false,
   configs: lStorage.appConfigs,
   isDev: false
 });
@@ -1976,7 +1977,7 @@ const initAppConfigs = async (callback) => {
   return AppState;
 };
 const _hoisted_1$5 = ["aria-label"];
-const _sfc_main$8 = {
+const _sfc_main$7 = {
   setup(__props) {
     const languageLabels = {
       "zh-CN": {
@@ -2040,14 +2041,14 @@ const _hoisted_5$3 = {
   href: "/"
 };
 const _hoisted_6$3 = ["src"];
-const _hoisted_7$3 = {
+const _hoisted_7$2 = {
   class: "title"
 };
-const _hoisted_8$2 = {
+const _hoisted_8$1 = {
   class: "desc"
 };
 const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright"> Copyright \xA9 2018 vueComponent </div></div>', 1);
-const _sfc_main$7 = {
+const _sfc_main$6 = {
   setup(__props) {
     const styles2 = {
       container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
@@ -2056,17 +2057,17 @@ const _sfc_main$7 = {
       const _component_router_view = resolveComponent("router-view");
       return openBlock(), createElementBlock("div", {
         id: "userLayout",
-        class: normalizeClass(["user-layout-wrapper", _ctx.isMobile && "mobile"])
+        class: normalizeClass(["user-layout-wrapper", unref(AppState).isMobile && "mobile"])
       }, [createBaseVNode("div", {
         class: "container",
         style: normalizeStyle(styles2.container)
-      }, [createBaseVNode("div", _hoisted_1$4, [createVNode(_sfc_main$8, {
+      }, [createBaseVNode("div", _hoisted_1$4, [createVNode(_sfc_main$7, {
         class: "select-lang-trigger"
       })]), createBaseVNode("div", _hoisted_2$3, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
         src: unref(logoImg),
         class: "logo",
         alt: "logo"
-      }, null, 8, _hoisted_6$3), createBaseVNode("span", _hoisted_7$3, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8$2, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+      }, null, 8, _hoisted_6$3), createBaseVNode("span", _hoisted_7$2, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8$1, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
     };
   }
 };
@@ -2205,8 +2206,8 @@ const $t = (prop) => {
   };
 };
 const appI18n = {
-  install: (app2, AppState2) => {
-    app2.config.globalProperties.$t = $t;
+  install: (app, AppState2) => {
+    app.config.globalProperties.$t = $t;
     watchEffect(() => {
       setI18nLanguage(AppState2.configs.language);
     });
@@ -2470,7 +2471,7 @@ async function getCaptcha$1() {
     console.error(e);
   }
 }
-var _sfc_main$6 = {
+var _sfc_main$5 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
@@ -2490,7 +2491,7 @@ var _sfc_main$6 = {
 const _hoisted_1$3 = {
   class: "flex"
 };
-var _sfc_main$5 = {
+var _sfc_main$4 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
@@ -2531,10 +2532,10 @@ const _hoisted_5$2 = {
 const _hoisted_6$2 = {
   class: "item-wrapper"
 };
-const _hoisted_7$2 = {
+const _hoisted_7$1 = {
   class: "user-login-other"
 };
-const _sfc_main$4 = {
+const _sfc_main$3 = {
   setup(__props) {
     return (_ctx, _cache) => {
       resolveComponent("Alert");
@@ -2553,13 +2554,13 @@ const _sfc_main$4 = {
           key: "credentials",
           tab: unref($t)("user.login.tab-login-credentials").label
         }, {
-          default: withCtx(() => [createCommentVNode("", true), createVNode(_sfc_main$6)]),
+          default: withCtx(() => [createCommentVNode("", true), createVNode(_sfc_main$5)]),
           _: 1
         }, 8, ["tab"]), createVNode(_component_TabPane, {
           key: "mobile",
           tab: unref($t)("user.login.tab-login-mobile").label
         }, {
-          default: withCtx(() => [createVNode(_sfc_main$5)]),
+          default: withCtx(() => [createVNode(_sfc_main$4)]),
           _: 1
         }, 8, ["tab"])]),
         _: 1
@@ -2571,7 +2572,7 @@ const _sfc_main$4 = {
         _: 1
       }, 8, ["checked"]), createBaseVNode("a", _hoisted_4$2, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5$2, [createVNode(_component_xButton, {
         configs: unref(StateLogin).configsSubmit
-      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$2, [createBaseVNode("div", _hoisted_7$2, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$2, [createBaseVNode("div", _hoisted_7$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_a_icon, {
         class: "item-icon",
         type: "alipay-circle"
       })]), createBaseVNode("a", null, [createVNode(_component_a_icon, {
@@ -2690,15 +2691,16 @@ const StateRegister = reactive({
       minWidth: "112px"
     },
     text: getConfigsSubmitText(),
-    async onClick() {
+    onClick: async () => {
       try {
         const results = await validateForm({
-          mobile: StateRegister.configsFormMobile.mobile
+          mobile: StateRegister.configsForm.mobile
         });
         if (results.length === 0) {
           await getCaptcha();
         }
       } catch (e) {
+        console.error(e);
       }
     }
   },
@@ -2819,75 +2821,31 @@ async function getCaptcha() {
     console.error(e);
   }
 }
-var _sfc_main$3 = {
-  props: {
-    configs: {
-      type: Object,
-      default() {
-        return {};
-      }
-    }
-  },
-  setup(__props) {
-    const state = reactive({
-      count: 0
-    });
-    const renders2 = {
-      test: (state2) => createVNode(resolveComponent("Button"), null, {
-        default: () => [state2.count]
-      })
-    };
-    const handlers = {
-      clickBtn() {
-        state.count++;
-      }
-    };
-    return (_ctx, _cache) => {
-      const _component_Button = resolveComponent("Button");
-      const _component_xRender = resolveComponent("xRender");
-      return openBlock(), createElementBlock(Fragment, null, [createVNode(_component_Button, {
-        onClick: handlers.clickBtn
-      }, {
-        default: withCtx(() => [createTextVNode(toDisplayString(_ctx.$t("user.login.userName").label), 1)]),
-        _: 1
-      }, 8, ["onClick"]), createVNode(_component_xRender, {
-        render: renders2.test,
-        state: _ctx.StateLogin
-      }, null, 8, ["render", "state"]), createVNode(_component_Button, {
-        onClick: handlers.clickBtn
-      }, {
-        default: withCtx(() => [createTextVNode(" count is: " + toDisplayString(unref(state).count), 1)]),
-        _: 1
-      }, 8, ["onClick"])], 64);
-    };
-  }
-};
 const _hoisted_1$1 = {
   class: "main"
 };
 const _hoisted_2$1 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
-const _hoisted_3$1 = /* @__PURE__ */ createTextVNode(" Test Popover ");
-const _hoisted_4$1 = [_hoisted_3$1];
-const _hoisted_5$1 = {
+const _hoisted_3$1 = {
   style: {
     width: "240px"
   }
 };
-const _hoisted_6$1 = {
+const _hoisted_4$1 = {
   style: {
     "margin-top": "10px"
   }
 };
-const _hoisted_7$1 = {
+const _hoisted_5$1 = {
   class: "flex"
 };
-const _hoisted_8$1 = {
+const _hoisted_6$1 = {
   class: "item-wrapper flex"
 };
 const _sfc_main$2 = {
   setup(__props) {
+    console.log(routeNames);
     const levelNames = {
       0: "user.password.strength.short",
       1: "user.password.strength.low",
@@ -2915,18 +2873,6 @@ const _sfc_main$2 = {
     const passwordLevelColor = computed(() => {
       return levelColor[StateRegister.statePassword.passwordLevel];
     });
-    const configsTestPopover = {
-      width: 400,
-      content: _sfc_main$3,
-      preventHide: true,
-      trigger: "hover",
-      onShow() {
-        console.log("Popover shown.");
-      },
-      onHide() {
-        console.log("Popover hidden.");
-      }
-    };
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
       const _component_xGap = resolveComponent("xGap");
@@ -2934,11 +2880,8 @@ const _sfc_main$2 = {
       const _component_Popover = resolveComponent("Popover");
       const _component_xButton = resolveComponent("xButton");
       const _component_RouterLink = resolveComponent("RouterLink");
-      const _directive_uiPopover = resolveDirective("uiPopover");
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), withDirectives(createBaseVNode("h1", null, _hoisted_4$1, 512), [[_directive_uiPopover, configsTestPopover]]), createBaseVNode("form", null, [createVNode(_component_xItem, {
-        ref: (_value, _refs) => {
-          _refs["username"] = _value;
-        },
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
+        ref: "username",
         configs: unref(StateRegister).configsForm.userName,
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
@@ -2948,14 +2891,14 @@ const _sfc_main$2 = {
         trigger: ["click"],
         placement: "rightTop"
       }, {
-        content: withCtx(() => [createBaseVNode("div", _hoisted_5$1, [createBaseVNode("div", {
+        content: withCtx(() => [createBaseVNode("div", _hoisted_3$1, [createBaseVNode("div", {
           class: normalizeClass(["user-register", unref(passwordLevelClass)])
         }, toDisplayString(unref($t)(unref(passwordLevelName)).label), 3), createVNode(_component_Progress, {
           percent: unref(StateRegister).statePassword.percent,
           "show-info": false,
           "stroke-color": unref(passwordLevelColor),
           "get-popup-container": (trigger) => trigger.parentElement
-        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_6$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
+        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_4$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
         default: withCtx(() => [createVNode(_component_xItem, {
           configs: unref(StateRegister).configsForm.password,
           autocomplete: "current-password"
@@ -2973,7 +2916,7 @@ const _sfc_main$2 = {
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_7$1, [createVNode(_component_xItem, {
+      }), createBaseVNode("div", _hoisted_5$1, [createVNode(_component_xItem, {
         configs: unref(StateRegister).configsForm.verificationCode,
         autocomplete: "current-password"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
@@ -2982,7 +2925,7 @@ const _sfc_main$2 = {
         configs: unref(StateRegister).configsVerificationCode
       }, null, 8, ["configs"])])]), createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_8$1, [createVNode(_component_xButton, {
+      }), createBaseVNode("div", _hoisted_6$1, [createVNode(_component_xButton, {
         configs: unref(StateRegister).configsSubmit
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         l: "80"
@@ -3057,17 +3000,17 @@ var _sfc_main$1 = {
     return (_ctx, _cache) => {
       const _component_Button = resolveComponent("Button");
       const _directive_uiPopover = resolveDirective("uiPopover");
-      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [withDirectives(createVNode(_component_Button, {
+      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [withDirectives((openBlock(), createBlock(_component_Button, {
         id: "tips"
       }, {
         default: withCtx(() => [_hoisted_3]),
         _: 1
-      }, 512), [[_directive_uiPopover, {
+      })), [[_directive_uiPopover, {
         content: "tips1"
-      }]]), withDirectives(createVNode(_component_Button, null, {
+      }]]), withDirectives((openBlock(), createBlock(_component_Button, null, {
         default: withCtx(() => [_hoisted_4]),
         _: 1
-      }, 512), [[_directive_uiPopover, {
+      })), [[_directive_uiPopover, {
         content: "tips2"
       }]]), _hoisted_5, createVNode(_component_Button, {
         id: "target",
@@ -3087,10 +3030,11 @@ var _sfc_main$1 = {
 };
 var TestPopover_vue_vue_type_style_index_0_scoped_true_lang = "";
 var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
-    sfc[key] = val;
+    target[key] = val;
   }
-  return sfc;
+  return target;
 };
 var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-bda00c9e"]]);
 var _sfc_main = {
@@ -3116,9 +3060,9 @@ const routeNames = {
   "404": "404"
 };
 const toPath = (name) => `/${name}`;
-const routes = [NewRoute(routeNames.devDemo, _sfc_main), NewRoute(routeNames.login, _sfc_main$7, {
+const routes = [NewRoute(routeNames.devDemo, _sfc_main), NewRoute(routeNames.login, _sfc_main$6, {
   redirect: toPath(routeNames.userLogin),
-  children: [NewRoute(routeNames.userLogin, _sfc_main$4, {
+  children: [NewRoute(routeNames.userLogin, _sfc_main$3, {
     meta: {
       title: $t("user.login.login").label
     }
@@ -3127,7 +3071,7 @@ const routes = [NewRoute(routeNames.devDemo, _sfc_main), NewRoute(routeNames.log
       title: $t("user.login.signup").label
     }
   })]
-}), NewRoute(routeNames[404], _sfc_main$9)];
+}), NewRoute(routeNames[404], _sfc_main$8)];
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [...routes, {
@@ -3186,18 +3130,17 @@ router.beforeEach(async (to, from) => {
 router.afterEach(() => {
   NProgress.done();
 });
-const addPlugins = (app2) => {
-  app2.use(MyUI, {
+const addPlugins = (app) => {
+  app.use(MyUI, {
     addPlugins
   });
-  app2.use(appI18n, AppState);
-  app2.use(router);
-  return app2;
+  app.use(appI18n, AppState);
+  app.use(router);
+  return app;
 };
-let app;
 (async () => {
   await initAppConfigs();
-  app = createApp(_sfc_main$d);
+  const app = createApp(_sfc_main$c);
   addPlugins(app);
   app.mount("#app");
 })();
