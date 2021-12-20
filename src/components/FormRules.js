@@ -15,7 +15,6 @@ export const RegexFn = {
 /**
  *  暂时没想好，之前是msg根据i18n变化
  Object.defineProperty(options,"msg",{ get(){
-        debugger;
         return msg();
     } });
  */

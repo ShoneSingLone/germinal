@@ -112,15 +112,13 @@ export const StateRegister = reactive({
         style: { minWidth: "112px" },
         text: getConfigsSubmitText(),
         onClick: async () => {
-            return true;
-            debugger;
             try {
-                const results = await validateForm({ mobile: StateRegister.configsFormMobile.mobile });
+                const results = await validateForm({ mobile: StateRegister.configsForm.mobile });
                 if (results.length === 0) {
                     await getCaptcha();
                 }
             } catch (e) {
-
+                console.error(e);
             }
         }
     },
@@ -133,7 +131,6 @@ export const StateRegister = reactive({
         onClick: async () => {
             try {
                 const currentFormConfigs = StateRegister.configsForm;
-                debugger;
                 const validateResults = await validateForm(currentFormConfigs);
                 if (validateResults.length === 0) {
                     const formData = pickValueFrom(currentFormConfigs);

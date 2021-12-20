@@ -9,6 +9,7 @@ import {router} from "lsrc/router/router";
 
 export const AppState = reactive({
     count: 0,
+    isMobile:false,
     configs: lStorage.appConfigs,
     isDev: import.meta.env.MODE === "development",
 });

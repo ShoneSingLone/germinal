@@ -12,6 +12,7 @@ import every from "lodash/every";
 import debounce from "lodash/debounce";
 import isNumber from "lodash/isNumber";
 import filter from "lodash/filter";
+import omit from "lodash/omit";
 
 window._ = window._ || {};
 const lodashFunctions = {
@@ -29,6 +30,7 @@ const lodashFunctions = {
     debounce,
     isNumber,
     filter,
+    omit,
 };
 each(lodashFunctions, (fn, prop) => window._[prop] = fn);
 
