@@ -5,4 +5,4 @@
   <RouterView />
 </template>;
 
-<style lang="less" src="@style/App.less"></style>;
+<style lang="less" src="./styles/App.less"></style>;

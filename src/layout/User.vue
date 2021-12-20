@@ -1,7 +1,8 @@
 <script setup>
 import logoImg from "../assets/logo.png";
 import backgroundImg from "../assets/background.svg";
-import SelectLanguage from "@components/SelectLanguage/SelectLanguage.vue";
+import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
+import { AppState } from "lsrc/state/app";
 
 const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`};
 </script>
@@ -9,7 +10,7 @@ const styles = {container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 5
 <template>
   <div
     id="userLayout"
-    :class="['user-layout-wrapper', isMobile && 'mobile']"
+    :class="['user-layout-wrapper', AppState.isMobile && 'mobile']"
   >
     <div
       class="container"

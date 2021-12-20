@@ -1,12 +1,15 @@
 <script setup>
+
 import { reactive, computed } from "vue";
-import { $t } from "@language";
+import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { StateRegister } from "./StateRegister";
-import { routeNames } from "@router/router";
+import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
 
+
+console.log(routeNames);
 const levelNames = {
   0: "user.password.strength.short",
   1: "user.password.strength.low",
@@ -56,9 +59,6 @@ const configsTestPopover = {
       <h3>
         <span>{{ $t("user.register.register").label }}</span>
       </h3>
-      <h1 v-uiPopover="configsTestPopover">
-        Test Popover
-      </h1>
       <form>
         <!-- 用户名 -->
         <xItem

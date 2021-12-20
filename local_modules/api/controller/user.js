@@ -1,4 +1,4 @@
-import ajax from "@request/ajax";
+import ajax from "lsrc/request/ajax";
 import url from "../url";
 import {getInfo} from "../mock/user";
 

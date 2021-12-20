@@ -1,16 +1,16 @@
-import {reactive, computed, watch} from "vue";
-import {$t} from "@language";
-import {UI} from "@ventose/ui";
-import {ITEM_TYPE, reactiveItemConfigs} from "@ventose/ui/common";
-import {EVENT_TYPE, validateForm} from "@ventose/ui/tools/validate";
-import FormRules, {RegexFn} from "@components/FormRules";
-import SvgRender from "@components/SvgRender/SvgRender";
-import {getColor} from "@state/app";
+import { reactive, computed, watch } from "vue";
+import { $t } from "lsrc/language";
+import { UI } from "@ventose/ui";
+import { ITEM_TYPE, reactiveItemConfigs } from "@ventose/ui/common";
+import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
+import FormRules, { RegexFn } from "lsrc/components/FormRules";
+import SvgRender from "lsrc/components/SvgRender/SvgRender";
+import { getColor } from "lsrc/state/app";
 import API from "germinal_api";
-import {pickValueFrom} from "@ventose/ui/tools/form";
+import { pickValueFrom } from "@ventose/ui/tools/form";
 
 const styles = {
-    icon: {color: getColor("disabledColor")},
+    icon: { color: getColor("disabledColor") },
 };
 
 
@@ -32,7 +32,7 @@ export const StateRegister = reactive({
             /* render的时候重新获取 */
             placeholder: () => $t("user.login.username.placeholder").label,
             rules: [FormRules.required(() => $t("user.userName.required").label, [EVENT_TYPE.blur])],
-            slots: {prefix: () => <UserOutlined style={styles.icon}/>},
+            slots: { prefix: () => <UserOutlined style={styles.icon} /> },
         }),
         ...reactiveItemConfigs({
             prop: "password",
@@ -49,11 +49,11 @@ export const StateRegister = reactive({
                     trigger: [EVENT_TYPE.update]
                 })
             ],
-            onValidateFial:(thisConfigs)=>{
+            onValidateFial: (thisConfigs) => {
                 console.log(thisConfigs.itemTips);
 
             },
-            slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
+            slots: { prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon} /> },
         }),
         ...reactiveItemConfigs({
             prop: "passwordConfirm",
@@ -69,7 +69,7 @@ export const StateRegister = reactive({
                     validator: async (passwordConfirm) => StateRegister.configsForm.password.value !== passwordConfirm,
                     trigger: [EVENT_TYPE.update]
                 })],
-            slots: {prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon}/>},
+            slots: { prefix: () => <xRender render={SvgRender.lockStrok} style={styles.icon} /> },
         }),
 
         ...reactiveItemConfigs({
@@ -86,7 +86,7 @@ export const StateRegister = reactive({
                     trigger: [EVENT_TYPE.update]
                 })],
             slots: {
-                prefix: () => <MobileOutlined style={styles.icon}/>,
+                prefix: () => <MobileOutlined style={styles.icon} />,
             },
         }),
         /*验证码*/
@@ -100,7 +100,7 @@ export const StateRegister = reactive({
             rules: [
                 FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
             slots: {
-                prefix: () => <xRender render={SvgRender.mail} style={styles.icon}/>,
+                prefix: () => <xRender render={SvgRender.mail} style={styles.icon} />,
             },
         }),
 
@@ -109,16 +109,16 @@ export const StateRegister = reactive({
     configsVerificationCode: {
         disabled: false,
         size: "large",
-        style: {minWidth: "112px"},
+        style: { minWidth: "112px" },
         text: getConfigsSubmitText(),
-        async onClick() {
+        onClick: async () => {
             try {
-                const results = await validateForm({mobile: StateRegister.configsFormMobile.mobile});
+                const results = await validateForm({ mobile: StateRegister.configsForm.mobile });
                 if (results.length === 0) {
                     await getCaptcha();
                 }
             } catch (e) {
-
+                console.error(e);
             }
         }
     },
@@ -262,7 +262,7 @@ async function getCaptcha() {
         /*开始倒计时*/
         countDown();
         /*理论上是发送到手机*/
-        const {result} = await API.user.getSmsCaptcha();
+        const { result } = await API.user.getSmsCaptcha();
         UI.message.success("验证码已发送");
         /*TODO:remove*/
         await mockSmsCaptcha(result);

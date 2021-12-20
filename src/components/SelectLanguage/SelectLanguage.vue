@@ -1,5 +1,5 @@
 <script setup>
-import {APP_LANGUAGE} from "@state/app";
+import {APP_LANGUAGE} from "lsrc/state/app";
 
 const languageLabels = {
   "zh-CN": {label: "简体中文", icon: "🇨🇳"},

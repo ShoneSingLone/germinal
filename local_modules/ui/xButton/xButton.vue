@@ -12,17 +12,10 @@ export default defineComponent({
   },
   data() {
     return {
-      loading: false,
+      loading: true,
     };
   },
   computed: {
-    propperties: {
-      get() {
-        const onClick = this.onClick;
-        const loading = this.loading;
-        return _.merge({}, this.configs, { onClick, loading });
-      },
-    },
     text() {
       if (_.isFunction(this.$slots?.default)) {
         /*
@@ -53,8 +46,8 @@ export default defineComponent({
   },
   created() {},
   methods: {
-    async onClick() {
-      if (_.isFunction(this.configs.onClick)) {
+     async onClick() {
+       if (_.isFunction(this.configs.onClick)) {
         this.loading = true;
         try {
           await this.configs.onClick(this);
@@ -67,7 +60,9 @@ export default defineComponent({
     },
   },
   render(h) {
-    return <Button {...this.propperties}>{this.text}</Button>;
+    const configs = _.omit(this.configs,["text","onClick"]);
+    console.log(configs);
+    return <Button {...configs} onClick={this.onClick} loading={this.loading}>{this.text}</Button>;
   },
 });
 </script>

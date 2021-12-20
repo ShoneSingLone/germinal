@@ -26,6 +26,7 @@ const ajaxOptions = (options, customOptions) => {
  */
 export const parseContent = returnSentence => new Function(returnSentence);
 
+/* https://learn.jquery.com/ */
 /* https://api.jquery.com/jQuery.ajax/  */
 export default {
     get: (url, options = {}) => new Promise((resolve, reject) => $.ajax(ajaxOptions({

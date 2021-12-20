@@ -13,6 +13,9 @@
 /* TODO: */
 ```
 
+## package.json
+
+file:./src 需要添加 package.json 文件
 ## 常用函数
 
 ### $t 多语言转换
@@ -84,7 +87,7 @@ import "@ventose/ui/loadCommonUtil.js";
 ```
 
 ```js
-import {AppState} from "@state/app";
+import {AppState} from "lsrc/state/app";
 import {reactiveItemConfigs, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
 import {watch} from "vue";
 

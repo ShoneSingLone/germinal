@@ -1,7 +1,7 @@
-import MyUI from "@ventose/ui/index.js";
-import {router} from "@router/router.js";
-import {appI18n} from "@language";
-import {AppState} from "@state/app";
+import MyUI from "@ventose/ui";
+import {router} from "lsrc/router/router";
+import {appI18n} from "lsrc/language";
+import {AppState} from "lsrc/state/app";
 
 
 export const addPlugins = (app) => {
