@@ -58,7 +58,7 @@ watch(
 );
 
 /* mutation 异步修改 效果同事务 自己去保证原子性 */
-export const AppMutation = {
+export const AppActions = {
     GetInfo: async () => {
         const {result} = await API.user.getInfo();
         if (result.role && result.role.permissions.length > 0) {

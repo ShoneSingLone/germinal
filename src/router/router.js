@@ -7,7 +7,7 @@ import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
-import {AppState, AppMutation} from "lsrc/state/app";
+import {AppState, AppActions} from "lsrc/state/app";
 import {$t} from "lsrc/language";
 
 const RouteView = {
@@ -85,7 +85,7 @@ router.beforeEach(async (to, from) => {
             };
         } else {
             if (AppState.roles?.length === 0) {
-                await AppMutation.GetInfo();
+                await AppActions.GetInfo();
             }
         }
     };
