@@ -1,15 +1,17 @@
 export default {
   "login.title": "antd vue3 admin",
-  "BackHome": "Back Home",
-  "notFoundTips": "Sorry, you don't have access to this page.",
+  BackHome: "Back Home",
+  notFoundTips: "Sorry, you don't have access to this page.",
   "layouts.usermenu.dialog.title": "Message",
   "layouts.usermenu.dialog.content": "Are you sure you would like to logout?",
-  "layouts.userLayout.title": "Ant Design is the most influential web design specification in Xihu district",
+  "layouts.userLayout.title":
+    "Ant Design is the most influential web design specification in Xihu district",
   "user.login.userName": "userName",
   "user.login.password": "password",
   "user.login.username.placeholder": "Account: admin",
   "user.login.password.placeholder": "password: admin or ant.design",
-  "user.login.message-invalid-credentials": "Invalid username or password（admin/ant.design）",
+  "user.login.message-invalid-credentials":
+    "Invalid username or password（admin/ant.design）",
   "user.login.message-invalid-verification-code": "Invalid verification code",
   "user.login.tab-login-credentials": "Credentials",
   "user.login.tab-login-mobile": "Mobile number",
@@ -22,13 +24,16 @@ export default {
   "user.login.login": "Login",
   "user.register.register": "Register",
   "user.register.email.placeholder": "Email",
-  "user.register.password.placeholder": "Please enter at least 6 characters. Please do not use passwords that are easy to guess.  ",
-  "user.register.password.popover-message": "Please enter at least 6 characters. Please do not use passwords that are easy to guess. ",
+  "user.register.password.placeholder":
+    "Please enter at least 6 characters. Please do not use passwords that are easy to guess.  ",
+  "user.register.password.popover-message":
+    "Please enter at least 6 characters. Please do not use passwords that are easy to guess. ",
   "user.register.confirm-password.placeholder": "Confirm password",
   "user.register.get-verification-code": "Get code",
   "user.register.sign-in": "Already have an account?",
   "user.register-result.msg": "Account：registered at {email}",
-  "user.register-result.activation-email": "The activation email has been sent to your email address and is valid for 24 hours. Please log in to the email in time and click on the link in the email to activate the account.",
+  "user.register-result.activation-email":
+    "The activation email has been sent to your email address and is valid for 24 hours. Please log in to the email in time and click on the link in the email to activate the account.",
   "user.register-result.back-home": "Back to home",
   "user.register-result.view-mailbox": "View mailbox",
   "user.email.required": "Please enter your email!",
@@ -44,5 +49,5 @@ export default {
   "user.confirm-password.required": "Please confirm your password!",
   "user.phone-number.required": "Please enter your phone number!",
   "user.phone-number.wrong-format": "Please enter a valid phone number",
-  "user.verification-code.required": "Please enter the verification code!"
-}
+  "user.verification-code.required": "Please enter the verification code!",
+};

@@ -1,4 +1,4 @@
-import user from "./controller/user";
-export default {
-    user,
+import {apiUser} from "./controller/user";
+export const API= {
+    user:apiUser
 };

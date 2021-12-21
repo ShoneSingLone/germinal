@@ -1,7 +1,7 @@
 export default {
   "login.title": "demo",
-  "BackHome": "回到主页",
-  "notFoundTips": "对不起，没有找到您要访问的页面",
+  BackHome: "回到主页",
+  notFoundTips: "对不起，没有找到您要访问的页面",
   "layouts.usermenu.dialog.title": "信息",
   "layouts.usermenu.dialog.content": "您确定要注销吗？",
   "layouts.userLayout.title": "Ant Design 是西湖区最具影响力的 Web 设计规范",
@@ -9,7 +9,8 @@ export default {
   "user.login.password": "密码",
   "user.login.username.placeholder": "账户: admin",
   "user.login.password.placeholder": "密码: admin or ant.design",
-  "user.login.message-invalid-credentials": "账户或密码错误（admin/ant.design）",
+  "user.login.message-invalid-credentials":
+    "账户或密码错误（admin/ant.design）",
   "user.login.message-invalid-verification-code": "验证码错误",
   "user.login.tab-login-credentials": "账户密码登录",
   "user.login.tab-login-mobile": "手机号登录",
@@ -22,13 +23,16 @@ export default {
   "user.login.login": "登录",
   "user.register.register": "注册",
   "user.register.email.placeholder": "邮箱",
-  "user.register.password.placeholder": "请至少输入 6 个字符。请不要使用容易被猜到的密码。",
-  "user.register.password.popover-message": "请至少输入 6 个字符。请不要使用容易被猜到的密码。",
+  "user.register.password.placeholder":
+    "请至少输入 6 个字符。请不要使用容易被猜到的密码。",
+  "user.register.password.popover-message":
+    "请至少输入 6 个字符。请不要使用容易被猜到的密码。",
   "user.register.confirm-password.placeholder": "确认密码",
   "user.register.get-verification-code": "获取验证码",
   "user.register.sign-in": "使用已有账户登录",
   "user.register-result.msg": "你的账户：{email} 注册成功",
-  "user.register-result.activation-email": "激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。",
+  "user.register-result.activation-email":
+    "激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。",
   "user.register-result.back-home": "返回首页",
   "user.register-result.view-mailbox": "查看邮箱",
   "user.email.required": "请输入邮箱地址！",
@@ -44,5 +48,5 @@ export default {
   "user.confirm-password.required": "请确认密码！",
   "user.phone-number.required": "请输入正确的手机号",
   "user.phone-number.wrong-format": "手机号格式错误！",
-  "user.verification-code.required": "请输入验证码！"
-}
+  "user.verification-code.required": "请输入验证码！",
+};

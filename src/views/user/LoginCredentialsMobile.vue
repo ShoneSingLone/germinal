@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import {StateLogin} from "lsrc/views/user/StateLogin.jsx";
+import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
 </script>
 
 <template>

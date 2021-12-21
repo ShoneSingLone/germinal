@@ -1,5 +1,4 @@
 <script setup>
-
 import { reactive, computed } from "vue";
 import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
@@ -7,7 +6,6 @@ import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { StateRegister } from "./StateRegister";
 import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
-
 
 console.log(routeNames);
 const levelNames = {

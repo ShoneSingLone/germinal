@@ -1,10 +1,10 @@
 <script setup>
-import {reactive, computed} from "vue";
-import {$t} from "lsrc/language";
+import { reactive, computed } from "vue";
+import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
-import {StateLogin} from "./StateLogin";
-import {routeNames} from "lsrc/router/router";
+import { StateLogin } from "./StateLogin";
+import { routeNames } from "lsrc/router/router";
 </script>
 
 <template>

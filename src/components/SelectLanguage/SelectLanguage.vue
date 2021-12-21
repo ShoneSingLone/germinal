@@ -1,15 +1,14 @@
 <script setup>
-import {APP_LANGUAGE} from "lsrc/state/app";
+import { APP_LANGUAGE } from "lsrc/state/StateApp";
 
 const languageLabels = {
-  "zh-CN": {label: "简体中文", icon: "🇨🇳"},
-  "en-US": {label: "English", icon: "🇺🇸"},
+  "zh-CN": { label: "简体中文", icon: "🇨🇳" },
+  "en-US": { label: "English", icon: "🇺🇸" },
 };
 
-const changeLanguage = ({key}) => {
+const changeLanguage = ({ key }) => {
   APP_LANGUAGE.value = key;
 };
-
 </script>
 
 <template>
@@ -21,7 +20,7 @@ const changeLanguage = ({key}) => {
         @click="changeLanguage"
       >
         <MenuItem
-          v-for="(locale,prop) in languageLabels"
+          v-for="(locale, prop) in languageLabels"
           :key="prop"
         >
           <span

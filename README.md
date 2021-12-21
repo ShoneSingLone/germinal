@@ -27,7 +27,7 @@ return {label:'显示的对应语言',prop:'key'}
 ## 状态管理
 
 ```js
-/* FILE:src\state\app.js */
+/* FILE:src\state\StateApp.js */
 /* state AppState 相当于命名空间*/
 export const AppState = reactive({ configs: lStorage.appConfigs });
 
@@ -87,26 +87,33 @@ import "@ventose/ui/loadCommonUtil.js";
 ```
 
 ```js
-import {AppState} from "lsrc/state/app";
+import {StateApp} from "lsrc/state/StateApp";
 import {reactiveItemConfigs, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
 import {watch} from "vue";
 
 const inputConfigs = reactiveItemConfigs(
-    {
-      type: ITEM_TYPE.input,
-      value: AppState.value,
-      onAfterValueChange: (configs) => {
-        AppState.count = configs.value;
-      }
-    }
+        {
+          type: ITEM_TYPE.input,
+          value: StateApp.value,
+          onAfterValueChange: (configs) => {
+            StateApp.count = configs.value;
+          }
+        }
 );
 
 
-watch(() => AppState.count, (count) => {
+watch(() => StateApp.count, (count) => {
   inputConfigs.value = count;
 });
-  AppState.count: {{ AppState.count }}
-  <xItem :configs="inputConfigs"/>
+StateApp.count
+:
+{
+  {
+    StateApp.count
+  }
+}
+<
+xItem :configs = "inputConfigs" / >
 
 ```
 
