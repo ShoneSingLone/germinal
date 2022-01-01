@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { r as resolveComponent, c as createBlock, o as openBlock, e as each, i as isArray_1, m as merge_1, a as map_1, b as reduce_1, d as isPlainObject_1, f as isFunction_1, g as isBoolean_1, h as isString_1, s as some_1, j as every_1, k as debounce_1, l as isNumber_1, n as filter_1, p as omit_1, q as defineComponent, t as h, I as InputPassword, u as Input$1, C as Checkbox$1, v as reactive, w as createVNode, x as createTextVNode, y as mergeProps, $, _ as _message, z as _notification, A as _Progress, B as _Popover, D as _Icon, M as Menu, E as MenuItem, F as Dropdown, G as Button, H as _List, J as _Popconfirm, K as _Alert, L as _Result, T as Tabs, N as TabPane, O as GlobalOutlined, P as AppleOutlined, Q as AndroidOutlined, U as UserOutlined, R as LockFilled, S as MobileOutlined, V as useRouter, W as withCtx, X as toDisplayString, Y as computed, Z as watch, a0 as createElementBlock, a1 as renderList, a2 as Fragment, a3 as unref, a4 as createBaseVNode, a5 as normalizeStyle, a6 as normalizeClass, a7 as createStaticVNode, a8 as createI18n, a9 as watchEffect, aa as createCommentVNode, ab as resolveDirective, ac as withDirectives, ad as pushScopeId, ae as popScopeId, af as createRouter, ag as createWebHashHistory, ah as NProgress, ai as createApp } from "./vendor-6e329da6.js";
+import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, _ as _message, y as _notification, z as _Progress, A as _Popover, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as AlipayCircleFilled, S as TaobaoCircleFilled, W as WeiboCircleFilled, V as computed, X as watch, Y as md5, Z as onMounted, a0 as unref, a1 as createElementBlock, a2 as createBlock, a3 as openBlock, a4 as createI18n, a5 as watchEffect, a6 as useRouter, a7 as withCtx, a8 as toDisplayString, a9 as renderList, aa as Fragment, ab as createBaseVNode, ac as normalizeStyle, ad as normalizeClass, ae as createStaticVNode, af as createCommentVNode, ag as resolveDirective, ah as withDirectives, ai as pushScopeId, aj as popScopeId, ak as createRouter, al as createWebHashHistory, am as NProgress, an as createApp } from "./vendor-0090e5fc.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -57,14 +57,59 @@ const p = function polyfill() {
   }
 };
 p();
-var App_less_vue_type_style_index_0_src_lang = "";
-const _sfc_main$c = {
-  setup(__props) {
-    return (_ctx, _cache) => {
-      const _component_RouterView = resolveComponent("RouterView");
-      return openBlock(), createBlock(_component_RouterView);
-    };
+const lStorage = new Proxy(localStorage, {
+  set(_localStorage, prop, value) {
+    if (_.isPlainObject(value)) {
+      _localStorage[prop] = JSON.stringify(value);
+    } else {
+      _localStorage[prop] = value;
+    }
+    return true;
+  },
+  get(_localStorage, prop) {
+    const objString = _localStorage[prop];
+    try {
+      return JSON.parse(objString);
+    } catch (error) {
+      return objString || false;
+    }
   }
+});
+const get$head = () => {
+  let $head = $("html head");
+  if (!_.is$Selected($head)) {
+    $head = $("<head/>");
+    $head.prependTo($("html"));
+  }
+  return $head;
+};
+const get$title = () => {
+  let $head = get$head();
+  let $title = $head.find("title");
+  if (!_.is$Selected($title)) {
+    $title = $("<title/>");
+    $title.prependTo($head);
+  }
+  return $title;
+};
+const get$cssVariables = () => {
+  let $head = get$head();
+  let $cssVariables = $head.find("#cssVariables");
+  if (!_.is$Selected($cssVariables)) {
+    $cssVariables = $("<style/>", {
+      id: "cssVariables"
+    });
+    $cssVariables.appendTo($head);
+  }
+  return $cssVariables;
+};
+const setDocumentTitle = (title) => {
+  get$title().text(title);
+};
+const setCSSVariables = (colors) => {
+  let $cssVariables = get$cssVariables();
+  const cssContent = _.map(colors, (value, prop) => `--${prop}:${value}`).join(";");
+  $cssVariables.text(`:root{${cssContent}}`);
 };
 var index$1 = "";
 window._ = window._ || {};
@@ -94,13 +139,13 @@ const isOn = (key) => onRE.test(key);
 const isModelListener = (key) => key.startsWith("onUpdate:");
 const isListener = (key) => isOn(key) || isModelListener(key);
 window._.isListener = isListener;
-var xRender = defineComponent({
+var xRender = defineComponent(markRaw({
   props: ["render", "state"],
   setup: ({
     render,
     state
   }) => () => render(state)
-});
+}));
 var Input = ({
   property,
   slots,
@@ -292,7 +337,7 @@ function genId(category) {
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$b = defineComponent({
+var _sfc_main$c = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -509,7 +554,7 @@ var _sfc_main$b = defineComponent({
     }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$a = defineComponent({
+var _sfc_main$b = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -570,7 +615,7 @@ var _sfc_main$a = defineComponent({
     });
   }
 });
-var _sfc_main$9 = defineComponent({
+var _sfc_main$a = defineComponent({
   props: ["t", "l", "r", "b", "a"],
   computed: {
     gapStyle: {
@@ -1697,14 +1742,13 @@ $(document).on("mouseleave.uiPopverTips", "[data-layer-tips-id]", function(event
 });
 const componentMyUI = {
   xRender,
-  xItem: _sfc_main$b,
-  xButton: _sfc_main$a,
-  xGap: _sfc_main$9
+  xItem: _sfc_main$c,
+  xButton: _sfc_main$b,
+  xGap: _sfc_main$a
 };
 const componentAntdV = {
   Progress: _Progress,
   Popover: _Popover,
-  Icon: _Icon,
   Menu,
   MenuItem,
   Dropdown,
@@ -1725,7 +1769,10 @@ const componentIcons = {
   AndroidOutlined,
   UserOutlined,
   LockFilled,
-  MobileOutlined
+  MobileOutlined,
+  AlipayCircleFilled,
+  TaobaoCircleFilled,
+  WeiboCircleFilled
 };
 const components = __spreadValues(__spreadValues(__spreadValues({}, componentMyUI), componentAntdV), componentIcons);
 const UI = {
@@ -1740,90 +1787,6 @@ var MyUI = {
       app.component(name, component);
     });
   }
-};
-const _sfc_main$8 = {
-  setup(__props) {
-    const router2 = useRouter();
-    function go() {
-      router2.push({
-        name: routeNames.login
-      });
-    }
-    return (_ctx, _cache) => {
-      const _component_Button = resolveComponent("Button");
-      const _component_Result = resolveComponent("Result");
-      return openBlock(), createBlock(_component_Result, {
-        status: "404",
-        title: "404",
-        "sub-title": _ctx.$t("notFoundTips").label
-      }, {
-        extra: withCtx(() => [createVNode(_component_Button, {
-          type: "primary",
-          onClick: go
-        }, {
-          default: withCtx(() => [createTextVNode(toDisplayString(_ctx.$t("BackHome").label), 1)]),
-          _: 1
-        })]),
-        _: 1
-      }, 8, ["sub-title"]);
-    };
-  }
-};
-var logoImg = "./assets/logo.e06e25bf.png";
-var backgroundImg = "./assets/background.d7103c44.svg";
-const lStorage = new Proxy(localStorage, {
-  set(_localStorage, prop, value) {
-    if (_.isPlainObject(value)) {
-      _localStorage[prop] = JSON.stringify(value);
-    } else {
-      _localStorage[prop] = value;
-    }
-    return true;
-  },
-  get(_localStorage, prop) {
-    const objString = _localStorage[prop];
-    try {
-      return JSON.parse(objString);
-    } catch (error) {
-      return objString || false;
-    }
-  }
-});
-const get$head = () => {
-  let $head = $("html head");
-  if (!_.is$Selected($head)) {
-    $head = $("<head/>");
-    $head.prependTo($("html"));
-  }
-  return $head;
-};
-const get$title = () => {
-  let $head = get$head();
-  let $title = $head.find("title");
-  if (!_.is$Selected($title)) {
-    $title = $("<title/>");
-    $title.prependTo($head);
-  }
-  return $title;
-};
-const get$cssVariables = () => {
-  let $head = get$head();
-  let $cssVariables = $head.find("#cssVariables");
-  if (!_.is$Selected($cssVariables)) {
-    $cssVariables = $("<style/>", {
-      id: "cssVariables"
-    });
-    $cssVariables.appendTo($head);
-  }
-  return $cssVariables;
-};
-const setDocumentTitle = (title) => {
-  get$title().text(title);
-};
-const setCSSVariables = (colors) => {
-  let $cssVariables = get$cssVariables();
-  const cssContent = _.map(colors, (value, prop) => `--${prop}:${value}`).join(";");
-  $cssVariables.text(`:root{${cssContent}}`);
 };
 function logError(msg) {
   UI.message.error(msg);
@@ -1887,7 +1850,9 @@ const getInfo = {
 function genSmsCaptcha() {
   return (Math.random() * 1e6).toFixed(0);
 }
-var user = {
+const apiUser = {
+  async login(formdata) {
+  },
   getSmsCaptcha: async () => {
     return {
       result: {
@@ -1901,43 +1866,52 @@ var user = {
     };
   }
 };
-var API = {
-  user
+const API = {
+  user: apiUser
 };
-const AppState = reactive({
+const StateApp = reactive({
   count: 0,
   isMobile: false,
   configs: lStorage.appConfigs,
   isDev: false
 });
-if (AppState.isDev) {
+if (StateApp.isDev) {
   console.log({ "BASE_URL": "./", "MODE": "production", "DEV": false, "PROD": true });
-  window.AppState = AppState;
+  window.StateApp = StateApp;
 }
 const APP_LANGUAGE = computed({
-  get: () => AppState.configs.language,
-  set: (lang) => AppState.configs.language = lang
+  get: () => StateApp.configs.language,
+  set: (lang) => StateApp.configs.language = lang
 });
 computed({
-  get: () => AppState.configs.prefixCls,
-  set: (prefixCls) => AppState.configs.prefixCls = prefixCls
+  get: () => StateApp.configs.prefixCls,
+  set: (prefixCls) => StateApp.configs.prefixCls = prefixCls
 });
 const getColor = (colorName) => {
-  if (AppState.configs) {
-    return AppState.configs.colors[colorName];
+  if (StateApp.configs) {
+    return StateApp.configs.colors[colorName];
   } else {
     return "";
   }
 };
-watch(() => AppState.configs, (configs) => lStorage.appConfigs = configs, {
+watch(() => StateApp.configs, (configs) => lStorage.appConfigs = configs, {
   immediate: true,
   deep: true
 });
-watch(() => AppState.configs.colors, (colors) => setCSSVariables(colors), {
+watch(() => StateApp.configs.colors, (colors) => setCSSVariables(colors), {
   immediate: true,
   deep: true
 });
-const AppMutation = {
+const StateAppActions$1 = {
+  async initAppConfigs(callback) {
+    const isLoadConfigs = StateApp.isDev || !StateApp.configs;
+    if (isLoadConfigs) {
+      StateApp.configs = (await ajax.loadText("./configs.jsx"))();
+    }
+    setDocumentTitle(StateApp.configs.title);
+    callback && callback(StateApp);
+    return StateApp;
+  },
   GetInfo: async () => {
     const {
       result
@@ -1956,118 +1930,43 @@ const AppMutation = {
       role.permissionList = role.permissions.map((permission) => {
         return permission.permissionId;
       });
-      AppState.roles = result.role;
-      AppState.info = result;
+      StateApp.roles = result.role;
+      StateApp.info = result;
     } else {
       Promise.reject(new Error("getInfo: roles must be a non-null array !"));
     }
   },
-  Login: async () => {
+  async Login({
+    username,
+    password
+  }) {
+    const loginParams = {
+      username,
+      password: md5(password)
+    };
+    await API.user.login(loginParams);
   },
   Logout: async () => {
   }
 };
-const initAppConfigs = async (callback) => {
-  const isLoadConfigs = AppState.isDev || !AppState.configs;
-  if (isLoadConfigs) {
-    AppState.configs = (await ajax.loadText("./configs.jsx"))();
-  }
-  setDocumentTitle(AppState.configs.title);
-  callback && callback(AppState);
-  return AppState;
+var App_less_vue_type_style_index_0_src_lang = "";
+const _hoisted_1$6 = {
+  key: 0
 };
-const _hoisted_1$5 = ["aria-label"];
-const _sfc_main$7 = {
+const _sfc_main$9 = {
   setup(__props) {
-    const languageLabels = {
-      "zh-CN": {
-        label: "\u7B80\u4F53\u4E2D\u6587",
-        icon: "\u{1F1E8}\u{1F1F3}"
-      },
-      "en-US": {
-        label: "English",
-        icon: "\u{1F1FA}\u{1F1F8}"
-      }
-    };
-    const changeLanguage = ({
-      key
-    }) => {
-      APP_LANGUAGE.value = key;
-    };
+    const state = reactive({
+      isLoading: true
+    });
+    onMounted(async () => {
+      await StateAppActions$1.initAppConfigs();
+      state.isLoading = false;
+    });
     return (_ctx, _cache) => {
-      const _component_GlobalOutlined = resolveComponent("GlobalOutlined");
-      const _component_MenuItem = resolveComponent("MenuItem");
-      const _component_Menu = resolveComponent("Menu");
-      const _component_Dropdown = resolveComponent("Dropdown");
-      return openBlock(), createBlock(_component_Dropdown, {
-        placement: "bottomRight"
-      }, {
-        overlay: withCtx(() => [createVNode(_component_Menu, {
-          "selected-keys": [unref(APP_LANGUAGE)],
-          onClick: changeLanguage
-        }, {
-          default: withCtx(() => [(openBlock(), createElementBlock(Fragment, null, renderList(languageLabels, (locale, prop) => {
-            return createVNode(_component_MenuItem, {
-              key: prop
-            }, {
-              default: withCtx(() => [createBaseVNode("span", {
-                role: "img",
-                "aria-label": locale.label
-              }, toDisplayString(locale.icon), 9, _hoisted_1$5), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
-              _: 2
-            }, 1024);
-          }), 64))]),
-          _: 1
-        }, 8, ["selected-keys"])]),
-        default: withCtx(() => [createVNode(_component_GlobalOutlined)]),
-        _: 1
-      });
-    };
-  }
-};
-const _hoisted_1$4 = {
-  class: "user-layout-lang"
-};
-const _hoisted_2$3 = {
-  class: "user-layout-content"
-};
-const _hoisted_3$3 = {
-  class: "top"
-};
-const _hoisted_4$3 = {
-  class: "header"
-};
-const _hoisted_5$3 = {
-  href: "/"
-};
-const _hoisted_6$3 = ["src"];
-const _hoisted_7$2 = {
-  class: "title"
-};
-const _hoisted_8$1 = {
-  class: "desc"
-};
-const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright"> Copyright \xA9 2018 vueComponent </div></div>', 1);
-const _sfc_main$6 = {
-  setup(__props) {
-    const styles2 = {
-      container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
-    };
-    return (_ctx, _cache) => {
-      const _component_router_view = resolveComponent("router-view");
-      return openBlock(), createElementBlock("div", {
-        id: "userLayout",
-        class: normalizeClass(["user-layout-wrapper", unref(AppState).isMobile && "mobile"])
-      }, [createBaseVNode("div", {
-        class: "container",
-        style: normalizeStyle(styles2.container)
-      }, [createBaseVNode("div", _hoisted_1$4, [createVNode(_sfc_main$7, {
-        class: "select-lang-trigger"
-      })]), createBaseVNode("div", _hoisted_2$3, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
-        src: unref(logoImg),
-        class: "logo",
-        alt: "logo"
-      }, null, 8, _hoisted_6$3), createBaseVNode("span", _hoisted_7$2, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8$1, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+      const _component_RouterView = resolveComponent("RouterView");
+      return unref(state).isLoading ? (openBlock(), createElementBlock("h1", _hoisted_1$6, " Loading... ")) : (openBlock(), createBlock(_component_RouterView, {
+        key: 1
+      }));
     };
   }
 };
@@ -2206,10 +2105,10 @@ const $t = (prop) => {
   };
 };
 const appI18n = {
-  install: (app, AppState2) => {
+  install: (app, StateApp2) => {
     app.config.globalProperties.$t = $t;
     watchEffect(() => {
-      setI18nLanguage(AppState2.configs.language);
+      setI18nLanguage(StateApp2.configs.language);
     });
   }
 };
@@ -2218,6 +2117,131 @@ function setI18nLanguage(lang) {
   $("html").attr("lang", lang);
   return lang;
 }
+const _sfc_main$8 = {
+  setup(__props) {
+    const router2 = useRouter();
+    function go() {
+      router2.push({
+        name: routeNames.login
+      });
+    }
+    return (_ctx, _cache) => {
+      const _component_Button = resolveComponent("Button");
+      const _component_Result = resolveComponent("Result");
+      return openBlock(), createBlock(_component_Result, {
+        status: "404",
+        title: "404",
+        "sub-title": _ctx.$t("notFoundTips").label
+      }, {
+        extra: withCtx(() => [createVNode(_component_Button, {
+          type: "primary",
+          onClick: go
+        }, {
+          default: withCtx(() => [createTextVNode(toDisplayString(_ctx.$t("BackHome").label), 1)]),
+          _: 1
+        })]),
+        _: 1
+      }, 8, ["sub-title"]);
+    };
+  }
+};
+var logoImg = "./assets/logo.e06e25bf.png";
+var backgroundImg = "./assets/background.d7103c44.svg";
+const _hoisted_1$5 = ["aria-label"];
+const _sfc_main$7 = {
+  setup(__props) {
+    const languageLabels = {
+      "zh-CN": {
+        label: "\u7B80\u4F53\u4E2D\u6587",
+        icon: "\u{1F1E8}\u{1F1F3}"
+      },
+      "en-US": {
+        label: "English",
+        icon: "\u{1F1FA}\u{1F1F8}"
+      }
+    };
+    const changeLanguage = ({
+      key
+    }) => {
+      APP_LANGUAGE.value = key;
+    };
+    return (_ctx, _cache) => {
+      const _component_GlobalOutlined = resolveComponent("GlobalOutlined");
+      const _component_MenuItem = resolveComponent("MenuItem");
+      const _component_Menu = resolveComponent("Menu");
+      const _component_Dropdown = resolveComponent("Dropdown");
+      return openBlock(), createBlock(_component_Dropdown, {
+        placement: "bottomRight"
+      }, {
+        overlay: withCtx(() => [createVNode(_component_Menu, {
+          "selected-keys": [unref(APP_LANGUAGE)],
+          onClick: changeLanguage
+        }, {
+          default: withCtx(() => [(openBlock(), createElementBlock(Fragment, null, renderList(languageLabels, (locale, prop) => {
+            return createVNode(_component_MenuItem, {
+              key: prop
+            }, {
+              default: withCtx(() => [createBaseVNode("span", {
+                role: "img",
+                "aria-label": locale.label
+              }, toDisplayString(locale.icon), 9, _hoisted_1$5), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
+              _: 2
+            }, 1024);
+          }), 64))]),
+          _: 1
+        }, 8, ["selected-keys"])]),
+        default: withCtx(() => [createVNode(_component_GlobalOutlined)]),
+        _: 1
+      });
+    };
+  }
+};
+const _hoisted_1$4 = {
+  class: "user-layout-lang"
+};
+const _hoisted_2$3 = {
+  class: "user-layout-content"
+};
+const _hoisted_3$3 = {
+  class: "top"
+};
+const _hoisted_4$3 = {
+  class: "header"
+};
+const _hoisted_5$3 = {
+  href: "/"
+};
+const _hoisted_6$3 = ["src"];
+const _hoisted_7$2 = {
+  class: "title"
+};
+const _hoisted_8$1 = {
+  class: "desc"
+};
+const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright"> Copyright \xA9 2018 vueComponent </div></div>', 1);
+const _sfc_main$6 = {
+  setup(__props) {
+    const styles2 = {
+      container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
+    };
+    return (_ctx, _cache) => {
+      const _component_router_view = resolveComponent("router-view");
+      return openBlock(), createElementBlock("div", {
+        id: "userLayout",
+        class: normalizeClass(["user-layout-wrapper", unref(StateApp).isMobile && "mobile"])
+      }, [createBaseVNode("div", {
+        class: "container",
+        style: normalizeStyle(styles2.container)
+      }, [createBaseVNode("div", _hoisted_1$4, [createVNode(_sfc_main$7, {
+        class: "select-lang-trigger"
+      })]), createBaseVNode("div", _hoisted_2$3, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
+        src: unref(logoImg),
+        class: "logo",
+        alt: "logo"
+      }, null, 8, _hoisted_6$3), createBaseVNode("span", _hoisted_7$2, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8$1, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+    };
+  }
+};
 const SUCCESS = false;
 const FAIL = true;
 const RegexFn = {
@@ -2299,6 +2323,17 @@ const pickValueFrom = (configs) => {
     return target;
   }, {});
 };
+function handleLoginSuccess(res) {
+  router.push({
+    path: "/"
+  });
+  setTimeout(() => {
+    this.$notification.success({
+      message: "\u6B22\u8FCE",
+      description: `${timeFix()}\uFF0C\u6B22\u8FCE\u56DE\u6765`
+    });
+  }, 1e3);
+}
 const styles$1 = {
   icon: {
     color: getColor("disabledColor")
@@ -2402,9 +2437,11 @@ const StateLogin = reactive({
         const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
         const currentFormConfigs = StateLogin[currentFormProp];
         const validateResults = await validateForm(currentFormConfigs);
-        if (validateResults.length === 0) {
+        if (_.isArrayFill(validateResults)) {
           const formData = pickValueFrom(currentFormConfigs);
           console.log("formData", formData);
+          const res = await StateAppActions.Login(formData);
+          handleLoginSuccess(res);
         }
       } catch (e) {
         console.error(e);
@@ -2543,7 +2580,9 @@ const _sfc_main$3 = {
       const _component_Tabs = resolveComponent("Tabs");
       const _component_Checkbox = resolveComponent("Checkbox");
       const _component_xButton = resolveComponent("xButton");
-      const _component_a_icon = resolveComponent("a-icon");
+      const _component_AlipayCircleFilled = resolveComponent("AlipayCircleFilled");
+      const _component_TaobaoCircleFilled = resolveComponent("TaobaoCircleFilled");
+      const _component_WeiboCircleFilled = resolveComponent("WeiboCircleFilled");
       const _component_router_link = resolveComponent("router-link");
       return openBlock(), createElementBlock("div", _hoisted_1$2, [createBaseVNode("div", _hoisted_2$2, [createVNode(_component_Tabs, {
         id: "user-layout-login_tab",
@@ -2572,15 +2611,15 @@ const _sfc_main$3 = {
         _: 1
       }, 8, ["checked"]), createBaseVNode("a", _hoisted_4$2, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5$2, [createVNode(_component_xButton, {
         configs: unref(StateLogin).configsSubmit
-      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$2, [createBaseVNode("div", _hoisted_7$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$2, [createBaseVNode("div", _hoisted_7$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createBaseVNode("a", null, [createVNode(_component_AlipayCircleFilled, {
         class: "item-icon",
-        type: "alipay-circle"
-      })]), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+        type: "AlipayCircleFilled"
+      })]), createBaseVNode("a", null, [createVNode(_component_TaobaoCircleFilled, {
         class: "item-icon",
-        type: "taobao-circle"
-      })]), createBaseVNode("a", null, [createVNode(_component_a_icon, {
+        type: "TaobaoCircleFilled"
+      })]), createBaseVNode("a", null, [createVNode(_component_WeiboCircleFilled, {
         class: "item-icon",
-        type: "weibo-circle"
+        type: "WeiboCircleFilled"
       })]), createVNode(_component_router_link, {
         class: "register",
         to: {
@@ -2941,19 +2980,19 @@ const _sfc_main$2 = {
     };
   }
 };
-const _withScopeId = (n) => (pushScopeId("data-v-bda00c9e"), n = n(), popScopeId(), n);
+const _withScopeId = (n) => (pushScopeId("data-v-56486f98"), n = n(), popScopeId(), n);
 const _hoisted_1 = {
   class: "container flex middle"
 };
 const _hoisted_2 = {
   class: "flex width100"
 };
-const _hoisted_3 = /* @__PURE__ */ createTextVNode("v-uiPopover");
-const _hoisted_4 = /* @__PURE__ */ createTextVNode("v-uiPopover");
+const _hoisted_3 = /* @__PURE__ */ createTextVNode(" v-uiPopover ");
+const _hoisted_4 = /* @__PURE__ */ createTextVNode(" v-uiPopover ");
 const _hoisted_5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("div", null, null, -1));
-const _hoisted_6 = /* @__PURE__ */ createTextVNode("iframe");
+const _hoisted_6 = /* @__PURE__ */ createTextVNode(" iframe ");
 const _hoisted_7 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("div", null, null, -1));
-const _hoisted_8 = /* @__PURE__ */ createTextVNode("popover");
+const _hoisted_8 = /* @__PURE__ */ createTextVNode(" popover ");
 var _sfc_main$1 = {
   setup(__props) {
     const state = reactive({
@@ -3036,7 +3075,7 @@ var _export_sfc = (sfc, props) => {
   }
   return target;
 };
-var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-bda00c9e"]]);
+var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-56486f98"]]);
 var _sfc_main = {
   setup(__props) {
     return (_ctx, _cache) => {
@@ -3057,7 +3096,7 @@ const routeNames = {
   register: "register",
   registerResult: "register-result",
   dashboardWorkplace: "dashboard-workplace",
-  "404": "404"
+  404: "404"
 };
 const toPath = (name) => `/${name}`;
 const routes = [NewRoute(routeNames.devDemo, _sfc_main), NewRoute(routeNames.login, _sfc_main$6, {
@@ -3096,8 +3135,8 @@ router.beforeEach(async (to, from) => {
         path: defaultRoutePath
       };
     } else {
-      if (((_a2 = AppState.roles) == null ? void 0 : _a2.length) === 0) {
-        await AppMutation.GetInfo();
+      if (((_a2 = StateApp.roles) == null ? void 0 : _a2.length) === 0) {
+        await StateAppActions$1.GetInfo();
       }
     }
   };
@@ -3123,6 +3162,18 @@ router.beforeEach(async (to, from) => {
   } finally {
     NProgress.done();
   }
+  try {
+    if (lStorage.ACCESS_TOKEN) {
+      await hasAccessTokenHandler();
+    } else {
+      noAccessTokenHandler();
+    }
+  } catch (e) {
+    console.error(e);
+    return false;
+  } finally {
+    NProgress.done();
+  }
   if ((_a = to == null ? void 0 : to.meta) == null ? void 0 : _a.title) {
     setDocumentTitle(to.meta.title);
   }
@@ -3134,13 +3185,11 @@ const addPlugins = (app) => {
   app.use(MyUI, {
     addPlugins
   });
-  app.use(appI18n, AppState);
+  app.use(appI18n, StateApp);
   app.use(router);
   return app;
 };
-(async () => {
-  await initAppConfigs();
-  const app = createApp(_sfc_main$c);
-  addPlugins(app);
-  app.mount("#app");
-})();
+const appPlugins = {
+  install: addPlugins
+};
+createApp(_sfc_main$9).use(appPlugins).mount("#app");
