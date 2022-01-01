@@ -1,10 +1,10 @@
 <script setup>
-import {reactive, computed} from "vue";
-import {$t} from "lsrc/language";
+import { reactive, computed } from "vue";
+import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
-import {StateLogin} from "./StateLogin";
-import {routeNames} from "lsrc/router/router";
+import { StateLogin } from "./StateLogin";
+import { routeNames } from "lsrc/router/router";
 </script>
 
 <template>
@@ -52,21 +52,21 @@ import {routeNames} from "lsrc/router/router";
         <div class="user-login-other">
           <span>{{ $t("user.login.sign-in-with").label }}</span>
           <a>
-            <a-icon
+            <AlipayCircleFilled
               class="item-icon"
-              type="alipay-circle"
+              type="AlipayCircleFilled"
             />
           </a>
           <a>
-            <a-icon
+            <TaobaoCircleFilled
               class="item-icon"
-              type="taobao-circle"
+              type="TaobaoCircleFilled"
             />
           </a>
           <a>
-            <a-icon
+            <WeiboCircleFilled
               class="item-icon"
-              type="weibo-circle"
+              type="WeiboCircleFilled"
             />
           </a>
           <router-link

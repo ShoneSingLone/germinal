@@ -6,7 +6,10 @@ function genSmsCaptcha() {
     return (Math.random() * 1000000).toFixed(0);
 }
 
-export default {
+export const apiUser =  {
+    async login(formdata){
+
+    },
     getSmsCaptcha: async () => {
         return {
             result: {code: genSmsCaptcha()}

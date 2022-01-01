@@ -27,22 +27,22 @@ return {label:'显示的对应语言',prop:'key'}
 ## 状态管理
 
 ```js
-/* FILE:src\state\app.js */
-/* state AppState 相当于命名空间*/
-export const AppState = reactive({ configs: lStorage.appConfigs });
+/* FILE:src\state\StateApp.js */
+/* state StateApp 相当于命名空间*/
+export const StateApp = reactive({ configs: lStorage.appConfigs });
 
-/* getter 就用computed代替;commit直接修改AppState  */
+/* getter 就用computed代替;commit直接修改StateApp  */
 export const APP_LANGUAGE = computed({
-    get: () => AppState.configs.language,
-    set: (lang) => AppState.configs.language = lang
+    get: () => StateApp.configs.language,
+    set: (lang) => StateApp.configs.language = lang
 });
 
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
-watchEffect(() => lStorage.appConfigs = AppState.configs);
+watchEffect(() => lStorage.appConfigs = StateApp.configs);
 
 /* mutation 异步修改 效果同事务 自己去保证原子性 */
-export const AppMutation = {
+export const AppActions = {
     GetInfo: async () => {},
     Login: async () => {},
     Logout: async () => {}
@@ -87,26 +87,33 @@ import "@ventose/ui/loadCommonUtil.js";
 ```
 
 ```js
-import {AppState} from "lsrc/state/app";
+import {StateApp} from "lsrc/state/StateApp";
 import {reactiveItemConfigs, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
 import {watch} from "vue";
 
 const inputConfigs = reactiveItemConfigs(
-    {
-      type: ITEM_TYPE.input,
-      value: AppState.value,
-      onAfterValueChange: (configs) => {
-        AppState.count = configs.value;
-      }
-    }
+        {
+          type: ITEM_TYPE.input,
+          value: StateApp.value,
+          onAfterValueChange: (configs) => {
+            StateApp.count = configs.value;
+          }
+        }
 );
 
 
-watch(() => AppState.count, (count) => {
+watch(() => StateApp.count, (count) => {
   inputConfigs.value = count;
 });
-  AppState.count: {{ AppState.count }}
-  <xItem :configs="inputConfigs"/>
+StateApp.count
+:
+{
+  {
+    StateApp.count
+  }
+}
+<
+xItem :configs = "inputConfigs" / >
 
 ```
 

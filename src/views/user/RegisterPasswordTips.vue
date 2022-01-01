@@ -1,7 +1,4 @@
-
-<script setup>
-
-</script>
+<script setup></script>
 <template>
   <div :style="{ width: '240px' }">
     <div :class="['user-register', passwordLevelClass]">
@@ -19,5 +16,4 @@
   </div>
 </template>
 
-<style>
-</style>
+<style></style>

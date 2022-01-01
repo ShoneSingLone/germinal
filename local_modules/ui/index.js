@@ -3,7 +3,6 @@ import "./loadCommonUtil";
 import {
     Progress,
     Popover,
-    Icon,
     Menu,
     Dropdown,
     Button,
@@ -34,7 +33,10 @@ import {
     AndroidOutlined,
     UserOutlined,
     LockFilled,
-    MobileOutlined
+    MobileOutlined,
+    AlipayCircleFilled,
+    TaobaoCircleFilled,
+    WeiboCircleFilled
 } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
@@ -51,7 +53,7 @@ if (
 }
 
 import layer from "./xSingle/layer/layer";
-import {installPopoverDirective} from "./xSingle/popover";
+import { installPopoverDirective } from "./xSingle/popover";
 
 
 /* my-ui */
@@ -66,7 +68,6 @@ const componentMyUI = {
 const componentAntdV = {
     Progress,
     Popover,
-    Icon,
     Menu,
     MenuItem,
     Dropdown,
@@ -88,7 +89,10 @@ const componentIcons = {
     AndroidOutlined,
     UserOutlined,
     LockFilled,
-    MobileOutlined
+    MobileOutlined,
+    AlipayCircleFilled,
+    TaobaoCircleFilled,
+    WeiboCircleFilled
 };
 
 const components = {

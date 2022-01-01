@@ -1,5 +1,5 @@
 import NProgress from "nprogress"; // progress bar
-import {createRouter, createWebHashHistory} from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import NotFound from "lsrc/views/system/NotFound.vue";
 import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
@@ -7,67 +7,67 @@ import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import {lStorage} from "@ventose/ui/tools/storage";
 import {setDocumentTitle} from "@ventose/ui/tools/dom";
-import {AppState, AppMutation} from "lsrc/state/app";
+import {StateApp, StateAppActions} from "lsrc/state/StateApp";
 import {$t} from "lsrc/language";
 
 const RouteView = {
-    name: "RouteView",
-    render: h => h("RouteView")
+  name: "RouteView",
+  render: (h) => h("RouteView"),
 };
 
-
-export const NewRoute = (name, component, options = {}) =>  _.merge({name, path: `/${name}`, component}, options);
-
+export const NewRoute = (name, component, options = {}) =>
+  _.merge({ name, path: `/${name}`, component }, options);
 
 export const routeNames = {
-    devDemo: "dev-demo",
-    user: "user",
-    userLogin: "user-login",
-    login: "login",
-    register: "register",
-    registerResult: "register-result",
-    dashboardWorkplace: "dashboard-workplace",
-    "404": "404"
+  devDemo: "dev-demo",
+  user: "user",
+  userLogin: "user-login",
+  login: "login",
+  register: "register",
+  registerResult: "register-result",
+  dashboardWorkplace: "dashboard-workplace",
+  404: "404",
 };
-const toPath = name => `/${name}`;
+const toPath = (name) => `/${name}`;
 
 const routes = [
-    NewRoute(routeNames.devDemo, DevDemo),
-    NewRoute(
-        routeNames.login,
-        LayoutUser,
-        {
-            redirect: toPath(routeNames.userLogin),
-            children: [
-                NewRoute(routeNames.userLogin, Login, { meta: { title: $t("user.login.login").label } }),
-                NewRoute(routeNames.register, Register, { meta: { title: $t("user.login.signup").label } }),
-            ]
-        }),
-    NewRoute(routeNames[404], NotFound),
+  NewRoute(routeNames.devDemo, DevDemo),
+  NewRoute(routeNames.login, LayoutUser, {
+    redirect: toPath(routeNames.userLogin),
+    children: [
+      NewRoute(routeNames.userLogin, Login, {
+        meta: { title: $t("user.login.login").label },
+      }),
+      NewRoute(routeNames.register, Register, {
+        meta: { title: $t("user.login.signup").label },
+      }),
+    ],
+  }),
+  NewRoute(routeNames[404], NotFound),
 ];
 
 export const router = createRouter({
-    history: createWebHashHistory(),
-    routes: [
-        ...routes,
-        {
-            /* 404 not_found */
-            path: "/:pathMatch(.*)*",
-            redirect: toPath(routeNames[404]),
-        }
-    ]
+  history: createWebHashHistory(),
+  routes: [
+    ...routes,
+    {
+      /* 404 not_found */
+      path: "/:pathMatch(.*)*",
+      redirect: toPath(routeNames[404]),
+    },
+  ],
 });
 
 NProgress.configure({
-    showSpinner: false
+  showSpinner: false,
 });
 
 const allowList = [
-    routeNames.login,
-    routeNames.userLogin,
-    routeNames.register,
-    routeNames.registerResult,
-    routeNames[404]
+  routeNames.login,
+  routeNames.userLogin,
+  routeNames.register,
+  routeNames.registerResult,
+  routeNames[404],
 ];
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
@@ -84,8 +84,8 @@ router.beforeEach(async (to, from) => {
                 path: defaultRoutePath
             };
         } else {
-            if (AppState.roles?.length === 0) {
-                await AppMutation.GetInfo();
+            if (StateApp.roles?.length === 0) {
+                await StateAppActions.GetInfo();
             }
         }
     };
@@ -114,11 +114,26 @@ router.beforeEach(async (to, from) => {
     } finally {
         NProgress.done();
     }
-    if (to?.meta?.title) {
-        setDocumentTitle(to.meta.title);
+
+
+  try {
+    if (lStorage.ACCESS_TOKEN) {
+      await hasAccessTokenHandler();
+    } else {
+      noAccessTokenHandler();
     }
+  } catch (e) {
+    console.error(e);
+    /*  */
+    return false;
+  } finally {
+    NProgress.done();
+  }
+  if (to?.meta?.title) {
+    setDocumentTitle(to.meta.title);
+  }
 });
 
 router.afterEach(() => {
-    NProgress.done();
+  NProgress.done();
 });

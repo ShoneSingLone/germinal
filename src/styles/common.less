@@ -1,78 +1,78 @@
-html,body,#app {
-    height: 100%;
-    overflow: hidden;
+html,
+body,
+#app {
+  height: 100%;
+  overflow: hidden;
 }
 
-
 .flex {
-    display: flex;
-  
-    &1 {
-      flex: 1;
-    }
-  
-    &2 {
-      flex: 2;
-    }
-  
-    &3 {
-      flex: 3;
-    }
-  
-    &4 {
-      flex: 4;
-    }
-  
-    &5 {
-      flex: 5;
-    }
-  
-    &025 {
-      flex: 0 0 25%;
-    }
-  
-    &024 {
-      flex: 0 0 24%;
-    }
-  
-    &.vertical {
-      flex-flow: column nowrap;
-    }
-  
-    &.like-float {
-      flex-flow: row wrap;
-  
-      .el-button + .el-button {
-        margin-left: 0;
-      }
-    }
-  
-    &.between {
-      justify-content: space-between;
-    }
-  
-    &.start {
-      justify-content: flex-start;
-    }
-  
-    &.end {
-      justify-content: flex-end;
-    }
-  
-    &.center {
-      justify-content: center;
-    }
-  
-    &.middle {
-      align-items: center;
-    }
-  
-    &.baseline {
-      align-items: baseline;
+  display: flex;
+
+  &1 {
+    flex: 1;
+  }
+
+  &2 {
+    flex: 2;
+  }
+
+  &3 {
+    flex: 3;
+  }
+
+  &4 {
+    flex: 4;
+  }
+
+  &5 {
+    flex: 5;
+  }
+
+  &025 {
+    flex: 0 0 25%;
+  }
+
+  &024 {
+    flex: 0 0 24%;
+  }
+
+  &.vertical {
+    flex-flow: column nowrap;
+  }
+
+  &.like-float {
+    flex-flow: row wrap;
+
+    .el-button + .el-button {
+      margin-left: 0;
     }
   }
-  
-  
+
+  &.between {
+    justify-content: space-between;
+  }
+
+  &.start {
+    justify-content: flex-start;
+  }
+
+  &.end {
+    justify-content: flex-end;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.middle {
+    align-items: center;
+  }
+
+  &.baseline {
+    align-items: baseline;
+  }
+}
+
 .width100 {
   width: 100%;
 }
@@ -98,7 +98,6 @@ html,body,#app {
 
 .width150 {
   width: 150px;
-
 }
 
 .width180 {
@@ -112,8 +111,8 @@ html,body,#app {
 .width360 {
   width: 360px;
 }
-.width501{
-  width:50%
+.width501 {
+  width: 50%;
 }
 
 .pt5 {
@@ -275,20 +274,18 @@ html,body,#app {
   grid-template-columns: repeat(5, 1fr);
 }
 
-
 .grid-response {
   display: grid;
   grid-template-columns: repeat(24, 1fr);
 
   @iterations: 1;
   .span-loop (@i) when (@i <= 24) {
-      .grid-col-@{i} {
-        grid-column: ~"span @{i}";
-      }
-      .span-loop(@i + 1);
+    .grid-col-@{i} {
+      grid-column: ~"span @{i}";
+    }
+    .span-loop(@i + 1);
   }
   .span-loop (@iterations);
-
 }
 
 .ellipsis {
