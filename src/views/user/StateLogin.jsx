@@ -21,9 +21,9 @@ function handleLoginSuccess(res) {
   }, 1000);
 }
 
-// const styles = {
-//   icon: { color: getColor("disabledColor") },
-// };
+const styles = {
+  icon: { color: getColor("disabledColor") },
+};
 
 /* 根据不同的Tab 检验不同的form 提交不同的内容 */
 const TAB_KEYS_MAP = {

@@ -9,9 +9,9 @@ import { getColor } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
 
-// const styles = {
-//   icon: { color: getColor("disabledColor") },
-// };
+const styles = {
+  icon: { color: getColor("disabledColor") },
+};
 
 const getConfigsSubmitText = () => () =>
   $t("user.register.get-verification-code").label;

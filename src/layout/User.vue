@@ -12,7 +12,7 @@ const styles = {
 <template>
   <div
     id="userLayout"
-    :class="['user-layout-wrapper', AppState.isMobile && 'mobile']"
+    :class="['user-layout-wrapper', StateApp.isMobile && 'mobile']"
   >
     <div
       class="container"

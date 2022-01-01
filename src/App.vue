@@ -12,7 +12,7 @@ onMounted(async () => {
   <h1 v-if="state.isLoading">
     Loading...
   </h1>
-<!--  <RouterView v-else />-->
+  <RouterView v-else />
 </template>
 ;
 

@@ -28,18 +28,18 @@ return {label:'显示的对应语言',prop:'key'}
 
 ```js
 /* FILE:src\state\StateApp.js */
-/* state AppState 相当于命名空间*/
-export const AppState = reactive({ configs: lStorage.appConfigs });
+/* state StateApp 相当于命名空间*/
+export const StateApp = reactive({ configs: lStorage.appConfigs });
 
-/* getter 就用computed代替;commit直接修改AppState  */
+/* getter 就用computed代替;commit直接修改StateApp  */
 export const APP_LANGUAGE = computed({
-    get: () => AppState.configs.language,
-    set: (lang) => AppState.configs.language = lang
+    get: () => StateApp.configs.language,
+    set: (lang) => StateApp.configs.language = lang
 });
 
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
-watchEffect(() => lStorage.appConfigs = AppState.configs);
+watchEffect(() => lStorage.appConfigs = StateApp.configs);
 
 /* mutation 异步修改 效果同事务 自己去保证原子性 */
 export const AppActions = {

@@ -3,8 +3,6 @@ import { lStorage } from "@ventose/ui/tools/storage";
 import { setCSSVariables, setDocumentTitle } from "@ventose/ui/tools/dom";
 import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
-import MyUI from "@ventose/ui";
-import { router } from "lsrc/router/router";
 import md5 from "md5";
 
 export const StateApp = reactive({
@@ -17,7 +15,7 @@ export const StateApp = reactive({
 if (StateApp.isDev) {
   console.log(import.meta.env);
   /* TODO:方便调试 have to remove */
-  window.AppState = StateApp;
+  window.StateApp = StateApp;
 }
 
 /* getter 就用computed代替 commit直接修改  */

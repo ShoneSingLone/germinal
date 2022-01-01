@@ -56,12 +56,12 @@ export const $t = (prop) => {
   };
 };
 export const appI18n = {
-  install: (app, AppState) => {
+  install: (app, StateApp) => {
     //注册i8n实例并引入语言文件
     app.config.globalProperties.$t = $t;
-    /* readme:依赖AppState.confgs.language */
+    /* readme:依赖StateApp.confgs.language */
     watchEffect(() => {
-      setI18nLanguage(AppState.configs.language);
+      setI18nLanguage(StateApp.configs.language);
     });
   },
 };
