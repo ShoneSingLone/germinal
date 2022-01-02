@@ -17,7 +17,7 @@ export const StateApp = reactive({
 if (StateApp.isDev) {
   console.log(import.meta.env);
   /* TODO:方便调试 have to remove */
-  window.AppState = StateApp;
+  window.StateApp = StateApp;
 }
 
 /* getter 就用computed代替 commit直接修改  */
@@ -38,7 +38,11 @@ export const getColor = (colorName) => {
     return "";
   }
 };
+export const AppStyles = {
+  icon: { color: getColor("disabledColor") },
+};
 
+console.log("AppStyles", AppStyles);
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
 watch(
@@ -98,7 +102,7 @@ export const StateAppActions = {
     const loginParams = { username, password: md5(password) };
     const res = await API.user.login(loginParams);
   },
-  Logout: async () => {},
+  Logout: async () => { },
 };
 
 
