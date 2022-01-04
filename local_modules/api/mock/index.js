@@ -1,16 +1,9 @@
-// 导入mockjs
 import Mock from "mockjs";
-import _ from "lodash";
+import("./services/auth");
+import("./services/user");
+import("./services/manage");
+import("./services/other");
+import("./services/tagCloud");
+import("./services/article");
 
-const mockList = {
-    "login": ({ url, type, body }) => {
-        return { "user": "username" };
-    },
-};
-
-_.map(mockList, (controller, pattern) => {
-    Mock.mock(new RegExp(pattern), ({ url, type, body }) => {
-        console.log("use MockJS", type, url, body);
-        return controller({ url, type, body });
-    });
-});
+Mock.setup({ timeout: 800 });

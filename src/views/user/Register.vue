@@ -61,7 +61,7 @@ const configsTestPopover = {
         <!-- 用户名 -->
         <xItem
           ref="username"
-          :configs="StateRegister.configsForm.userName"
+          :configs="StateRegister.configsForm.username"
           autocomplete="username"
         />
         <xGap t="20" />

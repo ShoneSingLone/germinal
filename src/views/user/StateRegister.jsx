@@ -26,14 +26,14 @@ export const StateRegister = reactive({
   captchaCount: 0,
   configsForm: {
     ...reactiveItemConfigs({
-      prop: "userName",
+      prop: "username",
       value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
       rules: [
         FormRules.required(
-          () => $t("user.userName.required").label,
+          () => $t("user.username.required").label,
           [EVENT_TYPE.blur]
         ),
       ],

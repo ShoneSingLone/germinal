@@ -1,22 +1,23 @@
 import { reactive, computed, watch } from "vue";
 import { $t } from "lsrc/language";
 import { UI } from "@ventose/ui";
-import { ITEM_TYPE, reactiveItemConfigs } from "@ventose/ui/common";
+import { ITEM_TYPE, reactiveItemConfigs, timeFix } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { getColor } from "lsrc/state/StateApp";
+import { getColor, StateAppActions } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
 import { router } from "lsrc/router/router";
+
 
 function handleLoginSuccess(res) {
   router.push({ path: "/" });
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
-    this.$notification.success({
-      message: "欢迎",
-      description: `${timeFix()}，欢迎回来`,
+    UI.notification.success({
+      message: $t("welcome").label,
+      description: `${timeFix()}，${$t("welcome.back").label}`,
     });
   }, 1000);
 }
@@ -41,20 +42,21 @@ const getConfigsSubmitText = () => () =>
   $t("user.register.get-verification-code").label;
 
 export const StateLogin = reactive({
+
   captchaCount: 0,
   loginType: LOGIN_TYPE.username,
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
   configsForm: {
     ...reactiveItemConfigs({
-      prop: "userName",
-      value: "",
+      prop: "username",
+      value: "admin",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
       rules: [
         FormRules.required(
-          () => $t("user.userName.required").label,
+          () => $t("user.username.required").label,
           [EVENT_TYPE.blur]
         ),
       ],
@@ -63,7 +65,7 @@ export const StateLogin = reactive({
     ...reactiveItemConfigs({
       prop: "password",
       isPassword: true,
-      value: "",
+      value: "admin",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
@@ -137,7 +139,7 @@ export const StateLogin = reactive({
         if (results.length === 0) {
           await getCaptcha();
         }
-      } catch (e) {}
+      } catch (e) { }
     },
   },
   /* 提交按钮 */
@@ -151,11 +153,12 @@ export const StateLogin = reactive({
         const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
         const currentFormConfigs = StateLogin[currentFormProp];
         const validateResults = await validateForm(currentFormConfigs);
-        if (_.isArrayFill(validateResults)) {
+        if (!_.isArrayFill(validateResults)) {
           const formData = pickValueFrom(currentFormConfigs);
-          console.log("formData", formData);
           const res = await StateAppActions.Login(formData);
           handleLoginSuccess(res);
+        } else {
+          throw new Error("未通过验证");
         }
       } catch (e) {
         console.error(e);
@@ -165,10 +168,10 @@ export const StateLogin = reactive({
 });
 
 /*检查userName的类型*/
-watch(() => StateLogin.configsForm.userName.value, checkUserNameType);
+watch(() => StateLogin.configsForm.username.value, checkUserNameType);
 
-function checkUserNameType(userName) {
-  if (RegexFn.email().test(userName)) {
+function checkUserNameType(username) {
+  if (RegexFn.email().test(username)) {
     StateLogin.loginType = LOGIN_TYPE.email;
   } else {
     StateLogin.loginType = LOGIN_TYPE.username;
@@ -189,8 +192,7 @@ function handleCaptchaCountChange(captchaCount) {
   }
 
   const setCounDownText = () =>
-    (StateLogin.configsVerificationCode.text = `${
-      CAPTCHA_COUNT - captchaCount
+  (StateLogin.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount
     } s`);
 
   if (captchaCount === 1) {

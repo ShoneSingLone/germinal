@@ -13,7 +13,6 @@ export const StateApp = reactive({
 });
 
 if (StateApp.isDev) {
-  console.log(import.meta.env);
   /* TODO:方便调试 have to remove */
   window.StateApp = StateApp;
 }
@@ -95,8 +94,10 @@ export const StateAppActions = {
   async Login({ username, password }) {
     const loginParams = { username, password: md5(password) };
     const res = await API.user.login(loginParams);
+    console.log("res",res);
+    debugger;
   },
-  Logout: async () => {},
+  Logout: async () => { },
 };
 
 

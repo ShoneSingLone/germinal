@@ -1,4 +1,4 @@
-export default {
+export const URL = {
     Login: "/auth/login",
     Logout: "/auth/logout",
     ForgePassword: "/auth/forge-password",

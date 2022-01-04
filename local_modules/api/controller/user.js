@@ -1,18 +1,18 @@
 import ajax from "lsrc/request/ajax";
-import url from "../url";
-import {getInfo} from "../mock/user";
+import { URL } from "../url";
+import { getInfo } from "../mock/user";
 
 function genSmsCaptcha() {
     return (Math.random() * 1000000).toFixed(0);
 }
 
-export const apiUser =  {
-    async login(formdata){
-
+export const apiUser = {
+    async login(params) {
+        await ajax.post(URL.Login, { params });
     },
     getSmsCaptcha: async () => {
         return {
-            result: {code: genSmsCaptcha()}
+            result: { code: genSmsCaptcha() }
         };
     },
     getInfo: async () => {

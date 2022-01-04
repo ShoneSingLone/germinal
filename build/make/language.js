@@ -3,6 +3,8 @@ const reduce = require("lodash/reduce");
 const path = require("path");
 
 const languageContent = {
+    "welcome": m("欢迎", "welcome"),
+    "welcome.back": m("欢迎回来", "welcome back"),
     "login.title": m("demo", "antd vue3 admin"),
     /* system */
     "BackHome": m("回到主页", "Back Home"),
@@ -11,7 +13,7 @@ const languageContent = {
     "layouts.usermenu.dialog.content": m("您确定要注销吗？", "Are you sure you would like to logout?"),
     "layouts.userLayout.title": m("Ant Design 是西湖区最具影响力的 Web 设计规范", "Ant Design is the most influential web design specification in Xihu district"),
     /*  */
-    "user.login.userName": m("用户名", "userName"),
+    "user.login.username": m("用户名", "username"),
     "user.login.password": m("密码", "password"),
     "user.login.username.placeholder": m("账户: admin", "Account: admin"),
     "user.login.password.placeholder": m("密码: admin or ant.design", "password: admin or ant.design"),
@@ -40,7 +42,7 @@ const languageContent = {
     "user.register-result.view-mailbox": m("查看邮箱", "View mailbox"),
     "user.email.required": m("请输入邮箱地址！", "Please enter your email!"),
     "user.email.wrong-format": m("邮箱地址格式错误！", "The email address is in the wrong format!"),
-    "user.userName.required": m("请输入帐户名或邮箱地址", "Please enter account name or email address"),
+    "user.username.required": m("请输入帐户名或邮箱地址", "Please enter account name or email address"),
     "user.password.required": m("请输入密码！", "Please enter your password!"),
     "user.password.twice.msg": m("两次输入的密码不匹配!", "The passwords entered twice do not match!"),
     "user.password.strength.msg": m("密码强度不够 ", "The password is not strong enough"),
