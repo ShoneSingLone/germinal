@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, _ as _message, y as _notification, z as _Progress, A as _Popover, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as AlipayCircleFilled, S as TaobaoCircleFilled, W as WeiboCircleFilled, V as computed, X as watch, Y as md5, Z as onMounted, a0 as unref, a1 as createElementBlock, a2 as createBlock, a3 as openBlock, a4 as createI18n, a5 as watchEffect, a6 as useRouter, a7 as withCtx, a8 as toDisplayString, a9 as renderList, aa as Fragment, ab as createBaseVNode, ac as normalizeStyle, ad as normalizeClass, ae as createStaticVNode, af as createCommentVNode, ag as resolveDirective, ah as withDirectives, ai as pushScopeId, aj as popScopeId, ak as createRouter, al as createWebHashHistory, am as NProgress, an as createApp } from "./vendor-0090e5fc.js";
+import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, _ as _message, y as _notification, z as _Progress, A as _Popover, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as AlipayCircleFilled, S as TaobaoCircleFilled, W as WeiboCircleFilled, V as computed, X as watch, Y as md5, Z as onMounted, a0 as unref, a1 as createElementBlock, a2 as createBlock, a3 as openBlock, a4 as createI18n, a5 as watchEffect, a6 as useRouter, a7 as withCtx, a8 as toDisplayString, a9 as renderList, aa as Fragment, ab as createBaseVNode, ac as normalizeStyle, ad as normalizeClass, ae as createStaticVNode, af as createCommentVNode, ag as resolveDirective, ah as withDirectives, ai as pushScopeId, aj as popScopeId, ak as createRouter, al as createWebHashHistory, am as NProgress, an as createApp } from "./vendor-37a4b512.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -333,6 +333,11 @@ function genId(category) {
     genId.DATE_NOW = Date.now();
   }
   return `${category}_${genId.DATE_NOW}_${genId.idCount++}`;
+}
+function timeFix() {
+  const time = new Date();
+  const hour = time.getHours();
+  return hour < 9 ? "\u65E9\u4E0A\u597D" : hour <= 11 ? "\u4E0A\u5348\u597D" : hour <= 13 ? "\u4E2D\u5348\u597D" : hour < 20 ? "\u4E0B\u5348\u597D" : "\u665A\u4E0A\u597D";
 }
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
@@ -1793,6 +1798,21 @@ function logError(msg) {
   console.error(msg);
 }
 const ajaxOptions = (options, customOptions) => {
+  const _options = {};
+  let url = options.url;
+  delete options.url;
+  let query = customOptions.query;
+  delete customOptions.query;
+  if (_.isPlainObject(query)) {
+    query = _.map(query, (value, key) => `${key}=${value}`).join("&");
+    url += `?${query}`;
+  }
+  _options.url = url;
+  const data = customOptions.params;
+  delete customOptions.params;
+  if (data) {
+    _options.data = data;
+  }
   return _.merge({
     async: true,
     statusCode: {
@@ -1803,24 +1823,24 @@ const ajaxOptions = (options, customOptions) => {
         logError("statusCode 0");
       }
     }
-  }, options, customOptions);
+  }, options, _options);
 };
 const parseContent = (returnSentence) => new Function(returnSentence);
 var ajax = {
-  get: (url, options = {}) => new Promise((resolve, reject) => $.ajax(ajaxOptions({
-    type: "GET",
+  get: (url, customOptions = {}) => new Promise((resolve, reject) => $.ajax(ajaxOptions({
+    method: "GET",
     url,
     dataType: "json",
     success: resolve,
     error: reject
-  }, options))),
-  post: (url, options = {}) => new Promise((resolve, reject) => $.ajax(ajaxOptions({
-    type: "POST",
+  }, customOptions))),
+  post: (url, customOptions = {}) => new Promise((resolve, reject) => $.ajax(ajaxOptions({
+    method: "POST",
     url,
     dataType: "json",
     success: resolve,
     error: reject
-  }, options))),
+  }, customOptions))),
   loadText: (url) => new Promise((resolve, reject) => $.ajax({
     type: "GET",
     async: true,
@@ -1829,6 +1849,17 @@ var ajax = {
     success: (data) => resolve(parseContent(data)),
     error: reject
   }))
+};
+const URL = {
+  Login: "/auth/login",
+  Logout: "/auth/logout",
+  ForgePassword: "/auth/forge-password",
+  Register: "/auth/register",
+  twoStepCode: "/auth/2step-code",
+  SendSms: "/account/sms",
+  SendSmsErr: "/account/sms_err",
+  UserInfo: "/user/info",
+  UserMenu: "/user/nav"
 };
 const getInfo = {
   id: "4291d7da9005377ec9aec4a71ea837f",
@@ -1851,7 +1882,10 @@ function genSmsCaptcha() {
   return (Math.random() * 1e6).toFixed(0);
 }
 const apiUser = {
-  async login(formdata) {
+  async login(params) {
+    await ajax.post(URL.Login, {
+      params
+    });
   },
   getSmsCaptcha: async () => {
     return {
@@ -1876,7 +1910,6 @@ const StateApp = reactive({
   isDev: false
 });
 if (StateApp.isDev) {
-  console.log({ "BASE_URL": "./", "MODE": "production", "DEV": false, "PROD": true });
   window.StateApp = StateApp;
 }
 const APP_LANGUAGE = computed({
@@ -1902,7 +1935,7 @@ watch(() => StateApp.configs.colors, (colors) => setCSSVariables(colors), {
   immediate: true,
   deep: true
 });
-const StateAppActions$1 = {
+const StateAppActions = {
   async initAppConfigs(callback) {
     const isLoadConfigs = StateApp.isDev || !StateApp.configs;
     if (isLoadConfigs) {
@@ -1944,7 +1977,9 @@ const StateAppActions$1 = {
       username,
       password: md5(password)
     };
-    await API.user.login(loginParams);
+    const res = await API.user.login(loginParams);
+    console.log("res", res);
+    debugger;
   },
   Logout: async () => {
   }
@@ -1959,7 +1994,7 @@ const _sfc_main$9 = {
       isLoading: true
     });
     onMounted(async () => {
-      await StateAppActions$1.initAppConfigs();
+      await StateAppActions.initAppConfigs();
       state.isLoading = false;
     });
     return (_ctx, _cache) => {
@@ -1971,13 +2006,15 @@ const _sfc_main$9 = {
   }
 };
 var enUS = {
+  "welcome": "welcome",
+  "welcome.back": "welcome back",
   "login.title": "antd vue3 admin",
   "BackHome": "Back Home",
   "notFoundTips": "Sorry, you don't have access to this page.",
   "layouts.usermenu.dialog.title": "Message",
   "layouts.usermenu.dialog.content": "Are you sure you would like to logout?",
   "layouts.userLayout.title": "Ant Design is the most influential web design specification in Xihu district",
-  "user.login.userName": "userName",
+  "user.login.username": "username",
   "user.login.password": "password",
   "user.login.username.placeholder": "Account: admin",
   "user.login.password.placeholder": "password: admin or ant.design",
@@ -2005,7 +2042,7 @@ var enUS = {
   "user.register-result.view-mailbox": "View mailbox",
   "user.email.required": "Please enter your email!",
   "user.email.wrong-format": "The email address is in the wrong format!",
-  "user.userName.required": "Please enter account name or email address",
+  "user.username.required": "Please enter account name or email address",
   "user.password.required": "Please enter your password!",
   "user.password.twice.msg": "The passwords entered twice do not match!",
   "user.password.strength.msg": "The password is not strong enough",
@@ -2024,13 +2061,15 @@ var __glob_3_0 = /* @__PURE__ */ Object.freeze({
   "default": enUS
 });
 var zhCN = {
+  "welcome": "\u6B22\u8FCE",
+  "welcome.back": "\u6B22\u8FCE\u56DE\u6765",
   "login.title": "demo",
   "BackHome": "\u56DE\u5230\u4E3B\u9875",
   "notFoundTips": "\u5BF9\u4E0D\u8D77\uFF0C\u6CA1\u6709\u627E\u5230\u60A8\u8981\u8BBF\u95EE\u7684\u9875\u9762",
   "layouts.usermenu.dialog.title": "\u4FE1\u606F",
   "layouts.usermenu.dialog.content": "\u60A8\u786E\u5B9A\u8981\u6CE8\u9500\u5417\uFF1F",
   "layouts.userLayout.title": "Ant Design \u662F\u897F\u6E56\u533A\u6700\u5177\u5F71\u54CD\u529B\u7684 Web \u8BBE\u8BA1\u89C4\u8303",
-  "user.login.userName": "\u7528\u6237\u540D",
+  "user.login.username": "\u7528\u6237\u540D",
   "user.login.password": "\u5BC6\u7801",
   "user.login.username.placeholder": "\u8D26\u6237: admin",
   "user.login.password.placeholder": "\u5BC6\u7801: admin or ant.design",
@@ -2058,7 +2097,7 @@ var zhCN = {
   "user.register-result.view-mailbox": "\u67E5\u770B\u90AE\u7BB1",
   "user.email.required": "\u8BF7\u8F93\u5165\u90AE\u7BB1\u5730\u5740\uFF01",
   "user.email.wrong-format": "\u90AE\u7BB1\u5730\u5740\u683C\u5F0F\u9519\u8BEF\uFF01",
-  "user.userName.required": "\u8BF7\u8F93\u5165\u5E10\u6237\u540D\u6216\u90AE\u7BB1\u5730\u5740",
+  "user.username.required": "\u8BF7\u8F93\u5165\u5E10\u6237\u540D\u6216\u90AE\u7BB1\u5730\u5740",
   "user.password.required": "\u8BF7\u8F93\u5165\u5BC6\u7801\uFF01",
   "user.password.twice.msg": "\u4E24\u6B21\u8F93\u5165\u7684\u5BC6\u7801\u4E0D\u5339\u914D!",
   "user.password.strength.msg": "\u5BC6\u7801\u5F3A\u5EA6\u4E0D\u591F ",
@@ -2328,9 +2367,9 @@ function handleLoginSuccess(res) {
     path: "/"
   });
   setTimeout(() => {
-    this.$notification.success({
-      message: "\u6B22\u8FCE",
-      description: `${timeFix()}\uFF0C\u6B22\u8FCE\u56DE\u6765`
+    UI.notification.success({
+      message: $t("welcome").label,
+      description: `${timeFix()}\uFF0C${$t("welcome.back").label}`
     });
   }, 1e3);
 }
@@ -2355,11 +2394,11 @@ const StateLogin = reactive({
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
   configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
-    prop: "userName",
-    value: "",
+    prop: "username",
+    value: "admin",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
-    rules: [FormRules.required(() => $t("user.userName.required").label, [EVENT_TYPE.blur])],
+    rules: [FormRules.required(() => $t("user.username.required").label, [EVENT_TYPE.blur])],
     slots: {
       prefix: () => createVNode(resolveComponent("UserOutlined"), {
         "style": styles$1.icon
@@ -2368,7 +2407,7 @@ const StateLogin = reactive({
   })), reactiveItemConfigs({
     prop: "password",
     isPassword: true,
-    value: "",
+    value: "admin",
     size: "large",
     placeholder: () => $t("user.login.password.placeholder").label,
     rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
@@ -2437,11 +2476,12 @@ const StateLogin = reactive({
         const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
         const currentFormConfigs = StateLogin[currentFormProp];
         const validateResults = await validateForm(currentFormConfigs);
-        if (_.isArrayFill(validateResults)) {
+        if (!_.isArrayFill(validateResults)) {
           const formData = pickValueFrom(currentFormConfigs);
-          console.log("formData", formData);
           const res = await StateAppActions.Login(formData);
           handleLoginSuccess(res);
+        } else {
+          throw new Error("\u672A\u901A\u8FC7\u9A8C\u8BC1");
         }
       } catch (e) {
         console.error(e);
@@ -2449,9 +2489,9 @@ const StateLogin = reactive({
     }
   }
 });
-watch(() => StateLogin.configsForm.userName.value, checkUserNameType);
-function checkUserNameType(userName) {
-  if (RegexFn.email().test(userName)) {
+watch(() => StateLogin.configsForm.username.value, checkUserNameType);
+function checkUserNameType(username) {
+  if (RegexFn.email().test(username)) {
     StateLogin.loginType = LOGIN_TYPE.email;
   } else {
     StateLogin.loginType = LOGIN_TYPE.username;
@@ -2514,7 +2554,7 @@ var _sfc_main$5 = {
       const _component_xItem = resolveComponent("xItem");
       const _component_xGap = resolveComponent("xGap");
       return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
-        configs: unref(StateLogin).configsForm.userName,
+        configs: unref(StateLogin).configsForm.username,
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         t: "20"
@@ -2647,11 +2687,11 @@ const StateRegister = reactive({
   },
   captchaCount: 0,
   configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues(__spreadValues({}, reactiveItemConfigs({
-    prop: "userName",
+    prop: "username",
     value: "",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
-    rules: [FormRules.required(() => $t("user.userName.required").label, [EVENT_TYPE.blur])],
+    rules: [FormRules.required(() => $t("user.username.required").label, [EVENT_TYPE.blur])],
     slots: {
       prefix: () => createVNode(resolveComponent("UserOutlined"), {
         "style": styles.icon
@@ -2921,7 +2961,7 @@ const _sfc_main$2 = {
       const _component_RouterLink = resolveComponent("RouterLink");
       return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
         ref: "username",
-        configs: unref(StateRegister).configsForm.userName,
+        configs: unref(StateRegister).configsForm.username,
         autocomplete: "username"
       }, null, 8, ["configs"]), createVNode(_component_xGap, {
         t: "20"
@@ -2980,7 +3020,7 @@ const _sfc_main$2 = {
     };
   }
 };
-const _withScopeId = (n) => (pushScopeId("data-v-56486f98"), n = n(), popScopeId(), n);
+const _withScopeId = (n) => (pushScopeId("data-v-899aa8ea"), n = n(), popScopeId(), n);
 const _hoisted_1 = {
   class: "container flex middle"
 };
@@ -3075,7 +3115,7 @@ var _export_sfc = (sfc, props) => {
   }
   return target;
 };
-var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-56486f98"]]);
+var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-899aa8ea"]]);
 var _sfc_main = {
   setup(__props) {
     return (_ctx, _cache) => {
@@ -3136,7 +3176,7 @@ router.beforeEach(async (to, from) => {
       };
     } else {
       if (((_a2 = StateApp.roles) == null ? void 0 : _a2.length) === 0) {
-        await StateAppActions$1.GetInfo();
+        await AppActions.GetInfo();
       }
     }
   };

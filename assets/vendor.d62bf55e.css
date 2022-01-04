@@ -2512,8 +2512,6 @@ html {
   font-feature-settings: 'tnum';
   position: fixed;
   z-index: 1010;
-  width: 384px;
-  max-width: calc(100vw - 32px);
   margin-right: 24px;
 }
 .ant-notification-topLeft,
@@ -2532,18 +2530,29 @@ html {
   font-size: 14px;
   cursor: pointer;
 }
+.ant-notification-hook-holder {
+  position: relative;
+}
 .ant-notification-notice {
   position: relative;
+  width: 384px;
+  max-width: calc(100vw - 24px * 2);
   margin-bottom: 16px;
+  margin-left: auto;
   padding: 16px 24px;
   overflow: hidden;
-  line-height: 1.5;
+  line-height: 1.5715;
+  word-wrap: break-word;
   background: #fff;
   border-radius: 2px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+.ant-notification-topLeft .ant-notification-notice,
+.ant-notification-bottomLeft .ant-notification-notice {
+  margin-right: auto;
+  margin-left: 0;
+}
 .ant-notification-notice-message {
-  display: inline-block;
   margin-bottom: 8px;
   color: rgba(0, 0, 0, 0.85);
   font-size: 16px;
@@ -2617,13 +2626,13 @@ html {
 }
 .ant-notification-fade-enter,
 .ant-notification-fade-appear {
-  opacity: 0;
   -webkit-animation-duration: 0.24s;
           animation-duration: 0.24s;
   -webkit-animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
           animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
+  opacity: 0;
   -webkit-animation-play-state: paused;
           animation-play-state: paused;
 }
@@ -2696,8 +2705,6 @@ html {
   0% {
     max-height: 150px;
     margin-bottom: 16px;
-    padding-top: 16px 24px;
-    padding-bottom: 16px 24px;
     opacity: 1;
   }
   100% {
@@ -2712,8 +2719,6 @@ html {
   0% {
     max-height: 150px;
     margin-bottom: 16px;
-    padding-top: 16px 24px;
-    padding-bottom: 16px 24px;
     opacity: 1;
   }
   100% {
@@ -2723,6 +2728,32 @@ html {
     padding-bottom: 0;
     opacity: 0;
   }
+}
+.ant-notification-rtl {
+  direction: rtl;
+}
+.ant-notification-rtl .ant-notification-notice-closable .ant-notification-notice-message {
+  padding-right: 0;
+  padding-left: 24px;
+}
+.ant-notification-rtl .ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-right: 48px;
+  margin-left: 0;
+}
+.ant-notification-rtl .ant-notification-notice-with-icon .ant-notification-notice-description {
+  margin-right: 48px;
+  margin-left: 0;
+}
+.ant-notification-rtl .ant-notification-notice-icon {
+  margin-right: 4px;
+  margin-left: 0;
+}
+.ant-notification-rtl .ant-notification-notice-close {
+  right: auto;
+  left: 22px;
+}
+.ant-notification-rtl .ant-notification-notice-btn {
+  float: left;
 }
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
@@ -2739,7 +2770,7 @@ html {
   list-style: none;
   font-feature-settings: 'tnum';
   position: fixed;
-  top: 16px;
+  top: 8px;
   left: 0;
   z-index: 1010;
   width: 100%;
@@ -2748,9 +2779,6 @@ html {
 .ant-message-notice {
   padding: 8px;
   text-align: center;
-}
-.ant-message-notice:first-child {
-  margin-top: -8px;
 }
 .ant-message-notice-content {
   display: inline-block;
@@ -2779,8 +2807,7 @@ html {
   margin-right: 8px;
   font-size: 16px;
 }
-.ant-message-notice.move-up-leave.move-up-leave-active {
-  overflow: hidden;
+.ant-message-notice.ant-move-up-leave.ant-move-up-leave-active {
   -webkit-animation-name: MessageMoveOut;
           animation-name: MessageMoveOut;
   -webkit-animation-duration: 0.3s;
@@ -2809,6 +2836,16 @@ html {
     padding: 0;
     opacity: 0;
   }
+}
+.ant-message-rtl {
+  direction: rtl;
+}
+.ant-message-rtl span {
+  direction: rtl;
+}
+.ant-message-rtl .anticon {
+  margin-right: 0;
+  margin-left: 8px;
 }
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
