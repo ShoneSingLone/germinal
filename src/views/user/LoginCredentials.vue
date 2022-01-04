@@ -6,7 +6,7 @@ import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
   <form>
     <!-- 用户名 -->
     <xItem
-      :configs="StateLogin.configsForm.userName"
+      :configs="StateLogin.configsForm.username"
       autocomplete="username"
     />
     <xGap t="20" />

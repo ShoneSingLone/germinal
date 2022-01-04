@@ -26,7 +26,7 @@ const handlers = {
 
 <template>
   <Button @click="handlers.clickBtn">
-    {{ $t("user.login.userName").label }}
+    {{ $t("user.login.username").label }}
   </Button>
   <xRender
     :render="renders.test"

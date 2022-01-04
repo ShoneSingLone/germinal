@@ -85,7 +85,7 @@ router.beforeEach(async (to, from) => {
             };
         } else {
             if (StateApp.roles?.length === 0) {
-                await StateAppActions.GetInfo();
+                await AppActions.GetInfo();
             }
         }
     };
