@@ -5,9 +5,13 @@ import { ITEM_TYPE, reactiveItemConfigs } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { AppStyles } from "lsrc/state/StateApp";
+import { getColor } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
+
+const styles = {
+  icon: { color: getColor("disabledColor") },
+};
 
 const getConfigsSubmitText = () => () =>
   $t("user.register.get-verification-code").label;
@@ -33,7 +37,7 @@ export const StateRegister = reactive({
           [EVENT_TYPE.blur]
         ),
       ],
-      slots: { prefix: () => <UserOutlined style={AppStyles.icon} /> },
+      slots: { prefix: () => <UserOutlined style={styles.icon} /> },
     }),
     ...reactiveItemConfigs({
       prop: "password",
@@ -58,7 +62,7 @@ export const StateRegister = reactive({
       },
       slots: {
         prefix: () => (
-          <xRender render={SvgRender.lockStrok} style={AppStyles.icon} />
+          <xRender render={SvgRender.lockStrok} style={styles.icon} />
         ),
       },
     }),
@@ -83,7 +87,7 @@ export const StateRegister = reactive({
       ],
       slots: {
         prefix: () => (
-          <xRender render={SvgRender.lockStrok} style={AppStyles.icon} />
+          <xRender render={SvgRender.lockStrok} style={styles.icon} />
         ),
       },
     }),
@@ -106,7 +110,7 @@ export const StateRegister = reactive({
         }),
       ],
       slots: {
-        prefix: () => <MobileOutlined style={AppStyles.icon} />,
+        prefix: () => <MobileOutlined style={styles.icon} />,
       },
     }),
     /*验证码*/
@@ -125,7 +129,7 @@ export const StateRegister = reactive({
         ),
       ],
       slots: {
-        prefix: () => <xRender render={SvgRender.mail} style={AppStyles.icon} />,
+        prefix: () => <xRender render={SvgRender.mail} style={styles.icon} />,
       },
     }),
   },

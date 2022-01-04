@@ -5,7 +5,7 @@ import { ITEM_TYPE, reactiveItemConfigs } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { AppStyles } from "lsrc/state/StateApp";
+import { getColor } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
 import { router } from "lsrc/router/router";
@@ -21,7 +21,9 @@ function handleLoginSuccess(res) {
   }, 1000);
 }
 
-
+const styles = {
+  icon: { color: getColor("disabledColor") },
+};
 
 /* 根据不同的Tab 检验不同的form 提交不同的内容 */
 const TAB_KEYS_MAP = {
@@ -56,7 +58,7 @@ export const StateLogin = reactive({
           [EVENT_TYPE.blur]
         ),
       ],
-      slots: { prefix: () => <UserOutlined style={AppStyles.icon} /> },
+      slots: { prefix: () => <UserOutlined style={styles.icon} /> },
     }),
     ...reactiveItemConfigs({
       prop: "password",
@@ -73,7 +75,7 @@ export const StateLogin = reactive({
       ],
       slots: {
         prefix: () => (
-          <xRender render={SvgRender.lockStrok} style={AppStyles.icon} />
+          <xRender render={SvgRender.lockStrok} style={styles.icon} />
         ),
       },
     }),
@@ -98,7 +100,7 @@ export const StateLogin = reactive({
         }),
       ],
       slots: {
-        prefix: () => <MobileOutlined style={AppStyles.icon} />,
+        prefix: () => <MobileOutlined style={styles.icon} />,
       },
     }),
     /*验证码*/
@@ -117,7 +119,7 @@ export const StateLogin = reactive({
         ),
       ],
       slots: {
-        prefix: () => <xRender render={SvgRender.mail} style={AppStyles.icon} />,
+        prefix: () => <xRender render={SvgRender.mail} style={styles.icon} />,
       },
     }),
   },
@@ -135,7 +137,7 @@ export const StateLogin = reactive({
         if (results.length === 0) {
           await getCaptcha();
         }
-      } catch (e) { }
+      } catch (e) {}
     },
   },
   /* 提交按钮 */
@@ -187,7 +189,8 @@ function handleCaptchaCountChange(captchaCount) {
   }
 
   const setCounDownText = () =>
-  (StateLogin.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount
+    (StateLogin.configsVerificationCode.text = `${
+      CAPTCHA_COUNT - captchaCount
     } s`);
 
   if (captchaCount === 1) {

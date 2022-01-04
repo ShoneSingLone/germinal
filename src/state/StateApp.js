@@ -3,8 +3,6 @@ import { lStorage } from "@ventose/ui/tools/storage";
 import { setCSSVariables, setDocumentTitle } from "@ventose/ui/tools/dom";
 import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
-import MyUI from "@ventose/ui";
-import { router } from "lsrc/router/router";
 import md5 from "md5";
 
 export const StateApp = reactive({
@@ -38,11 +36,7 @@ export const getColor = (colorName) => {
     return "";
   }
 };
-export const AppStyles = {
-  icon: { color: getColor("disabledColor") },
-};
 
-console.log("AppStyles", AppStyles);
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
 watch(
@@ -102,7 +96,7 @@ export const StateAppActions = {
     const loginParams = { username, password: md5(password) };
     const res = await API.user.login(loginParams);
   },
-  Logout: async () => { },
+  Logout: async () => {},
 };
 
 
