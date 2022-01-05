@@ -1,6 +1,10 @@
 import $ from "jquery";
-import {UI} from "@ventose/ui";
-import {$t} from "lsrc/language";
+import {
+    UI
+} from "@ventose/ui";
+import {
+    $t
+} from "lsrc/language";
 
 export function logError(msg) {
     UI.message.error(msg);
@@ -34,13 +38,13 @@ const ajaxOptions = (options, customOptions) => {
 
     _options.success = res => {
         if (res.code !== 200) {
-            reject(res.message);
+            return reject(res.message);
         }
-        resolve(res.result);
+        return resolve(res.result);
     };
 
     _options.error = res => {
-        reject(res);
+        return reject(res);
     };
 
     return _.merge({

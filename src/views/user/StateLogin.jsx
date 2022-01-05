@@ -21,6 +21,11 @@ function handleLoginSuccess(res) {
     });
   }, 1000);
 }
+function handleLoginFail(error) {
+  if (_.isString(error)) {
+    StateLogin.alertTips=error;
+  }
+}
 
 const styles = {
   icon: { color: getColor("disabledColor") },
@@ -42,7 +47,7 @@ const getConfigsSubmitText = () => () =>
   $t("user.register.get-verification-code").label;
 
 export const StateLogin = reactive({
-
+  alertTips:"",
   captchaCount: 0,
   loginType: LOGIN_TYPE.username,
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
@@ -56,7 +61,7 @@ export const StateLogin = reactive({
       placeholder: () => $t("user.login.username.placeholder").label,
       rules: [
         FormRules.required(
-          () => $t("user.username.required").label,
+          () => $t("请输入帐户名或邮箱地址").label,
           [EVENT_TYPE.blur]
         ),
       ],
@@ -156,11 +161,14 @@ export const StateLogin = reactive({
         if (!_.isArrayFill(validateResults)) {
           const formData = pickValueFrom(currentFormConfigs);
           const res = await StateAppActions.Login(formData);
+          /* 验证错误 */
+          /* 网络错误 */
           handleLoginSuccess(res);
         } else {
           throw new Error("未通过验证");
         }
       } catch (e) {
+        handleLoginFail(e);
         console.error(e);
       }
     },

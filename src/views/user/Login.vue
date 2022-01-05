@@ -19,11 +19,11 @@ import { routeNames } from "lsrc/router/router";
           :tab="$t('user.login.tab-login-credentials').label"
         >
           <Alert
-            v-if="false"
+            v-if="StateLogin.alertTips"
             type="error"
             show-icon
             style="margin-bottom: 24px"
-            :message="$t('user.login.message-invalid-credentials').label"
+            :message="StateLogin.alertTips"
           />
           <LoginCredentials />
         </TabPane>
