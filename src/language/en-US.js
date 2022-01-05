@@ -1,4 +1,6 @@
 export default {
+  "tips.0": "unknown",
+  "tips.404": "not found",
   "welcome": "welcome",
   "welcome.back": "welcome back",
   "login.title": "antd vue3 admin",

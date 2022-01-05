@@ -1,4 +1,6 @@
 export default {
+  "tips.0": "未知错误",
+  "tips.404": "请求资源不存在",
   "welcome": "欢迎",
   "welcome.back": "欢迎回来",
   "login.title": "demo",

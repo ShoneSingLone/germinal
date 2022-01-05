@@ -1,4 +1,4 @@
-import {apiUser} from "./controller/user";
+import {apiUser} from "./services/user";
 export const API= {
     user:apiUser
 };

@@ -95,7 +95,6 @@ export const StateAppActions = {
     const loginParams = { username, password: md5(password) };
     const res = await API.user.login(loginParams);
     console.log("res",res);
-    debugger;
   },
   Logout: async () => { },
 };

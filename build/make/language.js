@@ -3,6 +3,9 @@ const reduce = require("lodash/reduce");
 const path = require("path");
 
 const languageContent = {
+    "tips.0": m("未知错误", "unknown"),
+    "tips.404": m("请求的资源不存在", "not found"),
+    /* tips */
     "welcome": m("欢迎", "welcome"),
     "welcome.back": m("欢迎回来", "welcome back"),
     "login.title": m("demo", "antd vue3 admin"),
