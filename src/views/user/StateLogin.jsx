@@ -42,21 +42,26 @@ const getConfigsSubmitText = () => () =>
   $t("user.register.get-verification-code").label;
 
 export const StateLogin = reactive({
-
   captchaCount: 0,
   loginType: LOGIN_TYPE.username,
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
+  data: {
+    username: "",
+    password: "",
+    mobile: "",
+    verificationCode: ""
+  },
   configsForm: {
     ...reactiveItemConfigs({
       prop: "username",
-      value: "admin",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
       rules: [
         FormRules.required(
           () => $t("user.username.required").label,
+          /* 如果配置了触发事件，以配置为准，不配置默认update，任何change */
           [EVENT_TYPE.blur]
         ),
       ],
@@ -65,7 +70,6 @@ export const StateLogin = reactive({
     ...reactiveItemConfigs({
       prop: "password",
       isPassword: true,
-      value: "admin",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
@@ -86,7 +90,6 @@ export const StateLogin = reactive({
   configsFormMobile: {
     ...reactiveItemConfigs({
       prop: "mobile",
-      value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.mobile.placeholder").label,
@@ -108,7 +111,6 @@ export const StateLogin = reactive({
     /*验证码*/
     ...reactiveItemConfigs({
       prop: "verificationCode",
-      value: "",
       size: "large",
       itemWrapperClass: "flex1",
       /* render的时候重新获取 */
