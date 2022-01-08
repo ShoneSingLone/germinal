@@ -8,7 +8,7 @@ function genSmsCaptcha() {
 
 export const apiUser = {
     async login(params) {
-        await ajax.post(URL.Login, { params });
+       return  await ajax.post(URL.Login, { params });
     },
     getSmsCaptcha: async () => {
         return {

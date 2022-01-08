@@ -12,10 +12,10 @@ export const builder = (data, message, code = 0, headers = {}) => {
   }
   if (code !== undefined && code !== 0) {
     responseBody.code = code;
-    responseBody._status = code;
+    responseBody.status = code;
   }
   if (headers !== null && typeof headers === "object" && Object.keys(headers).length > 0) {
-    responseBody._headers = headers;
+    responseBody.headers = headers;
   }
   responseBody.timestamp = new Date().getTime();
   return responseBody;

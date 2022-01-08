@@ -12,7 +12,7 @@ import { router } from "lsrc/router/router";
 
 
 function handleLoginSuccess(res) {
-  router.push({ path: "/" });
+  router.push({ path: "/dashbord/overview" });
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
     UI.notification.success({
@@ -47,8 +47,8 @@ export const StateLogin = reactive({
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
   data: {
-    username: "",
-    password: "",
+    username: "admin",
+    password: "admin",
     mobile: "",
     verificationCode: ""
   },
