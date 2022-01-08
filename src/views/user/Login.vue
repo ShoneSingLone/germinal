@@ -5,6 +5,8 @@ import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { StateLogin } from "./StateLogin";
 import { routeNames } from "lsrc/router/router";
+
+const _ = window._;
 </script>
 
 <template>

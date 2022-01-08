@@ -11,12 +11,15 @@ export const TIPS_TYPE = {
     success: "success",
     error: "error"
 };
-/*
-*d单独调用校验表单的方法
-* 需要提供 configsForm 包含哥哥xItem configs
-* 有value 有rules => configs有validate属性（有rules才动态添加的属性）
-* */
-export const validateForm = async (configsForm) => {
+
+/**
+* 单独调用校验表单的方法
+* 需要提供 configsForm 包含各个xItem configs
+* 有value 有rules => configs有validate属性（判断有rules就动态添加validate方法）
+* @param {*} configsForm 
+* @returns 
+*/
+export async function validateForm(configsForm) {
     let results = await Promise.all(_.map(configsForm, (configs, prop) => new Promise(resolve => {
         if (configs.validate) {
             configs.validate.formCallBack = (result) => {
@@ -29,6 +32,15 @@ export const validateForm = async (configsForm) => {
     })));
     results = results.filter(res => res[0] && res[1]);
     return results;
+};
+
+/**
+ * 没有错误信息则校验通过
+ * @param {*} res 
+ * @returns 
+ */
+validateForm.allWasWell = (res) => {
+    return _.isArray(res) && res.length === 0;
 };
 
 

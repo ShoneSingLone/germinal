@@ -5,9 +5,10 @@ import { ITEM_TYPE, reactiveItemConfigs } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { getColor } from "lsrc/state/StateApp";
+import { getColor, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
+import { getCaptcha } from "./StateLogin";
 
 const styles = {
   icon: { color: getColor("disabledColor") },
@@ -137,22 +138,25 @@ export const StateRegister = reactive({
   },
   /* 获取验证码按钮 */
   configsVerificationCode: {
-    disabled: false,
-    size: "large",
-    style: { minWidth: "112px" },
-    text: getConfigsSubmitText(),
-    onClick: async () => {
+    countMax: StateApp.configs.countMax,
+    text: {
+      normal: () => $t("user.register.get-verification-code").label,
+    },
+    onClick: async ({ countDown }) => {
       try {
         const results = await validateForm({
           mobile: StateRegister.configsForm.mobile,
         });
-        if (results.length === 0) {
+        if (validateForm.allWasWell(results)) {
+          /*开始倒计时*/
           await getCaptcha();
+          countDown();
         }
+
       } catch (e) {
         console.error(e);
       }
-    },
+    }
   },
   /* 提交按钮 */
   configsSubmit: {
@@ -164,7 +168,7 @@ export const StateRegister = reactive({
       try {
         const currentFormConfigs = StateRegister.configsForm;
         const validateResults = await validateForm(currentFormConfigs);
-        if (validateResults.length === 0) {
+        if (validateForm.allWasWell(validateResults)) {
           const formData = pickValueFrom(currentFormConfigs);
           console.log("formData", formData);
         }
@@ -231,78 +235,4 @@ function checkPasswordLevel(value) {
   StateRegister.isShowCheckPasswordPopover =
     StateRegister.statePassword.level <= 3;
   return isFail;
-}
-
-/*获取验证码 ：等待时间 秒*/
-const CAPTCHA_COUNT = 5;
-watch(() => StateRegister.captchaCount, handleCaptchaCountChange);
-
-function handleCaptchaCountChange(captchaCount) {
-  if (captchaCount === 0) {
-    /*按钮显示*/
-    StateRegister.configsVerificationCode.text = getConfigsSubmitText();
-    /*按钮可点击状态*/
-    StateRegister.configsVerificationCode.disabled = false;
-    return;
-  }
-
-  const setCounDownText = () =>
-  (StateRegister.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount
-    } s`);
-
-  if (captchaCount === 1) {
-    setCounDownText();
-    StateRegister.configsVerificationCode.disabled = true;
-    return;
-  }
-
-  if (captchaCount && captchaCount <= CAPTCHA_COUNT) {
-    setCounDownText();
-    return;
-  }
-}
-
-/* 只是修改倒计时计数 */
-function countDown() {
-  StateRegister.captchaCount++;
-  /*未达到限制时间则继续增加，间隔一秒*/
-  if (StateRegister.captchaCount <= CAPTCHA_COUNT) {
-    setTimeout(countDown, 1000);
-  } else {
-    StateRegister.captchaCount = 0;
-  }
-}
-
-async function mockSmsCaptcha(result = {}) {
-  const captchaCode = result?.code;
-  await _.sleep(2000);
-  await navigator.clipboard.writeText(captchaCode);
-  UI.notification.success({
-    message: "理论上是发送短信到手机",
-    description: (
-      <div>
-        <span>
-          <h2>{captchaCode}</h2>已复制到粘贴板，可以直接 Ctrl+V
-        </span>
-      </div>
-    ),
-  });
-  return;
-}
-
-/*获取验证码*/
-async function getCaptcha() {
-  try {
-    /*已发送，正在倒计时*/
-    if (StateRegister.captchaCount) return;
-    /*开始倒计时*/
-    countDown();
-    /*理论上是发送到手机*/
-    const { result } = await API.user.getSmsCaptcha();
-    UI.message.success("验证码已发送");
-    /*TODO:remove*/
-    await mockSmsCaptcha(result);
-  } catch (e) {
-    console.error(e);
-  }
 }

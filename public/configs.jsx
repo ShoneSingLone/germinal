@@ -1,4 +1,6 @@
 return {
+    /*获取验证码 ：等待时间 秒*/
+    countMax:5,
     API_BASE_URL: 'https://www.ventose.xyz/https/app',
     language: "zh-CN",
     prefixCls: "germinal",

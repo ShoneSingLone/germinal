@@ -1,5 +1,6 @@
 <script setup lang="jsx">
-import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
+import {StateLogin} from "lsrc/views/user/StateLogin.jsx";
+
 </script>
 
 <template>
@@ -11,15 +12,16 @@ import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
       autocomplete="username"
     />
     <xGap t="20" />
-    <!-- 验证码 -->
     <div class="flex">
+      <!-- 验证码 -->
       <xItem
         v-model="StateLogin.data.verificationCode"
         :configs="StateLogin.configsFormMobile.verificationCode"
         autocomplete="current-password"
       />
       <xGap l="20" />
-      <xButton :configs="StateLogin.configsVerificationCode" />
+      <!-- 获取验证码的按钮 -->
+      <xButtonCountDown :configs="StateLogin.configsVerificationCode" />
     </div>
   </form>
 </template>

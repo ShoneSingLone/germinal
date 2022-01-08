@@ -41,6 +41,7 @@ import {
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xButton from "./xButton/xButton.vue";
+import xButtonCountDown from "./xButton/xButtonCountDown.vue";
 import xGap from "./xLayout/xGap.vue";
 
 /* 表单提示信息 */
@@ -61,6 +62,7 @@ const componentMyUI = {
     xRender,
     xItem,
     xButton,
+    xButtonCountDown,
     xGap
 };
 

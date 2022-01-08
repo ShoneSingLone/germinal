@@ -111,15 +111,16 @@ const configsTestPopover = {
           autocomplete="username"
         />
         <xGap t="20" />
-        <!-- 验证码 -->
         <div class="flex">
+          <!-- 验证码 -->
           <xItem
             v-model="StateRegister.data.verificationCode"
             :configs="StateRegister.configsForm.verificationCode"
             autocomplete="current-password"
           />
           <xGap l="20" />
-          <xButton :configs="StateRegister.configsVerificationCode" />
+          <!-- 获取验证码的按钮 -->
+          <xButtonCountDown :configs="StateRegister.configsVerificationCode" />
         </div>
       </form>
       <xGap t="20" />

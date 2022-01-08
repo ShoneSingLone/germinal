@@ -1,15 +1,14 @@
-import { reactive, computed, watch } from "vue";
+import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
 import { UI } from "@ventose/ui";
-import { ITEM_TYPE, reactiveItemConfigs, timeFix } from "@ventose/ui/common";
+import { reactiveItemConfigs, timeFix } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { getColor, StateAppActions } from "lsrc/state/StateApp";
+import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
 import { router } from "lsrc/router/router";
-
 
 function handleLoginSuccess(res) {
   router.push({ path: "/dashbord/overview" });
@@ -26,7 +25,6 @@ function handleLoginFail(error) {
     StateLogin.alertTips = error;
   } else {
     StateLogin.alertTips = "";
-
   }
 }
 
@@ -46,8 +44,6 @@ const LOGIN_TYPE = {
   mobile: "mobile",
 };
 
-const getConfigsSubmitText = () => () =>
-  $t("user.register.get-verification-code").label;
 
 export const StateLogin = reactive({
   alertTips: "",
@@ -137,20 +133,25 @@ export const StateLogin = reactive({
   },
   /* 获取验证码按钮 */
   configsVerificationCode: {
-    disabled: false,
-    size: "large",
-    style: { minWidth: "112px" },
-    text: getConfigsSubmitText(),
-    async onClick() {
+    countMax: StateApp.configs.countMax,
+    text: {
+      normal: () => $t("user.register.get-verification-code").label,
+    },
+    onClick: async ({ countDown }) => {
       try {
         const results = await validateForm({
           mobile: StateLogin.configsFormMobile.mobile,
         });
-        if (results.length === 0) {
+        if (validateForm.allWasWell(results)) {
+          /*开始倒计时*/
+          countDown();
           await getCaptcha();
         }
-      } catch (e) { }
-    },
+
+      } catch (e) {
+        console.error(e);
+      }
+    }
   },
   /* 提交按钮 */
   configsSubmit: {
@@ -191,46 +192,6 @@ function checkUserNameType(username) {
   }
 }
 
-/*获取验证码 ：等待时间 秒*/
-const CAPTCHA_COUNT = 5;
-watch(() => StateLogin.captchaCount, handleCaptchaCountChange);
-
-function handleCaptchaCountChange(captchaCount) {
-  if (captchaCount === 0) {
-    /*按钮显示*/
-    StateLogin.configsVerificationCode.text = getConfigsSubmitText();
-    /*按钮可点击状态*/
-    StateLogin.configsVerificationCode.disabled = false;
-    return;
-  }
-
-  const setCounDownText = () =>
-  (StateLogin.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount
-    } s`);
-
-  if (captchaCount === 1) {
-    setCounDownText();
-    StateLogin.configsVerificationCode.disabled = true;
-    return;
-  }
-
-  if (captchaCount && captchaCount <= CAPTCHA_COUNT) {
-    setCounDownText();
-    return;
-  }
-}
-
-/* 只是修改倒计时计数 */
-function countDown() {
-  StateLogin.captchaCount++;
-  /*未达到限制时间则继续增加，间隔一秒*/
-  if (StateLogin.captchaCount <= CAPTCHA_COUNT) {
-    setTimeout(countDown, 1000);
-  } else {
-    StateLogin.captchaCount = 0;
-  }
-}
-
 async function mockSmsCaptcha(result = {}) {
   const captchaCode = result?.code;
   await _.sleep(2000);
@@ -249,12 +210,8 @@ async function mockSmsCaptcha(result = {}) {
 }
 
 /*获取验证码*/
-async function getCaptcha() {
+export async function getCaptcha() {
   try {
-    /*已发送，正在倒计时*/
-    if (StateLogin.captchaCount) return;
-    /*开始倒计时*/
-    countDown();
     /*理论上是发送到手机*/
     const { result } = await API.user.getSmsCaptcha();
     UI.message.success("验证码已发送");
@@ -264,3 +221,4 @@ async function getCaptcha() {
     console.error(e);
   }
 }
+
