@@ -7,7 +7,6 @@ import { StateRegister } from "./StateRegister";
 import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
 
-console.log(routeNames);
 const levelNames = {
   0: "user.password.strength.short",
   1: "user.password.strength.low",
