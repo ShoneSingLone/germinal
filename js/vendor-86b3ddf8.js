@@ -26835,6 +26835,44 @@ var BaseMixin = {
     }
   }
 };
+var TriggerContextKey = Symbol("TriggerContextKey");
+var useInjectTrigger = function useInjectTrigger2() {
+  return inject(TriggerContextKey, {
+    setPortal: function setPortal() {
+    },
+    popPortal: false
+  });
+};
+var PortalContextKey = Symbol("PortalContextKey");
+var useProvidePortal = function useProvidePortal2(instance) {
+  provide(PortalContextKey, {
+    inTriggerContext: true,
+    shouldRender: computed(function() {
+      var sPopupVisible = instance.sPopupVisible, popupRef = instance.popupRef, forceRender = instance.forceRender, autoDestroy = instance.autoDestroy;
+      var shouldRender = false;
+      if (sPopupVisible || popupRef || forceRender) {
+        shouldRender = true;
+      }
+      if (!sPopupVisible && autoDestroy) {
+        shouldRender = false;
+      }
+      return shouldRender;
+    })
+  });
+};
+var useInjectPortal = function useInjectPortal2() {
+  var portalContext = inject(PortalContextKey, {
+    shouldRender: computed(function() {
+      return false;
+    }),
+    inTriggerContext: false
+  });
+  return {
+    shouldRender: computed(function() {
+      return portalContext.shouldRender.value || portalContext.inTriggerContext === false;
+    })
+  };
+};
 var Portal = defineComponent({
   name: "Portal",
   inheritAttrs: false,
@@ -26846,14 +26884,27 @@ var Portal = defineComponent({
     var slots = _ref.slots;
     var isSSR = true;
     var container;
+    var _useInjectPortal = useInjectPortal(), shouldRender = _useInjectPortal.shouldRender;
     onBeforeMount(function() {
       isSSR = false;
-      container = props2.getContainer();
+      if (shouldRender.value) {
+        container = props2.getContainer();
+      }
+    });
+    var stopWatch = watch(shouldRender, function() {
+      if (shouldRender.value && !container) {
+        container = props2.getContainer();
+      }
+      if (container) {
+        stopWatch();
+      }
     });
     onUpdated(function() {
       nextTick(function() {
         var _a;
-        (_a = props2.didUpdate) === null || _a === void 0 ? void 0 : _a.call(props2, props2);
+        if (shouldRender.value) {
+          (_a = props2.didUpdate) === null || _a === void 0 ? void 0 : _a.call(props2, props2);
+        }
       });
     });
     onBeforeUnmount(function() {
@@ -26863,6 +26914,8 @@ var Portal = defineComponent({
     });
     return function() {
       var _a;
+      if (!shouldRender.value)
+        return null;
       if (isSSR) {
         return (_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots);
       }
@@ -26935,9 +26988,17 @@ var Trigger = defineComponent({
       }
       return popupAlign;
     });
+    var _useInjectTrigger = useInjectTrigger(), setPortal = _useInjectTrigger.setPortal, popPortal = _useInjectTrigger.popPortal;
+    var popupRef = ref(null);
+    var setPopupRef = function setPopupRef2(val) {
+      popupRef.value = val;
+    };
     return {
+      popPortal,
+      setPortal,
       vcTriggerContext: inject("vcTriggerContext", {}),
-      popupRef: ref(null),
+      popupRef,
+      setPopupRef,
       triggerRef: ref(null),
       align: align4,
       focusTime: null,
@@ -26956,6 +27017,7 @@ var Trigger = defineComponent({
   },
   data: function data() {
     var _this = this;
+    var _a, _b;
     var props2 = this.$props;
     var popupVisible2;
     if (this.popupVisible !== void 0) {
@@ -26968,6 +27030,13 @@ var Trigger = defineComponent({
         _this.fireEvents(h2, e2);
       };
     });
+    (_b = (_a = this).setPortal) === null || _b === void 0 ? void 0 : _b.call(_a, createVNode(Portal, {
+      "key": "portal",
+      "getContainer": this.getContainer,
+      "didUpdate": this.handlePortalUpdate
+    }, {
+      default: this.getComponent
+    }));
     return {
       prevPopupVisible: popupVisible2,
       sPopupVisible: popupVisible2,
@@ -26986,6 +27055,7 @@ var Trigger = defineComponent({
     provide("vcTriggerContext", {
       onPopupMouseDown: this.onPopupMouseDown
     });
+    useProvidePortal(this);
   },
   deactivated: function deactivated() {
     this.setPopupVisible(false);
@@ -27217,7 +27287,7 @@ var Trigger = defineComponent({
         style: popupStyle,
         onAlign: $attrs.onPopupAlign || noop$3
       }, mouseProps), {
-        ref: "popupRef",
+        ref: this.setPopupRef,
         mobile,
         forceRender
       });
@@ -27393,9 +27463,9 @@ var Trigger = defineComponent({
   },
   render: function render2() {
     var _this8 = this;
-    var sPopupVisible = this.sPopupVisible, $attrs = this.$attrs;
+    var $attrs = this.$attrs;
     var children = filterEmpty(getSlot(this));
-    var _this$$props10 = this.$props, forceRender = _this$$props10.forceRender, alignPoint2 = _this$$props10.alignPoint, autoDestroy = _this$$props10.autoDestroy;
+    var alignPoint2 = this.$props.alignPoint;
     var child = children[0];
     this.childOriginEvents = getEvents(child);
     var newChildProps = {
@@ -27446,20 +27516,18 @@ var Trigger = defineComponent({
     var trigger2 = cloneElement(child, _extends(_extends({}, newChildProps), {
       ref: "triggerRef"
     }), true, true);
-    var portal;
-    if (sPopupVisible || this.popupRef || forceRender) {
-      portal = createVNode(Portal, {
+    if (this.popPortal) {
+      return trigger2;
+    } else {
+      var portal = createVNode(Portal, {
         "key": "portal",
         "getContainer": this.getContainer,
         "didUpdate": this.handlePortalUpdate
       }, {
         default: this.getComponent
       });
+      return createVNode(Fragment, null, [portal, trigger2]);
     }
-    if (!sPopupVisible && autoDestroy) {
-      portal = null;
-    }
-    return createVNode(Fragment, null, [portal, trigger2]);
   }
 });
 var autoAdjustOverflow$2 = {
@@ -28770,7 +28838,7 @@ var menuProps = {
   onOpenChange: Function,
   onSelect: Function,
   onDeselect: Function,
-  onClick: Function,
+  onClick: [Function, Array],
   onFocus: Function,
   onBlur: Function,
   "onUpdate:openKeys": Function,

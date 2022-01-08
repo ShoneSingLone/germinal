@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, _ as _message, y as _notification, z as _Progress, A as _Popover, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as AlipayCircleFilled, S as TaobaoCircleFilled, W as WeiboCircleFilled, V as computed, X as watch, Y as md5, Z as onMounted, a0 as unref, a1 as createElementBlock, a2 as createBlock, a3 as openBlock, a4 as createI18n, a5 as watchEffect, a6 as useRouter, a7 as withCtx, a8 as toDisplayString, a9 as renderList, aa as Fragment, ab as createBaseVNode, ac as normalizeStyle, ad as normalizeClass, ae as createStaticVNode, af as createCommentVNode, ag as resolveDirective, ah as withDirectives, ai as pushScopeId, aj as popScopeId, ak as createRouter, al as createWebHashHistory, am as NProgress, an as createApp } from "./vendor-37a4b512.js";
+import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, _ as _message, y as _notification, z as _Progress, A as _Popover, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as AlipayCircleFilled, S as TaobaoCircleFilled, W as WeiboCircleFilled, V as computed, X as watch, Y as md5, Z as onMounted, a0 as unref, a1 as createElementBlock, a2 as createBlock, a3 as openBlock, a4 as createI18n, a5 as watchEffect, a6 as useRouter, a7 as withCtx, a8 as toDisplayString, a9 as renderList, aa as Fragment, ab as createBaseVNode, ac as normalizeStyle, ad as normalizeClass, ae as createStaticVNode, af as createCommentVNode, ag as resolveDirective, ah as withDirectives, ai as pushScopeId, aj as popScopeId, ak as createRouter, al as createWebHashHistory, am as NProgress, an as createApp } from "./vendor-86b3ddf8.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -344,6 +344,9 @@ const domClass = {
 };
 var _sfc_main$c = defineComponent({
   props: {
+    modelValue: {
+      type: [Object, String, Number, Boolean]
+    },
     configs: {
       type: Object,
       default() {
@@ -351,6 +354,7 @@ var _sfc_main$c = defineComponent({
       }
     }
   },
+  emits: ["update:modelValue"],
   data() {
     return {
       isRequired: false
@@ -382,6 +386,7 @@ var _sfc_main$c = defineComponent({
     },
     componentSettings() {
       const configs = this.configs;
+      configs.value = this.modelValue;
       const property = {};
       const listeners = {};
       let slots = {};
@@ -419,9 +424,10 @@ var _sfc_main$c = defineComponent({
       };
       pickAttrs({
         "onUpdate:value": (val, ...args) => {
-          console.log("\u{1F680}:xItem value change: ", configs.prop, val, args);
-          configs.value = val;
-          configs.onAfterValueChange && configs.onAfterValueChange(configs);
+          this.$emit("update:modelValue", val);
+          if (_.isFunction(configs.onAfterValueChang)) {
+            configs.onAfterValueChange(configs);
+          }
           handleConfigsValidate(EVENT_TYPE.update);
         },
         onChange: () => {
@@ -611,7 +617,6 @@ var _sfc_main$b = defineComponent({
   },
   render(h2) {
     const configs = _.omit(this.configs, ["text", "onClick"]);
-    console.log(configs);
     return createVNode(resolveComponent("Button"), mergeProps(configs, {
       "onClick": this.onClick,
       "loading": this.loading
@@ -2393,9 +2398,14 @@ const StateLogin = reactive({
   loginType: LOGIN_TYPE.username,
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
+  data: {
+    username: "",
+    password: "",
+    mobile: "",
+    verificationCode: ""
+  },
   configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
     prop: "username",
-    value: "admin",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
     rules: [FormRules.required(() => $t("user.username.required").label, [EVENT_TYPE.blur])],
@@ -2407,7 +2417,6 @@ const StateLogin = reactive({
   })), reactiveItemConfigs({
     prop: "password",
     isPassword: true,
-    value: "admin",
     size: "large",
     placeholder: () => $t("user.login.password.placeholder").label,
     rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
@@ -2420,7 +2429,6 @@ const StateLogin = reactive({
   })),
   configsFormMobile: __spreadValues(__spreadValues({}, reactiveItemConfigs({
     prop: "mobile",
-    value: "",
     size: "large",
     placeholder: () => $t("user.login.mobile.placeholder").label,
     rules: [FormRules.required(() => $t("user.login.mobile.placeholder").label, [EVENT_TYPE.blur]), FormRules.validator({
@@ -2435,7 +2443,6 @@ const StateLogin = reactive({
     }
   })), reactiveItemConfigs({
     prop: "verificationCode",
-    value: "",
     size: "large",
     itemWrapperClass: "flex1",
     placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
@@ -2554,14 +2561,18 @@ var _sfc_main$5 = {
       const _component_xItem = resolveComponent("xItem");
       const _component_xGap = resolveComponent("xGap");
       return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
+        modelValue: unref(StateLogin).data.username,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(StateLogin).data.username = $event),
         configs: unref(StateLogin).configsForm.username,
         autocomplete: "username"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         t: "20"
       }), createVNode(_component_xItem, {
+        modelValue: unref(StateLogin).data.password,
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => unref(StateLogin).data.password = $event),
         configs: unref(StateLogin).configsForm.password,
         autocomplete: "current-password"
-      }, null, 8, ["configs"])]);
+      }, null, 8, ["modelValue", "configs"])]);
     };
   }
 };
@@ -2575,14 +2586,18 @@ var _sfc_main$4 = {
       const _component_xGap = resolveComponent("xGap");
       const _component_xButton = resolveComponent("xButton");
       return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
+        modelValue: unref(StateLogin).data.mobile,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(StateLogin).data.mobile = $event),
         configs: unref(StateLogin).configsFormMobile.mobile,
         autocomplete: "username"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         t: "20"
       }), createBaseVNode("div", _hoisted_1$3, [createVNode(_component_xItem, {
+        modelValue: unref(StateLogin).data.verificationCode,
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => unref(StateLogin).data.verificationCode = $event),
         configs: unref(StateLogin).configsFormMobile.verificationCode,
         autocomplete: "current-password"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         l: "20"
       }), createVNode(_component_xButton, {
         configs: unref(StateLogin).configsVerificationCode
@@ -2686,9 +2701,15 @@ const StateRegister = reactive({
     percent: 0
   },
   captchaCount: 0,
+  data: {
+    username: "",
+    password: "",
+    password: "",
+    mobile: "",
+    verification: ""
+  },
   configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues(__spreadValues({}, reactiveItemConfigs({
     prop: "username",
-    value: "",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
     rules: [FormRules.required(() => $t("user.username.required").label, [EVENT_TYPE.blur])],
@@ -2700,7 +2721,6 @@ const StateRegister = reactive({
   })), reactiveItemConfigs({
     prop: "password",
     isPassword: true,
-    value: "",
     size: "large",
     placeholder: () => $t("user.login.password.placeholder").label,
     rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.update]), FormRules.validator({
@@ -2720,7 +2740,6 @@ const StateRegister = reactive({
   })), reactiveItemConfigs({
     prop: "passwordConfirm",
     isPassword: true,
-    value: "",
     size: "large",
     placeholder: () => $t("user.register.confirm-password.placeholder").label,
     rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur]), FormRules.validator({
@@ -2736,7 +2755,6 @@ const StateRegister = reactive({
     }
   })), reactiveItemConfigs({
     prop: "mobile",
-    value: "",
     size: "large",
     placeholder: () => $t("user.login.mobile.placeholder").label,
     rules: [FormRules.required(() => $t("user.login.mobile.placeholder").label, [EVENT_TYPE.blur]), FormRules.validator({
@@ -2751,7 +2769,6 @@ const StateRegister = reactive({
     }
   })), reactiveItemConfigs({
     prop: "verificationCode",
-    value: "",
     size: "large",
     itemWrapperClass: "flex1",
     placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
@@ -2961,9 +2978,11 @@ const _sfc_main$2 = {
       const _component_RouterLink = resolveComponent("RouterLink");
       return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
         ref: "username",
+        modelValue: unref(StateRegister).data.username,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(StateRegister).data.username = $event),
         configs: unref(StateRegister).configsForm.username,
         autocomplete: "username"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         t: "20"
       }), createVNode(_component_Popover, {
         visible: unref(StateRegister).isShowCheckPasswordPopover,
@@ -2979,26 +2998,34 @@ const _sfc_main$2 = {
           "get-popup-container": (trigger) => trigger.parentElement
         }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_4$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
         default: withCtx(() => [createVNode(_component_xItem, {
+          modelValue: unref(StateRegister).data.password,
+          "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => unref(StateRegister).data.password = $event),
           configs: unref(StateRegister).configsForm.password,
           autocomplete: "current-password"
-        }, null, 8, ["configs"])]),
+        }, null, 8, ["modelValue", "configs"])]),
         _: 1
       }, 8, ["visible"]), createVNode(_component_xGap, {
         t: "20"
       }), createVNode(_component_xItem, {
+        modelValue: unref(StateRegister).data.passwordConfirm,
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => unref(StateRegister).data.passwordConfirm = $event),
         configs: unref(StateRegister).configsForm.passwordConfirm,
         autocomplete: "current-password"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         t: "20"
       }), createVNode(_component_xItem, {
+        modelValue: unref(StateRegister).data.mobile,
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => unref(StateRegister).data.mobile = $event),
         configs: unref(StateRegister).configsForm.mobile,
         autocomplete: "username"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         t: "20"
       }), createBaseVNode("div", _hoisted_5$1, [createVNode(_component_xItem, {
+        modelValue: unref(StateRegister).data.verificationCode,
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => unref(StateRegister).data.verificationCode = $event),
         configs: unref(StateRegister).configsForm.verificationCode,
         autocomplete: "current-password"
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         l: "20"
       }), createVNode(_component_xButton, {
         configs: unref(StateRegister).configsVerificationCode
