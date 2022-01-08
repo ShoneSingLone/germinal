@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, _ as _message, y as _notification, z as _Progress, A as _Popover, M as Menu, B as MenuItem, D as Dropdown, E as Button, F as _List, G as _Popconfirm, H as _Alert, J as _Result, T as Tabs, K as TabPane, L as GlobalOutlined, N as AppleOutlined, O as AndroidOutlined, U as UserOutlined, P as LockFilled, Q as MobileOutlined, R as AlipayCircleFilled, S as TaobaoCircleFilled, W as WeiboCircleFilled, V as computed, X as watch, Y as md5, Z as onMounted, a0 as unref, a1 as createElementBlock, a2 as createBlock, a3 as openBlock, a4 as createI18n, a5 as watchEffect, a6 as useRouter, a7 as withCtx, a8 as toDisplayString, a9 as renderList, aa as Fragment, ab as createBaseVNode, ac as normalizeStyle, ad as normalizeClass, ae as createStaticVNode, af as createCommentVNode, ag as resolveDirective, ah as withDirectives, ai as pushScopeId, aj as popScopeId, ak as createRouter, al as createWebHashHistory, am as NProgress, an as createApp } from "./vendor-86b3ddf8.js";
+import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, _ as _$1, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, y as createI18n, z as watchEffect, A as watch, B as openBlock, D as createBlock, E as unref, F as _message, G as _notification, H as _Progress, J as _Popover, M as Menu, K as MenuItem, L as Dropdown, N as Button, O as _List, P as _Popconfirm, Q as _Alert, R as _Result, T as Tabs, S as TabPane, U as GlobalOutlined, V as AppleOutlined, W as AndroidOutlined, X as UserOutlined, Y as LockFilled, Z as MobileOutlined, a0 as AlipayCircleFilled, a1 as TaobaoCircleFilled, a2 as WeiboCircleFilled, a3 as computed, a4 as md5, a5 as onMounted, a6 as createElementBlock, a7 as useRouter, a8 as withCtx, a9 as toDisplayString, aa as renderList, ab as Fragment, ac as createBaseVNode, ad as normalizeStyle, ae as normalizeClass, af as createStaticVNode, ag as createCommentVNode, ah as resolveDirective, ai as withDirectives, aj as pushScopeId, ak as popScopeId, al as createRouter, am as createWebHashHistory, an as NProgress, ao as createApp } from "./vendor-b1ff5f91.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -169,7 +169,7 @@ const TIPS_TYPE = {
   success: "success",
   error: "error"
 };
-const validateForm = async (configsForm) => {
+async function validateForm(configsForm) {
   let results = await Promise.all(_.map(configsForm, (configs, prop) => new Promise((resolve) => {
     if (configs.validate) {
       configs.validate.formCallBack = (result) => {
@@ -181,6 +181,9 @@ const validateForm = async (configsForm) => {
   })));
   results = results.filter((res) => res[0] && res[1]);
   return results;
+}
+validateForm.allWasWell = (res) => {
+  return _.isArray(res) && res.length === 0;
 };
 const checkXItem = async (xItemConfigs, handlerResult) => {
   xItemConfigs.checking = true;
@@ -274,7 +277,7 @@ const reactiveItemConfigs = (options) => {
     options.prop = `xItem${xItemNoPropCount++}`;
     console.error(`no xItem prop replace by ${options.prop}`);
   }
-  const configs = reactive(_.merge({}, {
+  const configs = reactive(_$1.merge({}, {
     itemTips: {},
     itemType: options.itemType || ITEM_TYPE.Input,
     value: options.value || ""
@@ -317,7 +320,7 @@ const MutatingProps = (item, prop, val) => {
     }
     return nextItem;
   };
-  if (val || _.isBoolean(val) || _.isNumber(val) && !_.isNaN(val)) {
+  if (val || _$1.isBoolean(val) || _$1.isNumber(val) && !_$1.isNaN(val)) {
     setVal();
   } else {
     return getVal(key, propArray, nextItem);
@@ -342,7 +345,7 @@ function timeFix() {
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$c = defineComponent({
+var _sfc_main$d = defineComponent({
   props: {
     modelValue: {
       type: [Object, String, Number, Boolean]
@@ -565,7 +568,7 @@ var _sfc_main$c = defineComponent({
     }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$b = defineComponent({
+var _sfc_main$c = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -625,6 +628,226 @@ var _sfc_main$b = defineComponent({
     });
   }
 });
+var enUS = {
+  "tips.0": "unknown",
+  "tips.404": "not found",
+  "welcome": "welcome",
+  "welcome.back": "welcome back",
+  "login.title": "antd vue3 admin",
+  "BackHome": "Back Home",
+  "notFoundTips": "Sorry, you don't have access to this page.",
+  "layouts.usermenu.dialog.title": "Message",
+  "layouts.usermenu.dialog.content": "Are you sure you would like to logout?",
+  "layouts.userLayout.title": "Ant Design is the most influential web design specification in Xihu district",
+  "user.login.username": "username",
+  "user.login.password": "password",
+  "user.login.username.placeholder": "Account: admin",
+  "user.login.password.placeholder": "password: admin or ant.design",
+  "user.login.message-invalid-credentials": "Invalid username or password\uFF08admin/ant.design\uFF09",
+  "user.login.message-invalid-verification-code": "Invalid verification code",
+  "user.login.tab-login-credentials": "Credentials",
+  "user.login.tab-login-mobile": "Mobile number",
+  "user.login.mobile.placeholder": "Mobile number",
+  "user.login.mobile.verification-code.placeholder": "Verification code",
+  "user.login.remember-me": "Remember me",
+  "user.login.forgot-password": "Forgot your password?",
+  "user.login.sign-in-with": "Sign in with",
+  "user.login.signup": "Sign up",
+  "user.login.login": "Login",
+  "user.register.register": "Register",
+  "user.register.email.placeholder": "Email",
+  "user.register.password.placeholder": "Please enter at least 6 characters. Please do not use passwords that are easy to guess.  ",
+  "user.register.password.popover-message": "Please enter at least 6 characters. Please do not use passwords that are easy to guess. ",
+  "user.register.confirm-password.placeholder": "Confirm password",
+  "user.register.get-verification-code": "Get code",
+  "user.register.sign-in": "Already have an account?",
+  "user.register-result.msg": "Account\uFF1Aregistered at {email}",
+  "user.register-result.activation-email": "The activation email has been sent to your email address and is valid for 24 hours. Please log in to the email in time and click on the link in the email to activate the account.",
+  "user.register-result.back-home": "Back to home",
+  "user.register-result.view-mailbox": "View mailbox",
+  "user.email.required": "Please enter your email!",
+  "user.email.wrong-format": "The email address is in the wrong format!",
+  "user.username.required": "Please enter account name or email address",
+  "user.password.required": "Please enter your password!",
+  "user.password.twice.msg": "The passwords entered twice do not match!",
+  "user.password.strength.msg": "The password is not strong enough",
+  "user.password.strength.strong": "Strength: strong",
+  "user.password.strength.medium": "Strength: medium",
+  "user.password.strength.low": "Strength: low",
+  "user.password.strength.short": "Strength: too short",
+  "user.confirm-password.required": "Please confirm your password!",
+  "user.phone-number.required": "Please enter your phone number!",
+  "user.phone-number.wrong-format": "Please enter a valid phone number",
+  "user.verification-code.required": "Please enter the verification code!"
+};
+var __glob_3_0 = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  [Symbol.toStringTag]: "Module",
+  "default": enUS
+});
+var zhCN = {
+  "tips.0": "\u672A\u77E5\u9519\u8BEF",
+  "tips.404": "\u8BF7\u6C42\u7684\u8D44\u6E90\u4E0D\u5B58\u5728",
+  "welcome": "\u6B22\u8FCE",
+  "welcome.back": "\u6B22\u8FCE\u56DE\u6765",
+  "login.title": "demo",
+  "BackHome": "\u56DE\u5230\u4E3B\u9875",
+  "notFoundTips": "\u5BF9\u4E0D\u8D77\uFF0C\u6CA1\u6709\u627E\u5230\u60A8\u8981\u8BBF\u95EE\u7684\u9875\u9762",
+  "layouts.usermenu.dialog.title": "\u4FE1\u606F",
+  "layouts.usermenu.dialog.content": "\u60A8\u786E\u5B9A\u8981\u6CE8\u9500\u5417\uFF1F",
+  "layouts.userLayout.title": "Ant Design \u662F\u897F\u6E56\u533A\u6700\u5177\u5F71\u54CD\u529B\u7684 Web \u8BBE\u8BA1\u89C4\u8303",
+  "user.login.username": "\u7528\u6237\u540D",
+  "user.login.password": "\u5BC6\u7801",
+  "user.login.username.placeholder": "\u8D26\u6237: admin",
+  "user.login.password.placeholder": "\u5BC6\u7801: admin or ant.design",
+  "user.login.message-invalid-credentials": "\u8D26\u6237\u6216\u5BC6\u7801\u9519\u8BEF\uFF08admin/ant.design\uFF09",
+  "user.login.message-invalid-verification-code": "\u9A8C\u8BC1\u7801\u9519\u8BEF",
+  "user.login.tab-login-credentials": "\u8D26\u6237\u5BC6\u7801\u767B\u5F55",
+  "user.login.tab-login-mobile": "\u624B\u673A\u53F7\u767B\u5F55",
+  "user.login.mobile.placeholder": "\u8BF7\u8F93\u5165\u624B\u673A\u53F7",
+  "user.login.mobile.verification-code.placeholder": "\u9A8C\u8BC1\u7801",
+  "user.login.remember-me": "\u81EA\u52A8\u767B\u5F55",
+  "user.login.forgot-password": "\u5FD8\u8BB0\u5BC6\u7801",
+  "user.login.sign-in-with": "\u5176\u4ED6\u767B\u5F55\u65B9\u5F0F",
+  "user.login.signup": "\u6CE8\u518C\u8D26\u6237",
+  "user.login.login": "\u767B\u5F55",
+  "user.register.register": "\u6CE8\u518C",
+  "user.register.email.placeholder": "\u90AE\u7BB1",
+  "user.register.password.placeholder": "\u8BF7\u81F3\u5C11\u8F93\u5165 6 \u4E2A\u5B57\u7B26\u3002\u8BF7\u4E0D\u8981\u4F7F\u7528\u5BB9\u6613\u88AB\u731C\u5230\u7684\u5BC6\u7801\u3002",
+  "user.register.password.popover-message": "\u8BF7\u81F3\u5C11\u8F93\u5165 6 \u4E2A\u5B57\u7B26\u3002\u8BF7\u4E0D\u8981\u4F7F\u7528\u5BB9\u6613\u88AB\u731C\u5230\u7684\u5BC6\u7801\u3002",
+  "user.register.confirm-password.placeholder": "\u786E\u8BA4\u5BC6\u7801",
+  "user.register.get-verification-code": "\u83B7\u53D6\u9A8C\u8BC1\u7801",
+  "user.register.sign-in": "\u4F7F\u7528\u5DF2\u6709\u8D26\u6237\u767B\u5F55",
+  "user.register-result.msg": "\u4F60\u7684\u8D26\u6237\uFF1A{email} \u6CE8\u518C\u6210\u529F",
+  "user.register-result.activation-email": "\u6FC0\u6D3B\u90AE\u4EF6\u5DF2\u53D1\u9001\u5230\u4F60\u7684\u90AE\u7BB1\u4E2D\uFF0C\u90AE\u4EF6\u6709\u6548\u671F\u4E3A24\u5C0F\u65F6\u3002\u8BF7\u53CA\u65F6\u767B\u5F55\u90AE\u7BB1\uFF0C\u70B9\u51FB\u90AE\u4EF6\u4E2D\u7684\u94FE\u63A5\u6FC0\u6D3B\u5E10\u6237\u3002",
+  "user.register-result.back-home": "\u8FD4\u56DE\u9996\u9875",
+  "user.register-result.view-mailbox": "\u67E5\u770B\u90AE\u7BB1",
+  "user.email.required": "\u8BF7\u8F93\u5165\u90AE\u7BB1\u5730\u5740\uFF01",
+  "user.email.wrong-format": "\u90AE\u7BB1\u5730\u5740\u683C\u5F0F\u9519\u8BEF\uFF01",
+  "user.username.required": "\u8BF7\u8F93\u5165\u5E10\u6237\u540D\u6216\u90AE\u7BB1\u5730\u5740",
+  "user.password.required": "\u8BF7\u8F93\u5165\u5BC6\u7801\uFF01",
+  "user.password.twice.msg": "\u4E24\u6B21\u8F93\u5165\u7684\u5BC6\u7801\u4E0D\u5339\u914D!",
+  "user.password.strength.msg": "\u5BC6\u7801\u5F3A\u5EA6\u4E0D\u591F ",
+  "user.password.strength.strong": "\u5F3A\u5EA6\uFF1A\u5F3A",
+  "user.password.strength.medium": "\u5F3A\u5EA6\uFF1A\u4E2D",
+  "user.password.strength.low": "\u5F3A\u5EA6\uFF1A\u4F4E",
+  "user.password.strength.short": "\u5F3A\u5EA6\uFF1A\u592A\u77ED",
+  "user.confirm-password.required": "\u8BF7\u786E\u8BA4\u5BC6\u7801\uFF01",
+  "user.phone-number.required": "\u8BF7\u8F93\u5165\u6B63\u786E\u7684\u624B\u673A\u53F7",
+  "user.phone-number.wrong-format": "\u624B\u673A\u53F7\u683C\u5F0F\u9519\u8BEF\uFF01",
+  "user.verification-code.required": "\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801\uFF01"
+};
+var __glob_3_2 = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  [Symbol.toStringTag]: "Module",
+  "default": zhCN
+});
+const defaultLang = "zh-CN";
+function getLangFiles() {
+  const modules = { "./en-US.js": __glob_3_0, "./zh-CN.js": __glob_3_2 };
+  return _.reduce(modules, (message, module, path) => {
+    if (module.default) {
+      const pathName = path.substr(path.lastIndexOf("/") + 1, 5);
+      if (message[pathName]) {
+        message[pathName] = __spreadValues(__spreadValues({}, modules[pathName]), module.default);
+      } else {
+        message[pathName] = module.default;
+      }
+    }
+    return message;
+  }, {});
+}
+const i18n = createI18n({
+  legacy: false,
+  locale: defaultLang,
+  fallbackLocale: defaultLang,
+  messages: getLangFiles()
+});
+const $t = (prop) => {
+  const label = i18n.global.t(prop);
+  return {
+    label,
+    prop
+  };
+};
+const appI18n = {
+  install: (app, StateApp2) => {
+    app.config.globalProperties.$t = $t;
+    watchEffect(() => {
+      setI18nLanguage(StateApp2.configs.language);
+    });
+  }
+};
+function setI18nLanguage(lang) {
+  i18n.global.locale.value = lang;
+  $("html").attr("lang", lang);
+  return lang;
+}
+var _sfc_main$b = {
+  props: {
+    configs: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  setup(__props) {
+    const props = __props;
+    function countDown() {
+      state.captchaCount++;
+      if (state.captchaCount <= props.configs.countMax) {
+        setTimeout(countDown, 1e3);
+      } else {
+        state.captchaCount = 0;
+      }
+    }
+    const state = reactive({
+      captchaCount: 0
+    });
+    const btnConfigs = reactive({
+      disabled: false,
+      size: "large",
+      style: {
+        minWidth: "112px"
+      },
+      text: props.configs.text.normal(),
+      async onClick() {
+        if (_.isFunction(props.configs.onClick)) {
+          await props.configs.onClick({
+            countDown
+          });
+        }
+      }
+    });
+    watch(() => state.captchaCount, handleCaptchaCountChange);
+    function handleCaptchaCountChange(captchaCount) {
+      if (captchaCount === 0) {
+        btnConfigs.text = props.configs.text.normal();
+        btnConfigs.disabled = false;
+        return;
+      }
+      const setCounDownText = () => {
+        return btnConfigs.text = `${props.configs.countMax - captchaCount} s`;
+      };
+      if (captchaCount === 1) {
+        setCounDownText();
+        btnConfigs.disabled = true;
+        return;
+      }
+      if (captchaCount && captchaCount <= props.configs.countMax) {
+        setCounDownText();
+        return;
+      }
+    }
+    return (_ctx, _cache) => {
+      const _component_xButton = resolveComponent("xButton");
+      return openBlock(), createBlock(_component_xButton, {
+        configs: unref(btnConfigs)
+      }, null, 8, ["configs"]);
+    };
+  }
+};
 var _sfc_main$a = defineComponent({
   props: ["t", "l", "r", "b", "a"],
   computed: {
@@ -1752,8 +1975,9 @@ $(document).on("mouseleave.uiPopverTips", "[data-layer-tips-id]", function(event
 });
 const componentMyUI = {
   xRender,
-  xItem: _sfc_main$c,
-  xButton: _sfc_main$b,
+  xItem: _sfc_main$d,
+  xButton: _sfc_main$c,
+  xButtonCountDown: _sfc_main$b,
   xGap: _sfc_main$a
 };
 const componentAntdV = {
@@ -1803,6 +2027,10 @@ function logError(msg) {
   console.error(msg);
 }
 const ajaxOptions = (options, customOptions) => {
+  const {
+    resolve,
+    reject
+  } = options;
   const _options = {};
   let url = options.url;
   delete options.url;
@@ -1818,14 +2046,26 @@ const ajaxOptions = (options, customOptions) => {
   if (data) {
     _options.data = data;
   }
+  _options.success = (res) => {
+    if (res.code !== 200) {
+      return reject(res.message);
+    }
+    return resolve(res.result);
+  };
+  _options.error = (res) => {
+    return reject(res);
+  };
   return _.merge({
     async: true,
     statusCode: {
+      401: (res) => {
+        logError($t("tips.404").label);
+      },
       404: () => {
-        logError("statusCode 404");
+        logError($t("tips.404").label);
       },
       0: () => {
-        logError("statusCode 0");
+        logError($t("tips.0").label);
       }
     }
   }, options, _options);
@@ -1836,15 +2076,15 @@ var ajax = {
     method: "GET",
     url,
     dataType: "json",
-    success: resolve,
-    error: reject
+    resolve,
+    reject
   }, customOptions))),
   post: (url, customOptions = {}) => new Promise((resolve, reject) => $.ajax(ajaxOptions({
     method: "POST",
     url,
     dataType: "json",
-    success: resolve,
-    error: reject
+    resolve,
+    reject
   }, customOptions))),
   loadText: (url) => new Promise((resolve, reject) => $.ajax({
     type: "GET",
@@ -1888,7 +2128,7 @@ function genSmsCaptcha() {
 }
 const apiUser = {
   async login(params) {
-    await ajax.post(URL.Login, {
+    return await ajax.post(URL.Login, {
       params
     });
   },
@@ -1909,6 +2149,7 @@ const API = {
   user: apiUser
 };
 const StateApp = reactive({
+  token: lStorage.token,
   count: 0,
   isMobile: false,
   configs: lStorage.appConfigs,
@@ -1983,8 +2224,9 @@ const StateAppActions = {
       password: md5(password)
     };
     const res = await API.user.login(loginParams);
+    lStorage.token = res.token;
+    StateApp.token = lStorage.token;
     console.log("res", res);
-    debugger;
   },
   Logout: async () => {
   }
@@ -2010,157 +2252,6 @@ const _sfc_main$9 = {
     };
   }
 };
-var enUS = {
-  "welcome": "welcome",
-  "welcome.back": "welcome back",
-  "login.title": "antd vue3 admin",
-  "BackHome": "Back Home",
-  "notFoundTips": "Sorry, you don't have access to this page.",
-  "layouts.usermenu.dialog.title": "Message",
-  "layouts.usermenu.dialog.content": "Are you sure you would like to logout?",
-  "layouts.userLayout.title": "Ant Design is the most influential web design specification in Xihu district",
-  "user.login.username": "username",
-  "user.login.password": "password",
-  "user.login.username.placeholder": "Account: admin",
-  "user.login.password.placeholder": "password: admin or ant.design",
-  "user.login.message-invalid-credentials": "Invalid username or password\uFF08admin/ant.design\uFF09",
-  "user.login.message-invalid-verification-code": "Invalid verification code",
-  "user.login.tab-login-credentials": "Credentials",
-  "user.login.tab-login-mobile": "Mobile number",
-  "user.login.mobile.placeholder": "Mobile number",
-  "user.login.mobile.verification-code.placeholder": "Verification code",
-  "user.login.remember-me": "Remember me",
-  "user.login.forgot-password": "Forgot your password?",
-  "user.login.sign-in-with": "Sign in with",
-  "user.login.signup": "Sign up",
-  "user.login.login": "Login",
-  "user.register.register": "Register",
-  "user.register.email.placeholder": "Email",
-  "user.register.password.placeholder": "Please enter at least 6 characters. Please do not use passwords that are easy to guess.  ",
-  "user.register.password.popover-message": "Please enter at least 6 characters. Please do not use passwords that are easy to guess. ",
-  "user.register.confirm-password.placeholder": "Confirm password",
-  "user.register.get-verification-code": "Get code",
-  "user.register.sign-in": "Already have an account?",
-  "user.register-result.msg": "Account\uFF1Aregistered at {email}",
-  "user.register-result.activation-email": "The activation email has been sent to your email address and is valid for 24 hours. Please log in to the email in time and click on the link in the email to activate the account.",
-  "user.register-result.back-home": "Back to home",
-  "user.register-result.view-mailbox": "View mailbox",
-  "user.email.required": "Please enter your email!",
-  "user.email.wrong-format": "The email address is in the wrong format!",
-  "user.username.required": "Please enter account name or email address",
-  "user.password.required": "Please enter your password!",
-  "user.password.twice.msg": "The passwords entered twice do not match!",
-  "user.password.strength.msg": "The password is not strong enough",
-  "user.password.strength.strong": "Strength: strong",
-  "user.password.strength.medium": "Strength: medium",
-  "user.password.strength.low": "Strength: low",
-  "user.password.strength.short": "Strength: too short",
-  "user.confirm-password.required": "Please confirm your password!",
-  "user.phone-number.required": "Please enter your phone number!",
-  "user.phone-number.wrong-format": "Please enter a valid phone number",
-  "user.verification-code.required": "Please enter the verification code!"
-};
-var __glob_3_0 = /* @__PURE__ */ Object.freeze({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  "default": enUS
-});
-var zhCN = {
-  "welcome": "\u6B22\u8FCE",
-  "welcome.back": "\u6B22\u8FCE\u56DE\u6765",
-  "login.title": "demo",
-  "BackHome": "\u56DE\u5230\u4E3B\u9875",
-  "notFoundTips": "\u5BF9\u4E0D\u8D77\uFF0C\u6CA1\u6709\u627E\u5230\u60A8\u8981\u8BBF\u95EE\u7684\u9875\u9762",
-  "layouts.usermenu.dialog.title": "\u4FE1\u606F",
-  "layouts.usermenu.dialog.content": "\u60A8\u786E\u5B9A\u8981\u6CE8\u9500\u5417\uFF1F",
-  "layouts.userLayout.title": "Ant Design \u662F\u897F\u6E56\u533A\u6700\u5177\u5F71\u54CD\u529B\u7684 Web \u8BBE\u8BA1\u89C4\u8303",
-  "user.login.username": "\u7528\u6237\u540D",
-  "user.login.password": "\u5BC6\u7801",
-  "user.login.username.placeholder": "\u8D26\u6237: admin",
-  "user.login.password.placeholder": "\u5BC6\u7801: admin or ant.design",
-  "user.login.message-invalid-credentials": "\u8D26\u6237\u6216\u5BC6\u7801\u9519\u8BEF\uFF08admin/ant.design\uFF09",
-  "user.login.message-invalid-verification-code": "\u9A8C\u8BC1\u7801\u9519\u8BEF",
-  "user.login.tab-login-credentials": "\u8D26\u6237\u5BC6\u7801\u767B\u5F55",
-  "user.login.tab-login-mobile": "\u624B\u673A\u53F7\u767B\u5F55",
-  "user.login.mobile.placeholder": "\u8BF7\u8F93\u5165\u624B\u673A\u53F7",
-  "user.login.mobile.verification-code.placeholder": "\u9A8C\u8BC1\u7801",
-  "user.login.remember-me": "\u81EA\u52A8\u767B\u5F55",
-  "user.login.forgot-password": "\u5FD8\u8BB0\u5BC6\u7801",
-  "user.login.sign-in-with": "\u5176\u4ED6\u767B\u5F55\u65B9\u5F0F",
-  "user.login.signup": "\u6CE8\u518C\u8D26\u6237",
-  "user.login.login": "\u767B\u5F55",
-  "user.register.register": "\u6CE8\u518C",
-  "user.register.email.placeholder": "\u90AE\u7BB1",
-  "user.register.password.placeholder": "\u8BF7\u81F3\u5C11\u8F93\u5165 6 \u4E2A\u5B57\u7B26\u3002\u8BF7\u4E0D\u8981\u4F7F\u7528\u5BB9\u6613\u88AB\u731C\u5230\u7684\u5BC6\u7801\u3002",
-  "user.register.password.popover-message": "\u8BF7\u81F3\u5C11\u8F93\u5165 6 \u4E2A\u5B57\u7B26\u3002\u8BF7\u4E0D\u8981\u4F7F\u7528\u5BB9\u6613\u88AB\u731C\u5230\u7684\u5BC6\u7801\u3002",
-  "user.register.confirm-password.placeholder": "\u786E\u8BA4\u5BC6\u7801",
-  "user.register.get-verification-code": "\u83B7\u53D6\u9A8C\u8BC1\u7801",
-  "user.register.sign-in": "\u4F7F\u7528\u5DF2\u6709\u8D26\u6237\u767B\u5F55",
-  "user.register-result.msg": "\u4F60\u7684\u8D26\u6237\uFF1A{email} \u6CE8\u518C\u6210\u529F",
-  "user.register-result.activation-email": "\u6FC0\u6D3B\u90AE\u4EF6\u5DF2\u53D1\u9001\u5230\u4F60\u7684\u90AE\u7BB1\u4E2D\uFF0C\u90AE\u4EF6\u6709\u6548\u671F\u4E3A24\u5C0F\u65F6\u3002\u8BF7\u53CA\u65F6\u767B\u5F55\u90AE\u7BB1\uFF0C\u70B9\u51FB\u90AE\u4EF6\u4E2D\u7684\u94FE\u63A5\u6FC0\u6D3B\u5E10\u6237\u3002",
-  "user.register-result.back-home": "\u8FD4\u56DE\u9996\u9875",
-  "user.register-result.view-mailbox": "\u67E5\u770B\u90AE\u7BB1",
-  "user.email.required": "\u8BF7\u8F93\u5165\u90AE\u7BB1\u5730\u5740\uFF01",
-  "user.email.wrong-format": "\u90AE\u7BB1\u5730\u5740\u683C\u5F0F\u9519\u8BEF\uFF01",
-  "user.username.required": "\u8BF7\u8F93\u5165\u5E10\u6237\u540D\u6216\u90AE\u7BB1\u5730\u5740",
-  "user.password.required": "\u8BF7\u8F93\u5165\u5BC6\u7801\uFF01",
-  "user.password.twice.msg": "\u4E24\u6B21\u8F93\u5165\u7684\u5BC6\u7801\u4E0D\u5339\u914D!",
-  "user.password.strength.msg": "\u5BC6\u7801\u5F3A\u5EA6\u4E0D\u591F ",
-  "user.password.strength.strong": "\u5F3A\u5EA6\uFF1A\u5F3A",
-  "user.password.strength.medium": "\u5F3A\u5EA6\uFF1A\u4E2D",
-  "user.password.strength.low": "\u5F3A\u5EA6\uFF1A\u4F4E",
-  "user.password.strength.short": "\u5F3A\u5EA6\uFF1A\u592A\u77ED",
-  "user.confirm-password.required": "\u8BF7\u786E\u8BA4\u5BC6\u7801\uFF01",
-  "user.phone-number.required": "\u8BF7\u8F93\u5165\u6B63\u786E\u7684\u624B\u673A\u53F7",
-  "user.phone-number.wrong-format": "\u624B\u673A\u53F7\u683C\u5F0F\u9519\u8BEF\uFF01",
-  "user.verification-code.required": "\u8BF7\u8F93\u5165\u9A8C\u8BC1\u7801\uFF01"
-};
-var __glob_3_2 = /* @__PURE__ */ Object.freeze({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  "default": zhCN
-});
-const defaultLang = "zh-CN";
-function getLangFiles() {
-  const modules = { "./en-US.js": __glob_3_0, "./zh-CN.js": __glob_3_2 };
-  return _.reduce(modules, (message, module, path) => {
-    if (module.default) {
-      const pathName = path.substr(path.lastIndexOf("/") + 1, 5);
-      if (message[pathName]) {
-        message[pathName] = __spreadValues(__spreadValues({}, modules[pathName]), module.default);
-      } else {
-        message[pathName] = module.default;
-      }
-    }
-    return message;
-  }, {});
-}
-const i18n = createI18n({
-  legacy: false,
-  locale: defaultLang,
-  fallbackLocale: defaultLang,
-  messages: getLangFiles()
-});
-const $t = (prop) => {
-  const label = i18n.global.t(prop);
-  return {
-    label,
-    prop
-  };
-};
-const appI18n = {
-  install: (app, StateApp2) => {
-    app.config.globalProperties.$t = $t;
-    watchEffect(() => {
-      setI18nLanguage(StateApp2.configs.language);
-    });
-  }
-};
-function setI18nLanguage(lang) {
-  i18n.global.locale.value = lang;
-  $("html").attr("lang", lang);
-  return lang;
-}
 const _sfc_main$8 = {
   setup(__props) {
     const router2 = useRouter();
@@ -2369,7 +2460,7 @@ const pickValueFrom = (configs) => {
 };
 function handleLoginSuccess(res) {
   router.push({
-    path: "/"
+    path: "/dashbord/overview"
   });
   setTimeout(() => {
     UI.notification.success({
@@ -2377,6 +2468,13 @@ function handleLoginSuccess(res) {
       description: `${timeFix()}\uFF0C${$t("welcome.back").label}`
     });
   }, 1e3);
+}
+function handleLoginFail(error) {
+  if (_.isString(error)) {
+    StateLogin.alertTips = error;
+  } else {
+    StateLogin.alertTips = "";
+  }
 }
 const styles$1 = {
   icon: {
@@ -2392,15 +2490,15 @@ const LOGIN_TYPE = {
   email: "email",
   mobile: "mobile"
 };
-const getConfigsSubmitText$1 = () => () => $t("user.register.get-verification-code").label;
 const StateLogin = reactive({
+  alertTips: "",
   captchaCount: 0,
   loginType: LOGIN_TYPE.username,
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
   data: {
-    username: "",
-    password: "",
+    username: "admin",
+    password: "admin",
     mobile: "",
     verificationCode: ""
   },
@@ -2408,7 +2506,7 @@ const StateLogin = reactive({
     prop: "username",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
-    rules: [FormRules.required(() => $t("user.username.required").label, [EVENT_TYPE.blur])],
+    rules: [FormRules.required(() => $t("\u8BF7\u8F93\u5165\u5E10\u6237\u540D\u6216\u90AE\u7BB1\u5730\u5740").label, [EVENT_TYPE.blur])],
     slots: {
       prefix: () => createVNode(resolveComponent("UserOutlined"), {
         "style": styles$1.icon
@@ -2455,21 +2553,23 @@ const StateLogin = reactive({
     }
   })),
   configsVerificationCode: {
-    disabled: false,
-    size: "large",
-    style: {
-      minWidth: "112px"
+    countMax: StateApp.configs.countMax,
+    text: {
+      normal: () => $t("user.register.get-verification-code").label
     },
-    text: getConfigsSubmitText$1(),
-    async onClick() {
+    onClick: async ({
+      countDown
+    }) => {
       try {
         const results = await validateForm({
           mobile: StateLogin.configsFormMobile.mobile
         });
-        if (results.length === 0) {
-          await getCaptcha$1();
+        if (validateForm.allWasWell(results)) {
+          countDown();
+          await getCaptcha();
         }
       } catch (e) {
+        console.error(e);
       }
     }
   },
@@ -2491,6 +2591,7 @@ const StateLogin = reactive({
           throw new Error("\u672A\u901A\u8FC7\u9A8C\u8BC1");
         }
       } catch (e) {
+        handleLoginFail(e);
         console.error(e);
       }
     }
@@ -2504,34 +2605,7 @@ function checkUserNameType(username) {
     StateLogin.loginType = LOGIN_TYPE.username;
   }
 }
-const CAPTCHA_COUNT$1 = 5;
-watch(() => StateLogin.captchaCount, handleCaptchaCountChange$1);
-function handleCaptchaCountChange$1(captchaCount) {
-  if (captchaCount === 0) {
-    StateLogin.configsVerificationCode.text = getConfigsSubmitText$1();
-    StateLogin.configsVerificationCode.disabled = false;
-    return;
-  }
-  const setCounDownText = () => StateLogin.configsVerificationCode.text = `${CAPTCHA_COUNT$1 - captchaCount} s`;
-  if (captchaCount === 1) {
-    setCounDownText();
-    StateLogin.configsVerificationCode.disabled = true;
-    return;
-  }
-  if (captchaCount && captchaCount <= CAPTCHA_COUNT$1) {
-    setCounDownText();
-    return;
-  }
-}
-function countDown$1() {
-  StateLogin.captchaCount++;
-  if (StateLogin.captchaCount <= CAPTCHA_COUNT$1) {
-    setTimeout(countDown$1, 1e3);
-  } else {
-    StateLogin.captchaCount = 0;
-  }
-}
-async function mockSmsCaptcha$1(result = {}) {
+async function mockSmsCaptcha(result = {}) {
   const captchaCode = result == null ? void 0 : result.code;
   await _.sleep(2e3);
   await navigator.clipboard.writeText(captchaCode);
@@ -2541,16 +2615,13 @@ async function mockSmsCaptcha$1(result = {}) {
   });
   return;
 }
-async function getCaptcha$1() {
+async function getCaptcha() {
   try {
-    if (StateLogin.captchaCount)
-      return;
-    countDown$1();
     const {
       result
     } = await API.user.getSmsCaptcha();
     UI.message.success("\u9A8C\u8BC1\u7801\u5DF2\u53D1\u9001");
-    await mockSmsCaptcha$1(result);
+    await mockSmsCaptcha(result);
   } catch (e) {
     console.error(e);
   }
@@ -2584,7 +2655,7 @@ var _sfc_main$4 = {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
       const _component_xGap = resolveComponent("xGap");
-      const _component_xButton = resolveComponent("xButton");
+      const _component_xButtonCountDown = resolveComponent("xButtonCountDown");
       return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
         modelValue: unref(StateLogin).data.mobile,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(StateLogin).data.mobile = $event),
@@ -2599,7 +2670,7 @@ var _sfc_main$4 = {
         autocomplete: "current-password"
       }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         l: "20"
-      }), createVNode(_component_xButton, {
+      }), createVNode(_component_xButtonCountDown, {
         configs: unref(StateLogin).configsVerificationCode
       }, null, 8, ["configs"])])]);
     };
@@ -2630,7 +2701,7 @@ const _hoisted_7$1 = {
 const _sfc_main$3 = {
   setup(__props) {
     return (_ctx, _cache) => {
-      resolveComponent("Alert");
+      const _component_Alert = resolveComponent("Alert");
       const _component_TabPane = resolveComponent("TabPane");
       const _component_Tabs = resolveComponent("Tabs");
       const _component_Checkbox = resolveComponent("Checkbox");
@@ -2648,7 +2719,15 @@ const _sfc_main$3 = {
           key: "credentials",
           tab: unref($t)("user.login.tab-login-credentials").label
         }, {
-          default: withCtx(() => [createCommentVNode("", true), createVNode(_sfc_main$5)]),
+          default: withCtx(() => [unref(StateLogin).alertTips ? (openBlock(), createBlock(_component_Alert, {
+            key: 0,
+            type: "error",
+            "show-icon": "",
+            style: {
+              "margin-bottom": "24px"
+            },
+            message: unref(StateLogin).alertTips
+          }, null, 8, ["message"])) : createCommentVNode("", true), createVNode(_sfc_main$5)]),
           _: 1
         }, 8, ["tab"]), createVNode(_component_TabPane, {
           key: "mobile",
@@ -2692,7 +2771,6 @@ const styles = {
     color: getColor("disabledColor")
   }
 };
-const getConfigsSubmitText = () => () => $t("user.register.get-verification-code").label;
 const StateRegister = reactive({
   isShowCheckPasswordPopover: false,
   statePassword: {
@@ -2781,19 +2859,20 @@ const StateRegister = reactive({
     }
   })),
   configsVerificationCode: {
-    disabled: false,
-    size: "large",
-    style: {
-      minWidth: "112px"
+    countMax: StateApp.configs.countMax,
+    text: {
+      normal: () => $t("user.register.get-verification-code").label
     },
-    text: getConfigsSubmitText(),
-    onClick: async () => {
+    onClick: async ({
+      countDown
+    }) => {
       try {
         const results = await validateForm({
           mobile: StateRegister.configsForm.mobile
         });
-        if (results.length === 0) {
+        if (validateForm.allWasWell(results)) {
           await getCaptcha();
+          countDown();
         }
       } catch (e) {
         console.error(e);
@@ -2809,7 +2888,7 @@ const StateRegister = reactive({
       try {
         const currentFormConfigs = StateRegister.configsForm;
         const validateResults = await validateForm(currentFormConfigs);
-        if (validateResults.length === 0) {
+        if (validateForm.allWasWell(validateResults)) {
           const formData = pickValueFrom(currentFormConfigs);
           console.log("formData", formData);
         }
@@ -2866,57 +2945,6 @@ function checkPasswordLevel(value) {
   StateRegister.isShowCheckPasswordPopover = StateRegister.statePassword.level <= 3;
   return isFail;
 }
-const CAPTCHA_COUNT = 5;
-watch(() => StateRegister.captchaCount, handleCaptchaCountChange);
-function handleCaptchaCountChange(captchaCount) {
-  if (captchaCount === 0) {
-    StateRegister.configsVerificationCode.text = getConfigsSubmitText();
-    StateRegister.configsVerificationCode.disabled = false;
-    return;
-  }
-  const setCounDownText = () => StateRegister.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount} s`;
-  if (captchaCount === 1) {
-    setCounDownText();
-    StateRegister.configsVerificationCode.disabled = true;
-    return;
-  }
-  if (captchaCount && captchaCount <= CAPTCHA_COUNT) {
-    setCounDownText();
-    return;
-  }
-}
-function countDown() {
-  StateRegister.captchaCount++;
-  if (StateRegister.captchaCount <= CAPTCHA_COUNT) {
-    setTimeout(countDown, 1e3);
-  } else {
-    StateRegister.captchaCount = 0;
-  }
-}
-async function mockSmsCaptcha(result = {}) {
-  const captchaCode = result == null ? void 0 : result.code;
-  await _.sleep(2e3);
-  await navigator.clipboard.writeText(captchaCode);
-  UI.notification.success({
-    message: "\u7406\u8BBA\u4E0A\u662F\u53D1\u9001\u77ED\u4FE1\u5230\u624B\u673A",
-    description: createVNode("div", null, [createVNode("span", null, [createVNode("h2", null, [captchaCode]), createTextVNode("\u5DF2\u590D\u5236\u5230\u7C98\u8D34\u677F\uFF0C\u53EF\u4EE5\u76F4\u63A5 Ctrl+V")])])
-  });
-  return;
-}
-async function getCaptcha() {
-  try {
-    if (StateRegister.captchaCount)
-      return;
-    countDown();
-    const {
-      result
-    } = await API.user.getSmsCaptcha();
-    UI.message.success("\u9A8C\u8BC1\u7801\u5DF2\u53D1\u9001");
-    await mockSmsCaptcha(result);
-  } catch (e) {
-    console.error(e);
-  }
-}
 const _hoisted_1$1 = {
   class: "main"
 };
@@ -2941,7 +2969,6 @@ const _hoisted_6$1 = {
 };
 const _sfc_main$2 = {
   setup(__props) {
-    console.log(routeNames);
     const levelNames = {
       0: "user.password.strength.short",
       1: "user.password.strength.low",
@@ -2974,6 +3001,7 @@ const _sfc_main$2 = {
       const _component_xGap = resolveComponent("xGap");
       const _component_Progress = resolveComponent("Progress");
       const _component_Popover = resolveComponent("Popover");
+      const _component_xButtonCountDown = resolveComponent("xButtonCountDown");
       const _component_xButton = resolveComponent("xButton");
       const _component_RouterLink = resolveComponent("RouterLink");
       return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
@@ -3027,7 +3055,7 @@ const _sfc_main$2 = {
         autocomplete: "current-password"
       }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         l: "20"
-      }), createVNode(_component_xButton, {
+      }), createVNode(_component_xButtonCountDown, {
         configs: unref(StateRegister).configsVerificationCode
       }, null, 8, ["configs"])])]), createVNode(_component_xGap, {
         t: "20"
