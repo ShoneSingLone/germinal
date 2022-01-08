@@ -12,13 +12,18 @@ const domClass = {
 
 export default defineComponent({
   props: {
-    configs: {
+    /* 绑定的值 */
+    modelValue:{
+      type:[Object,String,Number,Boolean]
+    },
+    configs: { 
       type: Object,
       default() {
         return {};
       },
     },
   },
+  emits: ["update:modelValue"],
   data() {
     return {
       /* validateInfo */
@@ -58,6 +63,7 @@ export default defineComponent({
     },
     componentSettings() {
       const configs = this.configs;
+      configs.value = this.modelValue;
       const property = {};
       const listeners = {};
       let slots = {};
@@ -105,9 +111,10 @@ export default defineComponent({
       /* 后面的属性覆盖前面的属性 */
       pickAttrs({
         "onUpdate:value": (val, ...args) => {
-          console.log("🚀:xItem value change: ", configs.prop, val, args);
-          configs.value = val;
-          configs.onAfterValueChange && configs.onAfterValueChange(configs);
+          this.$emit("update:modelValue",val);
+          if(_.isFunction(configs.onAfterValueChang)){
+            configs.onAfterValueChange(configs);
+          }
           /* TODO: rule检测*/
           handleConfigsValidate(EVENT_TYPE.update);
         },
@@ -258,7 +265,7 @@ export default defineComponent({
         {this.labelVNode}
         {/* 控件 */}
         <div class="ant-form-item-control">
-          <CurrentXItem {...this.componentSettings} />
+          <CurrentXItem {...this.componentSettings}/>
           {/* 提示信息 */}
           {this.tipsVNode}
         </div>

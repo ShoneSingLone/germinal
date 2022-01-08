@@ -61,7 +61,6 @@ export default defineComponent({
   },
   render(h) {
     const configs = _.omit(this.configs,["text","onClick"]);
-    console.log(configs);
     return <Button {...configs} onClick={this.onClick} loading={this.loading}>{this.text}</Button>;
   },
 });

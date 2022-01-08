@@ -1,7 +1,6 @@
 import ajax from "lsrc/request/ajax";
-import {
-    URL
-} from "germinal_api/url";
+import { URL } from "../url";
+import { getInfo } from "../mock/user";
 
 function genSmsCaptcha() {
     return (Math.random() * 1000000).toFixed(0);
@@ -9,16 +8,11 @@ function genSmsCaptcha() {
 
 export const apiUser = {
     async login(params) {
-        // return await ajax.post("asdfasdfasf", {
-        return await ajax.post(URL.Login, {
-            params
-        });
+        return await ajax.post(URL.Login, { params });
     },
     getSmsCaptcha: async () => {
         return {
-            result: {
-                code: genSmsCaptcha()
-            }
+            result: { code: genSmsCaptcha() }
         };
     },
     getInfo: async () => {

@@ -24,10 +24,16 @@ export const StateRegister = reactive({
     percent: 0,
   },
   captchaCount: 0,
+  data: {
+    username: "",
+    password: "",
+    password: "",
+    mobile: "",
+    verification: ""
+  },
   configsForm: {
     ...reactiveItemConfigs({
       prop: "username",
-      value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
@@ -42,7 +48,6 @@ export const StateRegister = reactive({
     ...reactiveItemConfigs({
       prop: "password",
       isPassword: true,
-      value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
@@ -69,7 +74,6 @@ export const StateRegister = reactive({
     ...reactiveItemConfigs({
       prop: "passwordConfirm",
       isPassword: true,
-      value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.register.confirm-password.placeholder").label,
@@ -94,7 +98,6 @@ export const StateRegister = reactive({
 
     ...reactiveItemConfigs({
       prop: "mobile",
-      value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.mobile.placeholder").label,
@@ -116,7 +119,6 @@ export const StateRegister = reactive({
     /*验证码*/
     ...reactiveItemConfigs({
       prop: "verificationCode",
-      value: "",
       size: "large",
       itemWrapperClass: "flex1",
       /* render的时候重新获取 */
@@ -245,8 +247,7 @@ function handleCaptchaCountChange(captchaCount) {
   }
 
   const setCounDownText = () =>
-    (StateRegister.configsVerificationCode.text = `${
-      CAPTCHA_COUNT - captchaCount
+  (StateRegister.configsVerificationCode.text = `${CAPTCHA_COUNT - captchaCount
     } s`);
 
   if (captchaCount === 1) {

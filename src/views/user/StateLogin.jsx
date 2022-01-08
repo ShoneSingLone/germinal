@@ -12,7 +12,7 @@ import { router } from "lsrc/router/router";
 
 
 function handleLoginSuccess(res) {
-  router.push({ path: "/" });
+  router.push({ path: "/dashbord/overview" });
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
     UI.notification.success({
@@ -23,7 +23,10 @@ function handleLoginSuccess(res) {
 }
 function handleLoginFail(error) {
   if (_.isString(error)) {
-    StateLogin.alertTips=error;
+    StateLogin.alertTips = error;
+  } else {
+    StateLogin.alertTips = "";
+
   }
 }
 
@@ -47,15 +50,20 @@ const getConfigsSubmitText = () => () =>
   $t("user.register.get-verification-code").label;
 
 export const StateLogin = reactive({
-  alertTips:"",
+  alertTips: "",
   captchaCount: 0,
   loginType: LOGIN_TYPE.username,
   activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
   rememberMe: true,
+  data: {
+    username: "admin",
+    password: "admin",
+    mobile: "",
+    verificationCode: ""
+  },
   configsForm: {
     ...reactiveItemConfigs({
       prop: "username",
-      value: "admin",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.username.placeholder").label,
@@ -70,7 +78,6 @@ export const StateLogin = reactive({
     ...reactiveItemConfigs({
       prop: "password",
       isPassword: true,
-      value: "admin",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.password.placeholder").label,
@@ -91,7 +98,6 @@ export const StateLogin = reactive({
   configsFormMobile: {
     ...reactiveItemConfigs({
       prop: "mobile",
-      value: "",
       size: "large",
       /* render的时候重新获取 */
       placeholder: () => $t("user.login.mobile.placeholder").label,
@@ -113,7 +119,6 @@ export const StateLogin = reactive({
     /*验证码*/
     ...reactiveItemConfigs({
       prop: "verificationCode",
-      value: "",
       size: "large",
       itemWrapperClass: "flex1",
       /* render的时候重新获取 */

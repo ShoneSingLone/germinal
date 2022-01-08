@@ -7,7 +7,6 @@ import { StateRegister } from "./StateRegister";
 import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
 
-console.log(routeNames);
 const levelNames = {
   0: "user.password.strength.short",
   1: "user.password.strength.low",
@@ -61,6 +60,7 @@ const configsTestPopover = {
         <!-- 用户名 -->
         <xItem
           ref="username"
+          v-model="StateRegister.data.username"
           :configs="StateRegister.configsForm.username"
           autocomplete="username"
         />
@@ -72,6 +72,7 @@ const configsTestPopover = {
           placement="rightTop"
         >
           <xItem
+            v-model="StateRegister.data.password"
             :configs="StateRegister.configsForm.password"
             autocomplete="current-password"
           />
@@ -97,6 +98,7 @@ const configsTestPopover = {
         <xGap t="20" />
         <!-- 确认密码 -->
         <xItem
+          v-model="StateRegister.data.passwordConfirm"
           :configs="StateRegister.configsForm.passwordConfirm"
           autocomplete="current-password"
         />
@@ -104,6 +106,7 @@ const configsTestPopover = {
         <xGap t="20" />
         <!-- 手机号 -->
         <xItem
+          v-model="StateRegister.data.mobile"
           :configs="StateRegister.configsForm.mobile"
           autocomplete="username"
         />
@@ -111,6 +114,7 @@ const configsTestPopover = {
         <!-- 验证码 -->
         <div class="flex">
           <xItem
+            v-model="StateRegister.data.verificationCode"
             :configs="StateRegister.configsForm.verificationCode"
             autocomplete="current-password"
           />

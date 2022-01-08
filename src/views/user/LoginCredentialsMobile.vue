@@ -6,6 +6,7 @@ import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
   <form>
     <!-- 手机号 -->
     <xItem
+      v-model="StateLogin.data.mobile"
       :configs="StateLogin.configsFormMobile.mobile"
       autocomplete="username"
     />
@@ -13,6 +14,7 @@ import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
     <!-- 验证码 -->
     <div class="flex">
       <xItem
+        v-model="StateLogin.data.verificationCode"
         :configs="StateLogin.configsFormMobile.verificationCode"
         autocomplete="current-password"
       />
