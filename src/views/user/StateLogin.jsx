@@ -8,10 +8,10 @@ import SvgRender from "lsrc/components/SvgRender/SvgRender";
 import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
-import { router } from "lsrc/router/router";
+import { router, routeNames } from "lsrc/router/router";
 
 function handleLoginSuccess(res) {
-  router.push({ path: "/dashbord/overview" });
+  router.push({ name: routeNames.shell });
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
     UI.notification.success({

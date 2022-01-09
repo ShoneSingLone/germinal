@@ -5,10 +5,11 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import {lStorage} from "@ventose/ui/tools/storage";
-import {setDocumentTitle} from "@ventose/ui/tools/dom";
-import {StateApp, StateAppActions} from "lsrc/state/StateApp";
-import {$t} from "lsrc/language";
+import { lStorage } from "@ventose/ui/tools/storage";
+import { setDocumentTitle } from "@ventose/ui/tools/dom";
+import { StateApp, StateAppActions } from "lsrc/state/StateApp";
+import { $t } from "lsrc/language";
+import ViewShell from "lsrc/views/system/ViewShell.vue";
 
 const RouteView = {
   name: "RouteView",
@@ -19,6 +20,7 @@ export const NewRoute = (name, component, options = {}) =>
   _.merge({ name, path: `/${name}`, component }, options);
 
 export const routeNames = {
+  shell:"shell",
   devDemo: "dev-demo",
   user: "user",
   userLogin: "user-login",
@@ -31,6 +33,7 @@ export const routeNames = {
 const toPath = (name) => `/${name}`;
 
 const routes = [
+  { name: "shell", path: "/", component: ViewShell },
   NewRoute(routeNames.devDemo, DevDemo),
   NewRoute(routeNames.login, LayoutUser, {
     redirect: toPath(routeNames.userLogin),
@@ -74,46 +77,46 @@ const loginRoutePath = toPath(routeNames.userLogin);
 const defaultRoutePath = toPath(routeNames.dashboardWorkplace);
 
 router.beforeEach(async (to, from) => {
-    /*NOTICE:返回 false 以取消导航*/
-    /* https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB */
-    console.log("🚀 ", to.path, from.path);
-    NProgress.start();
-    const hasAccessTokenHandler = async () => {
-        if (to.path === loginRoutePath) {
-            return {
-                path: defaultRoutePath
-            };
-        } else {
-            if (StateApp.roles?.length === 0) {
-                await AppActions.GetInfo();
-            }
-        }
-    };
-    const noAccessTokenHandler = () => {
-        if (!allowList.includes(to.name)) {
-            // 在免登录名单，直接进入
-            return {
-                path: loginRoutePath,
-                query: {
-                    redirect: to.fullPath
-                }
-            };
-        }
-    };
-
-    try {
-        if (lStorage.ACCESS_TOKEN) {
-            await hasAccessTokenHandler();
-        } else {
-            noAccessTokenHandler();
-        }
-    } catch (e) {
-        console.error(e);
-        /*  */
-        return false;
-    } finally {
-        NProgress.done();
+  /*NOTICE:返回 false 以取消导航*/
+  /* https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB */
+  console.log("🚀 ", to.path, from.path);
+  NProgress.start();
+  const hasAccessTokenHandler = async () => {
+    if (to.path === loginRoutePath) {
+      return {
+        path: defaultRoutePath
+      };
+    } else {
+      if (StateApp.roles?.length === 0) {
+        await AppActions.GetInfo();
+      }
     }
+  };
+  const noAccessTokenHandler = () => {
+    if (!allowList.includes(to.name)) {
+      // 在免登录名单，直接进入
+      return {
+        path: loginRoutePath,
+        query: {
+          redirect: to.fullPath
+        }
+      };
+    }
+  };
+
+  try {
+    if (lStorage.ACCESS_TOKEN) {
+      await hasAccessTokenHandler();
+    } else {
+      noAccessTokenHandler();
+    }
+  } catch (e) {
+    console.error(e);
+    /*  */
+    return false;
+  } finally {
+    NProgress.done();
+  }
 
 
   try {
