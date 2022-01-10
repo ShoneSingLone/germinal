@@ -11,7 +11,7 @@ import { pickValueFrom } from "@ventose/ui/tools/form";
 import { router, routeNames } from "lsrc/router/router";
 
 function handleLoginSuccess(res) {
-  router.push({ name: routeNames.shell });
+  router.push({ path: routeNames.shell });
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
     UI.notification.success({

@@ -86,10 +86,3 @@ const handlers = {
     </div>
   </div>
 </template>
-
-<style scoped lang="less">
-.container {
-  width: 100vw;
-  height: 100vh;
-}
-</style>

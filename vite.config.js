@@ -6,6 +6,8 @@ import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
 import path from "path";
 import svgHelper from "./vite.config.plugins.svg";
+import { injectHtml } from "vite-plugin-html";
+
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
@@ -41,6 +43,11 @@ export default defineConfig({
             libraryDirectory: "es",
             /* 加载的类型（less、css） */
             style: "css",
+        }),
+        injectHtml({
+            data: {
+                version: Date.now()
+            },
         }),
     ],
 });

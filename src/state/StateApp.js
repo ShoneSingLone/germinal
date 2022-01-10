@@ -1,9 +1,10 @@
-import {reactive, watch, computed} from "vue";
-import {lStorage} from "@ventose/ui/tools/storage";
-import {setCSSVariables, setDocumentTitle} from "@ventose/ui/tools/dom";
-import {API} from "germinal_api";
+import { reactive, watch, computed } from "vue";
+import { lStorage } from "@ventose/ui/tools/storage";
+import { setCSSVariables, setDocumentTitle } from "@ventose/ui/tools/dom";
+import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
+import $ from "jquery";
 
 export const StateApp = reactive({
     token: lStorage.token,
@@ -61,17 +62,26 @@ watch(
 export const StateAppActions = {
     /* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
     async initAppConfigs(callback) {
-        const isLoadConfigs = StateApp.isDev || !StateApp.configs;
+        console.time("initAppConfigs");
+        const currentAppVersion = $("meta[data-version]").data("version");
+        console.log("🚀:","currentAppVersion", JSON.stringify(currentAppVersion, null, 2));
+        
+        
+        /* 开发模式|没有configs|configs的version落后当前版本 */
+        const isLoadConfigs = /* StateApp.isDev ||  */!StateApp.configs || StateApp.configs.version !== currentAppVersion;
         if (isLoadConfigs) {
-            StateApp.configs = (await ajax.loadText("./configs.jsx"))();
+            const configs = (await ajax.loadText("./configs.jsx"))();
+            configs.version = currentAppVersion;
+            StateApp.configs = configs;
         }
         /* 加载样式变量 */
         setDocumentTitle(StateApp.configs.title);
         callback && callback(StateApp);
+        console.timeEnd("initAppConfigs");
         return StateApp;
     },
     GetInfo: async () => {
-        const {result} = await API.user.getInfo();
+        const { result } = await API.user.getInfo();
         if (result.role && result.role.permissions.length > 0) {
             const role = result.role;
             role.permissions = result.role.permissions;
@@ -92,8 +102,8 @@ export const StateAppActions = {
             Promise.reject(new Error("getInfo: roles must be a non-null array !"));
         }
     },
-    async Login({username, password}) {
-        const loginParams = {username, password: md5(password)};
+    async Login({ username, password }) {
+        const loginParams = { username, password: md5(password) };
         const res = await API.user.login(loginParams);
         lStorage.token = res.token;
         StateApp.token = lStorage.token;

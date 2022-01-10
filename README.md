@@ -157,7 +157,21 @@ v-uiPopover
 
 # 20220110095314
 
-LazySvg ：动态懒加载 SVG单个文件，会经过插件处理，一起打包
+LazySvg ：动态懒加载 src\assets\svg目录下单个文件，经过插件处理，一起打包
+
+```html
+<!-- src\assets\svg\lockStrok.svg -->
+ <LazySvg
+    icon="lockStrok"
+    style="
+      color: red;
+      height: 100px;
+      width: 100px;
+      outline: 1px solid black;
+      margin: 10px;
+    "
+  />
+```
 
 todo：
 - [ ] 组件的单独加载？

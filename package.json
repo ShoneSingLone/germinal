@@ -42,6 +42,7 @@
     "prettier": "^2.2.1",
     "svgo": "^2.8.0",
     "vite": "^2.6.4",
+    "vite-plugin-html": "^2.1.2",
     "vite-plugin-importer": "^0.2.5"
   },
   "gitHooks": {

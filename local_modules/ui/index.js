@@ -13,6 +13,7 @@ import {
     Alert,
     Result,
     Tabs,
+    Spin,
     /* global */
     message,
     notification
@@ -36,7 +37,9 @@ import {
     MobileOutlined,
     AlipayCircleFilled,
     TaobaoCircleFilled,
-    WeiboCircleFilled
+    WeiboCircleFilled,
+    Loading3QuartersOutlined,
+    LoadingOutlined
 } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
@@ -83,6 +86,7 @@ const componentAntdV = {
     Result,
     Tabs,
     TabPane,
+    Spin
 };
 
 const componentIcons = {
@@ -94,7 +98,9 @@ const componentIcons = {
     MobileOutlined,
     AlipayCircleFilled,
     TaobaoCircleFilled,
-    WeiboCircleFilled
+    WeiboCircleFilled,
+    Loading3QuartersOutlined,
+    LoadingOutlined
 };
 
 const components = {
