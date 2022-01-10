@@ -1,6 +1,4 @@
-import {
-    defineConfig
-} from "vite";
+import { defineConfig, searchForWorkspaceRoot } from "vite";
 import useVue from "@vitejs/plugin-vue";
 import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
@@ -11,6 +9,16 @@ import { injectHtml } from "vite-plugin-html";
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
+    server: {
+        fs: {
+            allow: [
+                // search up for workspace root
+                searchForWorkspaceRoot(process.cwd()),
+                // your custom rules
+                "/path/to/custom/allow"
+            ]
+        }
+    },
     base: "./",
     resolve: {
         alias: {
@@ -43,6 +51,15 @@ export default defineConfig({
             libraryDirectory: "es",
             /* 加载的类型（less、css） */
             style: "css",
+            // customStyleName: (name) => {
+            //     console.log('🚀:','name', JSON.stringify(name, null, 2));
+            //     if (['layout-content'].includes(name)) {
+            //         name = 'layout';
+            //     }
+            //     const cssName = `ant-design-vue/es/${name}/style/index.css`;
+            //     console.log('🚀:', 'cssName', JSON.stringify(cssName, null, 2));
+            //     return cssName;
+            // },
         }),
         injectHtml({
             data: {

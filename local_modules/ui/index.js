@@ -14,19 +14,20 @@ import {
     Result,
     Tabs,
     Spin,
+    Layout,
     /* global */
     message,
     notification
 } from "ant-design-vue";
+import { MenuItem } from "ant-design-vue/es/menu";
+import { TabPane } from "ant-design-vue/es/tabs";
+import { InputPassword } from "ant-design-vue/es/input";
 import {
-    MenuItem
-} from "ant-design-vue/es/menu";
-import {
-    TabPane
-} from "ant-design-vue/es/tabs";
-import {
-    InputPassword
-} from "ant-design-vue/es/input";
+    LayoutHeader,
+    LayoutSider,
+    LayoutFooter,
+    LayoutContent,
+ } from "ant-design-vue/es/layout";
 
 import {
     GlobalOutlined,
@@ -86,7 +87,8 @@ const componentAntdV = {
     Result,
     Tabs,
     TabPane,
-    Spin
+    Spin,
+    Layout, LayoutHeader, LayoutSider, LayoutFooter, LayoutContent,
 };
 
 const componentIcons = {

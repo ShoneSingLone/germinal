@@ -2,16 +2,19 @@
 /*https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup*/
 import { onMounted, reactive } from "vue";
 import { StateAppActions } from "lsrc/state/StateApp";
+import { setDocumentTitle } from "@ventose/ui/tools/dom";
+
 const state = reactive({ isLoading: true });
 onMounted(async () => {
-  await StateAppActions.initAppConfigs();
+  const StateApp = await StateAppActions.initAppConfigs();
+  setDocumentTitle(StateApp.configs.title);
   state.isLoading = false;
 });
 </script>
 <template>
-  <h1 v-if="state.isLoading">
+  <Spin v-if="state.isLoading">
     Loading...
-  </h1>
+  </Spin>
   <RouterView v-else />
 </template>
 ;

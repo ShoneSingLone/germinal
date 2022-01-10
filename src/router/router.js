@@ -9,7 +9,6 @@ import { lStorage } from "@ventose/ui/tools/storage";
 import { setDocumentTitle } from "@ventose/ui/tools/dom";
 import { StateApp, StateAppActions } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
-import ViewShell from "lsrc/views/system/ViewShell.vue";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
 
 

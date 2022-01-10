@@ -65,17 +65,14 @@ export const StateAppActions = {
         console.time("initAppConfigs");
         const currentAppVersion = $("meta[data-version]").data("version");
         console.log("🚀:","currentAppVersion", JSON.stringify(currentAppVersion, null, 2));
-        
-        
         /* 开发模式|没有configs|configs的version落后当前版本 */
-        const isLoadConfigs = /* StateApp.isDev ||  */!StateApp.configs || StateApp.configs.version !== currentAppVersion;
+        const isLoadConfigs = StateApp.isDev || !StateApp.configs || StateApp.configs.version !== currentAppVersion;
         if (isLoadConfigs) {
             const configs = (await ajax.loadText("./configs.jsx"))();
             configs.version = currentAppVersion;
             StateApp.configs = configs;
         }
         /* 加载样式变量 */
-        setDocumentTitle(StateApp.configs.title);
         callback && callback(StateApp);
         console.timeEnd("initAppConfigs");
         return StateApp;

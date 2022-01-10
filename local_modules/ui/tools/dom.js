@@ -27,7 +27,10 @@ const get$cssVariables = () => {
     }
     return $cssVariables;
 };
-
+/**
+ * setTitle 
+ * @param {*} title 
+ */
 export const setDocumentTitle = (title) => {
     /* document.title = title; */
     /* 没啥特别意思，就是想用一下jQuery */
