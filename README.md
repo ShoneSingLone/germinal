@@ -71,6 +71,7 @@ html,body,#app {
 ## Reference
 
 - [Vue3](https://v3.cn.vuejs.org/api/)
+- [Vue-Router](https://next.router.vuejs.org/zh/introduction.html)
 - [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
 - [popper](https://popper.js.org/)
 - [antv](https://next.antdv.com/components/overview-cn/)
@@ -150,7 +151,14 @@ UI.Popover 有问题，难道还要考虑多个app同时共存多个UI.Popover??
 ```
 跟Vue2 有不同的处理方式在于addPlugins的使用。主要是Vue app 化后无法共享component 这类的配置信息
 
-
 # 20211127022841
 
 v-uiPopover
+
+# 20220110095314
+
+LazySvg ：动态懒加载 SVG单个文件，会经过插件处理，一起打包
+
+todo：
+- [ ] 组件的单独加载？
+- [ ] 路由与视图的import加载，默认文件夹？

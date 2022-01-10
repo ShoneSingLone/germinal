@@ -1,14 +1,20 @@
-import { defineConfig } from "vite";
+import {
+    defineConfig
+} from "vite";
 import useVue from "@vitejs/plugin-vue";
 import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
 import path from "path";
+import svgHelper from "./vite.config.plugins.svg";
+
 /* https://vitejs.dev/config/ */
 export default defineConfig({
     base: "./",
     resolve: {
-        alias: { "vue": "vue/dist/vue.esm-bundler.js",
-            "lsrc": path.resolve(__dirname, "./src")}
+        alias: {
+            "vue": "vue/dist/vue.esm-bundler.js",
+            "lsrc": path.resolve(__dirname, "./src")
+        }
     },
     build: {
         /* 没有混缩 */
@@ -27,6 +33,7 @@ export default defineConfig({
     plugins: [
         useVue(),
         useVueJsx(),
+        svgHelper(),
         /* 懒加载antd 自动加载对应的css */
         usePluginImport({
             libraryName: "ant-design-vue",

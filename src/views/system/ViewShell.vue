@@ -9,5 +9,6 @@
 </script>
 
 <template>
+  <LazySvg icon="lockStrok" />
   <RouterView />
 </template>
