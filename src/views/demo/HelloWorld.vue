@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import TestPopover from "./TestPopover.vue";
+import TestPopover from "lsrc/views/demo/TestPopover.vue";
 </script>
 
 <template>

@@ -1,11 +1,16 @@
 <script setup>
-// import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 // import { routeNames } from "lsrc/router/router";
 
-// const router = useRouter();
-// function go() {
-//   router.push({ name: routeNames.login });
-// }
+const router = useRouter();
+function go() {
+  router.push({ name: routeNames.login });
+}
+
+function check() {
+  if (StateApp) {
+  }
+}
 </script>
 
 <template>

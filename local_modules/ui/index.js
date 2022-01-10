@@ -13,19 +13,21 @@ import {
     Alert,
     Result,
     Tabs,
+    Spin,
+    Layout,
     /* global */
     message,
     notification
 } from "ant-design-vue";
+import { MenuItem } from "ant-design-vue/es/menu";
+import { TabPane } from "ant-design-vue/es/tabs";
+import { InputPassword } from "ant-design-vue/es/input";
 import {
-    MenuItem
-} from "ant-design-vue/es/menu";
-import {
-    TabPane
-} from "ant-design-vue/es/tabs";
-import {
-    InputPassword
-} from "ant-design-vue/es/input";
+    LayoutHeader,
+    LayoutSider,
+    LayoutFooter,
+    LayoutContent,
+ } from "ant-design-vue/es/layout";
 
 import {
     GlobalOutlined,
@@ -36,7 +38,9 @@ import {
     MobileOutlined,
     AlipayCircleFilled,
     TaobaoCircleFilled,
-    WeiboCircleFilled
+    WeiboCircleFilled,
+    Loading3QuartersOutlined,
+    LoadingOutlined
 } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
@@ -83,6 +87,8 @@ const componentAntdV = {
     Result,
     Tabs,
     TabPane,
+    Spin,
+    Layout, LayoutHeader, LayoutSider, LayoutFooter, LayoutContent,
 };
 
 const componentIcons = {
@@ -94,7 +100,9 @@ const componentIcons = {
     MobileOutlined,
     AlipayCircleFilled,
     TaobaoCircleFilled,
-    WeiboCircleFilled
+    WeiboCircleFilled,
+    Loading3QuartersOutlined,
+    LoadingOutlined
 };
 
 const components = {

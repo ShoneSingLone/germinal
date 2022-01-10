@@ -4,7 +4,7 @@ import { routeNames } from "lsrc/router/router";
 
 const router = useRouter();
 function go() {
-  router.push({ name: routeNames.login });
+  router.push({ name: routeNames.shell });
 }
 </script>
 

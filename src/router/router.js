@@ -9,7 +9,8 @@ import { lStorage } from "@ventose/ui/tools/storage";
 import { setDocumentTitle } from "@ventose/ui/tools/dom";
 import { StateApp, StateAppActions } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
-import ViewShell from "lsrc/views/system/ViewShell.vue";
+import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
+
 
 const RouteView = {
   name: "RouteView",
@@ -20,7 +21,7 @@ export const NewRoute = (name, component, options = {}) =>
   _.merge({ name, path: `/${name}`, component }, options);
 
 export const routeNames = {
-  shell:"shell",
+  shell: "shell",
   devDemo: "dev-demo",
   user: "user",
   userLogin: "user-login",
@@ -33,7 +34,14 @@ export const routeNames = {
 const toPath = (name) => `/${name}`;
 
 const routes = [
-  { name: "shell", path: "/", component: ViewShell },
+  {
+    name: routeNames.shell,
+    path: "/",
+    component: LayoutBasic,
+    children: [
+      { name: "first", path: "first", component: DevDemo }
+    ]
+  },
   NewRoute(routeNames.devDemo, DevDemo),
   NewRoute(routeNames.login, LayoutUser, {
     redirect: toPath(routeNames.userLogin),
