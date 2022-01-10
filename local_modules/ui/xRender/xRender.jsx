@@ -1,8 +1,8 @@
 import {
-    defineComponent,markRaw
+    defineComponent, markRaw
 } from "vue";
 
 export default defineComponent(markRaw({
     props: ["render", "state"],
-    setup: ({render, state}) => () => render(state),
+    setup: (props, ctx) => () => props.render(props, ctx),
 }));

@@ -1,13 +1,9 @@
 <script setup lang="jsx">
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-} from "@ant-design/icons-vue";
 import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
+import MenuTree from "lsrc/components/MenuTree.vue";
+import logoImg from "lsrc/assets/logo.png";
 
+const menuTree = [{ id:1,label: "demo1", children: [{ id:2,label: "demo2" }, { id:3,label: "demo3" }] }];
 
 </script>
 
@@ -18,25 +14,8 @@ import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
       :trigger="null"
       collapsible
     >
-      <div class="logo" />
-      <Menu
-        v-model:selectedKeys="selectedKeys"
-        theme="dark"
-        mode="inline"
-      >
-        <MenuItem key="1">
-          <UserOutlined />
-          <span>nav 1</span>
-        </MenuItem>
-        <MenuItem key="2">
-          <VideoCameraOutlined />
-          <span>nav 2</span>
-        </MenuItem>
-        <MenuItem key="3">
-          <UploadOutlined />
-          <span>nav 3</span>
-        </MenuItem>
-      </Menu>
+      <img :src="logoImg">
+      <MenuTree v-model:tree="menuTree" />
     </LayoutSider>
     <Layout>
       <LayoutHeader style="background: #fff; padding: 0">

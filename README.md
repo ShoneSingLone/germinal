@@ -72,6 +72,7 @@ html,body,#app {
 
 - [Vue3](https://v3.cn.vuejs.org/api/)
 - [Vue-Router](https://next.router.vuejs.org/zh/introduction.html)
+- [vue-jsx-next](https://github.com/vuejs/jsx-next)
 - [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
 - [popper](https://popper.js.org/)
 - [antv](https://next.antdv.com/components/overview-cn/)
@@ -122,6 +123,24 @@ xItem :configs = "inputConfigs" / >
 
 错误信息可以单独提供，默认是在formItem 下方展示tips ，也可以利用错误信息做其他展现方式，比如popup， 提供id定位，方便滑动定位
 vModel 与配置信息分开
+
+## jsx slot 的写法
+```js
+const genMenu = ()=>{
+    const MenuItemRender = (menuInfo)=>{
+    if(_.isArrayFill(menuInfo.children)){
+        return (    
+            <SubMenu v-slots={{ icon:()=><AppleOutlined/>, title:()=>menuInfo.label, default:()=>_.map(menuInfo.children,MenuItemRender) }}/>
+        )
+    }else{
+        return (
+            <MenuItem key={menuInfo.id} >{{ icon:()=><UserOutlined/>, default:()=><span>{menuInfo.label}</span> }}</MenuItem>
+        )
+    }
+}
+return _.map(props.tree,MenuItemRender);
+};
+```
 
 ## log
 

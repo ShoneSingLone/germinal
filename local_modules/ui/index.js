@@ -19,7 +19,7 @@ import {
     message,
     notification
 } from "ant-design-vue";
-import { MenuItem } from "ant-design-vue/es/menu";
+import { MenuItem, SubMenu } from "ant-design-vue/es/menu";
 import { TabPane } from "ant-design-vue/es/tabs";
 import { InputPassword } from "ant-design-vue/es/input";
 import {
@@ -27,7 +27,7 @@ import {
     LayoutSider,
     LayoutFooter,
     LayoutContent,
- } from "ant-design-vue/es/layout";
+} from "ant-design-vue/es/layout";
 
 import {
     GlobalOutlined,
@@ -76,6 +76,7 @@ const componentAntdV = {
     Popover,
     Menu,
     MenuItem,
+    SubMenu,
     Dropdown,
     Button,
     List,
