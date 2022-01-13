@@ -4,19 +4,7 @@ import MenuTree from "lsrc/components/MenuTree.vue";
 import logoImg from "lsrc/assets/logo.png";
 import { reactive } from "vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
-
-const state = reactive({
-	menuTree: [
-		{
-			id: 1,
-			label: "demo1",
-			children: [
-				{ id: 2, label: "demo2" },
-				{ id: 3, label: "demo3" }
-			]
-		}
-	]
-});
+import { genId } from "@ventose/ui/common";
 
 const render = {
 	/*自定义的折叠按钮*/
@@ -36,7 +24,7 @@ const render = {
 			<div class="log" style="width: 100%; text-align: center">
 				<img :src="logoImg" style="width: 40px; height: 40px; margin: 20px" />
 			</div>
-			<MenuTree v-model:tree="state.menuTree" />
+			<MenuTree v-model:tree="StateApp.menuTree" />
 		</LayoutSider>
 		<Layout>
 			<LayoutHeader
@@ -62,6 +50,13 @@ const render = {
 <style lang="less">
 .layout-basic {
 	height: 100%;
+
+	> aside.ant-layout-sider {
+		> .ant-layout-sider-children {
+			display: flex;
+			flex-flow: column nowrap;
+		}
+	}
 
 	.header {
 		background: #fff;

@@ -5,8 +5,74 @@ import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
+import { genId } from "@ventose/ui/common";
+
+const menuTree = [
+	{
+		id: genId("menu"),
+		label: genId("label"),
+		children: [
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") }
+		]
+	},
+	{
+		id: genId("menu"),
+		label: genId("label"),
+		children: [
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") }
+		]
+	},
+	{
+		id: genId("menu"),
+		label: genId("label"),
+		children: [
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") }
+		]
+	},
+	{
+		id: genId("menu"),
+		label: genId("label"),
+		children: [
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") }
+		]
+	},
+	{
+		id: genId("menu"),
+		label: genId("label"),
+		children: [
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") },
+			{ id: genId("menu"), label: genId("label") }
+		]
+	}
+];
 
 export const StateApp = reactive({
+	theme: "dark",
+	menuTree,
 	layoutStyle: {
 		header: { height: "64px" }
 	},

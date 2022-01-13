@@ -1,5 +1,6 @@
 <script setup lang="jsx">
 import { StateApp } from "lsrc/state/StateApp";
+
 const props = defineProps({
 	tree: {
 		type: Object,
@@ -37,11 +38,22 @@ const genMenu = () => {
 </script>
 
 <template>
-	<Menu
-		v-model:selectedKeys="StateApp.arr_selectedMenuId"
-		theme="dark"
-		mode="inline">
-		<!-- jsx 循环 menuTree -->
-		<xRender :render="genMenu" />
-	</Menu>
+	<div class="layout-menu beautiful-scroll flex1">
+		<Menu
+			v-model:selectedKeys="StateApp.arr_selectedMenuId"
+			:theme="StateApp.theme"
+			mode="inline">
+			<!-- jsx 循环 menuTree -->
+			<xRender :render="genMenu" />
+		</Menu>
+	</div>
 </template>
+
+<style lang="less">
+.layout-menu {
+	//background-color: white;
+	height: 100%;
+	overflow: auto;
+	overflow-x: hidden;
+}
+</style>
