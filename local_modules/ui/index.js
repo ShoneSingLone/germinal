@@ -40,7 +40,9 @@ import {
 	TaobaoCircleFilled,
 	WeiboCircleFilled,
 	Loading3QuartersOutlined,
-	LoadingOutlined
+	LoadingOutlined,
+	MenuUnfoldOutlined,
+	MenuFoldOutlined
 } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
@@ -105,7 +107,9 @@ const componentIcons = {
 	TaobaoCircleFilled,
 	WeiboCircleFilled,
 	Loading3QuartersOutlined,
-	LoadingOutlined
+	LoadingOutlined,
+	MenuUnfoldOutlined,
+	MenuFoldOutlined
 };
 
 const components = {

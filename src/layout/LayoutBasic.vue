@@ -14,11 +14,15 @@ const menuTree = [
 		]
 	}
 ];
+
 const configs = reactive({
 	foldButton: {
-		text: () => {
-			return <h1>{Boolean(StateAppMutations.collapsed)}</h1>;
-		},
+		type: "text",
+		text: () => (
+			<span style="transform:scale(1.5);">
+				{StateApp.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+			</span>
+		),
 		onClick: StateAppMutations.toggleFold
 	}
 });
@@ -37,17 +41,7 @@ const configs = reactive({
 		</LayoutSider>
 		<Layout>
 			<LayoutHeader style="background: #fff; padding: 0">
-				<xButton :configs="configs.foldButton">{{
-					StateApp.collapsed
-				}}</xButton>
-				<MenuUnfoldOutlined
-					v-if="StateApp.collapsed"
-					class="trigger"
-					@click="StateAppMutations.toggleFold" />
-				<MenuFoldOutlined
-					v-else
-					class="trigger"
-					@click="StateAppMutations.toggleFold" />
+				<xButton :configs="configs.foldButton" />
 			</LayoutHeader>
 			<LayoutContent
 				:style="{
