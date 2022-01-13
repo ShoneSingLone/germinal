@@ -11,7 +11,7 @@ import { pickValueFrom } from "@ventose/ui/tools/form";
 import { getCaptcha } from "./StateLogin";
 
 const styles = {
-	icon: { color: getColor("disabledColor") }
+	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }
 };
 
 const getConfigsSubmitText = () => () =>
@@ -67,9 +67,7 @@ export const StateRegister = reactive({
 				console.log(thisConfigs.itemTips);
 			},
 			slots: {
-				prefix: () => (
-					<xRender render={SvgRender.lockStrok} style={styles.icon} />
-				)
+				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		}),
 		...reactiveItemConfigs({
@@ -91,9 +89,7 @@ export const StateRegister = reactive({
 				})
 			],
 			slots: {
-				prefix: () => (
-					<xRender render={SvgRender.lockStrok} style={styles.icon} />
-				)
+				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		}),
 
@@ -132,7 +128,7 @@ export const StateRegister = reactive({
 				)
 			],
 			slots: {
-				prefix: () => <xRender render={SvgRender.mail} style={styles.icon} />
+				prefix: () => <MailOutlined style={styles.icon} />
 			}
 		})
 	},

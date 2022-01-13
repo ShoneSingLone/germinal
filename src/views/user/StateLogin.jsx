@@ -20,6 +20,7 @@ function handleLoginSuccess(res) {
 		});
 	}, 1000);
 }
+
 function handleLoginFail(error) {
 	if (_.isString(error)) {
 		StateLogin.alertTips = error;
@@ -29,7 +30,7 @@ function handleLoginFail(error) {
 }
 
 const styles = {
-	icon: { color: getColor("disabledColor") }
+	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }
 };
 
 /* 根据不同的Tab 检验不同的form 提交不同的内容 */
@@ -83,9 +84,7 @@ export const StateLogin = reactive({
 				)
 			],
 			slots: {
-				prefix: () => (
-					<xRender render={SvgRender.lockStrok} style={styles.icon} />
-				)
+				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		})
 	},
@@ -126,7 +125,7 @@ export const StateLogin = reactive({
 				)
 			],
 			slots: {
-				prefix: () => <xRender render={SvgRender.mail} style={styles.icon} />
+				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		})
 	},

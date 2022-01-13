@@ -7,6 +7,10 @@ import md5 from "md5";
 import $ from "jquery";
 
 export const StateApp = reactive({
+	/*菜单折叠*/
+	collapsed: false,
+	/*当前选择菜单*/
+	selectedMenukeys: [],
 	token: lStorage.token,
 	count: 0,
 	isMobile: false,
@@ -61,7 +65,10 @@ watch(
 /* Mutation 同步修改 */
 
 export const StateAppMutations = {
-	toggleFold() {
+	/**
+	 * 折叠菜单
+	 */
+	toggleCollapsed() {
 		StateApp.collapsed = !StateApp.collapsed;
 	}
 };

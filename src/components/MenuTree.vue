@@ -1,4 +1,5 @@
 <script setup lang="jsx">
+import { StateApp } from "lsrc/state/StateApp";
 const props = defineProps({
 	tree: {
 		type: Object,
@@ -36,28 +37,11 @@ const genMenu = () => {
 </script>
 
 <template>
-	<Menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+	<Menu
+		v-model:selectedKeys="StateApp.selectedMenukeys"
+		theme="dark"
+		mode="inline">
 		<!-- jsx 循环 menuTree -->
 		<xRender :render="genMenu" />
-		<!-- <xRender
-      :render="MenuItemRender"
-      :state="menuInfo"
-      v-for="menuInfo in props.tree"
-      :key="menuInfo.id"
-    /> -->
-		<!-- <MenuItem key="1">
-      <template #icon>
-        <UserOutlined />
-      </template>
-      <span>nav 1</span>
-    </MenuItem>
-    <MenuItem key="2">
-      <VideoCameraOutlined />
-      <span>nav 2</span>
-    </MenuItem>
-    <MenuItem key="3">
-      <UploadOutlined />
-      <span>nav 3</span>
-    </MenuItem> -->
 	</Menu>
 </template>

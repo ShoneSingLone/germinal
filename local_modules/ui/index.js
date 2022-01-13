@@ -29,6 +29,7 @@ import {
 	LayoutContent
 } from "ant-design-vue/es/layout";
 
+/* 比如常，或者首页不想让用户看到loading状，可提前加载图标 */
 import {
 	GlobalOutlined,
 	AppleOutlined,
@@ -41,8 +42,10 @@ import {
 	WeiboCircleFilled,
 	Loading3QuartersOutlined,
 	LoadingOutlined,
+	LockOutlined,
 	MenuUnfoldOutlined,
-	MenuFoldOutlined
+	MenuFoldOutlined,
+	MailOutlined
 } from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
@@ -108,8 +111,10 @@ const componentIcons = {
 	WeiboCircleFilled,
 	Loading3QuartersOutlined,
 	LoadingOutlined,
+	LockOutlined,
 	MenuUnfoldOutlined,
-	MenuFoldOutlined
+	MenuFoldOutlined,
+	MailOutlined
 };
 
 const components = {

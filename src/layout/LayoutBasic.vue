@@ -3,6 +3,7 @@ import { getColor, StateApp, StateAppMutations } from "lsrc/state/StateApp";
 import MenuTree from "lsrc/components/MenuTree.vue";
 import logoImg from "lsrc/assets/logo.png";
 import { reactive } from "vue";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 
 const menuTree = [
 	{
@@ -15,17 +16,17 @@ const menuTree = [
 	}
 ];
 
-const configs = reactive({
-	foldButton: {
-		type: "text",
-		text: () => (
-			<span style="transform:scale(1.5);">
+const render = {
+	collapsedButton({ vm, attrs, props }) {
+		return (
+			<span
+				style="transform:scale(1.5);"
+				onClick={StateAppMutations.toggleCollapsed}>
 				{StateApp.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
 			</span>
-		),
-		onClick: StateAppMutations.toggleFold
+		);
 	}
-});
+};
 </script>
 
 <template>
@@ -41,7 +42,9 @@ const configs = reactive({
 		</LayoutSider>
 		<Layout>
 			<LayoutHeader style="background: #fff; padding: 0">
-				<xButton :configs="configs.foldButton" />
+				<xRender
+					:render="render.collapsedButton"
+					:collapsed="StateApp.collapsed" />
 			</LayoutHeader>
 			<LayoutContent
 				:style="{
