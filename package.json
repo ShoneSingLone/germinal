@@ -4,8 +4,7 @@
 	"scripts": {
 		"serve": "vite preview",
 		"build": "vite build",
-		"lint": "vue-cli-service lint",
-		"fix": "prettier --write --ignore-unknown",
+		"lint": "prettier --write ./src" ,
 		"bs": "npm i && npm run make:language",
 		"start": "vite --host --open",
 		"git:pull": "git pull && git pull gitee master ",
@@ -51,7 +50,7 @@
 	},
 	"lint-staged": {
 		"*.{ts,tsx,js,jsx,vue}": [
-			"npm run fix",
+			"prettier --write --ignore-unknown",
 			"git add"
 		]
 	},
