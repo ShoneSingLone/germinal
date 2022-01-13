@@ -1,8 +1,8 @@
 export const result = {
-    success(res) {
-        return {
-            status: 200,
-            result: res
-        };
-    }
+	success(res) {
+		return {
+			status: 200,
+			result: res
+		};
+	}
 };

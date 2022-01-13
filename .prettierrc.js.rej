@@ -1,0 +1,22 @@
+diff a/.prettierrc.js b/.prettierrc.js	(rejected hunks)
+@@ -3,10 +3,10 @@ module.exports = {
+-    singleQuote: false,
+-    useTabs: true,
+-    tabWidth: 2,
+-    semi: true,
+-    /* 尾后逗号 */
+-    trailingComma: "none",
+-    arrowParens: "avoid",
+-    jsxSingleQuote: false,
+-    bracketSameLine: true,
+-    jsxBracketSameLine: true
++	singleQuote: false,
++	useTabs: true,
++	tabWidth: 2,
++	semi: true,
++	/* 尾后逗号 */
++	trailingComma: "none",
++	arrowParens: "avoid",
++	jsxSingleQuote: false,
++	bracketSameLine: true,
++	jsxBracketSameLine: true

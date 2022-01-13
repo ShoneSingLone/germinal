@@ -12,7 +12,9 @@ html #layui_layer_skinmoonstylecss {
 body .layer-ext-moon[type="dialog"] {
 	min-width: 320px;
 }
-body .layer-ext-moon-msg[type="dialog"]{min-width:200px;}
+body .layer-ext-moon-msg[type="dialog"] {
+	min-width: 200px;
+}
 body .layer-ext-moon .layui-layer-title {
 	background: #f6f6f6;
 	color: #212a31;
@@ -20,23 +22,19 @@ body .layer-ext-moon .layui-layer-title {
 	font-weight: bold;
 	height: 46px;
 	line-height: 46px;
-    border-bottom: 1px solid #D5D5D5;
+	border-bottom: 1px solid #d5d5d5;
 }
-
-
 
 body .layer-ext-moon .layui-layer-content .layui-layer-ico {
 	height: 32px;
 	width: 32px;
-	top:18.5px;
+	top: 18.5px;
 }
 body .layer-ext-moon .layui-layer-ico0 {
 	background: url(default.png) no-repeat -96px 0;
-	;
 }
 body .layer-ext-moon .layui-layer-ico1 {
 	background: url(default.png) no-repeat -224px 0;
-	;
 }
 body .layer-ext-moon .layui-layer-ico2 {
 	background: url(default.png) no-repeat -192px 0;
@@ -79,17 +77,21 @@ body .layer-ext-moon .layui-layer-setwin .layui-layer-maxmin {
 body .layer-ext-moon .layui-layer-setwin .layui-layer-maxmin:hover {
 	background: url(default.png) no-repeat -16px 0;
 }
-body .layer-ext-moon .layui-layer-setwin .layui-layer-close1,body .layer-ext-moon .layui-layer-setwin .layui-layer-close2 {
+body .layer-ext-moon .layui-layer-setwin .layui-layer-close1,
+body .layer-ext-moon .layui-layer-setwin .layui-layer-close2 {
 	background: url(default.png) 0 0;
 }
-body .layer-ext-moon .layui-layer-setwin .layui-layer-close1:hover,body .layer-ext-moon .layui-layer-setwin .layui-layer-close2:hover {
+body .layer-ext-moon .layui-layer-setwin .layui-layer-close1:hover,
+body .layer-ext-moon .layui-layer-setwin .layui-layer-close2:hover {
 	background: url(default.png) -48px 0;
 }
-body .layer-ext-moon .layui-layer-padding{padding-top: 24px;}
+body .layer-ext-moon .layui-layer-padding {
+	padding-top: 24px;
+}
 body .layer-ext-moon .layui-layer-btn {
-    text-align: center;
+	text-align: center;
 	padding-top: 15px;
-    padding-bottom:15px;
+	padding-bottom: 15px;
 	background: #f0f4f7;
 	border-top: 1px #c7c7c7 solid;
 }
@@ -135,6 +137,6 @@ body .layer-ext-moon .layui-layer-btn .layui-layer-btn3 {
 	border-radius: 3px;
 }
 
-body .layer-ext-moon .layui-layer-title span.layui-layer-tabnow{
-	height:47px;
+body .layer-ext-moon .layui-layer-title span.layui-layer-tabnow {
+	height: 47px;
 }

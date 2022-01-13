@@ -2,37 +2,32 @@
 import { reactive } from "vue";
 
 defineProps({
-  configs: {
-    type: Object,
-    default() {
-      return {};
-    },
-  },
+	configs: {
+		type: Object,
+		default() {
+			return {};
+		}
+	}
 });
 
 /* data */
 const state = reactive({ count: 0 });
 /*renders*/
 const renders = {
-  test: (state) => <Button>{state.count}</Button>,
+	test: state => <Button>{state.count}</Button>
 };
 /* methods */
 const handlers = {
-  clickBtn() {
-    state.count++;
-  },
+	clickBtn() {
+		state.count++;
+	}
 };
 </script>
 
 <template>
-  <Button @click="handlers.clickBtn">
-    {{ $t("user.login.username").label }}
-  </Button>
-  <xRender
-    :render="renders.test"
-    :state="StateLogin"
-  />
-  <Button @click="handlers.clickBtn">
-    count is: {{ state.count }}
-  </Button>
+	<Button @click="handlers.clickBtn">
+		{{ $t("user.login.username").label }}
+	</Button>
+	<xRender :render="renders.test" :state="StateLogin" />
+	<Button @click="handlers.clickBtn"> count is: {{ state.count }} </Button>
 </template>

@@ -6,16 +6,14 @@ import { setDocumentTitle } from "@ventose/ui/tools/dom";
 
 const state = reactive({ isLoading: true });
 onMounted(async () => {
-  const StateApp = await StateAppActions.initAppConfigs();
-  setDocumentTitle(StateApp.configs.title);
-  state.isLoading = false;
+	const StateApp = await StateAppActions.initAppConfigs();
+	setDocumentTitle(StateApp.configs.title);
+	state.isLoading = false;
 });
 </script>
 <template>
-  <Spin v-if="state.isLoading">
-    Loading...
-  </Spin>
-  <RouterView v-else />
+	<Spin v-if="state.isLoading"> Loading... </Spin>
+	<RouterView v-else />
 </template>
 ;
 

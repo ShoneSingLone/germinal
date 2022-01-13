@@ -5,43 +5,43 @@ const fs = require("fs").promises;
 const { optimize: optimizeSvg } = require("svgo");
 
 module.exports = function svgHelper(options = {}) {
-  /* @ts-ignore */
-  const { svgoConfig, svgo } = options;
+	/* @ts-ignore */
+	const { svgoConfig, svgo } = options;
 
-  const svgRegex = /\.svg$/;
+	const svgRegex = /\.svg$/;
 
-  return {
-    name: "svg-loader",
-    enforce: "pre",
-    resolveid(id) {
-      if (id.match(svgRegex)) {
-        return id;
-      }
-    },
+	return {
+		name: "svg-loader",
+		enforce: "pre",
+		resolveid(id) {
+			if (id.match(svgRegex)) {
+				return id;
+			}
+		},
 
-    async load(id) {
-      if (!id.match(svgRegex)) {
-        return;
-      }
+		async load(id) {
+			if (!id.match(svgRegex)) {
+				return;
+			}
 
-      const [path] = id.split("?", 2);
+			const [path] = id.split("?", 2);
 
-      let svg = await fs.readFile(path, "utf-8");
+			let svg = await fs.readFile(path, "utf-8");
 
-      if (svgo !== false) {
-        /* @ts-ignore */
-        svg = optimizeSvg(svg, svgoConfig).data;
-      }
-      const { code } = compileTemplate({
-        id: JSON.stringify(id),
-        source: svg,
-        filename: path,
-        transformAssetUrls: false,
-      });
+			if (svgo !== false) {
+				/* @ts-ignore */
+				svg = optimizeSvg(svg, svgoConfig).data;
+			}
+			const { code } = compileTemplate({
+				id: JSON.stringify(id),
+				source: svg,
+				filename: path,
+				transformAssetUrls: false
+			});
 
-      return `export default \`${svg}\``;
-    },
-  };
+			return `export default \`${svg}\``;
+		}
+	};
 };
 
 module.exports.default = module.exports;

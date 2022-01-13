@@ -4,15 +4,15 @@ import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
 function go() {
-  router.push({ name: routeNames.login });
+	router.push({ name: routeNames.login });
 }
 
 function check() {
-  if (StateApp) {
-  }
+	if (StateApp) {
+	}
 }
 </script>
 
 <template>
-  <RouterView />
+	<RouterView />
 </template>

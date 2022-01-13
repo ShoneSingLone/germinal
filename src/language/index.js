@@ -15,59 +15,59 @@ import $ from "jquery";
 const defaultLang = "zh-CN";
 
 function getLangFiles() {
-  //引入同级目录下文件
-  const modules = import.meta.globEager("./*");
-  /*  */
-  return _.reduce(
-    modules,
-    (message, module, path) => {
-      if (module.default) {
-        //  获取文件名
-        const pathName = path.substr(path.lastIndexOf("/") + 1, 5);
-        if (message[pathName]) {
-          message[pathName] = {
-            ...modules[pathName],
-            ...module.default,
-          };
-        } else {
-          message[pathName] = module.default;
-        }
-      }
-      return message;
-    },
-    {}
-  );
+	//引入同级目录下文件
+	const modules = import.meta.globEager("./*");
+	/*  */
+	return _.reduce(
+		modules,
+		(message, module, path) => {
+			if (module.default) {
+				//  获取文件名
+				const pathName = path.substr(path.lastIndexOf("/") + 1, 5);
+				if (message[pathName]) {
+					message[pathName] = {
+						...modules[pathName],
+						...module.default
+					};
+				} else {
+					message[pathName] = module.default;
+				}
+			}
+			return message;
+		},
+		{}
+	);
 }
 
 const i18n = createI18n({
-  legacy: false,
-  locale: defaultLang,
-  fallbackLocale: defaultLang,
-  messages: getLangFiles(),
+	legacy: false,
+	locale: defaultLang,
+	fallbackLocale: defaultLang,
+	messages: getLangFiles()
 });
 
 export default i18n; //将i18n暴露出去，在main.js中引入挂载
 
-export const $t = (prop) => {
-  const label = i18n.global.t(prop);
-  return {
-    label,
-    prop,
-  };
+export const $t = prop => {
+	const label = i18n.global.t(prop);
+	return {
+		label,
+		prop
+	};
 };
 export const appI18n = {
-  install: (app, StateApp) => {
-    //注册i8n实例并引入语言文件
-    app.config.globalProperties.$t = $t;
-    /* readme:依赖StateApp.confgs.language */
-    watchEffect(() => {
-      setI18nLanguage(StateApp.configs.language);
-    });
-  },
+	install: (app, StateApp) => {
+		//注册i8n实例并引入语言文件
+		app.config.globalProperties.$t = $t;
+		/* readme:依赖StateApp.confgs.language */
+		watchEffect(() => {
+			setI18nLanguage(StateApp.configs.language);
+		});
+	}
 };
 
 function setI18nLanguage(lang) {
-  i18n.global.locale.value = lang;
-  $("html").attr("lang", lang);
-  return lang;
+	i18n.global.locale.value = lang;
+	$("html").attr("lang", lang);
+	return lang;
 }

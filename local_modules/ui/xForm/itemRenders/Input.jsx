@@ -1,6 +1,6 @@
-import {Input} from "ant-design-vue";
-import {InputPassword} from "ant-design-vue/es/input";
-import {h} from "vue";
+import { Input } from "ant-design-vue";
+import { InputPassword } from "ant-design-vue/es/input";
+import { h } from "vue";
 
 /**
  * @Description
@@ -9,10 +9,10 @@ import {h} from "vue";
  * @param {any} slots}
  * @returns {any}
  */
-export default ({property, slots, listeners}) => {
-    if (property.isPassword) {
-        return h(InputPassword, {...property, ...listeners}, slots);
-    } else {
-        return h(Input, {...property, ...listeners}, slots);
-    }
+export default ({ property, slots, listeners }) => {
+	if (property.isPassword) {
+		return h(InputPassword, { ...property, ...listeners }, slots);
+	} else {
+		return h(Input, { ...property, ...listeners }, slots);
+	}
 };
