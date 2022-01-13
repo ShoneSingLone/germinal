@@ -7,10 +7,15 @@ import md5 from "md5";
 import $ from "jquery";
 
 export const StateApp = reactive({
+	layoutStyle: {
+		header: { height: "64px" }
+	},
 	/*菜单折叠*/
 	collapsed: false,
 	/*当前选择菜单*/
-	selectedMenukeys: [],
+	arr_selectedMenuId: [
+		/*菜单需要id，需要提供id*/
+	],
 	token: lStorage.token,
 	count: 0,
 	isMobile: false,

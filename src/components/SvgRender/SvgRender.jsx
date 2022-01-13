@@ -1,3 +1,4 @@
+/* 首页不想让用户看到loading状，可提前加载图标 */
 export default {
 	lockStrok: () => (
 		<svg

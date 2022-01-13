@@ -5,46 +5,45 @@ import logoImg from "lsrc/assets/logo.png";
 import { reactive } from "vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 
-const menuTree = [
-	{
-		id: 1,
-		label: "demo1",
-		children: [
-			{ id: 2, label: "demo2" },
-			{ id: 3, label: "demo3" }
-		]
-	}
-];
+const state = reactive({
+	menuTree: [
+		{
+			id: 1,
+			label: "demo1",
+			children: [
+				{ id: 2, label: "demo2" },
+				{ id: 3, label: "demo3" }
+			]
+		}
+	]
+});
 
 const render = {
-	collapsedButton({ vm, attrs, props }) {
-		return (
-			<span
-				style="transform:scale(1.5);"
-				onClick={StateAppMutations.toggleCollapsed}>
-				{StateApp.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-			</span>
-		);
-	}
+	/*自定义的折叠按钮*/
+	/*collapsedButton({vm, attrs, props}) {
+    return (
+        <Button type="text" size="small" onClick={StateAppMutations.toggleCollapsed}>
+          {StateApp.collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
+        </Button>
+    );
+  }*/
 };
 </script>
 
 <template>
-	<Layout style="height: 100%">
-		<LayoutSider
-			v-model:collapsed="StateApp.collapsed"
-			:trigger="null"
-			collapsible>
+	<Layout class="layout-basic">
+		<LayoutSider v-model:collapsed="StateApp.collapsed" collapsible>
 			<div class="log" style="width: 100%; text-align: center">
 				<img :src="logoImg" style="width: 40px; height: 40px; margin: 20px" />
 			</div>
-			<MenuTree v-model:tree="menuTree" />
+			<MenuTree v-model:tree="state.menuTree" />
 		</LayoutSider>
 		<Layout>
-			<LayoutHeader style="background: #fff; padding: 0">
-				<xRender
-					:render="render.collapsedButton"
-					:collapsed="StateApp.collapsed" />
+			<LayoutHeader
+				:style="StateApp.layoutStyle.header"
+				class="layout-basic header">
+				<!--    自定义的折叠按钮    -->
+				<!--    <xRender :render="render.collapsedButton" :collapsed="StateApp.collapsed"/>-->
 			</LayoutHeader>
 			<LayoutContent
 				:style="{
@@ -53,8 +52,23 @@ const render = {
 					background: '#fff',
 					minHeight: '100%'
 				}">
+				{{ StateApp }}
 				<RouterView />
 			</LayoutContent>
 		</Layout>
 	</Layout>
 </template>
+
+<style lang="less">
+.layout-basic {
+	height: 100%;
+
+	.header {
+		background: #fff;
+		padding: 0;
+		height: 0;
+		overflow: hidden;
+		transition: all 0.3s ease-in-out;
+	}
+}
+</style>

@@ -158,6 +158,11 @@ const genMenu = () => {
 };
 ```
 
+## 自定义的折叠按钮(未使用)
+
+```html
+<!--    <xRender :render="render.collapsedButton" :collapsed="StateApp.collapsed"/>-->
+```
 ## log
 
 1. `no-mutating-props`:`MutatingProps`
@@ -196,8 +201,8 @@ v-uiPopover
 
 # 20220110095314
 
-LazySvg ：动态懒加载 src\assets\svg 目录下单个文件，经过插件处理，一起打包
-
+- LazySvg ：动态懒加载 src\assets\svg 目录下单个文件，经过插件处理，一起打包
+- SvgRender: 首页不想让用户看到loading状，可提前加载图标
 ```html
 <!-- src\assets\svg\lockStrok.svg -->
 <LazySvg

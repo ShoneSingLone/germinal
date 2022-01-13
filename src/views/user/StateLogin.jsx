@@ -4,10 +4,8 @@ import { UI } from "@ventose/ui";
 import { reactiveItemConfigs, timeFix } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import SvgRender from "lsrc/components/SvgRender/SvgRender";
 import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
-import { pickValueFrom } from "@ventose/ui/tools/form";
 import { router, routeNames } from "lsrc/router/router";
 
 function handleLoginSuccess(res) {
@@ -162,8 +160,7 @@ export const StateLogin = reactive({
 				const currentFormConfigs = StateLogin[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
 				if (!_.isArrayFill(validateResults)) {
-					const formData = pickValueFrom(currentFormConfigs);
-					const res = await StateAppActions.Login(formData);
+					const res = await StateAppActions.Login(StateLogin.data);
 					/* 验证错误 */
 					/* 网络错误 */
 					handleLoginSuccess(res);

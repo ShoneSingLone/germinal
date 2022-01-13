@@ -38,7 +38,7 @@ const genMenu = () => {
 
 <template>
 	<Menu
-		v-model:selectedKeys="StateApp.selectedMenukeys"
+		v-model:selectedKeys="StateApp.arr_selectedMenuId"
 		theme="dark"
 		mode="inline">
 		<!-- jsx 循环 menuTree -->
