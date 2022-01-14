@@ -12,7 +12,18 @@ const menuTree = [
 		id: genId("menu"),
 		label: genId("label"),
 		children: [
-			{ id: genId("menu"), label: genId("label") },
+			{
+				id: genId("menu"),
+				label: genId("label"),
+				children: [
+					{ id: genId("menu"), label: genId("label") },
+					{ id: genId("menu"), label: genId("label") },
+					{ id: genId("menu"), label: genId("label") },
+					{ id: genId("menu"), label: genId("label") },
+					{ id: genId("menu"), label: genId("label") },
+					{ id: genId("menu"), label: genId("label") }
+				]
+			},
 			{ id: genId("menu"), label: genId("label") },
 			{ id: genId("menu"), label: genId("label") },
 			{ id: genId("menu"), label: genId("label") },
@@ -74,7 +85,8 @@ export const StateApp = reactive({
 	theme: "dark",
 	menuTree,
 	layoutStyle: {
-		header: { height: "64px" }
+		header: { height: "64px" },
+		sider: { width: "200px" }
 	},
 	/*菜单折叠*/
 	collapsed: false,

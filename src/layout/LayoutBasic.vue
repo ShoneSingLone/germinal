@@ -20,7 +20,10 @@ const render = {
 
 <template>
 	<Layout class="layout-basic">
-		<LayoutSider v-model:collapsed="StateApp.collapsed" collapsible>
+		<LayoutSider
+			v-model:collapsed="StateApp.collapsed"
+			collapsible
+			:style="StateApp.layoutStyle.sider">
 			<div class="log" style="width: 100%; text-align: center">
 				<img :src="logoImg" style="width: 40px; height: 40px; margin: 20px" />
 			</div>
