@@ -1107,7 +1107,7 @@ function toRef(object, key2, defaultValue) {
   return isRef(val) ? val : new ObjectRefImpl(object, key2, defaultValue);
 }
 class ComputedRefImpl {
-  constructor(getter, _setter, isReadonly2) {
+  constructor(getter, _setter, isReadonly2, isSSR) {
     this._setter = _setter;
     this.dep = void 0;
     this._dirty = true;
@@ -1118,6 +1118,7 @@ class ComputedRefImpl {
         triggerRefValue(this);
       }
     });
+    this.effect.active = !isSSR;
     this["__v_isReadonly"] = isReadonly2;
   }
   get value() {
@@ -1133,7 +1134,7 @@ class ComputedRefImpl {
     this._setter(newValue);
   }
 }
-function computed(getterOrOptions, debugOptions) {
+function computed$1(getterOrOptions, debugOptions, isSSR = false) {
   let getter;
   let setter;
   const onlyGetter = isFunction$7(getterOrOptions);
@@ -1144,10 +1145,274 @@ function computed(getterOrOptions, debugOptions) {
     getter = getterOrOptions.get;
     setter = getterOrOptions.set;
   }
-  const cRef = new ComputedRefImpl(getter, setter, onlyGetter || !setter);
+  const cRef = new ComputedRefImpl(getter, setter, onlyGetter || !setter, isSSR);
   return cRef;
 }
 Promise.resolve();
+const stack = [];
+function warn$1(msg, ...args) {
+  pauseTracking();
+  const instance = stack.length ? stack[stack.length - 1].component : null;
+  const appWarnHandler = instance && instance.appContext.config.warnHandler;
+  const trace = getComponentTrace();
+  if (appWarnHandler) {
+    callWithErrorHandling(appWarnHandler, instance, 11, [msg + args.join(""), instance && instance.proxy, trace.map(({
+      vnode
+    }) => `at <${formatComponentName(instance, vnode.type)}>`).join("\n"), trace]);
+  } else {
+    const warnArgs = [`[Vue warn]: ${msg}`, ...args];
+    if (trace.length && true) {
+      warnArgs.push(`
+`, ...formatTrace(trace));
+    }
+    console.warn(...warnArgs);
+  }
+  resetTracking();
+}
+function getComponentTrace() {
+  let currentVNode = stack[stack.length - 1];
+  if (!currentVNode) {
+    return [];
+  }
+  const normalizedStack = [];
+  while (currentVNode) {
+    const last2 = normalizedStack[0];
+    if (last2 && last2.vnode === currentVNode) {
+      last2.recurseCount++;
+    } else {
+      normalizedStack.push({
+        vnode: currentVNode,
+        recurseCount: 0
+      });
+    }
+    const parentInstance = currentVNode.component && currentVNode.component.parent;
+    currentVNode = parentInstance && parentInstance.vnode;
+  }
+  return normalizedStack;
+}
+function formatTrace(trace) {
+  const logs = [];
+  trace.forEach((entry, i2) => {
+    logs.push(...i2 === 0 ? [] : [`
+`], ...formatTraceEntry(entry));
+  });
+  return logs;
+}
+function formatTraceEntry({
+  vnode,
+  recurseCount
+}) {
+  const postfix = recurseCount > 0 ? `... (${recurseCount} recursive calls)` : ``;
+  const isRoot = vnode.component ? vnode.component.parent == null : false;
+  const open2 = ` at <${formatComponentName(vnode.component, vnode.type, isRoot)}`;
+  const close3 = `>` + postfix;
+  return vnode.props ? [open2, ...formatProps(vnode.props), close3] : [open2 + close3];
+}
+function formatProps(props2) {
+  const res = [];
+  const keys2 = Object.keys(props2);
+  keys2.slice(0, 3).forEach((key2) => {
+    res.push(...formatProp(key2, props2[key2]));
+  });
+  if (keys2.length > 3) {
+    res.push(` ...`);
+  }
+  return res;
+}
+function formatProp(key2, value, raw) {
+  if (isString$3(value)) {
+    value = JSON.stringify(value);
+    return raw ? value : [`${key2}=${value}`];
+  } else if (typeof value === "number" || typeof value === "boolean" || value == null) {
+    return raw ? value : [`${key2}=${value}`];
+  } else if (isRef(value)) {
+    value = formatProp(key2, toRaw(value.value), true);
+    return raw ? value : [`${key2}=Ref<`, value, `>`];
+  } else if (isFunction$7(value)) {
+    return [`${key2}=fn${value.name ? `<${value.name}>` : ``}`];
+  } else {
+    value = toRaw(value);
+    return raw ? value : [`${key2}=`, value];
+  }
+}
+function callWithErrorHandling(fn, instance, type, args) {
+  let res;
+  try {
+    res = args ? fn(...args) : fn();
+  } catch (err) {
+    handleError(err, instance, type);
+  }
+  return res;
+}
+function callWithAsyncErrorHandling(fn, instance, type, args) {
+  if (isFunction$7(fn)) {
+    const res = callWithErrorHandling(fn, instance, type, args);
+    if (res && isPromise(res)) {
+      res.catch((err) => {
+        handleError(err, instance, type);
+      });
+    }
+    return res;
+  }
+  const values = [];
+  for (let i2 = 0; i2 < fn.length; i2++) {
+    values.push(callWithAsyncErrorHandling(fn[i2], instance, type, args));
+  }
+  return values;
+}
+function handleError(err, instance, type, throwInDev = true) {
+  const contextVNode = instance ? instance.vnode : null;
+  if (instance) {
+    let cur = instance.parent;
+    const exposedInstance = instance.proxy;
+    const errorInfo = type;
+    while (cur) {
+      const errorCapturedHooks = cur.ec;
+      if (errorCapturedHooks) {
+        for (let i2 = 0; i2 < errorCapturedHooks.length; i2++) {
+          if (errorCapturedHooks[i2](err, exposedInstance, errorInfo) === false) {
+            return;
+          }
+        }
+      }
+      cur = cur.parent;
+    }
+    const appErrorHandler = instance.appContext.config.errorHandler;
+    if (appErrorHandler) {
+      callWithErrorHandling(appErrorHandler, null, 10, [err, exposedInstance, errorInfo]);
+      return;
+    }
+  }
+  logError(err, type, contextVNode, throwInDev);
+}
+function logError(err, type, contextVNode, throwInDev = true) {
+  {
+    console.error(err);
+  }
+}
+let isFlushing = false;
+let isFlushPending = false;
+const queue = [];
+let flushIndex = 0;
+const pendingPreFlushCbs = [];
+let activePreFlushCbs = null;
+let preFlushIndex = 0;
+const pendingPostFlushCbs = [];
+let activePostFlushCbs = null;
+let postFlushIndex = 0;
+const resolvedPromise = Promise.resolve();
+let currentFlushPromise = null;
+let currentPreFlushParentJob = null;
+function nextTick(fn) {
+  const p2 = currentFlushPromise || resolvedPromise;
+  return fn ? p2.then(this ? fn.bind(this) : fn) : p2;
+}
+function findInsertionIndex(id) {
+  let start = flushIndex + 1;
+  let end = queue.length;
+  while (start < end) {
+    const middle = start + end >>> 1;
+    const middleJobId = getId(queue[middle]);
+    middleJobId < id ? start = middle + 1 : end = middle;
+  }
+  return start;
+}
+function queueJob(job) {
+  if ((!queue.length || !queue.includes(job, isFlushing && job.allowRecurse ? flushIndex + 1 : flushIndex)) && job !== currentPreFlushParentJob) {
+    if (job.id == null) {
+      queue.push(job);
+    } else {
+      queue.splice(findInsertionIndex(job.id), 0, job);
+    }
+    queueFlush();
+  }
+}
+function queueFlush() {
+  if (!isFlushing && !isFlushPending) {
+    isFlushPending = true;
+    currentFlushPromise = resolvedPromise.then(flushJobs);
+  }
+}
+function invalidateJob(job) {
+  const i2 = queue.indexOf(job);
+  if (i2 > flushIndex) {
+    queue.splice(i2, 1);
+  }
+}
+function queueCb(cb, activeQueue, pendingQueue, index2) {
+  if (!isArray$n(cb)) {
+    if (!activeQueue || !activeQueue.includes(cb, cb.allowRecurse ? index2 + 1 : index2)) {
+      pendingQueue.push(cb);
+    }
+  } else {
+    pendingQueue.push(...cb);
+  }
+  queueFlush();
+}
+function queuePreFlushCb(cb) {
+  queueCb(cb, activePreFlushCbs, pendingPreFlushCbs, preFlushIndex);
+}
+function queuePostFlushCb(cb) {
+  queueCb(cb, activePostFlushCbs, pendingPostFlushCbs, postFlushIndex);
+}
+function flushPreFlushCbs(seen2, parentJob = null) {
+  if (pendingPreFlushCbs.length) {
+    currentPreFlushParentJob = parentJob;
+    activePreFlushCbs = [...new Set(pendingPreFlushCbs)];
+    pendingPreFlushCbs.length = 0;
+    for (preFlushIndex = 0; preFlushIndex < activePreFlushCbs.length; preFlushIndex++) {
+      activePreFlushCbs[preFlushIndex]();
+    }
+    activePreFlushCbs = null;
+    preFlushIndex = 0;
+    currentPreFlushParentJob = null;
+    flushPreFlushCbs(seen2, parentJob);
+  }
+}
+function flushPostFlushCbs(seen2) {
+  if (pendingPostFlushCbs.length) {
+    const deduped = [...new Set(pendingPostFlushCbs)];
+    pendingPostFlushCbs.length = 0;
+    if (activePostFlushCbs) {
+      activePostFlushCbs.push(...deduped);
+      return;
+    }
+    activePostFlushCbs = deduped;
+    activePostFlushCbs.sort((a2, b2) => getId(a2) - getId(b2));
+    for (postFlushIndex = 0; postFlushIndex < activePostFlushCbs.length; postFlushIndex++) {
+      activePostFlushCbs[postFlushIndex]();
+    }
+    activePostFlushCbs = null;
+    postFlushIndex = 0;
+  }
+}
+const getId = (job) => job.id == null ? Infinity : job.id;
+function flushJobs(seen2) {
+  isFlushPending = false;
+  isFlushing = true;
+  flushPreFlushCbs(seen2);
+  queue.sort((a2, b2) => getId(a2) - getId(b2));
+  const check = NOOP;
+  try {
+    for (flushIndex = 0; flushIndex < queue.length; flushIndex++) {
+      const job = queue[flushIndex];
+      if (job && job.active !== false) {
+        if (false)
+          ;
+        callWithErrorHandling(job, null, 14);
+      }
+    }
+  } finally {
+    flushIndex = 0;
+    queue.length = 0;
+    flushPostFlushCbs();
+    isFlushing = false;
+    currentFlushPromise = null;
+    if (queue.length || pendingPreFlushCbs.length || pendingPostFlushCbs.length) {
+      flushJobs(seen2);
+    }
+  }
+}
 let devtools$1;
 let buffer = [];
 function setDevtoolsHook(hook, target) {
@@ -1859,6 +2124,201 @@ function inject(key2, defaultValue, treatDefaultAsFactory = false) {
       ;
   }
 }
+function watchEffect(effect2, options) {
+  return doWatch(effect2, null, options);
+}
+function watchPostEffect(effect2, options) {
+  return doWatch(effect2, null, {
+    flush: "post"
+  });
+}
+function watchSyncEffect(effect2, options) {
+  return doWatch(effect2, null, {
+    flush: "sync"
+  });
+}
+const INITIAL_WATCHER_VALUE = {};
+function watch(source, cb, options) {
+  return doWatch(source, cb, options);
+}
+function doWatch(source, cb, {
+  immediate,
+  deep,
+  flush,
+  onTrack,
+  onTrigger
+} = EMPTY_OBJ) {
+  const instance = currentInstance;
+  let getter;
+  let forceTrigger = false;
+  let isMultiSource = false;
+  if (isRef(source)) {
+    getter = () => source.value;
+    forceTrigger = !!source._shallow;
+  } else if (isReactive(source)) {
+    getter = () => source;
+    deep = true;
+  } else if (isArray$n(source)) {
+    isMultiSource = true;
+    forceTrigger = source.some(isReactive);
+    getter = () => source.map((s2) => {
+      if (isRef(s2)) {
+        return s2.value;
+      } else if (isReactive(s2)) {
+        return traverse(s2);
+      } else if (isFunction$7(s2)) {
+        return callWithErrorHandling(s2, instance, 2);
+      } else
+        ;
+    });
+  } else if (isFunction$7(source)) {
+    if (cb) {
+      getter = () => callWithErrorHandling(source, instance, 2);
+    } else {
+      getter = () => {
+        if (instance && instance.isUnmounted) {
+          return;
+        }
+        if (cleanup2) {
+          cleanup2();
+        }
+        return callWithAsyncErrorHandling(source, instance, 3, [onCleanup]);
+      };
+    }
+  } else {
+    getter = NOOP;
+  }
+  if (cb && deep) {
+    const baseGetter = getter;
+    getter = () => traverse(baseGetter());
+  }
+  let cleanup2;
+  let onCleanup = (fn) => {
+    cleanup2 = effect2.onStop = () => {
+      callWithErrorHandling(fn, instance, 4);
+    };
+  };
+  if (isInSSRComponentSetup) {
+    onCleanup = NOOP;
+    if (!cb) {
+      getter();
+    } else if (immediate) {
+      callWithAsyncErrorHandling(cb, instance, 3, [getter(), isMultiSource ? [] : void 0, onCleanup]);
+    }
+    return NOOP;
+  }
+  let oldValue = isMultiSource ? [] : INITIAL_WATCHER_VALUE;
+  const job = () => {
+    if (!effect2.active) {
+      return;
+    }
+    if (cb) {
+      const newValue = effect2.run();
+      if (deep || forceTrigger || (isMultiSource ? newValue.some((v2, i2) => hasChanged(v2, oldValue[i2])) : hasChanged(newValue, oldValue)) || false) {
+        if (cleanup2) {
+          cleanup2();
+        }
+        callWithAsyncErrorHandling(cb, instance, 3, [
+          newValue,
+          oldValue === INITIAL_WATCHER_VALUE ? void 0 : oldValue,
+          onCleanup
+        ]);
+        oldValue = newValue;
+      }
+    } else {
+      effect2.run();
+    }
+  };
+  job.allowRecurse = !!cb;
+  let scheduler;
+  if (flush === "sync") {
+    scheduler = job;
+  } else if (flush === "post") {
+    scheduler = () => queuePostRenderEffect(job, instance && instance.suspense);
+  } else {
+    scheduler = () => {
+      if (!instance || instance.isMounted) {
+        queuePreFlushCb(job);
+      } else {
+        job();
+      }
+    };
+  }
+  const effect2 = new ReactiveEffect(getter, scheduler);
+  if (cb) {
+    if (immediate) {
+      job();
+    } else {
+      oldValue = effect2.run();
+    }
+  } else if (flush === "post") {
+    queuePostRenderEffect(effect2.run.bind(effect2), instance && instance.suspense);
+  } else {
+    effect2.run();
+  }
+  return () => {
+    effect2.stop();
+    if (instance && instance.scope) {
+      remove(instance.scope.effects, effect2);
+    }
+  };
+}
+function instanceWatch(source, value, options) {
+  const publicThis = this.proxy;
+  const getter = isString$3(source) ? source.includes(".") ? createPathGetter(publicThis, source) : () => publicThis[source] : source.bind(publicThis, publicThis);
+  let cb;
+  if (isFunction$7(value)) {
+    cb = value;
+  } else {
+    cb = value.handler;
+    options = value;
+  }
+  const cur = currentInstance;
+  setCurrentInstance(this);
+  const res = doWatch(getter, cb.bind(publicThis), options);
+  if (cur) {
+    setCurrentInstance(cur);
+  } else {
+    unsetCurrentInstance();
+  }
+  return res;
+}
+function createPathGetter(ctx, path) {
+  const segments = path.split(".");
+  return () => {
+    let cur = ctx;
+    for (let i2 = 0; i2 < segments.length && cur; i2++) {
+      cur = cur[segments[i2]];
+    }
+    return cur;
+  };
+}
+function traverse(value, seen2) {
+  if (!isObject$g(value) || value["__v_skip"]) {
+    return value;
+  }
+  seen2 = seen2 || new Set();
+  if (seen2.has(value)) {
+    return value;
+  }
+  seen2.add(value);
+  if (isRef(value)) {
+    traverse(value.value, seen2);
+  } else if (isArray$n(value)) {
+    for (let i2 = 0; i2 < value.length; i2++) {
+      traverse(value[i2], seen2);
+    }
+  } else if (isSet$2(value) || isMap$2(value)) {
+    value.forEach((v2) => {
+      traverse(v2, seen2);
+    });
+  } else if (isPlainObject$5(value)) {
+    for (const key2 in value) {
+      traverse(value[key2], seen2);
+    }
+  }
+  return value;
+}
 function useTransitionState() {
   const state = {
     isMounted: false,
@@ -2328,7 +2788,7 @@ const KeepAliveImpl = {
     };
     function unmount(vnode) {
       resetShapeFlag(vnode);
-      _unmount(vnode, instance, parentSuspense);
+      _unmount(vnode, instance, parentSuspense, true);
     }
     function pruneCache(filter2) {
       cache2.forEach((vnode, key2) => {
@@ -2594,7 +3054,7 @@ function applyOptions(instance) {
       const opt = computedOptions[key2];
       const get2 = isFunction$7(opt) ? opt.bind(publicThis, publicThis) : isFunction$7(opt.get) ? opt.get.bind(publicThis, publicThis) : NOOP;
       const set2 = !isFunction$7(opt) && isFunction$7(opt.set) ? opt.set.bind(publicThis) : NOOP;
-      const c2 = computed({
+      const c2 = computed$1({
         get: get2,
         set: set2
       });
@@ -3722,7 +4182,7 @@ function baseCreateRenderer(options, createHydrationFns) {
     }
   };
   const mountStaticNode = (n2, container, anchor, isSVG) => {
-    [n2.el, n2.anchor] = hostInsertStaticContent(n2.children, container, anchor, isSVG);
+    [n2.el, n2.anchor] = hostInsertStaticContent(n2.children, container, anchor, isSVG, n2.el, n2.anchor);
   };
   const moveStaticNode = ({
     el,
@@ -5531,465 +5991,9 @@ function formatComponentName(instance, Component, isRoot = false) {
 function isClassComponent(value) {
   return isFunction$7(value) && "__vccOpts" in value;
 }
-const stack = [];
-function warn$1(msg, ...args) {
-  pauseTracking();
-  const instance = stack.length ? stack[stack.length - 1].component : null;
-  const appWarnHandler = instance && instance.appContext.config.warnHandler;
-  const trace = getComponentTrace();
-  if (appWarnHandler) {
-    callWithErrorHandling(appWarnHandler, instance, 11, [msg + args.join(""), instance && instance.proxy, trace.map(({
-      vnode
-    }) => `at <${formatComponentName(instance, vnode.type)}>`).join("\n"), trace]);
-  } else {
-    const warnArgs = [`[Vue warn]: ${msg}`, ...args];
-    if (trace.length && true) {
-      warnArgs.push(`
-`, ...formatTrace(trace));
-    }
-    console.warn(...warnArgs);
-  }
-  resetTracking();
-}
-function getComponentTrace() {
-  let currentVNode = stack[stack.length - 1];
-  if (!currentVNode) {
-    return [];
-  }
-  const normalizedStack = [];
-  while (currentVNode) {
-    const last2 = normalizedStack[0];
-    if (last2 && last2.vnode === currentVNode) {
-      last2.recurseCount++;
-    } else {
-      normalizedStack.push({
-        vnode: currentVNode,
-        recurseCount: 0
-      });
-    }
-    const parentInstance = currentVNode.component && currentVNode.component.parent;
-    currentVNode = parentInstance && parentInstance.vnode;
-  }
-  return normalizedStack;
-}
-function formatTrace(trace) {
-  const logs = [];
-  trace.forEach((entry, i2) => {
-    logs.push(...i2 === 0 ? [] : [`
-`], ...formatTraceEntry(entry));
-  });
-  return logs;
-}
-function formatTraceEntry({
-  vnode,
-  recurseCount
-}) {
-  const postfix = recurseCount > 0 ? `... (${recurseCount} recursive calls)` : ``;
-  const isRoot = vnode.component ? vnode.component.parent == null : false;
-  const open2 = ` at <${formatComponentName(vnode.component, vnode.type, isRoot)}`;
-  const close3 = `>` + postfix;
-  return vnode.props ? [open2, ...formatProps(vnode.props), close3] : [open2 + close3];
-}
-function formatProps(props2) {
-  const res = [];
-  const keys2 = Object.keys(props2);
-  keys2.slice(0, 3).forEach((key2) => {
-    res.push(...formatProp(key2, props2[key2]));
-  });
-  if (keys2.length > 3) {
-    res.push(` ...`);
-  }
-  return res;
-}
-function formatProp(key2, value, raw) {
-  if (isString$3(value)) {
-    value = JSON.stringify(value);
-    return raw ? value : [`${key2}=${value}`];
-  } else if (typeof value === "number" || typeof value === "boolean" || value == null) {
-    return raw ? value : [`${key2}=${value}`];
-  } else if (isRef(value)) {
-    value = formatProp(key2, toRaw(value.value), true);
-    return raw ? value : [`${key2}=Ref<`, value, `>`];
-  } else if (isFunction$7(value)) {
-    return [`${key2}=fn${value.name ? `<${value.name}>` : ``}`];
-  } else {
-    value = toRaw(value);
-    return raw ? value : [`${key2}=`, value];
-  }
-}
-function callWithErrorHandling(fn, instance, type, args) {
-  let res;
-  try {
-    res = args ? fn(...args) : fn();
-  } catch (err) {
-    handleError(err, instance, type);
-  }
-  return res;
-}
-function callWithAsyncErrorHandling(fn, instance, type, args) {
-  if (isFunction$7(fn)) {
-    const res = callWithErrorHandling(fn, instance, type, args);
-    if (res && isPromise(res)) {
-      res.catch((err) => {
-        handleError(err, instance, type);
-      });
-    }
-    return res;
-  }
-  const values = [];
-  for (let i2 = 0; i2 < fn.length; i2++) {
-    values.push(callWithAsyncErrorHandling(fn[i2], instance, type, args));
-  }
-  return values;
-}
-function handleError(err, instance, type, throwInDev = true) {
-  const contextVNode = instance ? instance.vnode : null;
-  if (instance) {
-    let cur = instance.parent;
-    const exposedInstance = instance.proxy;
-    const errorInfo = type;
-    while (cur) {
-      const errorCapturedHooks = cur.ec;
-      if (errorCapturedHooks) {
-        for (let i2 = 0; i2 < errorCapturedHooks.length; i2++) {
-          if (errorCapturedHooks[i2](err, exposedInstance, errorInfo) === false) {
-            return;
-          }
-        }
-      }
-      cur = cur.parent;
-    }
-    const appErrorHandler = instance.appContext.config.errorHandler;
-    if (appErrorHandler) {
-      callWithErrorHandling(appErrorHandler, null, 10, [err, exposedInstance, errorInfo]);
-      return;
-    }
-  }
-  logError(err, type, contextVNode, throwInDev);
-}
-function logError(err, type, contextVNode, throwInDev = true) {
-  {
-    console.error(err);
-  }
-}
-let isFlushing = false;
-let isFlushPending = false;
-const queue = [];
-let flushIndex = 0;
-const pendingPreFlushCbs = [];
-let activePreFlushCbs = null;
-let preFlushIndex = 0;
-const pendingPostFlushCbs = [];
-let activePostFlushCbs = null;
-let postFlushIndex = 0;
-const resolvedPromise = Promise.resolve();
-let currentFlushPromise = null;
-let currentPreFlushParentJob = null;
-function nextTick(fn) {
-  const p2 = currentFlushPromise || resolvedPromise;
-  return fn ? p2.then(this ? fn.bind(this) : fn) : p2;
-}
-function findInsertionIndex(id) {
-  let start = flushIndex + 1;
-  let end = queue.length;
-  while (start < end) {
-    const middle = start + end >>> 1;
-    const middleJobId = getId(queue[middle]);
-    middleJobId < id ? start = middle + 1 : end = middle;
-  }
-  return start;
-}
-function queueJob(job) {
-  if ((!queue.length || !queue.includes(job, isFlushing && job.allowRecurse ? flushIndex + 1 : flushIndex)) && job !== currentPreFlushParentJob) {
-    if (job.id == null) {
-      queue.push(job);
-    } else {
-      queue.splice(findInsertionIndex(job.id), 0, job);
-    }
-    queueFlush();
-  }
-}
-function queueFlush() {
-  if (!isFlushing && !isFlushPending) {
-    isFlushPending = true;
-    currentFlushPromise = resolvedPromise.then(flushJobs);
-  }
-}
-function invalidateJob(job) {
-  const i2 = queue.indexOf(job);
-  if (i2 > flushIndex) {
-    queue.splice(i2, 1);
-  }
-}
-function queueCb(cb, activeQueue, pendingQueue, index2) {
-  if (!isArray$n(cb)) {
-    if (!activeQueue || !activeQueue.includes(cb, cb.allowRecurse ? index2 + 1 : index2)) {
-      pendingQueue.push(cb);
-    }
-  } else {
-    pendingQueue.push(...cb);
-  }
-  queueFlush();
-}
-function queuePreFlushCb(cb) {
-  queueCb(cb, activePreFlushCbs, pendingPreFlushCbs, preFlushIndex);
-}
-function queuePostFlushCb(cb) {
-  queueCb(cb, activePostFlushCbs, pendingPostFlushCbs, postFlushIndex);
-}
-function flushPreFlushCbs(seen2, parentJob = null) {
-  if (pendingPreFlushCbs.length) {
-    currentPreFlushParentJob = parentJob;
-    activePreFlushCbs = [...new Set(pendingPreFlushCbs)];
-    pendingPreFlushCbs.length = 0;
-    for (preFlushIndex = 0; preFlushIndex < activePreFlushCbs.length; preFlushIndex++) {
-      activePreFlushCbs[preFlushIndex]();
-    }
-    activePreFlushCbs = null;
-    preFlushIndex = 0;
-    currentPreFlushParentJob = null;
-    flushPreFlushCbs(seen2, parentJob);
-  }
-}
-function flushPostFlushCbs(seen2) {
-  if (pendingPostFlushCbs.length) {
-    const deduped = [...new Set(pendingPostFlushCbs)];
-    pendingPostFlushCbs.length = 0;
-    if (activePostFlushCbs) {
-      activePostFlushCbs.push(...deduped);
-      return;
-    }
-    activePostFlushCbs = deduped;
-    activePostFlushCbs.sort((a2, b2) => getId(a2) - getId(b2));
-    for (postFlushIndex = 0; postFlushIndex < activePostFlushCbs.length; postFlushIndex++) {
-      activePostFlushCbs[postFlushIndex]();
-    }
-    activePostFlushCbs = null;
-    postFlushIndex = 0;
-  }
-}
-const getId = (job) => job.id == null ? Infinity : job.id;
-function flushJobs(seen2) {
-  isFlushPending = false;
-  isFlushing = true;
-  flushPreFlushCbs(seen2);
-  queue.sort((a2, b2) => getId(a2) - getId(b2));
-  const check = NOOP;
-  try {
-    for (flushIndex = 0; flushIndex < queue.length; flushIndex++) {
-      const job = queue[flushIndex];
-      if (job && job.active !== false) {
-        if (false)
-          ;
-        callWithErrorHandling(job, null, 14);
-      }
-    }
-  } finally {
-    flushIndex = 0;
-    queue.length = 0;
-    flushPostFlushCbs();
-    isFlushing = false;
-    currentFlushPromise = null;
-    if (queue.length || pendingPreFlushCbs.length || pendingPostFlushCbs.length) {
-      flushJobs(seen2);
-    }
-  }
-}
-function watchEffect(effect2, options) {
-  return doWatch(effect2, null, options);
-}
-function watchPostEffect(effect2, options) {
-  return doWatch(effect2, null, {
-    flush: "post"
-  });
-}
-function watchSyncEffect(effect2, options) {
-  return doWatch(effect2, null, {
-    flush: "sync"
-  });
-}
-const INITIAL_WATCHER_VALUE = {};
-function watch(source, cb, options) {
-  return doWatch(source, cb, options);
-}
-function doWatch(source, cb, {
-  immediate,
-  deep,
-  flush,
-  onTrack,
-  onTrigger
-} = EMPTY_OBJ) {
-  const instance = currentInstance;
-  let getter;
-  let forceTrigger = false;
-  let isMultiSource = false;
-  if (isRef(source)) {
-    getter = () => source.value;
-    forceTrigger = !!source._shallow;
-  } else if (isReactive(source)) {
-    getter = () => source;
-    deep = true;
-  } else if (isArray$n(source)) {
-    isMultiSource = true;
-    forceTrigger = source.some(isReactive);
-    getter = () => source.map((s2) => {
-      if (isRef(s2)) {
-        return s2.value;
-      } else if (isReactive(s2)) {
-        return traverse(s2);
-      } else if (isFunction$7(s2)) {
-        return callWithErrorHandling(s2, instance, 2);
-      } else
-        ;
-    });
-  } else if (isFunction$7(source)) {
-    if (cb) {
-      getter = () => callWithErrorHandling(source, instance, 2);
-    } else {
-      getter = () => {
-        if (instance && instance.isUnmounted) {
-          return;
-        }
-        if (cleanup2) {
-          cleanup2();
-        }
-        return callWithAsyncErrorHandling(source, instance, 3, [onInvalidate]);
-      };
-    }
-  } else {
-    getter = NOOP;
-  }
-  if (cb && deep) {
-    const baseGetter = getter;
-    getter = () => traverse(baseGetter());
-  }
-  let cleanup2;
-  let onInvalidate = (fn) => {
-    cleanup2 = effect2.onStop = () => {
-      callWithErrorHandling(fn, instance, 4);
-    };
-  };
-  if (isInSSRComponentSetup) {
-    onInvalidate = NOOP;
-    if (!cb) {
-      getter();
-    } else if (immediate) {
-      callWithAsyncErrorHandling(cb, instance, 3, [getter(), isMultiSource ? [] : void 0, onInvalidate]);
-    }
-    return NOOP;
-  }
-  let oldValue = isMultiSource ? [] : INITIAL_WATCHER_VALUE;
-  const job = () => {
-    if (!effect2.active) {
-      return;
-    }
-    if (cb) {
-      const newValue = effect2.run();
-      if (deep || forceTrigger || (isMultiSource ? newValue.some((v2, i2) => hasChanged(v2, oldValue[i2])) : hasChanged(newValue, oldValue)) || false) {
-        if (cleanup2) {
-          cleanup2();
-        }
-        callWithAsyncErrorHandling(cb, instance, 3, [
-          newValue,
-          oldValue === INITIAL_WATCHER_VALUE ? void 0 : oldValue,
-          onInvalidate
-        ]);
-        oldValue = newValue;
-      }
-    } else {
-      effect2.run();
-    }
-  };
-  job.allowRecurse = !!cb;
-  let scheduler;
-  if (flush === "sync") {
-    scheduler = job;
-  } else if (flush === "post") {
-    scheduler = () => queuePostRenderEffect(job, instance && instance.suspense);
-  } else {
-    scheduler = () => {
-      if (!instance || instance.isMounted) {
-        queuePreFlushCb(job);
-      } else {
-        job();
-      }
-    };
-  }
-  const effect2 = new ReactiveEffect(getter, scheduler);
-  if (cb) {
-    if (immediate) {
-      job();
-    } else {
-      oldValue = effect2.run();
-    }
-  } else if (flush === "post") {
-    queuePostRenderEffect(effect2.run.bind(effect2), instance && instance.suspense);
-  } else {
-    effect2.run();
-  }
-  return () => {
-    effect2.stop();
-    if (instance && instance.scope) {
-      remove(instance.scope.effects, effect2);
-    }
-  };
-}
-function instanceWatch(source, value, options) {
-  const publicThis = this.proxy;
-  const getter = isString$3(source) ? source.includes(".") ? createPathGetter(publicThis, source) : () => publicThis[source] : source.bind(publicThis, publicThis);
-  let cb;
-  if (isFunction$7(value)) {
-    cb = value;
-  } else {
-    cb = value.handler;
-    options = value;
-  }
-  const cur = currentInstance;
-  setCurrentInstance(this);
-  const res = doWatch(getter, cb.bind(publicThis), options);
-  if (cur) {
-    setCurrentInstance(cur);
-  } else {
-    unsetCurrentInstance();
-  }
-  return res;
-}
-function createPathGetter(ctx, path) {
-  const segments = path.split(".");
-  return () => {
-    let cur = ctx;
-    for (let i2 = 0; i2 < segments.length && cur; i2++) {
-      cur = cur[segments[i2]];
-    }
-    return cur;
-  };
-}
-function traverse(value, seen2) {
-  if (!isObject$g(value) || value["__v_skip"]) {
-    return value;
-  }
-  seen2 = seen2 || new Set();
-  if (seen2.has(value)) {
-    return value;
-  }
-  seen2.add(value);
-  if (isRef(value)) {
-    traverse(value.value, seen2);
-  } else if (isArray$n(value)) {
-    for (let i2 = 0; i2 < value.length; i2++) {
-      traverse(value[i2], seen2);
-    }
-  } else if (isSet$2(value) || isMap$2(value)) {
-    value.forEach((v2) => {
-      traverse(v2, seen2);
-    });
-  } else if (isPlainObject$5(value)) {
-    for (const key2 in value) {
-      traverse(value[key2], seen2);
-    }
-  }
-  return value;
-}
+const computed = (getterOrOptions, debugOptions) => {
+  return computed$1(getterOrOptions, debugOptions, isInSSRComponentSetup);
+};
 function defineProps() {
   return null;
 }
@@ -6116,7 +6120,7 @@ function isMemoSame(cached, memo) {
   }
   return true;
 }
-const version = "3.2.26";
+const version = "3.2.27";
 const _ssrUtils = {
   createComponentInstance,
   setupComponent,
@@ -6130,7 +6134,7 @@ const resolveFilter = null;
 const compatUtils = null;
 const svgNS = "http://www.w3.org/2000/svg";
 const doc = typeof document !== "undefined" ? document : null;
-const staticTemplateCache = new Map();
+const templateContainer = doc && doc.createElement("template");
 const nodeOps = {
   insert: (child, parent2, anchor) => {
     parent2.insertBefore(child, anchor || null);
@@ -6171,13 +6175,17 @@ const nodeOps = {
     }
     return cloned;
   },
-  insertStaticContent(content, parent2, anchor, isSVG) {
+  insertStaticContent(content, parent2, anchor, isSVG, start, end) {
     const before = anchor ? anchor.previousSibling : parent2.lastChild;
-    let template = staticTemplateCache.get(content);
-    if (!template) {
-      const t2 = doc.createElement("template");
-      t2.innerHTML = isSVG ? `<svg>${content}</svg>` : content;
-      template = t2.content;
+    if (start && end) {
+      while (true) {
+        parent2.insertBefore(start.cloneNode(true), anchor);
+        if (start === end || !(start = start.nextSibling))
+          break;
+      }
+    } else {
+      templateContainer.innerHTML = isSVG ? `<svg>${content}</svg>` : content;
+      const template = templateContainer.content;
       if (isSVG) {
         const wrapper = template.firstChild;
         while (wrapper.firstChild) {
@@ -6185,9 +6193,8 @@ const nodeOps = {
         }
         template.removeChild(wrapper);
       }
-      staticTemplateCache.set(content, template);
+      parent2.insertBefore(template, anchor);
     }
-    parent2.insertBefore(template.cloneNode(true), anchor);
     return [
       before ? before.nextSibling : parent2.firstChild,
       anchor ? anchor.previousSibling : parent2.lastChild
@@ -7554,7 +7561,6 @@ var runtimeDom = /* @__PURE__ */ Object.freeze({
   withModifiers,
   EffectScope,
   ReactiveEffect,
-  computed,
   customRef,
   effect,
   effectScope,
@@ -7597,6 +7603,7 @@ var runtimeDom = /* @__PURE__ */ Object.freeze({
   callWithErrorHandling,
   cloneVNode,
   compatUtils,
+  computed,
   createBlock,
   createCommentVNode,
   createElementBlock,
@@ -56144,4 +56151,4 @@ function extractChangingRecords(to, from) {
 function useRouter() {
   return inject(routerKey);
 }
-export { $$1 as $, watch as A, openBlock as B, Checkbox as C, createBlock as D, unref as E, _message as F, _notification as G, _Progress as H, InputPassword as I, _Popover as J, MenuItem as K, Dropdown$1 as L, Menu as M, Button as N, _List as O, _Popconfirm as P, _Alert as Q, _Result as R, SubMenu as S, Tabs as T, TabPane as U, Spin as V, _Layout as W, LayoutHeader as X, LayoutSider as Y, LayoutFooter as Z, _, map_1 as a, LayoutContent as a0, GlobalOutlined$1 as a1, AppleOutlined$1 as a2, AndroidOutlined$1 as a3, UserOutlined$1 as a4, LockFilled$1 as a5, MobileOutlined$1 as a6, AlipayCircleFilled$1 as a7, TaobaoCircleFilled$1 as a8, WeiboCircleFilled$1 as a9, Loading3QuartersOutlined$1 as aa, LoadingOutlined$1 as ab, LockOutlined$1 as ac, MenuUnfoldOutlined$1 as ad, MenuFoldOutlined$1 as ae, MailOutlined$1 as af, computed as ag, md5 as ah, onMounted as ai, withCtx as aj, useRouter as ak, toDisplayString$1 as al, createElementBlock as am, renderList as an, Fragment as ao, createBaseVNode as ap, normalizeStyle as aq, normalizeClass as ar, createStaticVNode as as, createCommentVNode as at, resolveDirective as au, withDirectives as av, createRouter as aw, createWebHashHistory as ax, NProgress as ay, createApp as az, isPlainObject_1 as b, isFunction_1 as c, isBoolean_1 as d, each as e, isString_1 as f, every_1 as g, debounce_1 as h, isArray_1 as i, isNumber_1 as j, filter_1 as k, defineComponent as l, merge_1 as m, markRaw as n, omit_1 as o, h$1 as p, Input$2 as q, reduce_1 as r, some_1 as s, reactive as t, createVNode as u, createTextVNode as v, resolveComponent as w, mergeProps as x, createI18n as y, watchEffect as z };
+export { $$1 as $, watch as A, openBlock as B, Checkbox as C, createBlock as D, unref as E, _message as F, _notification as G, _Progress as H, InputPassword as I, _Popover as J, MenuItem as K, Dropdown$1 as L, Menu as M, Button as N, _List as O, _Popconfirm as P, _Alert as Q, _Result as R, SubMenu as S, Tabs as T, TabPane as U, Spin as V, _Layout as W, LayoutHeader as X, LayoutSider as Y, LayoutFooter as Z, _, map_1 as a, LayoutContent as a0, GlobalOutlined$1 as a1, AppleOutlined$1 as a2, AndroidOutlined$1 as a3, UserOutlined$1 as a4, LockFilled$1 as a5, MobileOutlined$1 as a6, AlipayCircleFilled$1 as a7, TaobaoCircleFilled$1 as a8, WeiboCircleFilled$1 as a9, commonjsGlobal as aA, Loading3QuartersOutlined$1 as aa, LoadingOutlined$1 as ab, LockOutlined$1 as ac, MenuUnfoldOutlined$1 as ad, MenuFoldOutlined$1 as ae, MailOutlined$1 as af, computed as ag, md5 as ah, onMounted as ai, withCtx as aj, useRouter as ak, toDisplayString$1 as al, createElementBlock as am, renderList as an, Fragment as ao, createBaseVNode as ap, normalizeStyle as aq, normalizeClass as ar, createStaticVNode as as, createCommentVNode as at, resolveDirective as au, withDirectives as av, createRouter as aw, createWebHashHistory as ax, NProgress as ay, createApp as az, isPlainObject_1 as b, isFunction_1 as c, isBoolean_1 as d, each as e, isString_1 as f, every_1 as g, debounce_1 as h, isArray_1 as i, isNumber_1 as j, filter_1 as k, defineComponent as l, merge_1 as m, markRaw as n, omit_1 as o, h$1 as p, Input$2 as q, reduce_1 as r, some_1 as s, reactive as t, createVNode as u, createTextVNode as v, resolveComponent as w, mergeProps as x, createI18n as y, watchEffect as z };
