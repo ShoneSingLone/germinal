@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, _ as _$1, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, y as createI18n, z as watchEffect, A as watch, B as openBlock, D as createBlock, E as unref, F as _message, G as _notification, H as _Progress, J as _Popover, M as Menu, K as MenuItem, L as Dropdown, N as Button, O as _List, P as _Popconfirm, Q as _Alert, R as _Result, T as Tabs, S as TabPane, U as GlobalOutlined, V as AppleOutlined, W as AndroidOutlined, X as UserOutlined, Y as LockFilled, Z as MobileOutlined, a0 as AlipayCircleFilled, a1 as TaobaoCircleFilled, a2 as WeiboCircleFilled, a3 as computed, a4 as md5, a5 as onMounted, a6 as createElementBlock, a7 as useRouter, a8 as withCtx, a9 as toDisplayString, aa as renderList, ab as Fragment, ac as createBaseVNode, ad as normalizeStyle, ae as normalizeClass, af as createStaticVNode, ag as createCommentVNode, ah as resolveDirective, ai as withDirectives, aj as pushScopeId, ak as popScopeId, al as createRouter, am as createWebHashHistory, an as NProgress, ao as createApp } from "./vendor-b1ff5f91.js";
+import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, _ as _$1, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, y as createI18n, z as watchEffect, A as watch, B as openBlock, D as createBlock, E as unref, F as _message, G as _notification, H as _Progress, J as _Popover, M as Menu, K as MenuItem, S as SubMenu, L as Dropdown, N as Button, O as _List, P as _Popconfirm, Q as _Alert, R as _Result, T as Tabs, U as TabPane, V as Spin, W as _Layout, X as LayoutHeader, Y as LayoutSider, Z as LayoutFooter, a0 as LayoutContent, a1 as GlobalOutlined, a2 as AppleOutlined, a3 as AndroidOutlined, a4 as UserOutlined, a5 as LockFilled, a6 as MobileOutlined, a7 as AlipayCircleFilled, a8 as TaobaoCircleFilled, a9 as WeiboCircleFilled, aa as Loading3QuartersOutlined, ab as LoadingOutlined, ac as LockOutlined, ad as MenuUnfoldOutlined, ae as MenuFoldOutlined, af as MailOutlined, ag as computed, ah as md5, ai as onMounted, aj as withCtx, ak as useRouter, al as toDisplayString, am as createElementBlock, an as renderList, ao as Fragment, ap as createBaseVNode, aq as normalizeStyle, ar as normalizeClass, as as createStaticVNode, at as createCommentVNode, au as resolveDirective, av as withDirectives, aw as createRouter, ax as createWebHashHistory, ay as NProgress, az as createApp } from "./vendor-f27184f7.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -57,6 +57,39 @@ const p = function polyfill() {
   }
 };
 p();
+const scriptRel = "modulepreload";
+const seen = {};
+const base = "./";
+const __vitePreload = function preload(baseModule, deps) {
+  if (!deps || deps.length === 0) {
+    return baseModule();
+  }
+  return Promise.all(deps.map((dep) => {
+    dep = `${base}${dep}`;
+    if (dep in seen)
+      return;
+    seen[dep] = true;
+    const isCss = dep.endsWith(".css");
+    const cssSelector = isCss ? '[rel="stylesheet"]' : "";
+    if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) {
+      return;
+    }
+    const link = document.createElement("link");
+    link.rel = isCss ? "stylesheet" : scriptRel;
+    if (!isCss) {
+      link.as = "script";
+      link.crossOrigin = "";
+    }
+    link.href = dep;
+    document.head.appendChild(link);
+    if (isCss) {
+      return new Promise((res, rej) => {
+        link.addEventListener("load", res);
+        link.addEventListener("error", rej);
+      });
+    }
+  })).then(() => baseModule());
+};
 const lStorage = new Proxy(localStorage, {
   set(_localStorage, prop, value) {
     if (_.isPlainObject(value)) {
@@ -140,11 +173,19 @@ const isModelListener = (key) => key.startsWith("onUpdate:");
 const isListener = (key) => isOn(key) || isModelListener(key);
 window._.isListener = isListener;
 var xRender = defineComponent(markRaw({
-  props: ["render", "state"],
-  setup: ({
-    render,
-    state
-  }) => () => render(state)
+  props: {
+    render: {
+      type: Function,
+      required: true
+    }
+  },
+  render(h2) {
+    return this.$props.render({
+      vm: this,
+      props: this.$props,
+      attrs: this.$attrs
+    });
+  }
 }));
 var Input = ({
   property,
@@ -204,13 +245,11 @@ const checkXItem = async (xItemConfigs, handlerResult) => {
               trigBy = "validateForm";
               return true;
             }
-            ;
             const isInTrigger = (eventName) => xItemConfigs.validate.triggerEventsObj[eventName];
             if (_.some(trigger, isInTrigger)) {
               trigBy = `triggerEvent ${trigger.toString()}`;
               return true;
             }
-            ;
             if (trigger.includes(EVENT_TYPE.update)) {
               const updateTrigger = [EVENT_TYPE.change, EVENT_TYPE.input, EVENT_TYPE.blur];
               if (_.some(updateTrigger, isInTrigger)) {
@@ -218,7 +257,6 @@ const checkXItem = async (xItemConfigs, handlerResult) => {
                 return true;
               }
             }
-            ;
             return false;
           })();
           trigBy && console.log(`%cValidate trig by [${trigBy}]`, "color:yellow;background:green;");
@@ -257,7 +295,7 @@ var Checkbox = ({
 }) => {
   const _property = _.merge({}, property, {
     checked: property.value,
-    "onClick"() {
+    onClick() {
       _property["onUpdate:value"](!_property.value, EVENT_TYPE.update);
     }
   });
@@ -345,7 +383,7 @@ function timeFix() {
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$d = defineComponent({
+var _sfc_main$f = defineComponent({
   props: {
     modelValue: {
       type: [Object, String, Number, Boolean]
@@ -568,7 +606,7 @@ var _sfc_main$d = defineComponent({
     }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$c = defineComponent({
+var _sfc_main$e = defineComponent({
   props: {
     configs: {
       type: Object,
@@ -744,12 +782,12 @@ var __glob_3_2 = /* @__PURE__ */ Object.freeze({
 });
 const defaultLang = "zh-CN";
 function getLangFiles() {
-  const modules = { "./en-US.js": __glob_3_0, "./zh-CN.js": __glob_3_2 };
-  return _.reduce(modules, (message, module, path) => {
+  const modules2 = { "./en-US.js": __glob_3_0, "./zh-CN.js": __glob_3_2 };
+  return _.reduce(modules2, (message, module, path) => {
     if (module.default) {
       const pathName = path.substr(path.lastIndexOf("/") + 1, 5);
       if (message[pathName]) {
-        message[pathName] = __spreadValues(__spreadValues({}, modules[pathName]), module.default);
+        message[pathName] = __spreadValues(__spreadValues({}, modules2[pathName]), module.default);
       } else {
         message[pathName] = module.default;
       }
@@ -783,7 +821,7 @@ function setI18nLanguage(lang) {
   $("html").attr("lang", lang);
   return lang;
 }
-var _sfc_main$b = {
+var _sfc_main$d = {
   props: {
     configs: {
       type: Object,
@@ -848,7 +886,7 @@ var _sfc_main$b = {
     };
   }
 };
-var _sfc_main$a = defineComponent({
+var _sfc_main$c = defineComponent({
   props: ["t", "l", "r", "b", "a"],
   computed: {
     gapStyle: {
@@ -1126,7 +1164,7 @@ ClassLayer.pt.creat = function() {
   }).auto(times);
   that.shadeo.css({
     "background-color": config.shade[1] || "#000",
-    "opacity": config.shade[0] || config.shade
+    opacity: config.shade[0] || config.shade
   });
   config.type == 2 && layer.ie == 6 && that.layero.find("iframe").attr("src", content[0]);
   config.type == 4 ? that.tips() : function() {
@@ -1432,7 +1470,7 @@ ClassLayer.pt.IE6 = function(layero) {
     var sthis = $(this);
     if (!sthis.parents("." + DOMS[0])[0]) {
       sthis.css("display") === "none" || sthis.attr({
-        "layer": "1"
+        layer: "1"
       }).hide();
     }
     sthis = null;
@@ -1975,16 +2013,17 @@ $(document).on("mouseleave.uiPopverTips", "[data-layer-tips-id]", function(event
 });
 const componentMyUI = {
   xRender,
-  xItem: _sfc_main$d,
-  xButton: _sfc_main$c,
-  xButtonCountDown: _sfc_main$b,
-  xGap: _sfc_main$a
+  xItem: _sfc_main$f,
+  xButton: _sfc_main$e,
+  xButtonCountDown: _sfc_main$d,
+  xGap: _sfc_main$c
 };
 const componentAntdV = {
   Progress: _Progress,
   Popover: _Popover,
   Menu,
   MenuItem,
+  SubMenu,
   Dropdown,
   Button,
   List: _List,
@@ -1995,7 +2034,13 @@ const componentAntdV = {
   Alert: _Alert,
   Result: _Result,
   Tabs,
-  TabPane
+  TabPane,
+  Spin,
+  Layout: _Layout,
+  LayoutHeader,
+  LayoutSider,
+  LayoutFooter,
+  LayoutContent
 };
 const componentIcons = {
   GlobalOutlined,
@@ -2006,7 +2051,13 @@ const componentIcons = {
   MobileOutlined,
   AlipayCircleFilled,
   TaobaoCircleFilled,
-  WeiboCircleFilled
+  WeiboCircleFilled,
+  Loading3QuartersOutlined,
+  LoadingOutlined,
+  LockOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  MailOutlined
 };
 const components = __spreadValues(__spreadValues(__spreadValues({}, componentMyUI), componentAntdV), componentIcons);
 const UI = {
@@ -2148,7 +2199,149 @@ const apiUser = {
 const API = {
   user: apiUser
 };
+const menuTree = [{
+  id: genId("menu"),
+  label: genId("label"),
+  children: [{
+    id: genId("menu"),
+    label: genId("label"),
+    children: [{
+      id: genId("menu"),
+      label: genId("label")
+    }, {
+      id: genId("menu"),
+      label: genId("label")
+    }, {
+      id: genId("menu"),
+      label: genId("label")
+    }, {
+      id: genId("menu"),
+      label: genId("label")
+    }, {
+      id: genId("menu"),
+      label: genId("label")
+    }, {
+      id: genId("menu"),
+      label: genId("label")
+    }]
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }]
+}, {
+  id: genId("menu"),
+  label: genId("label"),
+  children: [{
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }]
+}, {
+  id: genId("menu"),
+  label: genId("label"),
+  children: [{
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }]
+}, {
+  id: genId("menu"),
+  label: genId("label"),
+  children: [{
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }]
+}, {
+  id: genId("menu"),
+  label: genId("label"),
+  children: [{
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }, {
+    id: genId("menu"),
+    label: genId("label")
+  }]
+}];
 const StateApp = reactive({
+  theme: "dark",
+  menuTree,
+  layoutStyle: {
+    header: {
+      height: "64px"
+    },
+    sider: {
+      width: "200px"
+    }
+  },
+  collapsed: false,
+  arr_selectedMenuId: [],
   token: lStorage.token,
   count: 0,
   isMobile: false,
@@ -2183,12 +2376,17 @@ watch(() => StateApp.configs.colors, (colors) => setCSSVariables(colors), {
 });
 const StateAppActions = {
   async initAppConfigs(callback) {
-    const isLoadConfigs = StateApp.isDev || !StateApp.configs;
+    console.time("initAppConfigs");
+    const currentAppVersion = $("meta[data-version]").data("version");
+    console.log("\u{1F680}:", "currentAppVersion", JSON.stringify(currentAppVersion, null, 2));
+    const isLoadConfigs = StateApp.isDev || !StateApp.configs || StateApp.configs.version !== currentAppVersion;
     if (isLoadConfigs) {
-      StateApp.configs = (await ajax.loadText("./configs.jsx"))();
+      const configs = (await ajax.loadText("./configs.jsx"))();
+      configs.version = currentAppVersion;
+      StateApp.configs = configs;
     }
-    setDocumentTitle(StateApp.configs.title);
     callback && callback(StateApp);
+    console.timeEnd("initAppConfigs");
     return StateApp;
   },
   GetInfo: async () => {
@@ -2232,32 +2430,37 @@ const StateAppActions = {
   }
 };
 var App_less_vue_type_style_index_0_src_lang = "";
-const _hoisted_1$6 = {
-  key: 0
-};
-const _sfc_main$9 = {
+const _hoisted_1$8 = /* @__PURE__ */ createTextVNode(" Loading... ");
+const _sfc_main$b = {
   setup(__props) {
     const state = reactive({
       isLoading: true
     });
     onMounted(async () => {
-      await StateAppActions.initAppConfigs();
+      const StateApp2 = await StateAppActions.initAppConfigs();
+      setDocumentTitle(StateApp2.configs.title);
       state.isLoading = false;
     });
     return (_ctx, _cache) => {
+      const _component_Spin = resolveComponent("Spin");
       const _component_RouterView = resolveComponent("RouterView");
-      return unref(state).isLoading ? (openBlock(), createElementBlock("h1", _hoisted_1$6, " Loading... ")) : (openBlock(), createBlock(_component_RouterView, {
+      return unref(state).isLoading ? (openBlock(), createBlock(_component_Spin, {
+        key: 0
+      }, {
+        default: withCtx(() => [_hoisted_1$8]),
+        _: 1
+      })) : (openBlock(), createBlock(_component_RouterView, {
         key: 1
       }));
     };
   }
 };
-const _sfc_main$8 = {
+const _sfc_main$a = {
   setup(__props) {
     const router2 = useRouter();
     function go() {
       router2.push({
-        name: routeNames.login
+        name: routeNames.shell
       });
     }
     return (_ctx, _cache) => {
@@ -2281,9 +2484,9 @@ const _sfc_main$8 = {
   }
 };
 var logoImg = "./assets/logo.e06e25bf.png";
-var backgroundImg = "./assets/background.d7103c44.svg";
-const _hoisted_1$5 = ["aria-label"];
-const _sfc_main$7 = {
+var backgroundImg = `<svg width="1361" height="609" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g opacity=".8" transform="rotate(-7 4291.342 278.88)"><ellipse fill="#CFDAE6" opacity=".25" cx="63.575" cy="32.468" rx="21.783" ry="21.766"/><ellipse fill="#CFDAE6" opacity=".6" cx="5.987" cy="13.867" rx="5.217" ry="5.213"/><path d="M38.135 88.352c5.763 0 10.435-4.668 10.435-10.427 0-5.758-4.672-10.426-10.435-10.426-5.763 0-10.434 4.668-10.434 10.426 0 5.759 4.671 10.427 10.434 10.427Z" fill="#CFDAE6" opacity=".45"/><path d="m64.278 33.17 54.908-16.605" stroke="#CFDAE6" stroke-width="1.739" stroke-linecap="round" stroke-linejoin="round"/><path d="M42.143 26.5 7.712 14.564" stroke="#E0B4B7" stroke-width=".703" opacity=".7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.405357899873153,2.108036953469981"/><path d="M63.926 33.522 43.672 69.325" stroke="#BACAD9" stroke-width=".703" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.405357899873153,2.108036953469981"/><g transform="rotate(30 60.031 230.21)" fill="#CFDAE6"><ellipse opacity=".45" cx="9.135" cy="9.128" rx="9.135" ry="9.128"/><path d="M0 9.128c0 5.04 4.09 9.127 9.135 9.127s9.135-4.086 9.135-9.127H0Z"/></g></g><g transform="rotate(-5 462.48 -1092.758)"><ellipse fill="#CFDAE6" opacity=".25" cx="29.118" cy="29.14" rx="29.118" ry="29.14"/><ellipse fill="#CFDAE6" opacity=".3" cx="29.118" cy="29.14" rx="21.569" ry="21.585"/><ellipse stroke="#CFDAE6" opacity=".4" cx="179.02" cy="138.146" rx="23.725" ry="23.744"/><ellipse fill="#BACAD9" opacity=".5" cx="29.118" cy="29.14" rx="10.784" ry="10.793"/><path d="M29.118 39.933V18.348c-5.956 0-10.785 4.832-10.785 10.792s4.829 10.793 10.785 10.793Z" fill="#BACAD9"/><g opacity=".45" transform="translate(172 131)" fill="#E6A1A6"><ellipse cx="7.02" cy="7.146" rx="6.471" ry="6.476"/><path d="M7.02 13.622c-3.574 0-6.471-2.9-6.471-6.476A6.473 6.473 0 0 1 7.019.671v12.951Z"/></g><ellipse fill="#CFDAE6" cx="218.382" cy="138.686" rx="1.618" ry="1.619"/><ellipse fill="#E0B4B7" opacity=".35" cx="179.559" cy="175.381" rx="1.618" ry="1.619"/><ellipse fill="#E0B4B7" opacity=".35" cx="180.098" cy="102.53" rx="2.157" ry="2.159"/><path d="M28.999 29.967 171.15 132.876" stroke="#CFDAE6" opacity=".8"/></g><g opacity=".8" transform="rotate(-11 517.26 -5290.613)"><ellipse stroke="#CFDAE6" stroke-width=".941" cx="43.814" cy="32" rx="11.186" ry="11.294"/><g transform="translate(34.597 23.111)" fill="#BACAD9"><ellipse opacity=".45" cx="9.185" cy="8.889" rx="8.475" ry="8.556"/><path d="M9.185 17.445c4.68 0 8.475-3.83 8.475-8.556 0-4.726-3.794-8.556-8.475-8.556v17.112Z"/></g><path d="M34.66 24.81 5.717 4.769" stroke="#CFDAE6" stroke-width=".941"/><ellipse stroke="#CFDAE6" stroke-width=".941" cx="3.263" cy="3.294" rx="3.263" ry="3.294"/><ellipse fill="#F7E1AD" cx="2.797" cy="61.176" rx="2.797" ry="2.824"/><path d="M34.631 39.292 5.064 59.785" stroke="#CFDAE6" stroke-width=".941"/></g><g opacity=".33" transform="rotate(-10 2530.52 -6239.949)"><g transform="rotate(-85 127.141 -12.32)" fill="#BACAD9"><circle opacity=".45" cx="11.667" cy="11.667" r="11.667"/><path d="M0 11.667c0 6.443 5.223 11.666 11.667 11.666 6.443 0 11.666-5.223 11.666-11.666H0Z"/></g><circle fill="#CFDAE6" cx="201.833" cy="87.5" r="5.833"/><path d="m143.5 88.813 11.57-71.21M17.5 37.333l109.966 60.312" stroke="#BACAD9" stroke-width="1.167"/><path stroke="#CFDAE6" stroke-width="1.167" d="m143.903 120.302 31.032 111.27L38.5 147.51l87.867-36.678"/><path d="m159.833 99.745 35.584-10.495" stroke="#E0B4B7" stroke-width="1.167" opacity=".6"/><path d="m205.333 82.137 33.386-45.97" stroke="#BACAD9" stroke-width="1.167"/><path d="m266.723 132.232-59.64-41.815" stroke="#CFDAE6" stroke-width="1.167"/><circle fill="#C1D1E0" cx="156.917" cy="8.75" r="8.75"/><circle fill="#C1D1E0" cx="39.083" cy="148.75" r="5.25"/><circle fill-opacity=".6" fill="#D1DEED" cx="8.75" cy="33.25" r="8.75"/><circle fill-opacity=".6" fill="#D1DEED" cx="243.833" cy="30.333" r="5.833"/><circle fill="#E0B4B7" cx="175.583" cy="232.75" r="5.25"/></g></g></svg>`;
+const _hoisted_1$7 = ["aria-label"];
+const _sfc_main$9 = {
   setup(__props) {
     const languageLabels = {
       "zh-CN": {
@@ -2319,7 +2522,7 @@ const _sfc_main$7 = {
               default: withCtx(() => [createBaseVNode("span", {
                 role: "img",
                 "aria-label": locale.label
-              }, toDisplayString(locale.icon), 9, _hoisted_1$5), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
+              }, toDisplayString(locale.icon), 9, _hoisted_1$7), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
               _: 2
             }, 1024);
           }), 64))]),
@@ -2331,10 +2534,10 @@ const _sfc_main$7 = {
     };
   }
 };
-const _hoisted_1$4 = {
+const _hoisted_1$6 = {
   class: "user-layout-lang"
 };
-const _hoisted_2$3 = {
+const _hoisted_2$4 = {
   class: "user-layout-content"
 };
 const _hoisted_3$3 = {
@@ -2353,8 +2556,8 @@ const _hoisted_7$2 = {
 const _hoisted_8$1 = {
   class: "desc"
 };
-const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright"> Copyright \xA9 2018 vueComponent </div></div>', 1);
-const _sfc_main$6 = {
+const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 2018 vueComponent</div></div>', 1);
+const _sfc_main$8 = {
   setup(__props) {
     const styles2 = {
       container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
@@ -2367,9 +2570,9 @@ const _sfc_main$6 = {
       }, [createBaseVNode("div", {
         class: "container",
         style: normalizeStyle(styles2.container)
-      }, [createBaseVNode("div", _hoisted_1$4, [createVNode(_sfc_main$7, {
+      }, [createBaseVNode("div", _hoisted_1$6, [createVNode(_sfc_main$9, {
         class: "select-lang-trigger"
-      })]), createBaseVNode("div", _hoisted_2$3, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
+      })]), createBaseVNode("div", _hoisted_2$4, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
         src: unref(logoImg),
         class: "logo",
         alt: "logo"
@@ -2428,39 +2631,9 @@ var FormRules = {
     });
   }
 };
-var SvgRender = {
-  lockStrok: () => createVNode("svg", {
-    "viewBox": "64 64 896 896",
-    "data-icon": "lock",
-    "width": "1em",
-    "height": "1em",
-    "fill": "currentColor",
-    "aria-hidden": "true",
-    "focusable": "false"
-  }, [createVNode("path", {
-    "d": "M832 464h-68V240c0-70.7-57.3-128-128-128H388c-70.7 0-128 57.3-128 128v224h-68c-17.7 0-32 14.3-32 32v384c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V496c0-17.7-14.3-32-32-32zM332 240c0-30.9 25.1-56 56-56h248c30.9 0 56 25.1 56 56v224H332V240zm460 600H232V536h560v304zM484 701v53c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-53a48.01 48.01 0 1 0-56 0z"
-  }, null)]),
-  mail: () => createVNode("svg", {
-    "viewBox": "64 64 896 896",
-    "data-icon": "mail",
-    "width": "1em",
-    "height": "1em",
-    "fill": "currentColor",
-    "aria-hidden": "true",
-    "focusable": "false"
-  }, [createVNode("path", {
-    "d": "M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32zm-40 110.8V792H136V270.8l-27.6-21.5 39.3-50.5 42.8 33.3h643.1l42.8-33.3 39.3 50.5-27.7 21.5zM833.6 232L512 482 190.4 232l-42.8-33.3-39.3 50.5 27.6 21.5 341.6 265.6a55.99 55.99 0 0 0 68.7 0L888 270.8l27.6-21.5-39.3-50.5-42.7 33.2z"
-  }, null)])
-};
-const pickValueFrom = (configs) => {
-  return _.reduce(configs, (target, config, prop) => {
-    target[prop] = config.value;
-    return target;
-  }, {});
-};
 function handleLoginSuccess(res) {
   router.push({
-    path: "/dashbord/overview"
+    name: routeNames.shell
   });
   setTimeout(() => {
     UI.notification.success({
@@ -2478,7 +2651,9 @@ function handleLoginFail(error) {
 }
 const styles$1 = {
   icon: {
-    color: getColor("disabledColor")
+    color: getColor("disabledColor"),
+    width: "16px",
+    height: "16px"
   }
 };
 const TAB_KEYS_MAP = {
@@ -2519,8 +2694,7 @@ const StateLogin = reactive({
     placeholder: () => $t("user.login.password.placeholder").label,
     rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
     slots: {
-      prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": SvgRender.lockStrok,
+      prefix: () => createVNode(resolveComponent("LockOutlined"), {
         "style": styles$1.icon
       }, null)
     }
@@ -2546,8 +2720,7 @@ const StateLogin = reactive({
     placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
     rules: [FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
     slots: {
-      prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": SvgRender.mail,
+      prefix: () => createVNode(resolveComponent("LockOutlined"), {
         "style": styles$1.icon
       }, null)
     }
@@ -2584,8 +2757,7 @@ const StateLogin = reactive({
         const currentFormConfigs = StateLogin[currentFormProp];
         const validateResults = await validateForm(currentFormConfigs);
         if (!_.isArrayFill(validateResults)) {
-          const formData = pickValueFrom(currentFormConfigs);
-          const res = await StateAppActions.Login(formData);
+          const res = await StateAppActions.Login(StateLogin.data);
           handleLoginSuccess(res);
         } else {
           throw new Error("\u672A\u901A\u8FC7\u9A8C\u8BC1");
@@ -2626,7 +2798,7 @@ async function getCaptcha() {
     console.error(e);
   }
 }
-var _sfc_main$5 = {
+var _sfc_main$7 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
@@ -2647,10 +2819,10 @@ var _sfc_main$5 = {
     };
   }
 };
-const _hoisted_1$3 = {
+const _hoisted_1$5 = {
   class: "flex"
 };
-var _sfc_main$4 = {
+var _sfc_main$6 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_xItem = resolveComponent("xItem");
@@ -2663,7 +2835,7 @@ var _sfc_main$4 = {
         autocomplete: "username"
       }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_1$3, [createVNode(_component_xItem, {
+      }), createBaseVNode("div", _hoisted_1$5, [createVNode(_component_xItem, {
         modelValue: unref(StateLogin).data.verificationCode,
         "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => unref(StateLogin).data.verificationCode = $event),
         configs: unref(StateLogin).configsFormMobile.verificationCode,
@@ -2676,10 +2848,10 @@ var _sfc_main$4 = {
     };
   }
 };
-const _hoisted_1$2 = {
+const _hoisted_1$4 = {
   class: "main"
 };
-const _hoisted_2$2 = {
+const _hoisted_2$3 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
 const _hoisted_3$2 = {
@@ -2698,7 +2870,7 @@ const _hoisted_6$2 = {
 const _hoisted_7$1 = {
   class: "user-login-other"
 };
-const _sfc_main$3 = {
+const _sfc_main$5 = {
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_Alert = resolveComponent("Alert");
@@ -2710,7 +2882,7 @@ const _sfc_main$3 = {
       const _component_TaobaoCircleFilled = resolveComponent("TaobaoCircleFilled");
       const _component_WeiboCircleFilled = resolveComponent("WeiboCircleFilled");
       const _component_router_link = resolveComponent("router-link");
-      return openBlock(), createElementBlock("div", _hoisted_1$2, [createBaseVNode("div", _hoisted_2$2, [createVNode(_component_Tabs, {
+      return openBlock(), createElementBlock("div", _hoisted_1$4, [createBaseVNode("div", _hoisted_2$3, [createVNode(_component_Tabs, {
         id: "user-layout-login_tab",
         activeKey: unref(StateLogin).activeTabKey,
         "onUpdate:activeKey": _cache[0] || (_cache[0] = ($event) => unref(StateLogin).activeTabKey = $event)
@@ -2727,13 +2899,13 @@ const _sfc_main$3 = {
               "margin-bottom": "24px"
             },
             message: unref(StateLogin).alertTips
-          }, null, 8, ["message"])) : createCommentVNode("", true), createVNode(_sfc_main$5)]),
+          }, null, 8, ["message"])) : createCommentVNode("", true), createVNode(_sfc_main$7)]),
           _: 1
         }, 8, ["tab"]), createVNode(_component_TabPane, {
           key: "mobile",
           tab: unref($t)("user.login.tab-login-mobile").label
         }, {
-          default: withCtx(() => [createVNode(_sfc_main$4)]),
+          default: withCtx(() => [createVNode(_sfc_main$6)]),
           _: 1
         }, 8, ["tab"])]),
         _: 1
@@ -2766,9 +2938,17 @@ const _sfc_main$3 = {
     };
   }
 };
+const pickValueFrom = (configs) => {
+  return _.reduce(configs, (target, config, prop) => {
+    target[prop] = config.value;
+    return target;
+  }, {});
+};
 const styles = {
   icon: {
-    color: getColor("disabledColor")
+    color: getColor("disabledColor"),
+    width: "16px",
+    height: "16px"
   }
 };
 const StateRegister = reactive({
@@ -2810,8 +2990,7 @@ const StateRegister = reactive({
       console.log(thisConfigs.itemTips);
     },
     slots: {
-      prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": SvgRender.lockStrok,
+      prefix: () => createVNode(resolveComponent("LockOutlined"), {
         "style": styles.icon
       }, null)
     }
@@ -2826,8 +3005,7 @@ const StateRegister = reactive({
       trigger: [EVENT_TYPE.update]
     })],
     slots: {
-      prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": SvgRender.lockStrok,
+      prefix: () => createVNode(resolveComponent("LockOutlined"), {
         "style": styles.icon
       }, null)
     }
@@ -2852,8 +3030,7 @@ const StateRegister = reactive({
     placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
     rules: [FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
     slots: {
-      prefix: () => createVNode(resolveComponent("xRender"), {
-        "render": SvgRender.mail,
+      prefix: () => createVNode(resolveComponent("MailOutlined"), {
         "style": styles.icon
       }, null)
     }
@@ -2945,10 +3122,10 @@ function checkPasswordLevel(value) {
   StateRegister.isShowCheckPasswordPopover = StateRegister.statePassword.level <= 3;
   return isFail;
 }
-const _hoisted_1$1 = {
+const _hoisted_1$3 = {
   class: "main"
 };
-const _hoisted_2$1 = {
+const _hoisted_2$2 = {
   class: "user-layout-login ant-form ant-form-horizontal"
 };
 const _hoisted_3$1 = {
@@ -2967,7 +3144,7 @@ const _hoisted_5$1 = {
 const _hoisted_6$1 = {
   class: "item-wrapper flex"
 };
-const _sfc_main$2 = {
+const _sfc_main$4 = {
   setup(__props) {
     const levelNames = {
       0: "user.password.strength.short",
@@ -3004,7 +3181,7 @@ const _sfc_main$2 = {
       const _component_xButtonCountDown = resolveComponent("xButtonCountDown");
       const _component_xButton = resolveComponent("xButton");
       const _component_RouterLink = resolveComponent("RouterLink");
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
+      return openBlock(), createElementBlock("div", _hoisted_1$3, [createBaseVNode("div", _hoisted_2$2, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
         ref: "username",
         modelValue: unref(StateRegister).data.username,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(StateRegister).data.username = $event),
@@ -3075,20 +3252,19 @@ const _sfc_main$2 = {
     };
   }
 };
-const _withScopeId = (n) => (pushScopeId("data-v-899aa8ea"), n = n(), popScopeId(), n);
-const _hoisted_1 = {
+const _hoisted_1$2 = {
   class: "container flex middle"
 };
-const _hoisted_2 = {
+const _hoisted_2$1 = {
   class: "flex width100"
 };
 const _hoisted_3 = /* @__PURE__ */ createTextVNode(" v-uiPopover ");
 const _hoisted_4 = /* @__PURE__ */ createTextVNode(" v-uiPopover ");
-const _hoisted_5 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("div", null, null, -1));
+const _hoisted_5 = /* @__PURE__ */ createBaseVNode("div", null, null, -1);
 const _hoisted_6 = /* @__PURE__ */ createTextVNode(" iframe ");
-const _hoisted_7 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createBaseVNode("div", null, null, -1));
+const _hoisted_7 = /* @__PURE__ */ createBaseVNode("div", null, null, -1);
 const _hoisted_8 = /* @__PURE__ */ createTextVNode(" popover ");
-var _sfc_main$1 = {
+var _sfc_main$3 = {
   setup(__props) {
     const state = reactive({
       count: 0
@@ -3134,7 +3310,7 @@ var _sfc_main$1 = {
     return (_ctx, _cache) => {
       const _component_Button = resolveComponent("Button");
       const _directive_uiPopover = resolveDirective("uiPopover");
-      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [withDirectives((openBlock(), createBlock(_component_Button, {
+      return openBlock(), createElementBlock("div", _hoisted_1$2, [createBaseVNode("div", _hoisted_2$1, [withDirectives((openBlock(), createBlock(_component_Button, {
         id: "tips"
       }, {
         default: withCtx(() => [_hoisted_3]),
@@ -3162,28 +3338,131 @@ var _sfc_main$1 = {
     };
   }
 };
-var TestPopover_vue_vue_type_style_index_0_scoped_true_lang = "";
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
-var TestPopover = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-899aa8ea"]]);
-var _sfc_main = {
+var _sfc_main$2 = {
   setup(__props) {
     return (_ctx, _cache) => {
-      return openBlock(), createBlock(TestPopover);
+      return openBlock(), createBlock(_sfc_main$3);
     };
   }
 };
+const _hoisted_1$1 = {
+  class: "layout-menu beautiful-scroll flex1"
+};
+var _sfc_main$1 = {
+  props: {
+    tree: {
+      type: Object,
+      default() {
+        return [];
+      }
+    }
+  },
+  setup(__props) {
+    const props = __props;
+    const genMenu = () => {
+      const MenuItemRender = (menuInfo) => {
+        if (_.isArrayFill(menuInfo.children)) {
+          return createVNode(resolveComponent("SubMenu"), null, {
+            icon: () => createVNode(resolveComponent("AppleOutlined"), null, null),
+            title: () => menuInfo.label,
+            default: () => _.map(menuInfo.children, MenuItemRender)
+          });
+        } else {
+          return createVNode(resolveComponent("MenuItem"), {
+            "key": menuInfo.id
+          }, {
+            icon: () => createVNode(resolveComponent("UserOutlined"), null, null),
+            default: () => createVNode("span", null, [menuInfo.label])
+          });
+        }
+      };
+      return _.map(props.tree, MenuItemRender);
+    };
+    return (_ctx, _cache) => {
+      const _component_xRender = resolveComponent("xRender");
+      const _component_Menu = resolveComponent("Menu");
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [createVNode(_component_Menu, {
+        selectedKeys: unref(StateApp).arr_selectedMenuId,
+        "onUpdate:selectedKeys": _cache[0] || (_cache[0] = ($event) => unref(StateApp).arr_selectedMenuId = $event),
+        theme: unref(StateApp).theme,
+        mode: "inline"
+      }, {
+        default: withCtx(() => [createVNode(_component_xRender, {
+          render: genMenu
+        })]),
+        _: 1
+      }, 8, ["selectedKeys", "theme"])]);
+    };
+  }
+};
+var MenuTree_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1 = {
+  class: "log",
+  style: {
+    "width": "100%",
+    "text-align": "center"
+  }
+};
+const _hoisted_2 = ["src"];
+var _sfc_main = {
+  setup(__props) {
+    return (_ctx, _cache) => {
+      const _component_LayoutSider = resolveComponent("LayoutSider");
+      const _component_LayoutHeader = resolveComponent("LayoutHeader");
+      const _component_RouterView = resolveComponent("RouterView");
+      const _component_LayoutContent = resolveComponent("LayoutContent");
+      const _component_Layout = resolveComponent("Layout");
+      return openBlock(), createBlock(_component_Layout, {
+        class: "layout-basic"
+      }, {
+        default: withCtx(() => [createVNode(_component_LayoutSider, {
+          collapsed: unref(StateApp).collapsed,
+          "onUpdate:collapsed": _cache[1] || (_cache[1] = ($event) => unref(StateApp).collapsed = $event),
+          collapsible: "",
+          style: normalizeStyle(unref(StateApp).layoutStyle.sider)
+        }, {
+          default: withCtx(() => [createBaseVNode("div", _hoisted_1, [createBaseVNode("img", {
+            src: unref(logoImg),
+            style: {
+              "width": "40px",
+              "height": "40px",
+              "margin": "20px"
+            }
+          }, null, 8, _hoisted_2)]), createVNode(_sfc_main$1, {
+            tree: unref(StateApp).menuTree,
+            "onUpdate:tree": _cache[0] || (_cache[0] = ($event) => unref(StateApp).menuTree = $event)
+          }, null, 8, ["tree"])]),
+          _: 1
+        }, 8, ["collapsed", "style"]), createVNode(_component_Layout, null, {
+          default: withCtx(() => [createVNode(_component_LayoutHeader, {
+            style: normalizeStyle(unref(StateApp).layoutStyle.header),
+            class: "layout-basic header"
+          }, null, 8, ["style"]), createVNode(_component_LayoutContent, {
+            style: {
+              margin: "24px 16px",
+              padding: "24px",
+              background: "#fff",
+              minHeight: "100%"
+            }
+          }, {
+            default: withCtx(() => [createTextVNode(toDisplayString(unref(StateApp)) + " ", 1), createVNode(_component_RouterView)]),
+            _: 1
+          })]),
+          _: 1
+        })]),
+        _: 1
+      });
+    };
+  }
+};
+var LayoutBasic_vue_vue_type_style_index_0_lang = "";
 const NewRoute = (name, component, options = {}) => _.merge({
   name,
   path: `/${name}`,
   component
 }, options);
 const routeNames = {
+  shell: "shell",
   devDemo: "dev-demo",
   user: "user",
   userLogin: "user-login",
@@ -3194,18 +3473,27 @@ const routeNames = {
   404: "404"
 };
 const toPath = (name) => `/${name}`;
-const routes = [NewRoute(routeNames.devDemo, _sfc_main), NewRoute(routeNames.login, _sfc_main$6, {
+const routes = [{
+  name: routeNames.shell,
+  path: "/",
+  component: _sfc_main,
+  children: [{
+    name: "first",
+    path: "first",
+    component: _sfc_main$2
+  }]
+}, NewRoute(routeNames.devDemo, _sfc_main$2), NewRoute(routeNames.login, _sfc_main$8, {
   redirect: toPath(routeNames.userLogin),
-  children: [NewRoute(routeNames.userLogin, _sfc_main$3, {
+  children: [NewRoute(routeNames.userLogin, _sfc_main$5, {
     meta: {
       title: $t("user.login.login").label
     }
-  }), NewRoute(routeNames.register, _sfc_main$2, {
+  }), NewRoute(routeNames.register, _sfc_main$4, {
     meta: {
       title: $t("user.login.signup").label
     }
   })]
-}), NewRoute(routeNames[404], _sfc_main$8)];
+}), NewRoute(routeNames[404], _sfc_main$a)];
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [...routes, {
@@ -3276,15 +3564,73 @@ router.beforeEach(async (to, from) => {
 router.afterEach(() => {
   NProgress.done();
 });
+var LazySvg$1 = "";
+const icons = { "../../assets/svg/lockStrok.svg": () => true ? __vitePreload(() => import("./lockStrok-9ed24a9d.js"), []) : null, "../../assets/svg/mail.svg": () => true ? __vitePreload(() => import("./mail-969fe2e2.js"), []) : null, "../../assets/svg/mobile.svg": () => true ? __vitePreload(() => import("./mobile-bc88300a.js"), []) : null };
+const modules = {};
+each(icons, (icon, path) => {
+  const prop = path.replace(/(.*)\/(.*)\.svg$/g, (match, p1, p2) => `${p2}`);
+  modules[prop] = icon;
+});
+const ICON_STRING_CACHE = {};
+var LazySvg = defineComponent(markRaw({
+  props: ["icon"],
+  data() {
+    const id = "lazy-svg_" + this._.uid;
+    return {
+      id
+    };
+  },
+  async mounted() {
+    const targetDom = document.getElementById(this.id);
+    let iconSvgString = ICON_STRING_CACHE[this.icon];
+    if (!iconSvgString) {
+      const getComponent = modules[this.icon];
+      if (isFunction_1(getComponent)) {
+        const {
+          default: iconString
+        } = await getComponent();
+        ICON_STRING_CACHE[this.icon] = iconSvgString = iconString;
+        console.log(ICON_STRING_CACHE);
+      }
+    }
+    if (iconSvgString) {
+      const $svg = $(iconSvgString).css("height", "100%").css("width", "100%");
+      if (targetDom) {
+        setTimeout(() => {
+          targetDom.innerHTML = $svg[0].outerHTML;
+        }, 30);
+      }
+    }
+  },
+  render(h2) {
+    return createVNode("div", {
+      "id": this.id
+    }, [createVNode("div", {
+      "className": "next-loading next-open next-loading-inline",
+      "style": "width:100%;height:100%;overflow:hidden"
+    }, [createVNode("div", {
+      "className": "next-loading-tip"
+    }, [createVNode("div", {
+      "className": "next-loading-indicator"
+    }, null)]), createVNode("div", {
+      "className": "next-loading-component next-loading-wrap"
+    }, [createVNode("div", {
+      "className": "next-loading-masker"
+    }, null), createVNode("div", {
+      "className": "demo-basic"
+    }, [createVNode(resolveComponent("LoadingOutlined"), null, null)])])])]);
+  }
+}));
 const addPlugins = (app) => {
   app.use(MyUI, {
     addPlugins
   });
   app.use(appI18n, StateApp);
   app.use(router);
+  app.component("LazySvg", LazySvg);
   return app;
 };
 const appPlugins = {
   install: addPlugins
 };
-createApp(_sfc_main$9).use(appPlugins).mount("#app");
+createApp(_sfc_main$b).use(appPlugins).mount("#app");
