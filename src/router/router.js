@@ -11,6 +11,9 @@ import { StateApp, StateAppActions } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
 
+const viewModules = import.meta.glob("../views/modules/**/*");
+console.log("viewModules", viewModules);
+
 const RouteView = {
 	name: "RouteView",
 	render: h => h("RouteView")

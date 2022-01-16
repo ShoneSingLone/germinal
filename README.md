@@ -2,6 +2,7 @@
 
 > 非最佳实践，尽量多样： Just for fun :)
 
+
 - `npm i -g mirror-config-china --registry=https://registry.npm.taobao.org`
   ~~[Germinal](https://shonesinglone.github.io/germinal/)[![Build Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)~~
 
@@ -12,6 +13,7 @@
 /* NOTICE: */
 /* TODO: */
 ```
+初次运行： `npm run bs`
 
 ## package.json
 
