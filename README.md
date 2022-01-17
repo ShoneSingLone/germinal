@@ -1,12 +1,13 @@
 # Info
 
-> ***非***最佳实践，尽量多样： Just for fun :)
+> ***非*** 最佳实践，尽量多样： Just for fun :)
 
 - `npm i -g mirror-config-china --registry=https://registry.npm.taobao.org`
   ~~[Germinal](https://shonesinglone.github.io/germinal/)[![Build
   Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)~~
 
 - [Actions: deploy app](https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco)
+- [TODO](./README.todo.md)
 
 ```js
 /* README: */
@@ -16,26 +17,16 @@
 
 初次运行：
 
-```js
-//install package and generate language
-npm
-run
-bs
-npm
-start
+```bash
+# install package and generate language
+npm run bs npm start
 ```
 
 ## package.json
 
-file:./src 需要添加 package.json 文件
-
-## 常用函数
-
-### $t 多语言转换
-
-```js
-return {label: "显示的对应语言", prop: "key"};
-```
+- `file:./local_moduels/**`
+  - 有朝一日稳定了，可以独立发布出去（UI）。
+  - 放一些不与业务代码耦合的代码（单纯API发请求，Mock数据）
 
 ## 样式
 
@@ -108,6 +99,20 @@ const genMenu = () => {
     return _.map(props.tree, MenuItemRender);
 };
 ```
+## 常用函数
+
+### $t 多语言转换
+
+单一数据源`build/make/language.js`
+
+```json
+{
+  "make:language": "node ./build/make.js language"
+}
+```
+```js
+return {label: "显示的对应语言", prop: "key"};
+```
 
 ```js
 /* main.js 第一行 window._ 工具 常用工具函数 */
@@ -117,8 +122,6 @@ import "@ventose/ui/loadCommonUtil.js";
 ## addPlugins
 
 针对popover 单例的使用，Vue3 以应用为单位配置属性的方式相较于Vue2的全局配置，带来了灵活，就需要但对每个应用单独配置，
-
-popover click 单独使用 UI.Popover 有问题，难道还要考虑多个 app 同时共存多个 UI.Popover????
 
 ```js
 /* Vue3 组件方式加载 popover content */
