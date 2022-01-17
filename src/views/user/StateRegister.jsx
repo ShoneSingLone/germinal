@@ -1,7 +1,7 @@
 import { reactive, computed, watch } from "vue";
 import { $t } from "lsrc/language";
 import { UI } from "@ventose/ui";
-import { ITEM_TYPE, reactiveItemConfigs } from "@ventose/ui/common";
+import { ITEM_TYPE, defineXItem } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import SvgRender from "lsrc/components/SvgRender/SvgRender";
@@ -33,7 +33,7 @@ export const StateRegister = reactive({
 		verification: ""
 	},
 	configsForm: {
-		...reactiveItemConfigs({
+		...defineXItem({
 			prop: "username",
 			size: "large",
 			/* render的时候重新获取 */
@@ -46,7 +46,7 @@ export const StateRegister = reactive({
 			],
 			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
 		}),
-		...reactiveItemConfigs({
+		...defineXItem({
 			prop: "password",
 			isPassword: true,
 			size: "large",
@@ -70,7 +70,7 @@ export const StateRegister = reactive({
 				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		}),
-		...reactiveItemConfigs({
+		...defineXItem({
 			prop: "passwordConfirm",
 			isPassword: true,
 			size: "large",
@@ -93,7 +93,7 @@ export const StateRegister = reactive({
 			}
 		}),
 
-		...reactiveItemConfigs({
+		...defineXItem({
 			prop: "mobile",
 			size: "large",
 			/* render的时候重新获取 */
@@ -114,7 +114,7 @@ export const StateRegister = reactive({
 			}
 		}),
 		/*验证码*/
-		...reactiveItemConfigs({
+		...defineXItem({
 			prop: "verificationCode",
 			size: "large",
 			itemWrapperClass: "flex1",

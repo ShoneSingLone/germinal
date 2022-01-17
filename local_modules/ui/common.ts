@@ -15,7 +15,7 @@ type t_itemConfigs = {
 };
 
 /*make item configs */
-export const reactiveItemConfigs = (options: t_itemConfigs) => {
+export const defineXItem = (options: t_itemConfigs) => {
 	if (!options.prop) {
 		options.prop = `xItem${xItemNoPropCount++}`;
 		console.error(`no xItem prop replace by ${options.prop}`);

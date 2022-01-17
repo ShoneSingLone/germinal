@@ -10,9 +10,6 @@ import { h } from "vue";
  * @returns {any}
  */
 export default ({ property, slots, listeners }) => {
-	if (property.isPassword) {
-		return h(InputPassword, { ...property, ...listeners }, slots);
-	} else {
-		return h(Input, { ...property, ...listeners }, slots);
-	}
+	const component = property.isPassword ? InputPassword : Input;
+	return h(component, { ...property, ...listeners }, slots);
 };
