@@ -1,7 +1,7 @@
-import { M as Mock } from "./index-65e0048f.js";
+import { M as Mock } from "./index-413439dd.js";
 import { g as getQueryParameters, b as builder } from "./util-93ba83bc.js";
-import "./index-64b7f3a2.js";
-import "./vendor-aca27b2a.js";
+import "./index-ec590ee9.js";
+import "./vendor-81fcf740.js";
 const titles = ["Alipay", "Angular", "Ant Design", "Ant Design Pro", "Bootstrap", "React", "Vue", "Webpack"];
 const avatar = ["https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png", "https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png", "https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png", "https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png", "https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png"];
 const covers = ["https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png", "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png", "https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png", "https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png"];

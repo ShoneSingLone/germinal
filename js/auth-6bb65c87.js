@@ -1,7 +1,7 @@
-import { M as Mock } from "./index-65e0048f.js";
+import { M as Mock } from "./index-413439dd.js";
 import { b as builder } from "./util-93ba83bc.js";
-import "./index-64b7f3a2.js";
-import "./vendor-aca27b2a.js";
+import "./index-ec590ee9.js";
+import "./vendor-81fcf740.js";
 const login = (options) => {
   if (options.body !== "username=admin&password=21232f297a57a5a743894a0e4a801fc3") {
     return builder({

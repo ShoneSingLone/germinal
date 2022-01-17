@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, p as h, I as InputPassword, q as Input$1, C as Checkbox$1, t as reactive, _ as _$1, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, y as createI18n, z as watchEffect, A as watch, B as openBlock, D as createBlock, E as unref, F as _message, G as _notification, H as _Progress, J as _Popover, M as Menu, K as MenuItem, S as SubMenu, L as Dropdown, N as Button, O as _List, P as _Popconfirm, Q as _Alert, R as _Result, T as Tabs, U as TabPane, V as Spin, W as _Layout, X as LayoutHeader, Y as LayoutSider, Z as LayoutFooter, a0 as LayoutContent, a1 as GlobalOutlined, a2 as AppleOutlined, a3 as AndroidOutlined, a4 as UserOutlined, a5 as LockFilled, a6 as MobileOutlined, a7 as AlipayCircleFilled, a8 as TaobaoCircleFilled, a9 as WeiboCircleFilled, aa as Loading3QuartersOutlined, ab as LoadingOutlined, ac as LockOutlined, ad as MenuUnfoldOutlined, ae as MenuFoldOutlined, af as MailOutlined, ag as computed, ah as md5, ai as onMounted, aj as withCtx, ak as useRouter, al as toDisplayString, am as createElementBlock, an as renderList, ao as Fragment, ap as createBaseVNode, aq as normalizeStyle, ar as normalizeClass, as as createStaticVNode, at as createCommentVNode, au as resolveDirective, av as withDirectives, aw as createRouter, ax as createWebHashHistory, ay as NProgress, az as createApp } from "./vendor-aca27b2a.js";
+import { $, e as each, i as isArray_1, m as merge_1, a as map_1, r as reduce_1, b as isPlainObject_1, c as isFunction_1, d as isBoolean_1, f as isString_1, s as some_1, g as every_1, h as debounce_1, j as isNumber_1, k as filter_1, o as omit_1, l as defineComponent, n as markRaw, I as InputPassword, p as Input$1, q as h, C as Checkbox$1, t as reactive, _ as _$1, u as createVNode, v as createTextVNode, w as resolveComponent, x as mergeProps, y as createI18n, z as watchEffect, A as watch, B as openBlock, D as createBlock, E as unref, F as _message, G as _notification, H as _Progress, J as _Popover, M as Menu, K as MenuItem, S as SubMenu, L as Dropdown, N as Button, O as _List, P as _Popconfirm, Q as _Alert, R as _Result, T as Tabs, U as TabPane, V as Spin, W as _Layout, X as LayoutHeader, Y as LayoutSider, Z as LayoutFooter, a0 as LayoutContent, a1 as GlobalOutlined, a2 as AppleOutlined, a3 as AndroidOutlined, a4 as UserOutlined, a5 as LockFilled, a6 as MobileOutlined, a7 as AlipayCircleFilled, a8 as TaobaoCircleFilled, a9 as WeiboCircleFilled, aa as Loading3QuartersOutlined, ab as LoadingOutlined, ac as LockOutlined, ad as MenuUnfoldOutlined, ae as MenuFoldOutlined, af as MailOutlined, ag as computed, ah as md5, ai as onMounted, aj as withCtx, ak as useRouter, al as toDisplayString, am as createElementBlock, an as renderList, ao as Fragment, ap as createBaseVNode, aq as normalizeStyle, ar as normalizeClass, as as createStaticVNode, at as createCommentVNode, au as resolveDirective, av as withDirectives, aw as createRouter, ax as createWebHashHistory, ay as NProgress, az as createApp } from "./vendor-81fcf740.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -192,11 +192,8 @@ var Input = ({
   slots,
   listeners
 }) => {
-  if (property.isPassword) {
-    return h(InputPassword, __spreadValues(__spreadValues({}, property), listeners), slots);
-  } else {
-    return h(Input$1, __spreadValues(__spreadValues({}, property), listeners), slots);
-  }
+  const component = property.isPassword ? InputPassword : Input$1;
+  return h(component, __spreadValues(__spreadValues({}, property), listeners), slots);
 };
 const EVENT_TYPE = {
   validateForm: "validateForm",
@@ -310,7 +307,7 @@ const ITEM_TYPE = {
   Checkbox: "Checkbox"
 };
 let xItemNoPropCount = 0;
-const reactiveItemConfigs = (options) => {
+const defineXItem = (options) => {
   if (!options.prop) {
     options.prop = `xItem${xItemNoPropCount++}`;
     console.error(`no xItem prop replace by ${options.prop}`);
@@ -2677,7 +2674,7 @@ const StateLogin = reactive({
     mobile: "",
     verificationCode: ""
   },
-  configsForm: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+  configsForm: __spreadValues(__spreadValues({}, defineXItem({
     prop: "username",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
@@ -2687,7 +2684,7 @@ const StateLogin = reactive({
         "style": styles$1.icon
       }, null)
     }
-  })), reactiveItemConfigs({
+  })), defineXItem({
     prop: "password",
     isPassword: true,
     size: "large",
@@ -2699,7 +2696,7 @@ const StateLogin = reactive({
       }, null)
     }
   })),
-  configsFormMobile: __spreadValues(__spreadValues({}, reactiveItemConfigs({
+  configsFormMobile: __spreadValues(__spreadValues({}, defineXItem({
     prop: "mobile",
     size: "large",
     placeholder: () => $t("user.login.mobile.placeholder").label,
@@ -2713,7 +2710,7 @@ const StateLogin = reactive({
         "style": styles$1.icon
       }, null)
     }
-  })), reactiveItemConfigs({
+  })), defineXItem({
     prop: "verificationCode",
     size: "large",
     itemWrapperClass: "flex1",
@@ -2966,7 +2963,7 @@ const StateRegister = reactive({
     mobile: "",
     verification: ""
   },
-  configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues(__spreadValues({}, reactiveItemConfigs({
+  configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues(__spreadValues({}, defineXItem({
     prop: "username",
     size: "large",
     placeholder: () => $t("user.login.username.placeholder").label,
@@ -2976,7 +2973,7 @@ const StateRegister = reactive({
         "style": styles.icon
       }, null)
     }
-  })), reactiveItemConfigs({
+  })), defineXItem({
     prop: "password",
     isPassword: true,
     size: "large",
@@ -2994,7 +2991,7 @@ const StateRegister = reactive({
         "style": styles.icon
       }, null)
     }
-  })), reactiveItemConfigs({
+  })), defineXItem({
     prop: "passwordConfirm",
     isPassword: true,
     size: "large",
@@ -3009,7 +3006,7 @@ const StateRegister = reactive({
         "style": styles.icon
       }, null)
     }
-  })), reactiveItemConfigs({
+  })), defineXItem({
     prop: "mobile",
     size: "large",
     placeholder: () => $t("user.login.mobile.placeholder").label,
@@ -3023,7 +3020,7 @@ const StateRegister = reactive({
         "style": styles.icon
       }, null)
     }
-  })), reactiveItemConfigs({
+  })), defineXItem({
     prop: "verificationCode",
     size: "large",
     itemWrapperClass: "flex1",
@@ -3456,6 +3453,8 @@ var _sfc_main = {
   }
 };
 var LayoutBasic_vue_vue_type_style_index_0_lang = "";
+const viewModules = { "../views/modules/dashboard/workplace/workplace.vue": () => true ? __vitePreload(() => import("./workplace-bd8a69f8.js"), ["js/workplace-bd8a69f8.js","js/vendor-81fcf740.js","assets/vendor.8daa8662.css"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index-aeebfc65.js"), ["js/index-aeebfc65.js","js/vendor-81fcf740.js","assets/vendor.8daa8662.css"]) : null };
+console.log("viewModules", viewModules);
 const NewRoute = (name, component, options = {}) => _.merge({
   name,
   path: `/${name}`,
@@ -3633,8 +3632,8 @@ const addPlugins = (app) => {
 const appPlugins = {
   install: addPlugins
 };
-__vitePreload(() => import("./index-65e0048f.js").then(function(n) {
+__vitePreload(() => import("./index-413439dd.js").then(function(n) {
   return n.i;
-}), true ? ["js/index-65e0048f.js","js/vendor-aca27b2a.js","assets/vendor.8daa8662.css"] : void 0);
+}), true ? ["js/index-413439dd.js","js/vendor-81fcf740.js","assets/vendor.8daa8662.css"] : void 0);
 createApp(_sfc_main$b).use(appPlugins).mount("#app");
-export { __vitePreload as _ };
+export { __vitePreload as _, _sfc_main$3 as a };
