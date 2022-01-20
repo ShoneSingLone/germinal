@@ -1,4 +1,5 @@
 export default {
+	logout: "logout",
 	"tips.0": "unknown",
 	"tips.404": "not found",
 	welcome: "welcome",

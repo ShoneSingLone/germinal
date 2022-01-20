@@ -5,7 +5,9 @@ import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
-import { genId } from "@ventose/ui/common";
+import { _ } from "@ventose/ui";
+
+const { genId } = _;
 
 const menuTree = [
 	{
@@ -211,5 +213,8 @@ export const StateAppActions = {
 		StateApp.token = lStorage.token;
 		console.log("res", res);
 	},
-	Logout: async () => {}
+	Logout: async () => {
+		debugger;
+		_.sleep;
+	}
 };

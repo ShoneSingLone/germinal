@@ -13,8 +13,9 @@ import debounce from "lodash/debounce";
 import isNumber from "lodash/isNumber";
 import filter from "lodash/filter";
 import omit from "lodash/omit";
+import { genId } from "./common";
 
-window._ = window._ || {};
+export const _ = { genId };
 const lodashFunctions = {
 	merge,
 	each,
@@ -32,17 +33,11 @@ const lodashFunctions = {
 	filter,
 	omit
 };
-each(lodashFunctions, (fn, prop) => (window._[prop] = fn));
+each(lodashFunctions, (fn, prop) => (_[prop] = fn));
 
 /*lodash IDE 能识别*/
-window._.isArrayFill = arr => isArray(arr) && arr.length > 0;
-const doNothing = () => null;
+
+_.doNothing = () => null;
+
 /* 睡眠 t:setTimeout during time*/
-window._.sleep = t => new Promise(r => setTimeout(r, t));
-window._.is$Selected = $ele => $ele && $ele.length > 0;
-/* 组件属性是否是on开头，组件的事件监听*/
-const onRE = /^on[^a-z]/;
-const isOn = key => onRE.test(key);
-const isModelListener = key => key.startsWith("onUpdate:");
-const isListener = key => isOn(key) || isModelListener(key);
-window._.isListener = isListener;
+_.sleep = t => new Promise(r => setTimeout(r, t));

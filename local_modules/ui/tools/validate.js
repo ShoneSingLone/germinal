@@ -1,3 +1,5 @@
+import { _ } from "../loadCommonUtil";
+
 export const EVENT_TYPE = {
 	validateForm: "validateForm",
 	update: "update",
@@ -137,3 +139,14 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 		xItemConfigs.validate.triggerEventsObj = {};
 	}
 };
+
+/* 组件属性是否是on开头，组件的事件监听*/
+const onRE = /^on[^a-z]/;
+export const isOn = key => onRE.test(key);
+export const isModelListener = key => key.startsWith("onUpdate:");
+export const isListener = key => isOn(key) || isModelListener(key);
+/**/
+/*是否非空数组*/
+export const isArrayFill = arr => _.isArray(arr) && arr.length > 0;
+/*jquery到底有没有选中目标DOM？*/
+export const is$Selected = $ele => $ele && $ele.length > 0;

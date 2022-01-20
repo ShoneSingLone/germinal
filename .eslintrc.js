@@ -2,9 +2,7 @@ module.exports = {
 	root: true,
 	globals: {
 		defineProps: true,
-		defineEmits: true,
-		_: true,
-		Germinal: true
+		defineEmits: true
 	},
 	env: {
 		browser: true,

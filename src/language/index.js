@@ -2,6 +2,7 @@
 import { createI18n } from "vue-i18n"; //引入vue-i18n组件
 import { watchEffect } from "vue";
 import $ from "jquery";
+import { _ } from "@ventose/ui";
 //假设你还有其他目录下的语言文件 它的路径是 src/views/home/locales/en-US.ts
 //那么你就可以 使用 :lower:（小写） :upper:（大写） 来引入文件
 // const viewModules = import.meta.globEager(

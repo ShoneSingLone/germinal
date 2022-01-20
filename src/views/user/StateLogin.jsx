@@ -159,7 +159,7 @@ export const StateLogin = reactive({
 				const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
 				const currentFormConfigs = StateLogin[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
-				if (!_.isArrayFill(validateResults)) {
+				if (!isArrayFill(validateResults)) {
 					const res = await StateAppActions.Login(StateLogin.data);
 					/* 验证错误 */
 					/* 网络错误 */

@@ -1,3 +1,5 @@
+import { _ } from "../loadCommonUtil";
+
 export const lStorage = new Proxy(localStorage, {
 	set(_localStorage, prop, value) {
 		if (_.isPlainObject(value)) {

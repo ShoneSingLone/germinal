@@ -1,4 +1,5 @@
 export default {
+	logout: "退出",
 	"tips.0": "未知错误",
 	"tips.404": "请求的资源不存在",
 	welcome: "欢迎",

@@ -1,6 +1,7 @@
 import "./index.less";
 import "./loadCommonUtil";
 import {
+	Breadcrumb,
 	Progress,
 	Popover,
 	Menu,
@@ -15,11 +16,13 @@ import {
 	Tabs,
 	Spin,
 	Layout,
+	Tooltip,
 	/* global */
 	message,
 	notification
 } from "ant-design-vue";
 import { MenuItem, SubMenu } from "ant-design-vue/es/menu";
+import { BreadcrumbItem } from "ant-design-vue/es/breadcrumb";
 import { TabPane } from "ant-design-vue/es/tabs";
 import { InputPassword } from "ant-design-vue/es/input";
 import {
@@ -63,6 +66,7 @@ if (import.meta.env.MODE === "development") {
 
 import layer from "./xSingle/layer/layer";
 import { installPopoverDirective } from "./xSingle/popover";
+import { _ } from "./loadCommonUtil";
 
 /* my-ui */
 const componentMyUI = {
@@ -75,6 +79,9 @@ const componentMyUI = {
 
 /* ant-d-v */
 const componentAntdV = {
+	Alert,
+	Breadcrumb,
+	BreadcrumbItem,
 	Progress,
 	Popover,
 	Menu,
@@ -87,10 +94,10 @@ const componentAntdV = {
 	Popconfirm,
 	Input,
 	InputPassword,
-	Alert,
 	Result,
 	Tabs,
 	TabPane,
+	Tooltip,
 	Spin,
 	Layout,
 	LayoutHeader,
@@ -129,6 +136,8 @@ export const UI = {
 	notification,
 	layer
 };
+
+export { _ } from "./loadCommonUtil";
 
 export default {
 	install: (app, options) => {

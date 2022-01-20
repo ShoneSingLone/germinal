@@ -29,7 +29,7 @@ export default {
 				if (value) return SUCCESS;
 				if (_.isBoolean(value)) return SUCCESS;
 				if (_.isNumber(value) && !_.isNaN(value)) return SUCCESS;
-				if (_.isArrayFill(value)) return SUCCESS;
+				if (isArrayFill(value)) return SUCCESS;
 				return FAIL;
 			},
 			trigger

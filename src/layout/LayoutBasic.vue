@@ -1,10 +1,15 @@
 <script setup lang="jsx">
-import { getColor, StateApp, StateAppMutations } from "lsrc/state/StateApp";
+import {
+	getColor,
+	StateApp,
+	StateAppMutations,
+	StateAppActions
+} from "lsrc/state/StateApp";
 import MenuTree from "lsrc/components/MenuTree.vue";
 import logoImg from "lsrc/assets/logo.png";
 import { reactive } from "vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
-import { genId } from "@ventose/ui/common";
+import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
 
 const render = {
 	/*自定义的折叠按钮*/
@@ -35,6 +40,38 @@ const render = {
 				class="layout-basic header">
 				<!--    自定义的折叠按钮    -->
 				<!--    <xRender :render="render.collapsedButton" :collapsed="StateApp.collapsed"/>-->
+
+				<div class="flex middle" style="height: 100%; padding: 0 24px">
+					<Breadcrumb>
+						<BreadcrumbItem>Home</BreadcrumbItem>
+						<BreadcrumbItem><a href="">Application Center</a></BreadcrumbItem>
+						<BreadcrumbItem><a href="">Application List</a></BreadcrumbItem>
+						<BreadcrumbItem>An Application</BreadcrumbItem>
+					</Breadcrumb>
+					<span class="flex1"></span>
+					<Dropdown :placement="placement">
+						<Button>setting</Button>
+						<template #overlay>
+							<Menu>
+								<MenuItem>
+									<div class="flex">
+										<LazySvg icon="user" />
+										ShoneSingLone
+									</div>
+								</MenuItem>
+								<MenuItem>
+									<xButton
+										class="flex"
+										:configs="{ onClick: StateAppActions.Logout }">
+										<LazySvg icon="logout" />
+										{{ $t("logout").label }}
+									</xButton>
+								</MenuItem>
+							</Menu>
+						</template>
+					</Dropdown>
+					<SelectLanguage />
+				</div>
 			</LayoutHeader>
 			<LayoutContent
 				:style="{
@@ -43,7 +80,6 @@ const render = {
 					background: '#fff',
 					minHeight: '100%'
 				}">
-				{{ StateApp }}
 				<RouterView />
 			</LayoutContent>
 		</Layout>

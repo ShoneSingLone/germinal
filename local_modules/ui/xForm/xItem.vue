@@ -217,7 +217,7 @@ export default defineComponent({
 		setValidateInfo(rules) {
 			/* 修改rules Array 要求全量替换 */
 			let isRequired = false;
-			if (_.isArrayFill(rules)) {
+			if (isArrayFill(rules)) {
 				/* 如果有必填项 */
 				isRequired = _.some(rules, { name: "required" });
 				/* 检测完成之后的回调 */
