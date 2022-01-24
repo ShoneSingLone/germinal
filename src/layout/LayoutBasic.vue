@@ -50,7 +50,11 @@ const render = {
 					</Breadcrumb>
 					<span class="flex1"></span>
 					<Dropdown :placement="placement">
-						<Button>setting</Button>
+						<Avatar>
+							<template #icon>
+								<UserOutlined />
+							</template>
+						</Avatar>
 						<template #overlay>
 							<Menu>
 								<MenuItem>
@@ -60,16 +64,15 @@ const render = {
 									</div>
 								</MenuItem>
 								<MenuItem>
-									<xButton
-										class="flex"
-										:configs="{ onClick: StateAppActions.Logout }">
+									<div class="flex" @click="StateAppActions.Logout">
 										<LazySvg icon="logout" />
 										{{ $t("logout").label }}
-									</xButton>
+									</div>
 								</MenuItem>
 							</Menu>
 						</template>
 					</Dropdown>
+					<xGap :r="10" />
 					<SelectLanguage />
 				</div>
 			</LayoutHeader>

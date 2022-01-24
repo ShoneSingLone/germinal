@@ -33,6 +33,7 @@ const lodashFunctions = {
 	filter,
 	omit
 };
+
 each(lodashFunctions, (fn, prop) => (_[prop] = fn));
 
 /*lodash IDE 能识别*/

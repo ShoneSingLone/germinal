@@ -1,6 +1,8 @@
 import "./index.less";
 import "./loadCommonUtil";
 import {
+	Avatar,
+	Alert,
 	Breadcrumb,
 	Progress,
 	Popover,
@@ -11,7 +13,6 @@ import {
 	Checkbox,
 	Popconfirm,
 	Input,
-	Alert,
 	Result,
 	Tabs,
 	Spin,
@@ -79,6 +80,7 @@ const componentMyUI = {
 
 /* ant-d-v */
 const componentAntdV = {
+	Avatar,
 	Alert,
 	Breadcrumb,
 	BreadcrumbItem,

@@ -1,5 +1,6 @@
 <script lang="jsx">
 import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
+import { _ } from "../loadCommonUtil";
 
 export default defineComponent({
 	props: ["t", "l", "r", "b", "a"],

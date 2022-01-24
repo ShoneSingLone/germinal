@@ -214,7 +214,6 @@ export const StateAppActions = {
 		console.log("res", res);
 	},
 	Logout: async () => {
-		debugger;
-		_.sleep;
+		await _.sleep(1000 * 3);
 	}
 };
