@@ -11,6 +11,7 @@ import { StateApp, StateAppActions } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
 import { _ } from "@ventose/ui";
+import { STATIC_WORD } from "lsrc/utils/common";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
 console.log("viewModules", viewModules);
@@ -114,7 +115,7 @@ router.beforeEach(async (to, from) => {
 	};
 
 	try {
-		if (lStorage.ACCESS_TOKEN) {
+		if (lStorage[STATIC_WORD.ACCESS_TOKEN]) {
 			await hasAccessTokenHandler();
 		} else {
 			noAccessTokenHandler();
@@ -127,19 +128,6 @@ router.beforeEach(async (to, from) => {
 		NProgress.done();
 	}
 
-	try {
-		if (lStorage.ACCESS_TOKEN) {
-			await hasAccessTokenHandler();
-		} else {
-			noAccessTokenHandler();
-		}
-	} catch (e) {
-		console.error(e);
-		/*  */
-		return false;
-	} finally {
-		NProgress.done();
-	}
 	if (to?.meta?.title) {
 		setDocumentTitle(to.meta.title);
 	}

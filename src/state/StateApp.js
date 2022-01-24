@@ -6,6 +6,7 @@ import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
 import { _ } from "@ventose/ui";
+import { STATIC_WORD } from "lsrc/utils/common";
 
 const { genId } = _;
 
@@ -96,7 +97,7 @@ export const StateApp = reactive({
 	arr_selectedMenuId: [
 		/*菜单需要id，需要提供id*/
 	],
-	token: lStorage.token,
+	token: lStorage[STATIC_WORD.ACCESS_TOKEN],
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs,
@@ -209,11 +210,14 @@ export const StateAppActions = {
 	async Login({ username, password }) {
 		const loginParams = { username, password: md5(password) };
 		const res = await API.user.login(loginParams);
-		lStorage.token = res.token;
-		StateApp.token = lStorage.token;
-		console.log("res", res);
+		setToken(res.token);
 	},
 	Logout: async () => {
 		await _.sleep(1000 * 3);
 	}
 };
+
+function setToken(token) {
+	lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
+	StateApp.token = token;
+}

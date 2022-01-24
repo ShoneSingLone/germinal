@@ -15,3 +15,7 @@ export const addPlugins = app => {
 export const appPlugins = {
 	install: addPlugins
 };
+
+export const STATIC_WORD = {
+	ACCESS_TOKEN: "ACCESS_TOKEN"
+};
