@@ -73,7 +73,7 @@ body,
 ```js
 const genMenu = () => {
     const MenuItemRender = menuInfo => {
-        if (isArrayFill(menuInfo.children)) {
+        if (_.isArrayFill(menuInfo.children)) {
             /* 第一种 */
             return (
                 <SubMenu

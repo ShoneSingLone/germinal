@@ -1,5 +1,5 @@
 import $ from "jquery";
-import { UI } from "@ventose/ui";
+import { _, UI } from "@ventose/ui";
 import { $t } from "lsrc/language";
 
 export function logError(msg) {

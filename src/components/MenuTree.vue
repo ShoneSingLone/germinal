@@ -1,6 +1,5 @@
 <script setup lang="jsx">
 import { StateApp } from "lsrc/state/StateApp";
-import { isArrayFill } from "@ventose/ui/tools/validate";
 import { _ } from "@ventose/ui";
 
 const props = defineProps({
@@ -14,7 +13,7 @@ const props = defineProps({
 
 const genMenu = () => {
 	const MenuItemRender = menuInfo => {
-		if (isArrayFill(menuInfo.children)) {
+		if (_.isArrayFill(menuInfo.children)) {
 			return (
 				<SubMenu
 					v-slots={{

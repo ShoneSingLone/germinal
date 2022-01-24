@@ -1,4 +1,5 @@
 import { EVENT_TYPE } from "@ventose/ui/tools/validate";
+import { _ } from "@ventose/ui";
 
 /* 通过校验，无错 */
 const SUCCESS = false;
@@ -29,7 +30,7 @@ export default {
 				if (value) return SUCCESS;
 				if (_.isBoolean(value)) return SUCCESS;
 				if (_.isNumber(value) && !_.isNaN(value)) return SUCCESS;
-				if (isArrayFill(value)) return SUCCESS;
+				if (_.isArrayFill(value)) return SUCCESS;
 				return FAIL;
 			},
 			trigger

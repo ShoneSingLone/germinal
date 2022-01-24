@@ -3,6 +3,7 @@ import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import renders from "./itemRenders";
 import { MutatingProps } from "../common";
 import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
+import { _ } from "../loadCommonUtil";
 
 const domClass = {
 	tipsError: "ant-form-item-explain ant-form-item-explain-error"
@@ -217,7 +218,7 @@ export default defineComponent({
 		setValidateInfo(rules) {
 			/* 修改rules Array 要求全量替换 */
 			let isRequired = false;
-			if (isArrayFill(rules)) {
+			if (_.isArrayFill(rules)) {
 				/* 如果有必填项 */
 				isRequired = _.some(rules, { name: "required" });
 				/* 检测完成之后的回调 */

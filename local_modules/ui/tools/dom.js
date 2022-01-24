@@ -1,10 +1,9 @@
 import $ from "jquery";
-import { is$Selected } from "./validate";
 import { _ } from "../loadCommonUtil";
 
 const get$head = () => {
 	let $head = $("html head");
-	if (!is$Selected($head)) {
+	if (!_.is$Selected($head)) {
 		$head = $("<head/>");
 		$head.prependTo($("html"));
 	}
@@ -13,7 +12,7 @@ const get$head = () => {
 const get$title = () => {
 	let $head = get$head();
 	let $title = $head.find("title");
-	if (!is$Selected($title)) {
+	if (!_.is$Selected($title)) {
 		$title = $("<title/>");
 		$title.prependTo($head);
 	}
@@ -22,7 +21,7 @@ const get$title = () => {
 const get$cssVariables = () => {
 	let $head = get$head();
 	let $cssVariables = $head.find("#cssVariables");
-	if (!is$Selected($cssVariables)) {
+	if (!_.is$Selected($cssVariables)) {
 		$cssVariables = $("<style/>", { id: "cssVariables" });
 		$cssVariables.appendTo($head);
 	}

@@ -37,8 +37,18 @@ const lodashFunctions = {
 each(lodashFunctions, (fn, prop) => (_[prop] = fn));
 
 /*lodash IDE 能识别*/
-
 _.doNothing = () => null;
 
 /* 睡眠 t:setTimeout during time*/
 _.sleep = t => new Promise(r => setTimeout(r, t));
+
+/* 组件属性是否是on开头，组件的事件监听*/
+const onRE = /^on[^a-z]/;
+_.isOn = key => onRE.test(key);
+_.isModelListener = key => key.startsWith("onUpdate:");
+_.isListener = key => _.isOn(key) || _.isModelListener(key);
+/**/
+/*是否非空数组*/
+_.isArrayFill = arr => _.isArray(arr) && arr.length > 0;
+/*jquery到底有没有选中目标DOM？*/
+_.is$Selected = $ele => $ele && $ele.length > 0;

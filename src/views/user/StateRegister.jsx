@@ -135,9 +135,7 @@ export const StateRegister = reactive({
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
 		countMax: StateApp.configs.countMax,
-		text: {
-			normal: () => $t("user.register.get-verification-code").label
-		},
+		text: { normal: () => $t("user.register.get-verification-code").label },
 		onClick: async ({ countDown }) => {
 			try {
 				const results = await validateForm({

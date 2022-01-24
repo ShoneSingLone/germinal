@@ -1,6 +1,6 @@
 import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
-import { UI } from "@ventose/ui";
+import { _, UI } from "@ventose/ui";
 import { defineXItem, timeFix } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
@@ -159,7 +159,7 @@ export const StateLogin = reactive({
 				const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
 				const currentFormConfigs = StateLogin[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
-				if (!isArrayFill(validateResults)) {
+				if (!_.isArrayFill(validateResults)) {
 					const res = await StateAppActions.Login(StateLogin.data);
 					/* 验证错误 */
 					/* 网络错误 */
