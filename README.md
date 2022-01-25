@@ -53,6 +53,7 @@ body,
 ## Reference
 
 - [Vue3](https://v3.cn.vuejs.org/api/)
+- [composition-api-lifecycle-hooks](https://v3.cn.vuejs.org/guide/composition-api-lifecycle-hooks.html)
 - [Vue-Router](https://next.router.vuejs.org/zh/introduction.html)
 - [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
 - [popper](https://popper.js.org/)
@@ -187,6 +188,8 @@ export const AppActions = {
 import {StateApp} from "lsrc/state/StateApp";
 import {defineXItem, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
 import {watch} from "vue";
+
+- [ ] 自定义组件的校验如何处理?
 
 const inputConfigs = defineXItem({
     type: ITEM_TYPE.input,

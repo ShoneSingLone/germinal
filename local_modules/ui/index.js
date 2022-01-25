@@ -56,6 +56,7 @@ import xItem from "./xForm/xItem.vue";
 import xButton from "./xButton/xButton.vue";
 import xButtonCountDown from "./xButton/xButtonCountDown.vue";
 import xGap from "./xLayout/xGap.vue";
+import xCharts from "./xCharts/xCharts.vue";
 
 /* 表单提示信息 */
 import "ant-design-vue/es/form/style/index.css";
@@ -75,7 +76,8 @@ const componentMyUI = {
 	xItem,
 	xButton,
 	xButtonCountDown,
-	xGap
+	xGap,
+	xCharts
 };
 
 /* ant-d-v */
