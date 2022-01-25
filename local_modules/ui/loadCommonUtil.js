@@ -50,5 +50,44 @@ _.isListener = key => _.isOn(key) || _.isModelListener(key);
 /**/
 /*是否非空数组*/
 _.isArrayFill = arr => _.isArray(arr) && arr.length > 0;
+/*  */
+
+_.isInput = val => {
+	if (val === false) return true;
+	if (val === 0) return true;
+	if (val) return true;
+	return false;
+};
 /*jquery到底有没有选中目标DOM？*/
 _.is$Selected = $ele => $ele && $ele.length > 0;
+/**
+ * 获取对象的value
+ * 这个方法很灵性，有时候后面来的结构长这样 {id:value}
+ * @param {*} obj
+ * @param {*} defaultValue
+ * @returns
+ */
+_.getObjectFirstKeyValue = (obj, defaultValue = "") => {
+	if (!obj) return defaultValue;
+	const keyArray = Object.keys(obj);
+	if (!_.isArrayFill(keyArray)) return defaultValue;
+	return _.isInput(keyArray[0]) ? obj[keyArray[0]] : defaultValue;
+};
+
+_.safeParse = (val, defaultObj = {}) => {
+	let obj = defaultObj;
+	try {
+		obj = JSON.parse(val);
+		if (!val) {
+			obj = defaultObj;
+			throw new Error("json parse error");
+		}
+	} catch (error) {
+		console.log(error);
+	}
+	return obj;
+};
+
+_.safeSplit = function (target, sp) {
+	return target?.split ? target.split(sp) : [];
+};
