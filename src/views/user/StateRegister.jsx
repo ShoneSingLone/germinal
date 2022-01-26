@@ -8,8 +8,8 @@ import SvgRender from "lsrc/components/SvgRender/SvgRender";
 import { getColor, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
-import { getCaptcha } from "./StateLogin";
-
+// import { getCaptcha } from "./StateLogin";
+debugger;
 const styles = {
 	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }
 };

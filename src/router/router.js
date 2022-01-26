@@ -1,3 +1,4 @@
+debugger;
 import NProgress from "nprogress"; // progress bar
 import { createRouter, createWebHashHistory } from "vue-router";
 import NotFound from "lsrc/views/system/NotFound.vue";
@@ -7,7 +8,7 @@ import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import { lStorage } from "@ventose/ui/tools/storage";
 import { setDocumentTitle } from "@ventose/ui/tools/dom";
-import { StateApp, StateAppActions } from "lsrc/state/StateApp";
+import { StateApp } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
 import { _ } from "@ventose/ui";

@@ -2,7 +2,6 @@
 import { line } from "./configs/line";
 import { _ } from "../loadCommonUtil";
 import { computed } from "vue";
-import { echarts } from "./echarts.js";
 
 const CONFIGS_MAP = {
 	line

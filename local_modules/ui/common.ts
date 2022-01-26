@@ -106,29 +106,3 @@ export const MutatingProps = (item, prop, val) => {
     console.log(max);
     console.timeEnd('duration'); //Max:11815 duration: 10010.89404296875 ms //count没超过两万，再做点其他计算，应该达不到这个数
 })();*/
-
-genId.idCount = 1;
-genId.ID_COUNT_MAX = 40000;
-genId.DATE_NOW = Date.now();
-
-export function genId(category) {
-	if (genId.idCount > genId.ID_COUNT_MAX) {
-		genId.idCount = 1;
-		genId.DATE_NOW = Date.now();
-	}
-	return `${category}_${genId.DATE_NOW}_${genId.idCount++}`;
-}
-
-export function timeFix() {
-	const time = new Date();
-	const hour = time.getHours();
-	return hour < 9
-		? "早上好"
-		: hour <= 11
-		? "上午好"
-		: hour <= 13
-		? "中午好"
-		: hour < 20
-		? "下午好"
-		: "晚上好";
-}

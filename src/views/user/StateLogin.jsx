@@ -1,7 +1,7 @@
 import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
 import { _, UI } from "@ventose/ui";
-import { defineXItem, timeFix } from "@ventose/ui/common";
+import { defineXItem } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
@@ -14,7 +14,7 @@ function handleLoginSuccess(res) {
 	setTimeout(() => {
 		UI.notification.success({
 			message: $t("welcome").label,
-			description: `${timeFix()}，${$t("welcome.back").label}`
+			description: `${_.timeFix()}，${$t("welcome.back").label}`
 		});
 	}, 1000);
 }
@@ -42,7 +42,6 @@ const LOGIN_TYPE = {
 	email: "email",
 	mobile: "mobile"
 };
-
 export const StateLogin = reactive({
 	alertTips: "",
 	captchaCount: 0,

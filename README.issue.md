@@ -1,0 +1,2 @@
+- [circular dependency](https://github.com/vitejs/vite/issues/4430)
+ - main -> compile -> store -> compile 此时不可以调用compile 因为compile已经在编译，但是没有编译完成，应该使用异步，使compile的调用延后

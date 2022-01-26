@@ -1,12 +1,12 @@
 import { reactive, watch, computed } from "vue";
+import { _ } from "@ventose/ui";
 import { lStorage } from "@ventose/ui/tools/storage";
 import { setCSSVariables, setDocumentTitle } from "@ventose/ui/tools/dom";
+import { STATIC_WORD } from "lsrc/utils/common";
 import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
-import { _ } from "@ventose/ui";
-import { STATIC_WORD } from "lsrc/utils/common";
 
 const { genId } = _;
 
@@ -105,7 +105,7 @@ export const StateApp = reactive({
 });
 
 if (StateApp.isDev) {
-	/* TODO:方便调试 have to remove */
+	/* TODO:方便调试 must remove when in prod */
 	window.StateApp = StateApp;
 }
 

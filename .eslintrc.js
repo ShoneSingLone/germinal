@@ -29,6 +29,7 @@ module.exports = {
 		"vue/require-default-prop": "off",
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
+		"no-undef": "error",
 		"no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
 		"no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
 	}

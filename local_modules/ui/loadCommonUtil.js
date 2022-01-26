@@ -13,9 +13,9 @@ import debounce from "lodash/debounce";
 import isNumber from "lodash/isNumber";
 import filter from "lodash/filter";
 import omit from "lodash/omit";
-import { genId } from "./common";
 
-export const _ = { genId };
+export const _ = {};
+
 const lodashFunctions = {
 	merge,
 	each,
@@ -91,3 +91,35 @@ _.safeParse = (val, defaultObj = {}) => {
 _.safeSplit = function (target, sp) {
 	return target?.split ? target.split(sp) : [];
 };
+
+/**
+ * 异步加载js 在window中名为globalName的全局变量
+ * @param {string} url
+ * @param {string} globalName
+ * @returns 在window中名为globalName的全局变量
+ */
+_.asyncLoadJS = async (url, globalName) => {
+	if (window[globalName]) {
+		return window[globalName];
+	}
+	debugger;
+	const $style = $("<style/>").attr("id", `${asyncLoadJS}${globalName}`);
+	$style.appendTo($("body")).on("load", function () {
+		debugger;
+		return window[globalName];
+	});
+	debugger;
+	$style.attr("src", url);
+};
+
+function genId(category) {
+	if (genId.idCount > genId.ID_COUNT_MAX) {
+		genId.idCount = 1;
+		genId.DATE_NOW = Date.now();
+	}
+	return `${category}_${genId.DATE_NOW}_${genId.idCount++}`;
+}
+genId.idCount = 1;
+genId.ID_COUNT_MAX = 40000;
+genId.DATE_NOW = Date.now();
+_.genId = genId;
