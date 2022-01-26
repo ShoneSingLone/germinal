@@ -2,6 +2,7 @@
 import { line } from "./configs/line";
 import { _ } from "../loadCommonUtil";
 import { computed } from "vue";
+import { echarts } from "./echarts.js";
 
 const CONFIGS_MAP = {
 	line
@@ -30,7 +31,7 @@ const props = defineProps({
 });
 
 const id = _.genId("xChart");
-const methods = {
+const instance = {
 	helper: computed(() => {
 		if (_.isPlainObject(props.configs)) {
 			return props.configs;
@@ -65,7 +66,7 @@ const methods = {
 };
 
 onMounted(() => {
-	methods.init();
+	instance.init();
 });
 
 onUnmounted(() => {});
