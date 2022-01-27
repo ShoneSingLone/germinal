@@ -144,7 +144,7 @@ export const UI = {
 export { _ } from "./loadCommonUtil";
 
 export default {
-	install: (app, options) => {
+	install: (app, options /* {dependState} */) => {
 		installPopoverDirective(app, options);
 		_.each(components, (component, name) => {
 			app.component(name, component);

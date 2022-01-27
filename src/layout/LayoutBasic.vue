@@ -49,7 +49,7 @@ const render = {
 						<BreadcrumbItem>An Application</BreadcrumbItem>
 					</Breadcrumb>
 					<span class="flex1"></span>
-					<Dropdown :placement="placement">
+					<Dropdown placement="bottomRight">
 						<Avatar>
 							<template #icon>
 								<UserOutlined />

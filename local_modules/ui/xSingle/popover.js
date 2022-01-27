@@ -14,6 +14,7 @@ const visibleArea = {};
 /* 监听 触发popover的事件 hover click */
 export function installPopoverDirective(app, appSettings) {
 	const appId = _.genId("appId");
+	console.log("todo addPlugin");
 	appAddPlugin[appId] = appSettings.addPlugins;
 	app.directive("uiPopover", {
 		mounted(el, binding) {

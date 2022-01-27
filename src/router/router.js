@@ -1,4 +1,3 @@
-debugger;
 import NProgress from "nprogress"; // progress bar
 import { createRouter, createWebHashHistory } from "vue-router";
 import NotFound from "lsrc/views/system/NotFound.vue";
@@ -12,7 +11,7 @@ import { StateApp } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
 import { _ } from "@ventose/ui";
-import { STATIC_WORD } from "lsrc/utils/common";
+import { STATIC_WORD } from "lsrc/utils/common.words";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
 console.log("viewModules", viewModules);

@@ -1,8 +1,8 @@
 import { reactive, watch, computed } from "vue";
 import { _ } from "@ventose/ui";
 import { lStorage } from "@ventose/ui/tools/storage";
-import { setCSSVariables, setDocumentTitle } from "@ventose/ui/tools/dom";
-import { STATIC_WORD } from "lsrc/utils/common";
+import { setCSSVariables } from "@ventose/ui/tools/dom";
+import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
@@ -83,7 +83,6 @@ const menuTree = [
 		]
 	}
 ];
-debugger;
 export const StateApp = reactive({
 	theme: "dark",
 	menuTree,
@@ -119,7 +118,6 @@ export const APP_CLASS_PREFIX = computed({
 	get: () => StateApp.configs.prefixCls,
 	set: prefixCls => (StateApp.configs.prefixCls = prefixCls)
 });
-debugger;
 export const getColor = colorName => {
 	if (StateApp.configs) {
 		return StateApp.configs.colors[colorName];

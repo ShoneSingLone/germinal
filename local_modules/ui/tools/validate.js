@@ -98,7 +98,7 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 
 					trigBy &&
 						console.log(
-							`%cValidate trig by [${trigBy}]`,
+							`%cValidate trigger off by [${trigBy}]`,
 							"color:yellow;background:green;"
 						);
 
