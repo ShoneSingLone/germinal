@@ -3,6 +3,7 @@ import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import { _ } from "../loadCommonUtil";
 
 export default defineComponent({
+	/* a:all,top left right bottom */
 	props: ["t", "l", "r", "b", "a"],
 	computed: {
 		gapStyle: {
@@ -13,7 +14,9 @@ export default defineComponent({
 					b: "bottom",
 					l: "left"
 				};
+
 				const gapStyle = {};
+
 				if (this.a) {
 					gapStyle.margin = `${this.a}px`;
 				} else {
@@ -24,6 +27,7 @@ export default defineComponent({
 						}
 					});
 				}
+
 				return gapStyle;
 			}
 		}

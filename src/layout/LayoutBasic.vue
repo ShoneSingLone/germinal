@@ -48,7 +48,7 @@ const render = {
 						<BreadcrumbItem><a href="">Application List</a></BreadcrumbItem>
 						<BreadcrumbItem>An Application</BreadcrumbItem>
 					</Breadcrumb>
-					<span class="flex1"></span>
+					<span class="flex1" />
 					<Dropdown placement="bottomRight">
 						<Avatar>
 							<template #icon>

@@ -5,13 +5,11 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import { lStorage } from "@ventose/ui/tools/storage";
 import { setDocumentTitle } from "@ventose/ui/tools/dom";
-import { StateApp } from "lsrc/state/StateApp";
+import { StateApp, StateAppActions } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
 import { _ } from "@ventose/ui";
-import { STATIC_WORD } from "lsrc/utils/common.words";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
 console.log("viewModules", viewModules);
@@ -92,19 +90,31 @@ router.beforeEach(async (to, from) => {
 	console.log("🚀 ", to.path, from.path);
 	NProgress.start();
 	const hasAccessTokenHandler = async () => {
-		if (to.path === loginRoutePath) {
+		if (allowList.map(name => toPath(name)).includes(to.path)) {
 			return {
 				path: defaultRoutePath
 			};
 		} else {
 			if (StateApp.roles?.length === 0) {
-				await AppActions.GetInfo();
+				await StateAppActions.GetInfo();
+			}
+
+			if (from.query.redirect) {
+				if (to.path === redirect) {
+					/* set the replace: true so the navigation will not leave a history record */
+					return { ...to, replace: true };
+				} else {
+					/* 回到刚才无权限的页面 */
+					return {
+						path: from.query.redirect,
+						query: _.omit(from.query, "redirect")
+					};
+				}
 			}
 		}
 	};
 	const noAccessTokenHandler = () => {
 		if (!allowList.includes(to.name)) {
-			// 在免登录名单，直接进入
 			return {
 				path: loginRoutePath,
 				query: {
@@ -115,21 +125,16 @@ router.beforeEach(async (to, from) => {
 	};
 
 	try {
-		if (lStorage[STATIC_WORD.ACCESS_TOKEN]) {
-			await hasAccessTokenHandler();
-		} else {
-			noAccessTokenHandler();
-		}
-	} catch (e) {
-		console.error(e);
-		/*  */
+		const hasToken = !!StateApp.token;
+		return hasToken ? await hasAccessTokenHandler() : noAccessTokenHandler();
+	} catch (error) {
+		console.error(error);
 		return false;
 	} finally {
+		if (to?.meta?.title) {
+			setDocumentTitle(to.meta.title);
+		}
 		NProgress.done();
-	}
-
-	if (to?.meta?.title) {
-		setDocumentTitle(to.meta.title);
 	}
 });
 

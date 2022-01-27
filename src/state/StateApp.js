@@ -206,12 +206,25 @@ export const StateAppActions = {
 		}
 	},
 	async Login({ username, password }) {
-		const loginParams = { username, password: md5(password) };
-		const res = await API.user.login(loginParams);
-		setToken(res.token);
+		try {
+			const loginParams = { username, password: md5(password) };
+			const res = await API.user.login(loginParams);
+			setToken(res.token);
+		} catch (error) {
+			console.error(error);
+		}
 	},
 	Logout: async () => {
-		await _.sleep(1000 * 3);
+		try {
+			const res = await API.user.logout();
+			/* 退出成功后清空token */
+			setToken("");
+			/* fixed循环引用 */
+			const { router, routeNames } = await import("lsrc/router/router");
+			router.push({ name: routeNames.userLogin });
+		} catch (error) {
+			console.error(error);
+		}
 	}
 };
 

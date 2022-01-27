@@ -1,3 +1,3 @@
 export const STATIC_WORD = {
-	ACCESS_TOKEN: "ACCESS_TOKEN"
+	ACCESS_TOKEN: "token"
 };
