@@ -11,6 +11,12 @@ const props = defineProps({
 	}
 });
 
+const state = reactive({ openKeys: [] });
+const onOpenChange = openKeys => {
+	const latestOpenKey = _.last(openKeys);
+	state.openKeys = latestOpenKey ? [latestOpenKey] : [];
+};
+
 const genMenu = () => {
 	const MenuItemRender = menuInfo => {
 		if (_.isArrayFill(menuInfo.children)) {
@@ -41,8 +47,10 @@ const genMenu = () => {
 <template>
 	<div class="layout-menu beautiful-scroll flex1">
 		<Menu
-			v-model:selectedKeys="StateApp.arr_selectedMenuId"
 			:theme="StateApp.theme"
+			:open-keys="state.openKeys"
+			@openChange="onOpenChange"
+			v-model:selectedKeys="StateApp.arr_selectedMenuId"
 			mode="inline">
 			<!-- jsx 循环 menuTree -->
 			<xRender :render="genMenu" />
