@@ -73,12 +73,11 @@ NProgress.configure({
 	showSpinner: false
 });
 
-const allowList = [
+const allowVisitPageWhenNoAccess = [
 	routeNames.login,
 	routeNames.userLogin,
 	routeNames.register,
-	routeNames.registerResult,
-	routeNames[404]
+	routeNames.registerResult
 ];
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
@@ -90,7 +89,8 @@ router.beforeEach(async (to, from) => {
 	console.log("🚀 ", to.path, from.path);
 	NProgress.start();
 	const hasAccessTokenHandler = async () => {
-		if (allowList.map(name => toPath(name)).includes(to.path)) {
+		const allowPath = allowVisitPageWhenNoAccess.map(name => toPath(name));
+		if (allowPath.includes(to.path)) {
 			return {
 				path: defaultRoutePath
 			};
@@ -114,7 +114,7 @@ router.beforeEach(async (to, from) => {
 		}
 	};
 	const noAccessTokenHandler = () => {
-		if (!allowList.includes(to.name)) {
+		if (!allowVisitPageWhenNoAccess.includes(to.name)) {
 			return {
 				path: loginRoutePath,
 				query: {
