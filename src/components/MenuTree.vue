@@ -16,18 +16,16 @@ const props = defineProps({
 const state = reactive({ openKeys: [] });
 const onOpenChange = openKeys => {
 	const latestOpenKey = _.last(openKeys);
-	const openKeyArray = _.safeSplit(latestOpenKey, "###");
+	const openKeyArray = _.safeSplit(latestOpenKey, "###").filter(i => i);
 	const _openKeys = [];
-	for (let index = 0; index < array.length; index++) {
-		const element = array[index];
+	for (let index = 0; index < openKeyArray.length; index++) {
+		const element = openKeyArray[index];
 		if (index === 0) {
 			_openKeys[0] = `###${element}`;
 		} else {
-			_openKeys[index] = `${array[index - 1]}###${element}`;
+			_openKeys[index] = `${_openKeys[index - 1]}###${element}`;
 		}
 	}
-
-	debugger;
 	state.openKeys = _openKeys;
 };
 
@@ -78,7 +76,11 @@ const genMenu = () => {
 
 <template>
 	<div class="layout-menu beautiful-scroll flex1">
-		state.openKeys: {{ state.openKeys }}
+		<pre>
+			<code>
+				state.openKeys: {{ state.openKeys }}
+			</code>
+		</pre>
 		<Menu
 			:theme="StateApp.theme"
 			:open-keys="state.openKeys"
