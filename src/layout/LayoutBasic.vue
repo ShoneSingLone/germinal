@@ -10,6 +10,8 @@ import logoImg from "lsrc/assets/logo.png";
 import { reactive } from "vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
+/* 比如常，或者首页不想让用户看到loading状，可提前加载图标 */
+import { UserOutlined } from "@ant-design/icons-vue";
 
 const render = {
 	/*自定义的折叠按钮*/

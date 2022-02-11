@@ -1,14 +1,17 @@
-import { reactive, computed, watch } from "vue";
+import { reactive } from "vue";
 import { $t } from "lsrc/language";
-import { UI } from "@ventose/ui";
-import { ITEM_TYPE, defineXItem } from "@ventose/ui/common";
+import { defineXItem } from "@ventose/ui/common";
 import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import SvgRender from "lsrc/components/SvgRender/SvgRender";
 import { getColor, StateApp } from "lsrc/state/StateApp";
-import { API } from "germinal_api";
 import { pickValueFrom } from "@ventose/ui/tools/form";
 import { getCaptcha } from "./StateLogin";
+import {
+	UserOutlined,
+	MobileOutlined,
+	LockOutlined,
+	MailOutlined
+} from "@ant-design/icons-vue";
 
 const styles = {
 	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }

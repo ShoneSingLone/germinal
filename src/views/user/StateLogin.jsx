@@ -7,6 +7,11 @@ import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
 import { router, routeNames } from "lsrc/router/router";
+import {
+	UserOutlined,
+	MobileOutlined,
+	LockOutlined
+} from "@ant-design/icons-vue";
 
 function handleLoginSuccess(res) {
 	router.push({ name: routeNames.shell });

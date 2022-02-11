@@ -13,6 +13,8 @@ import debounce from "lodash/debounce";
 import isNumber from "lodash/isNumber";
 import filter from "lodash/filter";
 import omit from "lodash/omit";
+import last from "lodash/last";
+import first from "lodash/first";
 
 export const _ = {};
 
@@ -31,7 +33,9 @@ const lodashFunctions = {
 	debounce,
 	isNumber,
 	filter,
-	omit
+	omit,
+	last,
+	first
 };
 
 each(lodashFunctions, (fn, prop) => (_[prop] = fn));

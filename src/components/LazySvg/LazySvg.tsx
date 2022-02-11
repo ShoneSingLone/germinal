@@ -4,6 +4,7 @@ import each from "lodash/each";
 import isFunction from "lodash/isFunction";
 import $ from "jquery";
 import "./LazySvg.less";
+import { LoadingOutlined } from "@ant-design/icons-vue";
 
 const icons = import.meta.glob("../../assets/svg/*.svg");
 

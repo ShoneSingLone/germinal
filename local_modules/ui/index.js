@@ -4,6 +4,8 @@ import {
 	Avatar,
 	Alert,
 	Breadcrumb,
+	Card,
+	Descriptions,
 	Progress,
 	Popover,
 	Menu,
@@ -22,8 +24,10 @@ import {
 	message,
 	notification
 } from "ant-design-vue";
+import { DescriptionsItem } from "ant-design-vue/es/descriptions";
 import { MenuItem, SubMenu } from "ant-design-vue/es/menu";
 import { BreadcrumbItem } from "ant-design-vue/es/breadcrumb";
+import { DropdownButton } from "ant-design-vue/es/dropdown";
 import { TabPane } from "ant-design-vue/es/tabs";
 import { InputPassword } from "ant-design-vue/es/input";
 import {
@@ -33,30 +37,13 @@ import {
 	LayoutContent
 } from "ant-design-vue/es/layout";
 
-/* 比如常，或者首页不想让用户看到loading状，可提前加载图标 */
-import {
-	GlobalOutlined,
-	AppleOutlined,
-	AndroidOutlined,
-	UserOutlined,
-	LockFilled,
-	MobileOutlined,
-	AlipayCircleFilled,
-	TaobaoCircleFilled,
-	WeiboCircleFilled,
-	Loading3QuartersOutlined,
-	LoadingOutlined,
-	LockOutlined,
-	MenuUnfoldOutlined,
-	MenuFoldOutlined,
-	MailOutlined
-} from "@ant-design/icons-vue";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xButton from "./xButton/xButton.vue";
 import xButtonCountDown from "./xButton/xButtonCountDown.vue";
 import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
+import xView from "./xView/xView.vue";
 
 /* 表单提示信息 */
 import "ant-design-vue/es/form/style/index.css";
@@ -77,7 +64,8 @@ const componentMyUI = {
 	xButton,
 	xButtonCountDown,
 	xGap,
-	xCharts
+	xCharts,
+	xView
 };
 
 /* ant-d-v */
@@ -86,12 +74,16 @@ const componentAntdV = {
 	Alert,
 	Breadcrumb,
 	BreadcrumbItem,
+	Card,
+	Descriptions,
+	DescriptionsItem,
 	Progress,
 	Popover,
 	Menu,
 	MenuItem,
 	SubMenu,
 	Dropdown,
+	DropdownButton,
 	Button,
 	List,
 	Checkbox,
@@ -110,28 +102,9 @@ const componentAntdV = {
 	LayoutContent
 };
 
-const componentIcons = {
-	GlobalOutlined,
-	AppleOutlined,
-	AndroidOutlined,
-	UserOutlined,
-	LockFilled,
-	MobileOutlined,
-	AlipayCircleFilled,
-	TaobaoCircleFilled,
-	WeiboCircleFilled,
-	Loading3QuartersOutlined,
-	LoadingOutlined,
-	LockOutlined,
-	MenuUnfoldOutlined,
-	MenuFoldOutlined,
-	MailOutlined
-};
-
 const components = {
-	...componentMyUI,
 	...componentAntdV,
-	...componentIcons
+	...componentMyUI
 };
 
 /* 静态方法，与APP实例无关，引用有直接可用 */
