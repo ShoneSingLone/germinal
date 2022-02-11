@@ -186,12 +186,12 @@ export const AppActions = {
   - `src/views/user/StateLogin.jsx`
 ```js
 import {StateApp} from "lsrc/state/StateApp";
-import {defineXItem, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
+import {defItem, ITEM_TYPE} from "@ventose/ui";
 import {watch} from "vue";
 
 - [ ] 自定义组件的校验如何处理?
 
-const inputConfigs = defineXItem({
+const inputConfigs = defItem({
     type: ITEM_TYPE.input,
     onAfterValueChange: (configs) => {
         StateApp.count++;

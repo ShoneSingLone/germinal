@@ -1,10 +1,8 @@
 import { reactive } from "vue";
 import { $t } from "lsrc/language";
-import { defineXItem } from "@ventose/ui/common";
-import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
+import { EVENT_TYPE, validateForm, defItem, pickValueFrom } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, StateApp } from "lsrc/state/StateApp";
-import { pickValueFrom } from "@ventose/ui/tools/form";
 import { getCaptcha } from "./StateLogin";
 import {
 	UserOutlined,
@@ -36,7 +34,7 @@ export const StateRegister = reactive({
 		verification: ""
 	},
 	configsForm: {
-		...defineXItem({
+		...defItem({
 			prop: "username",
 			size: "large",
 			/* render的时候重新获取 */
@@ -49,7 +47,7 @@ export const StateRegister = reactive({
 			],
 			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "password",
 			isPassword: true,
 			size: "large",
@@ -73,7 +71,7 @@ export const StateRegister = reactive({
 				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "passwordConfirm",
 			isPassword: true,
 			size: "large",
@@ -96,7 +94,7 @@ export const StateRegister = reactive({
 			}
 		}),
 
-		...defineXItem({
+		...defItem({
 			prop: "mobile",
 			size: "large",
 			/* render的时候重新获取 */
@@ -117,7 +115,7 @@ export const StateRegister = reactive({
 			}
 		}),
 		/*验证码*/
-		...defineXItem({
+		...defItem({
 			prop: "verificationCode",
 			size: "large",
 			itemWrapperClass: "flex1",

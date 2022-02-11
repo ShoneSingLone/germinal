@@ -63,7 +63,11 @@ export default defineComponent({
 	render(h) {
 		const configs = _.omit(this.configs, ["text", "onClick"]);
 		return (
-			<Button {...configs} onClick={this.onClick} loading={this.loading}>
+			<Button
+				{...configs}
+				onClick={this.onClick}
+				loading={this.loading}
+				class="flex middle">
 				{this.text}
 			</Button>
 		);

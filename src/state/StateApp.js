@@ -1,7 +1,5 @@
 import { reactive, watch, computed } from "vue";
-import { _ } from "@ventose/ui";
-import { lStorage } from "@ventose/ui/tools/storage";
-import { setCSSVariables } from "@ventose/ui/tools/dom";
+import { lStorage, setCSSVariables, _ } from "@ventose/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API } from "germinal_api";
 import ajax from "lsrc/request/ajax";
@@ -10,6 +8,7 @@ import $ from "jquery";
 
 export const StateApp = reactive({
 	theme: "light",
+	menuTree: [],
 	layoutStyle: {
 		header: { height: "64px" },
 		sider: { width: "200px" }

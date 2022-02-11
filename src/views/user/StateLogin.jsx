@@ -1,8 +1,6 @@
 import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
-import { _, UI } from "@ventose/ui";
-import { defineXItem } from "@ventose/ui/common";
-import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
+import { _, UI, defItem, EVENT_TYPE, validateForm } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
 import { API } from "germinal_api";
@@ -74,7 +72,7 @@ export const StateLogin = reactive({
 		verificationCode: ""
 	},
 	configsForm: {
-		...defineXItem({
+		...defItem({
 			prop: "username",
 			size: "large",
 			/* render的时候重新获取 */
@@ -87,7 +85,7 @@ export const StateLogin = reactive({
 			],
 			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "password",
 			isPassword: true,
 			size: "large",
@@ -106,7 +104,7 @@ export const StateLogin = reactive({
 	},
 	/*手机*/
 	configsFormMobile: {
-		...defineXItem({
+		...defItem({
 			prop: "mobile",
 			size: "large",
 			/* render的时候重新获取 */
@@ -127,7 +125,7 @@ export const StateLogin = reactive({
 			}
 		}),
 		/*验证码*/
-		...defineXItem({
+		...defItem({
 			prop: "verificationCode",
 			size: "large",
 			itemWrapperClass: "flex1",

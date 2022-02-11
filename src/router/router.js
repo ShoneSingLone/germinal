@@ -5,11 +5,10 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import { setDocumentTitle } from "@ventose/ui/tools/dom";
 import { StateApp, StateAppActions } from "lsrc/state/StateApp";
 import { $t } from "lsrc/language";
 import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
-import { _ } from "@ventose/ui";
+import { _, setDocumentTitle } from "@ventose/ui";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
 console.log("viewModules", viewModules);

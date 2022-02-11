@@ -3,7 +3,7 @@
 import { onMounted, reactive } from "vue";
 import { _ } from "@ventose/ui";
 import { StateAppActions } from "lsrc/state/StateApp";
-import { setDocumentTitle } from "@ventose/ui/tools/dom";
+import { setDocumentTitle } from "@ventose/ui";
 
 const state = reactive({ isLoading: true });
 

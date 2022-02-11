@@ -1,5 +1,4 @@
 import "./index.less";
-import "./loadCommonUtil";
 import {
 	Avatar,
 	Alert,
@@ -36,7 +35,12 @@ import {
 	LayoutFooter,
 	LayoutContent
 } from "ant-design-vue/es/layout";
-
+/* 表单提示信息 */
+import "ant-design-vue/es/form/style/index.css";
+import $ from "jquery";
+import layer from "./xSingle/layer/layer";
+import { installPopoverDirective } from "./xSingle/popover";
+import { _ } from "./loadCommonUtil";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xButton from "./xButton/xButton.vue";
@@ -44,18 +48,11 @@ import xButtonCountDown from "./xButton/xButtonCountDown.vue";
 import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
 import xView from "./xView/xView.vue";
-
-/* 表单提示信息 */
-import "ant-design-vue/es/form/style/index.css";
-import $ from "jquery";
+import xDataGrid from "./xDataGrid/xDataGrid.vue";
 
 if (import.meta.env.MODE === "development") {
 	window.jquery = $;
 }
-
-import layer from "./xSingle/layer/layer";
-import { installPopoverDirective } from "./xSingle/popover";
-import { _ } from "./loadCommonUtil";
 
 /* my-ui */
 const componentMyUI = {
@@ -65,7 +62,8 @@ const componentMyUI = {
 	xButtonCountDown,
 	xGap,
 	xCharts,
-	xView
+	xView,
+	xDataGrid
 };
 
 /* ant-d-v */
@@ -109,12 +107,19 @@ const components = {
 
 /* 静态方法，与APP实例无关，引用有直接可用 */
 export const UI = {
+	dialog: {},
 	message,
 	notification,
 	layer
 };
 
 export { _ } from "./loadCommonUtil";
+export { defCol } from "./xDataGrid/common";
+export { defItem } from "./xForm/common";
+export { EVENT_TYPE, validateForm } from "./tools/validate";
+export { setDocumentTitle, setCSSVariables } from "./tools/dom";
+export { lStorage } from "./tools/storage";
+export { pickValueFrom } from "./tools/form";
 
 export default {
 	install: (app, options /* {dependState} */) => {
