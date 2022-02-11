@@ -28,6 +28,7 @@ const render = {
 <template>
 	<Layout class="layout-basic">
 		<LayoutSider
+			:theme="StateApp.theme"
 			v-model:collapsed="StateApp.collapsed"
 			collapsible
 			:style="StateApp.layoutStyle.sider">

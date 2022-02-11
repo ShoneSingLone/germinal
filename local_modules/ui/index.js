@@ -37,7 +37,6 @@ import {
 } from "ant-design-vue/es/layout";
 /* 表单提示信息 */
 import "ant-design-vue/es/form/style/index.css";
-import $ from "jquery";
 import layer from "./xSingle/layer/layer";
 import { installPopoverDirective } from "./xSingle/popover";
 import { _ } from "./loadCommonUtil";
@@ -49,10 +48,6 @@ import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
 import xView from "./xView/xView.vue";
 import xDataGrid from "./xDataGrid/xDataGrid.vue";
-
-if (import.meta.env.MODE === "development") {
-	window.jquery = $;
-}
 
 /* my-ui */
 const componentMyUI = {

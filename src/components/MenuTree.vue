@@ -16,7 +16,19 @@ const props = defineProps({
 const state = reactive({ openKeys: [] });
 const onOpenChange = openKeys => {
 	const latestOpenKey = _.last(openKeys);
-	state.openKeys = latestOpenKey ? [latestOpenKey] : [];
+	const openKeyArray = _.safeSplit(latestOpenKey, "###");
+	const _openKeys = [];
+	for (let index = 0; index < array.length; index++) {
+		const element = array[index];
+		if (index === 0) {
+			_openKeys[0] = `###${element}`;
+		} else {
+			_openKeys[index] = `${array[index - 1]}###${element}`;
+		}
+	}
+
+	debugger;
+	state.openKeys = _openKeys;
 };
 
 const getIcon = icon => {
@@ -24,20 +36,25 @@ const getIcon = icon => {
 };
 
 const genMenu = () => {
-	const MenuItemRender = menuInfo => {
+	const MenuItemRender = (menuInfo, parentId) => {
+		const currentId = `${parentId}###${menuInfo.id}`;
 		if (_.isArrayFill(menuInfo.children)) {
 			return (
 				<SubMenu
+					key={currentId}
 					v-slots={{
 						icon: () => getIcon(menuInfo.icon),
 						title: () => menuInfo.label,
-						default: () => _.map(menuInfo.children, MenuItemRender)
+						default: () =>
+							_.map(menuInfo.children, i => {
+								return MenuItemRender(i, currentId);
+							})
 					}}
 				/>
 			);
 		} else {
 			return (
-				<MenuItem key={menuInfo.id} class="flex middle">
+				<MenuItem key={currentId} class="flex middle">
 					{{
 						icon: () => getIcon(menuInfo.icon),
 						title: () => menuInfo.label,
@@ -53,12 +70,15 @@ const genMenu = () => {
 			);
 		}
 	};
-	return _.map(props.tree, MenuItemRender);
+	return _.map(props.tree, i => {
+		return MenuItemRender(i, "");
+	});
 };
 </script>
 
 <template>
 	<div class="layout-menu beautiful-scroll flex1">
+		state.openKeys: {{ state.openKeys }}
 		<Menu
 			:theme="StateApp.theme"
 			:open-keys="state.openKeys"

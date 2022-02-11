@@ -23,7 +23,8 @@ export const StateApp = reactive({
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs,
-	isDev: import.meta.env.MODE === "development"
+	// isDev: import.meta.env.MODE === "development"
+	isDev: true
 });
 
 if (StateApp.isDev) {
