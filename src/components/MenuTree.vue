@@ -76,11 +76,11 @@ const genMenu = () => {
 
 <template>
 	<div class="layout-menu beautiful-scroll flex1">
-		<pre>
+		<!-- <pre>
 			<code>
 				state.openKeys: {{ state.openKeys }}
 			</code>
-		</pre>
+		</pre> -->
 		<Menu
 			:theme="StateApp.theme"
 			:open-keys="state.openKeys"
