@@ -15,6 +15,7 @@ import filter from "lodash/filter";
 import omit from "lodash/omit";
 import last from "lodash/last";
 import first from "lodash/first";
+import cloneDeep from "lodash/cloneDeep";
 
 export const _ = {};
 
@@ -35,7 +36,8 @@ const lodashFunctions = {
 	filter,
 	omit,
 	last,
-	first
+	first,
+	cloneDeep
 };
 
 each(lodashFunctions, (fn, prop) => (_[prop] = fn));

@@ -1,3 +1,5 @@
+import { _ } from "../loadCommonUtil";
+
 export const pickValueFrom = configs => {
 	return _.reduce(
 		configs,
@@ -7,4 +9,12 @@ export const pickValueFrom = configs => {
 		},
 		{}
 	);
+};
+
+/*����reactive����*/
+export const resetStateValue = (state, initState) => {
+	_.each(initState, (value, prop) => {
+		state[prop] = value;
+	});
+	return state;
 };

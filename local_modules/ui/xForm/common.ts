@@ -1,14 +1,15 @@
 import { _ } from "../loadCommonUtil";
 import { reactive } from "vue";
 import { t_itemConfigs } from "./itemRenders/index";
+
 let xItemNoPropCount = 0;
 
+/*make item configs */
 export const defItem = (options: t_itemConfigs) => {
 	if (!options.prop) {
 		options.prop = `xItem${xItemNoPropCount++}`;
 		console.error(`no xItem prop replace by ${options.prop}`);
 	}
-
 	const configs = reactive(
 		_.merge(
 			{},

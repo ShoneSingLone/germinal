@@ -1,6 +1,10 @@
-<script lang="jsx">
 import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import { _ } from "../loadCommonUtil";
+import {
+	RetweetOutlined,
+	UploadOutlined,
+	DeleteOutlined
+} from "@ant-design/icons-vue";
 
 export default defineComponent({
 	props: {
@@ -18,22 +22,28 @@ export default defineComponent({
 	},
 	computed: {
 		text() {
+			if (this.configs.preset === "upload") {
+				return (
+					<span>
+						<UploadOutlined />
+						上传
+					</span>
+				);
+			}
+			if (this.configs.preset === "delete") {
+				return (
+					<span>
+						<DeleteOutlined />
+						删除
+					</span>
+				);
+			}
 			if (_.isFunction(this.$slots?.default)) {
-				/*
-        *
-        <xButton :configs="configsSubmit">
-          <template #default="{loading}">
-            {{ loading ? "loading..." : "Submit" }};
-          </template>
-        </xButton>
-        * */
 				return this.$slots.default(this);
 			}
-
 			if (_.isFunction(this.configs.text)) {
 				return this.configs.text(this) || "";
 			}
-
 			return this.configs.text || "";
 		}
 	},
@@ -73,4 +83,3 @@ export default defineComponent({
 		);
 	}
 });
-</script>
