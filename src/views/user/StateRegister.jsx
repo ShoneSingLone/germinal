@@ -2,7 +2,7 @@ import { reactive } from "vue";
 import { $t } from "lsrc/language";
 import { EVENT_TYPE, validateForm, defItem, pickValueFrom } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import { getColor, StateApp } from "lsrc/state/StateApp";
+import { getColor, State_App } from "lsrc/state/State_App";
 import { getCaptcha } from "./StateLogin";
 import {
 	UserOutlined,
@@ -135,7 +135,7 @@ export const StateRegister = reactive({
 	},
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
-		countMax: StateApp.configs.countMax,
+		countMax: State_App.configs.countMax,
 		text: { normal: () => $t("user.register.get-verification-code").label },
 		onClick: async ({ countDown }) => {
 			try {

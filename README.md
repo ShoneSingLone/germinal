@@ -151,22 +151,22 @@ Vue2 中的this就是用来保存状态，Vue3的进步之处在于状态的解�
 xItem的设计与使用充分基于这种原则，xItem视图本身，与configs相关，状态与v-model绑定相关。
 
 ```js
-/* FILE:src\state\StateApp.js */
-/* state StateApp 相当于命名空间*/
-export const StateApp = reactive({configs: lStorage.appConfigs});
+/* FILE:src\state\State_App.js */
+/* state State_App 相当于命名空间*/
+export const State_App = reactive({configs: lStorage.appConfigs});
 
 /* getter 就用computed代替;commit直接修改StateApp  */
 export const APP_LANGUAGE = computed({
-    get: () => StateApp.configs.language,
-    set: lang => (StateApp.configs.language = lang)
+    get: () => State_App.configs.language,
+    set: lang => (State_App.configs.language = lang)
 });
 
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
-watchEffect(() => (lStorage.appConfigs = StateApp.configs));
+watchEffect(() => (lStorage.appConfigs = State_App.configs));
 
-/* mutation 异步修改 效果同事务 自己去保证原子性 */
-export const AppActions = {
+/* actions 异步修改 效果同事务 自己去保证原子性 */
+export const Actions_App = {
     GetInfo: async () => {
     },
     Login: async () => {
@@ -185,7 +185,7 @@ export const AppActions = {
   - `src/views/user/LoginCredentials.vue`
   - `src/views/user/StateLogin.jsx`
 ```js
-import {StateApp} from "lsrc/state/StateApp";
+import {State_App} from "lsrc/state/State_App";
 import {defItem, ITEM_TYPE} from "@ventose/ui";
 import {watch} from "vue";
 
@@ -194,18 +194,18 @@ import {watch} from "vue";
 const inputConfigs = defItem({
     type: ITEM_TYPE.input,
     onAfterValueChange: (configs) => {
-        StateApp.count++;
+        State_App.count++;
     }
 });
 const state = reactive({name: ''})
 
-watch(() => StateApp.count, (count) => {
-    StateApp.count = count;
+watch(() => State_App.count, (count) => {
+    State_App.count = count;
 });
 ```
 
 ```html
-StateApp.count: {{StateApp.count}}
+State_App.count: {{State_App.count}}
 <xItem :configs="inputConfigs" v-model="state.name"/>
 ```
 
@@ -216,7 +216,7 @@ StateApp.count: {{StateApp.count}}
 ## 自定义的折叠按钮(未使用)
 
 ```html
-<!--    <xRender :render="render.collapsedButton" :collapsed="StateApp.collapsed"/>-->
+<!--    <xRender :render="render.collapsedButton" :collapsed="State_App.collapsed"/>-->
 
 
 ```

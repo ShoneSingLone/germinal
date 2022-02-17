@@ -2,7 +2,7 @@
 import logoImg from "../assets/logo.png";
 import backgroundImg from "../assets/background.svg";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
-import { StateApp } from "lsrc/state/StateApp";
+import { State_App } from "lsrc/state/State_App";
 
 const styles = {
 	container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
@@ -12,7 +12,7 @@ const styles = {
 <template>
 	<div
 		id="userLayout"
-		:class="['user-layout-wrapper', StateApp.isMobile && 'mobile']">
+		:class="['user-layout-wrapper', State_App.isMobile && 'mobile']">
 		<div class="container" :style="styles.container">
 			<div class="user-layout-lang">
 				<SelectLanguage class="select-lang-trigger" />

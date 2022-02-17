@@ -1,5 +1,5 @@
 <script setup>
-import { APP_LANGUAGE } from "lsrc/state/StateApp";
+import { APP_LANGUAGE } from "lsrc/state/State_App";
 import { GlobalOutlined } from "@ant-design/icons-vue";
 const languageLabels = {
 	"zh-CN": { label: "简体中文", icon: "🇨🇳" },

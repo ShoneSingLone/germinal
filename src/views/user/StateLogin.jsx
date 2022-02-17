@@ -2,7 +2,7 @@ import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
 import { _, UI, defItem, EVENT_TYPE, validateForm } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
+import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
 import { API } from "germinal_api";
 import { router, routeNames } from "lsrc/router/router";
 import {
@@ -145,7 +145,7 @@ export const StateLogin = reactive({
 	},
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
-		countMax: StateApp.configs.countMax,
+		countMax: State_App.configs.countMax,
 		text: {
 			normal: () => $t("user.register.get-verification-code").label
 		},
@@ -176,7 +176,7 @@ export const StateLogin = reactive({
 				const currentFormConfigs = StateLogin[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
 				if (!_.isArrayFill(validateResults)) {
-					const res = await StateAppActions.Login(StateLogin.data);
+					const res = await Actions_App.Login(StateLogin.data);
 					/* 验证错误 */
 					/* 网络错误 */
 					handleLoginSuccess(res);

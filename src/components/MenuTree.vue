@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { StateApp } from "lsrc/state/StateApp";
+import { State_App } from "lsrc/state/State_App";
 import { _ } from "@ventose/ui";
 import { reactive } from "vue";
 import { router } from "lsrc/router/router";
@@ -82,10 +82,10 @@ const genMenu = () => {
 			</code>
 		</pre> -->
 		<Menu
-			:theme="StateApp.theme"
+			:theme="State_App.theme"
 			:open-keys="state.openKeys"
 			@openChange="onOpenChange"
-			v-model:selectedKeys="StateApp.arr_selectedMenuId"
+			v-model:selectedKeys="State_App.arr_selectedMenuId"
 			mode="inline">
 			<!-- jsx 循环 menuTree -->
 			<xRender :render="genMenu" />

@@ -6,7 +6,7 @@ import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
 
-export const StateApp = reactive({
+export const State_App = reactive({
 	theme: "light",
 	menuTree: [],
 	layoutStyle: {
@@ -27,24 +27,24 @@ export const StateApp = reactive({
 	isDev: true
 });
 
-if (StateApp.isDev) {
+if (State_App.isDev) {
 	/* TODO:方便调试 must remove when in prod */
-	window.StateApp = StateApp;
+	window.State_App = State_App;
 }
 
 /* getter 就用computed代替 commit直接修改  */
 export const APP_LANGUAGE = computed({
-	get: () => StateApp.configs.language,
-	set: lang => (StateApp.configs.language = lang)
+	get: () => State_App.configs.language,
+	set: lang => (State_App.configs.language = lang)
 });
 
 export const APP_CLASS_PREFIX = computed({
-	get: () => StateApp.configs.prefixCls,
-	set: prefixCls => (StateApp.configs.prefixCls = prefixCls)
+	get: () => State_App.configs.prefixCls,
+	set: prefixCls => (State_App.configs.prefixCls = prefixCls)
 });
 export const getColor = colorName => {
-	if (StateApp.configs) {
-		return StateApp.configs.colors[colorName];
+	if (State_App.configs) {
+		return State_App.configs.colors[colorName];
 	} else {
 		return "";
 	}
@@ -53,7 +53,7 @@ export const getColor = colorName => {
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
 watch(
-	() => StateApp.configs,
+	() => State_App.configs,
 	configs => (lStorage.appConfigs = configs),
 	{
 		immediate: true,
@@ -62,7 +62,7 @@ watch(
 );
 
 watch(
-	() => StateApp.configs.colors,
+	() => State_App.configs.colors,
 	colors => setCSSVariables(colors),
 	{
 		immediate: true,
@@ -77,12 +77,12 @@ export const StateAppMutations = {
 	 * 折叠菜单
 	 */
 	toggleCollapsed() {
-		StateApp.collapsed = !StateApp.collapsed;
+		State_App.collapsed = !State_App.collapsed;
 	}
 };
 
 /* Action 异步修改 效果同事务 自己去保证原子性 */
-export const StateAppActions = {
+export const Actions_App = {
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
@@ -94,18 +94,18 @@ export const StateAppActions = {
 		);
 		/* 开发模式|没有configs|configs的version落后当前版本 */
 		const isLoadConfigs =
-			StateApp.isDev ||
-			!StateApp.configs ||
-			StateApp.configs.version !== currentAppVersion;
+			State_App.isDev ||
+			!State_App.configs ||
+			State_App.configs.version !== currentAppVersion;
 		if (isLoadConfigs) {
 			const configs = (await ajax.loadText("./configs.jsx"))();
 			configs.version = currentAppVersion;
-			StateApp.configs = configs;
+			State_App.configs = configs;
 		}
 		/* 加载样式变量 */
-		callback && callback(StateApp);
+		callback && callback(State_App);
 		console.timeEnd("initAppConfigs");
-		return StateApp;
+		return State_App;
 	},
 	GetInfo: async () => {
 		const { result } = await API.user.getInfo();
@@ -123,8 +123,8 @@ export const StateAppActions = {
 			role.permissionList = role.permissions.map(permission => {
 				return permission.permissionId;
 			});
-			StateApp.roles = result.role;
-			StateApp.info = result;
+			State_App.roles = result.role;
+			State_App.info = result;
 		} else {
 			Promise.reject(new Error("getInfo: roles must be a non-null array !"));
 		}
@@ -154,5 +154,5 @@ export const StateAppActions = {
 
 function setToken(token) {
 	lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
-	StateApp.token = token;
+	State_App.token = token;
 }

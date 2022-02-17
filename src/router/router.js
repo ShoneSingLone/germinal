@@ -5,7 +5,7 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import { StateApp, StateAppActions } from "lsrc/state/StateApp";
+import { State_App, Actions_App } from "lsrc/state/State_App";
 import { $t } from "lsrc/language";
 import { _, setDocumentTitle } from "@ventose/ui";
 
@@ -93,8 +93,8 @@ router.beforeEach(async (to, from) => {
 				path: defaultRoutePath
 			};
 		} else {
-			if (StateApp.roles?.length === 0) {
-				await StateAppActions.GetInfo();
+			if (State_App.roles?.length === 0) {
+				await Actions_App.GetInfo();
 			}
 
 			if (from.query.redirect) {
@@ -123,7 +123,7 @@ router.beforeEach(async (to, from) => {
 	};
 
 	try {
-		const hasToken = !!StateApp.token;
+		const hasToken = !!State_App.token;
 		return hasToken ? await hasAccessTokenHandler() : noAccessTokenHandler();
 	} catch (error) {
 		console.error(error);

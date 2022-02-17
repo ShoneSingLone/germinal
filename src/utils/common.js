@@ -9,7 +9,7 @@ import LazySvg from "../components/LazySvg/LazySvg";
  * @param {*} param1
  * @returns
  */
-export const addPlugins = (app, { dependState /* StateApp */ }) => {
+export const addPlugins = (app, { dependState /* State_App */ }) => {
 	/* isUsePopover 全局监听 [data-ui-popover] */
 	app.use(MyUI, { addPlugins, dependState });
 	app.use(appI18n, {
