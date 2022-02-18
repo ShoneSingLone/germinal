@@ -84,6 +84,7 @@ const menuTree = [
 	}
 ];
 export const StateApp = reactive({
+	roles: [],
 	theme: "dark",
 	menuTree,
 	layoutStyle: {
@@ -184,7 +185,8 @@ export const StateAppActions = {
 		return StateApp;
 	},
 	GetInfo: async () => {
-		const { result } = await API.user.getInfo();
+		const result = await API.user.getInfo();
+		debugger;
 		if (result.role && result.role.permissions.length > 0) {
 			const role = result.role;
 			role.permissions = result.role.permissions;

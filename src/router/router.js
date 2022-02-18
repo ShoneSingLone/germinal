@@ -89,16 +89,16 @@ router.beforeEach(async (to, from) => {
 	/* https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB */
 	console.log("🚀 ", to.path, from.path);
 	NProgress.start();
-	const hasAccessTokenHandler = async () => {
+	async function hasAccessTokenHandler() {
+		if (StateApp.roles.length === 0) {
+			await StateAppActions.GetInfo();
+		}
+
 		if (allowList.map(name => toPath(name)).includes(to.path)) {
 			return {
 				path: defaultRoutePath
 			};
 		} else {
-			if (StateApp.roles?.length === 0) {
-				await StateAppActions.GetInfo();
-			}
-
 			if (from.query.redirect) {
 				if (to.path === redirect) {
 					/* set the replace: true so the navigation will not leave a history record */
@@ -112,7 +112,7 @@ router.beforeEach(async (to, from) => {
 				}
 			}
 		}
-	};
+	}
 	const noAccessTokenHandler = () => {
 		if (!allowList.includes(to.name)) {
 			return {

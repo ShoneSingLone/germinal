@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 import { builder, getBody } from "../util";
+import { URL } from "../../url";
 
 const username = ["admin", "super"];
 // 强硬要求 ant.design 相同密码
@@ -54,7 +55,7 @@ const twofactor = () => {
 	return builder({ stepCode: Mock.mock("@integer(0, 1)") });
 };
 
-Mock.mock(/\/auth\/login/, "post", login);
-Mock.mock(/\/auth\/logout/, "post", logout);
+Mock.mock(URL.Login, "post", login);
+Mock.mock(URL.Logout, "post", logout);
 Mock.mock(/\/account\/sms/, "post", smsCaptcha);
 Mock.mock(/\/auth\/2step-code/, "post", twofactor);
