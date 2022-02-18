@@ -7,6 +7,6 @@ export const STATIC_WORD = {
 
 export const TEXT = {
 	success(text) {
-		return `${text}�ɹ���`;
+		return `${text}成功！`;
 	}
 };
