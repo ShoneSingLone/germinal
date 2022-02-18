@@ -1,6 +1,6 @@
 import { _ } from "../../loadCommonUtil";
 import $ from "jquery";
-import layer from "../../xSingle/layer/layer";
+import layer, { KEY } from "../../xSingle/layer/layer";
 import { createApp, defineComponent, reactive, h } from "vue";
 import { API, SuccessOrFail } from "../../../api";
 import { UI } from "../../index";
@@ -28,7 +28,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 	UI.dialog.component = async (options: t_dialogOptions) =>
 		new Promise((resolve, reject) => {
 			const { component, title, area } = options;
-			const id = `layer-open-${Date.now()}`;
+			const id = `xDialog_${Date.now()}`;
 			let $container = $("<div/>", {
 				id
 			});
@@ -41,6 +41,27 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 				delete options.yes;
 			}
 			let app = null;
+
+			/* 处理按Esc键关闭弹窗 */
+			let handleEcsPress = {
+				layerIndex: "",
+				handler(event) {
+					const code = event.keyCode;
+					event.preventDefault();
+					if (code === KEY.esc) {
+						layer.close(handleEcsPress.layerIndex);
+					}
+				},
+				on(layerIndex) {
+					handleEcsPress.layerIndex = layerIndex;
+					$(document).on(`keyup.${elId}`, handleEcsPress.handler);
+				},
+				off() {
+					$(document).off(`keyup.${elId}`, handleEcsPress.handler);
+					handleEcsPress = null;
+				}
+			};
+
 			layer.open(
 				_.merge(
 					{
@@ -53,6 +74,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 							/*'确定', '取消'*/
 						],
 						success(indexPanel, layerIndex) {
+							handleEcsPress.on(layerIndex);
 							app = createApp(
 								defineComponent({
 									data() {
@@ -153,6 +175,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 							return false;
 						},
 						end() {
+							handleEcsPress.off();
 							app.unmount();
 							$container.remove();
 							$container = null;
@@ -181,6 +204,7 @@ type t_normalClickDialogOKOptions = {
 	};
 	apiPath: string;
 	successText: string;
+	successHander: Function;
 };
 
 /***
@@ -199,8 +223,11 @@ export async function handleClickDialogOK(
 			const request = MutatingProps(API, options.apiPath);
 			await SuccessOrFail({
 				request: () => request(params),
-				success: () => {
+				success: async result => {
 					UI.message.success(options.successText);
+					if (options.successHander) {
+						await options.successHander({ params, result });
+					}
 				}
 			});
 			close();

@@ -51,7 +51,8 @@
 	},
 	"lint-staged": {
 		"*.{ts,tsx,js,jsx,vue}": [
-			"prettier --write --ignore-unknown",
+			"prettier --write ./src --ignore-unknown",
+			"prettier --write ./local_modules --ignore-unknown",
 			"git add"
 		]
 	},

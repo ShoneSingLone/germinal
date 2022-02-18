@@ -176,7 +176,7 @@ export const UI = {
 				Modal.confirm({
 					title,
 					icon: <ExclamationCircleOutlined />,
-					content: <div style="color:red;">{content}</div>,
+					content: <div>{content}</div>,
 					onOk() {
 						resolve("ok");
 					},

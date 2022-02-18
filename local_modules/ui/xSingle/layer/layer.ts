@@ -1,5 +1,11 @@
 import $ from "jquery";
-import isFunction from "lodash/isFunction";
+import _ from "lodash";
+
+export const KEY = {
+	right: 39,
+	left: 37,
+	esc: 27
+};
 /*
  *
  *
@@ -128,7 +134,7 @@ const layer = {
 	},
 
 	confirm: function (content, options, yes, cancel) {
-		if (isFunction(options)) {
+		if (_.isFunction(options)) {
 			cancel = yes;
 			yes = options;
 		}
@@ -147,7 +153,7 @@ const layer = {
 
 	msg: function (content, options, end) {
 		/*最常用提示层*/
-		var isOptionsIsFunction = isFunction(options),
+		var isOptionsIsFunction = _.isFunction(options),
 			rskin = READY.config.skin;
 		var skin = (rskin ? rskin + " " + rskin + "-msg" : "") || "layui-layer-msg";
 		var anim = DOMS_ANIM.length - 1;
@@ -1458,11 +1464,12 @@ layer.photos = function (options, loop, key) {
 		if (!dict.end) {
 			var code = event.keyCode;
 			event.preventDefault();
-			if (code === 37) {
+			/*  */
+			if (code === KEY.left) {
 				dict.imgprev(true);
-			} else if (code === 39) {
+			} else if (code === KEY.right) {
 				dict.imgnext(true);
-			} else if (code === 27) {
+			} else if (code === KEY.esc) {
 				layer.close(dict.index);
 			}
 		}
@@ -1482,12 +1489,12 @@ layer.photos = function (options, loop, key) {
 	//一些动作
 	dict.event = function () {
 		/*
-		dict.bigimg.hover(function(){
-		  dict.imgsee.show();
-		}, function(){
-		  dict.imgsee.hide();
-		});
-		*/
+        dict.bigimg.hover(function(){
+          dict.imgsee.show();
+        }, function(){
+          dict.imgsee.hide();
+        });
+        */
 
 		dict.bigimg.find(".layui-layer-imgprev").on("click", function (event) {
 			event.preventDefault();

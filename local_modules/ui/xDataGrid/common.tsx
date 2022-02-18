@@ -178,12 +178,20 @@ export function filterColIsShow(isShow, prop) {
  * @param data
  * @param total
  */
-export function setDataGridInfo(StateBind, data, total) {
+export function setDataGridInfo(StateBind, data, total = false) {
 	StateBind.dataSource = data;
-	setPagination(StateBind, { total });
+	if (total || total === 0) {
+		setPagination(StateBind, { total });
+	}
 }
 
-export function setPagination(StateTable, pagination /*{page, size, total}*/) {
+type t_pagination = {
+	page: number;
+	size: number;
+	total: number;
+};
+
+export function setPagination(StateTable, pagination: t_pagination) {
 	const PAGINATION_MAP = lStorage.appConfigs.pagination;
 	_.each(pagination, (value, prop) => {
 		StateTable.pagination[PAGINATION_MAP[prop]] = value;
