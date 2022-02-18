@@ -11,8 +11,8 @@ export const pickValueFrom = configs => {
 	);
 };
 
-/*����reactive����*/
-export const resetStateValue = (state, initState) => {
+/*重置reactive数据*/
+export const resetState_Value = (state, initState) => {
 	_.each(initState, (value, prop) => {
 		state[prop] = value;
 	});

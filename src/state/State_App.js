@@ -1,7 +1,7 @@
 import { reactive, watch, computed } from "vue";
-import { lStorage, setCSSVariables, _ } from "@ventose/ui";
+import { lStorage, setCSSVariables, UI, _ } from "@ventose/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
-import { API } from "germinal_api";
+import { API, SuccessOrFail } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
@@ -130,13 +130,21 @@ export const Actions_App = {
 		}
 	},
 	async Login({ username, password }) {
-		try {
-			const loginParams = { username, password: md5(password) };
-			const res = await API.user.login(loginParams);
-			setToken(res.token);
-		} catch (error) {
-			console.error(error);
-		}
+		const loginParams = { username, password: md5(password) };
+		await SuccessOrFail({
+			request: () => API.user.login(loginParams),
+			success: res => {
+				debugger;
+				setToken(res.token);
+			},
+			async fail(e) {
+				debugger;
+				_.doNothing(e);
+				if (e.error && e.error.message) {
+					await UI.notification.error({ message: e.error.message });
+				}
+			}
+		});
 	},
 	Logout: async () => {
 		try {
@@ -153,6 +161,7 @@ export const Actions_App = {
 };
 
 function setToken(token) {
+	debugger;
 	lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
 	State_App.token = token;
 }

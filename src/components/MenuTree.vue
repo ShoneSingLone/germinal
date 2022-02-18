@@ -1,8 +1,9 @@
 <script setup lang="jsx">
 import { State_App } from "lsrc/state/State_App";
 import { _ } from "@ventose/ui";
-import { reactive } from "vue";
-import { router } from "lsrc/router/router";
+import { reactive, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { STATIC_WORD } from "lsrc/utils/common";
 
 const props = defineProps({
 	tree: {
@@ -11,6 +12,15 @@ const props = defineProps({
 			return [];
 		}
 	}
+});
+
+const route = useRoute();
+const currentPath = route.path;
+const pathAndIdCollection = {};
+
+onMounted(() => {
+	onOpenChange([pathAndIdCollection[currentPath]]);
+	State_App.arr_selectedMenuId = [pathAndIdCollection[currentPath]];
 });
 
 const state = reactive({ openKeys: [] });
@@ -51,18 +61,41 @@ const genMenu = () => {
 				/>
 			);
 		} else {
+			pathAndIdCollection[menuInfo.path] = currentId;
 			return (
 				<MenuItem key={currentId} class="flex middle">
 					{{
 						icon: () => getIcon(menuInfo.icon),
 						title: () => menuInfo.label,
-						default: () => (
-							<div>
+						default: () => {
+							/*其他配置信息*/
+							if (menuInfo.payload) {
+								/*使用浏览器newTab展示新页面*/
+								if (
+									menuInfo.payload.openType &&
+									menuInfo.payload.openType === STATIC_WORD.NEW_TAB
+								) {
+									return (
+										<a
+											href={menuInfo.path}
+											target="_blank"
+											onClick={e => {
+												e.stopPropagation();
+												e.preventDefault();
+												window.open(menuInfo.path, "_blank");
+											}}>
+											{" "}
+											{menuInfo.label}{" "}
+										</a>
+									);
+								}
+							}
+							return (
 								<RouterLink to={menuInfo.path || "/404"}>
 									{menuInfo.label}
 								</RouterLink>
-							</div>
-						)
+							);
+						}
 					}}
 				</MenuItem>
 			);
@@ -77,10 +110,12 @@ const genMenu = () => {
 <template>
 	<div class="layout-menu beautiful-scroll flex1">
 		<!-- <pre>
-			<code>
-				state.openKeys: {{ state.openKeys }}
-			</code>
-		</pre> -->
+          <code>
+            State_App.arr_selectedMenuId: {{ State_App.arr_selectedMenuId }}
+            state.openKeys: {{ state.openKeys }}
+            pathAndIdCollection: {{ pathAndIdCollection }}
+          </code>
+        </pre> -->
 		<Menu
 			:theme="State_App.theme"
 			:open-keys="state.openKeys"

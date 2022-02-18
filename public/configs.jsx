@@ -1,4 +1,9 @@
 return {
+	pagination: {
+		page: "page",
+		size: "size",
+		total: "total"
+	},
 	version: "",
 	/*获取验证码 ：等待时间 秒*/
 	countMax: 5,

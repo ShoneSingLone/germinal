@@ -1,4 +1,6 @@
-export const URL = {
+import { _ } from "@ventose/ui";
+
+let _URL = {
 	Login: "/auth/login",
 	Logout: "/auth/logout",
 	ForgePassword: "/auth/forge-password",
@@ -9,3 +11,5 @@ export const URL = {
 	UserInfo: "/user/info",
 	UserMenu: "/user/nav"
 };
+
+export const URL = _URL;

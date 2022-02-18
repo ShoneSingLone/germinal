@@ -18,6 +18,7 @@
 		"@popperjs/core": "^2.10.2",
 		"@ventose/ui": "file:./local_modules/ui",
 		"ant-design-vue": "^3.0.0-alpha.3",
+		"axios": "^0.26.0",
 		"germinal_api": "file:./local_modules/api",
 		"jquery": "^3.6.0",
 		"lsrc": "file:./src/",

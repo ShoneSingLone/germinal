@@ -1,6 +1,20 @@
 import Input from "./Input.jsx";
+import DatePicker from "./DatePicker";
+import RangePicker from "./RangePicker";
 import Checkbox from "./Checkbox";
-const itemRenders = { Input, Checkbox };
+import Select from "./Select";
+import RadioGroup from "./RadioGroup";
+import CheckboxGroup from "./CheckboxGroup";
+
+const itemRenders = {
+	Input,
+	Checkbox,
+	Select,
+	DatePicker,
+	RangePicker,
+	RadioGroup,
+	CheckboxGroup
+};
 export default itemRenders;
 
 export type t_xItem = keyof typeof itemRenders;

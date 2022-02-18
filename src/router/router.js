@@ -84,16 +84,18 @@ const defaultRoutePath = toPath(routeNames.dashboardWorkplace);
 router.beforeEach(async (to, from) => {
 	/*NOTICE:返回 false 以取消导航*/
 	/* https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB */
-	console.log("🚀 ", to.path, from.path);
+	_.doNothing(to.path, from.path);
 	NProgress.start();
 	const hasAccessTokenHandler = async () => {
+		debugger;
 		const allowPath = allowVisitPageWhenNoAccess.map(name => toPath(name));
+		_.doNothing(allowPath, to.path);
 		if (allowPath.includes(to.path)) {
 			return {
 				path: defaultRoutePath
 			};
 		} else {
-			if (State_App.roles?.length === 0) {
+			if (!State_App.roles || State_App.roles.length === 0) {
 				await Actions_App.GetInfo();
 			}
 

@@ -15,6 +15,7 @@ import {
 	List,
 	Checkbox,
 	Popconfirm,
+	PageHeader,
 	Input,
 	Result,
 	Tabs,
@@ -42,24 +43,31 @@ import {
 import "ant-design-vue/es/form/style/index.css";
 import $ from "jquery";
 import layer from "./xSingle/layer/layer";
-import { installPopoverDirective } from "./xSingle/popover";
-import { _ } from "./loadCommonUtil";
+import { installPopoverDirective } from "./xSingle/popover.js";
+import { _ } from "./loadCommonUtil.js";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
+import xForm from "./xForm/xForm.vue";
 import xButton from "./xButton/xButton";
 import xButtonCountDown from "./xButton/xButtonCountDown.vue";
 import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
 import xView from "./xView/xView.vue";
 import xDataGrid from "./xDataGrid/xDataGrid.vue";
-import { h } from "vue";
+import xCellLabel from "./xDataGrid/xCellLabel.vue";
+import xPagination from "./xDataGrid/xPagination.vue";
+import xColFilter from "./xDataGrid/xColFilter.vue";
+
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import {
 	installUIDialogComponent,
-	t_dialogOptions
+	t_dialogOptions,
+	handleClickDialogOK
 } from "./xSingle/dialog/dialog";
 
+//@ts-ignore
 if (import.meta.env.MODE === "development") {
+	//@ts-ignore
 	window.jquery = $;
 }
 
@@ -67,12 +75,16 @@ if (import.meta.env.MODE === "development") {
 const componentMyUI = {
 	xRender,
 	xItem,
+	xForm,
 	xButton,
 	xButtonCountDown,
 	xGap,
 	xCharts,
 	xView,
-	xDataGrid
+	xDataGrid,
+	xColFilter,
+	xPagination,
+	xCellLabel
 };
 
 /* ant-d-v */
@@ -96,6 +108,7 @@ const componentAntdV = {
 	List,
 	Checkbox,
 	Popconfirm,
+	PageHeader,
 	Input,
 	InputPassword,
 	Result,
@@ -120,16 +133,29 @@ const components = {
 
 const useModel = type => {
 	return ({ title = "", content = "" }) => {
-		return new Promise((onOk, onCancel) => {
+		return new Promise((resolve, reject) => {
+			title = (isDefault => {
+				if (isDefault) {
+					const title_map = {
+						success: "成功",
+						info: "提示",
+						error: "错误",
+						warning: "警告"
+					};
+					return title_map[type];
+				} else {
+					return title;
+				}
+			})(!title);
 			Modal[type]({
 				title,
 				icon: <ExclamationCircleOutlined />,
 				content: content,
 				onOk() {
-					onOk();
+					resolve("ok");
 				},
 				onCancel() {
-					onCancel();
+					reject();
 				},
 				okText: "确定",
 				class: "test"
@@ -146,16 +172,16 @@ export const UI = {
 		error: useModel("error"),
 		warning: useModel("warning"),
 		confirm({ title = "", content = "" }) {
-			return new Promise((onOk, onCancel) => {
+			return new Promise((resolve, reject) => {
 				Modal.confirm({
 					title,
 					icon: <ExclamationCircleOutlined />,
 					content: <div style="color:red;">{content}</div>,
 					onOk() {
-						onOk();
+						resolve("ok");
 					},
 					onCancel() {
-						onCancel();
+						reject();
 					},
 					okText: "确定",
 					cancelText: "取消",
@@ -164,7 +190,7 @@ export const UI = {
 			});
 		},
 		delete({ title = "", content = "" }) {
-			return new Promise((onOk, onCancel) => {
+			return new Promise((resolve, reject) => {
 				Modal.confirm({
 					title,
 					icon: <ExclamationCircleOutlined style={"color:red"} />,
@@ -173,10 +199,10 @@ export const UI = {
 					okText: "确定",
 					cancelText: "取消",
 					onOk() {
-						onOk();
+						resolve("ok");
 					},
 					onCancel() {
-						onCancel();
+						reject();
 					}
 				});
 			});
@@ -187,13 +213,21 @@ export const UI = {
 	layer
 };
 
-export { _ } from "./loadCommonUtil";
-export { defCol } from "./xDataGrid/common";
-export { defItem } from "./xForm/common";
-export { EVENT_TYPE, validateForm } from "./tools/validate";
-export { setDocumentTitle, setCSSVariables } from "./tools/dom";
-export { lStorage } from "./tools/storage";
-export { pickValueFrom, resetStateValue } from "./tools/form";
+export { _ } from "./loadCommonUtil.js";
+export {
+	defPagination,
+	defCol,
+	defColActions,
+	defColActionsBtnlist,
+	defDataGridOption,
+	setDataGridInfo
+} from "./xDataGrid/common.tsx";
+export { defItem, vModel, antColKey } from "./xForm/common.js";
+export { EVENT_TYPE, validateForm, AllWasWell } from "./tools/validate.js";
+export { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
+export { lStorage } from "./tools/storage.js";
+export { pickValueFrom, resetState_Value } from "./tools/form.js";
+export { handleClickDialogOK };
 
 export default {
 	install: (app, options /* {appPlugins,dependState} */) => {

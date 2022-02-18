@@ -522,7 +522,6 @@ ClassLayer.pt.auto = function (index) {
 		titHeight = layero.find(DOMS[1]).outerHeight() || 0,
 		btnHeight = layero.find("." + DOMS[6]).outerHeight() || 0,
 		setHeight = function (elem) {
-			console.log(elem);
 			elem = layero.find(elem);
 			elem.height(
 				area[1] -

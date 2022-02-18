@@ -2,6 +2,9 @@ import { _ } from "../../loadCommonUtil";
 import $ from "jquery";
 import layer from "../../xSingle/layer/layer";
 import { createApp, defineComponent, reactive, h } from "vue";
+import { API, SuccessOrFail } from "../../../api";
+import { UI } from "../../index";
+import { MutatingProps } from "../../common";
 
 export type t_dialogOptions = {
 	vmDialog?: object;
@@ -165,3 +168,44 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 			);
 		});
 };
+
+type t_normalClickDialogOKOptions = {
+	instance: {
+		close: Function;
+		payload: {
+			Methods: {
+				verifyForm: Function;
+				getParams: Function;
+			};
+		};
+	};
+	apiPath: string;
+	successText: string;
+};
+
+/***
+ * 一般情况表单的dialog方法
+ * Dialog的组件里必须实现 Methods verifyForm getParams
+ * @param options
+ */
+export async function handleClickDialogOK(
+	options: t_normalClickDialogOKOptions
+) {
+	const { close, payload } = options.instance;
+	const { Methods } = payload;
+	try {
+		if (await Methods.verifyForm()) {
+			const params = Methods.getParams();
+			const request = MutatingProps(API, options.apiPath);
+			await SuccessOrFail({
+				request: () => request(params),
+				success: () => {
+					UI.message.success(options.successText);
+				}
+			});
+			close();
+		}
+	} catch (e) {
+		console.log(e);
+	}
+}

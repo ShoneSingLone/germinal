@@ -12,7 +12,7 @@ import {
 } from "@ant-design/icons-vue";
 
 function handleLoginSuccess(res) {
-	router.push({ name: routeNames.shell });
+	router.push({ path: "/" });
 	// 延迟 1 秒显示欢迎信息
 	setTimeout(() => {
 		function timeFix() {
@@ -168,7 +168,7 @@ export const StateLogin = reactive({
 	configsSubmit: {
 		size: "large",
 		type: "primary",
-		class: "login-button",
+		class: "login-button flex center",
 		text: () => $t("user.login.login").label,
 		onClick: async () => {
 			try {

@@ -1,7 +1,7 @@
 import { _ } from "./loadCommonUtil";
 
 /* 对object set 或 get 属性值，保证不会undefined */
-export const MutatingProps = (item, prop, val) => {
+export const MutatingProps = (item, prop, val = null) => {
 	item = item || {};
 	const propArray = prop.split(".");
 	let key = "";
@@ -41,7 +41,12 @@ export const MutatingProps = (item, prop, val) => {
 	};
 
 	/* 如果有输入 类似jQuery val() */
-	if (val || _.isBoolean(val) || (_.isNumber(val) && !_.isNaN(val))) {
+	if (
+		val ||
+		_.isString(val) ||
+		_.isBoolean(val) ||
+		(_.isNumber(val) && !_.isNaN(val))
+	) {
 		setVal(key, propArray, nextItem, val);
 	} else {
 		return getVal(key, propArray, nextItem);
