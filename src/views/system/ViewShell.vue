@@ -8,7 +8,7 @@ function go() {
 }
 
 function check() {
-	if (StateApp) {
+	if (State_App) {
 	}
 }
 </script>

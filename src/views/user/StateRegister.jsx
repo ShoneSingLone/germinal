@@ -1,14 +1,15 @@
-import { reactive, computed, watch } from "vue";
+import { reactive } from "vue";
 import { $t } from "lsrc/language";
-import { UI } from "@ventose/ui";
-import { ITEM_TYPE, defineXItem } from "@ventose/ui/common";
-import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
+import { EVENT_TYPE, validateForm, defItem, pickValueFrom } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { getColor, StateApp } from "lsrc/state/StateApp";
-import { API } from "germinal_api";
-import { pickValueFrom } from "@ventose/ui/tools/form";
+import { getColor, State_App } from "lsrc/state/State_App";
 import { getCaptcha } from "./StateLogin";
+import {
+	UserOutlined,
+	MobileOutlined,
+	LockOutlined,
+	MailOutlined
+} from "@ant-design/icons-vue";
 
 const styles = {
 	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }
@@ -33,7 +34,7 @@ export const StateRegister = reactive({
 		verification: ""
 	},
 	configsForm: {
-		...defineXItem({
+		...defItem({
 			prop: "username",
 			size: "large",
 			/* render的时候重新获取 */
@@ -46,7 +47,7 @@ export const StateRegister = reactive({
 			],
 			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "password",
 			isPassword: true,
 			size: "large",
@@ -70,7 +71,7 @@ export const StateRegister = reactive({
 				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "passwordConfirm",
 			isPassword: true,
 			size: "large",
@@ -93,7 +94,7 @@ export const StateRegister = reactive({
 			}
 		}),
 
-		...defineXItem({
+		...defItem({
 			prop: "mobile",
 			size: "large",
 			/* render的时候重新获取 */
@@ -114,7 +115,7 @@ export const StateRegister = reactive({
 			}
 		}),
 		/*验证码*/
-		...defineXItem({
+		...defItem({
 			prop: "verificationCode",
 			size: "large",
 			itemWrapperClass: "flex1",
@@ -134,7 +135,7 @@ export const StateRegister = reactive({
 	},
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
-		countMax: StateApp.configs.countMax,
+		countMax: State_App.configs.countMax,
 		text: { normal: () => $t("user.register.get-verification-code").label },
 		onClick: async ({ countDown }) => {
 			try {

@@ -1,6 +1,6 @@
 {
 	"name": "@ventose/ui",
 	"version": "0.0.0",
-	"main": "index.js",
+	"main": "index.tsx",
 	"types": "index.d.ts"
 }

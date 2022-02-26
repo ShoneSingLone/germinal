@@ -4,4 +4,5 @@ import TestPopover from "lsrc/views/demo/TestPopover.vue";
 
 <template>
 	<TestPopover />
+	<RouterView />
 </template>

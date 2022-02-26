@@ -58,7 +58,8 @@ export default defineComponent({
 		itemWrapperClass() {
 			return [
 				this.configs.itemWrapperClass,
-				"ant-form-item ant-form-item-with-help x-item",
+				/*flex 一般与从简在同一行*/
+				"ant-form-item ant-form-item-with-help x-item flex",
 				this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : ""
 			].join(" ");
 		},
@@ -186,9 +187,10 @@ export default defineComponent({
 			if (label === false) {
 				return null;
 			}
+			const classString = this.isRequired ? "ant-form-item-required" : "";
 			return (
 				<div class="ant-form-item-label">
-					<label for={this.configs.prop} class="ant-form-item-required">
+					<label for={this.configs.prop} class={classString}>
 						{label}
 					</label>
 				</div>
@@ -228,8 +230,8 @@ export default defineComponent({
 						if (msg) {
 							this.setTips(TIPS_TYPE.error, msg);
 							/*校验未通过，如果有其他操作，可以提供一个onValidateFail的回调函数*/
-							if (_.isFunction(this.configs.onValidateFial)) {
-								this.configs.onValidateFial(this.configs);
+							if (_.isFunction(this.configs.onValidateFail)) {
+								this.configs.onValidateFail(this.configs);
 							}
 						} else {
 							this.setTips();

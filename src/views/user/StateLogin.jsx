@@ -1,15 +1,18 @@
 import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
-import { _, UI } from "@ventose/ui";
-import { defineXItem } from "@ventose/ui/common";
-import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
+import { _, UI, defItem, EVENT_TYPE, validateForm } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import { getColor, StateAppActions, StateApp } from "lsrc/state/StateApp";
+import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
 import { API } from "germinal_api";
 import { router, routeNames } from "lsrc/router/router";
+import {
+	UserOutlined,
+	MobileOutlined,
+	LockOutlined
+} from "@ant-design/icons-vue";
 
 function handleLoginSuccess(res) {
-	router.push({ name: routeNames.shell });
+	router.push({ path: "/" });
 	// 延迟 1 秒显示欢迎信息
 	setTimeout(() => {
 		function timeFix() {
@@ -69,7 +72,7 @@ export const StateLogin = reactive({
 		verificationCode: ""
 	},
 	configsForm: {
-		...defineXItem({
+		...defItem({
 			prop: "username",
 			size: "large",
 			/* render的时候重新获取 */
@@ -82,7 +85,7 @@ export const StateLogin = reactive({
 			],
 			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "password",
 			isPassword: true,
 			size: "large",
@@ -101,7 +104,7 @@ export const StateLogin = reactive({
 	},
 	/*手机*/
 	configsFormMobile: {
-		...defineXItem({
+		...defItem({
 			prop: "mobile",
 			size: "large",
 			/* render的时候重新获取 */
@@ -122,7 +125,7 @@ export const StateLogin = reactive({
 			}
 		}),
 		/*验证码*/
-		...defineXItem({
+		...defItem({
 			prop: "verificationCode",
 			size: "large",
 			itemWrapperClass: "flex1",
@@ -142,7 +145,7 @@ export const StateLogin = reactive({
 	},
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
-		countMax: StateApp.configs.countMax,
+		countMax: State_App.configs.countMax,
 		text: {
 			normal: () => $t("user.register.get-verification-code").label
 		},
@@ -165,7 +168,7 @@ export const StateLogin = reactive({
 	configsSubmit: {
 		size: "large",
 		type: "primary",
-		class: "login-button",
+		class: "login-button flex center",
 		text: () => $t("user.login.login").label,
 		onClick: async () => {
 			try {
@@ -173,7 +176,7 @@ export const StateLogin = reactive({
 				const currentFormConfigs = StateLogin[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
 				if (!_.isArrayFill(validateResults)) {
-					const res = await StateAppActions.Login(StateLogin.data);
+					const res = await Actions_App.Login(StateLogin.data);
 					/* 验证错误 */
 					/* 网络错误 */
 					handleLoginSuccess(res);

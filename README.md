@@ -53,17 +53,17 @@ body,
 ## Reference
 
 - [Vue3](https://v3.cn.vuejs.org/api/)
-- [composition-api-lifecycle-hooks](https://v3.cn.vuejs.org/guide/composition-api-lifecycle-hooks.html)
-- [Vue-Router](https://next.router.vuejs.org/zh/introduction.html)
-- [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
-- [popper](https://popper.js.org/)
-- [antv](https://next.antdv.com/components/overview-cn/)
-- [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro)
-- [pro-layout](https://github.com/vueComponent/pro-layout)
-    - [Ant Design Vue 3.0](https://mp.weixin.qq.com/s?__biz=MzU4NTgyMTM0MQ==&mid=2247484357&idx=1&sn=478c97c3ddd1703f4851863a8f4b2863&chksm=fd85fe37caf27721818cfcef9521116cb54ca4c023951445ed71a1d87786c383f2888d64035f&mpshare=1&scene=23&srcid=10203hvGd6nN3z8bEYuCS1LI&sharer_sharetime=1634692039568&sharer_shareid=966f440169937ddeabee7cec964be6bc#rd)
+    - [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
+    - [composition-api-lifecycle-hooks](https://v3.cn.vuejs.org/guide/composition-api-lifecycle-hooks.html)
+    - [Vue-Router](https://next.router.vuejs.org/zh/introduction.html)
+- [ant-design-vue](https://next.antdv.com/components/overview-cn/)
+    - [Ant Design Vue3](https://mp.weixin.qq.com/s?__biz=MzU4NTgyMTM0MQ==&mid=2247484357&idx=1&sn=478c97c3ddd1703f4851863a8f4b2863&chksm=fd85fe37caf27721818cfcef9521116cb54ca4c023951445ed71a1d87786c383f2888d64035f&mpshare=1&scene=23&srcid=10203hvGd6nN3z8bEYuCS1LI&sharer_sharetime=1634692039568&sharer_shareid=966f440169937ddeabee7cec964be6bc#rd)
+    - [ant-design-vue-pro](https://github.com/vueComponent/ant-design-vue-pro)
+        - [pro-layout](https://github.com/vueComponent/pro-layout)
 - [vue-i18n](https://vue-i18n.intlify.dev/guide/advanced/composition.html#mapping-between-vuei18n-instance-and-composer-instance)
 - [URL-friendly characters](https://stackoverflow.com/questions/695438/what-are-the-safe-characters-for-making-urls)
 - [popover](https://www.jqueryscript.net/blog/best-popover.htm)
+- [popper](https://popper.js.org/)
 
 > 关于命令式代码，私以为诸如 `tips`、`popover`、`confirm`、`dialog` 这类的场景都是合适的，一味无脑使用声明，颇有一种手里只有一把锤子的意思。
 
@@ -142,31 +142,38 @@ if (this.options.component) {
 
 跟 Vue2 有不同的处理方式在于 addPlugins 的使用。主要是 Vue app 化后无法共享 component 这类的配置信息
 
-## 状态管理 (VueX下岗)
+## 状态管理 ~~VueX~~
 
 > 视图归视图，状态归状态
+
+- State_*: 状态（变量）
+- Methods_*: 方法
+- Cpt_*: 计算属性 .value
+
 
 Vue2 中的this就是用来保存状态，Vue3的进步之处在于状态的解耦。
 
 xItem的设计与使用充分基于这种原则，xItem视图本身，与configs相关，状态与v-model绑定相关。
 
+
+
 ```js
-/* FILE:src\state\StateApp.js */
-/* state StateApp 相当于命名空间*/
-export const StateApp = reactive({configs: lStorage.appConfigs});
+/* FILE:src\state\State_App.js */
+/* state State_App 相当于命名空间*/
+export const State_App = reactive({configs: lStorage.appConfigs});
 
 /* getter 就用computed代替;commit直接修改StateApp  */
 export const APP_LANGUAGE = computed({
-    get: () => StateApp.configs.language,
-    set: lang => (StateApp.configs.language = lang)
+    get: () => State_App.configs.language,
+    set: lang => (State_App.configs.language = lang)
 });
 
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
-watchEffect(() => (lStorage.appConfigs = StateApp.configs));
+watchEffect(() => (lStorage.appConfigs = State_App.configs));
 
-/* mutation 异步修改 效果同事务 自己去保证原子性 */
-export const AppActions = {
+/* actions 异步修改 效果同事务 自己去保证原子性 */
+export const Actions_App = {
     GetInfo: async () => {
     },
     Login: async () => {
@@ -185,27 +192,27 @@ export const AppActions = {
   - `src/views/user/LoginCredentials.vue`
   - `src/views/user/StateLogin.jsx`
 ```js
-import {StateApp} from "lsrc/state/StateApp";
-import {defineXItem, ITEM_TYPE} from "@ventose/ui/xForm/itemRenders/common.js";
+import {State_App} from "lsrc/state/State_App";
+import {defItem, ITEM_TYPE} from "@ventose/ui";
 import {watch} from "vue";
 
 - [ ] 自定义组件的校验如何处理?
 
-const inputConfigs = defineXItem({
+const inputConfigs = defItem({
     type: ITEM_TYPE.input,
     onAfterValueChange: (configs) => {
-        StateApp.count++;
+        State_App.count++;
     }
 });
 const state = reactive({name: ''})
 
-watch(() => StateApp.count, (count) => {
-    StateApp.count = count;
+watch(() => State_App.count, (count) => {
+    State_App.count = count;
 });
 ```
 
 ```html
-StateApp.count: {{StateApp.count}}
+State_App.count: {{State_App.count}}
 <xItem :configs="inputConfigs" v-model="state.name"/>
 ```
 
@@ -216,7 +223,7 @@ StateApp.count: {{StateApp.count}}
 ## 自定义的折叠按钮(未使用)
 
 ```html
-<!--    <xRender :render="render.collapsedButton" :collapsed="StateApp.collapsed"/>-->
+<!--    <xRender :render="render.collapsedButton" :collapsed="State_App.collapsed"/>-->
 
 
 ```
@@ -235,13 +242,5 @@ StateApp.count: {{StateApp.count}}
 
 ```html
 <!-- src\assets\svg\lockStrok.svg -->
-<LazySvg
-        icon="lockStrok"
-        style="
-      color: red;
-      height: 100px;
-      width: 100px;
-      outline: 1px solid black;
-      margin: 10px;
-    "/>
+<LazySvg icon="lockStrok" style="color: red; height: 100px; width: 100px; outline: 1px solid black; margin: 10px; "/> 
 ```

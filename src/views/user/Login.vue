@@ -6,6 +6,11 @@ import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { StateLogin } from "./StateLogin";
 import { routeNames } from "lsrc/router/router";
 import { _ } from "@ventose/ui";
+import {
+	AlipayCircleFilled,
+	TaobaoCircleFilled,
+	WeiboCircleFilled
+} from "@ant-design/icons-vue";
 </script>
 
 <template>

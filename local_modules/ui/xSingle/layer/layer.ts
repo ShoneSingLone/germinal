@@ -1,5 +1,11 @@
 import $ from "jquery";
-import isFunction from "lodash/isFunction";
+import _ from "lodash";
+
+export const KEY = {
+	right: 39,
+	left: 37,
+	esc: 27
+};
 /*
  *
  *
@@ -20,7 +26,7 @@ const DOMS = [
 	"layui-layer-btn",
 	"layui-layer-close"
 ];
-DOMS.anim = [
+const DOMS_ANIM = [
 	"layer-anim-00",
 	"layer-anim-01",
 	"layer-anim-02",
@@ -29,8 +35,8 @@ DOMS.anim = [
 	"layer-anim-05",
 	"layer-anim-06"
 ];
-DOMS.SHADE = "layui-layer-shade";
-DOMS.MOVE = "layui-layer-move";
+const DOMS_SHADE = "layui-layer-shade";
+const DOMS_MOVE = "layui-layer-move";
 
 const READY = {
 	getPath: (function () {
@@ -128,7 +134,7 @@ const layer = {
 	},
 
 	confirm: function (content, options, yes, cancel) {
-		if (isFunction(options)) {
+		if (_.isFunction(options)) {
 			cancel = yes;
 			yes = options;
 		}
@@ -147,10 +153,10 @@ const layer = {
 
 	msg: function (content, options, end) {
 		/*最常用提示层*/
-		var isOptionsIsFunction = isFunction(options),
+		var isOptionsIsFunction = _.isFunction(options),
 			rskin = READY.config.skin;
 		var skin = (rskin ? rskin + " " + rskin + "-msg" : "") || "layui-layer-msg";
-		var anim = DOMS.anim.length - 1;
+		var anim = DOMS_ANIM.length - 1;
 		if (isOptionsIsFunction) end = options;
 		return layer.open(
 			$.extend(
@@ -270,47 +276,32 @@ ClassLayer.pt.vessel = function (conType, callback) {
 		[
 			//遮罩
 			config.shade
-				? `<div class="${DOMS.SHADE}" id="${
-						DOMS.SHADE
-				  }${times}" times="${times}" style="z-index:${zIndex - 1};"></div>`
+				? `<div class="${DOMS_SHADE}" id="${DOMS_SHADE}${times}" times="${times}" style="z-index:${
+						zIndex - 1
+				  };"></div>`
 				: "",
 
 			//主体
-			'<div class="' +
-				DOMS[0] +
-				(" layui-layer-" + READY.type[config.type]) +
-				((config.type == 0 || config.type == 2) && !config.shade
+			`<div class="flex vertical ${DOMS[0]} layui-layer-${
+				READY.type[config.type]
+			} ${
+				(config.type == 0 || config.type == 2) && !config.shade
 					? " layui-layer-border"
-					: "") +
-				" " +
-				(config.skin || "") +
-				'" id="' +
-				DOMS[0] +
-				times +
-				'" type="' +
-				READY.type[config.type] +
-				'" times="' +
-				times +
-				'" showtime="' +
-				config.time +
-				'" conType="' +
-				(conType ? "object" : "string") +
-				'" style="z-index: ' +
-				zIndex +
-				"; width:" +
-				config.area[0] +
-				";height:" +
-				config.area[1] +
-				";position:" +
-				(config.fixed ? "fixed;" : "absolute;") +
-				'">' +
-				(conType && config.type != 2 ? "" : titleHTML) +
-				'<div id="' +
-				(config.id || "") +
-				'" class="layui-layer-content' +
-				(config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : "") +
-				(config.type == 3 ? " layui-layer-loading" + config.icon : "") +
-				'">' +
+					: ""
+			} ${config.skin || ""}"
+				  id="${DOMS[0]}${times}"
+				  type="${READY.type[config.type]}"
+				  times="${times}"
+				  showtime="${config.time}"
+				  conType="${conType ? "object" : "string"}"
+				  style="z-index:${zIndex};
+					  width:${config.area[0]};
+					  height:${config.area[1]};
+					  position:${config.fixed ? "fixed;" : "absolute;"}">
+				${conType && config.type != 2 ? "" : titleHTML}
+				<div id="${config.id || ""}" class="flex1 ${DOMS[5]}${
+				config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""
+			} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` +
 				(config.type == 0 && config.icon !== -1
 					? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>'
 					: "") +
@@ -336,32 +327,21 @@ ClassLayer.pt.vessel = function (conType, callback) {
 					? (function () {
 							var button = "";
 							typeof config.btn === "string" && (config.btn = [config.btn]);
+							/* []不渲染按钮区域 */
+							if (config.btn.length === 0) return "";
 							for (var i = 0, len = config.btn.length; i < len; i++) {
-								button +=
-									'<a class="' +
-									DOMS[6] +
-									"" +
-									i +
-									'">' +
-									config.btn[i] +
-									"</a>";
+								button += `<a class="${DOMS[6]}">${config.btn[i]}</a>`;
 							}
-							return (
-								'<div class="' +
-								DOMS[6] +
-								" layui-layer-btn-" +
-								(config.btnAlign || "") +
-								'">' +
-								button +
-								"</div>"
-							);
+							return ` <div class="${DOMS[6]} layui-layer-btn-${
+								config.btnAlign || ""
+							}">${button}</div>`;
 					  })()
 					: "") +
 				(config.resize ? '<span class="layui-layer-resize"></span>' : "") +
 				"</div>"
 		],
 		titleHTML,
-		$(`<div class="${DOMS.MOVE}" id="${DOMS.MOVE}"></div>`)
+		$(`<div class="${DOMS_MOVE}" id="${DOMS_MOVE}"></div>`)
 	);
 	return that;
 };
@@ -458,10 +438,10 @@ ClassLayer.pt.creat = function () {
 							  })();
 				  })()
 				: body.append(html[1]);
-			$("#" + DOMS.MOVE)[0] || body.append((READY.moveElem = moveElem));
+			$("#" + DOMS_MOVE)[0] || body.append((READY.moveElem = moveElem));
 
 			that.layero = $("#" + DOMS[0] + times);
-			that.shadeo = $("#" + DOMS.SHADE + times);
+			that.shadeo = $("#" + DOMS_SHADE + times);
 
 			config.scrollbar ||
 				$html.css("overflow", "hidden").attr("layer-full", times);
@@ -485,7 +465,7 @@ ClassLayer.pt.creat = function () {
 				that.offset();
 				//首次弹出时，若 css 尚未加载，则等待 css 加载完毕后，重新设定尺寸
 				parseInt(
-					READY.getStyle(document.getElementById(DOMS.MOVE), "z-index")
+					READY.getStyle(document.getElementById(DOMS_MOVE), "z-index")
 				) ||
 					(function () {
 						that.layero.css("visibility", "hidden");
@@ -513,8 +493,8 @@ ClassLayer.pt.creat = function () {
 	that.move().callback();
 
 	//为兼容jQuery3.0的css动画影响元素尺寸计算
-	if (DOMS.anim[config.anim]) {
-		var animClass = "layer-anim " + DOMS.anim[config.anim];
+	if (DOMS_ANIM[config.anim]) {
+		var animClass = "layer-anim " + DOMS_ANIM[config.anim];
 		that.layero
 			.addClass(animClass)
 			.one(
@@ -558,10 +538,11 @@ ClassLayer.pt.auto = function (index) {
 		};
 
 	switch (config.type) {
-		case 2:
+		case 2: {
 			setHeight("iframe");
 			break;
-		default:
+		}
+		default: {
 			if (config.area[1] === "") {
 				if (config.maxHeight > 0 && layero.outerHeight() > config.maxHeight) {
 					area[1] = config.maxHeight;
@@ -574,6 +555,7 @@ ClassLayer.pt.auto = function (index) {
 				setHeight("." + DOMS[5]);
 			}
 			break;
+		}
 	}
 	return that;
 };
@@ -1074,7 +1056,7 @@ layer.style = function (index, options, limit) {
 layer.min = function (index, options) {
 	options = options || {};
 	var layero = $("#" + DOMS[0] + index),
-		shadeo = $("#" + DOMS.SHADE + index),
+		shadeo = $("#" + DOMS_SHADE + index),
 		titHeight = layero.find(DOMS[1]).outerHeight() || 0,
 		left = layero.attr("minLeft") || 181 * READY.minIndex + "px",
 		position = layero.css("position"),
@@ -1115,7 +1097,7 @@ layer.min = function (index, options) {
 //还原
 layer.restore = function (index) {
 	var layero = $("#" + DOMS[0] + index),
-		shadeo = $("#" + DOMS.SHADE + index),
+		shadeo = $("#" + DOMS_SHADE + index),
 		area = layero.attr("area").split(","),
 		type = layero.attr("type");
 
@@ -1210,7 +1192,7 @@ layer.close = function (index, callback) {
 		layero.addClass("layer-anim " + closeAnim);
 	}
 
-	$("#layui-layer-moves, #" + DOMS.SHADE + index).remove();
+	$("#layui-layer-moves, #" + DOMS_SHADE + index).remove();
 	layer.ie == 6 && READY.reselect();
 	READY.rescollbar(index);
 	if (layero.attr("minLeft")) {
@@ -1482,11 +1464,12 @@ layer.photos = function (options, loop, key) {
 		if (!dict.end) {
 			var code = event.keyCode;
 			event.preventDefault();
-			if (code === 37) {
+			/*  */
+			if (code === KEY.left) {
 				dict.imgprev(true);
-			} else if (code === 39) {
+			} else if (code === KEY.right) {
 				dict.imgnext(true);
-			} else if (code === 27) {
+			} else if (code === KEY.esc) {
 				layer.close(dict.index);
 			}
 		}

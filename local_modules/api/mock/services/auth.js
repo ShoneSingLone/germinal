@@ -11,8 +11,10 @@ const password = [
 ]; // admin, ant.design
 
 const login = options => {
+	const bodyString = String(options.body);
 	if (
-		options.body !== "username=admin&password=21232f297a57a5a743894a0e4a801fc3"
+		bodyString !==
+		`{"username":"admin","password":"21232f297a57a5a743894a0e4a801fc3"}`
 	) {
 		return builder({ isLogin: true }, "账户或密码错误", 401);
 	}
@@ -39,7 +41,6 @@ const login = options => {
 		200,
 		{ "Custom-Header": Mock.mock("@guid") }
 	);
-	console.log("result", result);
 	return result;
 };
 
@@ -59,3 +60,7 @@ Mock.mock(URL.Login, "post", login);
 Mock.mock(URL.Logout, "post", logout);
 Mock.mock(/\/account\/sms/, "post", smsCaptcha);
 Mock.mock(/\/auth\/2step-code/, "post", twofactor);
+Mock.mock(`/admin/license/api/list/page/10/1`, "post", twofactor => {
+	debugger;
+	return builder({ captcha: Mock.mock("@integer(10000, 99999)") });
+});

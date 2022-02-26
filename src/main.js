@@ -1,12 +1,15 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { appPlugins } from "lsrc/utils/common";
-import { StateApp } from "./state/StateApp";
+import { State_App } from "./state/State_App";
+import $ from "jquery";
+
+if (State_App.isDev) {
+	import("germinal_api/mock");
+	window.jquery = $;
+	window.State_App = State_App;
+}
 
 (async () => {
-	if (import.meta.env.MODE === "development") {
-		const { loadMockData } = await import("germinal_api/mock");
-		await loadMockData();
-	}
-	createApp(App).use(appPlugins, { dependState: StateApp }).mount("#app");
+	createApp(App).use(appPlugins, { dependState: State_App }).mount("#app");
 })();
