@@ -205,3 +205,5 @@ _.preload = (baseModule, deps) => {
 		})
 	).then(() => baseModule());
 };
+
+export { _ };

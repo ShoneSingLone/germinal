@@ -4,13 +4,13 @@ import axios from "axios";
 
 const CODE_HANDLER_MAP = {
 	401: res => {
-		logError(rcode);
+		logError(401);
 	},
 	404: () => {
-		logError(rcode);
+		logError(401);
 	},
 	0: () => {
-		logError(rcode);
+		logError(0);
 	}
 };
 
@@ -36,8 +36,8 @@ ajax.interceptors.response.use(
 	async error => {
 		debugger;
 		const { response } = error;
-		const rcode = Number(response?.data?.code || 0);
-		const handler = CODE_HANDLER_MAP[rcode];
+		const responseCode = Number(response?.data?.code || 0);
+		const handler = CODE_HANDLER_MAP[responseCode];
 		handler && handler();
 		return Promise.reject(error);
 	}

@@ -3,7 +3,9 @@ import logoImg from "../assets/logo.png";
 import backgroundImg from "../assets/background.svg";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
 import { State_App } from "lsrc/state/State_App";
+import { _ } from "@ventose/ui";
 
+_.doNothing(backgroundImg);
 const styles = {
 	container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
 };

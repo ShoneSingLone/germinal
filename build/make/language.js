@@ -9,7 +9,7 @@ const languageContent = {
 	/* tips */
 	welcome: m("欢迎", "welcome"),
 	"welcome.back": m("欢迎回来", "welcome back"),
-	"login.title": m("demo", "antd vue3 admin"),
+	"login.title": m("antd vue3 admin", "antd vue3 admin"),
 	/* system */
 	BackHome: m("回到主页", "Back Home"),
 	notFoundTips: m(
