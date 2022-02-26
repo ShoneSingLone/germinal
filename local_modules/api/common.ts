@@ -51,7 +51,8 @@ export const SuccessOrFail = async (options: i_success_or_fail) => {
 				}
 				const isCodeOk = ["200"].includes(String(response?.code));
 				if (isCodeOk) {
-					resSuccess = await success(response);
+					resSuccess = await success(response.result);
+					debugger;
 					return;
 				}
 				error = { error: null, response };

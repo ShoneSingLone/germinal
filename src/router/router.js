@@ -87,7 +87,6 @@ router.beforeEach(async (to, from) => {
 	_.doNothing(to.path, from.path);
 	NProgress.start();
 	const hasAccessTokenHandler = async () => {
-		debugger;
 		const allowPath = allowVisitPageWhenNoAccess.map(name => toPath(name));
 		_.doNothing(allowPath, to.path);
 		if (allowPath.includes(to.path)) {
@@ -100,7 +99,7 @@ router.beforeEach(async (to, from) => {
 			}
 
 			if (from.query.redirect) {
-				if (to.path === redirect) {
+				if (to.path === from.query.redirect) {
 					/* set the replace: true so the navigation will not leave a history record */
 					return { ...to, replace: true };
 				} else {

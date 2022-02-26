@@ -134,11 +134,9 @@ export const Actions_App = {
 		await SuccessOrFail({
 			request: () => API.user.login(loginParams),
 			success: res => {
-				debugger;
 				setToken(res.token);
 			},
 			async fail(e) {
-				debugger;
 				_.doNothing(e);
 				if (e.error && e.error.message) {
 					await UI.notification.error({ message: e.error.message });
@@ -161,7 +159,6 @@ export const Actions_App = {
 };
 
 function setToken(token) {
-	debugger;
 	lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
 	State_App.token = token;
 }
