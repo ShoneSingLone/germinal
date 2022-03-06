@@ -5,13 +5,18 @@ import { API, SuccessOrFail } from "germinal_api";
 import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
+import { $t } from "lsrc/language";
 
 export const State_App = reactive({
 	theme: "light",
 	menuTree: [],
 	layoutStyle: {
-		header: { height: "64px" },
-		sider: { width: "200px" }
+		header: {
+			height: "64px"
+		},
+		sider: {
+			width: "200px"
+		}
 	},
 	/*菜单折叠*/
 	collapsed: false,
@@ -129,18 +134,33 @@ export const Actions_App = {
 			Promise.reject(new Error("getInfo: roles must be a non-null array !"));
 		}
 	},
+	async register({ username, password, passwordConfirm }) {
+		const params_register = {
+			username,
+			password: md5(password),
+			repassword: md5(passwordConfirm)
+		};
+		_.doNothing(params_register);
+		await SuccessOrFail({
+			request: () => API.user.regster(params_register),
+			success: ({ username }) => {
+				UI.message.success({
+					content: $t("user.register-result.msg", {
+						email: username
+					}).label
+				});
+			}
+		});
+	},
 	async Login({ username, password }) {
-		const loginParams = { username, password: md5(password) };
+		const loginParams = {
+			username,
+			password: md5(password)
+		};
 		await SuccessOrFail({
 			request: () => API.user.login(loginParams),
 			success: res => {
 				setToken(res.token);
-			},
-			async fail(e) {
-				_.doNothing(e);
-				if (e.error && e.error.message) {
-					await UI.notification.error({ message: e.error.message });
-				}
 			}
 		});
 	},
@@ -151,7 +171,9 @@ export const Actions_App = {
 			setToken("");
 			/* fixed循环引用 */
 			const { router, routeNames } = await import("lsrc/router/router");
-			router.push({ name: routeNames.userLogin });
+			router.push({
+				name: routeNames.userLogin
+			});
 		} catch (error) {
 			console.error(error);
 		}

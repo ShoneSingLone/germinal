@@ -32,7 +32,6 @@ export default defineComponent(
 				if (isFunction(getComponent)) {
 					const { default: iconString } = await getComponent();
 					ICON_STRING_CACHE[this.icon] = iconSvgString = iconString;
-					console.log(ICON_STRING_CACHE);
 				}
 			}
 			if (iconSvgString) {

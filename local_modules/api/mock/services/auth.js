@@ -61,6 +61,5 @@ Mock.mock(URL.Logout, "post", logout);
 Mock.mock(/\/account\/sms/, "post", smsCaptcha);
 Mock.mock(/\/auth\/2step-code/, "post", twofactor);
 Mock.mock(`/admin/license/api/list/page/10/1`, "post", twofactor => {
-	debugger;
 	return builder({ captcha: Mock.mock("@integer(10000, 99999)") });
 });

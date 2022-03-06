@@ -40,6 +40,11 @@ export default defineComponent({
 `;
 		}
 	},
+	watch: {
+		styleContent() {
+			this.updateStyle(this.styleContent);
+		}
+	},
 	mounted() {
 		const $form = $(`#${this.xFormId}`);
 		const $style = $("<style/>", { id: `style_${this.xFormId}` }).append(
@@ -47,14 +52,8 @@ export default defineComponent({
 		);
 		$form.prepend($style);
 	},
-	watch: {
-		styleContent() {
-			this.updateStyle(this.styleContent);
-		}
-	},
 	methods: {
 		updateStyle(styleContent) {
-			debugger;
 			const $style = $(`#style_${this.xFormId}`);
 			$style.html(styleContent);
 		}
@@ -64,7 +63,7 @@ export default defineComponent({
 
 <template>
 	<form :id="xFormId">
-		<slot></slot>
+		<slot />
 	</form>
 	<!-- <form :id="xFormId" style="opacity: 0"><slot></slot></form> -->
 </template>

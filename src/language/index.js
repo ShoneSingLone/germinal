@@ -48,8 +48,8 @@ const i18n = createI18n({
 
 export default i18n; //将i18n暴露出去，在main.js中引入挂载
 
-export const $t = prop => {
-	const label = i18n.global.t(prop);
+export const $t = (prop, options) => {
+	const label = i18n.global.t(prop, options);
 	return {
 		label,
 		prop

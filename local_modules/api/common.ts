@@ -27,37 +27,22 @@ export const result = {
 		};
 	}
 };
-
-const doNothing = (data: any) => data;
 const logError = ({ error, response }: t_error_info) => {
-	console.log("error: ", error, "response: ", response);
+	/* @ts-ignore */
+	_.doNothing("error: ", error, "response: ", response);
 };
 
 export const SuccessOrFail = async (options: i_success_or_fail) => {
 	const promise = options.promise || false;
 	const request = options.request || false;
-	const success = options.success || doNothing;
+	/* @ts-ignore */
+	const success = options.success || _.doNothing;
 	const fail = options.fail || logError;
 	let error: any = false;
-	let resSuccess;
+	let resSuccess, resError;
 	try {
 		if (_.isFunction(request)) {
-			const response: any = await request();
-			await (async () => {
-				if (response.mainTitle) {
-					/* 没有常规的code信息 */
-					await success(response);
-					return;
-				}
-				const isCodeOk = ["200"].includes(String(response?.code));
-				if (isCodeOk) {
-					resSuccess = await success(response.result);
-					debugger;
-					return;
-				}
-				error = { error: null, response };
-				await fail(error);
-			})();
+			resSuccess = await success(await request());
 		} else if (promise) {
 			resSuccess = await success(await promise());
 		} else {
@@ -65,12 +50,13 @@ export const SuccessOrFail = async (options: i_success_or_fail) => {
 				"SuccessOrFail 未提供 request 或者 promise 或者不是可运行回调"
 			);
 		}
-	} catch (e) {
-		error = { error: e, response: null };
+	} catch (error) {
 		await fail(error);
+		resError = error;
 	}
-	if (error) {
-		throw error;
+
+	if (resError) {
+		throw resError;
 	}
 	return [resSuccess];
 };

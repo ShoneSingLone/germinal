@@ -11,6 +11,16 @@ export default defineConfig({
 	server: {
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd())]
+		},
+		proxy: {
+			"^/auth/v1": {
+				target: "https://www.ventose.xyz/https/app",
+				changeOrigin: true
+			},
+			"^/v1": {
+				target: "https://www.ventose.xyz/https/app",
+				changeOrigin: true
+			}
 		}
 	},
 	base: "./",

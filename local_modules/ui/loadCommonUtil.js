@@ -151,13 +151,10 @@ _.asyncLoadJS = async (url, globalName) => {
 	if (window[globalName]) {
 		return window[globalName];
 	}
-	debugger;
 	const $style = $("<style/>").attr("id", `${asyncLoadJS}${globalName}`);
 	$style.appendTo($("body")).on("load", function () {
-		debugger;
 		return window[globalName];
 	});
-	debugger;
 	$style.attr("src", url);
 };
 

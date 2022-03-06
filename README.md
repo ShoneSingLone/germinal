@@ -190,7 +190,7 @@ export const Actions_App = {
 错误信息可以单独提供，默认是在 formItem 下方展示 tips ，也可以利用错误信息做其他展现方式，比如 popup， 提供 id 定位，方便滑动定位 vModel 与配置信息分开
 - 参考
   - `src/views/user/LoginCredentials.vue`
-  - `src/views/user/StateLogin.jsx`
+  - `src/views/user/State_Login.jsx`
 ```js
 import {State_App} from "lsrc/state/State_App";
 import {defItem, ITEM_TYPE} from "@ventose/ui";

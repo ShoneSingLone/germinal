@@ -461,7 +461,6 @@ const info = options => {
 		actionList: null,
 		dataAccess: null
 	});
-	debugger;
 
 	userInfo.role = roleObj;
 	return builder(userInfo);

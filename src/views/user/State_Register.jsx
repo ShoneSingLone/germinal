@@ -1,9 +1,20 @@
 import { reactive } from "vue";
 import { $t } from "lsrc/language";
-import { EVENT_TYPE, validateForm, defItem, pickValueFrom } from "@ventose/ui";
+import {
+	EVENT_TYPE,
+	validateForm,
+	defItem,
+	pickValueFrom,
+	AllWasWell
+} from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import { getColor, State_App } from "lsrc/state/State_App";
-import { getCaptcha } from "./StateLogin";
+import {
+	Actions_App,
+	getColor,
+	StateAppMutations,
+	State_App
+} from "lsrc/state/State_App";
+import { getCaptcha } from "./State_Login";
 import {
 	UserOutlined,
 	MobileOutlined,
@@ -12,13 +23,17 @@ import {
 } from "@ant-design/icons-vue";
 
 const styles = {
-	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }
+	icon: {
+		color: getColor("disabledColor"),
+		width: "16px",
+		height: "16px"
+	}
 };
 
 const getConfigsSubmitText = () => () =>
 	$t("user.register.get-verification-code").label;
 
-export const StateRegister = reactive({
+export const State_Register = reactive({
 	isShowCheckPasswordPopover: false,
 	statePassword: {
 		level: 0,
@@ -29,9 +44,9 @@ export const StateRegister = reactive({
 	data: {
 		username: "",
 		password: "",
-		password: "",
+		passwordConfirm: "",
 		mobile: "",
-		verification: ""
+		verificationCode: ""
 	},
 	configsForm: {
 		...defItem({
@@ -45,7 +60,9 @@ export const StateRegister = reactive({
 					[EVENT_TYPE.blur]
 				)
 			],
-			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
+			slots: {
+				prefix: () => <UserOutlined style={styles.icon} />
+			}
 		}),
 		...defItem({
 			prop: "password",
@@ -85,7 +102,7 @@ export const StateRegister = reactive({
 				FormRules.validator({
 					msg: () => $t("user.password.twice.msg").label,
 					validator: async passwordConfirm =>
-						StateRegister.configsForm.password.value !== passwordConfirm,
+						State_Register.configsForm.password.value !== passwordConfirm,
 					trigger: [EVENT_TYPE.update]
 				})
 			],
@@ -136,13 +153,15 @@ export const StateRegister = reactive({
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
 		countMax: State_App.configs.countMax,
-		text: { normal: () => $t("user.register.get-verification-code").label },
+		text: {
+			normal: () => $t("user.register.get-verification-code").label
+		},
 		onClick: async ({ countDown }) => {
 			try {
 				const results = await validateForm({
-					mobile: StateRegister.configsForm.mobile
+					mobile: State_Register.configsForm.mobile
 				});
-				if (validateForm.allWasWell(results)) {
+				if (AllWasWell(results)) {
 					/*开始倒计时*/
 					await getCaptcha();
 					countDown();
@@ -156,14 +175,15 @@ export const StateRegister = reactive({
 	configsSubmit: {
 		size: "large",
 		type: "primary",
-		class: "login-button flex1",
+		class: "login-button flex1 center flex",
 		text: () => $t("user.register.register").label,
 		onClick: async () => {
 			try {
-				const currentFormConfigs = StateRegister.configsForm;
+				const currentFormConfigs = State_Register.configsForm;
 				const validateResults = await validateForm(currentFormConfigs);
-				if (validateForm.allWasWell(validateResults)) {
+				if (AllWasWell(validateResults)) {
 					const formData = pickValueFrom(currentFormConfigs);
+					await Actions_App.register(formData);
 					console.log("formData", formData);
 				}
 			} catch (e) {
@@ -205,7 +225,7 @@ export function scorePassword(pass) {
 /* 校验密码强度 */
 function checkPasswordLevel(value) {
 	let isFail = false;
-	StateRegister.statePassword.level = (() => {
+	State_Register.statePassword.level = (() => {
 		if (value.length >= 6) {
 			if (scorePassword(value) >= 80) {
 				return 3;
@@ -224,9 +244,11 @@ function checkPasswordLevel(value) {
 		}
 	})();
 
-	StateRegister.statePassword.passwordLevel = StateRegister.statePassword.level;
-	StateRegister.statePassword.percent = StateRegister.statePassword.level * 33;
-	StateRegister.isShowCheckPasswordPopover =
-		StateRegister.statePassword.level <= 3;
+	State_Register.statePassword.passwordLevel =
+		State_Register.statePassword.level;
+	State_Register.statePassword.percent =
+		State_Register.statePassword.level * 33;
+	State_Register.isShowCheckPasswordPopover =
+		State_Register.statePassword.level <= 3;
 	return isFail;
 }

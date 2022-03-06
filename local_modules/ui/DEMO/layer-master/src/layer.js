@@ -425,7 +425,6 @@
 						? (function () {
 								/* 按钮 */
 								var button = "";
-								debugger;
 								typeof config.btn === "string" && (config.btn = [config.btn]);
 								for (var i = 0, len = config.btn.length; i < len; i++) {
 									button +=
@@ -437,7 +436,6 @@
 										config.btn[i] +
 										"</a>";
 								}
-								debugger;
 								return ` <div class="${doms[6]} layui-layer-btn-${
 									config.btnAlign || ""
 								}">${button}</div>`;

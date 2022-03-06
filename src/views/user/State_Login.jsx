@@ -1,6 +1,13 @@
 import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
-import { _, UI, defItem, EVENT_TYPE, validateForm } from "@ventose/ui";
+import {
+	_,
+	UI,
+	defItem,
+	EVENT_TYPE,
+	validateForm,
+	AllWasWell
+} from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
 import { API } from "germinal_api";
@@ -38,9 +45,9 @@ function handleLoginSuccess(res) {
 
 function handleLoginFail(error) {
 	if (_.isString(error)) {
-		StateLogin.alertTips = error;
+		State_Login.alertTips = error;
 	} else {
-		StateLogin.alertTips = "";
+		State_Login.alertTips = "";
 	}
 }
 
@@ -59,15 +66,15 @@ const LOGIN_TYPE = {
 	email: "email",
 	mobile: "mobile"
 };
-export const StateLogin = reactive({
+export const State_Login = reactive({
 	alertTips: "",
 	captchaCount: 0,
 	loginType: LOGIN_TYPE.username,
 	activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
 	rememberMe: true,
 	data: {
-		username: "admin",
-		password: "admin",
+		username: "",
+		password: "",
 		mobile: "",
 		verificationCode: ""
 	},
@@ -152,9 +159,9 @@ export const StateLogin = reactive({
 		onClick: async ({ countDown }) => {
 			try {
 				const results = await validateForm({
-					mobile: StateLogin.configsFormMobile.mobile
+					mobile: State_Login.configsFormMobile.mobile
 				});
-				if (validateForm.allWasWell(results)) {
+				if (AllWasWell(results)) {
 					/*开始倒计时*/
 					countDown();
 					await getCaptcha();
@@ -172,11 +179,12 @@ export const StateLogin = reactive({
 		text: () => $t("user.login.login").label,
 		onClick: async () => {
 			try {
-				const currentFormProp = TAB_KEYS_MAP[StateLogin.activeTabKey];
-				const currentFormConfigs = StateLogin[currentFormProp];
+				const currentFormProp = TAB_KEYS_MAP[State_Login.activeTabKey];
+				const currentFormConfigs = State_Login[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
-				if (!_.isArrayFill(validateResults)) {
-					const res = await Actions_App.Login(StateLogin.data);
+				if (AllWasWell(validateResults)) {
+					const res = await Actions_App.Login(State_Login.data);
+					debugger;
 					/* 验证错误 */
 					/* 网络错误 */
 					handleLoginSuccess(res);
@@ -192,13 +200,13 @@ export const StateLogin = reactive({
 });
 
 /*检查userName的类型*/
-watch(() => StateLogin.configsForm.username.value, checkUserNameType);
+watch(() => State_Login.configsForm.username.value, checkUserNameType);
 
 function checkUserNameType(username) {
 	if (RegexFn.email().test(username)) {
-		StateLogin.loginType = LOGIN_TYPE.email;
+		State_Login.loginType = LOGIN_TYPE.email;
 	} else {
-		StateLogin.loginType = LOGIN_TYPE.username;
+		State_Login.loginType = LOGIN_TYPE.username;
 	}
 }
 

@@ -1,24 +1,24 @@
 <script setup lang="jsx">
-import { StateLogin } from "lsrc/views/user/StateLogin.jsx";
+import { State_Login } from "lsrc/views/user/State_Login.jsx";
 </script>
 
 <template>
 	<form>
 		<!-- 手机号 -->
 		<xItem
-			v-model="StateLogin.data.mobile"
-			:configs="StateLogin.configsFormMobile.mobile"
+			v-model="State_Login.data.mobile"
+			:configs="State_Login.configsFormMobile.mobile"
 			autocomplete="username" />
 		<xGap t="20" />
 		<div class="flex">
 			<!-- 验证码 -->
 			<xItem
-				v-model="StateLogin.data.verificationCode"
-				:configs="StateLogin.configsFormMobile.verificationCode"
+				v-model="State_Login.data.verificationCode"
+				:configs="State_Login.configsFormMobile.verificationCode"
 				autocomplete="current-password" />
 			<xGap l="20" />
 			<!-- 获取验证码的按钮 -->
-			<xButtonCountDown :configs="StateLogin.configsVerificationCode" />
+			<xButtonCountDown :configs="State_Login.configsVerificationCode" />
 		</div>
 	</form>
 </template>

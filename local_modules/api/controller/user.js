@@ -7,14 +7,19 @@ function genSmsCaptcha() {
 
 export const user = {
 	async login(params) {
-		return await ajax.post(URL.Login, params);
+		return await ajax.post(URL.Login(), params);
+	},
+	async regster(params) {
+		return await ajax.post(URL.regster(), params);
 	},
 	async logout() {
 		return await ajax.post(URL.Logout);
 	},
 	async getSmsCaptcha() {
 		return {
-			result: { code: genSmsCaptcha() }
+			result: {
+				code: genSmsCaptcha()
+			}
 		};
 	},
 	async getInfo() {

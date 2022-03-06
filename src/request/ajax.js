@@ -2,18 +2,6 @@ import $ from "jquery";
 import { _, UI } from "@ventose/ui";
 import axios from "axios";
 
-const CODE_HANDLER_MAP = {
-	401: res => {
-		logError(401);
-	},
-	404: () => {
-		logError(401);
-	},
-	0: () => {
-		logError(0);
-	}
-};
-
 const ajax = axios.create({
 	timeout: 20000 // request timeout
 });
@@ -28,23 +16,19 @@ ajax.interceptors.request.use(
 ajax.interceptors.response.use(
 	async response => {
 		const { data } = response;
-		if (data.code !== 200) {
-			return Promise.reject(data);
-		}
-		return Promise.resolve(data);
+		return Promise.resolve(data.data);
 	},
 	async error => {
-		debugger;
 		const { response } = error;
-		const responseCode = Number(response?.data?.code || 0);
-		const handler = CODE_HANDLER_MAP[responseCode];
-		handler && handler();
+		logError(response.data.data);
 		return Promise.reject(error);
 	}
 );
 
 export function logError(msg) {
-	UI.message.error(msg);
+	UI.notification.error({
+		message: msg
+	});
 	console.error(msg);
 }
 
