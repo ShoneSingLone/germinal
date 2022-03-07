@@ -94,9 +94,9 @@ router.beforeEach(async (to, from) => {
 				path: defaultRoutePath
 			};
 		} else {
-			if (!State_App.roles || State_App.roles.length === 0) {
+			/* if (!State_App.roles || State_App.roles.length === 0) {
 				await Actions_App.GetInfo();
-			}
+			} */
 
 			if (from.query.redirect) {
 				if (to.path === from.query.redirect) {

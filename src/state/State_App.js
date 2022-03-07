@@ -25,6 +25,7 @@ export const State_App = reactive({
 		/*菜单需要id，需要提供id*/
 	],
 	token: lStorage[STATIC_WORD.ACCESS_TOKEN],
+	user: false,
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs,
