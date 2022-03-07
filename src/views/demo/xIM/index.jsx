@@ -12,27 +12,17 @@ export default defineComponent({
 		const socket_url = `${window.URL_WS_BASE}?token=${
 			lStorage[STATIC_WORD.ACCESS_TOKEN]
 		}`;
-		const socket1 = io("http://localhost:7001", {
-			path: "/ws",
-			query: { token: lStorage[STATIC_WORD.ACCESS_TOKEN] }
-		});
-		socket1.on("connect", () => {
-			debugger;
-			console.log(socket1.id);
-		});
 
 		// Create WebSocket connection.
 		const socket = new WebSocket(socket_url);
 
 		// Connection opened
-		socket.addEventListener("open", function (event) {
-			debugger;
-			socket.send("Hello Server!");
-		});
+		// socket.addEventListener("open", function (event) {
+		// 	socket.send("Hello Server!");
+		// });
 
 		// Listen for messages
-		socket1.addEventListener("message", function (event) {
-			debugger;
+		socket.addEventListener("message", function (event) {
 			console.log("Message from server ", event.data);
 		});
 	},

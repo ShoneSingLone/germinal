@@ -14,11 +14,11 @@ export default defineConfig({
 		},
 		proxy: {
 			"^/auth/v1": {
-				target: "https://www.ventose.xyz/https/app",
+				target: "https://www.ventose.xyz/https/book",
 				changeOrigin: true
 			},
 			"^/v1": {
-				target: "https://www.ventose.xyz/https/app",
+				target: "https://www.ventose.xyz/https/book",
 				changeOrigin: true
 			}
 		}

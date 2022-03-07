@@ -1,5 +1,11 @@
 import { _ } from "@ventose/ui";
 
+window.URL_API_VERSION = "/v1";
+// window.URL_BASE = "app.ventose.xyz";
+window.URL_BASE = "www.ventose.xyz/https/book";
+window.URL_API_BASE = `https://${window.URL_BASE}`;
+window.URL_WS_BASE = `wss://www.ventose.xyz/ws`;
+
 const auth = "/auth";
 const version = window.URL_API_VERSION;
 export const URL = {
