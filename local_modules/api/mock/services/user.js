@@ -1,4 +1,5 @@
 import Mock from "mockjs";
+import { URL } from "../../url";
 import { builder } from "../util";
 
 const info = options => {
@@ -858,5 +859,5 @@ const userNav = options => {
 	return json;
 };
 
-Mock.mock(/\/api\/user\/info/, "get", info);
+Mock.mock(URL.UserInfo, "get", info);
 Mock.mock(/\/api\/user\/nav/, "get", userNav);

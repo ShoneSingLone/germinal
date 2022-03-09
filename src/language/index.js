@@ -1,7 +1,7 @@
 //index.ts
 import { createI18n } from "vue-i18n"; //引入vue-i18n组件
-import { watchEffect } from "vue";
 import $ from "jquery";
+import { _ } from "@ventose/ui";
 //假设你还有其他目录下的语言文件 它的路径是 src/views/home/locales/en-US.ts
 //那么你就可以 使用 :lower:（小写） :upper:（大写） 来引入文件
 // const viewModules = import.meta.globEager(
@@ -48,25 +48,25 @@ const i18n = createI18n({
 
 export default i18n; //将i18n暴露出去，在main.js中引入挂载
 
-export const $t = prop => {
-	const label = i18n.global.t(prop);
+export const $t = (prop, options) => {
+	const label = i18n.global.t(prop, options);
 	return {
 		label,
 		prop
 	};
 };
+/**
+ * 需要watch 提供当前语言的变化通知
+ */
 export const appI18n = {
-	install: (app, StateApp) => {
+	install: (app, { watch } = {}) => {
 		//注册i8n实例并引入语言文件
 		app.config.globalProperties.$t = $t;
-		/* readme:依赖StateApp.confgs.language */
-		watchEffect(() => {
-			setI18nLanguage(StateApp.configs.language);
-		});
+		watch && watch();
 	}
 };
 
-function setI18nLanguage(lang) {
+export function setI18nLanguage(lang) {
 	i18n.global.locale.value = lang;
 	$("html").attr("lang", lang);
 	return lang;

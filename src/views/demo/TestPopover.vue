@@ -9,6 +9,7 @@ import {
 	compile
 } from "vue";
 import { UI } from "@ventose/ui";
+import xIM from "./xIM/index";
 /* data */
 const state = reactive({ count: 0 });
 /*renders*/
@@ -60,6 +61,7 @@ const handlers = {
 <template>
 	<div class="container flex middle">
 		<div class="flex width100">
+			<xIM />
 			<Button id="tips" v-uiPopover="{ content: 'tips1' }">
 				v-uiPopover
 			</Button>

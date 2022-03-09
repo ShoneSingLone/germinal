@@ -1,10 +1,9 @@
 module.exports = {
 	root: true,
 	globals: {
+		URL_PREFIX: true,
 		defineProps: true,
-		defineEmits: true,
-		_: true,
-		Germinal: true
+		defineEmits: true
 	},
 	env: {
 		browser: true,
@@ -29,8 +28,25 @@ module.exports = {
 		// "vue/no-multiple-template-root": "off",
 		// "vue/no-mutating-props": "off",
 		"vue/require-default-prop": "off",
-		quotes: ["error", "double"],
+		quotes: [
+			"error",
+			"double",
+			{
+				allowTemplateLiterals: true
+			}
+		],
+		"comma-dangle": [
+			"error",
+			{
+				objects: "only-multiline",
+				arrays: "never",
+				imports: "never",
+				exports: "never",
+				functions: "never"
+			}
+		],
 		semi: ["error", "always"],
+		"no-undef": "error",
 		"no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
 		"no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
 	}

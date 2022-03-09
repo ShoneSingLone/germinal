@@ -1,3 +1,5 @@
+import { _ } from "../loadCommonUtil";
+
 export const lStorage = new Proxy(localStorage, {
 	set(_localStorage, prop, value) {
 		if (_.isPlainObject(value)) {
@@ -12,6 +14,9 @@ export const lStorage = new Proxy(localStorage, {
 		try {
 			return JSON.parse(objString);
 		} catch (error) {
+			if (objString === "undefined") {
+				return false;
+			}
 			return objString || false;
 		}
 	}

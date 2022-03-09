@@ -1,23 +1,39 @@
-import { reactive, computed, watch } from "vue";
+import { reactive } from "vue";
 import { $t } from "lsrc/language";
-import { UI } from "@ventose/ui";
-import { ITEM_TYPE, defineXItem } from "@ventose/ui/common";
-import { EVENT_TYPE, validateForm } from "@ventose/ui/tools/validate";
+import {
+	EVENT_TYPE,
+	validateForm,
+	defItem,
+	pickValueFrom,
+	AllWasWell
+} from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
-import SvgRender from "lsrc/components/SvgRender/SvgRender";
-import { getColor, StateApp } from "lsrc/state/StateApp";
-import { API } from "germinal_api";
-import { pickValueFrom } from "@ventose/ui/tools/form";
-import { getCaptcha } from "./StateLogin";
+import {
+	Actions_App,
+	getColor,
+	StateAppMutations,
+	State_App
+} from "lsrc/state/State_App";
+import { getCaptcha } from "./State_Login";
+import {
+	UserOutlined,
+	MobileOutlined,
+	LockOutlined,
+	MailOutlined
+} from "@ant-design/icons-vue";
 
 const styles = {
-	icon: { color: getColor("disabledColor"), width: "16px", height: "16px" }
+	icon: {
+		color: getColor("disabledColor"),
+		width: "16px",
+		height: "16px"
+	}
 };
 
 const getConfigsSubmitText = () => () =>
 	$t("user.register.get-verification-code").label;
 
-export const StateRegister = reactive({
+export const State_Register = reactive({
 	isShowCheckPasswordPopover: false,
 	statePassword: {
 		level: 0,
@@ -28,12 +44,12 @@ export const StateRegister = reactive({
 	data: {
 		username: "",
 		password: "",
-		password: "",
+		passwordConfirm: "",
 		mobile: "",
-		verification: ""
+		verificationCode: ""
 	},
 	configsForm: {
-		...defineXItem({
+		...defItem({
 			prop: "username",
 			size: "large",
 			/* render的时候重新获取 */
@@ -44,9 +60,11 @@ export const StateRegister = reactive({
 					[EVENT_TYPE.blur]
 				)
 			],
-			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
+			slots: {
+				prefix: () => <UserOutlined style={styles.icon} />
+			}
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "password",
 			isPassword: true,
 			size: "large",
@@ -70,7 +88,7 @@ export const StateRegister = reactive({
 				prefix: () => <LockOutlined style={styles.icon} />
 			}
 		}),
-		...defineXItem({
+		...defItem({
 			prop: "passwordConfirm",
 			isPassword: true,
 			size: "large",
@@ -84,7 +102,7 @@ export const StateRegister = reactive({
 				FormRules.validator({
 					msg: () => $t("user.password.twice.msg").label,
 					validator: async passwordConfirm =>
-						StateRegister.configsForm.password.value !== passwordConfirm,
+						State_Register.configsForm.password.value !== passwordConfirm,
 					trigger: [EVENT_TYPE.update]
 				})
 			],
@@ -93,7 +111,7 @@ export const StateRegister = reactive({
 			}
 		}),
 
-		...defineXItem({
+		...defItem({
 			prop: "mobile",
 			size: "large",
 			/* render的时候重新获取 */
@@ -114,7 +132,7 @@ export const StateRegister = reactive({
 			}
 		}),
 		/*验证码*/
-		...defineXItem({
+		...defItem({
 			prop: "verificationCode",
 			size: "large",
 			itemWrapperClass: "flex1",
@@ -134,16 +152,16 @@ export const StateRegister = reactive({
 	},
 	/* 获取验证码按钮 */
 	configsVerificationCode: {
-		countMax: StateApp.configs.countMax,
+		countMax: State_App.configs.countMax,
 		text: {
 			normal: () => $t("user.register.get-verification-code").label
 		},
 		onClick: async ({ countDown }) => {
 			try {
 				const results = await validateForm({
-					mobile: StateRegister.configsForm.mobile
+					mobile: State_Register.configsForm.mobile
 				});
-				if (validateForm.allWasWell(results)) {
+				if (AllWasWell(results)) {
 					/*开始倒计时*/
 					await getCaptcha();
 					countDown();
@@ -157,14 +175,15 @@ export const StateRegister = reactive({
 	configsSubmit: {
 		size: "large",
 		type: "primary",
-		class: "login-button flex1",
+		class: "login-button flex1 center flex",
 		text: () => $t("user.register.register").label,
 		onClick: async () => {
 			try {
-				const currentFormConfigs = StateRegister.configsForm;
+				const currentFormConfigs = State_Register.configsForm;
 				const validateResults = await validateForm(currentFormConfigs);
-				if (validateForm.allWasWell(validateResults)) {
+				if (AllWasWell(validateResults)) {
 					const formData = pickValueFrom(currentFormConfigs);
+					await Actions_App.register(formData);
 					console.log("formData", formData);
 				}
 			} catch (e) {
@@ -206,7 +225,7 @@ export function scorePassword(pass) {
 /* 校验密码强度 */
 function checkPasswordLevel(value) {
 	let isFail = false;
-	StateRegister.statePassword.level = (() => {
+	State_Register.statePassword.level = (() => {
 		if (value.length >= 6) {
 			if (scorePassword(value) >= 80) {
 				return 3;
@@ -225,9 +244,11 @@ function checkPasswordLevel(value) {
 		}
 	})();
 
-	StateRegister.statePassword.passwordLevel = StateRegister.statePassword.level;
-	StateRegister.statePassword.percent = StateRegister.statePassword.level * 33;
-	StateRegister.isShowCheckPasswordPopover =
-		StateRegister.statePassword.level <= 3;
+	State_Register.statePassword.passwordLevel =
+		State_Register.statePassword.level;
+	State_Register.statePassword.percent =
+		State_Register.statePassword.level * 33;
+	State_Register.isShowCheckPasswordPopover =
+		State_Register.statePassword.level <= 3;
 	return isFail;
 }

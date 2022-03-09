@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 import { builder, getBody } from "../util";
+import { URL } from "../../url";
 
 const username = ["admin", "super"];
 // 强硬要求 ant.design 相同密码
@@ -10,8 +11,10 @@ const password = [
 ]; // admin, ant.design
 
 const login = options => {
+	const bodyString = String(options.body);
 	if (
-		options.body !== "username=admin&password=21232f297a57a5a743894a0e4a801fc3"
+		bodyString !==
+		`{"username":"admin","password":"21232f297a57a5a743894a0e4a801fc3"}`
 	) {
 		return builder({ isLogin: true }, "账户或密码错误", 401);
 	}
@@ -38,12 +41,11 @@ const login = options => {
 		200,
 		{ "Custom-Header": Mock.mock("@guid") }
 	);
-	console.log("result", result);
 	return result;
 };
 
 const logout = () => {
-	return builder({}, "[测试接口] 注销成功");
+	return builder({}, "[测试接口] 注销成功", 200);
 };
 
 const smsCaptcha = () => {
@@ -54,7 +56,10 @@ const twofactor = () => {
 	return builder({ stepCode: Mock.mock("@integer(0, 1)") });
 };
 
-Mock.mock(/\/auth\/login/, "post", login);
-Mock.mock(/\/auth\/logout/, "post", logout);
+Mock.mock(URL.Login, "post", login);
+Mock.mock(URL.Logout, "post", logout);
 Mock.mock(/\/account\/sms/, "post", smsCaptcha);
 Mock.mock(/\/auth\/2step-code/, "post", twofactor);
+Mock.mock(`/admin/license/api/list/page/10/1`, "post", twofactor => {
+	return builder({ captcha: Mock.mock("@integer(10000, 99999)") });
+});

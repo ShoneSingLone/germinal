@@ -1,0 +1,2 @@
+- [circular dependency](https://github.com/vitejs/vite/issues/4430)
+ - main -> compile -> store -> compile 此时不可以调用compile 因为compile已经在编译，但是没有编译完成。这是ESM编译时的问题。应该使用异步，使compile的调用延后。要求基础的工具类代码组织更加内聚。

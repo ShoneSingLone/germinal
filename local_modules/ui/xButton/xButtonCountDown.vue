@@ -1,6 +1,7 @@
 <script setup lang="jsx">
 import { reactive, watch } from "vue";
 import { $t } from "lsrc/language";
+import { _ } from "../loadCommonUtil";
 
 const props = defineProps({
 	configs: {
@@ -27,7 +28,7 @@ const btnConfigs = reactive({
 	disabled: false,
 	size: "large",
 	style: { minWidth: "112px" },
-	text: props.configs.text.normal(),
+	text: props.configs.text.normal,
 	async onClick() {
 		if (_.isFunction(props.configs.onClick)) {
 			await props.configs.onClick({ countDown });
@@ -40,7 +41,7 @@ watch(() => state.captchaCount, handleCaptchaCountChange);
 function handleCaptchaCountChange(captchaCount) {
 	if (captchaCount === 0) {
 		/*按钮显示*/
-		btnConfigs.text = props.configs.text.normal();
+		btnConfigs.text = props.configs.text.normal;
 		/*按钮可点击状态*/
 		btnConfigs.disabled = false;
 		return;

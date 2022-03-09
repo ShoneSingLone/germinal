@@ -3,7 +3,7 @@ import { reactive, computed } from "vue";
 import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
-import { StateRegister } from "./StateRegister";
+import { State_Register } from "./State_Register";
 import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
 
@@ -27,13 +27,13 @@ const levelColor = {
 };
 
 const passwordLevelClass = computed(() => {
-	return levelClass[StateRegister.statePassword.passwordLevel];
+	return levelClass[State_Register.statePassword.passwordLevel];
 });
 const passwordLevelName = computed(() => {
-	return levelNames[StateRegister.statePassword.passwordLevel];
+	return levelNames[State_Register.statePassword.passwordLevel];
 });
 const passwordLevelColor = computed(() => {
-	return levelColor[StateRegister.statePassword.passwordLevel];
+	return levelColor[State_Register.statePassword.passwordLevel];
 });
 
 const configsTestPopover = {
@@ -60,18 +60,18 @@ const configsTestPopover = {
 				<!-- 用户名 -->
 				<xItem
 					ref="username"
-					v-model="StateRegister.data.username"
-					:configs="StateRegister.configsForm.username"
+					v-model="State_Register.data.username"
+					:configs="State_Register.configsForm.username"
 					autocomplete="username" />
 				<xGap t="20" />
 				<!-- 密码 -->
 				<Popover
-					:visible="StateRegister.isShowCheckPasswordPopover"
+					:visible="State_Register.isShowCheckPasswordPopover"
 					:trigger="['click']"
 					placement="rightTop">
 					<xItem
-						v-model="StateRegister.data.password"
-						:configs="StateRegister.configsForm.password"
+						v-model="State_Register.data.password"
+						:configs="State_Register.configsForm.password"
 						autocomplete="current-password" />
 					<template #content>
 						<div :style="{ width: '240px' }">
@@ -79,7 +79,7 @@ const configsTestPopover = {
 								{{ $t(passwordLevelName).label }}
 							</div>
 							<Progress
-								:percent="StateRegister.statePassword.percent"
+								:percent="State_Register.statePassword.percent"
 								:show-info="false"
 								:stroke-color="passwordLevelColor"
 								:get-popup-container="trigger => trigger.parentElement" />
@@ -95,31 +95,31 @@ const configsTestPopover = {
 				<xGap t="20" />
 				<!-- 确认密码 -->
 				<xItem
-					v-model="StateRegister.data.passwordConfirm"
-					:configs="StateRegister.configsForm.passwordConfirm"
+					v-model="State_Register.data.passwordConfirm"
+					:configs="State_Register.configsForm.passwordConfirm"
 					autocomplete="current-password" />
 
 				<xGap t="20" />
 				<!-- 手机号 -->
 				<xItem
-					v-model="StateRegister.data.mobile"
-					:configs="StateRegister.configsForm.mobile"
+					v-model="State_Register.data.mobile"
+					:configs="State_Register.configsForm.mobile"
 					autocomplete="username" />
 				<xGap t="20" />
 				<div class="flex">
 					<!-- 验证码 -->
 					<xItem
-						v-model="StateRegister.data.verificationCode"
-						:configs="StateRegister.configsForm.verificationCode"
+						v-model="State_Register.data.verificationCode"
+						:configs="State_Register.configsForm.verificationCode"
 						autocomplete="current-password" />
 					<xGap l="20" />
 					<!-- 获取验证码的按钮 -->
-					<xButtonCountDown :configs="StateRegister.configsVerificationCode" />
+					<xButtonCountDown :configs="State_Register.configsVerificationCode" />
 				</div>
 			</form>
 			<xGap t="20" />
 			<div class="item-wrapper flex">
-				<xButton :configs="StateRegister.configsSubmit" />
+				<xButton :configs="State_Register.configsSubmit" />
 				<xGap l="80" />
 				<RouterLink class="register" :to="{ name: routeNames.login }">
 					{{ $t("user.register.sign-in").label }}

@@ -28,6 +28,6 @@ const handlers = {
 	<Button @click="handlers.clickBtn">
 		{{ $t("user.login.username").label }}
 	</Button>
-	<xRender :render="renders.test" :state="StateLogin" />
+	<xRender :render="renders.test" :state="State_Login" />
 	<Button @click="handlers.clickBtn"> count is: {{ state.count }} </Button>
 </template>

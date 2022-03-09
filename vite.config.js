@@ -11,6 +11,16 @@ export default defineConfig({
 	server: {
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd())]
+		},
+		proxy: {
+			"^/auth/v1": {
+				target: "https://www.ventose.xyz/https/book",
+				changeOrigin: true
+			},
+			"^/v1": {
+				target: "https://www.ventose.xyz/https/book",
+				changeOrigin: true
+			}
 		}
 	},
 	base: "./",
@@ -22,11 +32,12 @@ export default defineConfig({
 	},
 	build: {
 		/* 没有混缩 */
-		minify: false,
+		minify: true,
+		assetsDir: "statics/assets",
 		rollupOptions: {
 			output: {
-				chunkFileNames: "js/[name]-[hash].js",
-				entryFileNames: "js/[name]-[hash].js"
+				chunkFileNames: "statics/js/[name]-[hash].js",
+				entryFileNames: "statics/js/[name]-[hash].js"
 			}
 		}
 		/* lib: {

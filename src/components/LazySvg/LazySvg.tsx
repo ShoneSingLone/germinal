@@ -4,6 +4,7 @@ import each from "lodash/each";
 import isFunction from "lodash/isFunction";
 import $ from "jquery";
 import "./LazySvg.less";
+import { LoadingOutlined } from "@ant-design/icons-vue";
 
 const icons = import.meta.glob("../../assets/svg/*.svg");
 
@@ -31,7 +32,6 @@ export default defineComponent(
 				if (isFunction(getComponent)) {
 					const { default: iconString } = await getComponent();
 					ICON_STRING_CACHE[this.icon] = iconSvgString = iconString;
-					console.log(ICON_STRING_CACHE);
 				}
 			}
 			if (iconSvgString) {

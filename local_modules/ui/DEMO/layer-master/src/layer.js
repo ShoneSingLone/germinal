@@ -423,6 +423,7 @@
 					"</span>" +
 					(config.btn
 						? (function () {
+								/* 按钮 */
 								var button = "";
 								typeof config.btn === "string" && (config.btn = [config.btn]);
 								for (var i = 0, len = config.btn.length; i < len; i++) {
@@ -435,15 +436,9 @@
 										config.btn[i] +
 										"</a>";
 								}
-								return (
-									'<div class="' +
-									doms[6] +
-									" layui-layer-btn-" +
-									(config.btnAlign || "") +
-									'">' +
-									button +
-									"</div>"
-								);
+								return ` <div class="${doms[6]} layui-layer-btn-${
+									config.btnAlign || ""
+								}">${button}</div>`;
 						  })()
 						: "") +
 					(config.resize ? '<span class="layui-layer-resize"></span>' : "") +
@@ -1340,7 +1335,7 @@
 
 	/** 
 
-    拓展模块，layui 开始合并在一起
+	拓展模块，layui 开始合并在一起
 
    */
 
@@ -1600,12 +1595,12 @@
 		//一些动作
 		dict.event = function () {
 			/*
-      dict.bigimg.hover(function(){
-        dict.imgsee.show();
-      }, function(){
-        dict.imgsee.hide();
-      });
-      */
+	  dict.bigimg.hover(function(){
+		dict.imgsee.show();
+	  }, function(){
+		dict.imgsee.hide();
+	  });
+	  */
 
 			dict.bigimg.find(".layui-layer-imgprev").on("click", function (event) {
 				event.preventDefault();

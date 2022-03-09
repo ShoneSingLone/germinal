@@ -5,11 +5,9 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import { lStorage } from "@ventose/ui/tools/storage";
-import { setDocumentTitle } from "@ventose/ui/tools/dom";
-import { StateApp, StateAppActions } from "lsrc/state/StateApp";
+import { State_App, Actions_App } from "lsrc/state/State_App";
 import { $t } from "lsrc/language";
-import LayoutBasic from "lsrc/layout/LayoutBasic.vue";
+import { _, setDocumentTitle } from "@ventose/ui";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
 console.log("viewModules", viewModules);
@@ -39,7 +37,7 @@ const routes = [
 	{
 		name: routeNames.shell,
 		path: "/",
-		component: LayoutBasic,
+		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [{ name: "first", path: "first", component: DevDemo }]
 	},
 	NewRoute(routeNames.devDemo, DevDemo),
@@ -73,12 +71,11 @@ NProgress.configure({
 	showSpinner: false
 });
 
-const allowList = [
+const allowVisitPageWhenNoAccess = [
 	routeNames.login,
 	routeNames.userLogin,
 	routeNames.register,
-	routeNames.registerResult,
-	routeNames[404]
+	routeNames.registerResult
 ];
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
@@ -87,22 +84,36 @@ const defaultRoutePath = toPath(routeNames.dashboardWorkplace);
 router.beforeEach(async (to, from) => {
 	/*NOTICE:返回 false 以取消导航*/
 	/* https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB */
-	console.log("🚀 ", to.path, from.path);
+	_.doNothing(to.path, from.path);
 	NProgress.start();
 	const hasAccessTokenHandler = async () => {
-		if (to.path === loginRoutePath) {
+		const allowPath = allowVisitPageWhenNoAccess.map(name => toPath(name));
+		_.doNothing(allowPath, to.path);
+		if (allowPath.includes(to.path)) {
 			return {
 				path: defaultRoutePath
 			};
 		} else {
-			if (StateApp.roles?.length === 0) {
-				await AppActions.GetInfo();
+			/* if (!State_App.roles || State_App.roles.length === 0) {
+				await Actions_App.GetInfo();
+			} */
+
+			if (from.query.redirect) {
+				if (to.path === from.query.redirect) {
+					/* set the replace: true so the navigation will not leave a history record */
+					return { ...to, replace: true };
+				} else {
+					/* 回到刚才无权限的页面 */
+					return {
+						path: from.query.redirect,
+						query: _.omit(from.query, "redirect")
+					};
+				}
 			}
 		}
 	};
 	const noAccessTokenHandler = () => {
-		if (!allowList.includes(to.name)) {
-			// 在免登录名单，直接进入
+		if (!allowVisitPageWhenNoAccess.includes(to.name)) {
 			return {
 				path: loginRoutePath,
 				query: {
@@ -113,34 +124,16 @@ router.beforeEach(async (to, from) => {
 	};
 
 	try {
-		if (lStorage.ACCESS_TOKEN) {
-			await hasAccessTokenHandler();
-		} else {
-			noAccessTokenHandler();
-		}
-	} catch (e) {
-		console.error(e);
-		/*  */
+		const hasToken = !!State_App.token;
+		return hasToken ? await hasAccessTokenHandler() : noAccessTokenHandler();
+	} catch (error) {
+		console.error(error);
 		return false;
 	} finally {
-		NProgress.done();
-	}
-
-	try {
-		if (lStorage.ACCESS_TOKEN) {
-			await hasAccessTokenHandler();
-		} else {
-			noAccessTokenHandler();
+		if (to?.meta?.title) {
+			setDocumentTitle(to.meta.title);
 		}
-	} catch (e) {
-		console.error(e);
-		/*  */
-		return false;
-	} finally {
 		NProgress.done();
-	}
-	if (to?.meta?.title) {
-		setDocumentTitle(to.meta.title);
 	}
 });
 

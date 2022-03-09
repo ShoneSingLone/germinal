@@ -1,3 +1,5 @@
+import { _ } from "../loadCommonUtil";
+
 export const EVENT_TYPE = {
 	validateForm: "validateForm",
 	update: "update",
@@ -32,11 +34,13 @@ export async function validateForm(configsForm) {
 						};
 						/*触发方式是校验表单，将无视其他trigger规则，权重最大*/
 						configs.validate(EVENT_TYPE.validateForm);
+					} else {
+						resolve();
 					}
 				})
 		)
 	);
-	results = results.filter(res => res[0] && res[1]);
+	results = results.filter(res => res && res[0] && res[1]);
 	return results;
 }
 
@@ -45,7 +49,7 @@ export async function validateForm(configsForm) {
  * @param {*} res
  * @returns
  */
-validateForm.allWasWell = res => {
+export const AllWasWell = res => {
 	return _.isArray(res) && res.length === 0;
 };
 
@@ -62,7 +66,7 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 				let isFail = await (async () => {
 					/*如果是validateForm 无视 trigger 限定的事件列表，否则根据trigger列表 */
 					let trigBy;
-					const needValidate = (() => {
+					const isNeedVerify = (() => {
 						/*is ValidateForm*/
 						if (
 							xItemConfigs.validate.triggerEventsObj[EVENT_TYPE.validateForm]
@@ -96,11 +100,11 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 
 					trigBy &&
 						console.log(
-							`%cValidate trig by [${trigBy}]`,
+							`%cValidate trigger off by [${trigBy}]`,
 							"color:yellow;background:green;"
 						);
 
-					if (needValidate) {
+					if (isNeedVerify) {
 						const validateResult = await rule.validator(xItemConfigs.value);
 						if (validateResult) {
 							return validateResult;
@@ -110,7 +114,6 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 					}
 					return false;
 				})();
-
 				/* 但凡有一个校验不通过就可以停止循环返回结果了 */
 				if (isFail) {
 					return [prop, rule.msg, xItemConfigs.FormItemId];

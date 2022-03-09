@@ -1,4 +1,5 @@
 import $ from "jquery";
+import { _ } from "../loadCommonUtil";
 
 const get$head = () => {
 	let $head = $("html head");
@@ -8,6 +9,7 @@ const get$head = () => {
 	}
 	return $head;
 };
+
 const get$title = () => {
 	let $head = get$head();
 	let $title = $head.find("title");
@@ -17,6 +19,7 @@ const get$title = () => {
 	}
 	return $title;
 };
+
 const get$cssVariables = () => {
 	let $head = get$head();
 	let $cssVariables = $head.find("#cssVariables");
@@ -26,6 +29,7 @@ const get$cssVariables = () => {
 	}
 	return $cssVariables;
 };
+
 /**
  * setTitle
  * @param {*} title

@@ -1,4 +1,4 @@
-import { Input } from "ant-design-vue";
+import { Input, InputNumber } from "ant-design-vue";
 import { InputPassword } from "ant-design-vue/es/input";
 import { h } from "vue";
 
@@ -10,6 +10,12 @@ import { h } from "vue";
  * @returns {any}
  */
 export default ({ property, slots, listeners }) => {
-	const component = property.isPassword ? InputPassword : Input;
-	return h(component, { ...property, ...listeners }, slots);
+	let component = Input;
+	if (property.isPassword) {
+		component = InputPassword;
+	}
+	if (property.isNumber) {
+		component = InputNumber;
+	}
+	return <component {...property} {...listeners} v-slots={slots} />;
 };

@@ -1,6 +1,6 @@
 import $ from "jquery";
-import { genId } from "../common";
 import layer from "./layer/layer";
+import { _ } from "../loadCommonUtil";
 
 const timeoutDelay = 400;
 /* 缓存 popover 的配置信息 */
@@ -13,11 +13,12 @@ const visibleArea = {};
 
 /* 监听 触发popover的事件 hover click */
 export function installPopoverDirective(app, appSettings) {
-	const appId = genId("appId");
+	const appId = _.genId("appId");
+	console.log("todo addPlugin");
 	appAddPlugin[appId] = appSettings.addPlugins;
 	app.directive("uiPopover", {
 		mounted(el, binding) {
-			const followId = genId("xPopoverTarget");
+			const followId = _.genId("xPopoverTarget");
 			$(el).addClass("x-ui-popover").attr("id", followId);
 			el.dataset["followId"] = followId;
 			el.dataset["appId"] = appId;

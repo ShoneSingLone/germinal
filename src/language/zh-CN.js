@@ -1,9 +1,10 @@
 export default {
+	logout: "退出",
 	"tips.0": "未知错误",
 	"tips.404": "请求的资源不存在",
 	welcome: "欢迎",
 	"welcome.back": "欢迎回来",
-	"login.title": "demo",
+	"login.title": "antd vue3 admin",
 	BackHome: "回到主页",
 	notFoundTips: "对不起，没有找到您要访问的页面",
 	"layouts.usermenu.dialog.title": "信息",

@@ -5,7 +5,7 @@
 			{{ $t(passwordLevelName).label }}
 		</div>
 		<Progress
-			:percent="StateRegister.statePassword.percent"
+			:percent="State_Register.statePassword.percent"
 			:show-info="false"
 			:stroke-color="passwordLevelColor"
 			:get-popup-container="trigger => trigger.parentElement" />

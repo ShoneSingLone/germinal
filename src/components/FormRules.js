@@ -1,4 +1,4 @@
-import { EVENT_TYPE } from "@ventose/ui/tools/validate";
+import { EVENT_TYPE, _ } from "@ventose/ui";
 
 /* 通过校验，无错 */
 const SUCCESS = false;
@@ -14,8 +14,8 @@ export const RegexFn = {
 /**
  *  暂时没想好，之前是msg根据i18n变化
  Object.defineProperty(options,"msg",{ get(){
-        return msg();
-    } });
+		return msg();
+	} });
  */
 const makeFormRules = options => options;
 
