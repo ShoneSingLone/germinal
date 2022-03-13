@@ -6,7 +6,6 @@ import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
 import { $t } from "lsrc/language";
-
 export const State_App = reactive({
 	theme: "light",
 	menuTree: [],
@@ -78,7 +77,7 @@ watch(
 
 /* Mutation 同步修改 */
 
-export const StateAppMutations = {
+export const Mutations_App = {
 	/**
 	 * 折叠菜单
 	 */
@@ -89,6 +88,13 @@ export const StateAppMutations = {
 
 /* Action 异步修改 效果同事务 自己去保证原子性 */
 export const Actions_App = {
+	setToken(token) {
+		lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
+		State_App.token = token;
+		if (!token) {
+			State_App.user = false;
+		}
+	},
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
@@ -113,9 +119,13 @@ export const Actions_App = {
 		console.timeEnd("initAppConfigs");
 		return State_App;
 	},
-	GetInfo: async () => {
-		const { result } = await API.user.getInfo();
-		if (result.role && result.role.permissions.length > 0) {
+	setUserInfo: async () => {
+		const params = {
+			type: "user"
+		};
+		const user = await API.user.user(params);
+		State_App.user = user;
+		/* if (result.role && result.role.permissions.length > 0) {
 			const role = result.role;
 			role.permissions = result.role.permissions;
 			role.permissions.map(per => {
@@ -130,38 +140,40 @@ export const Actions_App = {
 				return permission.permissionId;
 			});
 			State_App.roles = result.role;
-			State_App.info = result;
+			State_App.info = result; 
 		} else {
 			Promise.reject(new Error("getInfo: roles must be a non-null array !"));
-		}
+		}*/
 	},
-	async register({ username, password, passwordConfirm }) {
+	async register({ email, password, passwordConfirm, verifyCode }) {
 		const params_register = {
-			username,
+			email,
 			password: md5(password),
-			repassword: md5(passwordConfirm)
+			repassword: md5(passwordConfirm),
+			verifyCode: verifyCode
 		};
 		_.doNothing(params_register);
 		await SuccessOrFail({
 			request: () => API.user.regster(params_register),
-			success: ({ username }) => {
+			success: ({ email }) => {
 				UI.message.success({
 					content: $t("user.register-result.msg", {
-						email: username
+						email: email
 					}).label
 				});
 			}
 		});
 	},
-	async Login({ username, password }) {
+	async Login({ email, password }) {
 		const loginParams = {
-			username,
+			email: email,
 			password: md5(password)
 		};
 		await SuccessOrFail({
 			request: () => API.user.login(loginParams),
-			success: res => {
-				setToken(res.token);
+			success: user => {
+				/* 设置token */
+				Actions_App.setToken(user.token);
 			}
 		});
 	},
@@ -169,7 +181,7 @@ export const Actions_App = {
 		try {
 			const res = await API.user.logout();
 			/* 退出成功后清空token */
-			setToken("");
+			Actions_App.setToken("");
 			/* fixed循环引用 */
 			const { router, routeNames } = await import("lsrc/router/router");
 			router.push({
@@ -180,8 +192,3 @@ export const Actions_App = {
 		}
 	}
 };
-
-function setToken(token) {
-	lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
-	State_App.token = token;
-}

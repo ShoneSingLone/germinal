@@ -59,10 +59,10 @@ const configsTestPopover = {
 			<form>
 				<!-- 用户名 -->
 				<xItem
-					ref="username"
-					v-model="State_Register.data.username"
-					:configs="State_Register.configsForm.username"
-					autocomplete="username" />
+					ref="email"
+					v-model="State_Register.data.email"
+					:configs="State_Register.configsForm.email"
+					autocomplete="email" />
 				<xGap t="20" />
 				<!-- 密码 -->
 				<Popover
@@ -100,21 +100,15 @@ const configsTestPopover = {
 					autocomplete="current-password" />
 
 				<xGap t="20" />
-				<!-- 手机号 -->
-				<xItem
-					v-model="State_Register.data.mobile"
-					:configs="State_Register.configsForm.mobile"
-					autocomplete="username" />
-				<xGap t="20" />
 				<div class="flex">
 					<!-- 验证码 -->
 					<xItem
-						v-model="State_Register.data.verificationCode"
-						:configs="State_Register.configsForm.verificationCode"
+						v-model="State_Register.data.verifyCode"
+						:configs="State_Register.configsForm.verifyCode"
 						autocomplete="current-password" />
 					<xGap l="20" />
 					<!-- 获取验证码的按钮 -->
-					<xButtonCountDown :configs="State_Register.configsVerificationCode" />
+					<xButtonCountDown :configs="State_Register.configsverifyCode" />
 				</div>
 			</form>
 			<xGap t="20" />

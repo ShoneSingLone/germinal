@@ -6,9 +6,9 @@ import { State_Login } from "lsrc/views/user/State_Login.jsx";
 	<form>
 		<!-- 用户名 -->
 		<xItem
-			v-model="State_Login.data.username"
-			:configs="State_Login.configsForm.username"
-			autocomplete="username" />
+			v-model="State_Login.data.email"
+			:configs="State_Login.configsForm.email"
+			autocomplete="email" />
 		<xGap t="20" />
 		<!-- 密码 -->
 		<xItem

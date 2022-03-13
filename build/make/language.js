@@ -28,14 +28,11 @@ const languageContent = {
 	/*  */
 	"user.login.username": m("用户名", "username"),
 	"user.login.password": m("密码", "password"),
-	"user.login.username.placeholder": m("账户: admin", "Account: admin"),
-	"user.login.password.placeholder": m(
-		"密码: admin or ant.design",
-		"password: admin or ant.design"
-	),
+	"user.login.email.placeholder": m("邮箱", "Email"),
+	"user.login.password.placeholder": m("密码", "password"),
 	"user.login.message-invalid-credentials": m(
-		"账户或密码错误（admin/ant.design）",
-		"Invalid username or password（admin/ant.design）"
+		"邮箱或密码错误",
+		"Invalid email or password"
 	),
 	"user.login.message-invalid-verification-code": m(
 		"验证码错误",
@@ -85,10 +82,7 @@ const languageContent = {
 		"邮箱地址格式错误！",
 		"The email address is in the wrong format!"
 	),
-	"user.username.required": m(
-		"请输入帐户名或邮箱地址",
-		"Please enter account name or email address"
-	),
+	"user.email.required": m("请输入邮箱地址", "Please enter email address"),
 	"user.password.required": m("请输入密码！", "Please enter your password!"),
 	"user.password.twice.msg": m(
 		"两次输入的密码不匹配!",

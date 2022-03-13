@@ -1,6 +1,5 @@
 import { defineComponent } from "vue";
 import $ from "jquery";
-import { io } from "socket.io-client";
 import { lStorage } from "@ventose/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 
