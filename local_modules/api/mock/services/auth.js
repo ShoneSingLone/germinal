@@ -1,65 +1,69 @@
 import Mock from "mockjs";
+import _ from "lodash";
 import { builder, getBody } from "../util";
 import { URL } from "../../url";
 
-const username = ["admin", "super"];
-// 强硬要求 ant.design 相同密码
-// '21232f297a57a5a743894a0e4a801fc3',
-const password = [
-	"8914de686ab28dc22f30d3d8e107ff6c",
-	"21232f297a57a5a743894a0e4a801fc3"
-]; // admin, ant.design
-
-const login = options => {
-	const bodyString = String(options.body);
-	if (
-		bodyString !==
-		`{"username":"admin","password":"21232f297a57a5a743894a0e4a801fc3"}`
-	) {
-		return builder({ isLogin: true }, "账户或密码错误", 401);
-	}
-	const result = builder(
+const MOCK_MAP = [
+	[
+		"https://www.singlone.work/https/book/v1/login",
+		"post",
 		{
-			id: Mock.mock("@guid"),
-			name: Mock.mock("@name"),
-			username: "admin",
-			password: "",
-			avatar:
-				"https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png",
-			status: 1,
-			telephone: "",
-			lastLoginIp: "27.154.74.117",
-			lastLoginTime: 1534837621348,
-			creatorId: "admin",
-			createTime: 1497160610259,
-			deleted: 0,
-			roleId: "admin",
-			lang: "zh-CN",
-			token: "4291d7da9005377ec9aec4a71ea837f"
-		},
-		"",
-		200,
-		{ "Custom-Header": Mock.mock("@guid") }
-	);
-	return result;
-};
+			msg: "ok",
+			data: {
+				id: 8,
+				username: "ShoneSingLone",
+				nickname: "ShoneSingLone",
+				email: "SingLone@foxmail.com",
+				avatar: "https://avatars.githubusercontent.com/u/15919400?s=40&v=4",
+				phone: null,
+				sex: "",
+				status: 1,
+				sign: "",
+				area: "",
+				token: "mock"
+			}
+		}
+	],
+	[
+		"https://www.singlone.work/https/book/auth/v1/user",
+		"post",
+		{
+			msg: "ok",
+			data: {
+				id: 8,
+				username: "ShoneSingLone",
+				nickname: "ShoneSingLone",
+				email: "SingLone@foxmail.com",
+				avatar: "https://avatars.githubusercontent.com/u/15919400?s=40&v=4",
+				phone: null,
+				sex: "",
+				status: 1,
+				sign: "",
+				area: "",
+				created_at: "2022-03-13T10:46:38.000Z",
+				updated_at: "2022-03-13T10:46:38.000Z",
+				token: "token"
+			}
+		}
+	],
+	[
+		"https://www.singlone.work/https/book/auth/v1/logout",
+		"post",
+		{
+			msg: "ok",
+			data: "退出成功"
+		}
+	],
+	[
+		"https://www.singlone.work/https/book/auth/v1/logout",
+		"post",
+		{
+			msg: "ok",
+			data: "退出成功"
+		}
+	]
+];
 
-const logout = () => {
-	return builder({}, "[测试接口] 注销成功", 200);
-};
-
-const smsCaptcha = () => {
-	return builder({ captcha: Mock.mock("@integer(10000, 99999)") });
-};
-
-const twofactor = () => {
-	return builder({ stepCode: Mock.mock("@integer(0, 1)") });
-};
-
-Mock.mock(URL.Login, "post", login);
-Mock.mock(URL.Logout, "post", logout);
-Mock.mock(/\/account\/sms/, "post", smsCaptcha);
-Mock.mock(/\/auth\/2step-code/, "post", twofactor);
-Mock.mock(`/admin/license/api/list/page/10/1`, "post", twofactor => {
-	return builder({ captcha: Mock.mock("@integer(10000, 99999)") });
+Mock.mock(/https/, "post", ({ url }) => {
+	return MOCK_MAP[url] || url;
 });

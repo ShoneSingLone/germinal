@@ -7,6 +7,9 @@ import svgHelper from "./vite.config.plugins.svg";
 import { injectHtml } from "vite-plugin-html";
 import importToCdn from "vite-plugin-cdn-import";
 
+const isPro = process.env.NODE_ENV === "production";
+console.log("🚀 isPro", isPro);
+
 /* https://vitejs.dev/config/ */
 export default defineConfig({
 	server: {
@@ -75,9 +78,9 @@ export default defineConfig({
 			}
 		})
 	].concat(
-		(isDev => {
+		(() => {
 			const productPluginArray = [];
-			if (!isDev) {
+			if (isPro) {
 				productPluginArray.push(
 					importToCdn({
 						modules: [
@@ -100,6 +103,7 @@ export default defineConfig({
 					})
 				);
 			}
-		})(process.env.NODE_ENV !== "production")
+			return productPluginArray;
+		})()
 	)
 });

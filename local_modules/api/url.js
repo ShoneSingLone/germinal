@@ -8,6 +8,7 @@ window.URL_WS_BASE = `wss://www.singlone.work/ws`;
 const auth = "/auth";
 const version = window.URL_API_VERSION;
 export const URL = {
+	test: () => `${window.URL_API_BASE}/`,
 	regster: () => `${window.URL_API_BASE}${version}/reg`,
 	Login: () => `${window.URL_API_BASE}${version}/login`,
 	VerifyEmail: () => `${window.URL_API_BASE}${version}/verify_email`,
