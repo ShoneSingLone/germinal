@@ -4,15 +4,15 @@ import axios from "axios";
 import { STATIC_WORD } from "../utils/common.words";
 
 const ajax = axios.create({
-	headers: {
-		token: lStorage.token || ""
-	},
 	timeout: 20000 // request timeout
 });
 
 // request interceptor
 ajax.interceptors.request.use(
-	config => config,
+	config => {
+		config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
+		return config;
+	},
 	error => Promise.reject(error)
 );
 
