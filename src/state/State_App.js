@@ -27,7 +27,7 @@ export const State_App = reactive({
 	user: false,
 	count: 0,
 	isMobile: false,
-	configs: lStorage.appConfigs,
+	configs: lStorage.appConfigs || {},
 	// isDev: import.meta.env.MODE === "development"
 	isDev: true
 });
@@ -106,9 +106,7 @@ export const Actions_App = {
 		);
 		/* 开发模式|没有configs|configs的version落后当前版本 */
 		const isLoadConfigs =
-			State_App.isDev ||
-			!State_App.configs ||
-			State_App.configs.version !== currentAppVersion;
+			State_App.isDev || State_App.configs.version !== currentAppVersion;
 		if (isLoadConfigs) {
 			const configs = (await ajax.loadText("./configs.jsx"))();
 			configs.version = currentAppVersion;
