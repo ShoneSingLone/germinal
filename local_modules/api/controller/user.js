@@ -13,16 +13,12 @@ export const user = {
 		return await ajax.post(URL.regster(), params);
 	},
 	async logout() {
-		return await ajax.post(URL.Logout);
+		return await ajax.post(URL.Logout());
 	},
-	async getSmsCaptcha() {
-		return {
-			result: {
-				code: genSmsCaptcha()
-			}
-		};
+	async getVerifyEmail(params) {
+		return await ajax.post(URL.VerifyEmail(), params);
 	},
-	async getInfo() {
-		return await ajax.get(URL.UserInfo);
+	async user(params) {
+		return await ajax.post(URL.User(), params);
 	}
 };

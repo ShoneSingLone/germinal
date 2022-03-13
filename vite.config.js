@@ -5,6 +5,7 @@ import usePluginImport from "vite-plugin-importer";
 import path from "path";
 import svgHelper from "./vite.config.plugins.svg";
 import { injectHtml } from "vite-plugin-html";
+import importToCdn from "vite-plugin-cdn-import";
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
@@ -13,13 +14,15 @@ export default defineConfig({
 			allow: [searchForWorkspaceRoot(process.cwd())]
 		},
 		proxy: {
-			"^/auth/v1": {
-				target: "https://www.ventose.xyz/https/book",
-				changeOrigin: true
+			"/v1": {
+				target: "https://wwww.singlone.work/https/book/",
+				changeOrigin: true,
+				secure: false
 			},
-			"^/v1": {
-				target: "https://www.ventose.xyz/https/book",
-				changeOrigin: true
+			"/auth/v1": {
+				target: "https://wwww.singlone.work/https/book/",
+				changeOrigin: true,
+				secure: false
 			}
 		}
 	},
@@ -32,7 +35,7 @@ export default defineConfig({
 	},
 	build: {
 		/* 没有混缩 */
-		minify: true,
+		minify: false,
 		assetsDir: "statics/assets",
 		rollupOptions: {
 			output: {
@@ -71,5 +74,32 @@ export default defineConfig({
 				version: Date.now()
 			}
 		})
-	]
+	].concat(
+		(isDev => {
+			const productPluginArray = [];
+			if (!isDev) {
+				productPluginArray.push(
+					importToCdn({
+						modules: [
+							{
+								name: "vue",
+								var: "Vue",
+								path: "https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.js"
+							},
+							{
+								name: "vue-router",
+								var: "VueRouter",
+								path: "https://cdn.bootcdn.net/ajax/libs/vue-router/4.0.12/vue-router.global.min.js"
+							},
+							{
+								name: "axios",
+								var: "axios",
+								path: "https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js"
+							}
+						]
+					})
+				);
+			}
+		})(process.env.NODE_ENV === "production")
+	)
 });

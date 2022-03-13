@@ -1,4 +1,5 @@
 import { EVENT_TYPE, _ } from "@ventose/ui";
+import { $t } from "lsrc/language";
 
 /* 通过校验，无错 */
 const SUCCESS = false;
@@ -39,8 +40,26 @@ export default {
 		return {
 			name: "Demo",
 			msg: "Demo",
-			async validator() {
+			async validator(value) {
 				await _.sleep(1000);
+				return FAIL;
+			},
+			trigger: [
+				EVENT_TYPE.update,
+				EVENT_TYPE.input,
+				EVENT_TYPE.change,
+				EVENT_TYPE.blur
+			]
+		};
+	},
+	email() {
+		return {
+			name: "email",
+			msg: $t("user.email.wrong-format").label,
+			async validator(value) {
+				if (RegexFn.email().test(value)) {
+					return SUCCESS;
+				}
 				return FAIL;
 			},
 			trigger: [

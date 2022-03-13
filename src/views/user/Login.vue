@@ -16,24 +16,17 @@ import {
 <template>
 	<div class="main">
 		<div class="user-layout-login ant-form ant-form-horizontal">
-			<Tabs
-				id="user-layout-login_tab"
-				v-model:activeKey="State_Login.activeTabKey">
-				<TabPane
-					key="credentials"
-					:tab="$t('user.login.tab-login-credentials').label">
-					<Alert
-						v-if="State_Login.alertTips"
-						type="error"
-						show-icon
-						style="margin-bottom: 24px"
-						:message="State_Login.alertTips" />
-					<LoginCredentials />
-				</TabPane>
-				<TabPane key="mobile" :tab="$t('user.login.tab-login-mobile').label">
-					<LoginCredentialsMobile />
-				</TabPane>
-			</Tabs>
+			<!-- <Tabs id="user-layout-login_tab" v-model:activeKey="State_Login.activeTabKey" > -->
+			<!-- <TabPane key="credentials" :tab="$t('user.login.tab-login-credentials').label" > </TabPane> -->
+			<!-- <TabPane key="mobile" :tab="$t('user.login.tab-login-mobile').label"> <LoginCredentialsMobile /> </TabPane> -->
+			<!-- </Tabs> -->
+			<Alert
+				v-if="State_Login.alertTips"
+				type="error"
+				show-icon
+				style="margin-bottom: 24px"
+				:message="State_Login.alertTips" />
+			<LoginCredentials />
 			<div class="item-wrapper flex between">
 				<Checkbox v-model:checked="State_Login.rememberMe">
 					{{ $t("user.login.remember-me").label }}
@@ -48,15 +41,6 @@ import {
 			<div class="item-wrapper">
 				<div class="user-login-other">
 					<span>{{ $t("user.login.sign-in-with").label }}</span>
-					<a>
-						<AlipayCircleFilled class="item-icon" type="AlipayCircleFilled" />
-					</a>
-					<a>
-						<TaobaoCircleFilled class="item-icon" type="TaobaoCircleFilled" />
-					</a>
-					<a>
-						<WeiboCircleFilled class="item-icon" type="WeiboCircleFilled" />
-					</a>
 					<router-link class="register" :to="{ name: routeNames.register }">
 						{{ $t("user.login.signup").label }}
 					</router-link>

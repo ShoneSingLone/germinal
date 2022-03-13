@@ -2,7 +2,7 @@
 import {
 	getColor,
 	State_App,
-	StateAppMutations,
+	Mutations_App,
 	Actions_App
 } from "lsrc/state/State_App";
 import MenuTree from "lsrc/components/MenuTree.vue";
@@ -17,7 +17,7 @@ const render = {
 	/*自定义的折叠按钮*/
 	/*collapsedButton({vm, attrs, props}) {
     return (
-        <Button type="text" size="small" onClick={StateAppMutations.toggleCollapsed}>
+        <Button type="text" size="small" onClick={Mutations_App.toggleCollapsed}>
           {State_App.collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
         </Button>
     );
@@ -28,8 +28,8 @@ const render = {
 <template>
 	<Layout class="layout-basic">
 		<LayoutSider
-			:theme="State_App.theme"
 			v-model:collapsed="State_App.collapsed"
+			:theme="State_App.theme"
 			collapsible
 			:style="State_App.layoutStyle.sider">
 			<div class="log" style="width: 100%; text-align: center">
@@ -55,7 +55,8 @@ const render = {
 					<Dropdown placement="bottomRight">
 						<Avatar>
 							<template #icon>
-								<UserOutlined />
+								<img v-if="State_App.user" :src="State_App.user.avatar" />
+								<UserOutlined v-else />
 							</template>
 						</Avatar>
 						<template #overlay>
@@ -63,7 +64,7 @@ const render = {
 								<MenuItem>
 									<div class="flex">
 										<LazySvg icon="user" />
-										ShoneSingLone
+										{{ State_App.user.email }}
 									</div>
 								</MenuItem>
 								<MenuItem>

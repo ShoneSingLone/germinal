@@ -5,7 +5,7 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import { State_App, Actions_App } from "lsrc/state/State_App";
+import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
 import { $t } from "lsrc/language";
 import { _, setDocumentTitle } from "@ventose/ui";
 
@@ -18,7 +18,14 @@ const RouteView = {
 };
 
 export const NewRoute = (name, component, options = {}) =>
-	_.merge({ name, path: `/${name}`, component }, options);
+	_.merge(
+		{
+			name,
+			path: `/${name}`,
+			component
+		},
+		options
+	);
 
 export const routeNames = {
 	shell: "shell",
@@ -38,17 +45,27 @@ const routes = [
 		name: routeNames.shell,
 		path: "/",
 		component: import("lsrc/layout/LayoutBasic.vue"),
-		children: [{ name: "first", path: "first", component: DevDemo }]
+		children: [
+			{
+				name: "first",
+				path: "first",
+				component: DevDemo
+			}
+		]
 	},
 	NewRoute(routeNames.devDemo, DevDemo),
 	NewRoute(routeNames.login, LayoutUser, {
 		redirect: toPath(routeNames.userLogin),
 		children: [
 			NewRoute(routeNames.userLogin, Login, {
-				meta: { title: $t("user.login.login").label }
+				meta: {
+					title: $t("user.login.login").label
+				}
 			}),
 			NewRoute(routeNames.register, Register, {
-				meta: { title: $t("user.login.signup").label }
+				meta: {
+					title: $t("user.login.signup").label
+				}
 			})
 		]
 	}),
@@ -94,6 +111,9 @@ router.beforeEach(async (to, from) => {
 				path: defaultRoutePath
 			};
 		} else {
+			if (!State_App.user) {
+				await Actions_App.setUserInfo();
+			}
 			/* if (!State_App.roles || State_App.roles.length === 0) {
 				await Actions_App.GetInfo();
 			} */
@@ -101,7 +121,10 @@ router.beforeEach(async (to, from) => {
 			if (from.query.redirect) {
 				if (to.path === from.query.redirect) {
 					/* set the replace: true so the navigation will not leave a history record */
-					return { ...to, replace: true };
+					return {
+						...to,
+						replace: true
+					};
 				} else {
 					/* 回到刚才无权限的页面 */
 					return {

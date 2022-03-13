@@ -5,22 +5,18 @@ import {
 	validateForm,
 	defItem,
 	pickValueFrom,
-	AllWasWell
+	AllWasWell,
+	lStorage
 } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import {
 	Actions_App,
 	getColor,
-	StateAppMutations,
+	Mutations_App,
 	State_App
 } from "lsrc/state/State_App";
 import { getCaptcha } from "./State_Login";
-import {
-	UserOutlined,
-	MobileOutlined,
-	LockOutlined,
-	MailOutlined
-} from "@ant-design/icons-vue";
+import { LockOutlined, MailOutlined } from "@ant-design/icons-vue";
 
 const styles = {
 	icon: {
@@ -42,26 +38,26 @@ export const State_Register = reactive({
 	},
 	captchaCount: 0,
 	data: {
-		username: "",
-		password: "",
-		passwordConfirm: "",
-		mobile: "",
-		verificationCode: ""
+		email: lStorage.email || "",
+		password: lStorage.password || "",
+		passwordConfirm: lStorage.password || "",
+		verifyCode: ""
 	},
 	configsForm: {
 		...defItem({
-			prop: "username",
+			prop: "email",
 			size: "large",
 			/* render的时候重新获取 */
-			placeholder: () => $t("user.login.username.placeholder").label,
+			placeholder: () => $t("user.login.email.placeholder").label,
 			rules: [
 				FormRules.required(
-					() => $t("user.username.required").label,
+					() => $t("user.email.required").label,
 					[EVENT_TYPE.blur]
-				)
+				),
+				FormRules.email()
 			],
 			slots: {
-				prefix: () => <UserOutlined style={styles.icon} />
+				prefix: () => <MailOutlined style={styles.icon} />
 			}
 		}),
 		...defItem({
@@ -111,29 +107,9 @@ export const State_Register = reactive({
 			}
 		}),
 
-		...defItem({
-			prop: "mobile",
-			size: "large",
-			/* render的时候重新获取 */
-			placeholder: () => $t("user.login.mobile.placeholder").label,
-			rules: [
-				FormRules.required(
-					() => $t("user.login.mobile.placeholder").label,
-					[EVENT_TYPE.blur]
-				),
-				FormRules.validator({
-					msg: () => $t("user.login.mobile.placeholder").label,
-					validator: async mobile => !RegexFn.mobile().test(mobile),
-					trigger: [EVENT_TYPE.update]
-				})
-			],
-			slots: {
-				prefix: () => <MobileOutlined style={styles.icon} />
-			}
-		}),
 		/*验证码*/
 		...defItem({
-			prop: "verificationCode",
+			prop: "verifyCode",
 			size: "large",
 			itemWrapperClass: "flex1",
 			/* render的时候重新获取 */
@@ -151,7 +127,7 @@ export const State_Register = reactive({
 		})
 	},
 	/* 获取验证码按钮 */
-	configsVerificationCode: {
+	configsverifyCode: {
 		countMax: State_App.configs.countMax,
 		text: {
 			normal: () => $t("user.register.get-verification-code").label
@@ -159,11 +135,11 @@ export const State_Register = reactive({
 		onClick: async ({ countDown }) => {
 			try {
 				const results = await validateForm({
-					mobile: State_Register.configsForm.mobile
+					email: State_Register.configsForm.email
 				});
 				if (AllWasWell(results)) {
 					/*开始倒计时*/
-					await getCaptcha();
+					await getCaptcha(State_Register.data);
 					countDown();
 				}
 			} catch (e) {
@@ -184,7 +160,6 @@ export const State_Register = reactive({
 				if (AllWasWell(validateResults)) {
 					const formData = pickValueFrom(currentFormConfigs);
 					await Actions_App.register(formData);
-					console.log("formData", formData);
 				}
 			} catch (e) {
 				console.error(e);

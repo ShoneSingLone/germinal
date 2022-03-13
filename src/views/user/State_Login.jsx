@@ -6,17 +6,14 @@ import {
 	defItem,
 	EVENT_TYPE,
 	validateForm,
-	AllWasWell
+	AllWasWell,
+	lStorage
 } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
 import { API } from "germinal_api";
 import { router, routeNames } from "lsrc/router/router";
-import {
-	UserOutlined,
-	MobileOutlined,
-	LockOutlined
-} from "@ant-design/icons-vue";
+import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 
 function handleLoginSuccess(res) {
 	router.push({ path: "/" });
@@ -57,36 +54,32 @@ const styles = {
 
 /* 根据不同的Tab 检验不同的form 提交不同的内容 */
 const TAB_KEYS_MAP = {
-	credentials: "configsForm",
-	mobile: "configsFormMobile"
+	credentials: "configsForm"
 };
 
 const LOGIN_TYPE = {
-	username: "username",
 	email: "email",
-	mobile: "mobile"
+	email: "email"
 };
 export const State_Login = reactive({
 	alertTips: "",
 	captchaCount: 0,
-	loginType: LOGIN_TYPE.username,
-	activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
+	loginType: LOGIN_TYPE.email,
+	activeTabKey: Object.keys(TAB_KEYS_MAP)[1],
 	rememberMe: true,
 	data: {
-		username: "",
-		password: "",
-		mobile: "",
-		verificationCode: ""
+		email: lStorage.email || "",
+		password: lStorage.password || ""
 	},
 	configsForm: {
 		...defItem({
-			prop: "username",
+			prop: "email",
 			size: "large",
 			/* render的时候重新获取 */
-			placeholder: () => $t("user.login.username.placeholder").label,
+			placeholder: () => $t("user.login.email.placeholder").label,
 			rules: [
 				FormRules.required(
-					() => $t("请输入帐户名或邮箱地址").label,
+					() => $t("user.email.required").label,
 					[EVENT_TYPE.blur]
 				)
 			],
@@ -109,68 +102,6 @@ export const State_Login = reactive({
 			}
 		})
 	},
-	/*手机*/
-	configsFormMobile: {
-		...defItem({
-			prop: "mobile",
-			size: "large",
-			/* render的时候重新获取 */
-			placeholder: () => $t("user.login.mobile.placeholder").label,
-			rules: [
-				FormRules.required(
-					() => $t("user.login.mobile.placeholder").label,
-					[EVENT_TYPE.blur]
-				),
-				FormRules.validator({
-					msg: () => $t("user.login.mobile.placeholder").label,
-					validator: async mobile => !RegexFn.mobile().test(mobile),
-					trigger: [EVENT_TYPE.update]
-				})
-			],
-			slots: {
-				prefix: () => <MobileOutlined style={styles.icon} />
-			}
-		}),
-		/*验证码*/
-		...defItem({
-			prop: "verificationCode",
-			size: "large",
-			itemWrapperClass: "flex1",
-			/* render的时候重新获取 */
-			placeholder: () =>
-				$t("user.login.mobile.verification-code.placeholder").label,
-			rules: [
-				FormRules.required(
-					() => $t("user.verification-code.required").label,
-					[EVENT_TYPE.blur]
-				)
-			],
-			slots: {
-				prefix: () => <LockOutlined style={styles.icon} />
-			}
-		})
-	},
-	/* 获取验证码按钮 */
-	configsVerificationCode: {
-		countMax: State_App.configs.countMax,
-		text: {
-			normal: () => $t("user.register.get-verification-code").label
-		},
-		onClick: async ({ countDown }) => {
-			try {
-				const results = await validateForm({
-					mobile: State_Login.configsFormMobile.mobile
-				});
-				if (AllWasWell(results)) {
-					/*开始倒计时*/
-					countDown();
-					await getCaptcha();
-				}
-			} catch (e) {
-				console.error(e);
-			}
-		}
-	},
 	/* 提交按钮 */
 	configsSubmit: {
 		size: "large",
@@ -183,11 +114,8 @@ export const State_Login = reactive({
 				const currentFormConfigs = State_Login[currentFormProp];
 				const validateResults = await validateForm(currentFormConfigs);
 				if (AllWasWell(validateResults)) {
-					const res = await Actions_App.Login(State_Login.data);
-					debugger;
-					/* 验证错误 */
-					/* 网络错误 */
-					handleLoginSuccess(res);
+					await Actions_App.Login(State_Login.data);
+					handleLoginSuccess();
 				} else {
 					throw new Error("未通过验证");
 				}
@@ -199,42 +127,10 @@ export const State_Login = reactive({
 	}
 });
 
-/*检查userName的类型*/
-watch(() => State_Login.configsForm.username.value, checkUserNameType);
-
-function checkUserNameType(username) {
-	if (RegexFn.email().test(username)) {
-		State_Login.loginType = LOGIN_TYPE.email;
-	} else {
-		State_Login.loginType = LOGIN_TYPE.username;
-	}
-}
-
-async function mockSmsCaptcha(result = {}) {
-	const captchaCode = result?.code;
-	await _.sleep(2000);
-	await navigator.clipboard.writeText(captchaCode);
-	UI.notification.success({
-		message: "理论上是发送短信到手机",
-		description: (
-			<div>
-				<span>
-					<h2>{captchaCode}</h2>已复制到粘贴板，可以直接 Ctrl+V
-				</span>
-			</div>
-		)
-	});
-	return;
-}
-
 /*获取验证码*/
-export async function getCaptcha() {
+export async function getCaptcha(params) {
 	try {
-		/*理论上是发送到手机*/
-		const { result } = await API.user.getSmsCaptcha();
-		UI.message.success("验证码已发送");
-		/*TODO:remove*/
-		await mockSmsCaptcha(result);
+		UI.message.success(await API.user.getVerifyEmail({ email: params.email }));
 	} catch (e) {
 		console.error(e);
 	}
