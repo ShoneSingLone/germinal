@@ -2624,12 +2624,12 @@ const STATIC_WORD = {
   GB: "GB"
 };
 const ajax = axios.create({
-  headers: {
-    token: lStorage[STATIC_WORD.ACCESS_TOKEN] || ""
-  },
   timeout: 2e4
 });
-ajax.interceptors.request.use((config) => config, (error) => Promise.reject(error));
+ajax.interceptors.request.use((config) => {
+  config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
+  return config;
+}, (error) => Promise.reject(error));
 ajax.interceptors.response.use(async (response) => {
   const {
     data
@@ -3233,7 +3233,7 @@ const _sfc_main$8 = {
       setDocumentTitle(State_App2.configs.title);
       const {
         menuTree
-      } = await __vitePreload(() => import("./routes-b7d02ff9.js"), true ? ["statics/js/routes-b7d02ff9.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"] : void 0);
+      } = await __vitePreload(() => import("./routes-03fa369a.js"), true ? ["statics/js/routes-03fa369a.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"] : void 0);
       State_App2.menuTree = menuTree;
       state.isLoading = false;
     });
@@ -4016,7 +4016,7 @@ var _sfc_main = {
     };
   }
 };
-const viewModules = { "../views/modules/dashboard/workplace/workplace.vue": () => true ? __vitePreload(() => import("./workplace-1ed1646d.js"), ["statics/js/workplace-1ed1646d.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index-4ba504b7.js"), ["statics/js/index-4ba504b7.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"]) : null };
+const viewModules = { "../views/modules/dashboard/workplace/workplace.vue": () => true ? __vitePreload(() => import("./workplace-db7be883.js"), ["statics/js/workplace-db7be883.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index-ee5c50c3.js"), ["statics/js/index-ee5c50c3.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"]) : null };
 console.log("viewModules", viewModules);
 const NewRoute = (name, component, options = {}) => _$1.merge({
   name,
@@ -4038,7 +4038,7 @@ const toPath = (name) => `/${name}`;
 const routes = [{
   name: routeNames.shell,
   path: "/",
-  component: __vitePreload(() => import("./LayoutBasic-61555bd2.js"), true ? ["statics/js/LayoutBasic-61555bd2.js","statics/assets/LayoutBasic.8c490128.css","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"] : void 0),
+  component: __vitePreload(() => import("./LayoutBasic-6e94c9e7.js"), true ? ["statics/js/LayoutBasic-6e94c9e7.js","statics/assets/LayoutBasic.8c490128.css","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"] : void 0),
   children: [{
     name: "first",
     path: "first",
