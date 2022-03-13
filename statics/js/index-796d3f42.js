@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { _ as _$1, d as dayjs, $ as $$1, a as defineComponent, m as markRaw, c as createVNode, b as mergeProps, I as Input$1, e as InputPassword, f as _InputNumber, D as DatePicker$1, z as zh_CN, R as RangePicker$1, h, C as Checkbox$1, g as _Select, S as SelectOption, i as RadioGroup$1, j as CheckboxGroup$1, k as createTextVNode, o as openBlock, l as createElementBlock, r as renderSlot, n as SaveOutlined, p as SyncOutlined, q as SearchOutlined, U as UploadOutlined, s as DeleteOutlined, t as resolveComponent, u as createI18n, v as reactive, w as watch, x as createBlock, y as unref, A as computed, B as withCtx, E as renderList, F as toDisplayString, G as Fragment, H as SettingOutlined, J as createBaseVNode, K as _Pagination, L as _Table, M as createCommentVNode, N as axios, O as createApp, P as Modal, Q as ExclamationCircleOutlined, T as _message, V as _notification, W as Avatar, X as _Alert, Y as Breadcrumb, Z as BreadcrumbItem, a0 as Card, a1 as _Descriptions, a2 as DescriptionsItem, a3 as _Progress, a4 as _Popover, a5 as Menu, a6 as MenuItem, a7 as SubMenu, a8 as Dropdown, a9 as DropdownButton, aa as Button, ab as _List, ac as _Popconfirm, ad as _PageHeader, ae as _Result, af as Tabs, ag as TabPane, ah as _Tooltip, ai as Spin, aj as _Layout, ak as LayoutHeader, al as LayoutSider, am as LayoutFooter, an as LayoutContent, ao as _Upload, ap as md5, aq as onMounted$1, ar as useRouter, as as GlobalOutlined, at as normalizeStyle, au as normalizeClass, av as createStaticVNode, aw as UserOutlined, ax as LockOutlined, ay as MailOutlined, az as resolveDirective, aA as withDirectives, aB as createRouter, aC as createWebHashHistory, aD as NProgress, aE as each, aF as isFunction_1, aG as LoadingOutlined, aH as watchEffect } from "./vendor-1427bb8e.js";
+import { _ as _$1, d as dayjs, $ as $$1, I as Input$1, a as InputPassword, b as _InputNumber, D as DatePicker$1, z as zh_CN, R as RangePicker$1, C as Checkbox$1, c as _Select, S as SelectOption, e as RadioGroup$1, f as CheckboxGroup$1, g as SaveOutlined, h as SyncOutlined, i as SearchOutlined, U as UploadOutlined, j as DeleteOutlined, k as createI18n, l as SettingOutlined, m as _Pagination, n as _Table, M as Modal, E as ExclamationCircleOutlined, o as _message, p as _notification, A as Avatar, q as _Alert, B as Breadcrumb, r as BreadcrumbItem, s as Card, t as _Descriptions, u as DescriptionsItem, v as _Progress, w as _Popover, x as Menu, y as MenuItem, F as SubMenu, G as Dropdown, H as DropdownButton, J as Button, K as _List, L as _Popconfirm, N as _PageHeader, O as _Result, T as Tabs, P as TabPane, Q as _Tooltip, V as Spin, W as _Layout, X as LayoutHeader, Y as LayoutSider, Z as LayoutFooter, a0 as LayoutContent, a1 as _Upload, a2 as md5, a3 as GlobalOutlined, a4 as UserOutlined, a5 as LockOutlined, a6 as MailOutlined, a7 as NProgress, a8 as each, a9 as isFunction_1, aa as LoadingOutlined } from "./vendor-cb3a9242.js";
 const p = function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -1324,14 +1324,14 @@ $$1(document).on("mouseenter.uiPopverTips", "[data-layer-tips-id]", function(eve
 $$1(document).on("mouseleave.uiPopverTips", "[data-layer-tips-id]", function(event) {
   closeTips(this.dataset.layerTipsId);
 });
-var xRender = defineComponent(markRaw({
+var xRender = Vue.defineComponent(Vue.markRaw({
   props: {
     render: {
       type: Function,
       required: true
     }
   },
-  render(h2) {
+  render(h) {
     return this.$props.render({
       vm: this,
       props: this.$props,
@@ -1351,7 +1351,7 @@ var Input = ({
   if (property.isNumber) {
     component = _InputNumber;
   }
-  return createVNode(component, mergeProps(property, listeners), slots);
+  return Vue.createVNode(component, Vue.mergeProps(property, listeners), slots);
 };
 var DatePicker = ({
   property,
@@ -1367,7 +1367,7 @@ var DatePicker = ({
       value = "";
     }
   }
-  return createVNode(DatePicker$1, mergeProps(property, listeners, {
+  return Vue.createVNode(DatePicker$1, Vue.mergeProps(property, listeners, {
     "value": value,
     "locale": zh_CN
   }), slots);
@@ -1378,7 +1378,7 @@ var RangePicker = ({
   listeners
 }) => {
   console.log("property", property.value);
-  return createVNode(RangePicker$1, mergeProps(property, listeners, {
+  return Vue.createVNode(RangePicker$1, Vue.mergeProps(property, listeners, {
     "locale": zh_CN
   }), slots);
 };
@@ -1485,7 +1485,7 @@ var Checkbox = ({
       _property["onUpdate:value"](!_property.value, EVENT_TYPE.update);
     }
   });
-  return h(Checkbox$1, _property);
+  return Vue.h(Checkbox$1, _property);
 };
 var Select = ({
   property,
@@ -1494,14 +1494,14 @@ var Select = ({
   const _property = _$1.omit(property, ["options"]);
   const renderOptions = () => {
     return _$1.map(property.options, (option) => {
-      return createVNode(SelectOption, {
+      return Vue.createVNode(SelectOption, {
         "value": option.value
       }, {
         default: () => [option.label]
       });
     });
   };
-  return createVNode(_Select, mergeProps(listeners, _property), {
+  return Vue.createVNode(_Select, Vue.mergeProps(listeners, _property), {
     default: renderOptions
   });
 };
@@ -1510,14 +1510,14 @@ var RadioGroup = ({
   slots,
   listeners
 }) => {
-  return createVNode(RadioGroup$1, mergeProps(property, listeners), slots);
+  return Vue.createVNode(RadioGroup$1, Vue.mergeProps(property, listeners), slots);
 };
 var CheckboxGroup = ({
   property,
   slots,
   listeners
 }) => {
-  return createVNode(CheckboxGroup$1, mergeProps(property, listeners), slots);
+  return Vue.createVNode(CheckboxGroup$1, Vue.mergeProps(property, listeners), slots);
 };
 const itemRenders = {
   Input,
@@ -1572,7 +1572,7 @@ const MutatingProps = (item, prop, val = null) => {
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$i = defineComponent({
+var _sfc_main$i = Vue.defineComponent({
   props: {
     modelValue: {
       type: [Object, String, Number, Boolean]
@@ -1687,9 +1687,9 @@ var _sfc_main$i = defineComponent({
     },
     tipsVNode() {
       if (this.isChecking) {
-        return createVNode("div", null, [createVNode("div", {
+        return Vue.createVNode("div", null, [Vue.createVNode("div", {
           "data-type": "checking"
-        }, [createTextVNode("checking...")])]);
+        }, [Vue.createTextVNode("checking...")])]);
       }
       if (this.configs.tipsVNodeRender) {
         return this.configs.tipsVNodeRender({
@@ -1700,9 +1700,9 @@ var _sfc_main$i = defineComponent({
       }
       if (this.itemTips.msg) {
         if (this.itemTips.type === TIPS_TYPE.error) {
-          return createVNode("div", {
+          return Vue.createVNode("div", {
             "class": domClass.tipsError
-          }, [createVNode("div", {
+          }, [Vue.createVNode("div", {
             "data-type": "error"
           }, [this.itemTips.msg])]);
         }
@@ -1727,9 +1727,9 @@ var _sfc_main$i = defineComponent({
         return null;
       }
       const classString = this.isRequired ? "ant-form-item-required" : "";
-      return createVNode("div", {
+      return Vue.createVNode("div", {
         "class": "ant-form-item-label"
-      }, [createVNode("label", {
+      }, [Vue.createVNode("label", {
         "for": this.configs.prop,
         "class": classString
       }, [label])]);
@@ -1788,19 +1788,19 @@ var _sfc_main$i = defineComponent({
       this.isRequired = isRequired;
     }
   },
-  render(h2) {
+  render(h) {
     const CurrentXItem = (() => {
       return itemRenders[this.configs.itemType] || itemRenders.Input;
     })();
-    return createVNode("div", {
+    return Vue.createVNode("div", {
       "id": this.FormItemId,
       "class": this.itemWrapperClass
-    }, [this.labelVNode, createVNode("div", {
+    }, [this.labelVNode, Vue.createVNode("div", {
       "class": "ant-form-item-control"
-    }, [createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
+    }, [Vue.createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$h = defineComponent({
+var _sfc_main$h = Vue.defineComponent({
   props: {
     labelWidth: {
       type: String,
@@ -1861,34 +1861,34 @@ var _export_sfc = (sfc, props) => {
 };
 const _hoisted_1$8 = ["id"];
 function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("form", {
+  return Vue.openBlock(), Vue.createElementBlock("form", {
     id: _ctx.xFormId
-  }, [renderSlot(_ctx.$slots, "default")], 8, _hoisted_1$8);
+  }, [Vue.renderSlot(_ctx.$slots, "default")], 8, _hoisted_1$8);
 }
 var xForm = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["render", _sfc_render$2]]);
 const BTN_PRESET_MAP = {
   save: {
-    icon: createVNode(SaveOutlined, null, null),
+    icon: Vue.createVNode(SaveOutlined, null, null),
     text: "\u4FDD\u5B58"
   },
   refresh: {
-    icon: createVNode(SyncOutlined, null, null),
+    icon: Vue.createVNode(SyncOutlined, null, null),
     text: "\u5237\u65B0"
   },
   query: {
-    icon: createVNode(SearchOutlined, null, null),
+    icon: Vue.createVNode(SearchOutlined, null, null),
     text: "\u67E5\u8BE2"
   },
   upload: {
-    icon: createVNode(UploadOutlined, null, null),
+    icon: Vue.createVNode(UploadOutlined, null, null),
     text: "\u4E0A\u4F20"
   },
   delete: {
-    icon: createVNode(DeleteOutlined, null, null),
+    icon: Vue.createVNode(DeleteOutlined, null, null),
     text: "\u5220\u9664"
   }
 };
-var xButton = defineComponent({
+var xButton = Vue.defineComponent({
   props: {
     configs: {
       type: Object,
@@ -1925,7 +1925,7 @@ var xButton = defineComponent({
       }
       const preset = BTN_PRESET_MAP[this.configs.preset];
       if (preset) {
-        return createVNode("span", {
+        return Vue.createVNode("span", {
           "class": "btn-preset"
         }, [preset.icon, preset.text]);
       }
@@ -1959,9 +1959,9 @@ var xButton = defineComponent({
       }
     }
   },
-  render(h2) {
+  render(h) {
     const configs = _$1.omit(this.configs, ["text", "onClick"]);
-    return createVNode(resolveComponent("Button"), mergeProps({
+    return Vue.createVNode(Vue.resolveComponent("Button"), Vue.mergeProps({
       "class": "flex middle",
       "onClick": this.onClick,
       "loading": this.loading,
@@ -2114,10 +2114,10 @@ const $t = (prop, options) => {
 };
 const appI18n = {
   install: (app, {
-    watch: watch2
+    watch
   } = {}) => {
     app.config.globalProperties.$t = $t;
-    watch2 && watch2();
+    watch && watch();
   }
 };
 function setI18nLanguage(lang) {
@@ -2144,10 +2144,10 @@ var _sfc_main$g = {
         state.captchaCount = 0;
       }
     }
-    const state = reactive({
+    const state = Vue.reactive({
       captchaCount: 0
     });
-    const btnConfigs = reactive({
+    const btnConfigs = Vue.reactive({
       disabled: false,
       size: "large",
       style: {
@@ -2162,7 +2162,7 @@ var _sfc_main$g = {
         }
       }
     });
-    watch(() => state.captchaCount, handleCaptchaCountChange);
+    Vue.watch(() => state.captchaCount, handleCaptchaCountChange);
     function handleCaptchaCountChange(captchaCount) {
       if (captchaCount === 0) {
         btnConfigs.text = props.configs.text.normal;
@@ -2183,14 +2183,14 @@ var _sfc_main$g = {
       }
     }
     return (_ctx, _cache) => {
-      const _component_xButton = resolveComponent("xButton");
-      return openBlock(), createBlock(_component_xButton, {
-        configs: unref(btnConfigs)
+      const _component_xButton = Vue.resolveComponent("xButton");
+      return Vue.openBlock(), Vue.createBlock(_component_xButton, {
+        configs: Vue.unref(btnConfigs)
       }, null, 8, ["configs"]);
     };
   }
 };
-var _sfc_main$f = defineComponent({
+var _sfc_main$f = Vue.defineComponent({
   props: ["t", "l", "r", "b", "a", "f"],
   computed: {
     gapClass: {
@@ -2225,8 +2225,8 @@ var _sfc_main$f = defineComponent({
       }
     }
   },
-  render(h2) {
-    return createVNode("div", {
+  render(h) {
+    return Vue.createVNode("div", {
       "style": this.gapStyle,
       "class": this.gapClass
     }, null);
@@ -2258,7 +2258,7 @@ var _sfc_main$e = {
     };
     const id = _$1.genId("xChart");
     const instance = {
-      helper: computed(() => {
+      helper: Vue.computed(() => {
         if (_$1.isPlainObject(props.configs)) {
           return props.configs;
         }
@@ -2296,8 +2296,8 @@ var _sfc_main$e = {
     onUnmounted(() => {
     });
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", {
-        id: unref(id),
+      return Vue.openBlock(), Vue.createElementBlock("div", {
+        id: Vue.unref(id),
         class: "x-charts flex flex1 center middle"
       }, null, 8, _hoisted_1$7);
     };
@@ -2305,7 +2305,7 @@ var _sfc_main$e = {
 };
 const _sfc_main$d = {};
 function _sfc_render$1(_ctx, _cache) {
-  return openBlock(), createElementBlock("div", null, [renderSlot(_ctx.$slots, "default")]);
+  return Vue.openBlock(), Vue.createElementBlock("div", null, [Vue.renderSlot(_ctx.$slots, "default")]);
 }
 var xView = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$1]]);
 const lStorage = new Proxy(localStorage, {
@@ -2353,7 +2353,7 @@ var _sfc_main$c = {
   },
   setup(__props) {
     const props = __props;
-    const Cpt_ColumnsOrder = computed(() => {
+    const Cpt_ColumnsOrder = Vue.computed(() => {
       const order = (() => {
         if (props.configs.columns_order) {
           return props.configs.columns_order;
@@ -2363,12 +2363,12 @@ var _sfc_main$c = {
       })();
       return _$1.filter(order, (i) => !!i);
     });
-    const Cpt_Columns = computed(() => {
+    const Cpt_Columns = Vue.computed(() => {
       return _$1.map(Cpt_ColumnsOrder.value, (prop) => _$1.find(props.configs.columns, {
         prop
       }));
     });
-    const checkedList = computed(() => {
+    const checkedList = Vue.computed(() => {
       return _$1.filter(Cpt_ColumnsOrder.value, (prop) => {
         const {
           isShow
@@ -2383,26 +2383,26 @@ var _sfc_main$c = {
       target.isShow = _$1.isBoolean(target.isShow) ? !target.isShow : false;
     };
     return (_ctx, _cache) => {
-      const _component_Checkbox = resolveComponent("Checkbox");
-      const _component_Button = resolveComponent("Button");
-      const _component_Popover = resolveComponent("Popover");
-      return openBlock(), createBlock(_component_Popover, {
+      const _component_Checkbox = Vue.resolveComponent("Checkbox");
+      const _component_Button = Vue.resolveComponent("Button");
+      const _component_Popover = Vue.resolveComponent("Popover");
+      return Vue.openBlock(), Vue.createBlock(_component_Popover, {
         placement: "leftBottom",
         trigger: "click"
       }, {
-        content: withCtx(() => [(openBlock(true), createElementBlock(Fragment, null, renderList(unref(Cpt_Columns), (col) => {
-          return openBlock(), createElementBlock("p", {
+        content: Vue.withCtx(() => [(Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(Vue.unref(Cpt_Columns), (col) => {
+          return Vue.openBlock(), Vue.createElementBlock("p", {
             key: col.key
-          }, [createVNode(_component_Checkbox, {
-            checked: unref(checkedList).includes(col.key),
+          }, [Vue.createVNode(_component_Checkbox, {
+            checked: Vue.unref(checkedList).includes(col.key),
             onChange: ($event) => handleChecked(col)
           }, {
-            default: withCtx(() => [createTextVNode(toDisplayString(col.title), 1)]),
+            default: Vue.withCtx(() => [Vue.createTextVNode(Vue.toDisplayString(col.title), 1)]),
             _: 2
           }, 1032, ["checked", "onChange"])]);
         }), 128))]),
-        default: withCtx(() => [createVNode(_component_Button, null, {
-          icon: withCtx(() => [createVNode(unref(SettingOutlined))]),
+        default: Vue.withCtx(() => [Vue.createVNode(_component_Button, null, {
+          icon: Vue.withCtx(() => [Vue.createVNode(Vue.unref(SettingOutlined))]),
           _: 1
         })]),
         _: 1
@@ -2441,18 +2441,18 @@ var _sfc_main$b = {
       total
     } = lStorage.appConfigs.pagination;
     return (_ctx, _cache) => {
-      return openBlock(), createBlock(unref(_Pagination), {
-        current: props.pagination[unref(page)],
-        "onUpdate:current": _cache[0] || (_cache[0] = ($event) => props.pagination[unref(page)] = $event),
+      return Vue.openBlock(), Vue.createBlock(Vue.unref(_Pagination), {
+        current: props.pagination[Vue.unref(page)],
+        "onUpdate:current": _cache[0] || (_cache[0] = ($event) => props.pagination[Vue.unref(page)] = $event),
         "page-size-options": pageSizeOptions,
-        total: props.pagination[unref(total)],
-        "page-size": props.pagination[unref(size)],
+        total: props.pagination[Vue.unref(total)],
+        "page-size": props.pagination[Vue.unref(size)],
         "show-size-changer": "",
         "show-total": (total2) => `\u603B\u5171 ${total2} \u6761`,
-        onShowSizeChange: unref(onShowSizeChange),
-        onChange: unref(onShowSizeChange)
+        onShowSizeChange: Vue.unref(onShowSizeChange),
+        onChange: Vue.unref(onShowSizeChange)
       }, {
-        buildOptionText: withCtx((props2) => [createBaseVNode("span", null, toDisplayString(props2.value) + "\u6761/\u9875", 1)]),
+        buildOptionText: Vue.withCtx((props2) => [Vue.createElementVNode("span", null, Vue.toDisplayString(props2.value) + "\u6761/\u9875", 1)]),
         _: 1
       }, 8, ["current", "total", "page-size", "show-total", "onShowSizeChange", "onChange"]);
     };
@@ -2469,7 +2469,7 @@ var _sfc_main$a = {
   },
   setup(__props) {
     const props = __props;
-    const Cpt_ColumnsOrder = computed(() => {
+    const Cpt_ColumnsOrder = Vue.computed(() => {
       const order = (() => {
         if (props.configs.columns_order) {
           return props.configs.columns_order;
@@ -2479,7 +2479,7 @@ var _sfc_main$a = {
       })();
       return _$1.filter(order, (i) => !!i);
     });
-    const Cpt_Columns = computed(() => {
+    const Cpt_Columns = Vue.computed(() => {
       if (props.configs.isGroupingColumns) {
         return props.configs.columns;
       }
@@ -2490,7 +2490,7 @@ var _sfc_main$a = {
       columns = _$1.filter(columns, (i) => filterColIsShow(i == null ? void 0 : i.isShow, i == null ? void 0 : i.prop));
       return columns;
     });
-    const Cpt_RenderOptions = computed(() => {
+    const Cpt_RenderOptions = Vue.computed(() => {
       const leftOptions = (() => {
         if (props.configs.renderOptions) {
           return props.configs.renderOptions(props.configs);
@@ -2502,30 +2502,30 @@ var _sfc_main$a = {
         if (props.configs.isHideFilter || props.configs.isGroupingColumns) {
           return null;
         }
-        return createVNode(_sfc_main$c, {
+        return Vue.createVNode(_sfc_main$c, {
           "configs": props.configs
         }, null);
       })();
-      return () => createVNode("div", {
+      return () => Vue.createVNode("div", {
         "class": "table-options"
-      }, [createVNode("div", {
+      }, [Vue.createVNode("div", {
         "className": "table-option-left flex flex1"
-      }, [leftOptions]), createVNode("div", {
+      }, [leftOptions]), Vue.createVNode("div", {
         "className": "table-filter"
       }, [rightOptions])]);
     });
-    const Cpt_AntTableProperty = computed(() => {
+    const Cpt_AntTableProperty = Vue.computed(() => {
       if (props.configs.antTableProperty) {
         return props.configs.antTableProperty;
       } else {
         return {};
       }
     });
-    const Cpt_RenderTable = computed(() => {
+    const Cpt_RenderTable = Vue.computed(() => {
       if (props.configs.renderTable) {
         return props.configs.renderTable;
       } else {
-        return () => createVNode(_Table, mergeProps({
+        return () => Vue.createVNode(_Table, Vue.mergeProps({
           "dataSource": props.configs.dataSource,
           "columns": Cpt_Columns.value,
           "scroll": {
@@ -2545,22 +2545,22 @@ var _sfc_main$a = {
       }
     });
     return (_ctx, _cache) => {
-      const _component_xRender = resolveComponent("xRender");
-      return openBlock(), createElementBlock(Fragment, null, [createVNode(_component_xRender, {
-        render: unref(Cpt_RenderOptions)
-      }, null, 8, ["render"]), createVNode(_component_xRender, {
-        render: unref(Cpt_RenderTable)
-      }, null, 8, ["render"]), !props.configs.isHidePagination ? (openBlock(), createBlock(_sfc_main$b, {
+      const _component_xRender = Vue.resolveComponent("xRender");
+      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createVNode(_component_xRender, {
+        render: Vue.unref(Cpt_RenderOptions)
+      }, null, 8, ["render"]), Vue.createVNode(_component_xRender, {
+        render: Vue.unref(Cpt_RenderTable)
+      }, null, 8, ["render"]), !props.configs.isHidePagination ? (Vue.openBlock(), Vue.createBlock(_sfc_main$b, {
         key: 0,
         class: "table-pagination",
         pagination: props.configs.pagination,
         onPaginationChange: props.configs.onPaginationChange
-      }, null, 8, ["pagination", "onPaginationChange"])) : createCommentVNode("", true)], 64);
+      }, null, 8, ["pagination", "onPaginationChange"])) : Vue.createCommentVNode("", true)], 64);
     };
   }
 };
 var xDataGrid_vue_vue_type_style_index_0_lang = "";
-var _sfc_main$9 = defineComponent({
+var _sfc_main$9 = Vue.defineComponent({
   props: {
     configs: {
       type: Object,
@@ -2610,11 +2610,11 @@ var _sfc_main$9 = defineComponent({
 });
 const _hoisted_1$6 = ["title", "id"];
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", {
+  return Vue.openBlock(), Vue.createElementBlock("div", {
     class: "ellipsis",
     title: _ctx.title,
     id: _ctx.id
-  }, [createBaseVNode("span", null, [renderSlot(_ctx.$slots, "default")])], 8, _hoisted_1$6);
+  }, [Vue.createElementVNode("span", null, [Vue.renderSlot(_ctx.$slots, "default")])], 8, _hoisted_1$6);
 }
 var xCellLabel = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render]]);
 const STATIC_WORD = {
@@ -2648,7 +2648,9 @@ function logError$1(msg) {
   });
   console.error(msg);
 }
-const parseContent = (returnSentence) => new Function(returnSentence);
+const parseContent = (returnSentence) => {
+  return new Function(returnSentence);
+};
 ajax.loadText = (url) => new Promise((resolve, reject) => $$1.ajax({
   type: "GET",
   async: true,
@@ -2664,6 +2666,7 @@ window.URL_WS_BASE = `wss://www.singlone.work/ws`;
 const auth = "/auth";
 const version = window.URL_API_VERSION;
 const URL = {
+  test: () => `${window.URL_API_BASE}/`,
   regster: () => `${window.URL_API_BASE}${version}/reg`,
   Login: () => `${window.URL_API_BASE}${version}/login`,
   VerifyEmail: () => `${window.URL_API_BASE}${version}/verify_email`,
@@ -2694,7 +2697,17 @@ const user = {
     return await ajax.post(URL.User(), params);
   }
 };
+const common = {
+  async testConnect(params) {
+    return await ajax.get(URL.test(), {
+      params: {
+        test: "isConnect"
+      }
+    });
+  }
+};
 const API = {
+  common,
   user
 };
 const logError = ({
@@ -2773,7 +2786,7 @@ const installUIDialogComponent = (UI2, {
       btn: [],
       success(indexPanel, layerIndex) {
         handleEcsPress.on(layerIndex);
-        app = createApp(defineComponent({
+        app = Vue.createApp(Vue.defineComponent({
           data() {
             options.vmDialog = this;
             return {
@@ -2812,7 +2825,7 @@ const installUIDialogComponent = (UI2, {
             },
             renderContent() {
               const dialog = this;
-              return createVNode(component, {
+              return Vue.createVNode(component, {
                 "dialog": dialog,
                 "options": options,
                 "class": "flex1"
@@ -2823,21 +2836,21 @@ const installUIDialogComponent = (UI2, {
                 return null;
               }
               if (this.options.renderButtons) {
-                return createVNode("div", {
+                return Vue.createVNode("div", {
                   "class": "flex middle end ant-modal-footer"
                 }, [this.options.renderButtons(this)]);
               }
-              return createVNode("div", {
+              return Vue.createVNode("div", {
                 "class": "flex middle end ant-modal-footer"
-              }, [createVNode(resolveComponent("xButton"), {
+              }, [Vue.createVNode(Vue.resolveComponent("xButton"), {
                 "configs": {
                   onClick: this.handleClickCancel
                 }
               }, {
                 default: () => [this.cancelText]
-              }), createVNode(resolveComponent("xGap"), {
+              }), Vue.createVNode(Vue.resolveComponent("xGap"), {
                 "l": 10
-              }, null), createVNode(resolveComponent("xButton"), {
+              }, null), Vue.createVNode(Vue.resolveComponent("xButton"), {
                 "configs": {
                   onClick: this.handleClickOk,
                   type: "primary"
@@ -2848,7 +2861,7 @@ const installUIDialogComponent = (UI2, {
             }
           },
           render() {
-            return createVNode("div", {
+            return Vue.createVNode("div", {
               "class": "flex vertical height100"
             }, [this.renderContent, this.renderButtons]);
           }
@@ -2886,7 +2899,7 @@ const defItem = (options) => {
     options.prop = `xItem${xItemNoPropCount++}`;
     console.error(`no xItem prop replace by ${options.prop}`);
   }
-  const configs = reactive(_$1.merge({}, {
+  const configs = Vue.reactive(_$1.merge({}, {
     itemTips: {},
     itemType: options.itemType || "Input",
     value: options.value || ""
@@ -3008,7 +3021,7 @@ const useModel = (type2) => {
       })(!title);
       Modal[type2]({
         title,
-        icon: createVNode(ExclamationCircleOutlined, null, null),
+        icon: Vue.createVNode(ExclamationCircleOutlined, null, null),
         content,
         onOk() {
           resolve("ok");
@@ -3036,8 +3049,8 @@ const UI = {
       return new Promise((resolve, reject) => {
         Modal.confirm({
           title,
-          icon: createVNode(ExclamationCircleOutlined, null, null),
-          content: createVNode("div", null, [content]),
+          icon: Vue.createVNode(ExclamationCircleOutlined, null, null),
+          content: Vue.createVNode("div", null, [content]),
           onOk() {
             resolve("ok");
           },
@@ -3057,7 +3070,7 @@ const UI = {
       return new Promise((resolve, reject) => {
         Modal.confirm({
           title,
-          icon: createVNode(ExclamationCircleOutlined, {
+          icon: Vue.createVNode(ExclamationCircleOutlined, {
             "style": "color:red"
           }, null),
           content,
@@ -3087,7 +3100,7 @@ var MyUI = {
     });
   }
 };
-const State_App = reactive({
+const State_App = Vue.reactive({
   theme: "light",
   menuTree: [],
   layoutStyle: {
@@ -3110,11 +3123,11 @@ const State_App = reactive({
 if (State_App.isDev) {
   window.State_App = State_App;
 }
-const APP_LANGUAGE = computed({
+const APP_LANGUAGE = Vue.computed({
   get: () => State_App.configs.language,
   set: (lang) => State_App.configs.language = lang
 });
-computed({
+Vue.computed({
   get: () => State_App.configs.prefixCls,
   set: (prefixCls) => State_App.configs.prefixCls = prefixCls
 });
@@ -3125,11 +3138,11 @@ const getColor = (colorName) => {
     return "";
   }
 };
-watch(() => State_App.configs, (configs) => lStorage.appConfigs = configs, {
+Vue.watch(() => State_App.configs, (configs) => lStorage.appConfigs = configs, {
   immediate: true,
   deep: true
 });
-watch(() => State_App.configs.colors, (colors) => setCSSVariables(colors), {
+Vue.watch(() => State_App.configs.colors, (colors) => setCSSVariables(colors), {
   immediate: true,
   deep: true
 });
@@ -3222,30 +3235,30 @@ const Actions_App = {
   }
 };
 var App_less_vue_type_style_index_0_src_lang = "";
-const _hoisted_1$5 = /* @__PURE__ */ createTextVNode(" Loading... ");
+const _hoisted_1$5 = /* @__PURE__ */ Vue.createTextVNode(" Loading... ");
 const _sfc_main$8 = {
   setup(__props) {
-    const state = reactive({
+    const state = Vue.reactive({
       isLoading: true
     });
-    onMounted$1(async () => {
+    Vue.onMounted(async () => {
       const State_App2 = await Actions_App.initAppConfigs();
       setDocumentTitle(State_App2.configs.title);
       const {
         menuTree
-      } = await __vitePreload(() => import("./routes-03fa369a.js"), true ? ["statics/js/routes-03fa369a.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"] : void 0);
+      } = await __vitePreload(() => import("./routes-bf645d27.js"), true ? ["statics/js/routes-bf645d27.js","statics/js/vendor-cb3a9242.js","statics/assets/vendor.0c57c20c.css"] : void 0);
       State_App2.menuTree = menuTree;
       state.isLoading = false;
     });
     return (_ctx, _cache) => {
-      const _component_Spin = resolveComponent("Spin");
-      const _component_RouterView = resolveComponent("RouterView");
-      return unref(state).isLoading ? (openBlock(), createBlock(_component_Spin, {
+      const _component_Spin = Vue.resolveComponent("Spin");
+      const _component_RouterView = Vue.resolveComponent("RouterView");
+      return Vue.unref(state).isLoading ? (Vue.openBlock(), Vue.createBlock(_component_Spin, {
         key: 0
       }, {
-        default: withCtx(() => [_hoisted_1$5]),
+        default: Vue.withCtx(() => [_hoisted_1$5]),
         _: 1
-      })) : (openBlock(), createBlock(_component_RouterView, {
+      })) : (Vue.openBlock(), Vue.createBlock(_component_RouterView, {
         key: 1
       }));
     };
@@ -3253,25 +3266,25 @@ const _sfc_main$8 = {
 };
 const _sfc_main$7 = {
   setup(__props) {
-    const router2 = useRouter();
+    const router2 = VueRouter.useRouter();
     function go() {
       router2.push({
         name: routeNames.shell
       });
     }
     return (_ctx, _cache) => {
-      const _component_Button = resolveComponent("Button");
-      const _component_Result = resolveComponent("Result");
-      return openBlock(), createBlock(_component_Result, {
+      const _component_Button = Vue.resolveComponent("Button");
+      const _component_Result = Vue.resolveComponent("Result");
+      return Vue.openBlock(), Vue.createBlock(_component_Result, {
         status: "404",
         title: "404",
         "sub-title": _ctx.$t("notFoundTips").label
       }, {
-        extra: withCtx(() => [createVNode(_component_Button, {
+        extra: Vue.withCtx(() => [Vue.createVNode(_component_Button, {
           type: "primary",
           onClick: go
         }, {
-          default: withCtx(() => [createTextVNode(toDisplayString(_ctx.$t("BackHome").label), 1)]),
+          default: Vue.withCtx(() => [Vue.createTextVNode(Vue.toDisplayString(_ctx.$t("BackHome").label), 1)]),
           _: 1
         })]),
         _: 1
@@ -3300,30 +3313,30 @@ const _sfc_main$6 = {
       APP_LANGUAGE.value = key;
     };
     return (_ctx, _cache) => {
-      const _component_MenuItem = resolveComponent("MenuItem");
-      const _component_Menu = resolveComponent("Menu");
-      const _component_Dropdown = resolveComponent("Dropdown");
-      return openBlock(), createBlock(_component_Dropdown, {
+      const _component_MenuItem = Vue.resolveComponent("MenuItem");
+      const _component_Menu = Vue.resolveComponent("Menu");
+      const _component_Dropdown = Vue.resolveComponent("Dropdown");
+      return Vue.openBlock(), Vue.createBlock(_component_Dropdown, {
         placement: "bottomRight"
       }, {
-        overlay: withCtx(() => [createVNode(_component_Menu, {
-          "selected-keys": [unref(APP_LANGUAGE)],
+        overlay: Vue.withCtx(() => [Vue.createVNode(_component_Menu, {
+          "selected-keys": [Vue.unref(APP_LANGUAGE)],
           onClick: changeLanguage
         }, {
-          default: withCtx(() => [(openBlock(), createElementBlock(Fragment, null, renderList(languageLabels, (locale, prop) => {
-            return createVNode(_component_MenuItem, {
+          default: Vue.withCtx(() => [(Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(languageLabels, (locale, prop) => {
+            return Vue.createVNode(_component_MenuItem, {
               key: prop
             }, {
-              default: withCtx(() => [createBaseVNode("span", {
+              default: Vue.withCtx(() => [Vue.createElementVNode("span", {
                 role: "img",
                 "aria-label": locale.label
-              }, toDisplayString(locale.icon), 9, _hoisted_1$4), createBaseVNode("span", null, toDisplayString(locale.label), 1)]),
+              }, Vue.toDisplayString(locale.icon), 9, _hoisted_1$4), Vue.createElementVNode("span", null, Vue.toDisplayString(locale.label), 1)]),
               _: 2
             }, 1024);
           }), 64))]),
           _: 1
         }, 8, ["selected-keys"])]),
-        default: withCtx(() => [createVNode(unref(GlobalOutlined))]),
+        default: Vue.withCtx(() => [Vue.createVNode(Vue.unref(GlobalOutlined))]),
         _: 1
       });
     };
@@ -3351,7 +3364,7 @@ const _hoisted_7$2 = {
 const _hoisted_8$1 = {
   class: "desc"
 };
-const _hoisted_9 = /* @__PURE__ */ createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 2018 vueComponent</div></div>', 1);
+const _hoisted_9 = /* @__PURE__ */ Vue.createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 2018 vueComponent</div></div>', 1);
 const _sfc_main$5 = {
   setup(__props) {
     _$1.doNothing(backgroundImg);
@@ -3359,20 +3372,20 @@ const _sfc_main$5 = {
       container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
     };
     return (_ctx, _cache) => {
-      const _component_router_view = resolveComponent("router-view");
-      return openBlock(), createElementBlock("div", {
+      const _component_router_view = Vue.resolveComponent("router-view");
+      return Vue.openBlock(), Vue.createElementBlock("div", {
         id: "userLayout",
-        class: normalizeClass(["user-layout-wrapper", unref(State_App).isMobile && "mobile"])
-      }, [createBaseVNode("div", {
+        class: Vue.normalizeClass(["user-layout-wrapper", Vue.unref(State_App).isMobile && "mobile"])
+      }, [Vue.createElementVNode("div", {
         class: "container",
-        style: normalizeStyle(styles2.container)
-      }, [createBaseVNode("div", _hoisted_1$3, [createVNode(_sfc_main$6, {
+        style: Vue.normalizeStyle(styles2.container)
+      }, [Vue.createElementVNode("div", _hoisted_1$3, [Vue.createVNode(_sfc_main$6, {
         class: "select-lang-trigger"
-      })]), createBaseVNode("div", _hoisted_2$3, [createBaseVNode("div", _hoisted_3$3, [createBaseVNode("div", _hoisted_4$3, [createBaseVNode("a", _hoisted_5$3, [createBaseVNode("img", {
-        src: unref(logoImg),
+      })]), Vue.createElementVNode("div", _hoisted_2$3, [Vue.createElementVNode("div", _hoisted_3$3, [Vue.createElementVNode("div", _hoisted_4$3, [Vue.createElementVNode("a", _hoisted_5$3, [Vue.createElementVNode("img", {
+        src: Vue.unref(logoImg),
         class: "logo",
         alt: "logo"
-      }, null, 8, _hoisted_6$3), createBaseVNode("span", _hoisted_7$2, toDisplayString(_ctx.$t("login.title").label), 1)])]), createBaseVNode("div", _hoisted_8$1, toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), createVNode(_component_router_view), _hoisted_9])], 4)], 2);
+      }, null, 8, _hoisted_6$3), Vue.createElementVNode("span", _hoisted_7$2, Vue.toDisplayString(_ctx.$t("login.title").label), 1)])]), Vue.createElementVNode("div", _hoisted_8$1, Vue.toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)]), Vue.createVNode(_component_router_view), _hoisted_9])], 4)], 2);
     };
   }
 };
@@ -3477,7 +3490,7 @@ const LOGIN_TYPE = {
   email: "email",
   email: "email"
 };
-const State_Login = reactive({
+const State_Login = Vue.reactive({
   alertTips: "",
   captchaCount: 0,
   loginType: LOGIN_TYPE.email,
@@ -3493,7 +3506,7 @@ const State_Login = reactive({
     placeholder: () => $t("user.login.email.placeholder").label,
     rules: [FormRules.required(() => $t("user.email.required").label, [EVENT_TYPE.blur])],
     slots: {
-      prefix: () => createVNode(UserOutlined, {
+      prefix: () => Vue.createVNode(UserOutlined, {
         "style": styles$1.icon
       }, null)
     }
@@ -3504,7 +3517,7 @@ const State_Login = reactive({
     placeholder: () => $t("user.login.password.placeholder").label,
     rules: [FormRules.required(() => $t("user.password.required").label, [EVENT_TYPE.blur])],
     slots: {
-      prefix: () => createVNode(LockOutlined, {
+      prefix: () => Vue.createVNode(LockOutlined, {
         "style": styles$1.icon
       }, null)
     }
@@ -3544,19 +3557,19 @@ async function getCaptcha(params) {
 var _sfc_main$4 = {
   setup(__props) {
     return (_ctx, _cache) => {
-      const _component_xItem = resolveComponent("xItem");
-      const _component_xGap = resolveComponent("xGap");
-      return openBlock(), createElementBlock("form", null, [createVNode(_component_xItem, {
-        modelValue: unref(State_Login).data.email,
-        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(State_Login).data.email = $event),
-        configs: unref(State_Login).configsForm.email,
+      const _component_xItem = Vue.resolveComponent("xItem");
+      const _component_xGap = Vue.resolveComponent("xGap");
+      return Vue.openBlock(), Vue.createElementBlock("form", null, [Vue.createVNode(_component_xItem, {
+        modelValue: Vue.unref(State_Login).data.email,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => Vue.unref(State_Login).data.email = $event),
+        configs: Vue.unref(State_Login).configsForm.email,
         autocomplete: "email"
-      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), Vue.createVNode(_component_xGap, {
         t: "20"
-      }), createVNode(_component_xItem, {
-        modelValue: unref(State_Login).data.password,
-        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => unref(State_Login).data.password = $event),
-        configs: unref(State_Login).configsForm.password,
+      }), Vue.createVNode(_component_xItem, {
+        modelValue: Vue.unref(State_Login).data.password,
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => Vue.unref(State_Login).data.password = $event),
+        configs: Vue.unref(State_Login).configsForm.password,
         autocomplete: "current-password"
       }, null, 8, ["modelValue", "configs"])]);
     };
@@ -3587,33 +3600,33 @@ const _hoisted_7$1 = {
 const _sfc_main$3 = {
   setup(__props) {
     return (_ctx, _cache) => {
-      const _component_Alert = resolveComponent("Alert");
-      const _component_Checkbox = resolveComponent("Checkbox");
-      const _component_xButton = resolveComponent("xButton");
-      const _component_router_link = resolveComponent("router-link");
-      return openBlock(), createElementBlock("div", _hoisted_1$2, [createBaseVNode("div", _hoisted_2$2, [unref(State_Login).alertTips ? (openBlock(), createBlock(_component_Alert, {
+      const _component_Alert = Vue.resolveComponent("Alert");
+      const _component_Checkbox = Vue.resolveComponent("Checkbox");
+      const _component_xButton = Vue.resolveComponent("xButton");
+      const _component_router_link = Vue.resolveComponent("router-link");
+      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$2, [Vue.createElementVNode("div", _hoisted_2$2, [Vue.unref(State_Login).alertTips ? (Vue.openBlock(), Vue.createBlock(_component_Alert, {
         key: 0,
         type: "error",
         "show-icon": "",
         style: {
           "margin-bottom": "24px"
         },
-        message: unref(State_Login).alertTips
-      }, null, 8, ["message"])) : createCommentVNode("", true), createVNode(_sfc_main$4), createBaseVNode("div", _hoisted_3$2, [createVNode(_component_Checkbox, {
-        checked: unref(State_Login).rememberMe,
-        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => unref(State_Login).rememberMe = $event)
+        message: Vue.unref(State_Login).alertTips
+      }, null, 8, ["message"])) : Vue.createCommentVNode("", true), Vue.createVNode(_sfc_main$4), Vue.createElementVNode("div", _hoisted_3$2, [Vue.createVNode(_component_Checkbox, {
+        checked: Vue.unref(State_Login).rememberMe,
+        "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => Vue.unref(State_Login).rememberMe = $event)
       }, {
-        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.remember-me").label), 1)]),
+        default: Vue.withCtx(() => [Vue.createTextVNode(Vue.toDisplayString(Vue.unref($t)("user.login.remember-me").label), 1)]),
         _: 1
-      }, 8, ["checked"]), createBaseVNode("a", _hoisted_4$2, toDisplayString(unref($t)("user.login.forgot-password").label), 1)]), createBaseVNode("div", _hoisted_5$2, [createVNode(_component_xButton, {
-        configs: unref(State_Login).configsSubmit
-      }, null, 8, ["configs"])]), createBaseVNode("div", _hoisted_6$2, [createBaseVNode("div", _hoisted_7$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.login.sign-in-with").label), 1), createVNode(_component_router_link, {
+      }, 8, ["checked"]), Vue.createElementVNode("a", _hoisted_4$2, Vue.toDisplayString(Vue.unref($t)("user.login.forgot-password").label), 1)]), Vue.createElementVNode("div", _hoisted_5$2, [Vue.createVNode(_component_xButton, {
+        configs: Vue.unref(State_Login).configsSubmit
+      }, null, 8, ["configs"])]), Vue.createElementVNode("div", _hoisted_6$2, [Vue.createElementVNode("div", _hoisted_7$1, [Vue.createElementVNode("span", null, Vue.toDisplayString(Vue.unref($t)("user.login.sign-in-with").label), 1), Vue.createVNode(_component_router_link, {
         class: "register",
         to: {
-          name: unref(routeNames).register
+          name: Vue.unref(routeNames).register
         }
       }, {
-        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.login.signup").label), 1)]),
+        default: Vue.withCtx(() => [Vue.createTextVNode(Vue.toDisplayString(Vue.unref($t)("user.login.signup").label), 1)]),
         _: 1
       }, 8, ["to"])])])])]);
     };
@@ -3626,7 +3639,7 @@ const styles = {
     height: "16px"
   }
 };
-const State_Register = reactive({
+const State_Register = Vue.reactive({
   isShowCheckPasswordPopover: false,
   statePassword: {
     level: 0,
@@ -3646,7 +3659,7 @@ const State_Register = reactive({
     placeholder: () => $t("user.login.email.placeholder").label,
     rules: [FormRules.required(() => $t("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
     slots: {
-      prefix: () => createVNode(MailOutlined, {
+      prefix: () => Vue.createVNode(MailOutlined, {
         "style": styles.icon
       }, null)
     }
@@ -3664,7 +3677,7 @@ const State_Register = reactive({
       console.log(thisConfigs.itemTips);
     },
     slots: {
-      prefix: () => createVNode(LockOutlined, {
+      prefix: () => Vue.createVNode(LockOutlined, {
         "style": styles.icon
       }, null)
     }
@@ -3679,7 +3692,7 @@ const State_Register = reactive({
       trigger: [EVENT_TYPE.update]
     })],
     slots: {
-      prefix: () => createVNode(LockOutlined, {
+      prefix: () => Vue.createVNode(LockOutlined, {
         "style": styles.icon
       }, null)
     }
@@ -3690,7 +3703,7 @@ const State_Register = reactive({
     placeholder: () => $t("user.login.mobile.verification-code.placeholder").label,
     rules: [FormRules.required(() => $t("user.verification-code.required").label, [EVENT_TYPE.blur])],
     slots: {
-      prefix: () => createVNode(MailOutlined, {
+      prefix: () => Vue.createVNode(MailOutlined, {
         "style": styles.icon
       }, null)
     }
@@ -3824,88 +3837,88 @@ const _sfc_main$2 = {
       2: "#ff7e05",
       3: "#52c41a"
     };
-    const passwordLevelClass = computed(() => {
+    const passwordLevelClass = Vue.computed(() => {
       return levelClass[State_Register.statePassword.passwordLevel];
     });
-    const passwordLevelName = computed(() => {
+    const passwordLevelName = Vue.computed(() => {
       return levelNames[State_Register.statePassword.passwordLevel];
     });
-    const passwordLevelColor = computed(() => {
+    const passwordLevelColor = Vue.computed(() => {
       return levelColor[State_Register.statePassword.passwordLevel];
     });
     return (_ctx, _cache) => {
-      const _component_xItem = resolveComponent("xItem");
-      const _component_xGap = resolveComponent("xGap");
-      const _component_Progress = resolveComponent("Progress");
-      const _component_Popover = resolveComponent("Popover");
-      const _component_xButtonCountDown = resolveComponent("xButtonCountDown");
-      const _component_xButton = resolveComponent("xButton");
-      const _component_RouterLink = resolveComponent("RouterLink");
-      return openBlock(), createElementBlock("div", _hoisted_1$1, [createBaseVNode("div", _hoisted_2$1, [createBaseVNode("h3", null, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.register").label), 1)]), createBaseVNode("form", null, [createVNode(_component_xItem, {
+      const _component_xItem = Vue.resolveComponent("xItem");
+      const _component_xGap = Vue.resolveComponent("xGap");
+      const _component_Progress = Vue.resolveComponent("Progress");
+      const _component_Popover = Vue.resolveComponent("Popover");
+      const _component_xButtonCountDown = Vue.resolveComponent("xButtonCountDown");
+      const _component_xButton = Vue.resolveComponent("xButton");
+      const _component_RouterLink = Vue.resolveComponent("RouterLink");
+      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$1, [Vue.createElementVNode("div", _hoisted_2$1, [Vue.createElementVNode("h3", null, [Vue.createElementVNode("span", null, Vue.toDisplayString(Vue.unref($t)("user.register.register").label), 1)]), Vue.createElementVNode("form", null, [Vue.createVNode(_component_xItem, {
         ref: "email",
-        modelValue: unref(State_Register).data.email,
-        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => unref(State_Register).data.email = $event),
-        configs: unref(State_Register).configsForm.email,
+        modelValue: Vue.unref(State_Register).data.email,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => Vue.unref(State_Register).data.email = $event),
+        configs: Vue.unref(State_Register).configsForm.email,
         autocomplete: "email"
-      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), Vue.createVNode(_component_xGap, {
         t: "20"
-      }), createVNode(_component_Popover, {
-        visible: unref(State_Register).isShowCheckPasswordPopover,
+      }), Vue.createVNode(_component_Popover, {
+        visible: Vue.unref(State_Register).isShowCheckPasswordPopover,
         trigger: ["click"],
         placement: "rightTop"
       }, {
-        content: withCtx(() => [createBaseVNode("div", _hoisted_3$1, [createBaseVNode("div", {
-          class: normalizeClass(["user-register", unref(passwordLevelClass)])
-        }, toDisplayString(unref($t)(unref(passwordLevelName)).label), 3), createVNode(_component_Progress, {
-          percent: unref(State_Register).statePassword.percent,
+        content: Vue.withCtx(() => [Vue.createElementVNode("div", _hoisted_3$1, [Vue.createElementVNode("div", {
+          class: Vue.normalizeClass(["user-register", Vue.unref(passwordLevelClass)])
+        }, Vue.toDisplayString(Vue.unref($t)(Vue.unref(passwordLevelName)).label), 3), Vue.createVNode(_component_Progress, {
+          percent: Vue.unref(State_Register).statePassword.percent,
           "show-info": false,
-          "stroke-color": unref(passwordLevelColor),
+          "stroke-color": Vue.unref(passwordLevelColor),
           "get-popup-container": (trigger) => trigger.parentElement
-        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), createBaseVNode("div", _hoisted_4$1, [createBaseVNode("span", null, toDisplayString(unref($t)("user.register.password.popover-message").label), 1)])])]),
-        default: withCtx(() => [createVNode(_component_xItem, {
-          modelValue: unref(State_Register).data.password,
-          "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => unref(State_Register).data.password = $event),
-          configs: unref(State_Register).configsForm.password,
+        }, null, 8, ["percent", "stroke-color", "get-popup-container"]), Vue.createElementVNode("div", _hoisted_4$1, [Vue.createElementVNode("span", null, Vue.toDisplayString(Vue.unref($t)("user.register.password.popover-message").label), 1)])])]),
+        default: Vue.withCtx(() => [Vue.createVNode(_component_xItem, {
+          modelValue: Vue.unref(State_Register).data.password,
+          "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => Vue.unref(State_Register).data.password = $event),
+          configs: Vue.unref(State_Register).configsForm.password,
           autocomplete: "current-password"
         }, null, 8, ["modelValue", "configs"])]),
         _: 1
-      }, 8, ["visible"]), createVNode(_component_xGap, {
+      }, 8, ["visible"]), Vue.createVNode(_component_xGap, {
         t: "20"
-      }), createVNode(_component_xItem, {
-        modelValue: unref(State_Register).data.passwordConfirm,
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => unref(State_Register).data.passwordConfirm = $event),
-        configs: unref(State_Register).configsForm.passwordConfirm,
+      }), Vue.createVNode(_component_xItem, {
+        modelValue: Vue.unref(State_Register).data.passwordConfirm,
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => Vue.unref(State_Register).data.passwordConfirm = $event),
+        configs: Vue.unref(State_Register).configsForm.passwordConfirm,
         autocomplete: "current-password"
-      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), Vue.createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_5$1, [createVNode(_component_xItem, {
-        modelValue: unref(State_Register).data.verifyCode,
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => unref(State_Register).data.verifyCode = $event),
-        configs: unref(State_Register).configsForm.verifyCode,
+      }), Vue.createElementVNode("div", _hoisted_5$1, [Vue.createVNode(_component_xItem, {
+        modelValue: Vue.unref(State_Register).data.verifyCode,
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => Vue.unref(State_Register).data.verifyCode = $event),
+        configs: Vue.unref(State_Register).configsForm.verifyCode,
         autocomplete: "current-password"
-      }, null, 8, ["modelValue", "configs"]), createVNode(_component_xGap, {
+      }, null, 8, ["modelValue", "configs"]), Vue.createVNode(_component_xGap, {
         l: "20"
-      }), createVNode(_component_xButtonCountDown, {
-        configs: unref(State_Register).configsverifyCode
-      }, null, 8, ["configs"])])]), createVNode(_component_xGap, {
+      }), Vue.createVNode(_component_xButtonCountDown, {
+        configs: Vue.unref(State_Register).configsverifyCode
+      }, null, 8, ["configs"])])]), Vue.createVNode(_component_xGap, {
         t: "20"
-      }), createBaseVNode("div", _hoisted_6$1, [createVNode(_component_xButton, {
-        configs: unref(State_Register).configsSubmit
-      }, null, 8, ["configs"]), createVNode(_component_xGap, {
+      }), Vue.createElementVNode("div", _hoisted_6$1, [Vue.createVNode(_component_xButton, {
+        configs: Vue.unref(State_Register).configsSubmit
+      }, null, 8, ["configs"]), Vue.createVNode(_component_xGap, {
         l: "80"
-      }), createVNode(_component_RouterLink, {
+      }), Vue.createVNode(_component_RouterLink, {
         class: "register",
         to: {
-          name: unref(routeNames).login
+          name: Vue.unref(routeNames).login
         }
       }, {
-        default: withCtx(() => [createTextVNode(toDisplayString(unref($t)("user.register.sign-in").label), 1)]),
+        default: Vue.withCtx(() => [Vue.createTextVNode(Vue.toDisplayString(Vue.unref($t)("user.register.sign-in").label), 1)]),
         _: 1
       }, 8, ["to"])])])]);
     };
   }
 };
-var xIM = defineComponent({
+var xIM = Vue.defineComponent({
   data() {
     return {};
   },
@@ -3916,10 +3929,10 @@ var xIM = defineComponent({
       console.log("Message from server ", _$1.safeParse(event.data));
     });
   },
-  render(h2) {
-    return createVNode("h1", {
+  render(h) {
+    return Vue.createVNode("h1", {
       "id": this.id
-    }, [createTextVNode("test")]);
+    }, [Vue.createTextVNode("test")]);
   }
 });
 const _hoisted_1 = {
@@ -3928,24 +3941,24 @@ const _hoisted_1 = {
 const _hoisted_2 = {
   class: "flex width100"
 };
-const _hoisted_3 = /* @__PURE__ */ createTextVNode(" v-uiPopover ");
-const _hoisted_4 = /* @__PURE__ */ createTextVNode(" v-uiPopover ");
-const _hoisted_5 = /* @__PURE__ */ createBaseVNode("div", null, null, -1);
-const _hoisted_6 = /* @__PURE__ */ createTextVNode(" iframe ");
-const _hoisted_7 = /* @__PURE__ */ createBaseVNode("div", null, null, -1);
-const _hoisted_8 = /* @__PURE__ */ createTextVNode(" popover ");
+const _hoisted_3 = /* @__PURE__ */ Vue.createTextVNode(" v-uiPopover ");
+const _hoisted_4 = /* @__PURE__ */ Vue.createTextVNode(" v-uiPopover ");
+const _hoisted_5 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
+const _hoisted_6 = /* @__PURE__ */ Vue.createTextVNode(" iframe ");
+const _hoisted_7 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
+const _hoisted_8 = /* @__PURE__ */ Vue.createTextVNode(" popover ");
 var _sfc_main$1 = {
   setup(__props) {
-    const state = reactive({
+    const state = Vue.reactive({
       count: 0
     });
-    defineComponent({
+    Vue.defineComponent({
       setup() {
         function add() {
           state.count++;
         }
         return () => {
-          return createVNode(resolveComponent("Button"), {
+          return Vue.createVNode(Vue.resolveComponent("Button"), {
             "type": "primary",
             "onClick": add
           }, {
@@ -3978,31 +3991,31 @@ var _sfc_main$1 = {
       }
     };
     return (_ctx, _cache) => {
-      const _component_Button = resolveComponent("Button");
-      const _directive_uiPopover = resolveDirective("uiPopover");
-      return openBlock(), createElementBlock("div", _hoisted_1, [createBaseVNode("div", _hoisted_2, [createVNode(unref(xIM)), withDirectives((openBlock(), createBlock(_component_Button, {
+      const _component_Button = Vue.resolveComponent("Button");
+      const _directive_uiPopover = Vue.resolveDirective("uiPopover");
+      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [Vue.createElementVNode("div", _hoisted_2, [Vue.createVNode(Vue.unref(xIM)), Vue.withDirectives((Vue.openBlock(), Vue.createBlock(_component_Button, {
         id: "tips"
       }, {
-        default: withCtx(() => [_hoisted_3]),
+        default: Vue.withCtx(() => [_hoisted_3]),
         _: 1
       })), [[_directive_uiPopover, {
         content: "tips1"
-      }]]), withDirectives((openBlock(), createBlock(_component_Button, null, {
-        default: withCtx(() => [_hoisted_4]),
+      }]]), Vue.withDirectives((Vue.openBlock(), Vue.createBlock(_component_Button, null, {
+        default: Vue.withCtx(() => [_hoisted_4]),
         _: 1
       })), [[_directive_uiPopover, {
         content: "tips2"
-      }]]), _hoisted_5, createVNode(_component_Button, {
+      }]]), _hoisted_5, Vue.createVNode(_component_Button, {
         id: "target",
         onClick: handlers.clickBtn
       }, {
-        default: withCtx(() => [_hoisted_6]),
+        default: Vue.withCtx(() => [_hoisted_6]),
         _: 1
-      }, 8, ["onClick"]), _hoisted_7, createVNode(_component_Button, {
+      }, 8, ["onClick"]), _hoisted_7, Vue.createVNode(_component_Button, {
         id: "target2",
         onClick: handlers.openTips
       }, {
-        default: withCtx(() => [_hoisted_8]),
+        default: Vue.withCtx(() => [_hoisted_8]),
         _: 1
       }, 8, ["onClick"])])]);
     };
@@ -4011,12 +4024,12 @@ var _sfc_main$1 = {
 var _sfc_main = {
   setup(__props) {
     return (_ctx, _cache) => {
-      const _component_RouterView = resolveComponent("RouterView");
-      return openBlock(), createElementBlock(Fragment, null, [createVNode(_sfc_main$1), createVNode(_component_RouterView)], 64);
+      const _component_RouterView = Vue.resolveComponent("RouterView");
+      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createVNode(_sfc_main$1), Vue.createVNode(_component_RouterView)], 64);
     };
   }
 };
-const viewModules = { "../views/modules/dashboard/workplace/workplace.vue": () => true ? __vitePreload(() => import("./workplace-db7be883.js"), ["statics/js/workplace-db7be883.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index-ee5c50c3.js"), ["statics/js/index-ee5c50c3.js","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"]) : null };
+const viewModules = { "../views/modules/dashboard/workplace/workplace.vue": () => true ? __vitePreload(() => import("./workplace-703dd5c5.js"), ["statics/js/workplace-703dd5c5.js","statics/js/vendor-cb3a9242.js","statics/assets/vendor.0c57c20c.css"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index-a016dbd4.js"), ["statics/js/index-a016dbd4.js","statics/js/vendor-cb3a9242.js","statics/assets/vendor.0c57c20c.css"]) : null };
 console.log("viewModules", viewModules);
 const NewRoute = (name, component, options = {}) => _$1.merge({
   name,
@@ -4038,7 +4051,7 @@ const toPath = (name) => `/${name}`;
 const routes = [{
   name: routeNames.shell,
   path: "/",
-  component: __vitePreload(() => import("./LayoutBasic-6e94c9e7.js"), true ? ["statics/js/LayoutBasic-6e94c9e7.js","statics/assets/LayoutBasic.8c490128.css","statics/js/vendor-1427bb8e.js","statics/assets/vendor.0c57c20c.css"] : void 0),
+  component: __vitePreload(() => import("./LayoutBasic-4baa754d.js"), true ? ["statics/js/LayoutBasic-4baa754d.js","statics/assets/LayoutBasic.8c490128.css","statics/js/vendor-cb3a9242.js","statics/assets/vendor.0c57c20c.css"] : void 0),
   children: [{
     name: "first",
     path: "first",
@@ -4056,8 +4069,8 @@ const routes = [{
     }
   })]
 }), NewRoute(routeNames[404], _sfc_main$7)];
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHashHistory(),
   routes: [...routes, {
     path: "/:pathMatch(.*)*",
     redirect: toPath(routeNames[404])
@@ -4138,7 +4151,7 @@ each(icons, (icon, path) => {
   modules[prop] = icon;
 });
 const ICON_STRING_CACHE = {};
-var LazySvg = defineComponent(markRaw({
+var LazySvg = Vue.defineComponent(Vue.markRaw({
   props: ["icon"],
   data() {
     const id = "lazy-svg_" + this._.uid;
@@ -4167,23 +4180,23 @@ var LazySvg = defineComponent(markRaw({
       }
     }
   },
-  render(h2) {
-    return createVNode("div", {
+  render(h) {
+    return Vue.createVNode("div", {
       "id": this.id
-    }, [createVNode("div", {
+    }, [Vue.createVNode("div", {
       "className": "next-loading next-open next-loading-inline",
       "style": "width:100%;height:100%;overflow:hidden"
-    }, [createVNode("div", {
+    }, [Vue.createVNode("div", {
       "className": "next-loading-tip"
-    }, [createVNode("div", {
+    }, [Vue.createVNode("div", {
       "className": "next-loading-indicator"
-    }, null)]), createVNode("div", {
+    }, null)]), Vue.createVNode("div", {
       "className": "next-loading-component next-loading-wrap"
-    }, [createVNode("div", {
+    }, [Vue.createVNode("div", {
       "className": "next-loading-masker"
-    }, null), createVNode("div", {
+    }, null), Vue.createVNode("div", {
       "className": "demo-basic"
-    }, [createVNode(LoadingOutlined, null, null)])])])]);
+    }, [Vue.createVNode(LoadingOutlined, null, null)])])])]);
   }
 }));
 dayjs.locale("zh-cn");
@@ -4195,7 +4208,7 @@ const appPlugins = {
     });
     app.use(appI18n, {
       watch: () => {
-        watchEffect(() => {
+        Vue.watchEffect(() => {
           setI18nLanguage(options.dependState.configs.language);
         });
       }
@@ -4215,8 +4228,18 @@ const appPlugins = {
     window.$ = $$1;
     window.State_App = State_App;
   }
-  createApp(_sfc_main$8).use(appPlugins, {
+  try {
+    await API.common.testConnect();
+  } catch (d) {
+    const {
+      loadMockData
+    } = await __vitePreload(() => import("./index-f34bf941.js").then(function(n) {
+      return n.i;
+    }), true ? ["statics/js/index-f34bf941.js","statics/js/vendor-cb3a9242.js","statics/assets/vendor.0c57c20c.css"] : void 0);
+    await loadMockData();
+  }
+  Vue.createApp(_sfc_main$8).use(appPlugins, {
     dependState: State_App
   }).mount("#app");
 })();
-export { Actions_App as A, State_App as S, _sfc_main$7 as _, _sfc_main$1 as a, STATIC_WORD as b, _sfc_main$6 as c, logoImg as l };
+export { Actions_App as A, State_App as S, __vitePreload as _, _sfc_main$7 as a, _sfc_main$1 as b, STATIC_WORD as c, _sfc_main$6 as d, logoImg as l };
