@@ -5,7 +5,7 @@ import { STATIC_WORD } from "../utils/common.words";
 
 const ajax = axios.create({
 	headers: {
-		token: lStorage[STATIC_WORD.ACCESS_TOKEN] || ""
+		token: lStorage.token || ""
 	},
 	timeout: 20000 // request timeout
 });
