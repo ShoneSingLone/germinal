@@ -39,7 +39,9 @@ export function logError(msg) {
 /*
  * @parseContent：满足`return {}`形式的字符串
  */
-export const parseContent = returnSentence => new Function(returnSentence);
+export const parseContent = returnSentence => {
+	return new Function(returnSentence);
+};
 
 /* https://learn.jquery.com/ */
 /* https://api.jquery.com/jQuery.ajax/  */
