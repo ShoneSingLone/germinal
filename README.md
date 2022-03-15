@@ -104,6 +104,10 @@ const genMenu = () => {
 
 ### $t 多语言转换
 
+- 懒加载，最好是当前模块用到的才加载。
+- 如何做到异步？使用DelayCall function？
+
+
 单一数据源`build/make/language.js`
 
 ```json

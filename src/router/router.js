@@ -10,8 +10,38 @@ import { $t } from "lsrc/language";
 import { _, setDocumentTitle } from "@ventose/ui";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
-console.log("viewModules", viewModules);
 
+const routesDelay = _.reduce(
+	viewModules,
+	(routes, component, path) => {
+		const originUrl = path.replace("../views/modules/", "");
+		const pathArray = originUrl.split("/");
+		const filePath = _.last(pathArray);
+		const matchRes = filePath.match(/^View(.*)\.(vue|jsx|tsx)$/);
+		if (matchRes) {
+			const fileName = matchRes[1];
+			pathArray[pathArray.length - 1] = fileName;
+			console.log();
+			const kebabCase = pathArray.map(_.kebabCase);
+			routes.push({
+				name: `${kebabCase.join(".").replaceAll("-", "_")}`,
+				path: `/${kebabCase.join("/").replaceAll("-", "_")}`,
+				component
+			});
+		}
+		return routes;
+	},
+	[]
+);
+
+export const menuRoutesDelay = routesDelay.map(i => {
+	return {
+		id: i.name,
+		name: i.name,
+		label: i.name,
+		icon: null
+	};
+});
 const RouteView = {
 	name: "RouteView",
 	render: h => h("RouteView")
@@ -39,11 +69,13 @@ export const routeNames = {
 	404: "404"
 };
 const toPath = name => `/${name}`;
-
 const routes = [
+	...routesDelay,
+
 	{
 		name: routeNames.shell,
 		path: "/",
+		redirect: "/first",
 		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [
 			{
@@ -69,6 +101,7 @@ const routes = [
 			})
 		]
 	}),
+
 	NewRoute(routeNames[404], NotFound)
 ];
 
@@ -83,6 +116,8 @@ export const router = createRouter({
 		}
 	]
 });
+
+router.addRoute(routesDelay);
 
 NProgress.configure({
 	showSpinner: false
