@@ -1,3 +1,4 @@
+/* http://www.javashuo.com/article/p-hykaiaac-k.html */
 module.exports = {
 	root: true,
 	globals: {

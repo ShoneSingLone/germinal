@@ -21,10 +21,10 @@ export const RegexFn = {
 const makeFormRules = options => options;
 
 export default {
-	required(msg = "必填项", trigger = [EVENT_TYPE.update]) {
+	required(msg, trigger = [EVENT_TYPE.update]) {
 		return makeFormRules({
 			name: "required",
-			msg,
+			msg: msg || $t("必填项").label,
 			async validator(value) {
 				/*必填的简单验证*/
 				if (value) return SUCCESS;

@@ -54,6 +54,7 @@ import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
 import xView from "./xView/xView.vue";
 import xDataGrid from "./xDataGrid/xDataGrid.vue";
+import xDataGridToolbar from "./xDataGrid/xDataGridToolbar.vue";
 import xCellLabel from "./xDataGrid/xCellLabel.vue";
 import xPagination from "./xDataGrid/xPagination.vue";
 import xColFilter from "./xDataGrid/xColFilter.vue";
@@ -64,7 +65,8 @@ import {
 	t_dialogOptions,
 	handleClickDialogOK
 } from "./xSingle/dialog/dialog";
-
+import { $t } from "lsrc/language";
+import { State_UI } from "./State_UI";
 //@ts-ignore
 if (import.meta.env.MODE === "development") {
 	//@ts-ignore
@@ -82,6 +84,7 @@ const componentMyUI = {
 	xCharts,
 	xView,
 	xDataGrid,
+	xDataGridToolbar,
 	xColFilter,
 	xPagination,
 	xCellLabel
@@ -137,10 +140,10 @@ const useModel = type => {
 			title = (isDefault => {
 				if (isDefault) {
 					const title_map = {
-						success: "成功",
-						info: "提示",
-						error: "错误",
-						warning: "警告"
+						success: $t("成功").label,
+						info: $t("提示").label,
+						error: $t("错误").label,
+						warning: $t("警告").label
 					};
 					return title_map[type];
 				} else {
@@ -157,7 +160,7 @@ const useModel = type => {
 				onCancel() {
 					reject();
 				},
-				okText: "确定",
+				okText: $t("确定").label,
 				class: "test"
 			});
 		});
@@ -165,6 +168,7 @@ const useModel = type => {
 };
 
 export const UI = {
+	State_UI,
 	dialog: {
 		component: async (options: t_dialogOptions) => null,
 		success: useModel("success"),
@@ -183,7 +187,7 @@ export const UI = {
 					onCancel() {
 						reject();
 					},
-					okText: "确定",
+					okText: $t("确定").label,
 					cancelText: "取消",
 					class: "test"
 				});
@@ -196,7 +200,7 @@ export const UI = {
 					icon: <ExclamationCircleOutlined style={"color:red"} />,
 					content,
 					okType: "danger",
-					okText: "确定",
+					okText: $t("确定").label,
 					cancelText: "取消",
 					onOk() {
 						resolve("ok");
@@ -216,6 +220,8 @@ export const UI = {
 export { _ } from "./loadCommonUtil.js";
 export {
 	defPagination,
+	setPagination,
+	getPaginationPageSize,
 	defCol,
 	defColActions,
 	defColActionsBtnlist,
@@ -228,6 +234,7 @@ export { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
 export { lStorage } from "./tools/storage.js";
 export { pickValueFrom, resetState_Value } from "./tools/form.js";
 export { handleClickDialogOK };
+export { State_UI } from "./State_UI.jsx";
 
 export default {
 	install: (app, options /* {appPlugins,dependState} */) => {

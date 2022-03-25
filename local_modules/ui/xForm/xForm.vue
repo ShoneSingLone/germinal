@@ -8,13 +8,11 @@ import $ from "jquery";
 
 export default defineComponent({
 	props: {
-		labelWidth: {
-			type: String,
-			default: "120px"
-		},
-		textAlign: {
-			type: String,
-			default: "right"
+		labelStyle: {
+			type: Object,
+			default() {
+				return {};
+			}
 		}
 	},
 	emits: [],
@@ -26,23 +24,16 @@ export default defineComponent({
 		xFormId() {
 			return `xForm_${this._.uid}`;
 		},
-		styleContent() {
-			return `
-#${this.xFormId} {
-    width:100%;
-    padding:0 16px;
-}
+		labelStyleText() {
+			return _.map(
+				_.merge({ width: "120px", "text-align": "left" }, this.labelStyle),
+				(value, prop) => `${prop}: ${value}`
+			).join(";");
+		},
 
-#${this.xFormId} div.ant-form-item-label {
-    width:${this.labelWidth};
-    text-align:${this.textAlign};
-}
-`;
-		}
-	},
-	watch: {
 		styleContent() {
-			this.updateStyle(this.styleContent);
+			return `#${this.xFormId} { width:100%; padding:0 16px; }
+ #${this.xFormId} div.ant-form-item-label { ${this.labelStyleText} }`;
 		}
 	},
 	mounted() {
@@ -51,6 +42,11 @@ export default defineComponent({
 			this.styleContent
 		);
 		$form.prepend($style);
+	},
+	watch: {
+		styleContent() {
+			this.updateStyle(this.styleContent);
+		}
 	},
 	methods: {
 		updateStyle(styleContent) {

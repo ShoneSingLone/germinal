@@ -46,7 +46,7 @@ const handleChecked = col => {
 </script>
 
 <template>
-	<Popover placement="leftBottom" trigger="click">
+	<Popover placement="leftTop" trigger="click">
 		<template #content>
 			<p v-for="col in Cpt_Columns" :key="col.key">
 				<Checkbox

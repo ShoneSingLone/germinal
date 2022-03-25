@@ -35,11 +35,11 @@ const { page, size, total } = lStorage.appConfigs.pagination;
 		:total="props.pagination[total]"
 		:page-size="props.pagination[size]"
 		show-size-changer
-		:show-total="total => `总共 ${total} 条`"
+		:show-total="total => $t('总条数', { total: total }).label"
 		@showSizeChange="onShowSizeChange"
 		@change="onShowSizeChange">
 		<template #buildOptionText="props">
-			<span>{{ props.value }}条/页</span>
+			<span>{{ $t("条页", { size: props.value }).label }}</span>
 		</template>
 	</Pagination>
 </template>

@@ -52,6 +52,9 @@ body,
 
 ## Reference
 
+- []()
+    - npm update --depth=9999 vue-loader
+
 - [Vue3](https://v3.cn.vuejs.org/api/)
     - [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
     - [composition-api-lifecycle-hooks](https://v3.cn.vuejs.org/guide/composition-api-lifecycle-hooks.html)

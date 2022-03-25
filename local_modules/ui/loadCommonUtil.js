@@ -53,12 +53,47 @@ _.WORDS = {
 
 /*lodash IDE 能识别*/
 _.doNothing = (...args) => {
-	if (import.meta.env.MODE === "development") {
+	if (localStorage.CurrentIsDevModel === "CurrentIsDevModel") {
 		const e = new Error();
 		console.log("🚀:", e.stack.split("\n")[2].replace("    at ", ""));
 		console.log.apply(console, args);
 	}
 };
+/* 睡眠 t:setTimeout during time*/
+_.sleep = t => new Promise(r => setTimeout(r, t));
+
+/* 组件属性是否是on开头，组件的事件监听*/
+const onRE = /^on[^a-z]/;
+_.isOn = key => onRE.test(key);
+_.isModelListener = key => key.startsWith("onUpdate:");
+_.isListener = key => _.isOn(key) || _.isModelListener(key);
+/**/
+/*是否非空数组*/
+_.isArrayFill = arr => _.isArray(arr) && arr.length > 0;
+/*对象至少有一个属性*/
+_.isObjectFill = obj => _.isPlainObject(obj) && Object.keys(obj).length > 0;
+
+/***
+ * 返回数组的第一个value，
+ * 通过check,
+ * 为真则返回value,
+ * 否则返回false,
+ * 默认check为 _.isInput
+ * @param arr
+ * @param fnCheck
+ * @return {firstValue|false}
+ */
+_.safeFirst = (arr, fnCheck) => {
+	fnCheck = fnCheck || (value => _.isInput(value));
+	const obj = _.first(arr);
+	return fnCheck(obj) ? obj : false;
+};
+/***
+ *
+ * @param val
+ * @param isBeautiful
+ * @return {string}
+ */
 _.safeToString = (val, isBeautiful) => {
 	if (typeof val === "object") {
 		if (isBeautiful) {
@@ -71,17 +106,39 @@ _.safeToString = (val, isBeautiful) => {
 	}
 };
 
-/* 睡眠 t:setTimeout during time*/
-_.sleep = t => new Promise(r => setTimeout(r, t));
+_.safeParse = (val, defaultObj = {}) => {
+	let obj = defaultObj;
+	try {
+		obj = JSON.parse(val);
+		if (!val) {
+			obj = defaultObj;
+			throw new Error("json parse error");
+		}
+	} catch (error) {
+		_.doNothing(error);
+	}
+	return obj;
+};
 
-/* 组件属性是否是on开头，组件的事件监听*/
-const onRE = /^on[^a-z]/;
-_.isOn = key => onRE.test(key);
-_.isModelListener = key => key.startsWith("onUpdate:");
-_.isListener = key => _.isOn(key) || _.isModelListener(key);
-/**/
-/*是否非空数组*/
-_.isArrayFill = arr => _.isArray(arr) && arr.length > 0;
+_.safeSplit = function (target, sp) {
+	return target?.split ? target.split(sp) : [];
+};
+/***
+ * dayjs对象或者""
+ * @param val
+ * @return {string|dayjs.Dayjs}
+ */
+_.safeDate = function (val) {
+	if (!val) {
+		return "";
+	}
+	let date = dayjs(val);
+	if (date === _.WORDS.INVALID_DATE) {
+		return "";
+	} else {
+		return date;
+	}
+};
 /*  */
 
 /***
@@ -98,8 +155,14 @@ _.isInput = val => {
 /*jquery到底有没有选中目标DOM？*/
 _.is$Selected = $ele => $ele && $ele.length > 0;
 /**
- * 获取对象的value
- * 这个方法很灵性，有时候后面来的结构长这样 {id:value}
+ * 获取对象的键和值
+ * 这个方法很灵性，有时候后面来的结构长这样 {id:value}，有且只有一个属性，
+ * 但凡写个Interface 规定数据长这样，通用性都更好
+ * [{
+ *      prop:'id',
+ *      value:'12345',
+ *      label:'唯一标识符'
+ * }]
  * @param {*} obj
  * @param {*} defaultValue
  * @returns
@@ -109,36 +172,6 @@ _.getObjectFirstKeyValue = (obj, defaultValue = "") => {
 	const keyArray = Object.keys(obj);
 	if (!_.isArrayFill(keyArray)) return defaultValue;
 	return _.isInput(keyArray[0]) ? obj[keyArray[0]] : defaultValue;
-};
-
-_.safeParse = (val, defaultObj = {}) => {
-	let obj = defaultObj;
-	try {
-		obj = JSON.parse(val);
-		if (!val) {
-			obj = defaultObj;
-			throw new Error("json parse error");
-		}
-	} catch (error) {
-		console.log(error);
-	}
-	return obj;
-};
-
-_.safeSplit = function (target, sp) {
-	return target?.split ? target.split(sp) : [];
-};
-
-_.safeDate = function (val) {
-	if (!val) {
-		return "";
-	}
-	let date = dayjs(val);
-	if (date === _.WORDS.INVALID_DATE) {
-		return "";
-	} else {
-		return date;
-	}
 };
 
 /**
@@ -156,6 +189,22 @@ _.asyncLoadJS = async (url, globalName) => {
 		return window[globalName];
 	});
 	$style.attr("src", url);
+};
+
+_.ensureValueDone = async fnGetValue => {
+	return new Promise(async resolve => {
+		let exeFnGetValue = async function () {
+			const value = await fnGetValue();
+			if (value) {
+				exeFnGetValue = null;
+				resolve();
+			} else {
+				setTimeout(exeFnGetValue, 1000 * exeFnGetValue.count++);
+			}
+		};
+		exeFnGetValue.count = 1;
+		exeFnGetValue();
+	});
 };
 
 function genId(category) {

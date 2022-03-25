@@ -1,6 +1,6 @@
 <script setup lang="jsx">
 import { Table } from "ant-design-vue";
-import { computed } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import { _ } from "../loadCommonUtil";
 import xColFilter from "./xColFilter.vue";
 import { filterColIsShow } from "./common";
@@ -15,7 +15,16 @@ const props = defineProps({
 	}
 });
 
+const State = reactive({ id: _.genId("xDataGrid") });
+
+onMounted(() => {
+	if (props.configs.onMounted) {
+		props.configs.onMounted({ id: State.id });
+	}
+});
+
 /*列顺序*/
+/* 如果有排序的需求 */
 const Cpt_ColumnsOrder = computed(() => {
 	const order = (() => {
 		if (props.configs.columns_order) {
@@ -80,6 +89,7 @@ const Cpt_RenderTable = computed(() => {
 	} else {
 		return () => (
 			<Table
+				loading={props.configs.isLoading}
 				dataSource={props.configs.dataSource}
 				columns={Cpt_Columns.value}
 				scroll={{ x: 1500 }}
@@ -90,7 +100,12 @@ const Cpt_RenderTable = computed(() => {
 						const { column } = args;
 						if (column && column.renderCell) {
 							/* column index record text value */
-							return column.renderCell(args);
+							const vNode = column.renderCell(args);
+							/*fix:返回null会判断为没有renderCell处理，直接取prop字段的数据*/
+							if (_.isNull(vNode) || _.isUndefined(vNode)) {
+								return "";
+							}
+							return vNode;
 						}
 					}
 				}}
@@ -98,16 +113,26 @@ const Cpt_RenderTable = computed(() => {
 		);
 	}
 });
+
+const Methods = {
+	handlePaginationChange: async pagination => {
+		props.configs.isLoading = true;
+		await props.configs.onPaginationChange(pagination);
+		props.configs.isLoading = false;
+	}
+};
 </script>
 
 <template>
-	<xRender :render="Cpt_RenderOptions" />
-	<xRender :render="Cpt_RenderTable" />
-	<xPagination
-		class="table-pagination"
-		v-if="!props.configs.isHidePagination"
-		:pagination="props.configs.pagination"
-		:onPaginationChange="props.configs.onPaginationChange" />
+	<div :id="State.id">
+		<xRender :render="Cpt_RenderOptions" />
+		<xRender :render="Cpt_RenderTable" />
+		<xPagination
+			v-if="!props.configs.isHidePagination"
+			class="table-pagination"
+			:pagination="props.configs.pagination"
+			:on-pagination-change="Methods.handlePaginationChange" />
+	</div>
 </template>
 
 <style>

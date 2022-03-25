@@ -1,5 +1,6 @@
 import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import { _ } from "../loadCommonUtil";
+import { $t } from "lsrc/language";
 import {
 	SaveOutlined,
 	SearchOutlined,
@@ -9,11 +10,11 @@ import {
 } from "@ant-design/icons-vue";
 
 const BTN_PRESET_MAP = {
-	save: { icon: <SaveOutlined />, text: "保存" },
-	refresh: { icon: <SyncOutlined />, text: "刷新" },
-	query: { icon: <SearchOutlined />, text: "查询" },
-	upload: { icon: <UploadOutlined />, text: "上传" },
-	delete: { icon: <DeleteOutlined />, text: "删除" }
+	query: { icon: <SearchOutlined />, text: $t("查询").label },
+	refresh: { icon: <SyncOutlined />, text: $t("刷新").label },
+	save: { icon: <SaveOutlined />, text: $t("保存").label },
+	upload: { icon: <UploadOutlined />, text: $t("上传").label },
+	delete: { icon: <DeleteOutlined />, text: $t("删除").label }
 };
 
 export type t_buttonOptions = {
@@ -41,6 +42,15 @@ export default defineComponent({
 				return "primary";
 			}
 			return this.configs.type;
+		},
+		title() {
+			if (_.isString(this.disabled) && this.disabled.length > 0) {
+				return this.disabled;
+			}
+			if (_.isString(this.configs.title) && this.configs.title.length > 0) {
+				return this.configs.title;
+			}
+			return false;
 		},
 		disabled() {
 			if (_.isBoolean(this.configs.disabled)) {
@@ -98,14 +108,16 @@ export default defineComponent({
 		}
 	},
 	render(h) {
-		const configs = _.omit(this.configs, ["text", "onClick"]);
-
+		const configs = _.omit(this.configs, ["text", "onClick", "disabled"]);
+		if (this.title) {
+			configs.title = this.title;
+		}
 		return (
 			<Button
 				class="flex middle"
 				onClick={this.onClick}
 				loading={this.loading}
-				disabled={this.disabled}
+				disabled={!!this.disabled}
 				type={this.type}
 				{...configs}>
 				{this.text}
