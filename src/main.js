@@ -5,8 +5,8 @@ import { State_App } from "lsrc/state/State_App";
 import $ from "jquery";
 import { _ } from "@ventose/ui";
 import { API } from "germinal_api";
-
-(async () => {
+// import "./main.test"
+async function main() {
 	window.BASE_URL = (() => {
 		const mainSrc = $("script").last().attr("src");
 		return _.safeSplit(mainSrc, "main.js")[0];
@@ -33,4 +33,6 @@ import { API } from "germinal_api";
 			dependState: State_App
 		})
 		.mount("#app");
-})();
+}
+
+main();

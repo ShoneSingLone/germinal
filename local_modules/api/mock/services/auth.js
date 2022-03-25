@@ -5,7 +5,7 @@ import { URL } from "../../url";
 
 const MOCK_MAP = [
 	[
-		"https://www.singlone.work/https/book/v1/login",
+		"/https/book/v1/login",
 		"post",
 		{
 			msg: "ok",
@@ -25,7 +25,7 @@ const MOCK_MAP = [
 		}
 	],
 	[
-		"https://www.singlone.work/https/book/auth/v1/user",
+		"/https/book/auth/v1/user",
 		"post",
 		{
 			msg: "ok",
@@ -47,7 +47,7 @@ const MOCK_MAP = [
 		}
 	],
 	[
-		"https://www.singlone.work/https/book/auth/v1/logout",
+		"/https/book/auth/v1/logout",
 		"post",
 		{
 			msg: "ok",
@@ -55,7 +55,7 @@ const MOCK_MAP = [
 		}
 	],
 	[
-		"https://www.singlone.work/https/book/auth/v1/logout",
+		"/https/book/auth/v1/logout",
 		"post",
 		{
 			msg: "ok",
@@ -64,6 +64,15 @@ const MOCK_MAP = [
 	]
 ];
 
-Mock.mock(/https/, "post", ({ url }) => {
-	return MOCK_MAP[url] || url;
+Mock.mock(/https/, mockRequest => {
+	const { url, type, body } = mockRequest;
+	for (let index = 0; index < MOCK_MAP.length - 1; index++) {
+		const [keyUrl, method, response] = MOCK_MAP[index];
+		const isThis =
+			new RegExp(`${keyUrl}`).test(url) &&
+			_.lowerCase(type) === _.lowerCase(method);
+		if (isThis) {
+			return response;
+		}
+	}
 });

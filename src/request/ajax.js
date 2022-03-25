@@ -40,14 +40,18 @@ export function logError(msg) {
  * @parseContent：满足`return {}`形式的字符串
  */
 export const parseContent = returnSentence => {
-	return new Function(returnSentence);
+	return new Function(`
+	${returnSentence}
+	return module();
+	`);
 };
 
 /* https://learn.jquery.com/ */
 /* https://api.jquery.com/jQuery.ajax/  */
 
-ajax.loadText = url =>
-	new Promise((resolve, reject) =>
+ajax.loadText = function (url) {
+	ajax.loadText.cache = ajax.loadText.cache || {};
+	return new Promise((resolve, reject) =>
 		$.ajax({
 			type: "GET",
 			async: true,
@@ -57,4 +61,6 @@ ajax.loadText = url =>
 			error: reject
 		})
 	);
+};
+
 export default ajax;

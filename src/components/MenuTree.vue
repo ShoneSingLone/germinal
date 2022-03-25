@@ -90,8 +90,19 @@ const genMenu = () => {
 									);
 								}
 							}
+							let to = (({ name, path }) => {
+								if (path) {
+									return path;
+								}
+								if (name) {
+									return { name };
+								}
+								return "/404";
+							})(menuInfo);
+
 							return (
-								<RouterLink to={menuInfo.path || "/404"}>
+								<RouterLink to={to}>
+									{to}
 									{menuInfo.label}
 								</RouterLink>
 							);
