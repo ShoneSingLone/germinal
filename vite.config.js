@@ -42,8 +42,8 @@ export default defineConfig({
 		assetsDir: "statics/assets",
 		rollupOptions: {
 			output: {
-				chunkFileNames: "statics/js/[name]-[hash].js",
-				entryFileNames: "statics/js/[name]-[hash].js"
+				chunkFileNames: "statics/js/[name].js",
+				entryFileNames: "statics/js/[name].js"
 			}
 		}
 		/* lib: {
