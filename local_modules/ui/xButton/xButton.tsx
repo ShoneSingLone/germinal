@@ -1,6 +1,6 @@
 import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import { _ } from "../loadCommonUtil";
-import { $t } from "lsrc/language";
+import { State_UI } from "../State_UI";
 import {
 	SaveOutlined,
 	SearchOutlined,
@@ -8,6 +8,7 @@ import {
 	DeleteOutlined,
 	SyncOutlined
 } from "@ant-design/icons-vue";
+const $t = State_UI.$t;
 
 const BTN_PRESET_MAP = {
 	query: { icon: <SearchOutlined />, text: $t("查询").label },

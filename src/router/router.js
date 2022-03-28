@@ -112,7 +112,7 @@ export const router = createRouter({
 		{
 			/* 404 not_found */
 			path: "/:pathMatch(.*)*",
-			redirect: toPath(routeNames[404])
+			component: NotFound
 		}
 	]
 });

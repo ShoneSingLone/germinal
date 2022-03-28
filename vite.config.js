@@ -3,7 +3,7 @@ import useVue from "@vitejs/plugin-vue";
 import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
 import path from "path";
-import svgHelper from "./vite.config.plugins.svg";
+import svgHelper from "./vite/config/plugins/svg";
 import { injectHtml } from "vite-plugin-html";
 import importToCdn from "vite-plugin-cdn-import";
 
@@ -51,12 +51,29 @@ export default defineConfig({
 		};
 
 		if (isLib) {
-			const entry = path.resolve(__dirname, "src/lib.js");
-
-			console.log(entry);
+			options.minify = true;
+			options.outDir = "dist-lib";
 			options.lib = {
-				entry,
-				name: "ventose@ui"
+				formats: ["iife"],
+				entry: path.resolve(__dirname, "local_modules/ui/index.tsx"),
+				name: "VentoseUI",
+				fileName: format =>
+					`VentoseUI${
+						options.minify ? ".min" : ""
+					}.js` /* `VentoseUI.${format}.js` */
+			};
+
+			options.rollupOptions = {
+				external: ["vue", "jquery", "lodash", "dayjs", "moment"],
+				output: {
+					globals: {
+						vue: "Vue",
+						jquery: "$",
+						lodash: "_",
+						dayjs: "dayjs",
+						moment: "dayjs"
+					}
+				}
 			};
 		}
 		return options;

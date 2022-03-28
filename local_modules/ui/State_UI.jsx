@@ -9,16 +9,27 @@ import "dayjs/locale/zh-cn";
 import "dayjs/locale/en-au";
 import { lStorage } from "./tools/storage";
 
-const LANGUAGE = { enUs, zhCn };
+const LANGUAGE = {
+	enUs,
+	zhCn
+};
 
-export const State_UI = reactive({ language: lStorage["language"] || "zh-CN" });
+export const State_UI = reactive({
+	language: lStorage["language"] || "zh-CN",
+	$t: (prop, payload) => ({
+		label: prop,
+		prop
+	})
+});
 watch(
 	() => State_UI.language,
 	language => {
 		lStorage["language"] = language;
 		dayjs.locale(language === "zh-CN" ? "zh-cn" : "en");
 	},
-	{ immediate: true }
+	{
+		immediate: true
+	}
 );
 
 export const Cpt_UI_locale = computed(() => {

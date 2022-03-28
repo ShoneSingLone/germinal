@@ -1,5 +1,4 @@
-import $ from "jquery";
-import { _, UI, lStorage } from "@ventose/ui";
+import { _, UI, lStorage, $ } from "@ventose/ui";
 import axios from "axios";
 import { STATIC_WORD } from "../utils/common.words";
 

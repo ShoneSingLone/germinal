@@ -251,3 +251,15 @@ State_App.count: {{State_App.count}}
 <!-- src\assets\svg\lockStrok.svg -->
 <LazySvg icon="lockStrok" style="color: red; height: 100px; width: 100px; outline: 1px solid black; margin: 10px; "/> 
 ```
+
+- 20220328210842
+
+国际化,用于内部通信
+```js
+export const State_UI = reactive({
+	language: lStorage["language"] || "zh-CN",
+	$t: (prop, payload) => ({
+		label: prop
+	})
+});
+```

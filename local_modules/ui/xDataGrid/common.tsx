@@ -2,8 +2,8 @@ import { t_buttonOptions } from "../xButton/xButton";
 import { _ } from "../loadCommonUtil";
 import { ColumnProps } from "ant-design-vue/es/table";
 import { lStorage } from "../tools/storage.js";
-import { $t } from "lsrc/language";
-
+import { State_UI } from "../State_UI";
+const $t = State_UI.$t;
 /*ui 内部使用*/
 export const static_word = {
 	operation: "operation"

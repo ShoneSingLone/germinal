@@ -43,16 +43,16 @@ const lodashFunctions = {
 };
 
 each(lodashFunctions, (fn, prop) => (_[prop] = fn)); */
-import _ from "lodash";
+import mylodash from "lodash";
 import dayjs from "dayjs";
 
-_.WORDS = {
+mylodash.WORDS = {
 	INVALID_DATE: "Invalid Date",
 	format_ymd: "YYYY-MM-DD"
 };
 
 /*lodash IDE 能识别*/
-_.doNothing = (...args) => {
+mylodash.doNothing = (...args) => {
 	if (localStorage.CurrentIsDevModel === "CurrentIsDevModel") {
 		const e = new Error();
 		console.log("🚀:", e.stack.split("\n")[2].replace("    at ", ""));
@@ -60,18 +60,20 @@ _.doNothing = (...args) => {
 	}
 };
 /* 睡眠 t:setTimeout during time*/
-_.sleep = t => new Promise(r => setTimeout(r, t));
+mylodash.sleep = t => new Promise(r => setTimeout(r, t));
 
 /* 组件属性是否是on开头，组件的事件监听*/
 const onRE = /^on[^a-z]/;
-_.isOn = key => onRE.test(key);
-_.isModelListener = key => key.startsWith("onUpdate:");
-_.isListener = key => _.isOn(key) || _.isModelListener(key);
+mylodash.isOn = key => onRE.test(key);
+mylodash.isModelListener = key => key.startsWith("onUpdate:");
+mylodash.isListener = key =>
+	mylodash.isOn(key) || mylodash.isModelListener(key);
 /**/
 /*是否非空数组*/
-_.isArrayFill = arr => _.isArray(arr) && arr.length > 0;
+mylodash.isArrayFill = arr => mylodash.isArray(arr) && arr.length > 0;
 /*对象至少有一个属性*/
-_.isObjectFill = obj => _.isPlainObject(obj) && Object.keys(obj).length > 0;
+mylodash.isObjectFill = obj =>
+	mylodash.isPlainObject(obj) && Object.keys(obj).length > 0;
 
 /***
  * 返回数组的第一个value，
@@ -83,9 +85,9 @@ _.isObjectFill = obj => _.isPlainObject(obj) && Object.keys(obj).length > 0;
  * @param fnCheck
  * @return {firstValue|false}
  */
-_.safeFirst = (arr, fnCheck) => {
-	fnCheck = fnCheck || (value => _.isInput(value));
-	const obj = _.first(arr);
+mylodash.safeFirst = (arr, fnCheck) => {
+	fnCheck = fnCheck || (value => mylodash.isInput(value));
+	const obj = mylodash.first(arr);
 	return fnCheck(obj) ? obj : false;
 };
 /***
@@ -94,7 +96,7 @@ _.safeFirst = (arr, fnCheck) => {
  * @param isBeautiful
  * @return {string}
  */
-_.safeToString = (val, isBeautiful) => {
+mylodash.safeToString = (val, isBeautiful) => {
 	if (typeof val === "object") {
 		if (isBeautiful) {
 			return JSON.stringify(val, null, 2);
@@ -106,7 +108,7 @@ _.safeToString = (val, isBeautiful) => {
 	}
 };
 
-_.safeParse = (val, defaultObj = {}) => {
+mylodash.safeParse = (val, defaultObj = {}) => {
 	let obj = defaultObj;
 	try {
 		obj = JSON.parse(val);
@@ -115,12 +117,12 @@ _.safeParse = (val, defaultObj = {}) => {
 			throw new Error("json parse error");
 		}
 	} catch (error) {
-		_.doNothing(error);
+		mylodash.doNothing(error);
 	}
 	return obj;
 };
 
-_.safeSplit = function (target, sp) {
+mylodash.safeSplit = function (target, sp) {
 	return target?.split ? target.split(sp) : [];
 };
 /***
@@ -128,12 +130,12 @@ _.safeSplit = function (target, sp) {
  * @param val
  * @return {string|dayjs.Dayjs}
  */
-_.safeDate = function (val) {
+mylodash.safeDate = function (val) {
 	if (!val) {
 		return "";
 	}
 	let date = dayjs(val);
-	if (date === _.WORDS.INVALID_DATE) {
+	if (date === mylodash.WORDS.INVALID_DATE) {
 		return "";
 	} else {
 		return date;
@@ -146,14 +148,14 @@ _.safeDate = function (val) {
  * @param val {any}
  * @returns {boolean}
  */
-_.isInput = val => {
+mylodash.isInput = val => {
 	if (val) return true;
 	if (val === 0) return true;
 	if (val === false) return true;
 	return false;
 };
 /*jquery到底有没有选中目标DOM？*/
-_.is$Selected = $ele => $ele && $ele.length > 0;
+mylodash.is$Selected = $ele => $ele && $ele.length > 0;
 /**
  * 获取对象的键和值
  * 这个方法很灵性，有时候后面来的结构长这样 {id:value}，有且只有一个属性，
@@ -167,11 +169,11 @@ _.is$Selected = $ele => $ele && $ele.length > 0;
  * @param {*} defaultValue
  * @returns
  */
-_.getObjectFirstKeyValue = (obj, defaultValue = "") => {
+mylodash.getObjectFirstKeyValue = (obj, defaultValue = "") => {
 	if (!obj) return defaultValue;
 	const keyArray = Object.keys(obj);
-	if (!_.isArrayFill(keyArray)) return defaultValue;
-	return _.isInput(keyArray[0]) ? obj[keyArray[0]] : defaultValue;
+	if (!mylodash.isArrayFill(keyArray)) return defaultValue;
+	return mylodash.isInput(keyArray[0]) ? obj[keyArray[0]] : defaultValue;
 };
 
 /**
@@ -180,7 +182,7 @@ _.getObjectFirstKeyValue = (obj, defaultValue = "") => {
  * @param {string} globalName
  * @returns 在window中名为globalName的全局变量
  */
-_.asyncLoadJS = async (url, globalName) => {
+mylodash.asyncLoadJS = async (url, globalName) => {
 	if (window[globalName]) {
 		return window[globalName];
 	}
@@ -191,7 +193,7 @@ _.asyncLoadJS = async (url, globalName) => {
 	$style.attr("src", url);
 };
 
-_.ensureValueDone = async fnGetValue => {
+mylodash.ensureValueDone = async fnGetValue => {
 	return new Promise(async resolve => {
 		let exeFnGetValue = async function () {
 			const value = await fnGetValue();
@@ -218,9 +220,9 @@ function genId(category) {
 genId.idCount = 1;
 genId.ID_COUNT_MAX = 40000;
 genId.DATE_NOW = Date.now();
-_.genId = genId;
+mylodash.genId = genId;
 
-_.preload = (baseModule, deps) => {
+mylodash.preload = (baseModule, deps) => {
 	if (!deps || deps.length === 0) {
 		return baseModule();
 	}
@@ -252,4 +254,4 @@ _.preload = (baseModule, deps) => {
 	).then(() => baseModule());
 };
 
-export { _ };
+export { mylodash as _ };

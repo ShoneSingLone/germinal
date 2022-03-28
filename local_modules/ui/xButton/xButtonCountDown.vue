@@ -1,7 +1,8 @@
 <script setup lang="jsx">
 import { reactive, watch } from "vue";
-import { $t } from "lsrc/language";
+import { State_UI } from "../State_UI";
 import { _ } from "../loadCommonUtil";
+const $t = State_UI.$t;
 
 const props = defineProps({
 	configs: {
