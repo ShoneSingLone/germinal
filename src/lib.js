@@ -1,2 +1,2 @@
-import { Transfer } from "ant-design-vue";
-window.Transfer = Transfer;
+import ventoseUI from "@ventose/ui";
+window.VentoseUI = ventoseUI;

@@ -8,7 +8,8 @@ import { injectHtml } from "vite-plugin-html";
 import importToCdn from "vite-plugin-cdn-import";
 
 const isPro = process.env.NODE_ENV === "production";
-console.log("🚀 isPro", isPro);
+const isLib = process.env.type === "lib";
+console.log("🚀 isPro", isPro, "isLib", isLib);
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
@@ -36,21 +37,30 @@ export default defineConfig({
 			lsrc: path.resolve(__dirname, "./src")
 		}
 	},
-	build: {
-		/* 没有混缩 */
-		minify: false,
-		assetsDir: "statics/assets",
-		rollupOptions: {
-			output: {
-				chunkFileNames: "statics/js/[name].js",
-				entryFileNames: "statics/js/[name].js"
+	build: (() => {
+		const options = {
+			/* 没有混缩 */
+			minify: false,
+			assetsDir: "statics/assets",
+			rollupOptions: {
+				output: {
+					chunkFileNames: "statics/js/[name].js",
+					entryFileNames: "statics/js/[name].js"
+				}
 			}
+		};
+
+		if (isLib) {
+			const entry = path.resolve(__dirname, "src/lib.js");
+
+			console.log(entry);
+			options.lib = {
+				entry,
+				name: "ventose@ui"
+			};
 		}
-		/* lib: {
-            entry: path.resolve(__dirname, "lsrc/lib.js"),
-            name: "ventose@ui"
-        } */
-	},
+		return options;
+	})(),
 	plugins: [
 		useVue(),
 		useVueJsx(),
