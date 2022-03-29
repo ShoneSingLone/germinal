@@ -11,6 +11,7 @@ import {
 import { defItem, UI } from "@ventose/ui";
 import xIM from "./xIM/index";
 import FormRules, { RegexFn } from "../../components/FormRules";
+import TestXDataGrid from "./TestXDataGrid.vue";
 /* data */
 const State = reactive({
 	count: 0,
@@ -107,4 +108,5 @@ const handlers = {
 			<Button id="target2" @click="handlers.openTips">popover</Button>
 		</div>
 	</div>
+	<TestXDataGrid />
 </template>

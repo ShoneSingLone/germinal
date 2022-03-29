@@ -54,6 +54,13 @@ export function defDataGridOption(options: t_dataGridOptions) {
 		options.pagination = defPagination();
 	}
 	options.isLoading = Boolean(options.isLoading);
+	options.onPaginationChange =
+		options.onPaginationChange ||
+		async function (pagination) {
+			if (options.queryTableList) {
+				await options.queryTableList({ pagination });
+			}
+		};
 	return options;
 }
 
