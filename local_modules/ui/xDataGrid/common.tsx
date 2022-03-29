@@ -20,6 +20,10 @@ export type t_dataGridOptions = {
 	queryTableList: Function;
 	/*ant的table属性*/
 	antTableProperty: object;
+	/*查询按钮*/
+	isHideQuery: boolean;
+	/*刷新按钮*/
+	isHideRefresh: boolean;
 	/*是否隐藏列过滤器*/
 	isHideFilter: boolean;
 	/*是否隐藏分页*/

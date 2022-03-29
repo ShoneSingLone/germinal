@@ -10,6 +10,7 @@ import { $t } from "lsrc/language";
 import { _, setDocumentTitle } from "@ventose/ui";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
+_.doNothing("viewModules", viewModules);
 
 const routesDelay = _.reduce(
 	viewModules,
@@ -21,13 +22,16 @@ const routesDelay = _.reduce(
 		if (matchRes) {
 			const fileName = matchRes[1];
 			pathArray[pathArray.length - 1] = fileName;
-			console.log();
 			const kebabCase = pathArray.map(_.kebabCase);
-			routes.push({
+			const route = {
 				name: `${kebabCase.join(".").replaceAll("-", "_")}`,
 				path: `/${kebabCase.join("/").replaceAll("-", "_")}`,
-				component
-			});
+				component: async () => {
+					const module = await component();
+					return module.default;
+				}
+			};
+			routes.push(route);
 		}
 		return routes;
 	},
@@ -42,10 +46,6 @@ export const menuRoutesDelay = routesDelay.map(i => {
 		icon: null
 	};
 });
-const RouteView = {
-	name: "RouteView",
-	render: h => h("RouteView")
-};
 
 export const NewRoute = (name, component, options = {}) =>
 	_.merge(
@@ -71,7 +71,6 @@ export const routeNames = {
 const toPath = name => `/${name}`;
 const routes = [
 	...routesDelay,
-
 	{
 		name: routeNames.shell,
 		path: "/",
@@ -107,17 +106,8 @@ const routes = [
 
 export const router = createRouter({
 	history: createWebHashHistory(),
-	routes: [
-		...routes,
-		{
-			/* 404 not_found */
-			path: "/:pathMatch(.*)*",
-			component: NotFound
-		}
-	]
+	routes
 });
-
-router.addRoute(routesDelay);
 
 NProgress.configure({
 	showSpinner: false

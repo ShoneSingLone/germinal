@@ -49,14 +49,14 @@ export default defineComponent(
 			return (
 				<div id={this.id}>
 					<div
-						className="next-loading next-open next-loading-inline"
+						class="next-loading next-open next-loading-inline"
 						style={"width:100%;height:100%;overflow:hidden"}>
-						<div className="next-loading-tip">
-							<div className="next-loading-indicator"></div>
+						<div class="next-loading-tip">
+							<div class="next-loading-indicator"></div>
 						</div>
-						<div className="next-loading-component next-loading-wrap">
-							<div className="next-loading-masker"></div>
-							<div className="demo-basic">
+						<div class="next-loading-component next-loading-wrap">
+							<div class="next-loading-masker"></div>
+							<div class="demo-basic">
 								<LoadingOutlined />
 							</div>
 						</div>
