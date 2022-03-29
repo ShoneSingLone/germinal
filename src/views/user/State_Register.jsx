@@ -71,7 +71,7 @@ export const State_Register = reactive({
 					() => $t("user.password.required").label,
 					[EVENT_TYPE.update]
 				),
-				FormRules.validator({
+				FormRules.custom({
 					msg: () => $t("user.password.strength.msg").label,
 					validator: checkPasswordLevel,
 					trigger: [EVENT_TYPE.update]
@@ -95,7 +95,7 @@ export const State_Register = reactive({
 					() => $t("user.password.required").label,
 					[EVENT_TYPE.blur]
 				),
-				FormRules.validator({
+				FormRules.custom({
 					msg: () => $t("user.password.twice.msg").label,
 					validator: async passwordConfirm =>
 						State_Register.configsForm.password.value !== passwordConfirm,

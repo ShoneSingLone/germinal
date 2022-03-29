@@ -18,9 +18,15 @@ export const RegexFn = {
 		return msg();
 	} });
  */
-const makeFormRules = options => options;
+const makeFormRules = options => {
+	options.trigger = options.trigger || [EVENT_TYPE.update];
+	options.msg = options.msg || "";
+	return options;
+};
 
 export default {
+	SUCCESS,
+	FAIL,
 	required(msg, trigger = [EVENT_TYPE.update]) {
 		return makeFormRules({
 			name: "required",
@@ -70,7 +76,7 @@ export default {
 			]
 		};
 	},
-	validator({ name, msg, validator, trigger }) {
+	custom({ name, msg, validator, trigger }) {
 		return makeFormRules({
 			name,
 			msg,

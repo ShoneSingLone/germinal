@@ -51,7 +51,7 @@ export default defineConfig({
 		};
 
 		if (isLib) {
-			options.minify = true;
+			options.minify = false;
 			options.outDir = "dist-lib";
 			options.lib = {
 				formats: ["iife"],
@@ -63,15 +63,18 @@ export default defineConfig({
 					}.js` /* `VentoseUI.${format}.js` */
 			};
 
+			const external = ["vue", "jquery", "lodash", "dayjs", "moment", "axios"];
+			console.log("🚀:", "external", JSON.stringify(external, null, 2));
 			options.rollupOptions = {
-				external: ["vue", "jquery", "lodash", "dayjs", "moment"],
+				external,
 				output: {
 					globals: {
 						vue: "Vue",
 						jquery: "$",
 						lodash: "_",
 						dayjs: "dayjs",
-						moment: "dayjs"
+						moment: "dayjs",
+						axios: "axios"
 					}
 				}
 			};

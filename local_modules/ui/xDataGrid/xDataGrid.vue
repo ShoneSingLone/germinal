@@ -64,6 +64,7 @@ const Cpt_RenderOptions = computed(() => {
 		if (props.configs.isHideFilter || props.configs.isGroupingColumns) {
 			return null;
 		}
+		/* tableConfigs */
 		return <xColFilter configs={props.configs} />;
 	})();
 	return () => (
