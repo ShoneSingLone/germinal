@@ -49,6 +49,7 @@ export type t_dataGridOptions = {
 	columns: { [p: string]: t_col };
 };
 
+/* 默认 pagination onPaginationChange isLoading */
 export function defDataGridOption(options: t_dataGridOptions) {
 	if (!options.pagination && !options.isHidePagination) {
 		options.pagination = defPagination();
