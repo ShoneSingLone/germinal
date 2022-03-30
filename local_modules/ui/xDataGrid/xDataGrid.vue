@@ -7,7 +7,7 @@ import { filterColIsShow } from "./common";
 import xPagination from "./xPagination.vue";
 
 export default defineComponent({
-	name: "xDataGrid",
+	name: "XDataGrid",
 	props: {
 		configs: {
 			type: Object,
@@ -20,18 +20,6 @@ export default defineComponent({
 		return {
 			State: { id: _.genId("xDataGrid") }
 		};
-	},
-	mounted() {
-		if (this.configs.onMounted) {
-			this.configs.onMounted({ id: this.State.id });
-		}
-	},
-	methods: {
-		async handlePaginationChange(pagination) {
-			this.configs.isLoading = true;
-			await this.configs.onPaginationChange(pagination);
-			this.configs.isLoading = false;
-		}
 	},
 	computed: {
 		/*列*/
@@ -73,7 +61,6 @@ export default defineComponent({
 				const slots = {
 					bodyCell: args => {
 						const { column } = args;
-						debugger;
 						if (column && column.renderCell) {
 							/* column index record text value */
 							const vNode = column.renderCell(args);
@@ -109,6 +96,18 @@ export default defineComponent({
 					onPaginationChange={this.handlePaginationChange}
 				/>
 			);
+		}
+	},
+	mounted() {
+		if (this.configs.onMounted) {
+			this.configs.onMounted({ id: this.State.id });
+		}
+	},
+	methods: {
+		async handlePaginationChange(pagination) {
+			this.configs.isLoading = true;
+			await this.configs.onPaginationChange(pagination);
+			this.configs.isLoading = false;
 		}
 	},
 	render() {

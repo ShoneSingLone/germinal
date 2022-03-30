@@ -259,7 +259,7 @@ export { handleClickDialogOK as handleClickDialogOK };
 export { pickValueFrom as pickValueFrom };
 export { resetState_Value as resetState_Value };
 
-export default {
+export const VentoseUIWithInstall = {
 	install: (app, options /* {appPlugins,dependState} */) => {
 		installPopoverDirective(app, options);
 		installUIDialogComponent(UI, options);

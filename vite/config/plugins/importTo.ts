@@ -1,3 +1,4 @@
+/* vite-plugin-cdn-import */
 import externalGlobals from "rollup-plugin-external-globals";
 import fs from "fs";
 import path from "path";
@@ -56,7 +57,6 @@ function renderUrl(
 	if (isFullPath(path)) {
 		url = path;
 	} else if (/^\.\//.test(path)) {
-		console.log(path);
 		return path;
 	}
 
@@ -165,7 +165,7 @@ function PluginImportToCDN(options: Options): Plugin[] {
 				const cssCode = data
 					.map(v =>
 						v.cssList
-							.map(css => `<link href="${css}" rel="stylesheet">`)
+							.map(css => `<link rel="stylesheet" href="${css}">`)
 							.join("\n")
 					)
 					.filter(v => v)
@@ -181,7 +181,12 @@ function PluginImportToCDN(options: Options): Plugin[] {
 							)
 							.join("\n");
 
-				return html.replace(/<\/title>/i, `</title>${cssCode}\n${jsCode}`);
+				return html.replace(
+					/<\/title>/i,
+					`</title>
+				${cssCode}\n${jsCode}
+				`
+				);
 			}
 		}
 	];

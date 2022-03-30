@@ -1,4 +1,4 @@
-import MyUI, { _ } from "@ventose/ui";
+import { _, VentoseUIWithInstall } from "@ventose/ui";
 import { watchEffect } from "vue";
 import { appI18n, setI18nLanguage } from "lsrc/language";
 import { router } from "lsrc/router/router";
@@ -19,7 +19,10 @@ dayjs.locale("zh-cn");
 export const appPlugins = {
 	install: (app, options /*{dependState, appPlugins}*/) => {
 		/* isUsePopover 全局监听 [data-ui-popover] */
-		app.use(MyUI, { appPlugins, dependState: options.dependState });
+		app.use(VentoseUIWithInstall, {
+			appPlugins,
+			dependState: options.dependState
+		});
 		app.use(appI18n, {
 			watch: () => {
 				/* readme:依赖State_App.confgs.language */
@@ -47,7 +50,9 @@ export const Utils = {
 		return num;
 	},
 	valueToLabel(value, options) {
-		const target = _.find(options, { value });
+		const target = _.find(options, {
+			value
+		});
 		if (target) {
 			return target.label;
 		} else {

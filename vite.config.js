@@ -5,7 +5,7 @@ import usePluginImport from "vite-plugin-importer";
 import path from "path";
 import svgHelper from "./vite/config/plugins/svg";
 import { injectHtml } from "vite-plugin-html";
-import importToCdn from "vite-plugin-cdn-import";
+import importTo from "./vite/config/plugins/importTo";
 
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
@@ -54,7 +54,7 @@ export default defineConfig({
 			options.minify = false;
 			options.outDir = "dist-lib";
 			options.lib = {
-				formats: ["iife"],
+				formats: ["umd"],
 				entry: path.resolve(__dirname, "local_modules/ui/index.tsx"),
 				name: "VentoseUI",
 				fileName: format =>
@@ -111,25 +111,52 @@ export default defineConfig({
 		(() => {
 			const productPluginArray = [];
 			if (isPro) {
+				let modules = [
+					{
+						name: "vue",
+						var: "Vue",
+						path: "./boundless/static/libs/vue/3.2.31/vue.global.js"
+					},
+					{
+						name: "vue-router",
+						var: "VueRouter",
+						path: "./boundless/static/libs/vue/router/4.0.12/vue-router.global.min.js"
+					},
+					{
+						name: "axios",
+						var: "axios",
+						path: "./boundless/static/libs/axios/0.26.0/axios.min.js"
+					},
+					{
+						name: "lodash",
+						var: "_",
+						path: "./boundless/static/libs/lodash.js"
+					},
+					{
+						name: "jquery",
+						var: "$",
+						path: "./boundless/static/libs/jquery.js"
+					},
+					{
+						name: "dayjs",
+						var: "dayjs",
+						path: "./boundless/static/libs/dayjs.js"
+					},
+					{
+						name: "@ventose/ui",
+						var: "VentoseUI",
+						path: "./boundless/static/libs/VentoseUI.js",
+						css: "./boundless/static/libs/VentoseUI.css"
+					}
+				];
+
+				if (isLib) {
+					modules = modules.filter(i => i.name !== "@ventose/ui");
+				}
+
 				productPluginArray.push(
-					importToCdn({
-						modules: [
-							{
-								name: "vue",
-								var: "Vue",
-								path: "https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.js"
-							},
-							{
-								name: "vue-router",
-								var: "VueRouter",
-								path: "https://cdn.bootcdn.net/ajax/libs/vue-router/4.0.12/vue-router.global.min.js"
-							},
-							{
-								name: "axios",
-								var: "axios",
-								path: "https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js"
-							}
-						]
+					importTo({
+						modules
 					})
 				);
 			}

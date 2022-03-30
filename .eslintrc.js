@@ -2,6 +2,10 @@
 module.exports = {
 	root: true,
 	globals: {
+		TEMPLATE_PLACEHOLDER: true,
+		VIEW_URL: true,
+		ROOT_URL: true,
+		VIEW_NAME: true,
 		URL_PREFIX: true,
 		defineProps: true,
 		defineEmits: true
