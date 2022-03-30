@@ -5,7 +5,9 @@ import {
 	defItem,
 	defDataGridOption,
 	defCol,
-	defPagination
+	defColActions,
+	State_UI,
+	defColActionsBtnlist
 } from "@ventose/ui";
 import { $t } from "lsrc/language";
 
@@ -41,9 +43,11 @@ const State_table = reactive(
 		async queryTableList() {
 			await _.sleep(1000);
 		},
-		isHideFilter: true,
-		pagination: defPagination(),
-		dataSource: [],
+		dataSource: [
+			{ a: "禁止操作", b: "操作1", c: "c", d: "d" },
+			{ a: "允许操作", b: "操作1", c: "c", d: "d" },
+			{ a: "允许操作", b: "操作2", c: "c", d: "d" }
+		],
 		columns: {
 			...defCol({
 				label: $t("a").label,
@@ -60,6 +64,46 @@ const State_table = reactive(
 			...defCol({
 				label: $t("d").label,
 				prop: "d"
+			}),
+			...defColActions({
+				width: State_UI.language === "zh-CN" ? 250 : 350,
+				renderCell({ record, index }) {
+					if (record.b == "操作1") {
+						return defColActionsBtnlist({
+							btns: [
+								{
+									text: $t("btn_a")?.label,
+									disabled: () => {
+										if (record.a === "禁止操作") {
+											return $t("禁止操作的自定义提示").label;
+										}
+										return false;
+									},
+									onClick: async () => {
+										await _.sleep(1000);
+									}
+								}
+							]
+						});
+					}
+					return defColActionsBtnlist({
+						fold: 2,
+						btns: [
+							{
+								text: $t("bbbbb").label,
+								onClick: async () => {
+									await _.sleep(1000);
+								}
+							},
+							{
+								text: $t("ccccc").label,
+								onClick: async () => {
+									await _.sleep(1000);
+								}
+							}
+						]
+					});
+				}
 			})
 		}
 	})

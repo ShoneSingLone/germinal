@@ -32,7 +32,7 @@ export default defineComponent({
 		countDown() {
 			this.state.captchaCount++;
 			/*未达到限制时间则继续增加，间隔一秒*/
-			if (this.state.captchaCount <= props.configs.countMax) {
+			if (this.state.captchaCount <= this.configs.countMax) {
 				setTimeout(this.countDown, 1000);
 			} else {
 				this.state.captchaCount = 0;
@@ -41,14 +41,14 @@ export default defineComponent({
 		handleCaptchaCountChange(captchaCount) {
 			if (captchaCount === 0) {
 				/*按钮显示*/
-				btnConfigs.text = props.configs.text.normal;
+				btnConfigs.text = this.configs.text.normal;
 				/*按钮可点击状态*/
 				btnConfigs.disabled = false;
 				return;
 			}
 
 			const setCounDownText = () => {
-				return (btnConfigs.text = `${props.configs.countMax - captchaCount} s`);
+				return (btnConfigs.text = `${this.configs.countMax - captchaCount} s`);
 			};
 
 			if (captchaCount === 1) {
@@ -57,7 +57,7 @@ export default defineComponent({
 				return;
 			}
 
-			if (captchaCount && captchaCount <= props.configs.countMax) {
+			if (captchaCount && captchaCount <= this.configs.countMax) {
 				setCounDownText();
 				return;
 			}

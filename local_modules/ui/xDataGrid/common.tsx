@@ -42,8 +42,8 @@ export type t_dataGridOptions = {
 		/*xItem form 配置项*/
 		dataXItem: object;
 	};
-	/**/
-	renderOptions: (options: t_dataGridOptions) => JSX.Element;
+	/*@deprecated*/
+	/* renderOptions: (options: t_dataGridOptions) => JSX.Element; */
 	dataSource: any[];
 	/*如果是分组，filter无效
 	 * columns作为数组，与antdv官方文档参数保持一致

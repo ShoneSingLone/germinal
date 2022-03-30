@@ -37,7 +37,13 @@ export default defineComponent({
 			return !this.configs.isHideRefresh;
 		},
 		Cpt_isShowFilter() {
-			return !this.configs.isHideFilter;
+			if (this.configs.isGroupingColumns) {
+				return false;
+			}
+			if (this.configs.isHideFilter) {
+				return false;
+			}
+			return true;
 		}
 	}
 });
@@ -53,7 +59,7 @@ export default defineComponent({
 			<xGap l="4" />
 			<xButton :configs="Cpt_btn_refresh" v-if="Cpt_isShowRefresh" />
 			<xGap l="4" />
-			<xColFilter :configs="props.configs" v-if="Cpt_isShowFilter" />
+			<xColFilter :configs="configs" v-if="Cpt_isShowFilter" />
 		</div>
 	</div>
 </template>

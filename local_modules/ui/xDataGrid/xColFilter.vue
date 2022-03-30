@@ -19,7 +19,7 @@ export default defineComponent({
 	},
 	methods: {
 		handleChecked(col) {
-			const target = _.find(props.configs.columns, { key: col.key });
+			const target = _.find(this.configs.columns, { key: col.key });
 			target.isShow = _.isBoolean(target.isShow) ? !target.isShow : false;
 		}
 	},
@@ -27,10 +27,10 @@ export default defineComponent({
 		/*列顺序*/
 		Cpt_ColumnsOrder() {
 			const order = (() => {
-				if (props.configs.columns_order) {
-					return props.configs.columns_order;
+				if (this.configs.columns_order) {
+					return this.configs.columns_order;
 				} else {
-					return _.map(props.configs.columns, i => i.prop);
+					return _.map(this.configs.columns, i => i.prop);
 				}
 			})();
 			return _.filter(order, i => !!i);
@@ -38,14 +38,14 @@ export default defineComponent({
 
 		/*列*/
 		Cpt_Columns() {
-			return _.map(Cpt_ColumnsOrder.value, prop =>
-				_.find(props.configs.columns, { prop })
+			return _.map(this.Cpt_ColumnsOrder, prop =>
+				_.find(this.configs.columns, { prop })
 			);
 		},
 
 		checkedList() {
-			return _.filter(Cpt_ColumnsOrder.value, prop => {
-				const { isShow } = props.configs.columns[prop];
+			return _.filter(this.Cpt_ColumnsOrder, prop => {
+				const { isShow } = this.configs.columns[prop];
 				return filterColIsShow(isShow, prop);
 			});
 		}
@@ -54,13 +54,13 @@ export default defineComponent({
 </script>
 
 <template>
-	<Popover placement="leftTop" trigger="click">
+	<aPopover placement="leftTop" trigger="click">
 		<template #content>
 			<p v-for="col in Cpt_Columns" :key="col.key">
-				<Checkbox
+				<aCheckbox
 					:checked="checkedList.includes(col.key)"
 					@change="handleChecked(col)"
-					>{{ col.title }}</Checkbox
+					>{{ col.title }}</aCheckbox
 				>
 			</p>
 		</template>
@@ -69,5 +69,5 @@ export default defineComponent({
 				<SettingOutlined />
 			</template>
 		</aButton>
-	</Popover>
+	</aPopover>
 </template>

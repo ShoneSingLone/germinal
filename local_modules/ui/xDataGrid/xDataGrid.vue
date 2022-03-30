@@ -34,30 +34,6 @@ export default defineComponent({
 		}
 	},
 	computed: {
-		/*表格按钮选项*/
-		Cpt_RenderOptions() {
-			const leftOptions = (() => {
-				if (this.configs.renderOptions) {
-					return this.configs.renderOptions(this.configs);
-				} else {
-					return null;
-				}
-			})();
-
-			const rightOptions = (() => {
-				if (this.configs.isHideFilter || this.configs.isGroupingColumns) {
-					return null;
-				}
-				/* tableConfigs */
-				return <xColFilter configs={this.configs} />;
-			})();
-			return () => (
-				<div class="table-options">
-					<div className="table-option-left flex flex1">{leftOptions}</div>
-					<div className="table-filter">{rightOptions}</div>
-				</div>
-			);
-		},
 		/*列*/
 		Cpt_Columns() {
 			/*如果分组，默认的filter无效，需要自己实现*/
@@ -65,7 +41,7 @@ export default defineComponent({
 				return this.configs.columns;
 			}
 			let columns = null;
-			columns = _.map(this.Cpt_ColumnsOrder.value, prop =>
+			columns = _.map(this.Cpt_ColumnsOrder, prop =>
 				_.find(this.configs.columns, { prop })
 			);
 			columns = _.filter(columns, i => filterColIsShow(i?.isShow, i?.prop));
@@ -82,7 +58,6 @@ export default defineComponent({
 			})();
 			return _.filter(order, i => !!i);
 		},
-
 		Cpt_AntTableProperty() {
 			if (this.configs.antTableProperty) {
 				return this.configs.antTableProperty;
@@ -91,51 +66,61 @@ export default defineComponent({
 			}
 		},
 		/*表格*/
-		Cpt_RenderTable() {
+		Cpt_VNodeTable() {
 			if (this.configs.renderTable) {
-				return this.configs.renderTable;
+				return this.configs.renderTable({ vm: this });
 			} else {
-				return () => (
+				const slots = {
+					bodyCell: args => {
+						const { column } = args;
+						debugger;
+						if (column && column.renderCell) {
+							/* column index record text value */
+							const vNode = column.renderCell(args);
+							/*fix:返回null会判断为没有renderCell处理，直接取prop字段的数据*/
+							if (_.isNull(vNode) || _.isUndefined(vNode)) {
+								return "";
+							}
+							return vNode;
+						}
+					}
+				};
+				return (
 					<Table
 						loading={this.configs.isLoading}
 						dataSource={this.configs.dataSource}
-						columns={this.Cpt_Columns.value}
+						columns={this.Cpt_Columns}
 						scroll={{ x: 1500 }}
 						pagination={false}
-						{...this.Cpt_AntTableProperty.value}
-						v-slots={{
-							bodyCell: args => {
-								const { column } = args;
-								if (column && column.renderCell) {
-									/* column index record text value */
-									const vNode = column.renderCell(args);
-									/*fix:返回null会判断为没有renderCell处理，直接取prop字段的数据*/
-									if (_.isNull(vNode) || _.isUndefined(vNode)) {
-										return "";
-									}
-									return vNode;
-								}
-							}
-						}}
+						{...this.Cpt_AntTableProperty}
+						v-slots={slots}
 					/>
 				);
 			}
+		},
+		Cpt_VNodePagination() {
+			if (this.configs.isHidePagination) {
+				return null;
+			}
+			return (
+				<xPagination
+					class="table-pagination"
+					pagination={this.configs.pagination}
+					onPaginationChange={this.handlePaginationChange}
+				/>
+			);
 		}
+	},
+	render() {
+		return (
+			<div id={this.State.id}>
+				{this.Cpt_VNodeTable}
+				{this.Cpt_VNodePagination}
+			</div>
+		);
 	}
 });
 </script>
-
-<template>
-	<div :id="State.id">
-		<xRender :render="Cpt_RenderOptions" />
-		<xRender :render="Cpt_RenderTable" />
-		<xPagination
-			v-if="!configs.isHidePagination"
-			class="table-pagination"
-			:pagination="configs.pagination"
-			:on-pagination-change="handlePaginationChange" />
-	</div>
-</template>
 
 <style>
 .table-options {
