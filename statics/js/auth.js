@@ -1,7 +1,7 @@
-import { M as Mock } from "./index-f34bf941.js";
-import "./vendor-cb3a9242.js";
-import "./index-796d3f42.js";
-const MOCK_MAP = [["https://www.singlone.work/https/book/v1/login", "post", {
+import { M as Mock } from "./index2.js";
+import "./index.js";
+import "dayjs";
+const MOCK_MAP = [["/https/book/v1/login", "post", {
   msg: "ok",
   data: {
     id: 8,
@@ -16,7 +16,7 @@ const MOCK_MAP = [["https://www.singlone.work/https/book/v1/login", "post", {
     area: "",
     token: "mock"
   }
-}], ["https://www.singlone.work/https/book/auth/v1/user", "post", {
+}], ["/https/book/auth/v1/user", "post", {
   msg: "ok",
   data: {
     id: 8,
@@ -33,15 +33,24 @@ const MOCK_MAP = [["https://www.singlone.work/https/book/v1/login", "post", {
     updated_at: "2022-03-13T10:46:38.000Z",
     token: "token"
   }
-}], ["https://www.singlone.work/https/book/auth/v1/logout", "post", {
+}], ["/https/book/auth/v1/logout", "post", {
   msg: "ok",
   data: "\u9000\u51FA\u6210\u529F"
-}], ["https://www.singlone.work/https/book/auth/v1/logout", "post", {
+}], ["/https/book/auth/v1/logout", "post", {
   msg: "ok",
   data: "\u9000\u51FA\u6210\u529F"
 }]];
-Mock.mock(/https/, "post", ({
-  url
-}) => {
-  return MOCK_MAP[url] || url;
+Mock.mock(/https/, (mockRequest) => {
+  const {
+    url,
+    type,
+    body
+  } = mockRequest;
+  for (let index = 0; index < MOCK_MAP.length - 1; index++) {
+    const [keyUrl, method, response] = MOCK_MAP[index];
+    const isThis = new RegExp(`${keyUrl}`).test(url) && _.lowerCase(type) === _.lowerCase(method);
+    if (isThis) {
+      return response;
+    }
+  }
 });

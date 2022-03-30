@@ -1,5 +1,4 @@
-import { _ as __vitePreload } from "./index-796d3f42.js";
-import { ab as commonjsGlobal } from "./vendor-cb3a9242.js";
+import { c as commonjsGlobal, _ as __vitePreload } from "./index.js";
 var mock = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -6929,7 +6928,7 @@ var mock = { exports: {} };
 })(mock);
 var Mock = mock.exports;
 async function loadMockData() {
-  await __vitePreload(() => import("./auth-02830938.js"), true ? ["statics/js/auth-02830938.js","statics/js/vendor-cb3a9242.js","statics/assets/vendor.0c57c20c.css","statics/js/index-796d3f42.js","statics/assets/index.dfc657e2.css"] : void 0);
+  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/index.js","statics/assets/index.90a1f39e.css"] : void 0);
   Mock.setup({
     timeout: 300
   });
