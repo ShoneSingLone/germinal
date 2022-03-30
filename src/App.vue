@@ -20,7 +20,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-	<Spin v-if="state.isLoading"> Loading... </Spin>
+	<aSpin v-if="state.isLoading">Loading...</aSpin>
 	<RouterView v-else />
 </template>
 

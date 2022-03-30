@@ -1,4 +1,4 @@
-import { defineComponent, markRaw } from "vue";
+import { defineComponent, markRaw, h } from "vue";
 
 export default defineComponent(
 	markRaw({
@@ -9,8 +9,8 @@ export default defineComponent(
 				required: true
 			}
 		},
-		render(h) {
-			return this.$props.render({
+		render() {
+			return h(this.render, {
 				vm: this,
 				props: this.$props,
 				attrs: this.$attrs

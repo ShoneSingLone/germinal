@@ -21,6 +21,7 @@ const routesDelay = _.reduce(
 		const matchRes = filePath.match(/^View(.*)\.(vue|jsx|tsx)$/);
 		if (matchRes) {
 			const fileName = matchRes[1];
+			if (!fileName) alert(originUrl);
 			pathArray[pathArray.length - 1] = fileName;
 			const kebabCase = pathArray.map(_.kebabCase);
 			const route = {
@@ -37,14 +38,15 @@ const routesDelay = _.reduce(
 	},
 	[]
 );
-
 export const menuRoutesDelay = routesDelay.map(i => {
-	return {
+	const menuInfo = {
 		id: i.name,
 		name: i.name,
 		label: i.name,
 		icon: null
 	};
+	_.doNothing("menuInfo", menuInfo);
+	return menuInfo;
 });
 
 export const NewRoute = (name, component, options = {}) =>
@@ -70,16 +72,15 @@ export const routeNames = {
 };
 const toPath = name => `/${name}`;
 const routes = [
-	...routesDelay,
 	{
 		name: routeNames.shell,
 		path: "/",
-		redirect: "/first",
+		redirect: "/shell",
 		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [
 			{
-				name: "first",
-				path: "first",
+				name: "shell.home",
+				path: "/shell",
 				component: DevDemo
 			}
 		]
@@ -100,7 +101,7 @@ const routes = [
 			})
 		]
 	}),
-
+	...routesDelay,
 	NewRoute(routeNames[404], NotFound)
 ];
 
