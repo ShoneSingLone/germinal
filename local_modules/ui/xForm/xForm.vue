@@ -7,6 +7,7 @@ import { _ } from "../loadCommonUtil";
 import $ from "jquery";
 
 export default defineComponent({
+	name: "xForm",
 	props: {
 		labelStyle: {
 			type: Object,

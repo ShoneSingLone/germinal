@@ -12,6 +12,7 @@ const domClass = {
 /* itemWrapperClass */
 
 export default defineComponent({
+	name: "xItem",
 	props: {
 		/* 绑定的值 */
 		modelValue: {

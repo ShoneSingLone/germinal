@@ -1,6 +1,7 @@
 import { defineComponent, useAttrs, h, mergeProps, computed } from "vue";
 import { _ } from "../loadCommonUtil";
 import { State_UI } from "../State_UI";
+import { Button } from "ant-design-vue";
 import {
 	SaveOutlined,
 	SearchOutlined,
@@ -24,6 +25,10 @@ export type t_buttonOptions = {
 };
 
 export default defineComponent({
+	name: "xButton",
+	components: {
+		Button
+	},
 	props: {
 		configs: {
 			type: Object,

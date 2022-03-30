@@ -2,6 +2,7 @@ import { defineComponent, markRaw } from "vue";
 
 export default defineComponent(
 	markRaw({
+		name: "xRender",
 		props: {
 			render: {
 				type: Function,

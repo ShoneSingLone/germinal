@@ -4,13 +4,14 @@ import { _ } from "../loadCommonUtil";
 import xColFilter from "./xColFilter.vue";
 
 export default defineComponent({
+	name: "xDataGridToolbar",
 	components: { xColFilter },
 	props: ["configs"],
 	computed: {
 		Cpt_btn_query() {
 			return {
 				preset: "query",
-				async onClick() {
+				onClick: async () => {
 					if (this.configs.queryTableList) {
 						await this.configs.queryTableList({
 							pagination: { page: 1 }
@@ -22,9 +23,9 @@ export default defineComponent({
 		Cpt_btn_refresh() {
 			return {
 				preset: "refresh",
-				async onClick() {
-					if (props.configs.queryTableList) {
-						await props.configs.queryTableList();
+				onClick: async () => {
+					if (this.configs.queryTableList) {
+						await this.configs.queryTableList();
 					}
 				}
 			};

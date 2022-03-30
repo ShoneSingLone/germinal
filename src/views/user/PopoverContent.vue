@@ -14,7 +14,7 @@ defineProps({
 const state = reactive({ count: 0 });
 /*renders*/
 const renders = {
-	test: state => <Button>{state.count}</Button>
+	test: state => <aButton>{state.count}</aButton>
 };
 /* methods */
 const handlers = {
@@ -25,9 +25,9 @@ const handlers = {
 </script>
 
 <template>
-	<Button @click="handlers.clickBtn">
+	<aButton @click="handlers.clickBtn">
 		{{ $t("user.login.email").label }}
-	</Button>
+	</aButton>
 	<xRender :render="renders.test" :state="State_Login" />
-	<Button @click="handlers.clickBtn"> count is: {{ state.count }} </Button>
+	<aButton @click="handlers.clickBtn"> count is: {{ state.count }} </aButton>
 </template>

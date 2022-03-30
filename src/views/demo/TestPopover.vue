@@ -50,7 +50,7 @@ const State = reactive({
 });
 /*renders*/
 const renders = {
-	test: state => <Button>{state.count}</Button>
+	test: state => <aButton>{state.count}</aButton>
 };
 
 const PopoverContent = defineComponent({
@@ -61,9 +61,9 @@ const PopoverContent = defineComponent({
 
 		return () => {
 			return (
-				<Button type="primary" onClick={add}>
+				<aButton type="primary" onClick={add}>
 					{State.count}
-				</Button>
+				</aButton>
 			);
 		};
 	}
@@ -100,12 +100,14 @@ const handlers = {
 			<xItem :configs="State.formXItem.test" v-model="State.formData.test" />
 			State.formData.test:{{ State.formData.test }}
 			<xIM />
-			<Button id="tips" v-uiPopover="{ content: 'tips1' }">v-uiPopover</Button>
-			<Button v-uiPopover="{ content: 'tips2' }">v-uiPopover</Button>
+			<aButton id="tips" v-uiPopover="{ content: 'tips1' }"
+				>v-uiPopover</aButton
+			>
+			<aButton v-uiPopover="{ content: 'tips2' }">v-uiPopover</aButton>
 			<div />
-			<Button id="target" @click="handlers.clickBtn">iframe</Button>
+			<aButton id="target" @click="handlers.clickBtn">iframe</aButton>
 			<div />
-			<Button id="target2" @click="handlers.openTips">popover</Button>
+			<aButton id="target2" @click="handlers.openTips">popover</aButton>
 		</div>
 	</div>
 	<TestXDataGrid />

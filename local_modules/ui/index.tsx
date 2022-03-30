@@ -262,7 +262,13 @@ export default {
 		installPopoverDirective(app, options);
 		installUIDialogComponent(UI, options);
 		mylodash.each(components, (component, name) => {
-			app.component(name, component);
+			if (component.name) {
+				name = component.name;
+			} else {
+				mylodash.doNothing(name, `miss name`);
+				debugger;
+			}
+			app.component(component.name || name, component);
 		});
 	}
 };

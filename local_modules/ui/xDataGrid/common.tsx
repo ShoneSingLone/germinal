@@ -81,7 +81,7 @@ export function defPagination(num_page = 1, num_size = 10, num_total = 0) {
 
 /***
  *  设置xPagination
- * @param StateTable
+ * @param StateTable:鸭子类型StateTable必须有pagination属性
  * @param pagination 属性是page size total 根据appConfigs的pagination_map给pagination赋值
  */
 export function setPagination(StateTable, pagination: t_pagination) {
