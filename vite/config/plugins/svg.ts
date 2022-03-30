@@ -8,7 +8,7 @@ module.exports = function svgHelper(options = {}) {
 	/* @ts-ignore */
 	const { svgoConfig, svgo } = options;
 
-	const svgRegex = /svg(.*)\.svg$/;
+	const svgRegex = /\.svg$/;
 
 	return {
 		name: "svg-loader",

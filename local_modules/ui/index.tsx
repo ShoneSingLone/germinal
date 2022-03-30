@@ -1,5 +1,4 @@
 import "./index.less";
-import "./loadCommonUtil";
 import {
 	Avatar,
 	Alert,
@@ -19,6 +18,7 @@ import {
 	Input,
 	Result,
 	Tabs,
+	Table,
 	Spin,
 	Layout,
 	Tooltip,
@@ -44,7 +44,6 @@ import "ant-design-vue/es/form/style/index.css";
 import $ from "jquery";
 import layer from "./xSingle/layer/layer";
 import { installPopoverDirective } from "./xSingle/popover.js";
-import { _ } from "./loadCommonUtil.js";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xForm from "./xForm/xForm.vue";
@@ -54,16 +53,19 @@ import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
 import xView from "./xView/xView.vue";
 import xDataGrid from "./xDataGrid/xDataGrid.vue";
+import xDataGridToolbar from "./xDataGrid/xDataGridToolbar.vue";
 import xCellLabel from "./xDataGrid/xCellLabel.vue";
 import xPagination from "./xDataGrid/xPagination.vue";
 import xColFilter from "./xDataGrid/xColFilter.vue";
-
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import {
 	installUIDialogComponent,
 	t_dialogOptions,
 	handleClickDialogOK
 } from "./xSingle/dialog/dialog";
+import { _ as mylodash } from "./loadCommonUtil.js";
+import { State_UI } from "./State_UI";
+const $t = State_UI.$t;
 
 //@ts-ignore
 if (import.meta.env.MODE === "development") {
@@ -82,6 +84,7 @@ const componentMyUI = {
 	xCharts,
 	xView,
 	xDataGrid,
+	xDataGridToolbar,
 	xColFilter,
 	xPagination,
 	xCellLabel
@@ -112,6 +115,7 @@ const componentAntdV = {
 	Input,
 	InputPassword,
 	Result,
+	Table,
 	Tabs,
 	TabPane,
 	Tooltip,
@@ -137,10 +141,10 @@ const useModel = type => {
 			title = (isDefault => {
 				if (isDefault) {
 					const title_map = {
-						success: "成功",
-						info: "提示",
-						error: "错误",
-						warning: "警告"
+						success: $t("成功").label,
+						info: $t("提示").label,
+						error: $t("错误").label,
+						warning: $t("警告").label
 					};
 					return title_map[type];
 				} else {
@@ -157,12 +161,28 @@ const useModel = type => {
 				onCancel() {
 					reject();
 				},
-				okText: "确定",
+				okText: $t("确定").label,
 				class: "test"
 			});
 		});
 	};
 };
+
+import {
+	defPagination,
+	setPagination,
+	getPaginationPageSize,
+	defCol,
+	defColActions,
+	defColActionsBtnlist,
+	defDataGridOption,
+	setDataGridInfo
+} from "./xDataGrid/common.tsx";
+import { defItem, vModel, antColKey } from "./xForm/common.js";
+import { EVENT_TYPE, validateForm, AllWasWell } from "./tools/validate.js";
+import { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
+import { lStorage } from "./tools/storage.js";
+import { pickValueFrom, resetState_Value } from "./tools/form.js";
 
 export const UI = {
 	dialog: {
@@ -183,7 +203,7 @@ export const UI = {
 					onCancel() {
 						reject();
 					},
-					okText: "确定",
+					okText: $t("确定").label,
 					cancelText: "取消",
 					class: "test"
 				});
@@ -196,7 +216,7 @@ export const UI = {
 					icon: <ExclamationCircleOutlined style={"color:red"} />,
 					content,
 					okType: "danger",
-					okText: "确定",
+					okText: $t("确定").label,
 					cancelText: "取消",
 					onOk() {
 						resolve("ok");
@@ -213,28 +233,44 @@ export const UI = {
 	layer
 };
 
-export { _ } from "./loadCommonUtil.js";
-export {
-	defPagination,
-	defCol,
-	defColActions,
-	defColActionsBtnlist,
-	defDataGridOption,
-	setDataGridInfo
-} from "./xDataGrid/common.tsx";
-export { defItem, vModel, antColKey } from "./xForm/common.js";
-export { EVENT_TYPE, validateForm, AllWasWell } from "./tools/validate.js";
-export { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
-export { lStorage } from "./tools/storage.js";
-export { pickValueFrom, resetState_Value } from "./tools/form.js";
-export { handleClickDialogOK };
+export { mylodash as _ };
+export { $ as $ };
+export { defPagination as defPagination };
+export { defCol as defCol };
+export { defColActions as defColActions };
+export { defColActionsBtnlist as defColActionsBtnlist };
+export { defDataGridOption as defDataGridOption };
+export { setDataGridInfo as setDataGridInfo };
+export { State_UI as State_UI };
+export { lStorage as lStorage };
+export { EVENT_TYPE as EVENT_TYPE };
 
-export default {
+export { setPagination as setPagination };
+export { getPaginationPageSize as getPaginationPageSize };
+
+export { validateForm as validateForm };
+export { AllWasWell as AllWasWell };
+export { setDocumentTitle as setDocumentTitle };
+export { setCSSVariables as setCSSVariables };
+export { defItem as defItem };
+export { vModel as vModel };
+export { antColKey as antColKey };
+export { handleClickDialogOK as handleClickDialogOK };
+export { pickValueFrom as pickValueFrom };
+export { resetState_Value as resetState_Value };
+
+export const VentoseUIWithInstall = {
 	install: (app, options /* {appPlugins,dependState} */) => {
 		installPopoverDirective(app, options);
 		installUIDialogComponent(UI, options);
-		_.each(components, (component, name) => {
-			app.component(name, component);
+		mylodash.each(components, (component, name) => {
+			if (component.name) {
+				name = component.name;
+			} else {
+				mylodash.doNothing(name, `miss name`);
+				debugger;
+			}
+			app.component(component.name || name, component);
 		});
 	}
 };

@@ -8,26 +8,62 @@ import {
 	inject,
 	compile
 } from "vue";
-import { UI } from "@ventose/ui";
+import { defItem, UI } from "@ventose/ui";
 import xIM from "./xIM/index";
+import FormRules, { RegexFn } from "../../components/FormRules";
+import TestXDataGrid from "./TestXDataGrid.vue";
 /* data */
-const state = reactive({ count: 0 });
+const State = reactive({
+	count: 0,
+	formData: {
+		test: `1#2@(34)(Aasdf\`~!$)%)(^(&*(asd,fasf)-_=+[{]}|;:'\\",./?`
+	},
+	formXItem: {
+		...defItem({
+			prop: "test",
+			label: "test",
+			rules: [
+				FormRules.required(),
+				FormRules.custom({
+					msg() {
+						return "old tips";
+					},
+					/* 可以根据校验修改提示信息 */
+					validator(value, { configs, rule }) {
+						/* `~!@#$%^&*()-_=+[{]}|;:'\",./? */
+						const regexp = () =>
+							/[}{*`~!@\#\$\&\(\)\-\_\=\+\[\]\|;:'\",\.\/\?%\^]/;
+						const res = String(value).match(regexp());
+						// const res=String(value).match(/(\`~!@#\$%\^\&\*\(\)-_=\+[{\]\}\|;:'\\",\./\?)+/);
+						console.log(regexp(), res, regexp().test(value));
+						if (res) {
+							rule.msg = JSON.stringify(res, null, 2);
+						} else {
+							rule.msg = "no match";
+						}
+						return FormRules.FAIL;
+					}
+				})
+			]
+		})
+	}
+});
 /*renders*/
 const renders = {
-	test: state => <Button>{state.count}</Button>
+	test: state => <aButton>{state.count}</aButton>
 };
 
 const PopoverContent = defineComponent({
 	setup() {
 		function add() {
-			state.count++;
+			State.count++;
 		}
 
 		return () => {
 			return (
-				<Button type="primary" onClick={add}>
-					{state.count}
-				</Button>
+				<aButton type="primary" onClick={add}>
+					{State.count}
+				</aButton>
 			);
 		};
 	}
@@ -61,15 +97,18 @@ const handlers = {
 <template>
 	<div class="container flex middle">
 		<div class="flex width100">
+			<xItem :configs="State.formXItem.test" v-model="State.formData.test" />
+			State.formData.test:{{ State.formData.test }}
 			<xIM />
-			<Button id="tips" v-uiPopover="{ content: 'tips1' }">
-				v-uiPopover
-			</Button>
-			<Button v-uiPopover="{ content: 'tips2' }"> v-uiPopover </Button>
+			<aButton id="tips" v-uiPopover="{ content: 'tips1' }"
+				>v-uiPopover</aButton
+			>
+			<aButton v-uiPopover="{ content: 'tips2' }">v-uiPopover</aButton>
 			<div />
-			<Button id="target" @click="handlers.clickBtn"> iframe </Button>
+			<aButton id="target" @click="handlers.clickBtn">iframe</aButton>
 			<div />
-			<Button id="target2" @click="handlers.openTips"> popover </Button>
+			<aButton id="target2" @click="handlers.openTips">popover</aButton>
 		</div>
 	</div>
+	<TestXDataGrid />
 </template>

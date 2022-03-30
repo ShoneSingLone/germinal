@@ -52,6 +52,9 @@ body,
 
 ## Reference
 
+- []()
+    - npm update --depth=9999 vue-loader
+
 - [Vue3](https://v3.cn.vuejs.org/api/)
     - [sfc-script-setup](https://v3.cn.vuejs.org/api/sfc-script-setup.html)
     - [composition-api-lifecycle-hooks](https://v3.cn.vuejs.org/guide/composition-api-lifecycle-hooks.html)
@@ -64,6 +67,7 @@ body,
 - [URL-friendly characters](https://stackoverflow.com/questions/695438/what-are-the-safe-characters-for-making-urls)
 - [popover](https://www.jqueryscript.net/blog/best-popover.htm)
 - [popper](https://popper.js.org/)
+- [regexper 正则可视化](https://regexper.com/#%2F%5B%7D%7B*%60~!%40%5C%23%5C%24%5C%26%5C%28%5C%29%5C-%5C_%5C%3D%5C%2B%5C%5B%5C%5D%5C%7C%3B%3A'%5C%22%2C%5C.%5C%2F%5C%3F%25%5C%5E%5D%2F)
 
 > 关于命令式代码，私以为诸如 `tips`、`popover`、`confirm`、`dialog` 这类的场景都是合适的，一味无脑使用声明，颇有一种手里只有一把锤子的意思。
 
@@ -103,6 +107,10 @@ const genMenu = () => {
 ## 常用函数
 
 ### $t 多语言转换
+
+- 懒加载，最好是当前模块用到的才加载。
+- 如何做到异步？使用DelayCall function？
+
 
 单一数据源`build/make/language.js`
 
@@ -244,3 +252,18 @@ State_App.count: {{State_App.count}}
 <!-- src\assets\svg\lockStrok.svg -->
 <LazySvg icon="lockStrok" style="color: red; height: 100px; width: 100px; outline: 1px solid black; margin: 10px; "/> 
 ```
+
+- 20220328210842
+
+国际化,用于内部通信
+```js
+export const State_UI = reactive({
+	language: lStorage["language"] || "zh-CN",
+	$t: (prop, payload) => ({
+		label: prop
+	})
+});
+```
+
+
+xItem msg 可以是function 根据传入的参数显示不同信息

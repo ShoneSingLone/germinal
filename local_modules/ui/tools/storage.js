@@ -21,3 +21,11 @@ export const lStorage = new Proxy(localStorage, {
 		}
 	}
 });
+
+lStorage.appConfigs = lStorage.appConfigs || {
+	pagination: {
+		page: "page",
+		size: "size",
+		total: "total"
+	}
+};

@@ -14,12 +14,13 @@ onMounted(async () => {
 	setDocumentTitle(State_App.configs.title);
 	/* 菜单可以从API获取 */
 	const { menuTree } = await import("lsrc/router/routes");
-	State_App.menuTree = menuTree;
+	const { menuRoutesDelay } = await import("lsrc/router/router");
+	State_App.menuTree = menuRoutesDelay;
 	state.isLoading = false;
 });
 </script>
 <template>
-	<Spin v-if="state.isLoading"> Loading... </Spin>
+	<aSpin v-if="state.isLoading">Loading...</aSpin>
 	<RouterView v-else />
 </template>
 

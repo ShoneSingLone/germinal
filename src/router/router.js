@@ -10,12 +10,44 @@ import { $t } from "lsrc/language";
 import { _, setDocumentTitle } from "@ventose/ui";
 
 const viewModules = import.meta.glob("../views/modules/**/*");
-console.log("viewModules", viewModules);
+_.doNothing("viewModules", viewModules);
 
-const RouteView = {
-	name: "RouteView",
-	render: h => h("RouteView")
-};
+const routesDelay = _.reduce(
+	viewModules,
+	(routes, component, path) => {
+		const originUrl = path.replace("../views/modules/", "");
+		const pathArray = originUrl.split("/");
+		const filePath = _.last(pathArray);
+		const matchRes = filePath.match(/^View(.*)\.(vue|jsx|tsx)$/);
+		if (matchRes) {
+			const fileName = matchRes[1];
+			if (!fileName) alert(originUrl);
+			pathArray[pathArray.length - 1] = fileName;
+			const kebabCase = pathArray.map(_.kebabCase);
+			const route = {
+				name: `${kebabCase.join(".").replaceAll("-", "_")}`,
+				path: `/${kebabCase.join("/").replaceAll("-", "_")}`,
+				component: async () => {
+					const module = await component();
+					return module.default;
+				}
+			};
+			routes.push(route);
+		}
+		return routes;
+	},
+	[]
+);
+export const menuRoutesDelay = routesDelay.map(i => {
+	const menuInfo = {
+		id: i.name,
+		name: i.name,
+		label: i.name,
+		icon: null
+	};
+	_.doNothing("menuInfo", menuInfo);
+	return menuInfo;
+});
 
 export const NewRoute = (name, component, options = {}) =>
 	_.merge(
@@ -39,16 +71,16 @@ export const routeNames = {
 	404: "404"
 };
 const toPath = name => `/${name}`;
-
 const routes = [
 	{
 		name: routeNames.shell,
 		path: "/",
+		redirect: "/shell",
 		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [
 			{
-				name: "first",
-				path: "first",
+				name: "shell.home",
+				path: "/shell",
 				component: DevDemo
 			}
 		]
@@ -69,19 +101,13 @@ const routes = [
 			})
 		]
 	}),
+	...routesDelay,
 	NewRoute(routeNames[404], NotFound)
 ];
 
 export const router = createRouter({
 	history: createWebHashHistory(),
-	routes: [
-		...routes,
-		{
-			/* 404 not_found */
-			path: "/:pathMatch(.*)*",
-			redirect: toPath(routeNames[404])
-		}
-	]
+	routes
 });
 
 NProgress.configure({

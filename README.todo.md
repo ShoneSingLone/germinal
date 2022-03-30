@@ -7,3 +7,4 @@
     - [ ] tips
     - [ ] dialog
     - [ ] confirm
+- [ ] isHideFilter: true,

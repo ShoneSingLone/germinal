@@ -12,6 +12,7 @@ const domClass = {
 /* itemWrapperClass */
 
 export default defineComponent({
+	name: "xItem",
 	props: {
 		/* 绑定的值 */
 		modelValue: {
@@ -168,8 +169,10 @@ export default defineComponent({
 		},
 		/* 表单label 如果有提供String类型，就显示 */
 		labelVNode() {
+			const classString = this.isRequired ? "ant-form-item-required" : "";
+
 			if (this.configs.labelVNodeRender) {
-				return this.configs.labelVNodeRender(this.configs);
+				return this.configs.labelVNodeRender(this.configs, classString);
 			}
 
 			let label = (() => {
@@ -187,7 +190,6 @@ export default defineComponent({
 			if (label === false) {
 				return null;
 			}
-			const classString = this.isRequired ? "ant-form-item-required" : "";
 			return (
 				<div class="ant-form-item-label">
 					<label for={this.configs.prop} class={classString}>

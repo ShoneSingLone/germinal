@@ -3,12 +3,13 @@ import useVue from "@vitejs/plugin-vue";
 import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
 import path from "path";
-import svgHelper from "./vite.config.plugins.svg";
+import svgHelper from "./vite/config/plugins/svg";
 import { injectHtml } from "vite-plugin-html";
-import importToCdn from "vite-plugin-cdn-import";
+import importTo from "./vite/config/plugins/importTo";
 
 const isPro = process.env.NODE_ENV === "production";
-console.log("🚀 isPro", isPro);
+const isLib = process.env.type === "lib";
+console.log("🚀 isPro", isPro, "isLib", isLib);
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
@@ -36,21 +37,50 @@ export default defineConfig({
 			lsrc: path.resolve(__dirname, "./src")
 		}
 	},
-	build: {
-		/* 没有混缩 */
-		minify: false,
-		assetsDir: "statics/assets",
-		rollupOptions: {
-			output: {
-				chunkFileNames: "statics/js/[name]-[hash].js",
-				entryFileNames: "statics/js/[name]-[hash].js"
+	build: (() => {
+		const options = {
+			/* 没有混缩 */
+			minify: false,
+			assetsDir: "statics/assets",
+			rollupOptions: {
+				output: {
+					chunkFileNames: "statics/js/[name].js",
+					entryFileNames: "statics/js/[name].js"
+				}
 			}
+		};
+
+		if (isLib) {
+			options.minify = false;
+			options.outDir = "dist-lib";
+			options.lib = {
+				formats: ["umd"],
+				entry: path.resolve(__dirname, "local_modules/ui/index.tsx"),
+				name: "VentoseUI",
+				fileName: format =>
+					`VentoseUI${
+						options.minify ? ".min" : ""
+					}.js` /* `VentoseUI.${format}.js` */
+			};
+
+			const external = ["vue", "jquery", "lodash", "dayjs", "moment", "axios"];
+			console.log("🚀:", "external", JSON.stringify(external, null, 2));
+			options.rollupOptions = {
+				external,
+				output: {
+					globals: {
+						vue: "Vue",
+						jquery: "$",
+						lodash: "_",
+						dayjs: "dayjs",
+						moment: "dayjs",
+						axios: "axios"
+					}
+				}
+			};
 		}
-		/* lib: {
-            entry: path.resolve(__dirname, "lsrc/lib.js"),
-            name: "ventose@ui"
-        } */
-	},
+		return options;
+	})(),
 	plugins: [
 		useVue(),
 		useVueJsx(),
@@ -81,25 +111,52 @@ export default defineConfig({
 		(() => {
 			const productPluginArray = [];
 			if (isPro) {
+				let modules = [
+					{
+						name: "vue",
+						var: "Vue",
+						path: "./boundless/static/libs/vue/3.2.31/vue.global.js"
+					},
+					{
+						name: "vue-router",
+						var: "VueRouter",
+						path: "./boundless/static/libs/vue/router/4.0.12/vue-router.global.min.js"
+					},
+					{
+						name: "axios",
+						var: "axios",
+						path: "./boundless/static/libs/axios/0.26.0/axios.min.js"
+					},
+					{
+						name: "lodash",
+						var: "_",
+						path: "./boundless/static/libs/lodash.js"
+					},
+					{
+						name: "jquery",
+						var: "$",
+						path: "./boundless/static/libs/jquery.js"
+					},
+					{
+						name: "dayjs",
+						var: "dayjs",
+						path: "./boundless/static/libs/dayjs.js"
+					},
+					{
+						name: "@ventose/ui",
+						var: "VentoseUI",
+						path: "./boundless/static/libs/VentoseUI.js",
+						css: "./boundless/static/libs/VentoseUI.css"
+					}
+				];
+
+				if (isLib) {
+					modules = modules.filter(i => i.name !== "@ventose/ui");
+				}
+
 				productPluginArray.push(
-					importToCdn({
-						modules: [
-							{
-								name: "vue",
-								var: "Vue",
-								path: "https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.js"
-							},
-							{
-								name: "vue-router",
-								var: "VueRouter",
-								path: "https://cdn.bootcdn.net/ajax/libs/vue-router/4.0.12/vue-router.global.min.js"
-							},
-							{
-								name: "axios",
-								var: "axios",
-								path: "https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js"
-							}
-						]
+					importTo({
+						modules
 					})
 				);
 			}

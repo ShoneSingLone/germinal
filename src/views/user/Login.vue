@@ -28,9 +28,9 @@ import {
 				:message="State_Login.alertTips" />
 			<LoginCredentials />
 			<div class="item-wrapper flex between">
-				<Checkbox v-model:checked="State_Login.rememberMe">
+				<aCheckbox v-model:checked="State_Login.rememberMe">
 					{{ $t("user.login.remember-me").label }}
-				</Checkbox>
+				</aCheckbox>
 				<a href="/user/recover" class="forge-password">
 					{{ $t("user.login.forgot-password").label }}
 				</a>

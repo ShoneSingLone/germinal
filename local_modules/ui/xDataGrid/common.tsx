@@ -2,7 +2,8 @@ import { t_buttonOptions } from "../xButton/xButton";
 import { _ } from "../loadCommonUtil";
 import { ColumnProps } from "ant-design-vue/es/table";
 import { lStorage } from "../tools/storage.js";
-
+import { State_UI } from "../State_UI";
+const $t = State_UI.$t;
 /*ui 内部使用*/
 export const static_word = {
 	operation: "operation"
@@ -14,8 +15,15 @@ export type t_col = {
 };
 
 export type t_dataGridOptions = {
+	isLoading: boolean;
+	/*查询、刷新、onPaginationChange=》isLoading可以内置*/
+	queryTableList: Function;
 	/*ant的table属性*/
 	antTableProperty: object;
+	/*查询按钮*/
+	isHideQuery: boolean;
+	/*刷新按钮*/
+	isHideRefresh: boolean;
 	/*是否隐藏列过滤器*/
 	isHideFilter: boolean;
 	/*是否隐藏分页*/
@@ -34,8 +42,8 @@ export type t_dataGridOptions = {
 		/*xItem form 配置项*/
 		dataXItem: object;
 	};
-	/**/
-	renderOptions: (options: t_dataGridOptions) => JSX.Element;
+	/*@deprecated*/
+	/* renderOptions: (options: t_dataGridOptions) => JSX.Element; */
 	dataSource: any[];
 	/*如果是分组，filter无效
 	 * columns作为数组，与antdv官方文档参数保持一致
@@ -45,16 +53,51 @@ export type t_dataGridOptions = {
 	columns: { [p: string]: t_col };
 };
 
+/* 默认 pagination onPaginationChange isLoading */
 export function defDataGridOption(options: t_dataGridOptions) {
+	if (!options.pagination && !options.isHidePagination) {
+		options.pagination = defPagination();
+	}
+	options.isLoading = Boolean(options.isLoading);
+	options.onPaginationChange =
+		options.onPaginationChange ||
+		async function (pagination) {
+			if (options.queryTableList) {
+				await options.queryTableList({ pagination });
+			}
+		};
 	return options;
 }
 
-export function defPagination(pageNum = 1, pageSize = 10, pageTotal = 0) {
+export function defPagination(num_page = 1, num_size = 10, num_total = 0) {
+	/*APP可以自定义prop*/
 	const { page, size, total } = lStorage.appConfigs.pagination;
 	return {
-		[page]: pageNum || 1,
-		[size]: pageSize || 10,
-		[total]: pageTotal || 0
+		[page]: num_page || 1,
+		[size]: num_size || 10,
+		[total]: num_total || 0
+	};
+}
+
+/***
+ *  设置xPagination
+ * @param StateTable:鸭子类型StateTable必须有pagination属性
+ * @param pagination 属性是page size total 根据appConfigs的pagination_map给pagination赋值
+ */
+export function setPagination(StateTable, pagination: t_pagination) {
+	const PAGINATION_MAP = lStorage.appConfigs.pagination;
+	_.each(pagination, (value, prop) => {
+		StateTable.pagination[PAGINATION_MAP[prop]] = value;
+	});
+}
+
+export function getPaginationPageSize(StateTable) {
+	const PAGINATION_MAP = lStorage.appConfigs.pagination;
+	const pagination: t_pagination = StateTable.pagination;
+	const { page, size } = PAGINATION_MAP;
+	return {
+		[page]: pagination[page],
+		[size]: pagination[size]
 	};
 }
 
@@ -90,10 +133,11 @@ export function defColActions(options: {
 	return {
 		[static_word.operation]: _.merge(
 			{
-				title: "操作",
+				title: $t("操作").label,
 				key: static_word.operation,
 				prop: static_word.operation,
-				fixed: "right"
+				fixed: "right",
+				minWidth: 100
 			},
 			options
 		)
@@ -114,13 +158,13 @@ export function defColActionsBtnlist(options: {
 	})();
 	return (
 		<div class="flex middle">
-			<xGap l={4} />
+			<xGap l="4" />
 			{_.map(always, btn => {
 				const configs = _.merge({ type: "link", size: "small" }, btn);
 				return (
 					<>
 						<xButton configs={configs} />
-						<xGap l={4} />
+						<xGap l="4" />
 					</>
 				);
 			})}
@@ -133,7 +177,11 @@ export function defColActionsBtnlist(options: {
 						<Dropdown
 							v-slots={{
 								default: () => {
-									return <xButton configs={{ type: "link" }}>更多</xButton>;
+									return (
+										<xButton configs={{ type: "link" }}>
+											{$t("更多").label}
+										</xButton>
+									);
 								},
 								overlay: () => {
 									return (
@@ -156,7 +204,7 @@ export function defColActionsBtnlist(options: {
 								}
 							}}
 						/>
-						<xGap l={4} />
+						<xGap l="4" />
 					</>
 				);
 			})()}
@@ -172,13 +220,19 @@ export function filterColIsShow(isShow, prop) {
 	}
 }
 
+type t_result = {
+	total?: false | number;
+	data: any[];
+};
+
 /***
  * 设置xDataGrid的列表数据和总数
  * @param StateBind
  * @param data
  * @param total
  */
-export function setDataGridInfo(StateBind, data, total = false) {
+export function setDataGridInfo(StateBind, result: t_result = { data: [] }) {
+	const { data = [], total = false } = result;
 	StateBind.dataSource = data;
 	if (total || total === 0) {
 		setPagination(StateBind, { total });
@@ -190,10 +244,3 @@ type t_pagination = {
 	size: number;
 	total: number;
 };
-
-export function setPagination(StateTable, pagination: t_pagination) {
-	const PAGINATION_MAP = lStorage.appConfigs.pagination;
-	_.each(pagination, (value, prop) => {
-		StateTable.pagination[PAGINATION_MAP[prop]] = value;
-	});
-}

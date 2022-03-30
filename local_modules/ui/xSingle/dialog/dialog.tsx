@@ -75,94 +75,99 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 						],
 						success(indexPanel, layerIndex) {
 							handleEcsPress.on(layerIndex);
-							app = createApp(
-								defineComponent({
-									data() {
-										options.vmDialog = this;
-										return { elId, options, vm: null };
-									},
-									methods: {
-										async handleClickOk() {
-											if (options.onOk) {
-												await options.onOk(options);
-											} else {
-												await this.handleClickCancel();
+							try {
+								app = createApp(
+									defineComponent({
+										data() {
+											options.vmDialog = this;
+											return { elId, options, vm: null };
+										},
+										methods: {
+											async handleClickOk() {
+												if (options.onOk) {
+													await options.onOk(options);
+												} else {
+													await this.handleClickCancel();
+												}
+											},
+											async handleClickCancel() {
+												let isClose = true;
+												if (options.beforeCancel) {
+													isClose = await options.beforeCancel();
+												}
+												if (isClose) {
+													layer.close(layerIndex);
+													reject();
+												} else {
+													return false;
+												}
 											}
 										},
-										async handleClickCancel() {
-											let isClose = true;
-											if (options.beforeCancel) {
-												isClose = await options.beforeCancel();
-											}
-											if (isClose) {
-												layer.close(layerIndex);
-												reject();
-											} else {
-												return false;
-											}
-										}
-									},
-									computed: {
-										okText() {
-											return this.options.okText || "确定";
-										},
-										cancelText() {
-											return this.options.cancelText || "取消";
-										},
-										/* 主要内容 */
-										renderContent() {
-											const dialog = this;
-											return (
-												<component
-													dialog={dialog}
-													options={options}
-													class="flex1"
-												/>
-											);
-										},
-										/* 下方按钮 */
-										renderButtons() {
-											if (this.options.noButtons) {
-												return null;
-											}
-											if (this.options.renderButtons) {
+										computed: {
+											okText() {
+												return this.options.okText || this.$t("确定").label;
+											},
+											cancelText() {
+												return this.options.cancelText || this.$t("取消").label;
+											},
+											/* 主要内容 */
+											renderContent() {
+												const dialog = this;
+												return (
+													<component
+														dialog={dialog}
+														options={options}
+														class="flex1"
+													/>
+												);
+											},
+											/* 下方按钮 */
+											renderButtons() {
+												if (this.options.noButtons) {
+													return null;
+												}
+												if (this.options.renderButtons) {
+													return (
+														<div class="flex middle end ant-modal-footer">
+															{this.options.renderButtons(
+																this /* 提供 handleClickOk、handleClickCancel*/
+															)}
+														</div>
+													);
+												}
 												return (
 													<div class="flex middle end ant-modal-footer">
-														{this.options.renderButtons(
-															this /* 提供 handleClickOk、handleClickCancel*/
-														)}
+														<xButton
+															configs={{ onClick: this.handleClickCancel }}>
+															{this.cancelText}
+														</xButton>
+														<xGap l="10" />
+														<xButton
+															configs={{
+																onClick: this.handleClickOk,
+																type: "primary"
+															}}>
+															{this.okText}
+														</xButton>
 													</div>
 												);
 											}
+										},
+										render() {
 											return (
-												<div class="flex middle end ant-modal-footer">
-													<xButton
-														configs={{ onClick: this.handleClickCancel }}>
-														{this.cancelText}
-													</xButton>
-													<xGap l={10} />
-													<xButton
-														configs={{
-															onClick: this.handleClickOk,
-															type: "primary"
-														}}>
-														{this.okText}
-													</xButton>
+												<div class="flex vertical height100">
+													{this.renderContent}
+													{this.renderButtons}
 												</div>
 											);
 										}
-									},
-									render() {
-										return (
-											<div class="flex vertical height100">
-												{this.renderContent}
-												{this.renderButtons}
-											</div>
-										);
-									}
-								})
-							).use(appPlugins, { dependState });
-							app.mount(elId);
+									})
+								);
+								app.use(appPlugins, { dependState });
+								app.mount(elId);
+							} catch (e) {
+								console.error(e);
+							}
 							options.layerIndex = layerIndex;
 							options.close = () => {
 								layer.close(layerIndex);
@@ -171,15 +176,19 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 						},
 						cancel() {
 							/*点击右上角的关闭按钮*/
-							app._instance.proxy.handleClickCancel();
+							if (app) {
+								app._instance?.proxy?.handleClickCancel();
+							}
 							return false;
 						},
 						end() {
 							handleEcsPress.off();
-							app.unmount();
 							$container.remove();
 							$container = null;
-							app = null;
+							if (app) {
+								app.unmount();
+								app = null;
+							}
 							options.payload = null;
 							options.vmDialog = null;
 							options = null;

@@ -18,13 +18,19 @@ export const RegexFn = {
 		return msg();
 	} });
  */
-const makeFormRules = options => options;
+const makeFormRules = options => {
+	options.trigger = options.trigger || [EVENT_TYPE.update];
+	options.msg = options.msg || "";
+	return options;
+};
 
 export default {
-	required(msg = "必填项", trigger = [EVENT_TYPE.update]) {
+	SUCCESS,
+	FAIL,
+	required(msg, trigger = [EVENT_TYPE.update]) {
 		return makeFormRules({
 			name: "required",
-			msg,
+			msg: msg || $t("必填项").label,
 			async validator(value) {
 				/*必填的简单验证*/
 				if (value) return SUCCESS;
@@ -70,7 +76,7 @@ export default {
 			]
 		};
 	},
-	validator({ name, msg, validator, trigger }) {
+	custom({ name, msg, validator, trigger }) {
 		return makeFormRules({
 			name,
 			msg,

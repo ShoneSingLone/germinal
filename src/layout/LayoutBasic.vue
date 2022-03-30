@@ -26,8 +26,8 @@ const render = {
 </script>
 
 <template>
-	<Layout class="layout-basic">
-		<LayoutSider
+	<aLayout class="layout-basic">
+		<aLayoutSider
 			v-model:collapsed="State_App.collapsed"
 			:theme="State_App.theme"
 			collapsible
@@ -36,51 +36,51 @@ const render = {
 				<img :src="logoImg" style="width: 40px; height: 40px; margin: 20px" />
 			</div>
 			<MenuTree v-model:tree="State_App.menuTree" />
-		</LayoutSider>
-		<Layout>
-			<LayoutHeader
+		</aLayoutSider>
+		<aLayout>
+			<aLayoutHeader
 				:style="State_App.layoutStyle.header"
 				class="layout-basic header">
 				<!--    自定义的折叠按钮    -->
 				<!--    <xRender :render="render.collapsedButton" :collapsed="State_App.collapsed"/>-->
 
 				<div class="flex middle" style="height: 100%; padding: 0 24px">
-					<Breadcrumb>
-						<BreadcrumbItem>Home</BreadcrumbItem>
-						<BreadcrumbItem><a href="">Application Center</a></BreadcrumbItem>
-						<BreadcrumbItem><a href="">Application List</a></BreadcrumbItem>
-						<BreadcrumbItem>An Application</BreadcrumbItem>
-					</Breadcrumb>
+					<aBreadcrumb>
+						<aBreadcrumbItem>Home</aBreadcrumbItem>
+						<aBreadcrumbItem><a href="">Application Center</a></aBreadcrumbItem>
+						<aBreadcrumbItem><a href="">Application List</a></aBreadcrumbItem>
+						<aBreadcrumbItem>An Application</aBreadcrumbItem>
+					</aBreadcrumb>
 					<span class="flex1" />
-					<Dropdown placement="bottomRight">
-						<Avatar>
+					<aDropdown placement="bottomRight">
+						<aAvatar>
 							<template #icon>
 								<img v-if="State_App.user" :src="State_App.user.avatar" />
 								<UserOutlined v-else />
 							</template>
-						</Avatar>
+						</aAvatar>
 						<template #overlay>
-							<Menu>
-								<MenuItem>
+							<aMenu>
+								<aMenuItem>
 									<div class="flex">
 										<LazySvg icon="user" />
 										{{ State_App.user.email }}
 									</div>
-								</MenuItem>
-								<MenuItem>
+								</aMenuItem>
+								<aMenuItem>
 									<div class="flex" @click="Actions_App.Logout">
 										<LazySvg icon="logout" />
 										{{ $t("logout").label }}
 									</div>
-								</MenuItem>
-							</Menu>
+								</aMenuItem>
+							</aMenu>
 						</template>
-					</Dropdown>
+					</aDropdown>
 					<xGap :r="10" />
 					<SelectLanguage />
 				</div>
-			</LayoutHeader>
-			<LayoutContent
+			</aLayoutHeader>
+			<aLayoutContent
 				:style="{
 					margin: '24px 16px',
 					padding: '24px',
@@ -88,9 +88,9 @@ const render = {
 					minHeight: '100%'
 				}">
 				<RouterView />
-			</LayoutContent>
-		</Layout>
-	</Layout>
+			</aLayoutContent>
+		</aLayout>
+	</aLayout>
 </template>
 
 <style lang="less">

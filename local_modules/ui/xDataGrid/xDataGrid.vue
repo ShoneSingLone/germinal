@@ -1,114 +1,125 @@
-<script setup lang="jsx">
+<script lang="jsx">
 import { Table } from "ant-design-vue";
-import { computed } from "vue";
+import { computed, defineComponent, onMounted, reactive } from "vue";
 import { _ } from "../loadCommonUtil";
 import xColFilter from "./xColFilter.vue";
 import { filterColIsShow } from "./common";
 import xPagination from "./xPagination.vue";
 
-const props = defineProps({
-	configs: {
-		type: Object,
-		default() {
-			return {};
+export default defineComponent({
+	name: "XDataGrid",
+	props: {
+		configs: {
+			type: Object,
+			default() {
+				return {};
+			}
 		}
-	}
-});
-
-/*列顺序*/
-const Cpt_ColumnsOrder = computed(() => {
-	const order = (() => {
-		if (props.configs.columns_order) {
-			return props.configs.columns_order;
-		} else {
-			return _.map(props.configs.columns, i => i.prop);
-		}
-	})();
-	return _.filter(order, i => !!i);
-});
-
-/*列*/
-const Cpt_Columns = computed(() => {
-	/*如果分组，默认的filter无效，需要自己实现*/
-	if (props.configs.isGroupingColumns) {
-		return props.configs.columns;
-	}
-	let columns = null;
-	columns = _.map(Cpt_ColumnsOrder.value, prop =>
-		_.find(props.configs.columns, { prop })
-	);
-	columns = _.filter(columns, i => filterColIsShow(i?.isShow, i?.prop));
-	return columns;
-});
-
-/*表格按钮选项*/
-const Cpt_RenderOptions = computed(() => {
-	const leftOptions = (() => {
-		if (props.configs.renderOptions) {
-			return props.configs.renderOptions(props.configs);
-		} else {
-			return null;
-		}
-	})();
-
-	const rightOptions = (() => {
-		if (props.configs.isHideFilter || props.configs.isGroupingColumns) {
-			return null;
-		}
-		return <xColFilter configs={props.configs} />;
-	})();
-	return () => (
-		<div class="table-options">
-			<div className="table-option-left flex flex1">{leftOptions}</div>
-			<div className="table-filter">{rightOptions}</div>
-		</div>
-	);
-});
-
-const Cpt_AntTableProperty = computed(() => {
-	if (props.configs.antTableProperty) {
-		return props.configs.antTableProperty;
-	} else {
-		return {};
-	}
-});
-
-/*表格*/
-const Cpt_RenderTable = computed(() => {
-	if (props.configs.renderTable) {
-		return props.configs.renderTable;
-	} else {
-		return () => (
-			<Table
-				dataSource={props.configs.dataSource}
-				columns={Cpt_Columns.value}
-				scroll={{ x: 1500 }}
-				pagination={false}
-				{...Cpt_AntTableProperty.value}
-				v-slots={{
+	},
+	data() {
+		return {
+			State: { id: _.genId("xDataGrid") }
+		};
+	},
+	computed: {
+		/*列*/
+		Cpt_Columns() {
+			/*如果分组，默认的filter无效，需要自己实现*/
+			if (this.configs.isGroupingColumns) {
+				return this.configs.columns;
+			}
+			let columns = null;
+			columns = _.map(this.Cpt_ColumnsOrder, prop =>
+				_.find(this.configs.columns, { prop })
+			);
+			columns = _.filter(columns, i => filterColIsShow(i?.isShow, i?.prop));
+			return columns;
+		},
+		/*列顺序 TODO:如果有排序的需求 */
+		Cpt_ColumnsOrder() {
+			const order = (() => {
+				if (this.configs.columns_order) {
+					return this.configs.columns_order;
+				} else {
+					return _.map(this.configs.columns, i => i.prop);
+				}
+			})();
+			return _.filter(order, i => !!i);
+		},
+		Cpt_AntTableProperty() {
+			if (this.configs.antTableProperty) {
+				return this.configs.antTableProperty;
+			} else {
+				return {};
+			}
+		},
+		/*表格*/
+		Cpt_VNodeTable() {
+			if (this.configs.renderTable) {
+				return this.configs.renderTable({ vm: this });
+			} else {
+				const slots = {
 					bodyCell: args => {
 						const { column } = args;
 						if (column && column.renderCell) {
 							/* column index record text value */
-							return column.renderCell(args);
+							const vNode = column.renderCell(args);
+							/*fix:返回null会判断为没有renderCell处理，直接取prop字段的数据*/
+							if (_.isNull(vNode) || _.isUndefined(vNode)) {
+								return "";
+							}
+							return vNode;
 						}
 					}
-				}}
-			/>
+				};
+				return (
+					<Table
+						loading={this.configs.isLoading}
+						dataSource={this.configs.dataSource}
+						columns={this.Cpt_Columns}
+						scroll={{ x: 1500 }}
+						pagination={false}
+						{...this.Cpt_AntTableProperty}
+						v-slots={slots}
+					/>
+				);
+			}
+		},
+		Cpt_VNodePagination() {
+			if (this.configs.isHidePagination) {
+				return null;
+			}
+			return (
+				<xPagination
+					class="table-pagination"
+					pagination={this.configs.pagination}
+					onPaginationChange={this.handlePaginationChange}
+				/>
+			);
+		}
+	},
+	mounted() {
+		if (this.configs.onMounted) {
+			this.configs.onMounted({ id: this.State.id });
+		}
+	},
+	methods: {
+		async handlePaginationChange(pagination) {
+			this.configs.isLoading = true;
+			await this.configs.onPaginationChange(pagination);
+			this.configs.isLoading = false;
+		}
+	},
+	render() {
+		return (
+			<div id={this.State.id}>
+				{this.Cpt_VNodeTable}
+				{this.Cpt_VNodePagination}
+			</div>
 		);
 	}
 });
 </script>
-
-<template>
-	<xRender :render="Cpt_RenderOptions" />
-	<xRender :render="Cpt_RenderTable" />
-	<xPagination
-		class="table-pagination"
-		v-if="!props.configs.isHidePagination"
-		:pagination="props.configs.pagination"
-		:onPaginationChange="props.configs.onPaginationChange" />
-</template>
 
 <style>
 .table-options {

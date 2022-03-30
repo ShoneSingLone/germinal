@@ -1,6 +1,7 @@
 import { DatePicker } from "ant-design-vue";
 import dayjs from "dayjs";
-import zh_CN from "ant-design-vue/es/date-picker/locale/zh_CN";
+import { Cpt_UI_locale } from "../../State_UI";
+import { _ } from "../../loadCommonUtil";
 
 /**
  * @Description
@@ -13,9 +14,9 @@ export default ({ property, slots, listeners }) => {
 	let value = "";
 	if (property.value) {
 		value = dayjs(property.value);
-		console.log(value, property.value);
+		_.doNothing(value, property.value);
 		if (value === "Invalid Date") {
-			console.log("property.value", property.value);
+			_.doNothing("property.value", property.value);
 			value = "";
 		}
 	}
@@ -25,7 +26,7 @@ export default ({ property, slots, listeners }) => {
 			{...listeners}
 			v-slots={slots}
 			value={value}
-			locale={zh_CN}
+			locale={Cpt_UI_locale.value.DatePicker}
 		/>
 	);
 };

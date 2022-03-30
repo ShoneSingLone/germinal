@@ -12,7 +12,7 @@ import { _ } from "@ventose/ui";
  * 获取所有语言文件
  * @param {Object} modules
  */
-const defaultLang = "zh-CN";
+const defaultLang = localStorage.language || "zh-CN";
 
 function getLangFiles() {
 	//引入同级目录下文件
@@ -48,11 +48,19 @@ const i18n = createI18n({
 
 export default i18n; //将i18n暴露出去，在main.js中引入挂载
 
-export const $t = (prop, options) => {
-	const label = i18n.global.t(prop, options);
+export const $t = (...args) => {
+	let label = args[0];
+	if (!label) {
+		alert("未设置国际化标识");
+	}
+	label = i18n.global.t.apply(i18n.global.t, args);
+	if (!label) {
+		label = args[0];
+		console.error(`i18n: ${JSON.stringify(args)}`);
+	}
 	return {
 		label,
-		prop
+		prop: args[0]
 	};
 };
 /**
@@ -62,12 +70,15 @@ export const appI18n = {
 	install: (app, { watch } = {}) => {
 		//注册i8n实例并引入语言文件
 		app.config.globalProperties.$t = $t;
+		$("html").attr("lang", defaultLang);
 		watch && watch();
 	}
 };
 
 export function setI18nLanguage(lang) {
-	i18n.global.locale.value = lang;
-	$("html").attr("lang", lang);
+	if (i18n.global.locale.value !== lang) {
+		i18n.global.locale.value = lang;
+		$("html").attr("lang", lang);
+	}
 	return lang;
 }

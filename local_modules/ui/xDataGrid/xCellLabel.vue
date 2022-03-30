@@ -3,6 +3,7 @@ import { defineComponent } from "vue";
 import $ from "jquery";
 
 export default defineComponent({
+	name: "xCellLabel",
 	props: {
 		configs: {
 			type: Object,

@@ -105,7 +105,10 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 						);
 
 					if (isNeedVerify) {
-						const validateResult = await rule.validator(xItemConfigs.value);
+						const validateResult = await rule.validator(xItemConfigs.value, {
+							configs: xItemConfigs,
+							rule
+						});
 						if (validateResult) {
 							return validateResult;
 						}
