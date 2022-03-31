@@ -54,17 +54,28 @@ export type t_dataGridOptions = {
 };
 
 /* 默认 pagination onPaginationChange isLoading */
+/*  */
 export function defDataGridOption(options: t_dataGridOptions) {
 	if (!options.pagination && !options.isHidePagination) {
+		/* @ts-ignore */
 		options.pagination = defPagination();
 	}
 	options.isLoading = Boolean(options.isLoading);
+	if (options.queryTableList) {
+		/* @ts-ignore */
+		options._queryTableList_origin = options.queryTableList;
+		options.queryTableList = async function (...args) {
+			/* this必须指向响应式数据 */
+			this.isLoading = true;
+			await this._queryTableList_origin.apply(this, args);
+			this.isLoading = false;
+		};
+	}
 	options.onPaginationChange =
 		options.onPaginationChange ||
 		async function (pagination) {
-			if (options.queryTableList) {
-				await options.queryTableList({ pagination });
-			}
+			/* this必须指向响应式数据 */
+			await this.queryTableList({ pagination });
 		};
 	return options;
 }
