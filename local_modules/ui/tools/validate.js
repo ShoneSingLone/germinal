@@ -99,7 +99,7 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 					})();
 
 					trigBy &&
-						console.log(
+						_.doNothing(
 							`%cValidate trigger off by [${trigBy}]`,
 							"color:yellow;background:green;"
 						);

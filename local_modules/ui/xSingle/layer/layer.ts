@@ -327,12 +327,12 @@ ClassLayer.pt.vessel = function (conType, callback) {
 					? (function () {
 							var button = "";
 							typeof config.btn === "string" && (config.btn = [config.btn]);
-							/* []不渲染按钮区域 */
+							/* NOTICE:[]不渲染按钮区域 */
 							if (config.btn.length === 0) return "";
 							for (var i = 0, len = config.btn.length; i < len; i++) {
 								button += `<a class="${DOMS[6]}">${config.btn[i]}</a>`;
 							}
-							return ` <div class="${DOMS[6]} layui-layer-btn-${
+							return `<div class="${DOMS[6]} layui-layer-btn-${
 								config.btnAlign || ""
 							}">${button}</div>`;
 					  })()
@@ -1489,12 +1489,12 @@ layer.photos = function (options, loop, key) {
 	//一些动作
 	dict.event = function () {
 		/*
-        dict.bigimg.hover(function(){
-          dict.imgsee.show();
-        }, function(){
-          dict.imgsee.hide();
-        });
-        */
+		dict.bigimg.hover(function(){
+		  dict.imgsee.show();
+		}, function(){
+		  dict.imgsee.hide();
+		});
+		*/
 
 		dict.bigimg.find(".layui-layer-imgprev").on("click", function (event) {
 			event.preventDefault();

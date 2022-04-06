@@ -16,6 +16,7 @@ const LANGUAGE = {
 
 export const State_UI = reactive({
 	language: lStorage["language"] || "zh-CN",
+	/* @overide */
 	$t: (prop, payload) => ({
 		label: prop,
 		prop

@@ -60,11 +60,16 @@ import xColFilter from "./xDataGrid/xColFilter.vue";
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import {
 	installUIDialogComponent,
-	t_dialogOptions,
-	handleClickDialogOK
+	t_dialogOptions
 } from "./xSingle/dialog/dialog";
 import { _ as mylodash } from "./loadCommonUtil.js";
 import { State_UI } from "./State_UI";
+import dayjs from "dayjs";
+/* @ts-ignore */
+window.dayjs = dayjs;
+/* @ts-ignore */
+window.moment = dayjs;
+
 const $t = State_UI.$t;
 
 //@ts-ignore
@@ -233,6 +238,8 @@ export const UI = {
 	layer
 };
 
+export { dayjs as moment };
+export { dayjs as dayjs };
 export { mylodash as _ };
 export { $ as $ };
 export { defPagination as defPagination };
@@ -255,7 +262,6 @@ export { setCSSVariables as setCSSVariables };
 export { defItem as defItem };
 export { vModel as vModel };
 export { antColKey as antColKey };
-export { handleClickDialogOK as handleClickDialogOK };
 export { pickValueFrom as pickValueFrom };
 export { resetState_Value as resetState_Value };
 

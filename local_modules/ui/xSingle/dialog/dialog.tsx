@@ -2,7 +2,6 @@ import { _ } from "../../loadCommonUtil";
 import $ from "jquery";
 import layer, { KEY } from "../../xSingle/layer/layer";
 import { createApp, defineComponent, reactive, h } from "vue";
-import { API, SuccessOrFail } from "../../../api";
 import { UI } from "../../index";
 import { MutatingProps } from "../../common";
 
@@ -215,33 +214,3 @@ type t_normalClickDialogOKOptions = {
 	successText: string;
 	successHander: Function;
 };
-
-/***
- * 一般情况表单的dialog方法
- * Dialog的组件里必须实现 Methods verifyForm getParams
- * @param options
- */
-export async function handleClickDialogOK(
-	options: t_normalClickDialogOKOptions
-) {
-	const { close, payload } = options.instance;
-	const { Methods } = payload;
-	try {
-		if (await Methods.verifyForm()) {
-			const params = Methods.getParams();
-			const request = MutatingProps(API, options.apiPath);
-			await SuccessOrFail({
-				request: () => request(params),
-				success: async result => {
-					UI.message.success(options.successText);
-					if (options.successHander) {
-						await options.successHander({ params, result });
-					}
-				}
-			});
-			close();
-		}
-	} catch (e) {
-		console.log(e);
-	}
-}

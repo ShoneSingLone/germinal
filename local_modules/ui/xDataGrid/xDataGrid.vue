@@ -1,13 +1,13 @@
 <script lang="jsx">
 import { Table } from "ant-design-vue";
-import { computed, defineComponent, onMounted, reactive } from "vue";
+import { defineComponent } from "vue";
 import { _ } from "../loadCommonUtil";
-import xColFilter from "./xColFilter.vue";
 import { filterColIsShow } from "./common";
 import xPagination from "./xPagination.vue";
 
 export default defineComponent({
-	name: "XDataGrid",
+	name: "xDataGrid",
+	components: { xPagination },
 	props: {
 		configs: {
 			type: Object,
