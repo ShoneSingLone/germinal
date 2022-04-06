@@ -2,11 +2,10 @@ import { _ } from "../../loadCommonUtil";
 import $ from "jquery";
 import layer, { KEY } from "../../xSingle/layer/layer";
 import { createApp, defineComponent, reactive, h } from "vue";
-import { UI } from "../../index";
-import { MutatingProps } from "../../common";
 
 export type t_dialogOptions = {
-	vmDialog?: object;
+	__dialogInstance?: object;
+	__elId?: string;
 	/* 在component里面将需要的数据放在payload里面，onOK作为options里的参数传入，可以用于表单数据获取 */
 	payload?: Object;
 	title: string;
@@ -32,8 +31,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 				id
 			});
 			$container.appendTo($("body"));
-			let vm;
-			const elId = `#${id}`;
+			const __elId = `#${id}`;
 			/* FIXED: */
 			if (options.yes) {
 				options._yes = options.yes;
@@ -53,10 +51,10 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 				},
 				on(layerIndex) {
 					handleEcsPress.layerIndex = layerIndex;
-					$(document).on(`keyup.${elId}`, handleEcsPress.handler);
+					$(document).on(`keyup.${__elId}`, handleEcsPress.handler);
 				},
 				off() {
-					$(document).off(`keyup.${elId}`, handleEcsPress.handler);
+					$(document).off(`keyup.${__elId}`, handleEcsPress.handler);
 					handleEcsPress = null;
 				}
 			};
@@ -78,8 +76,9 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 								app = createApp(
 									defineComponent({
 										data() {
-											options.vmDialog = this;
-											return { elId, options, vm: null };
+											options.__dialogInstance = this;
+											options.__elId = __elId;
+											return { options };
 										},
 										methods: {
 											async handleClickOk() {
@@ -111,14 +110,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 											},
 											/* 主要内容 */
 											renderContent() {
-												const dialog = this;
-												return (
-													<component
-														dialog={dialog}
-														options={options}
-														class="flex1"
-													/>
-												);
+												return <component options={options} class="flex1" />;
 											},
 											/* 下方按钮 */
 											renderButtons() {
@@ -154,7 +146,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 										},
 										render() {
 											return (
-												<div class="flex vertical height100">
+												<div class="flex vertical h100" data-el-id={__elId}>
 													{this.renderContent}
 													{this.renderButtons}
 												</div>
@@ -163,7 +155,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 									})
 								);
 								app.use(appPlugins, { dependState });
-								app.mount(elId);
+								app.mount(__elId);
 							} catch (e) {
 								console.error(e);
 							}
@@ -189,7 +181,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 								app = null;
 							}
 							options.payload = null;
-							options.vmDialog = null;
+							options.__dialogInstance = null;
 							options = null;
 							resolve(true);
 						}
@@ -198,19 +190,4 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 				)
 			);
 		});
-};
-
-type t_normalClickDialogOKOptions = {
-	instance: {
-		close: Function;
-		payload: {
-			Methods: {
-				verifyForm: Function;
-				getParams: Function;
-			};
-		};
-	};
-	apiPath: string;
-	successText: string;
-	successHander: Function;
 };

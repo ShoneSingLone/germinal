@@ -27,7 +27,20 @@ export async function validateForm(configsForm) {
 			configsForm,
 			(configs, prop) =>
 				new Promise(resolve => {
+					/*处理不校验的情况*/
+					if (_.isInput(configs.vIf)) {
+						/*configs.vIf至少默认是个true，如果是falsy，则明确为不显示*/
+						const isFalse = !configs.vIf;
+						if (isFalse) {
+							return resolve();
+						}
+						const isResFalse = _.isFunction(configs.vIf) && !configs.vIf();
+						if (isResFalse) {
+							return resolve();
+						}
+					}
 					if (configs.validate) {
+						/*xItem的validate使用了debounce ，采用callback异步处理resolve*/
 						configs.validate.formCallBack = result => {
 							delete configs.validate.formCallBack;
 							resolve(result);

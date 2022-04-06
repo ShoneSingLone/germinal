@@ -6,6 +6,8 @@ import path from "path";
 import svgHelper from "./vite/config/plugins/svg";
 import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
+import cssOnly from "rollup-plugin-css-only";
+import fs from "fs";
 
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
@@ -51,22 +53,33 @@ export default defineConfig({
 		};
 
 		if (isLib) {
-			options.minify = false;
-			options.outDir = "dist-lib";
+			const minify = false;
+			const outDir = "dist-lib";
+			const outPutName = minify ? "VentoseUI.min" : "VentoseUI";
+
+			options.minify = minify;
+			options.outDir = outDir;
 			options.lib = {
 				formats: ["umd"],
 				entry: path.resolve(__dirname, "local_modules/ui/index.tsx"),
 				name: "VentoseUI",
-				fileName: format =>
-					`VentoseUI${
-						options.minify ? ".min" : ""
-					}.js` /* `VentoseUI.${format}.js` */
+				fileName: format => `${outPutName}.js`
 			};
 
-			const external = ["vue", "jquery", "lodash", "dayjs", "moment", "axios"];
+			const external = ["vue", "jquery", "lodash", "moment", "axios"];
 			console.log("🚀:", "external", JSON.stringify(external, null, 2));
 			options.rollupOptions = {
 				external,
+				plugins: [
+					/* CSS 名 */
+					/* cssOnly({
+						output: function (styles, styleNodes) {
+							console.log(styles,styleNodes);
+							console.log(fs.readdirSync(`${outDir}`));
+							fs.writeFileSync(`${outDir}/${outPutName}.css`, styles);
+						}
+					}) */
+				],
 				output: {
 					globals: {
 						vue: "Vue",

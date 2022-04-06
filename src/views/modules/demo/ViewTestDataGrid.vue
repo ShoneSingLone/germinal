@@ -7,9 +7,11 @@ import {
 	defCol,
 	defColActions,
 	State_UI,
-	defColActionsBtnlist
+	defColActionsBtnlist,
+	UI
 } from "@ventose/ui";
 import { $t } from "lsrc/language";
+import ViewTestFormItem from "./ViewTestFormItem.vue";
 
 export default defineComponent({
 	mounted() {
@@ -79,11 +81,24 @@ export default defineComponent({
 									{
 										text: $t("bbbbb").label,
 										onClick: async () => {
-											await _.sleep(1000);
+											UI.dialog.component({
+												title: $t("DialogTitle").label,
+												payload: { row: record, index },
+												component: ViewTestFormItem,
+												async onOk(instance) {
+													debugger;
+												}
+											});
 										}
 									},
 									{
 										text: $t("ccccc").label,
+										onClick: async () => {
+											await _.sleep(1000);
+										}
+									},
+									{
+										text: $t("ddddd").label,
 										onClick: async () => {
 											await _.sleep(1000);
 										}

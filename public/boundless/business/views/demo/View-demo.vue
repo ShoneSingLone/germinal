@@ -292,6 +292,12 @@ async ({
 											onClick: async () => {
 												await _.sleep(1000);
 											}
+										},
+										{
+											text: $t("ddddd").label,
+											onClick: async () => {
+												await _.sleep(1000);
+											}
 										}
 									]
 								});

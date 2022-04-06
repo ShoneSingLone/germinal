@@ -33,8 +33,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		  factory((global2.VentoseUI = {})));
 })(this, function (exports2) {
 	"use strict";
+	var index$C = "";
 	var index$B = "";
-	var index$A = "";
 	function _extends() {
 		_extends =
 			Object.assign ||
@@ -6531,7 +6531,905 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	});
 	api.warn = api.warning;
 	var _notification = api;
+	var index$A = "";
 	var index$z = "";
+	var KeyCode = {
+		MAC_ENTER: 3,
+		BACKSPACE: 8,
+		TAB: 9,
+		NUM_CENTER: 12,
+		ENTER: 13,
+		SHIFT: 16,
+		CTRL: 17,
+		ALT: 18,
+		PAUSE: 19,
+		CAPS_LOCK: 20,
+		ESC: 27,
+		SPACE: 32,
+		PAGE_UP: 33,
+		PAGE_DOWN: 34,
+		END: 35,
+		HOME: 36,
+		LEFT: 37,
+		UP: 38,
+		RIGHT: 39,
+		DOWN: 40,
+		PRINT_SCREEN: 44,
+		INSERT: 45,
+		DELETE: 46,
+		ZERO: 48,
+		ONE: 49,
+		TWO: 50,
+		THREE: 51,
+		FOUR: 52,
+		FIVE: 53,
+		SIX: 54,
+		SEVEN: 55,
+		EIGHT: 56,
+		NINE: 57,
+		QUESTION_MARK: 63,
+		A: 65,
+		B: 66,
+		C: 67,
+		D: 68,
+		E: 69,
+		F: 70,
+		G: 71,
+		H: 72,
+		I: 73,
+		J: 74,
+		K: 75,
+		L: 76,
+		M: 77,
+		N: 78,
+		O: 79,
+		P: 80,
+		Q: 81,
+		R: 82,
+		S: 83,
+		T: 84,
+		U: 85,
+		V: 86,
+		W: 87,
+		X: 88,
+		Y: 89,
+		Z: 90,
+		META: 91,
+		WIN_KEY_RIGHT: 92,
+		CONTEXT_MENU: 93,
+		NUM_ZERO: 96,
+		NUM_ONE: 97,
+		NUM_TWO: 98,
+		NUM_THREE: 99,
+		NUM_FOUR: 100,
+		NUM_FIVE: 101,
+		NUM_SIX: 102,
+		NUM_SEVEN: 103,
+		NUM_EIGHT: 104,
+		NUM_NINE: 105,
+		NUM_MULTIPLY: 106,
+		NUM_PLUS: 107,
+		NUM_MINUS: 109,
+		NUM_PERIOD: 110,
+		NUM_DIVISION: 111,
+		F1: 112,
+		F2: 113,
+		F3: 114,
+		F4: 115,
+		F5: 116,
+		F6: 117,
+		F7: 118,
+		F8: 119,
+		F9: 120,
+		F10: 121,
+		F11: 122,
+		F12: 123,
+		NUMLOCK: 144,
+		SEMICOLON: 186,
+		DASH: 189,
+		EQUALS: 187,
+		COMMA: 188,
+		PERIOD: 190,
+		SLASH: 191,
+		APOSTROPHE: 192,
+		SINGLE_QUOTE: 222,
+		OPEN_SQUARE_BRACKET: 219,
+		BACKSLASH: 220,
+		CLOSE_SQUARE_BRACKET: 221,
+		WIN_KEY: 224,
+		MAC_FF_META: 224,
+		WIN_IME: 229,
+		isTextModifyingKeyEvent: function isTextModifyingKeyEvent(e2) {
+			var keyCode = e2.keyCode;
+			if (
+				(e2.altKey && !e2.ctrlKey) ||
+				e2.metaKey ||
+				(keyCode >= KeyCode.F1 && keyCode <= KeyCode.F12)
+			) {
+				return false;
+			}
+			switch (keyCode) {
+				case KeyCode.ALT:
+				case KeyCode.CAPS_LOCK:
+				case KeyCode.CONTEXT_MENU:
+				case KeyCode.CTRL:
+				case KeyCode.DOWN:
+				case KeyCode.END:
+				case KeyCode.ESC:
+				case KeyCode.HOME:
+				case KeyCode.INSERT:
+				case KeyCode.LEFT:
+				case KeyCode.MAC_FF_META:
+				case KeyCode.META:
+				case KeyCode.NUMLOCK:
+				case KeyCode.NUM_CENTER:
+				case KeyCode.PAGE_DOWN:
+				case KeyCode.PAGE_UP:
+				case KeyCode.PAUSE:
+				case KeyCode.PRINT_SCREEN:
+				case KeyCode.RIGHT:
+				case KeyCode.SHIFT:
+				case KeyCode.UP:
+				case KeyCode.WIN_KEY:
+				case KeyCode.WIN_KEY_RIGHT:
+					return false;
+				default:
+					return true;
+			}
+		},
+		isCharacterKey: function isCharacterKey(keyCode) {
+			if (keyCode >= KeyCode.ZERO && keyCode <= KeyCode.NINE) {
+				return true;
+			}
+			if (keyCode >= KeyCode.NUM_ZERO && keyCode <= KeyCode.NUM_MULTIPLY) {
+				return true;
+			}
+			if (keyCode >= KeyCode.A && keyCode <= KeyCode.Z) {
+				return true;
+			}
+			if (
+				window.navigator.userAgent.indexOf("WebKit") !== -1 &&
+				keyCode === 0
+			) {
+				return true;
+			}
+			switch (keyCode) {
+				case KeyCode.SPACE:
+				case KeyCode.QUESTION_MARK:
+				case KeyCode.NUM_PLUS:
+				case KeyCode.NUM_MINUS:
+				case KeyCode.NUM_PERIOD:
+				case KeyCode.NUM_DIVISION:
+				case KeyCode.SEMICOLON:
+				case KeyCode.DASH:
+				case KeyCode.EQUALS:
+				case KeyCode.COMMA:
+				case KeyCode.PERIOD:
+				case KeyCode.SLASH:
+				case KeyCode.APOSTROPHE:
+				case KeyCode.SINGLE_QUOTE:
+				case KeyCode.OPEN_SQUARE_BRACKET:
+				case KeyCode.BACKSLASH:
+				case KeyCode.CLOSE_SQUARE_BRACKET:
+					return true;
+				default:
+					return false;
+			}
+		}
+	};
+	var KeyCode$1 = KeyCode;
+	var START_EVENT_NAME_MAP = {
+		transitionstart: {
+			transition: "transitionstart",
+			WebkitTransition: "webkitTransitionStart",
+			MozTransition: "mozTransitionStart",
+			OTransition: "oTransitionStart",
+			msTransition: "MSTransitionStart"
+		},
+		animationstart: {
+			animation: "animationstart",
+			WebkitAnimation: "webkitAnimationStart",
+			MozAnimation: "mozAnimationStart",
+			OAnimation: "oAnimationStart",
+			msAnimation: "MSAnimationStart"
+		}
+	};
+	var END_EVENT_NAME_MAP = {
+		transitionend: {
+			transition: "transitionend",
+			WebkitTransition: "webkitTransitionEnd",
+			MozTransition: "mozTransitionEnd",
+			OTransition: "oTransitionEnd",
+			msTransition: "MSTransitionEnd"
+		},
+		animationend: {
+			animation: "animationend",
+			WebkitAnimation: "webkitAnimationEnd",
+			MozAnimation: "mozAnimationEnd",
+			OAnimation: "oAnimationEnd",
+			msAnimation: "MSAnimationEnd"
+		}
+	};
+	var startEvents = [];
+	var endEvents = [];
+	function detectEvents() {
+		var testEl = document.createElement("div");
+		var style = testEl.style;
+		if (!("AnimationEvent" in window)) {
+			delete START_EVENT_NAME_MAP.animationstart.animation;
+			delete END_EVENT_NAME_MAP.animationend.animation;
+		}
+		if (!("TransitionEvent" in window)) {
+			delete START_EVENT_NAME_MAP.transitionstart.transition;
+			delete END_EVENT_NAME_MAP.transitionend.transition;
+		}
+		function process2(EVENT_NAME_MAP, events2) {
+			for (var baseEventName in EVENT_NAME_MAP) {
+				if (EVENT_NAME_MAP.hasOwnProperty(baseEventName)) {
+					var baseEvents = EVENT_NAME_MAP[baseEventName];
+					for (var styleName in baseEvents) {
+						if (styleName in style) {
+							events2.push(baseEvents[styleName]);
+							break;
+						}
+					}
+				}
+			}
+		}
+		process2(START_EVENT_NAME_MAP, startEvents);
+		process2(END_EVENT_NAME_MAP, endEvents);
+	}
+	if (typeof window !== "undefined" && typeof document !== "undefined") {
+		detectEvents();
+	}
+	function addEventListener$1(node, eventName, eventListener) {
+		node.addEventListener(eventName, eventListener, false);
+	}
+	function removeEventListener(node, eventName, eventListener) {
+		node.removeEventListener(eventName, eventListener, false);
+	}
+	var TransitionEvents = {
+		startEvents,
+		addStartEventListener: function addStartEventListener(node, eventListener) {
+			if (startEvents.length === 0) {
+				setTimeout(eventListener, 0);
+				return;
+			}
+			startEvents.forEach(function (startEvent) {
+				addEventListener$1(node, startEvent, eventListener);
+			});
+		},
+		removeStartEventListener: function removeStartEventListener(
+			node,
+			eventListener
+		) {
+			if (startEvents.length === 0) {
+				return;
+			}
+			startEvents.forEach(function (startEvent) {
+				removeEventListener(node, startEvent, eventListener);
+			});
+		},
+		endEvents,
+		addEndEventListener: function addEndEventListener(node, eventListener) {
+			if (endEvents.length === 0) {
+				setTimeout(eventListener, 0);
+				return;
+			}
+			endEvents.forEach(function (endEvent) {
+				addEventListener$1(node, endEvent, eventListener);
+			});
+		},
+		removeEndEventListener: function removeEndEventListener(
+			node,
+			eventListener
+		) {
+			if (endEvents.length === 0) {
+				return;
+			}
+			endEvents.forEach(function (endEvent) {
+				removeEventListener(node, endEvent, eventListener);
+			});
+		}
+	};
+	var TransitionEvents$1 = TransitionEvents;
+	var raf$1 = function raf2(callback) {
+		return +setTimeout(callback, 16);
+	};
+	var caf = function caf2(num) {
+		return clearTimeout(num);
+	};
+	if (typeof window !== "undefined" && "requestAnimationFrame" in window) {
+		raf$1 = function raf2(callback) {
+			return window.requestAnimationFrame(callback);
+		};
+		caf = function caf2(handle) {
+			return window.cancelAnimationFrame(handle);
+		};
+	}
+	var rafUUID = 0;
+	var rafIds = /* @__PURE__ */ new Map();
+	function cleanup(id) {
+		rafIds.delete(id);
+	}
+	function wrapperRaf(callback) {
+		var times =
+			arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
+		rafUUID += 1;
+		var id = rafUUID;
+		function callRef(leftTimes) {
+			if (leftTimes === 0) {
+				cleanup(id);
+				callback();
+			} else {
+				var realId = raf$1(function () {
+					callRef(leftTimes - 1);
+				});
+				rafIds.set(id, realId);
+			}
+		}
+		callRef(times);
+		return id;
+	}
+	wrapperRaf.cancel = function (id) {
+		var realId = rafIds.get(id);
+		cleanup(realId);
+		return caf(realId);
+	};
+	var useConfigInject = function (name, props2) {
+		var configProvider = Vue.inject("configProvider", defaultConfigProvider);
+		var prefixCls = Vue.computed(function () {
+			return configProvider.getPrefixCls(name, props2.prefixCls);
+		});
+		var direction = Vue.computed(function () {
+			var _a;
+			return (_a = props2.direction) !== null && _a !== void 0
+				? _a
+				: configProvider.direction;
+		});
+		var rootPrefixCls = Vue.computed(function () {
+			return configProvider.getPrefixCls();
+		});
+		var autoInsertSpaceInButton = Vue.computed(function () {
+			return configProvider.autoInsertSpaceInButton;
+		});
+		var renderEmpty2 = Vue.computed(function () {
+			return configProvider.renderEmpty;
+		});
+		var space = Vue.computed(function () {
+			return configProvider.space;
+		});
+		var pageHeader = Vue.computed(function () {
+			return configProvider.pageHeader;
+		});
+		var form = Vue.computed(function () {
+			return configProvider.form;
+		});
+		var getTargetContainer = Vue.computed(function () {
+			return props2.getTargetContainer || configProvider.getTargetContainer;
+		});
+		var getPopupContainer = Vue.computed(function () {
+			return props2.getPopupContainer || configProvider.getPopupContainer;
+		});
+		var virtual = Vue.computed(function () {
+			var _a;
+			return (_a = props2.virtual) !== null && _a !== void 0
+				? _a
+				: configProvider.virtual;
+		});
+		var dropdownMatchSelectWidth = Vue.computed(function () {
+			var _a;
+			return (_a = props2.dropdownMatchSelectWidth) !== null && _a !== void 0
+				? _a
+				: configProvider.dropdownMatchSelectWidth;
+		});
+		var size = Vue.computed(function () {
+			return props2.size || configProvider.componentSize;
+		});
+		var autocomplete = Vue.computed(function () {
+			var _a;
+			return (
+				props2.autocomplete ||
+				((_a = configProvider.input) === null || _a === void 0
+					? void 0
+					: _a.autocomplete)
+			);
+		});
+		var csp = Vue.computed(function () {
+			return configProvider.csp;
+		});
+		return {
+			configProvider,
+			prefixCls,
+			direction,
+			size,
+			getTargetContainer,
+			getPopupContainer,
+			space,
+			pageHeader,
+			form,
+			autoInsertSpaceInButton,
+			renderEmpty: renderEmpty2,
+			virtual,
+			dropdownMatchSelectWidth,
+			rootPrefixCls,
+			getPrefixCls: configProvider.getPrefixCls,
+			autocomplete,
+			csp
+		};
+	};
+	var styleForPesudo;
+	function isHidden(element) {
+		return !element || element.offsetParent === null;
+	}
+	function isNotGrey(color) {
+		var match2 = (color || "").match(
+			/rgba?\((\d*), (\d*), (\d*)(, [\.\d]*)?\)/
+		);
+		if (match2 && match2[1] && match2[2] && match2[3]) {
+			return !(match2[1] === match2[2] && match2[2] === match2[3]);
+		}
+		return true;
+	}
+	var Wave = Vue.defineComponent({
+		name: "Wave",
+		props: {
+			insertExtraNode: Boolean
+		},
+		setup: function setup(props2, _ref) {
+			var slots = _ref.slots,
+				expose = _ref.expose;
+			var instance = Vue.getCurrentInstance();
+			var _useConfigInject = useConfigInject("", props2),
+				csp = _useConfigInject.csp;
+			expose({
+				csp
+			});
+			var eventIns = null;
+			var clickWaveTimeoutId = null;
+			var animationStartId = null;
+			var animationStart = false;
+			var extraNode = null;
+			var isUnmounted = false;
+			var onTransitionStart = function onTransitionStart2(e2) {
+				if (isUnmounted) return;
+				var node = findDOMNode(instance);
+				if (!e2 || e2.target !== node) {
+					return;
+				}
+				if (!animationStart) {
+					resetEffect(node);
+				}
+			};
+			var onTransitionEnd = function onTransitionEnd2(e2) {
+				if (!e2 || e2.animationName !== "fadeEffect") {
+					return;
+				}
+				resetEffect(e2.target);
+			};
+			var getAttributeName = function getAttributeName2() {
+				var insertExtraNode = props2.insertExtraNode;
+				return insertExtraNode
+					? "ant-click-animating"
+					: "ant-click-animating-without-extra-node";
+			};
+			var onClick = function onClick2(node, waveColor) {
+				var _a;
+				if (!node || isHidden(node) || node.className.indexOf("-leave") >= 0) {
+					return;
+				}
+				var insertExtraNode = props2.insertExtraNode;
+				extraNode = document.createElement("div");
+				extraNode.className = "ant-click-animating-node";
+				var attributeName = getAttributeName();
+				node.removeAttribute(attributeName);
+				node.setAttribute(attributeName, "true");
+				styleForPesudo = styleForPesudo || document.createElement("style");
+				if (
+					waveColor &&
+					waveColor !== "#ffffff" &&
+					waveColor !== "rgb(255, 255, 255)" &&
+					isNotGrey(waveColor) &&
+					!/rgba\(\d*, \d*, \d*, 0\)/.test(waveColor) &&
+					waveColor !== "transparent"
+				) {
+					if ((_a = csp.value) === null || _a === void 0 ? void 0 : _a.nonce) {
+						styleForPesudo.nonce = csp.value.nonce;
+					}
+					extraNode.style.borderColor = waveColor;
+					styleForPesudo.innerHTML =
+						"\n        [ant-click-animating-without-extra-node='true']::after, .ant-click-animating-node {\n          --antd-wave-shadow-color: ".concat(
+							waveColor,
+							";\n        }"
+						);
+					if (!document.body.contains(styleForPesudo)) {
+						document.body.appendChild(styleForPesudo);
+					}
+				}
+				if (insertExtraNode) {
+					node.appendChild(extraNode);
+				}
+				TransitionEvents$1.addStartEventListener(node, onTransitionStart);
+				TransitionEvents$1.addEndEventListener(node, onTransitionEnd);
+			};
+			var resetEffect = function resetEffect2(node) {
+				if (!node || node === extraNode || !(node instanceof Element)) {
+					return;
+				}
+				var insertExtraNode = props2.insertExtraNode;
+				var attributeName = getAttributeName();
+				node.setAttribute(attributeName, "false");
+				if (styleForPesudo) {
+					styleForPesudo.innerHTML = "";
+				}
+				if (insertExtraNode && extraNode && node.contains(extraNode)) {
+					node.removeChild(extraNode);
+				}
+				TransitionEvents$1.removeStartEventListener(node, onTransitionStart);
+				TransitionEvents$1.removeEndEventListener(node, onTransitionEnd);
+			};
+			var bindAnimationEvent = function bindAnimationEvent2(node) {
+				if (
+					!node ||
+					!node.getAttribute ||
+					node.getAttribute("disabled") ||
+					node.className.indexOf("disabled") >= 0
+				) {
+					return;
+				}
+				var newClick = function newClick2(e2) {
+					if (e2.target.tagName === "INPUT" || isHidden(e2.target)) {
+						return;
+					}
+					resetEffect(node);
+					var waveColor =
+						getComputedStyle(node).getPropertyValue("border-top-color") ||
+						getComputedStyle(node).getPropertyValue("border-color") ||
+						getComputedStyle(node).getPropertyValue("background-color");
+					clickWaveTimeoutId = setTimeout(function () {
+						return onClick(node, waveColor);
+					}, 0);
+					wrapperRaf.cancel(animationStartId);
+					animationStart = true;
+					animationStartId = wrapperRaf(function () {
+						animationStart = false;
+					}, 10);
+				};
+				node.addEventListener("click", newClick, true);
+				return {
+					cancel: function cancel() {
+						node.removeEventListener("click", newClick, true);
+					}
+				};
+			};
+			Vue.onMounted(function () {
+				Vue.nextTick(function () {
+					var node = findDOMNode(instance);
+					if (node.nodeType !== 1) {
+						return;
+					}
+					eventIns = bindAnimationEvent(node);
+				});
+			});
+			Vue.onBeforeUnmount(function () {
+				if (eventIns) {
+					eventIns.cancel();
+				}
+				clearTimeout(clickWaveTimeoutId);
+				isUnmounted = true;
+			});
+			return function () {
+				var _a;
+				return (_a = slots.default) === null || _a === void 0
+					? void 0
+					: _a.call(slots)[0];
+			};
+		}
+	});
+	var devWarning = function (valid, component, message) {
+		warningOnce(
+			valid,
+			"[ant-design-vue: ".concat(component, "] ").concat(message)
+		);
+	};
+	var ContextKey$1 = Symbol("ContextProps");
+	var InternalContextKey = Symbol("InternalContextProps");
+	var defaultContext = {
+		id: Vue.computed(function () {
+			return void 0;
+		}),
+		onFieldBlur: function onFieldBlur() {},
+		onFieldChange: function onFieldChange() {},
+		clearValidate: function clearValidate() {}
+	};
+	var defaultInternalContext = {
+		addFormItemField: function addFormItemField() {},
+		removeFormItemField: function removeFormItemField() {}
+	};
+	var useInjectFormItemContext = function useInjectFormItemContext2() {
+		var internalContext = Vue.inject(
+			InternalContextKey,
+			defaultInternalContext
+		);
+		var formItemFieldKey = Symbol("FormItemFieldKey");
+		var instance = Vue.getCurrentInstance();
+		internalContext.addFormItemField(formItemFieldKey, instance.type);
+		Vue.onBeforeUnmount(function () {
+			internalContext.removeFormItemField(formItemFieldKey);
+		});
+		Vue.provide(InternalContextKey, defaultInternalContext);
+		Vue.provide(ContextKey$1, defaultContext);
+		return Vue.inject(ContextKey$1, defaultContext);
+	};
+	Vue.defineComponent({
+		name: "AFormItemRest",
+		setup: function setup(_2, _ref) {
+			var slots = _ref.slots;
+			Vue.provide(InternalContextKey, defaultInternalContext);
+			Vue.provide(ContextKey$1, defaultContext);
+			return function () {
+				var _a;
+				return (_a = slots.default) === null || _a === void 0
+					? void 0
+					: _a.call(slots);
+			};
+		}
+	});
+	function omit(obj, fields) {
+		var shallowCopy = _extends({}, obj);
+		for (var i2 = 0; i2 < fields.length; i2 += 1) {
+			var key2 = fields[i2];
+			delete shallowCopy[key2];
+		}
+		return shallowCopy;
+	}
+	var SwitchSizes = tuple$1("small", "default");
+	var switchProps = {
+		id: PropTypes$1.string,
+		prefixCls: PropTypes$1.string,
+		size: PropTypes$1.oneOf(SwitchSizes),
+		disabled: PropTypes$1.looseBool,
+		checkedChildren: PropTypes$1.any,
+		unCheckedChildren: PropTypes$1.any,
+		tabindex: PropTypes$1.oneOfType([PropTypes$1.string, PropTypes$1.number]),
+		autofocus: PropTypes$1.looseBool,
+		loading: PropTypes$1.looseBool,
+		checked: PropTypes$1.oneOfType([
+			PropTypes$1.string,
+			PropTypes$1.number,
+			PropTypes$1.looseBool
+		]),
+		checkedValue: PropTypes$1.oneOfType([
+			PropTypes$1.string,
+			PropTypes$1.number,
+			PropTypes$1.looseBool
+		]).def(true),
+		unCheckedValue: PropTypes$1.oneOfType([
+			PropTypes$1.string,
+			PropTypes$1.number,
+			PropTypes$1.looseBool
+		]).def(false),
+		onChange: {
+			type: Function
+		},
+		onClick: {
+			type: Function
+		},
+		onKeydown: {
+			type: Function
+		},
+		onMouseup: {
+			type: Function
+		},
+		"onUpdate:checked": {
+			type: Function
+		}
+	};
+	var Switch$1 = Vue.defineComponent({
+		name: "ASwitch",
+		__ANT_SWITCH: true,
+		inheritAttrs: false,
+		props: switchProps,
+		slots: ["checkedChildren", "unCheckedChildren"],
+		emits: ["update:checked", "mouseup", "change", "click", "keydown", "blur"],
+		setup: function setup(props2, _ref) {
+			var attrs = _ref.attrs,
+				slots = _ref.slots,
+				expose = _ref.expose,
+				emit = _ref.emit;
+			var formItemContext = useInjectFormItemContext();
+			Vue.onBeforeMount(function () {
+				warning$1(
+					!("defaultChecked" in attrs),
+					"Switch",
+					"'defaultChecked' is deprecated, please use 'v-model:checked'"
+				);
+				warning$1(
+					!("value" in attrs),
+					"Switch",
+					"`value` is not validate prop, do you mean `checked`?"
+				);
+			});
+			var checked = Vue.ref(
+				props2.checked !== void 0 ? props2.checked : attrs.defaultChecked
+			);
+			var checkedStatus = Vue.computed(function () {
+				return checked.value === props2.checkedValue;
+			});
+			Vue.watch(
+				function () {
+					return props2.checked;
+				},
+				function () {
+					checked.value = props2.checked;
+				}
+			);
+			var _useConfigInject = useConfigInject("switch", props2),
+				prefixCls = _useConfigInject.prefixCls;
+			var refSwitchNode = Vue.ref();
+			var focus = function focus2() {
+				var _a;
+				(_a = refSwitchNode.value) === null || _a === void 0
+					? void 0
+					: _a.focus();
+			};
+			var blur = function blur2() {
+				var _a;
+				(_a = refSwitchNode.value) === null || _a === void 0
+					? void 0
+					: _a.blur();
+			};
+			expose({
+				focus,
+				blur
+			});
+			Vue.onMounted(function () {
+				Vue.nextTick(function () {
+					if (props2.autofocus && !props2.disabled) {
+						refSwitchNode.value.focus();
+					}
+				});
+			});
+			var setChecked = function setChecked2(check, e2) {
+				if (props2.disabled) {
+					return;
+				}
+				emit("update:checked", check);
+				emit("change", check, e2);
+				formItemContext.onFieldChange();
+			};
+			var handleBlur = function handleBlur2() {
+				emit("blur");
+			};
+			var handleClick = function handleClick2(e2) {
+				focus();
+				var newChecked = checkedStatus.value
+					? props2.unCheckedValue
+					: props2.checkedValue;
+				setChecked(newChecked, e2);
+				emit("click", newChecked, e2);
+			};
+			var handleKeyDown = function handleKeyDown2(e2) {
+				if (e2.keyCode === KeyCode$1.LEFT) {
+					setChecked(props2.unCheckedValue, e2);
+				} else if (e2.keyCode === KeyCode$1.RIGHT) {
+					setChecked(props2.checkedValue, e2);
+				}
+				emit("keydown", e2);
+			};
+			var handleMouseUp = function handleMouseUp2(e2) {
+				var _a;
+				(_a = refSwitchNode.value) === null || _a === void 0
+					? void 0
+					: _a.blur();
+				emit("mouseup", e2);
+			};
+			var classNames2 = Vue.computed(function () {
+				var _ref2;
+				return (
+					(_ref2 = {}),
+					_defineProperty$J(
+						_ref2,
+						"".concat(prefixCls.value, "-small"),
+						props2.size === "small"
+					),
+					_defineProperty$J(
+						_ref2,
+						"".concat(prefixCls.value, "-loading"),
+						props2.loading
+					),
+					_defineProperty$J(
+						_ref2,
+						"".concat(prefixCls.value, "-checked"),
+						checkedStatus.value
+					),
+					_defineProperty$J(
+						_ref2,
+						"".concat(prefixCls.value, "-disabled"),
+						props2.disabled
+					),
+					_defineProperty$J(_ref2, prefixCls.value, true),
+					_ref2
+				);
+			});
+			return function () {
+				var _a;
+				return Vue.createVNode(
+					Wave,
+					{
+						insertExtraNode: true
+					},
+					{
+						default: function _default() {
+							return [
+								Vue.createVNode(
+									"button",
+									_objectSpread2$1(
+										_objectSpread2$1(
+											_objectSpread2$1(
+												{},
+												omit(props2, [
+													"prefixCls",
+													"checkedChildren",
+													"unCheckedChildren",
+													"checked",
+													"autofocus",
+													"checkedValue",
+													"unCheckedValue",
+													"id"
+												])
+											),
+											attrs
+										),
+										{},
+										{
+											id:
+												(_a = props2.id) !== null && _a !== void 0
+													? _a
+													: formItemContext.id.value,
+											onKeydown: handleKeyDown,
+											onClick: handleClick,
+											onBlur: handleBlur,
+											onMouseup: handleMouseUp,
+											type: "button",
+											role: "switch",
+											"aria-checked": checked.value,
+											disabled: props2.disabled || props2.loading,
+											class: [attrs.class, classNames2.value],
+											ref: refSwitchNode
+										}
+									),
+									[
+										props2.loading
+											? Vue.createVNode(
+													LoadingOutlined$1,
+													{
+														class: "".concat(prefixCls.value, "-loading-icon")
+													},
+													null
+											  )
+											: null,
+										Vue.createVNode(
+											"span",
+											{
+												class: "".concat(prefixCls.value, "-inner")
+											},
+											[
+												checkedStatus.value
+													? getPropsSlot(slots, props2, "checkedChildren")
+													: getPropsSlot(slots, props2, "unCheckedChildren")
+											]
+										)
+									]
+								)
+							];
+						}
+					}
+				);
+			};
+		}
+	});
+	var _Switch = withInstall(Switch$1);
 	var index$y = "";
 	var index$x = "";
 	var index$w = "";
@@ -9645,49 +10543,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 		return root2.contains(n2);
 	}
-	var raf$1 = function raf2(callback) {
-		return +setTimeout(callback, 16);
-	};
-	var caf = function caf2(num) {
-		return clearTimeout(num);
-	};
-	if (typeof window !== "undefined" && "requestAnimationFrame" in window) {
-		raf$1 = function raf2(callback) {
-			return window.requestAnimationFrame(callback);
-		};
-		caf = function caf2(handle) {
-			return window.cancelAnimationFrame(handle);
-		};
-	}
-	var rafUUID = 0;
-	var rafIds = /* @__PURE__ */ new Map();
-	function cleanup(id) {
-		rafIds.delete(id);
-	}
-	function wrapperRaf(callback) {
-		var times =
-			arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
-		rafUUID += 1;
-		var id = rafUUID;
-		function callRef(leftTimes) {
-			if (leftTimes === 0) {
-				cleanup(id);
-				callback();
-			} else {
-				var realId = raf$1(function () {
-					callRef(leftTimes - 1);
-				});
-				rafIds.set(id, realId);
-			}
-		}
-		callRef(times);
-		return id;
-	}
-	wrapperRaf.cancel = function (id) {
-		var realId = rafIds.get(id);
-		cleanup(realId);
-		return caf(realId);
-	};
 	var availablePrefixs = ["moz", "ms", "webkit"];
 	function requestAnimationFramePolyfill() {
 		var lastTime = 0;
@@ -13766,88 +14621,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			"onUpdate:visible": PropTypes$1.func
 		};
 	};
-	var useConfigInject = function (name, props2) {
-		var configProvider = Vue.inject("configProvider", defaultConfigProvider);
-		var prefixCls = Vue.computed(function () {
-			return configProvider.getPrefixCls(name, props2.prefixCls);
-		});
-		var direction = Vue.computed(function () {
-			var _a;
-			return (_a = props2.direction) !== null && _a !== void 0
-				? _a
-				: configProvider.direction;
-		});
-		var rootPrefixCls = Vue.computed(function () {
-			return configProvider.getPrefixCls();
-		});
-		var autoInsertSpaceInButton = Vue.computed(function () {
-			return configProvider.autoInsertSpaceInButton;
-		});
-		var renderEmpty2 = Vue.computed(function () {
-			return configProvider.renderEmpty;
-		});
-		var space = Vue.computed(function () {
-			return configProvider.space;
-		});
-		var pageHeader = Vue.computed(function () {
-			return configProvider.pageHeader;
-		});
-		var form = Vue.computed(function () {
-			return configProvider.form;
-		});
-		var getTargetContainer = Vue.computed(function () {
-			return props2.getTargetContainer || configProvider.getTargetContainer;
-		});
-		var getPopupContainer = Vue.computed(function () {
-			return props2.getPopupContainer || configProvider.getPopupContainer;
-		});
-		var virtual = Vue.computed(function () {
-			var _a;
-			return (_a = props2.virtual) !== null && _a !== void 0
-				? _a
-				: configProvider.virtual;
-		});
-		var dropdownMatchSelectWidth = Vue.computed(function () {
-			var _a;
-			return (_a = props2.dropdownMatchSelectWidth) !== null && _a !== void 0
-				? _a
-				: configProvider.dropdownMatchSelectWidth;
-		});
-		var size = Vue.computed(function () {
-			return props2.size || configProvider.componentSize;
-		});
-		var autocomplete = Vue.computed(function () {
-			var _a;
-			return (
-				props2.autocomplete ||
-				((_a = configProvider.input) === null || _a === void 0
-					? void 0
-					: _a.autocomplete)
-			);
-		});
-		var csp = Vue.computed(function () {
-			return configProvider.csp;
-		});
-		return {
-			configProvider,
-			prefixCls,
-			direction,
-			size,
-			getTargetContainer,
-			getPopupContainer,
-			space,
-			pageHeader,
-			form,
-			autoInsertSpaceInButton,
-			renderEmpty: renderEmpty2,
-			virtual,
-			dropdownMatchSelectWidth,
-			rootPrefixCls,
-			getPrefixCls: configProvider.getPrefixCls,
-			autocomplete,
-			csp
-		};
-	};
 	var autoAdjustOverflowEnabled = {
 		adjustX: 1,
 		adjustY: 1
@@ -14367,12 +15140,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			successPercent: PropTypes$1.number,
 			title: String
 		};
-	};
-	var devWarning = function (valid, component, message) {
-		warningOnce(
-			valid,
-			"[ant-design-vue: ".concat(component, "] ").concat(message)
-		);
 	};
 	function validProgress(progress) {
 		if (!progress || progress < 0) {
@@ -15909,49 +16676,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			);
 		}
 	});
-	var ContextKey$1 = Symbol("ContextProps");
-	var InternalContextKey = Symbol("InternalContextProps");
-	var defaultContext = {
-		id: Vue.computed(function () {
-			return void 0;
-		}),
-		onFieldBlur: function onFieldBlur() {},
-		onFieldChange: function onFieldChange() {},
-		clearValidate: function clearValidate() {}
-	};
-	var defaultInternalContext = {
-		addFormItemField: function addFormItemField() {},
-		removeFormItemField: function removeFormItemField() {}
-	};
-	var useInjectFormItemContext = function useInjectFormItemContext2() {
-		var internalContext = Vue.inject(
-			InternalContextKey,
-			defaultInternalContext
-		);
-		var formItemFieldKey = Symbol("FormItemFieldKey");
-		var instance = Vue.getCurrentInstance();
-		internalContext.addFormItemField(formItemFieldKey, instance.type);
-		Vue.onBeforeUnmount(function () {
-			internalContext.removeFormItemField(formItemFieldKey);
-		});
-		Vue.provide(InternalContextKey, defaultInternalContext);
-		Vue.provide(ContextKey$1, defaultContext);
-		return Vue.inject(ContextKey$1, defaultContext);
-	};
-	Vue.defineComponent({
-		name: "AFormItemRest",
-		setup: function setup(_2, _ref) {
-			var slots = _ref.slots;
-			Vue.provide(InternalContextKey, defaultInternalContext);
-			Vue.provide(ContextKey$1, defaultContext);
-			return function () {
-				var _a;
-				return (_a = slots.default) === null || _a === void 0
-					? void 0
-					: _a.call(slots);
-			};
-		}
-	});
 	var Upload = Vue.defineComponent({
 		name: "AUpload",
 		mixins: [BaseMixin],
@@ -17384,191 +18108,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 		return [state, updater];
 	}
-	var KeyCode = {
-		MAC_ENTER: 3,
-		BACKSPACE: 8,
-		TAB: 9,
-		NUM_CENTER: 12,
-		ENTER: 13,
-		SHIFT: 16,
-		CTRL: 17,
-		ALT: 18,
-		PAUSE: 19,
-		CAPS_LOCK: 20,
-		ESC: 27,
-		SPACE: 32,
-		PAGE_UP: 33,
-		PAGE_DOWN: 34,
-		END: 35,
-		HOME: 36,
-		LEFT: 37,
-		UP: 38,
-		RIGHT: 39,
-		DOWN: 40,
-		PRINT_SCREEN: 44,
-		INSERT: 45,
-		DELETE: 46,
-		ZERO: 48,
-		ONE: 49,
-		TWO: 50,
-		THREE: 51,
-		FOUR: 52,
-		FIVE: 53,
-		SIX: 54,
-		SEVEN: 55,
-		EIGHT: 56,
-		NINE: 57,
-		QUESTION_MARK: 63,
-		A: 65,
-		B: 66,
-		C: 67,
-		D: 68,
-		E: 69,
-		F: 70,
-		G: 71,
-		H: 72,
-		I: 73,
-		J: 74,
-		K: 75,
-		L: 76,
-		M: 77,
-		N: 78,
-		O: 79,
-		P: 80,
-		Q: 81,
-		R: 82,
-		S: 83,
-		T: 84,
-		U: 85,
-		V: 86,
-		W: 87,
-		X: 88,
-		Y: 89,
-		Z: 90,
-		META: 91,
-		WIN_KEY_RIGHT: 92,
-		CONTEXT_MENU: 93,
-		NUM_ZERO: 96,
-		NUM_ONE: 97,
-		NUM_TWO: 98,
-		NUM_THREE: 99,
-		NUM_FOUR: 100,
-		NUM_FIVE: 101,
-		NUM_SIX: 102,
-		NUM_SEVEN: 103,
-		NUM_EIGHT: 104,
-		NUM_NINE: 105,
-		NUM_MULTIPLY: 106,
-		NUM_PLUS: 107,
-		NUM_MINUS: 109,
-		NUM_PERIOD: 110,
-		NUM_DIVISION: 111,
-		F1: 112,
-		F2: 113,
-		F3: 114,
-		F4: 115,
-		F5: 116,
-		F6: 117,
-		F7: 118,
-		F8: 119,
-		F9: 120,
-		F10: 121,
-		F11: 122,
-		F12: 123,
-		NUMLOCK: 144,
-		SEMICOLON: 186,
-		DASH: 189,
-		EQUALS: 187,
-		COMMA: 188,
-		PERIOD: 190,
-		SLASH: 191,
-		APOSTROPHE: 192,
-		SINGLE_QUOTE: 222,
-		OPEN_SQUARE_BRACKET: 219,
-		BACKSLASH: 220,
-		CLOSE_SQUARE_BRACKET: 221,
-		WIN_KEY: 224,
-		MAC_FF_META: 224,
-		WIN_IME: 229,
-		isTextModifyingKeyEvent: function isTextModifyingKeyEvent(e2) {
-			var keyCode = e2.keyCode;
-			if (
-				(e2.altKey && !e2.ctrlKey) ||
-				e2.metaKey ||
-				(keyCode >= KeyCode.F1 && keyCode <= KeyCode.F12)
-			) {
-				return false;
-			}
-			switch (keyCode) {
-				case KeyCode.ALT:
-				case KeyCode.CAPS_LOCK:
-				case KeyCode.CONTEXT_MENU:
-				case KeyCode.CTRL:
-				case KeyCode.DOWN:
-				case KeyCode.END:
-				case KeyCode.ESC:
-				case KeyCode.HOME:
-				case KeyCode.INSERT:
-				case KeyCode.LEFT:
-				case KeyCode.MAC_FF_META:
-				case KeyCode.META:
-				case KeyCode.NUMLOCK:
-				case KeyCode.NUM_CENTER:
-				case KeyCode.PAGE_DOWN:
-				case KeyCode.PAGE_UP:
-				case KeyCode.PAUSE:
-				case KeyCode.PRINT_SCREEN:
-				case KeyCode.RIGHT:
-				case KeyCode.SHIFT:
-				case KeyCode.UP:
-				case KeyCode.WIN_KEY:
-				case KeyCode.WIN_KEY_RIGHT:
-					return false;
-				default:
-					return true;
-			}
-		},
-		isCharacterKey: function isCharacterKey(keyCode) {
-			if (keyCode >= KeyCode.ZERO && keyCode <= KeyCode.NINE) {
-				return true;
-			}
-			if (keyCode >= KeyCode.NUM_ZERO && keyCode <= KeyCode.NUM_MULTIPLY) {
-				return true;
-			}
-			if (keyCode >= KeyCode.A && keyCode <= KeyCode.Z) {
-				return true;
-			}
-			if (
-				window.navigator.userAgent.indexOf("WebKit") !== -1 &&
-				keyCode === 0
-			) {
-				return true;
-			}
-			switch (keyCode) {
-				case KeyCode.SPACE:
-				case KeyCode.QUESTION_MARK:
-				case KeyCode.NUM_PLUS:
-				case KeyCode.NUM_MINUS:
-				case KeyCode.NUM_PERIOD:
-				case KeyCode.NUM_DIVISION:
-				case KeyCode.SEMICOLON:
-				case KeyCode.DASH:
-				case KeyCode.EQUALS:
-				case KeyCode.COMMA:
-				case KeyCode.PERIOD:
-				case KeyCode.SLASH:
-				case KeyCode.APOSTROPHE:
-				case KeyCode.SINGLE_QUOTE:
-				case KeyCode.OPEN_SQUARE_BRACKET:
-				case KeyCode.BACKSLASH:
-				case KeyCode.CLOSE_SQUARE_BRACKET:
-					return true;
-				default:
-					return false;
-			}
-		}
-	};
-	var KeyCode$1 = KeyCode;
 	var TabNode = Vue.defineComponent({
 		name: "TabNode",
 		props: {
@@ -28232,15 +28771,15 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		e2.initEvent(type2, true, true);
 		el.dispatchEvent(e2);
 	}
-	function addEventListener$1(el, event, handler, options) {
+	function addEventListener(el, event, handler, options) {
 		el.addEventListener(event, handler, options);
 	}
 	var antInput = {
 		created: function created(el, binding) {
 			if (!binding.modifiers || !binding.modifiers.lazy) {
-				addEventListener$1(el, "compositionstart", onCompositionStart);
-				addEventListener$1(el, "compositionend", onCompositionEnd);
-				addEventListener$1(el, "change", onCompositionEnd);
+				addEventListener(el, "compositionstart", onCompositionStart);
+				addEventListener(el, "compositionend", onCompositionEnd);
+				addEventListener(el, "change", onCompositionEnd);
 			}
 		}
 	};
@@ -31501,14 +32040,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	}
 	function isPlatformMac() {
 		return /(mac\sos|macintosh)/i.test(navigator.appVersion);
-	}
-	function omit(obj, fields) {
-		var shallowCopy = _extends({}, obj);
-		for (var i2 = 0; i2 < fields.length; i2 += 1) {
-			var key2 = fields[i2];
-			delete shallowCopy[key2];
-		}
-		return shallowCopy;
 	}
 	var SelectContextKey = Symbol("SelectContextKey");
 	function useProvideSelectProps(props2) {
@@ -35824,289 +36355,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		app.component(CheckboxGroup$1.name, CheckboxGroup$1);
 		return app;
 	};
-	var START_EVENT_NAME_MAP = {
-		transitionstart: {
-			transition: "transitionstart",
-			WebkitTransition: "webkitTransitionStart",
-			MozTransition: "mozTransitionStart",
-			OTransition: "oTransitionStart",
-			msTransition: "MSTransitionStart"
-		},
-		animationstart: {
-			animation: "animationstart",
-			WebkitAnimation: "webkitAnimationStart",
-			MozAnimation: "mozAnimationStart",
-			OAnimation: "oAnimationStart",
-			msAnimation: "MSAnimationStart"
-		}
-	};
-	var END_EVENT_NAME_MAP = {
-		transitionend: {
-			transition: "transitionend",
-			WebkitTransition: "webkitTransitionEnd",
-			MozTransition: "mozTransitionEnd",
-			OTransition: "oTransitionEnd",
-			msTransition: "MSTransitionEnd"
-		},
-		animationend: {
-			animation: "animationend",
-			WebkitAnimation: "webkitAnimationEnd",
-			MozAnimation: "mozAnimationEnd",
-			OAnimation: "oAnimationEnd",
-			msAnimation: "MSAnimationEnd"
-		}
-	};
-	var startEvents = [];
-	var endEvents = [];
-	function detectEvents() {
-		var testEl = document.createElement("div");
-		var style = testEl.style;
-		if (!("AnimationEvent" in window)) {
-			delete START_EVENT_NAME_MAP.animationstart.animation;
-			delete END_EVENT_NAME_MAP.animationend.animation;
-		}
-		if (!("TransitionEvent" in window)) {
-			delete START_EVENT_NAME_MAP.transitionstart.transition;
-			delete END_EVENT_NAME_MAP.transitionend.transition;
-		}
-		function process2(EVENT_NAME_MAP, events2) {
-			for (var baseEventName in EVENT_NAME_MAP) {
-				if (EVENT_NAME_MAP.hasOwnProperty(baseEventName)) {
-					var baseEvents = EVENT_NAME_MAP[baseEventName];
-					for (var styleName in baseEvents) {
-						if (styleName in style) {
-							events2.push(baseEvents[styleName]);
-							break;
-						}
-					}
-				}
-			}
-		}
-		process2(START_EVENT_NAME_MAP, startEvents);
-		process2(END_EVENT_NAME_MAP, endEvents);
-	}
-	if (typeof window !== "undefined" && typeof document !== "undefined") {
-		detectEvents();
-	}
-	function addEventListener(node, eventName, eventListener) {
-		node.addEventListener(eventName, eventListener, false);
-	}
-	function removeEventListener(node, eventName, eventListener) {
-		node.removeEventListener(eventName, eventListener, false);
-	}
-	var TransitionEvents = {
-		startEvents,
-		addStartEventListener: function addStartEventListener(node, eventListener) {
-			if (startEvents.length === 0) {
-				setTimeout(eventListener, 0);
-				return;
-			}
-			startEvents.forEach(function (startEvent) {
-				addEventListener(node, startEvent, eventListener);
-			});
-		},
-		removeStartEventListener: function removeStartEventListener(
-			node,
-			eventListener
-		) {
-			if (startEvents.length === 0) {
-				return;
-			}
-			startEvents.forEach(function (startEvent) {
-				removeEventListener(node, startEvent, eventListener);
-			});
-		},
-		endEvents,
-		addEndEventListener: function addEndEventListener(node, eventListener) {
-			if (endEvents.length === 0) {
-				setTimeout(eventListener, 0);
-				return;
-			}
-			endEvents.forEach(function (endEvent) {
-				addEventListener(node, endEvent, eventListener);
-			});
-		},
-		removeEndEventListener: function removeEndEventListener(
-			node,
-			eventListener
-		) {
-			if (endEvents.length === 0) {
-				return;
-			}
-			endEvents.forEach(function (endEvent) {
-				removeEventListener(node, endEvent, eventListener);
-			});
-		}
-	};
-	var TransitionEvents$1 = TransitionEvents;
-	var styleForPesudo;
-	function isHidden(element) {
-		return !element || element.offsetParent === null;
-	}
-	function isNotGrey(color) {
-		var match2 = (color || "").match(
-			/rgba?\((\d*), (\d*), (\d*)(, [\.\d]*)?\)/
-		);
-		if (match2 && match2[1] && match2[2] && match2[3]) {
-			return !(match2[1] === match2[2] && match2[2] === match2[3]);
-		}
-		return true;
-	}
-	var Wave = Vue.defineComponent({
-		name: "Wave",
-		props: {
-			insertExtraNode: Boolean
-		},
-		setup: function setup(props2, _ref) {
-			var slots = _ref.slots,
-				expose = _ref.expose;
-			var instance = Vue.getCurrentInstance();
-			var _useConfigInject = useConfigInject("", props2),
-				csp = _useConfigInject.csp;
-			expose({
-				csp
-			});
-			var eventIns = null;
-			var clickWaveTimeoutId = null;
-			var animationStartId = null;
-			var animationStart = false;
-			var extraNode = null;
-			var isUnmounted = false;
-			var onTransitionStart = function onTransitionStart2(e2) {
-				if (isUnmounted) return;
-				var node = findDOMNode(instance);
-				if (!e2 || e2.target !== node) {
-					return;
-				}
-				if (!animationStart) {
-					resetEffect(node);
-				}
-			};
-			var onTransitionEnd = function onTransitionEnd2(e2) {
-				if (!e2 || e2.animationName !== "fadeEffect") {
-					return;
-				}
-				resetEffect(e2.target);
-			};
-			var getAttributeName = function getAttributeName2() {
-				var insertExtraNode = props2.insertExtraNode;
-				return insertExtraNode
-					? "ant-click-animating"
-					: "ant-click-animating-without-extra-node";
-			};
-			var onClick = function onClick2(node, waveColor) {
-				var _a;
-				if (!node || isHidden(node) || node.className.indexOf("-leave") >= 0) {
-					return;
-				}
-				var insertExtraNode = props2.insertExtraNode;
-				extraNode = document.createElement("div");
-				extraNode.className = "ant-click-animating-node";
-				var attributeName = getAttributeName();
-				node.removeAttribute(attributeName);
-				node.setAttribute(attributeName, "true");
-				styleForPesudo = styleForPesudo || document.createElement("style");
-				if (
-					waveColor &&
-					waveColor !== "#ffffff" &&
-					waveColor !== "rgb(255, 255, 255)" &&
-					isNotGrey(waveColor) &&
-					!/rgba\(\d*, \d*, \d*, 0\)/.test(waveColor) &&
-					waveColor !== "transparent"
-				) {
-					if ((_a = csp.value) === null || _a === void 0 ? void 0 : _a.nonce) {
-						styleForPesudo.nonce = csp.value.nonce;
-					}
-					extraNode.style.borderColor = waveColor;
-					styleForPesudo.innerHTML =
-						"\n        [ant-click-animating-without-extra-node='true']::after, .ant-click-animating-node {\n          --antd-wave-shadow-color: ".concat(
-							waveColor,
-							";\n        }"
-						);
-					if (!document.body.contains(styleForPesudo)) {
-						document.body.appendChild(styleForPesudo);
-					}
-				}
-				if (insertExtraNode) {
-					node.appendChild(extraNode);
-				}
-				TransitionEvents$1.addStartEventListener(node, onTransitionStart);
-				TransitionEvents$1.addEndEventListener(node, onTransitionEnd);
-			};
-			var resetEffect = function resetEffect2(node) {
-				if (!node || node === extraNode || !(node instanceof Element)) {
-					return;
-				}
-				var insertExtraNode = props2.insertExtraNode;
-				var attributeName = getAttributeName();
-				node.setAttribute(attributeName, "false");
-				if (styleForPesudo) {
-					styleForPesudo.innerHTML = "";
-				}
-				if (insertExtraNode && extraNode && node.contains(extraNode)) {
-					node.removeChild(extraNode);
-				}
-				TransitionEvents$1.removeStartEventListener(node, onTransitionStart);
-				TransitionEvents$1.removeEndEventListener(node, onTransitionEnd);
-			};
-			var bindAnimationEvent = function bindAnimationEvent2(node) {
-				if (
-					!node ||
-					!node.getAttribute ||
-					node.getAttribute("disabled") ||
-					node.className.indexOf("disabled") >= 0
-				) {
-					return;
-				}
-				var newClick = function newClick2(e2) {
-					if (e2.target.tagName === "INPUT" || isHidden(e2.target)) {
-						return;
-					}
-					resetEffect(node);
-					var waveColor =
-						getComputedStyle(node).getPropertyValue("border-top-color") ||
-						getComputedStyle(node).getPropertyValue("border-color") ||
-						getComputedStyle(node).getPropertyValue("background-color");
-					clickWaveTimeoutId = setTimeout(function () {
-						return onClick(node, waveColor);
-					}, 0);
-					wrapperRaf.cancel(animationStartId);
-					animationStart = true;
-					animationStartId = wrapperRaf(function () {
-						animationStart = false;
-					}, 10);
-				};
-				node.addEventListener("click", newClick, true);
-				return {
-					cancel: function cancel() {
-						node.removeEventListener("click", newClick, true);
-					}
-				};
-			};
-			Vue.onMounted(function () {
-				Vue.nextTick(function () {
-					var node = findDOMNode(instance);
-					if (node.nodeType !== 1) {
-						return;
-					}
-					eventIns = bindAnimationEvent(node);
-				});
-			});
-			Vue.onBeforeUnmount(function () {
-				if (eventIns) {
-					eventIns.cancel();
-				}
-				clearTimeout(clickWaveTimeoutId);
-				isUnmounted = true;
-			});
-			return function () {
-				var _a;
-				return (_a = slots.default) === null || _a === void 0
-					? void 0
-					: _a.call(slots)[0];
-			};
-		}
-	});
 	var ButtonTypes = tuple$1(
 		"default",
 		"primary",
@@ -61496,10 +61744,10 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	};
 	var zhCn$1 = localeValues;
 	var zhCn = { exports: {} };
-	const _global_dayjs = dayjs;
+	const _global_dayjs$1 = dayjs;
 	(function (module2, exports3) {
 		!(function (e2, _2) {
-			module2.exports = _2(_global_dayjs);
+			module2.exports = _2(_global_dayjs$1);
 		})(commonjsGlobal, function (e2) {
 			function _2(e3) {
 				return e3 && typeof e3 == "object" && "default" in e3
@@ -61588,7 +61836,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	var enAu = { exports: {} };
 	(function (module2, exports3) {
 		!(function (e2, a2) {
-			module2.exports = a2(_global_dayjs);
+			module2.exports = a2(_global_dayjs$1);
 		})(commonjsGlobal, function (e2) {
 			function a2(e3) {
 				return e3 && typeof e3 == "object" && "default" in e3
@@ -61672,17 +61920,31 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			total: "total"
 		}
 	};
-	window.moment = dayjs;
-	const LANGUAGE = {
-		enUs: defaultLocale,
-		zhCn: zhCn$1
-	};
 	const State_UI = Vue.reactive({
 		language: lStorage["language"] || "zh-CN",
-		$t: (prop, payload) => ({
-			label: prop,
-			prop
-		})
+		LANGUAGE: {
+			enUs: defaultLocale,
+			zhCn: zhCn$1
+		},
+		i18nMessage: {},
+		$t(prop, payload) {
+			const result = {
+				label: prop,
+				prop
+			};
+			_.templateSettings.interpolate = /{([\s\S]+?)}/g;
+			if (State_UI.i18nMessage) {
+				const temp = State_UI.i18nMessage[prop];
+				if (temp) {
+					result.label = _.template(temp)(payload);
+					if (!result.label) {
+						result.label = prop;
+						console.error(`i18n:${prop} "NOT_FOUND"`);
+					}
+				}
+			}
+			return result;
+		}
 	});
 	Vue.watch(
 		() => State_UI.language,
@@ -61696,7 +61958,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	);
 	const Cpt_UI_locale = Vue.computed(() => {
 		const currentLanguage = _.camelCase(State_UI.language || "zh_CN");
-		const locale2 = LANGUAGE[currentLanguage];
+		const locale2 = State_UI.LANGUAGE[currentLanguage];
 		return locale2;
 	});
 	var DatePicker = ({ property: property2, slots, listeners }) => {
@@ -61746,6 +62008,17 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				configsForm,
 				(configs, prop) =>
 					new Promise(resolve => {
+						if (_global__.isInput(configs.vIf)) {
+							const isFalse = !configs.vIf;
+							if (isFalse) {
+								return resolve();
+							}
+							const isResFalse =
+								_global__.isFunction(configs.vIf) && !configs.vIf();
+							if (isResFalse) {
+								return resolve();
+							}
+						}
 						if (configs.validate) {
 							configs.validate.formCallBack = result => {
 								delete configs.validate.formCallBack;
@@ -61881,10 +62154,22 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			slots
 		);
 	};
+	var Switch = ({ property: property2, slots, listeners }) => {
+		const _property = _global__.merge({}, property2, {
+			checked: property2.value,
+			onClick() {
+				listeners["onUpdate:value"](!_property.value);
+			}
+		});
+		return Vue.createVNode("span", null, [
+			Vue.h(_Switch, _global__.omit(_property, ["value"]))
+		]);
+	};
 	const itemRenders = {
 		Input,
 		Checkbox,
 		Select,
+		Switch,
 		DatePicker,
 		RangePicker,
 		RadioGroup,
@@ -61951,6 +62236,17 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					return {};
 				}
 			}
+		},
+		setup(props2) {
+			let Cpt_isShowXItem = true;
+			if (_global__.isFunction(props2.configs.vIf)) {
+				Cpt_isShowXItem = Vue.computed(props2.configs.vIf);
+			} else if (_global__.isBoolean(props2.configs.vIf)) {
+				Cpt_isShowXItem = props2.configs.vIf;
+			}
+			return {
+				Cpt_isShowXItem
+			};
 		},
 		emits: ["update:modelValue"],
 		data() {
@@ -62187,6 +62483,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			}
 		},
 		render(h2) {
+			if (!this.Cpt_isShowXItem) {
+				return null;
+			}
 			const CurrentXItem = (() => {
 				return itemRenders[this.configs.itemType] || itemRenders.Input;
 			})();
@@ -62293,28 +62592,27 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	var xForm = /* @__PURE__ */ _export_sfc(_sfc_main$9, [
 		["render", _sfc_render$7]
 	]);
-	const $t$2 = State_UI.$t;
 	const BTN_PRESET_MAP = {
-		query: {
+		query: () => ({
 			icon: Vue.createVNode(SearchOutlined$1, null, null),
-			text: $t$2("\u67E5\u8BE2").label
-		},
-		refresh: {
+			text: State_UI.$t("\u67E5\u8BE2").label
+		}),
+		refresh: () => ({
 			icon: Vue.createVNode(SyncOutlined$1, null, null),
-			text: $t$2("\u5237\u65B0").label
-		},
-		save: {
+			text: State_UI.$t("\u5237\u65B0").label
+		}),
+		save: () => ({
 			icon: Vue.createVNode(SaveOutlined$1, null, null),
-			text: $t$2("\u4FDD\u5B58").label
-		},
-		upload: {
+			text: State_UI.$t("\u4FDD\u5B58").label
+		}),
+		upload: () => ({
 			icon: Vue.createVNode(UploadOutlined$1, null, null),
-			text: $t$2("\u4E0A\u4F20").label
-		},
-		delete: {
+			text: State_UI.$t("\u4E0A\u4F20").label
+		}),
+		delete: () => ({
 			icon: Vue.createVNode(DeleteOutlined$1, null, null),
-			text: $t$2("\u5220\u9664").label
-		}
+			text: State_UI.$t("\u5220\u9664").label
+		})
 	};
 	var xButton = Vue.defineComponent({
 		name: "xButton",
@@ -62369,8 +62667,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				) {
 					return this.$slots.default(this);
 				}
-				const preset = BTN_PRESET_MAP[this.configs.preset];
-				if (preset) {
+				const presetFn = BTN_PRESET_MAP[this.configs.preset];
+				if (presetFn) {
+					const preset = presetFn();
 					return Vue.createVNode(
 						"span",
 						{
@@ -62437,7 +62736,14 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	});
 	var _sfc_main$8 = Vue.defineComponent({
 		name: "xButtonCountDown",
-		props: ["configs"],
+		props: {
+			configs: {
+				type: Object,
+				default() {
+					return {};
+				}
+			}
+		},
 		data() {
 			const vm = this;
 			return {
@@ -62651,6 +62957,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		["render", _sfc_render$5]
 	]);
 	var _sfc_main$5 = Vue.defineComponent({
+		name: "xView",
 		props: {
 			isShow: {
 				type: Boolean,
@@ -62692,14 +62999,11 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				!Vue.isVNode(s2))
 		);
 	}
-	const $t$1 = State_UI.$t;
 	const static_word = {
 		operation: "operation"
 	};
 	function defDataGridOption(options) {
-		if (!options.pagination && !options.isHidePagination) {
-			options.pagination = defPagination();
-		}
+		options.pagination = options.pagination || defPagination();
 		options.isLoading = Boolean(options.isLoading);
 		if (options.queryTableList) {
 			options._queryTableList_origin = options.queryTableList;
@@ -62754,7 +63058,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		return {
 			[static_word.operation]: _global__.merge(
 				{
-					title: $t$1("\u64CD\u4F5C").label,
+					title: State_UI.$t("\u64CD\u4F5C").label,
 					key: static_word.operation,
 					prop: static_word.operation,
 					fixed: "right",
@@ -62816,17 +63120,15 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 						return null;
 					}
 					return Vue.createVNode(Vue.Fragment, null, [
-						Vue.createVNode(Vue.resolveComponent("Dropdown"), null, {
+						Vue.createVNode(Vue.resolveComponent("aDropdown"), null, {
 							default: () => {
 								return Vue.createVNode(
-									Vue.resolveComponent("xButton"),
+									Vue.resolveComponent("aButton"),
 									{
-										configs: {
-											type: "link"
-										}
+										type: "link"
 									},
 									{
-										default: () => [$t$1("\u66F4\u591A").label]
+										default: () => [State_UI.$t("\u66F4\u591A").label]
 									}
 								);
 							},
@@ -62834,7 +63136,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 								let _slot;
 								return Vue.createVNode(Vue.Fragment, null, [
 									Vue.createVNode(
-										Vue.resolveComponent("Menu"),
+										Vue.resolveComponent("aMenu"),
 										null,
 										_isSlot(
 											(_slot = _global__.map(more, btn => {
@@ -62846,7 +63148,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 													btn
 												);
 												return Vue.createVNode(
-													Vue.resolveComponent("MenuItem"),
+													Vue.resolveComponent("aMenuItem"),
 													{
 														key: btn.text
 													},
@@ -62905,126 +63207,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			});
 		}
 	}
-	var _sfc_main$4 = Vue.defineComponent({
-		name: "xColFilter",
-		components: {
-			SettingOutlined: SettingOutlined$1
-		},
-		props: {
-			configs: {
-				type: Object,
-				default() {
-					return {};
-				}
-			}
-		},
-		methods: {
-			handleChecked(col) {
-				const target = _global__.find(this.configs.columns, {
-					key: col.key
-				});
-				target.isShow = _global__.isBoolean(target.isShow)
-					? !target.isShow
-					: false;
-			}
-		},
-		computed: {
-			Cpt_ColumnsOrder() {
-				const order = (() => {
-					if (this.configs.columns_order) {
-						return this.configs.columns_order;
-					} else {
-						return _global__.map(this.configs.columns, i2 => i2.prop);
-					}
-				})();
-				return _global__.filter(order, i2 => !!i2);
-			},
-			Cpt_Columns() {
-				return _global__.map(this.Cpt_ColumnsOrder, prop =>
-					_global__.find(this.configs.columns, {
-						prop
-					})
-				);
-			},
-			checkedList() {
-				return _global__.filter(this.Cpt_ColumnsOrder, prop => {
-					const { isShow } = this.configs.columns[prop];
-					return filterColIsShow(isShow);
-				});
-			}
-		}
-	});
-	function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
-		const _component_aCheckbox = Vue.resolveComponent("aCheckbox");
-		const _component_SettingOutlined = Vue.resolveComponent("SettingOutlined");
-		const _component_aButton = Vue.resolveComponent("aButton");
-		const _component_aPopover = Vue.resolveComponent("aPopover");
-		return (
-			Vue.openBlock(),
-			Vue.createBlock(
-				_component_aPopover,
-				{
-					placement: "leftTop",
-					trigger: "click"
-				},
-				{
-					content: Vue.withCtx(() => [
-						(Vue.openBlock(true),
-						Vue.createElementBlock(
-							Vue.Fragment,
-							null,
-							Vue.renderList(_ctx.Cpt_Columns, col => {
-								return (
-									Vue.openBlock(),
-									Vue.createElementBlock(
-										"p",
-										{
-											key: col.key
-										},
-										[
-											Vue.createVNode(
-												_component_aCheckbox,
-												{
-													checked: _ctx.checkedList.includes(col.key),
-													onChange: $event => _ctx.handleChecked(col)
-												},
-												{
-													default: Vue.withCtx(() => [
-														Vue.createTextVNode(
-															Vue.toDisplayString(col.title),
-															1
-														)
-													]),
-													_: 2
-												},
-												1032,
-												["checked", "onChange"]
-											)
-										]
-									)
-								);
-							}),
-							128
-						))
-					]),
-					default: Vue.withCtx(() => [
-						Vue.createVNode(_component_aButton, null, {
-							icon: Vue.withCtx(() => [
-								Vue.createVNode(_component_SettingOutlined)
-							]),
-							_: 1
-						})
-					]),
-					_: 1
-				}
-			)
-		);
-	}
-	var xColFilter = /* @__PURE__ */ _export_sfc(_sfc_main$4, [
-		["render", _sfc_render$3]
-	]);
 	const PAGE_SIZE_OPTIONS = ["10", "20", "30"];
-	var _sfc_main$3 = Vue.defineComponent({
+	var _sfc_main$4 = Vue.defineComponent({
 		name: "xPagination",
 		components: {
 			Pagination: _Pagination
@@ -63063,7 +63247,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 	});
 	lStorage.appConfigs.pagination;
-	function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+	function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
 		const _component_Pagination = Vue.resolveComponent("Pagination");
 		return (
 			Vue.openBlock(),
@@ -63113,11 +63297,14 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			)
 		);
 	}
-	var xPagination = /* @__PURE__ */ _export_sfc(_sfc_main$3, [
-		["render", _sfc_render$2]
+	var xPagination = /* @__PURE__ */ _export_sfc(_sfc_main$4, [
+		["render", _sfc_render$3]
 	]);
-	var _sfc_main$2 = Vue.defineComponent({
+	var _sfc_main$3 = Vue.defineComponent({
 		name: "xDataGrid",
+		components: {
+			xPagination
+		},
 		props: {
 			configs: {
 				type: Object,
@@ -63245,12 +63432,137 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 	});
 	var xDataGrid_vue_vue_type_style_index_0_lang = "";
+	var _sfc_main$2 = Vue.defineComponent({
+		name: "xColFilter",
+		components: {
+			SettingOutlined: SettingOutlined$1
+		},
+		props: {
+			configs: {
+				type: Object,
+				default() {
+					return {};
+				}
+			}
+		},
+		methods: {
+			handleChecked(col) {
+				const target = _global__.find(this.configs.columns, {
+					key: col.key
+				});
+				target.isShow = _global__.isBoolean(target.isShow)
+					? !target.isShow
+					: false;
+			}
+		},
+		computed: {
+			Cpt_ColumnsOrder() {
+				const order = (() => {
+					if (this.configs.columns_order) {
+						return this.configs.columns_order;
+					} else {
+						return _global__.map(this.configs.columns, i2 => i2.prop);
+					}
+				})();
+				return _global__.filter(order, i2 => !!i2);
+			},
+			Cpt_Columns() {
+				return _global__.map(this.Cpt_ColumnsOrder, prop =>
+					_global__.find(this.configs.columns, {
+						prop
+					})
+				);
+			},
+			checkedList() {
+				return _global__.filter(this.Cpt_ColumnsOrder, prop => {
+					const { isShow } = this.configs.columns[prop];
+					return filterColIsShow(isShow);
+				});
+			}
+		}
+	});
+	function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+		const _component_aCheckbox = Vue.resolveComponent("aCheckbox");
+		const _component_SettingOutlined = Vue.resolveComponent("SettingOutlined");
+		const _component_aButton = Vue.resolveComponent("aButton");
+		const _component_aPopover = Vue.resolveComponent("aPopover");
+		return (
+			Vue.openBlock(),
+			Vue.createBlock(
+				_component_aPopover,
+				{
+					placement: "leftTop",
+					trigger: "click"
+				},
+				{
+					content: Vue.withCtx(() => [
+						(Vue.openBlock(true),
+						Vue.createElementBlock(
+							Vue.Fragment,
+							null,
+							Vue.renderList(_ctx.Cpt_Columns, col => {
+								return (
+									Vue.openBlock(),
+									Vue.createElementBlock(
+										"p",
+										{
+											key: col.key
+										},
+										[
+											Vue.createVNode(
+												_component_aCheckbox,
+												{
+													checked: _ctx.checkedList.includes(col.key),
+													onChange: $event => _ctx.handleChecked(col)
+												},
+												{
+													default: Vue.withCtx(() => [
+														Vue.createTextVNode(
+															Vue.toDisplayString(col.title),
+															1
+														)
+													]),
+													_: 2
+												},
+												1032,
+												["checked", "onChange"]
+											)
+										]
+									)
+								);
+							}),
+							128
+						))
+					]),
+					default: Vue.withCtx(() => [
+						Vue.createVNode(_component_aButton, null, {
+							icon: Vue.withCtx(() => [
+								Vue.createVNode(_component_SettingOutlined)
+							]),
+							_: 1
+						})
+					]),
+					_: 1
+				}
+			)
+		);
+	}
+	var xColFilter = /* @__PURE__ */ _export_sfc(_sfc_main$2, [
+		["render", _sfc_render$2]
+	]);
 	var _sfc_main$1 = Vue.defineComponent({
 		name: "xDataGridToolbar",
 		components: {
 			xColFilter
 		},
-		props: ["configs"],
+		props: {
+			configs: {
+				type: Object,
+				default() {
+					return {};
+				}
+			}
+		},
 		computed: {
 			Cpt_btn_query() {
 				return {
@@ -63277,9 +63589,15 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				};
 			},
 			Cpt_isShowQuery() {
+				if (!this.configs.queryTableList) {
+					return false;
+				}
 				return !this.configs.isHideQuery;
 			},
 			Cpt_isShowRefresh() {
+				if (!this.configs.queryTableList) {
+					return false;
+				}
 				return !this.configs.isHideRefresh;
 			},
 			Cpt_isShowFilter() {
@@ -63290,6 +63608,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					return false;
 				}
 				return true;
+			},
+			Cpt_isSetConfigs() {
+				return this.configs && this.configs.pagination;
 			}
 		}
 	});
@@ -63300,6 +63621,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		class: "table-option-left flex flex1"
 	};
 	const _hoisted_3 = {
+		key: 0,
 		class: "table-filter flex"
 	};
 	function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
@@ -63312,53 +63634,56 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				Vue.createElementVNode("div", _hoisted_2, [
 					Vue.renderSlot(_ctx.$slots, "default")
 				]),
-				Vue.createElementVNode("div", _hoisted_3, [
-					_ctx.Cpt_isShowQuery
-						? (Vue.openBlock(),
-						  Vue.createBlock(
-								_component_xButton,
-								{
-									key: 0,
-									configs: _ctx.Cpt_btn_query
-								},
-								null,
-								8,
-								["configs"]
-						  ))
-						: Vue.createCommentVNode("", true),
-					Vue.createVNode(_component_xGap, {
-						l: "4"
-					}),
-					_ctx.Cpt_isShowRefresh
-						? (Vue.openBlock(),
-						  Vue.createBlock(
-								_component_xButton,
-								{
-									key: 1,
-									configs: _ctx.Cpt_btn_refresh
-								},
-								null,
-								8,
-								["configs"]
-						  ))
-						: Vue.createCommentVNode("", true),
-					Vue.createVNode(_component_xGap, {
-						l: "4"
-					}),
-					_ctx.Cpt_isShowFilter
-						? (Vue.openBlock(),
-						  Vue.createBlock(
-								_component_xColFilter,
-								{
-									key: 2,
-									configs: _ctx.configs
-								},
-								null,
-								8,
-								["configs"]
-						  ))
-						: Vue.createCommentVNode("", true)
-				])
+				_ctx.Cpt_isSetConfigs
+					? (Vue.openBlock(),
+					  Vue.createElementBlock("div", _hoisted_3, [
+							_ctx.Cpt_isShowQuery
+								? (Vue.openBlock(),
+								  Vue.createBlock(
+										_component_xButton,
+										{
+											key: 0,
+											configs: _ctx.Cpt_btn_query
+										},
+										null,
+										8,
+										["configs"]
+								  ))
+								: Vue.createCommentVNode("", true),
+							Vue.createVNode(_component_xGap, {
+								l: "4"
+							}),
+							_ctx.Cpt_isShowRefresh
+								? (Vue.openBlock(),
+								  Vue.createBlock(
+										_component_xButton,
+										{
+											key: 1,
+											configs: _ctx.Cpt_btn_refresh
+										},
+										null,
+										8,
+										["configs"]
+								  ))
+								: Vue.createCommentVNode("", true),
+							Vue.createVNode(_component_xGap, {
+								l: "4"
+							}),
+							_ctx.Cpt_isShowFilter
+								? (Vue.openBlock(),
+								  Vue.createBlock(
+										_component_xColFilter,
+										{
+											key: 2,
+											configs: _ctx.configs
+										},
+										null,
+										8,
+										["configs"]
+								  ))
+								: Vue.createCommentVNode("", true)
+					  ]))
+					: Vue.createCommentVNode("", true)
 			])
 		);
 	}
@@ -63649,6 +63974,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			options.prop = `xItem${xItemNoPropCount++}`;
 			console.error(`no xItem prop replace by ${options.prop}`);
 		}
+		if (!_global__.isInput(options.vIf)) {
+			options.vIf = true;
+		}
 		const configs = Vue.reactive(
 			_global__.merge(
 				{},
@@ -63746,7 +64074,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		});
 		return state;
 	};
-	const $t = State_UI.$t;
+	window.dayjs = dayjs;
+	window.moment = dayjs;
 	const componentMyUI = {
 		xRender,
 		xItem: _sfc_main$a,
@@ -63756,7 +64085,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		xGap: _sfc_main$7,
 		xCharts,
 		xView,
-		xDataGrid: _sfc_main$2,
+		xDataGrid: _sfc_main$3,
 		xDataGridToolbar,
 		xColFilter,
 		xPagination,
@@ -63796,7 +64125,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		LayoutSider,
 		LayoutFooter,
 		LayoutContent,
-		Upload
+		Upload,
+		Switch: _Switch
 	};
 	const components = __spreadValues(
 		__spreadValues({}, componentAntdV),
@@ -63808,10 +64138,10 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				title = (isDefault => {
 					if (isDefault) {
 						const title_map = {
-							success: $t("\u6210\u529F").label,
-							info: $t("\u63D0\u793A").label,
-							error: $t("\u9519\u8BEF").label,
-							warning: $t("\u8B66\u544A").label
+							success: State_UI.$t("\u6210\u529F").label,
+							info: State_UI.$t("\u63D0\u793A").label,
+							error: State_UI.$t("\u9519\u8BEF").label,
+							warning: State_UI.$t("\u8B66\u544A").label
 						};
 						return title_map[type2];
 					} else {
@@ -63828,7 +64158,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					onCancel() {
 						reject();
 					},
-					okText: $t("\u786E\u5B9A").label,
+					okText: State_UI.$t("\u786E\u5B9A").label,
 					class: "test"
 				});
 			});
@@ -63853,13 +64183,16 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 						onCancel() {
 							reject();
 						},
-						okText: $t("\u786E\u5B9A").label,
-						cancelText: "\u53D6\u6D88",
+						okText: State_UI.$t("\u786E\u5B9A").label,
+						cancelText: State_UI.$t("\u53D6\u6D88").label,
 						class: "test"
 					});
 				});
 			},
-			delete({ title = "", content = "" }) {
+			delete({ title, content } = {}) {
+				title = title || State_UI.$t("\u5220\u9664").label;
+				content =
+					content || State_UI.$t("\u5220\u9664\u786E\u8BA4\u63D0\u793A").label;
 				return new Promise((resolve, reject) => {
 					Modal.confirm({
 						title,
@@ -63872,8 +64205,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 						),
 						content,
 						okType: "danger",
-						okText: $t("\u786E\u5B9A").label,
-						cancelText: "\u53D6\u6D88",
+						okText: State_UI.$t("\u786E\u5B9A").label,
+						cancelText: State_UI.$t("\u53D6\u6D88").label,
 						onOk() {
 							resolve("ok");
 						},
@@ -63888,6 +64221,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		notification: _notification,
 		layer
 	};
+	const _global_dayjs = dayjs;
 	const _global_$ = $;
 	const VentoseUIWithInstall = {
 		install: (app, options) => {
@@ -63912,6 +64246,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	exports2.VentoseUIWithInstall = VentoseUIWithInstall;
 	exports2._ = _global__;
 	exports2.antColKey = antColKey;
+	exports2.dayjs = _global_dayjs;
 	exports2.defCol = defCol;
 	exports2.defColActions = defColActions;
 	exports2.defColActionsBtnlist = defColActionsBtnlist;
@@ -63920,6 +64255,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	exports2.defPagination = defPagination;
 	exports2.getPaginationPageSize = getPaginationPageSize;
 	exports2.lStorage = lStorage;
+	exports2.moment = _global_dayjs;
 	exports2.pickValueFrom = pickValueFrom;
 	exports2.resetState_Value = resetState_Value;
 	exports2.setCSSVariables = setCSSVariables;

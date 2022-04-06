@@ -130,10 +130,10 @@ export default defineComponent({
 	},
 	methods: {
 		onSelect({ item, key, selectedKeys }) {
-			debugger;
+			_.doNothing("onSelect");
 		},
 		onOpenChange(openKeys) {
-			debugger;
+			_.doNothing("onOpenChange");
 			const latestOpenKey = _.last(openKeys);
 			const openKeyArray = _.safeSplit(latestOpenKey, "###").filter(_.isInput);
 			const _openKeys = [];

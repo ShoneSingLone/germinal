@@ -4,7 +4,14 @@ import { _ } from "../loadCommonUtil";
 
 export default defineComponent({
 	name: "xButtonCountDown",
-	props: ["configs"],
+	props: {
+		configs: {
+			type: Object,
+			default() {
+				return {};
+			}
+		}
+	},
 	data() {
 		const vm = this;
 		return {

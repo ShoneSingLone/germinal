@@ -25,6 +25,26 @@ export default defineComponent({
 			}
 		}
 	},
+	setup(props) {
+		let Cpt_isShowXItem = true;
+		let Cpt_isDisabled = false;
+		if (_.isFunction(props.configs.vIf)) {
+			Cpt_isShowXItem = computed(props.configs.vIf);
+		} else if (_.isBoolean(props.configs.vIf)) {
+			Cpt_isShowXItem = props.configs.vIf;
+		}
+
+		if (_.isFunction(props.configs.disabled)) {
+			Cpt_isDisabled = computed(props.configs.disabled);
+		} else if (_.isBoolean(props.configs.disabled)) {
+			Cpt_isDisabled = props.configs.disabled;
+		}
+
+		return {
+			Cpt_isShowXItem,
+			Cpt_isDisabled
+		};
+	},
 	emits: ["update:modelValue"],
 	data() {
 		return {
@@ -45,7 +65,7 @@ export default defineComponent({
 		/* 提示信息的类型及提示信息 */
 		itemTips() {
 			const _itemTips = { type: "", msg: "" };
-			if (this.configs.itemTips.type) {
+			if (this.configs?.itemTips?.type) {
 				return {
 					type: this.configs.itemTips.type,
 					msg: _.isFunction(this.configs.itemTips.msg)
@@ -136,6 +156,12 @@ export default defineComponent({
 			});
 			pickAttrs(this.configs);
 			pickAttrs(this.$attrs);
+
+			if (this.Cpt_isDisabled) {
+				property.disabled = true;
+			} else {
+				delete property.disabled;
+			}
 			return { property, slots, listeners };
 		},
 		/* VNode */
@@ -260,6 +286,9 @@ export default defineComponent({
 		}
 	},
 	render(h) {
+		if (!this.Cpt_isShowXItem) {
+			return null;
+		}
 		const CurrentXItem = (() => {
 			return renders[this.configs.itemType] || renders.Input;
 		})();

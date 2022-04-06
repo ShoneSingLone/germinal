@@ -9,14 +9,14 @@ import {
 	DeleteOutlined,
 	SyncOutlined
 } from "@ant-design/icons-vue";
-const $t = State_UI.$t;
 
+/*$t 可能会变，所以每次render用新的数据*/
 const BTN_PRESET_MAP = {
-	query: { icon: <SearchOutlined />, text: $t("查询").label },
-	refresh: { icon: <SyncOutlined />, text: $t("刷新").label },
-	save: { icon: <SaveOutlined />, text: $t("保存").label },
-	upload: { icon: <UploadOutlined />, text: $t("上传").label },
-	delete: { icon: <DeleteOutlined />, text: $t("删除").label }
+	query: () => ({ icon: <SearchOutlined />, text: State_UI.$t("查询").label }),
+	refresh: () => ({ icon: <SyncOutlined />, text: State_UI.$t("刷新").label }),
+	save: () => ({ icon: <SaveOutlined />, text: State_UI.$t("保存").label }),
+	upload: () => ({ icon: <UploadOutlined />, text: State_UI.$t("上传").label }),
+	delete: () => ({ icon: <DeleteOutlined />, text: State_UI.$t("删除").label })
 };
 
 export type t_buttonOptions = {
@@ -73,8 +73,9 @@ export default defineComponent({
 				return this.$slots.default(this);
 			}
 			/* 预置 */
-			const preset = BTN_PRESET_MAP[this.configs.preset];
-			if (preset) {
+			const presetFn = BTN_PRESET_MAP[this.configs.preset];
+			if (presetFn) {
+				const preset = presetFn();
 				return (
 					<span class="btn-preset">
 						{preset.icon}

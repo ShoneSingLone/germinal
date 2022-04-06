@@ -6,7 +6,14 @@ import xColFilter from "./xColFilter.vue";
 export default defineComponent({
 	name: "xDataGridToolbar",
 	components: { xColFilter },
-	props: ["configs"],
+	props: {
+		configs: {
+			type: Object,
+			default() {
+				return {};
+			}
+		}
+	},
 	computed: {
 		Cpt_btn_query() {
 			return {
@@ -31,9 +38,16 @@ export default defineComponent({
 			};
 		},
 		Cpt_isShowQuery() {
+			/*���û��queryTableList fn ����ʾ query ��ť*/
+			if (!this.configs.queryTableList) {
+				return false;
+			}
 			return !this.configs.isHideQuery;
 		},
 		Cpt_isShowRefresh() {
+			if (!this.configs.queryTableList) {
+				return false;
+			}
 			return !this.configs.isHideRefresh;
 		},
 		Cpt_isShowFilter() {
@@ -44,6 +58,17 @@ export default defineComponent({
 				return false;
 			}
 			return true;
+		},
+		Cpt_isSetConfigs() {
+			/* configs Ĭ�ϻ�����pagination����  */
+			/* 
+			<!--
+		Cpt_isSetConfigs:{{Cpt_isSetConfigs}}
+		Cpt_isShowQuery:{{Cpt_isShowQuery}}
+		Cpt_isShowRefresh:{{Cpt_isShowRefresh}}
+		Cpt_isShowFilter:{{Cpt_isShowFilter}}
+		--> */
+			return this.configs && this.configs.pagination;
 		}
 	}
 });
@@ -54,7 +79,7 @@ export default defineComponent({
 		<div class="table-option-left flex flex1">
 			<slot />
 		</div>
-		<div class="table-filter flex">
+		<div class="table-filter flex" v-if="Cpt_isSetConfigs">
 			<xButton :configs="Cpt_btn_query" v-if="Cpt_isShowQuery" />
 			<xGap l="4" />
 			<xButton :configs="Cpt_btn_refresh" v-if="Cpt_isShowRefresh" />

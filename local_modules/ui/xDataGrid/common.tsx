@@ -3,7 +3,7 @@ import { _ } from "../loadCommonUtil";
 import { ColumnProps } from "ant-design-vue/es/table";
 import { lStorage } from "../tools/storage.js";
 import { State_UI } from "../State_UI";
-const $t = State_UI.$t;
+
 /*ui 内部使用*/
 export const static_word = {
 	operation: "operation"
@@ -56,11 +56,10 @@ export type t_dataGridOptions = {
 /* 默认 pagination onPaginationChange isLoading */
 /*  */
 export function defDataGridOption(options: t_dataGridOptions) {
-	if (!options.pagination && !options.isHidePagination) {
-		/* @ts-ignore */
-		options.pagination = defPagination();
-	}
+	/* @ts-ignore */
+	options.pagination = options.pagination || defPagination();
 	options.isLoading = Boolean(options.isLoading);
+	/* 如果没有queryTableList 则不会显示 query 和 refresh 按钮 */
 	if (options.queryTableList) {
 		/* @ts-ignore */
 		options._queryTableList_origin = options.queryTableList;
@@ -144,7 +143,7 @@ export function defColActions(options: {
 	return {
 		[static_word.operation]: _.merge(
 			{
-				title: $t("操作").label,
+				title: State_UI.$t("操作").label,
 				key: static_word.operation,
 				prop: static_word.operation,
 				fixed: "right",
@@ -185,31 +184,29 @@ export function defColActionsBtnlist(options: {
 				}
 				return (
 					<>
-						<Dropdown
+						<aDropdown
 							v-slots={{
 								default: () => {
 									return (
-										<xButton configs={{ type: "link" }}>
-											{$t("更多").label}
-										</xButton>
+										<aButton type="link">{State_UI.$t("更多").label}</aButton>
 									);
 								},
 								overlay: () => {
 									return (
 										<>
-											<Menu>
+											<aMenu>
 												{_.map(more, btn => {
 													const configs = _.merge(
 														{ type: "link", size: "small" },
 														btn
 													);
 													return (
-														<MenuItem key={btn.text}>
+														<aMenuItem key={btn.text}>
 															<xButton configs={configs} />
-														</MenuItem>
+														</aMenuItem>
 													);
 												})}
-											</Menu>
+											</aMenu>
 										</>
 									);
 								}

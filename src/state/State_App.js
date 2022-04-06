@@ -48,11 +48,7 @@ export const APP_CLASS_PREFIX = computed({
 	set: prefixCls => (State_App.configs.prefixCls = prefixCls)
 });
 export const getColor = colorName => {
-	if (State_App.configs) {
-		return State_App.configs.colors[colorName];
-	} else {
-		return "";
-	}
+	return State_App.configs?.colors ? State_App.configs?.colors[colorName] : "";
 };
 
 /* 副作用 effect */

@@ -25,7 +25,8 @@ import {
 	/* global */
 	message,
 	notification,
-	Upload
+	Upload,
+	Switch
 } from "ant-design-vue";
 import { DescriptionsItem } from "ant-design-vue/es/descriptions";
 import { MenuItem, SubMenu } from "ant-design-vue/es/menu";
@@ -70,8 +71,7 @@ window.dayjs = dayjs;
 /* @ts-ignore */
 window.moment = dayjs;
 
-const $t = State_UI.$t;
-
+/*State_UI作为句柄，与外部通信，$t language 等属性*/
 //@ts-ignore
 if (import.meta.env.MODE === "development") {
 	//@ts-ignore
@@ -130,7 +130,8 @@ const componentAntdV = {
 	LayoutSider,
 	LayoutFooter,
 	LayoutContent,
-	Upload
+	Upload,
+	Switch
 };
 
 const components = {
@@ -146,10 +147,10 @@ const useModel = type => {
 			title = (isDefault => {
 				if (isDefault) {
 					const title_map = {
-						success: $t("成功").label,
-						info: $t("提示").label,
-						error: $t("错误").label,
-						warning: $t("警告").label
+						success: State_UI.$t("成功").label,
+						info: State_UI.$t("提示").label,
+						error: State_UI.$t("错误").label,
+						warning: State_UI.$t("警告").label
 					};
 					return title_map[type];
 				} else {
@@ -166,7 +167,7 @@ const useModel = type => {
 				onCancel() {
 					reject();
 				},
-				okText: $t("确定").label,
+				okText: State_UI.$t("确定").label,
 				class: "test"
 			});
 		});
@@ -208,21 +209,23 @@ export const UI = {
 					onCancel() {
 						reject();
 					},
-					okText: $t("确定").label,
-					cancelText: "取消",
+					okText: State_UI.$t("确定").label,
+					cancelText: State_UI.$t("取消").label,
 					class: "test"
 				});
 			});
 		},
-		delete({ title = "", content = "" }) {
+		delete({ title, content } = {}) {
+			title = title || State_UI.$t("删除").label;
+			content = content || State_UI.$t("删除确认提示").label;
 			return new Promise((resolve, reject) => {
 				Modal.confirm({
 					title,
 					icon: <ExclamationCircleOutlined style={"color:red"} />,
 					content,
 					okType: "danger",
-					okText: $t("确定").label,
-					cancelText: "取消",
+					okText: State_UI.$t("确定").label,
+					cancelText: State_UI.$t("取消").label,
 					onOk() {
 						resolve("ok");
 					},
