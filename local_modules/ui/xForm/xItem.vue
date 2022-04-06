@@ -73,6 +73,7 @@ export default defineComponent({
 						: this.configs.itemTips.msg
 				};
 			} else {
+				this.configs.itemTips = _itemTips;
 				return _itemTips;
 			}
 		},

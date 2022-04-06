@@ -9,7 +9,7 @@ import "dayjs/locale/zh-cn";
 import "dayjs/locale/en-au";
 import { lStorage } from "./tools/storage";
 
-/* ¿ÉÒÔÓëÍâ²¿Í¨ĞÅ£¬¿ÉÒÔÔö¸Ä */
+/* å¯ä»¥ä¸å¤–éƒ¨é€šä¿¡ï¼Œå¯ä»¥å¢æ”¹ */
 export const State_UI = reactive({
 	language: lStorage["language"] || "zh-CN",
 	LANGUAGE: {
@@ -17,9 +17,9 @@ export const State_UI = reactive({
 		zhCn
 	},
 	i18nMessage: {},
-	/*i18n  Ê¹ÓÃ {±äÁ¿Ãû} ¸³Öµ */
+	/*i18n  ä½¿ç”¨ {å˜é‡å} èµ‹å€¼ */
 	$t(prop, payload) {
-		/* thisÖ¸Ïò */
+		/* thisæŒ‡å‘ */
 		const result = { label: prop, prop: prop };
 		_.templateSettings.interpolate = /{([\s\S]+?)}/g;
 		if (State_UI.i18nMessage) {

@@ -38,7 +38,7 @@ export default defineComponent({
 			};
 		},
 		Cpt_isShowQuery() {
-			/*���û��queryTableList fn ����ʾ query ��ť*/
+			/*如果没有queryTableList fn 不显示 query 按钮*/
 			if (!this.configs.queryTableList) {
 				return false;
 			}
@@ -60,7 +60,7 @@ export default defineComponent({
 			return true;
 		},
 		Cpt_isSetConfigs() {
-			/* configs Ĭ�ϻ�����pagination����  */
+			/* configs 默认会设置pagination属性  */
 			/* 
 			<!--
 		Cpt_isSetConfigs:{{Cpt_isSetConfigs}}

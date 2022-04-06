@@ -21,7 +21,7 @@ export default itemRenders;
 
 export type t_xItem = keyof typeof itemRenders;
 export type t_itemConfigs = {
-	/*¸Ã×é¼şÊÇ·ñÏÔÊ¾£¬Ä¬ÈÏÏÔÊ¾ Function ×÷Îª setup computedµÄ²ÎÊı´«Èë£¬boolean×÷Îª·µ»ØÖµ*/
+	/*è¯¥ç»„ä»¶æ˜¯å¦æ˜¾ç¤ºï¼Œé»˜è®¤æ˜¾ç¤º Function ä½œä¸º setup computedçš„å‚æ•°ä¼ å…¥ï¼Œbooleanä½œä¸ºè¿”å›å€¼*/
 	vIf?: boolean | Function;
 	itemType?: t_xItem;
 	value: any;
