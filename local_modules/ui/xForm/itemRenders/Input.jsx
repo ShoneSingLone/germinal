@@ -19,7 +19,10 @@ export default ({ property, slots, listeners }) => {
 	}
 	if (property.isTextarea) {
 		component = Textarea;
-		property.row = property.row || 4;
+		property.autosize = property.autosize || {
+			minRows: 4,
+			maxRows: 6
+		};
 	}
 	return <component {...property} {...listeners} v-slots={slots} />;
 };

@@ -9,11 +9,11 @@ function go() {
 </script>
 
 <template>
-	<Result status="404" title="404" :sub-title="$t('notFoundTips').label">
+	<aResult status="404" title="404" :sub-title="$t('notFoundTips').label">
 		<template #extra>
-			<Button type="primary" @click="go">
+			<aButton type="primary" @click="go">
 				{{ $t("BackHome").label }}
-			</Button>
+			</aButton>
 		</template>
-	</Result>
+	</aResult>
 </template>

@@ -9,7 +9,7 @@ mylodash.WORDS = {
 
 /*lodash IDE 能识别*/
 mylodash.doNothing = (...args) => {
-	if (localStorage.CurrentIsDevModel === "CurrentIsDevModel") {
+	if (localStorage.isShowDevLog) {
 		const e = new Error();
 		console.log("🚀:", e.stack.split("\n")[2].replace("    at ", ""));
 		console.log.apply(console, args);
@@ -177,6 +177,11 @@ genId.idCount = 1;
 genId.ID_COUNT_MAX = 40000;
 genId.DATE_NOW = Date.now();
 mylodash.genId = genId;
+
+/* 生成合法的键名 */
+mylodash.genProp = someString => {
+	return `k${mylodash.camelCase(someString)}`;
+};
 
 mylodash.preload = (baseModule, deps) => {
 	if (!deps || deps.length === 0) {

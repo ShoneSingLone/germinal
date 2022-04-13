@@ -149,17 +149,6 @@ export default defineConfig({
 						name: "jquery",
 						var: "$",
 						path: "./boundless/static/libs/jquery.js"
-					},
-					{
-						name: "dayjs",
-						var: "dayjs",
-						path: "./boundless/static/libs/dayjs.js"
-					},
-					{
-						name: "@ventose/ui",
-						var: "VentoseUI",
-						path: "./boundless/static/libs/VentoseUI.js",
-						css: "./boundless/static/libs/VentoseUI.css"
 					}
 				];
 

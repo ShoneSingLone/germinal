@@ -1,5 +1,5 @@
 import { RangePicker } from "ant-design-vue/es/date-picker";
-import zh_CN from "ant-design-vue/es/date-picker/locale/zh_CN";
+import { Cpt_UI_locale } from "../../State_UI";
 import { _ } from "../../loadCommonUtil";
 
 /**
@@ -21,6 +21,11 @@ export default ({ property, slots, listeners }) => {
     }*/
 	console.log("property", property.value);
 	return (
-		<RangePicker {...property} {...listeners} v-slots={slots} locale={zh_CN} />
+		<RangePicker
+			{...property}
+			{...listeners}
+			v-slots={slots}
+			locale={Cpt_UI_locale.value.DatePicker}
+		/>
 	);
 };

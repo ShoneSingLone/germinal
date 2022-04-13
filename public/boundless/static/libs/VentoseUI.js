@@ -25,9 +25,9 @@ var __spreadValues = (a, b) => {
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 (function (global2, factory) {
 	typeof exports === "object" && typeof module !== "undefined"
-		? factory(exports, require("dayjs"))
+		? factory(exports)
 		: typeof define === "function" && define.amd
-		? define(["exports", "dayjs"], factory)
+		? define(["exports"], factory)
 		: ((global2 =
 				typeof globalThis !== "undefined" ? globalThis : global2 || self),
 		  factory((global2.VentoseUI = {})));
@@ -51715,6 +51715,453 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		);
 	};
 	layer.open = deliver => new ClassLayer(deliver).index;
+	var dayjs_min = { exports: {} };
+	(function (module2, exports3) {
+		!(function (t2, e2) {
+			module2.exports = e2();
+		})(commonjsGlobal, function () {
+			var t2 = 1e3,
+				e2 = 6e4,
+				n2 = 36e5,
+				r2 = "millisecond",
+				i2 = "second",
+				s2 = "minute",
+				u2 = "hour",
+				a2 = "day",
+				o2 = "week",
+				f2 = "month",
+				h2 = "quarter",
+				c2 = "year",
+				d2 = "date",
+				$2 = "Invalid Date",
+				l2 =
+					/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/,
+				y2 =
+					/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,
+				M2 = {
+					name: "en",
+					weekdays:
+						"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split(
+							"_"
+						),
+					months:
+						"January_February_March_April_May_June_July_August_September_October_November_December".split(
+							"_"
+						)
+				},
+				m2 = function (t3, e3, n3) {
+					var r3 = String(t3);
+					return !r3 || r3.length >= e3
+						? t3
+						: "" + Array(e3 + 1 - r3.length).join(n3) + t3;
+				},
+				g2 = {
+					s: m2,
+					z: function (t3) {
+						var e3 = -t3.utcOffset(),
+							n3 = Math.abs(e3),
+							r3 = Math.floor(n3 / 60),
+							i3 = n3 % 60;
+						return (
+							(e3 <= 0 ? "+" : "-") + m2(r3, 2, "0") + ":" + m2(i3, 2, "0")
+						);
+					},
+					m: function t3(e3, n3) {
+						if (e3.date() < n3.date()) return -t3(n3, e3);
+						var r3 = 12 * (n3.year() - e3.year()) + (n3.month() - e3.month()),
+							i3 = e3.clone().add(r3, f2),
+							s3 = n3 - i3 < 0,
+							u3 = e3.clone().add(r3 + (s3 ? -1 : 1), f2);
+						return +(-(r3 + (n3 - i3) / (s3 ? i3 - u3 : u3 - i3)) || 0);
+					},
+					a: function (t3) {
+						return t3 < 0 ? Math.ceil(t3) || 0 : Math.floor(t3);
+					},
+					p: function (t3) {
+						return (
+							{
+								M: f2,
+								y: c2,
+								w: o2,
+								d: a2,
+								D: d2,
+								h: u2,
+								m: s2,
+								s: i2,
+								ms: r2,
+								Q: h2
+							}[t3] ||
+							String(t3 || "")
+								.toLowerCase()
+								.replace(/s$/, "")
+						);
+					},
+					u: function (t3) {
+						return t3 === void 0;
+					}
+				},
+				D2 = "en",
+				v2 = {};
+			v2[D2] = M2;
+			var p = function (t3) {
+					return t3 instanceof _2;
+				},
+				S2 = function (t3, e3, n3) {
+					var r3;
+					if (!t3) return D2;
+					if (typeof t3 == "string")
+						v2[t3] && (r3 = t3), e3 && ((v2[t3] = e3), (r3 = t3));
+					else {
+						var i3 = t3.name;
+						(v2[i3] = t3), (r3 = i3);
+					}
+					return !n3 && r3 && (D2 = r3), r3 || (!n3 && D2);
+				},
+				w2 = function (t3, e3) {
+					if (p(t3)) return t3.clone();
+					var n3 = typeof e3 == "object" ? e3 : {};
+					return (n3.date = t3), (n3.args = arguments), new _2(n3);
+				},
+				O2 = g2;
+			(O2.l = S2),
+				(O2.i = p),
+				(O2.w = function (t3, e3) {
+					return w2(t3, {
+						locale: e3.$L,
+						utc: e3.$u,
+						x: e3.$x,
+						$offset: e3.$offset
+					});
+				});
+			var _2 = (function () {
+					function M3(t3) {
+						(this.$L = S2(t3.locale, null, true)), this.parse(t3);
+					}
+					var m3 = M3.prototype;
+					return (
+						(m3.parse = function (t3) {
+							(this.$d = (function (t4) {
+								var e3 = t4.date,
+									n3 = t4.utc;
+								if (e3 === null) return new Date(NaN);
+								if (O2.u(e3)) return new Date();
+								if (e3 instanceof Date) return new Date(e3);
+								if (typeof e3 == "string" && !/Z$/i.test(e3)) {
+									var r3 = e3.match(l2);
+									if (r3) {
+										var i3 = r3[2] - 1 || 0,
+											s3 = (r3[7] || "0").substring(0, 3);
+										return n3
+											? new Date(
+													Date.UTC(
+														r3[1],
+														i3,
+														r3[3] || 1,
+														r3[4] || 0,
+														r3[5] || 0,
+														r3[6] || 0,
+														s3
+													)
+											  )
+											: new Date(
+													r3[1],
+													i3,
+													r3[3] || 1,
+													r3[4] || 0,
+													r3[5] || 0,
+													r3[6] || 0,
+													s3
+											  );
+									}
+								}
+								return new Date(e3);
+							})(t3)),
+								(this.$x = t3.x || {}),
+								this.init();
+						}),
+						(m3.init = function () {
+							var t3 = this.$d;
+							(this.$y = t3.getFullYear()),
+								(this.$M = t3.getMonth()),
+								(this.$D = t3.getDate()),
+								(this.$W = t3.getDay()),
+								(this.$H = t3.getHours()),
+								(this.$m = t3.getMinutes()),
+								(this.$s = t3.getSeconds()),
+								(this.$ms = t3.getMilliseconds());
+						}),
+						(m3.$utils = function () {
+							return O2;
+						}),
+						(m3.isValid = function () {
+							return !(this.$d.toString() === $2);
+						}),
+						(m3.isSame = function (t3, e3) {
+							var n3 = w2(t3);
+							return this.startOf(e3) <= n3 && n3 <= this.endOf(e3);
+						}),
+						(m3.isAfter = function (t3, e3) {
+							return w2(t3) < this.startOf(e3);
+						}),
+						(m3.isBefore = function (t3, e3) {
+							return this.endOf(e3) < w2(t3);
+						}),
+						(m3.$g = function (t3, e3, n3) {
+							return O2.u(t3) ? this[e3] : this.set(n3, t3);
+						}),
+						(m3.unix = function () {
+							return Math.floor(this.valueOf() / 1e3);
+						}),
+						(m3.valueOf = function () {
+							return this.$d.getTime();
+						}),
+						(m3.startOf = function (t3, e3) {
+							var n3 = this,
+								r3 = !!O2.u(e3) || e3,
+								h3 = O2.p(t3),
+								$3 = function (t4, e4) {
+									var i3 = O2.w(
+										n3.$u ? Date.UTC(n3.$y, e4, t4) : new Date(n3.$y, e4, t4),
+										n3
+									);
+									return r3 ? i3 : i3.endOf(a2);
+								},
+								l3 = function (t4, e4) {
+									return O2.w(
+										n3
+											.toDate()
+											[t4].apply(
+												n3.toDate("s"),
+												(r3 ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e4)
+											),
+										n3
+									);
+								},
+								y3 = this.$W,
+								M4 = this.$M,
+								m4 = this.$D,
+								g3 = "set" + (this.$u ? "UTC" : "");
+							switch (h3) {
+								case c2:
+									return r3 ? $3(1, 0) : $3(31, 11);
+								case f2:
+									return r3 ? $3(1, M4) : $3(0, M4 + 1);
+								case o2:
+									var D3 = this.$locale().weekStart || 0,
+										v3 = (y3 < D3 ? y3 + 7 : y3) - D3;
+									return $3(r3 ? m4 - v3 : m4 + (6 - v3), M4);
+								case a2:
+								case d2:
+									return l3(g3 + "Hours", 0);
+								case u2:
+									return l3(g3 + "Minutes", 1);
+								case s2:
+									return l3(g3 + "Seconds", 2);
+								case i2:
+									return l3(g3 + "Milliseconds", 3);
+								default:
+									return this.clone();
+							}
+						}),
+						(m3.endOf = function (t3) {
+							return this.startOf(t3, false);
+						}),
+						(m3.$set = function (t3, e3) {
+							var n3,
+								o3 = O2.p(t3),
+								h3 = "set" + (this.$u ? "UTC" : ""),
+								$3 = ((n3 = {}),
+								(n3[a2] = h3 + "Date"),
+								(n3[d2] = h3 + "Date"),
+								(n3[f2] = h3 + "Month"),
+								(n3[c2] = h3 + "FullYear"),
+								(n3[u2] = h3 + "Hours"),
+								(n3[s2] = h3 + "Minutes"),
+								(n3[i2] = h3 + "Seconds"),
+								(n3[r2] = h3 + "Milliseconds"),
+								n3)[o3],
+								l3 = o3 === a2 ? this.$D + (e3 - this.$W) : e3;
+							if (o3 === f2 || o3 === c2) {
+								var y3 = this.clone().set(d2, 1);
+								y3.$d[$3](l3),
+									y3.init(),
+									(this.$d = y3.set(
+										d2,
+										Math.min(this.$D, y3.daysInMonth())
+									).$d);
+							} else $3 && this.$d[$3](l3);
+							return this.init(), this;
+						}),
+						(m3.set = function (t3, e3) {
+							return this.clone().$set(t3, e3);
+						}),
+						(m3.get = function (t3) {
+							return this[O2.p(t3)]();
+						}),
+						(m3.add = function (r3, h3) {
+							var d3,
+								$3 = this;
+							r3 = Number(r3);
+							var l3 = O2.p(h3),
+								y3 = function (t3) {
+									var e3 = w2($3);
+									return O2.w(e3.date(e3.date() + Math.round(t3 * r3)), $3);
+								};
+							if (l3 === f2) return this.set(f2, this.$M + r3);
+							if (l3 === c2) return this.set(c2, this.$y + r3);
+							if (l3 === a2) return y3(1);
+							if (l3 === o2) return y3(7);
+							var M4 =
+									((d3 = {}), (d3[s2] = e2), (d3[u2] = n2), (d3[i2] = t2), d3)[
+										l3
+									] || 1,
+								m4 = this.$d.getTime() + r3 * M4;
+							return O2.w(m4, this);
+						}),
+						(m3.subtract = function (t3, e3) {
+							return this.add(-1 * t3, e3);
+						}),
+						(m3.format = function (t3) {
+							var e3 = this,
+								n3 = this.$locale();
+							if (!this.isValid()) return n3.invalidDate || $2;
+							var r3 = t3 || "YYYY-MM-DDTHH:mm:ssZ",
+								i3 = O2.z(this),
+								s3 = this.$H,
+								u3 = this.$m,
+								a3 = this.$M,
+								o3 = n3.weekdays,
+								f3 = n3.months,
+								h3 = function (t4, n4, i4, s4) {
+									return (t4 && (t4[n4] || t4(e3, r3))) || i4[n4].substr(0, s4);
+								},
+								c3 = function (t4) {
+									return O2.s(s3 % 12 || 12, t4, "0");
+								},
+								d3 =
+									n3.meridiem ||
+									function (t4, e4, n4) {
+										var r4 = t4 < 12 ? "AM" : "PM";
+										return n4 ? r4.toLowerCase() : r4;
+									},
+								l3 = {
+									YY: String(this.$y).slice(-2),
+									YYYY: this.$y,
+									M: a3 + 1,
+									MM: O2.s(a3 + 1, 2, "0"),
+									MMM: h3(n3.monthsShort, a3, f3, 3),
+									MMMM: h3(f3, a3),
+									D: this.$D,
+									DD: O2.s(this.$D, 2, "0"),
+									d: String(this.$W),
+									dd: h3(n3.weekdaysMin, this.$W, o3, 2),
+									ddd: h3(n3.weekdaysShort, this.$W, o3, 3),
+									dddd: o3[this.$W],
+									H: String(s3),
+									HH: O2.s(s3, 2, "0"),
+									h: c3(1),
+									hh: c3(2),
+									a: d3(s3, u3, true),
+									A: d3(s3, u3, false),
+									m: String(u3),
+									mm: O2.s(u3, 2, "0"),
+									s: String(this.$s),
+									ss: O2.s(this.$s, 2, "0"),
+									SSS: O2.s(this.$ms, 3, "0"),
+									Z: i3
+								};
+							return r3.replace(y2, function (t4, e4) {
+								return e4 || l3[t4] || i3.replace(":", "");
+							});
+						}),
+						(m3.utcOffset = function () {
+							return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
+						}),
+						(m3.diff = function (r3, d3, $3) {
+							var l3,
+								y3 = O2.p(d3),
+								M4 = w2(r3),
+								m4 = (M4.utcOffset() - this.utcOffset()) * e2,
+								g3 = this - M4,
+								D3 = O2.m(this, M4);
+							return (
+								(D3 =
+									((l3 = {}),
+									(l3[c2] = D3 / 12),
+									(l3[f2] = D3),
+									(l3[h2] = D3 / 3),
+									(l3[o2] = (g3 - m4) / 6048e5),
+									(l3[a2] = (g3 - m4) / 864e5),
+									(l3[u2] = g3 / n2),
+									(l3[s2] = g3 / e2),
+									(l3[i2] = g3 / t2),
+									l3)[y3] || g3),
+								$3 ? D3 : O2.a(D3)
+							);
+						}),
+						(m3.daysInMonth = function () {
+							return this.endOf(f2).$D;
+						}),
+						(m3.$locale = function () {
+							return v2[this.$L];
+						}),
+						(m3.locale = function (t3, e3) {
+							if (!t3) return this.$L;
+							var n3 = this.clone(),
+								r3 = S2(t3, e3, true);
+							return r3 && (n3.$L = r3), n3;
+						}),
+						(m3.clone = function () {
+							return O2.w(this.$d, this);
+						}),
+						(m3.toDate = function () {
+							return new Date(this.valueOf());
+						}),
+						(m3.toJSON = function () {
+							return this.isValid() ? this.toISOString() : null;
+						}),
+						(m3.toISOString = function () {
+							return this.$d.toISOString();
+						}),
+						(m3.toString = function () {
+							return this.$d.toUTCString();
+						}),
+						M3
+					);
+				})(),
+				b2 = _2.prototype;
+			return (
+				(w2.prototype = b2),
+				[
+					["$ms", r2],
+					["$s", i2],
+					["$m", s2],
+					["$H", u2],
+					["$W", a2],
+					["$M", f2],
+					["$y", c2],
+					["$D", d2]
+				].forEach(function (t3) {
+					b2[t3[1]] = function (e3) {
+						return this.$g(e3, t3[0], t3[1]);
+					};
+				}),
+				(w2.extend = function (t3, e3) {
+					return t3.$i || (t3(e3, _2, w2), (t3.$i = true)), w2;
+				}),
+				(w2.locale = S2),
+				(w2.isDayjs = p),
+				(w2.unix = function (t3) {
+					return w2(1e3 * t3);
+				}),
+				(w2.en = v2[D2]),
+				(w2.Ls = v2),
+				(w2.p = {}),
+				w2
+			);
+		});
+	})(dayjs_min);
+	var dayjs = dayjs_min.exports;
 	_.WORDS = {
 		INVALID_DATE: "Invalid Date",
 		format_ymd: "YYYY-MM-DD"
@@ -51825,6 +52272,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	genId.ID_COUNT_MAX = 4e4;
 	genId.DATE_NOW = Date.now();
 	_.genId = genId;
+	_.genProp = someString => {
+		return `k${_.camelCase(someString)}`;
+	};
 	_.preload = (baseModule, deps) => {
 		if (!deps || deps.length === 0) {
 			return baseModule();
@@ -53430,7 +53880,10 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 		if (property2.isTextarea) {
 			component = Textarea;
-			property2.row = property2.row || 4;
+			property2.autosize = property2.autosize || {
+				minRows: 4,
+				maxRows: 6
+			};
 		}
 		return Vue.createVNode(
 			component,
@@ -61532,14 +61985,14 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		};
 	}
 	var _generatePicker = generatePicker(dayjsGenerateConfig),
-		DatePicker$1 = _generatePicker.DatePicker,
+		DatePicker$2 = _generatePicker.DatePicker,
 		WeekPicker = _generatePicker.WeekPicker,
 		MonthPicker = _generatePicker.MonthPicker,
 		YearPicker = _generatePicker.YearPicker,
 		TimePicker$1 = _generatePicker.TimePicker,
 		QuarterPicker = _generatePicker.QuarterPicker,
 		RangePicker$1 = _generatePicker.RangePicker;
-	var DatePicker$2 = _extends(DatePicker$1, {
+	var DatePicker$3 = _extends(DatePicker$2, {
 		WeekPicker,
 		MonthPicker,
 		YearPicker,
@@ -61547,7 +62000,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		TimePicker: TimePicker$1,
 		QuarterPicker,
 		install: function install(app) {
-			app.component(DatePicker$1.name, DatePicker$1);
+			app.component(DatePicker$2.name, DatePicker$2);
 			app.component(RangePicker$1.name, RangePicker$1);
 			app.component(MonthPicker.name, MonthPicker);
 			app.component(WeekPicker.name, WeekPicker);
@@ -61618,15 +62071,15 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		timePickerLocale: _extends({}, TimePicker)
 	};
 	locale.lang.ok = "\u786E \u5B9A";
-	var zh_CN = locale;
+	var DatePicker$1 = locale;
 	var typeTemplate =
 		"${label}\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684${type}";
 	var localeValues = {
 		locale: "zh-cn",
 		Pagination: Pagination$1,
-		DatePicker: zh_CN,
+		DatePicker: DatePicker$1,
 		TimePicker,
-		Calendar: zh_CN,
+		Calendar: DatePicker$1,
 		global: {
 			placeholder: "\u8BF7\u9009\u62E9"
 		},
@@ -61744,10 +62197,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	};
 	var zhCn$1 = localeValues;
 	var zhCn = { exports: {} };
-	const _global_dayjs$1 = dayjs;
 	(function (module2, exports3) {
 		!(function (e2, _2) {
-			module2.exports = _2(_global_dayjs$1);
+			module2.exports = _2(dayjs_min.exports);
 		})(commonjsGlobal, function (e2) {
 			function _2(e3) {
 				return e3 && typeof e3 == "object" && "default" in e3
@@ -61836,7 +62288,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	var enAu = { exports: {} };
 	(function (module2, exports3) {
 		!(function (e2, a2) {
-			module2.exports = a2(_global_dayjs$1);
+			module2.exports = a2(dayjs_min.exports);
 		})(commonjsGlobal, function (e2) {
 			function a2(e3) {
 				return e3 && typeof e3 == "object" && "default" in e3
@@ -61972,7 +62424,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			}
 		}
 		return Vue.createVNode(
-			DatePicker$2,
+			DatePicker$3,
 			Vue.mergeProps(property2, listeners, {
 				value: value,
 				locale: Cpt_UI_locale.value.DatePicker
@@ -61985,7 +62437,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		return Vue.createVNode(
 			RangePicker$1,
 			Vue.mergeProps(property2, listeners, {
-				locale: zh_CN
+				locale: Cpt_UI_locale.value.DatePicker
 			}),
 			slots
 		);
@@ -62239,13 +62691,20 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		},
 		setup(props2) {
 			let Cpt_isShowXItem = true;
+			let Cpt_isDisabled = false;
 			if (_global__.isFunction(props2.configs.vIf)) {
 				Cpt_isShowXItem = Vue.computed(props2.configs.vIf);
 			} else if (_global__.isBoolean(props2.configs.vIf)) {
 				Cpt_isShowXItem = props2.configs.vIf;
 			}
+			if (_global__.isFunction(props2.configs.disabled)) {
+				Cpt_isDisabled = Vue.computed(props2.configs.disabled);
+			} else if (_global__.isBoolean(props2.configs.disabled)) {
+				Cpt_isDisabled = props2.configs.disabled;
+			}
 			return {
-				Cpt_isShowXItem
+				Cpt_isShowXItem,
+				Cpt_isDisabled
 			};
 		},
 		emits: ["update:modelValue"],
@@ -62262,11 +62721,16 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				return `xItem_${this._.uid}`;
 			},
 			itemTips() {
+				var _a, _b;
 				const _itemTips = {
 					type: "",
 					msg: ""
 				};
-				if (this.configs.itemTips.type) {
+				if (
+					(_b = (_a = this.configs) == null ? void 0 : _a.itemTips) == null
+						? void 0
+						: _b.type
+				) {
 					return {
 						type: this.configs.itemTips.type,
 						msg: _global__.isFunction(this.configs.itemTips.msg)
@@ -62274,6 +62738,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 							: this.configs.itemTips.msg
 					};
 				} else {
+					this.configs.itemTips = _itemTips;
 					return _itemTips;
 				}
 			},
@@ -62347,6 +62812,11 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				});
 				pickAttrs2(this.configs);
 				pickAttrs2(this.$attrs);
+				if (this.Cpt_isDisabled) {
+					property2.disabled = true;
+				} else {
+					delete property2.disabled;
+				}
 				return {
 					property: property2,
 					slots,
@@ -63772,7 +64242,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					id
 				});
 				$container.appendTo($("body"));
-				const elId = `#${id}`;
+				const __elId = `#${id}`;
 				if (options.yes) {
 					options._yes = options.yes;
 					delete options.yes;
@@ -63789,10 +64259,10 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					},
 					on(layerIndex) {
 						handleEcsPress.layerIndex = layerIndex;
-						$(document).on(`keyup.${elId}`, handleEcsPress.handler);
+						$(document).on(`keyup.${__elId}`, handleEcsPress.handler);
 					},
 					off() {
-						$(document).off(`keyup.${elId}`, handleEcsPress.handler);
+						$(document).off(`keyup.${__elId}`, handleEcsPress.handler);
 						handleEcsPress = null;
 					}
 				};
@@ -63810,11 +64280,10 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 									app = Vue.createApp(
 										Vue.defineComponent({
 											data() {
-												options.vmDialog = this;
+												options.__dialogInstance = this;
+												options.__elId = __elId;
 												return {
-													elId,
-													options,
-													vm: null
+													options
 												};
 											},
 											methods: {
@@ -63851,11 +64320,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 													);
 												},
 												renderContent() {
-													const dialog = this;
 													return Vue.createVNode(
 														component,
 														{
-															dialog: dialog,
 															options: options,
 															class: "flex1"
 														},
@@ -63863,7 +64330,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 													);
 												},
 												renderButtons() {
-													if (this.options.noButtons) {
+													if (this.options.hideButtons) {
 														return null;
 													}
 													if (this.options.renderButtons) {
@@ -63875,23 +64342,30 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 															[this.options.renderButtons(this)]
 														);
 													}
+													const [isShowCancel, isShowOk] = (() => {
+														return [
+															!this.options.hideCancel || null,
+															!this.options.hideOk || null
+														];
+													})();
 													return Vue.createVNode(
 														"div",
 														{
 															class: "flex middle end ant-modal-footer"
 														},
 														[
-															Vue.createVNode(
-																Vue.resolveComponent("xButton"),
-																{
-																	configs: {
-																		onClick: this.handleClickCancel
+															isShowCancel &&
+																Vue.createVNode(
+																	Vue.resolveComponent("xButton"),
+																	{
+																		configs: {
+																			onClick: this.handleClickCancel
+																		}
+																	},
+																	{
+																		default: () => [this.cancelText]
 																	}
-																},
-																{
-																	default: () => [this.cancelText]
-																}
-															),
+																),
 															Vue.createVNode(
 																Vue.resolveComponent("xGap"),
 																{
@@ -63899,18 +64373,19 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 																},
 																null
 															),
-															Vue.createVNode(
-																Vue.resolveComponent("xButton"),
-																{
-																	configs: {
-																		onClick: this.handleClickOk,
-																		type: "primary"
+															isShowOk &&
+																Vue.createVNode(
+																	Vue.resolveComponent("xButton"),
+																	{
+																		configs: {
+																			onClick: this.handleClickOk,
+																			type: "primary"
+																		}
+																	},
+																	{
+																		default: () => [this.okText]
 																	}
-																},
-																{
-																	default: () => [this.okText]
-																}
-															)
+																)
 														]
 													);
 												}
@@ -63919,7 +64394,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 												return Vue.createVNode(
 													"div",
 													{
-														class: "flex vertical height100"
+														class: "flex vertical h100",
+														"data-el-id": __elId
 													},
 													[this.renderContent, this.renderButtons]
 												);
@@ -63929,7 +64405,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 									app.use(appPlugins, {
 										dependState
 									});
-									app.mount(elId);
+									app.mount(__elId);
 								} catch (e2) {
 									console.error(e2);
 								}
@@ -63958,7 +64434,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 									app = null;
 								}
 								options.payload = null;
-								options.vmDialog = null;
+								options.__dialogInstance = null;
 								options = null;
 								resolve(true);
 							}
@@ -64221,7 +64697,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		notification: _notification,
 		layer
 	};
-	const _global_dayjs = dayjs;
 	const _global_$ = $;
 	const VentoseUIWithInstall = {
 		install: (app, options) => {
@@ -64246,7 +64721,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	exports2.VentoseUIWithInstall = VentoseUIWithInstall;
 	exports2._ = _global__;
 	exports2.antColKey = antColKey;
-	exports2.dayjs = _global_dayjs;
+	exports2.dayjs = dayjs;
 	exports2.defCol = defCol;
 	exports2.defColActions = defColActions;
 	exports2.defColActionsBtnlist = defColActionsBtnlist;
@@ -64255,7 +64730,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	exports2.defPagination = defPagination;
 	exports2.getPaginationPageSize = getPaginationPageSize;
 	exports2.lStorage = lStorage;
-	exports2.moment = _global_dayjs;
+	exports2.moment = dayjs;
 	exports2.pickValueFrom = pickValueFrom;
 	exports2.resetState_Value = resetState_Value;
 	exports2.setCSSVariables = setCSSVariables;

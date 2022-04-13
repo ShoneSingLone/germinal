@@ -13,7 +13,7 @@ const getIcon = icon => {
 
 const render_GenMenuItem = (menuInfo, parentId, router) => {
 	const currentId = `${parentId}###${menuInfo.id}`;
-	console.log("🚀:", menuInfo, parentId, currentId);
+	_.doNothing("🚀:", menuInfo, parentId, currentId);
 	if (_.isArrayFill(menuInfo.children)) {
 		return (
 			<aSubMenu
@@ -151,7 +151,7 @@ export default defineComponent({
 	render() {
 		return (
 			<div class="layout-menu beautiful-scroll flex1">
-				{JSON.stringify(this.State_App.arr_selectedMenuId)}
+				{/* JSON.stringify(this.State_App.arr_selectedMenuId) */}
 				<aMenu
 					theme={this.State_App.theme}
 					openKeys={this.state.openKeys}

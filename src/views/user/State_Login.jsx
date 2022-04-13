@@ -16,27 +16,27 @@ import { router, routeNames } from "lsrc/router/router";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 
 function handleLoginSuccess(res) {
-	router.push({ path: "/" });
 	// 延迟 1 秒显示欢迎信息
-	setTimeout(() => {
-		function timeFix() {
-			const time = new Date();
-			const hour = time.getHours();
-			return hour < 9
-				? "早上好"
-				: hour <= 11
-				? "上午好"
-				: hour <= 13
-				? "中午好"
-				: hour < 20
-				? "下午好"
-				: "晚上好";
-		}
+	function timeFix() {
+		const time = new Date();
+		const hour = time.getHours();
+		return hour < 9
+			? "早上好"
+			: hour <= 11
+			? "上午好"
+			: hour <= 13
+			? "中午好"
+			: hour < 20
+			? "下午好"
+			: "晚上好";
+	}
 
-		UI.notification.success({
-			message: $t("welcome").label,
-			description: `${timeFix()}，${$t("welcome.back").label}`
-		});
+	UI.notification.success({
+		message: $t("welcome").label,
+		description: `${timeFix()}，${$t("welcome.back").label}`
+	});
+	setTimeout(() => {
+		window.location.reload();
 	}, 1000);
 }
 

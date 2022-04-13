@@ -19,7 +19,7 @@ export type t_dialogOptions = {
 	afterOpenDialoag: Function;
 	onOk: Function;
 	beforeCancel?: Function;
-	noButtons: boolean;
+	hideButtons: boolean;
 	renderButtons: Function;
 };
 export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
@@ -114,9 +114,10 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 											},
 											/* 下方按钮 */
 											renderButtons() {
-												if (this.options.noButtons) {
+												if (this.options.hideButtons) {
 													return null;
 												}
+
 												if (this.options.renderButtons) {
 													return (
 														<div class="flex middle end ant-modal-footer">
@@ -126,20 +127,31 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 														</div>
 													);
 												}
+												const [isShowCancel, isShowOk] = (() => {
+													return [
+														!this.options.hideCancel || null,
+														!this.options.hideOk || null
+													];
+												})();
+
 												return (
 													<div class="flex middle end ant-modal-footer">
-														<xButton
-															configs={{ onClick: this.handleClickCancel }}>
-															{this.cancelText}
-														</xButton>
+														{isShowCancel && (
+															<xButton
+																configs={{ onClick: this.handleClickCancel }}>
+																{this.cancelText}
+															</xButton>
+														)}
 														<xGap l="10" />
-														<xButton
-															configs={{
-																onClick: this.handleClickOk,
-																type: "primary"
-															}}>
-															{this.okText}
-														</xButton>
+														{isShowOk && (
+															<xButton
+																configs={{
+																	onClick: this.handleClickOk,
+																	type: "primary"
+																}}>
+																{this.okText}
+															</xButton>
+														)}
 													</div>
 												);
 											}

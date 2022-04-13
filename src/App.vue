@@ -13,9 +13,8 @@ onMounted(async () => {
 	/* HTML title */
 	setDocumentTitle(State_App.configs.title);
 	/* 菜单可以从API获取 */
-	const { menuTree } = await import("lsrc/router/routes");
-	const { menuRoutesDelay } = await import("lsrc/router/router");
-	State_App.menuTree = menuRoutesDelay;
+	const { MENUS_ALL_DEFAULT_ROUTES } = await import("lsrc/router/routes");
+	State_App.menuTree = MENUS_ALL_DEFAULT_ROUTES;
 	state.isLoading = false;
 });
 </script>

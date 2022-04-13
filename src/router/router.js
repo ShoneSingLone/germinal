@@ -8,46 +8,7 @@ import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
 import { $t } from "lsrc/language";
 import { _, setDocumentTitle } from "@ventose/ui";
-
-const viewModules = import.meta.glob("../views/modules/**/*");
-_.doNothing("viewModules", viewModules);
-
-const routesDelay = _.reduce(
-	viewModules,
-	(routes, component, path) => {
-		const originUrl = path.replace("../views/modules/", "");
-		const pathArray = originUrl.split("/");
-		const filePath = _.last(pathArray);
-		const matchRes = filePath.match(/^View(.*)\.(vue|jsx|tsx)$/);
-		if (matchRes) {
-			const fileName = matchRes[1];
-			if (!fileName) alert(originUrl);
-			pathArray[pathArray.length - 1] = fileName;
-			const kebabCase = pathArray.map(_.kebabCase);
-			const route = {
-				name: `${kebabCase.join(".").replaceAll("-", "_")}`,
-				path: `/${kebabCase.join("/").replaceAll("-", "_")}`,
-				component: async () => {
-					const module = await component();
-					return module.default;
-				}
-			};
-			routes.push(route);
-		}
-		return routes;
-	},
-	[]
-);
-export const menuRoutesDelay = routesDelay.map(i => {
-	const menuInfo = {
-		id: i.name,
-		name: i.name,
-		label: i.name,
-		icon: null
-	};
-	_.doNothing("menuInfo", menuInfo);
-	return menuInfo;
-});
+import { ALL_DEFAULT_ROUTES } from "./routes";
 
 export const NewRoute = (name, component, options = {}) =>
 	_.merge(
@@ -101,8 +62,10 @@ const routes = [
 			})
 		]
 	}),
-	...routesDelay,
-	NewRoute(routeNames[404], NotFound)
+	/* 按约定规则由源码文件夹生成的routes */
+	...ALL_DEFAULT_ROUTES,
+	/* 404兜底 */
+	{ path: "/:pathMatch(.*)*", name: "404", component: NotFound }
 ];
 
 export const router = createRouter({
@@ -130,36 +93,31 @@ router.beforeEach(async (to, from) => {
 	_.doNothing(to.path, from.path);
 	NProgress.start();
 	const hasAccessTokenHandler = async () => {
+		/* 没有权限可以访问的页面，比如登录，注册页面 */
 		const allowPath = allowVisitPageWhenNoAccess.map(name => toPath(name));
 		_.doNothing(allowPath, to.path);
 		if (allowPath.includes(to.path)) {
 			return {
 				path: defaultRoutePath
 			};
-		} else {
-			if (!State_App.user) {
-				await Actions_App.setUserInfo();
-			}
-			/* if (!State_App.roles || State_App.roles.length === 0) {
-				await Actions_App.GetInfo();
-			} */
-
-			if (from.query.redirect) {
-				if (to.path === from.query.redirect) {
-					/* set the replace: true so the navigation will not leave a history record */
-					return {
-						...to,
-						replace: true
-					};
-				} else {
-					/* 回到刚才无权限的页面 */
-					return {
-						path: from.query.redirect,
-						query: _.omit(from.query, "redirect")
-					};
-				}
-			}
 		}
+
+		if (!State_App.user) {
+			await Actions_App.setUserInfo();
+		}
+		/* if (!State_App.roles || State_App.roles.length === 0) {
+			await Actions_App.GetInfo();
+		} */
+
+		/* 回到刚才无权限的页面 */
+		if (from.query.redirect) {
+			return {
+				path: from.query.redirect,
+				query: _.omit(from.query, "redirect")
+			};
+		}
+		/* router 404 用来兜底 */
+		return true;
 	};
 	const noAccessTokenHandler = () => {
 		if (!allowVisitPageWhenNoAccess.includes(to.name)) {
