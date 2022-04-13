@@ -1,5 +1,4 @@
-import { b as _sfc_main$1 } from "./index.js";
-import "dayjs";
+import { n as _sfc_main$1 } from "./index.js";
 var _sfc_main = {
   setup(__props) {
     return (_ctx, _cache) => {

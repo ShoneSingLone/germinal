@@ -6928,7 +6928,7 @@ var mock = { exports: {} };
 })(mock);
 var Mock = mock.exports;
 async function loadMockData() {
-  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/index.js","statics/assets/index.90a1f39e.css"] : void 0);
+  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/index.js","statics/assets/index.668997f1.css"] : void 0);
   Mock.setup({
     timeout: 300
   });

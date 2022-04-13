@@ -1,6 +1,5 @@
 import { M as Mock } from "./index2.js";
 import "./index.js";
-import "dayjs";
 const MOCK_MAP = [["/https/book/v1/login", "post", {
   msg: "ok",
   data: {

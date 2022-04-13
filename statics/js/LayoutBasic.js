@@ -1,5 +1,4 @@
-import { S as State_App, d as STATIC_WORD, l as logoImg, A as Actions_App, U as UserOutlined, e as _sfc_main$2 } from "./index.js";
-import "dayjs";
+import { S as State_App, a as _global__, b as STATIC_WORD, l as logoImg, A as Actions_App, U as UserOutlined, d as _sfc_main$2 } from "./index.js";
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }
@@ -12,14 +11,14 @@ const getIcon = (icon) => {
 };
 const render_GenMenuItem = (menuInfo, parentId, router) => {
   const currentId = `${parentId}###${menuInfo.id}`;
-  console.log("\u{1F680}:", menuInfo, parentId, currentId);
-  if (VentoseUI._.isArrayFill(menuInfo.children)) {
+  _global__.doNothing("\u{1F680}:", menuInfo, parentId, currentId);
+  if (_global__.isArrayFill(menuInfo.children)) {
     return Vue.createVNode(Vue.resolveComponent("aSubMenu"), {
       "key": currentId
     }, {
       icon: () => getIcon(menuInfo.icon),
       title: () => menuInfo.label,
-      default: () => VentoseUI._.map(menuInfo.children, (i) => {
+      default: () => _global__.map(menuInfo.children, (i) => {
         return render_GenMenuItem(i, currentId, router);
       })
     });
@@ -59,7 +58,7 @@ const render_GenMenuItem = (menuInfo, parentId, router) => {
   }
 };
 const render_GenMenu = (tree, router) => {
-  return VentoseUI._.map(tree, (i) => render_GenMenuItem(i, "", router));
+  return _global__.map(tree, (i) => render_GenMenuItem(i, "", router));
 };
 var _sfc_main$1 = Vue.defineComponent({
   name: "MenuTree",
@@ -92,7 +91,7 @@ var _sfc_main$1 = Vue.defineComponent({
   },
   mounted() {
     this.onOpenChange([pathAndIdCollection[this.currentPath]]);
-    this.State_App.arr_selectedMenuId = [pathAndIdCollection[this.currentPath]].filter(VentoseUI._.isInput);
+    this.State_App.arr_selectedMenuId = [pathAndIdCollection[this.currentPath]].filter(_global__.isInput);
   },
   methods: {
     onSelect({
@@ -100,12 +99,12 @@ var _sfc_main$1 = Vue.defineComponent({
       key,
       selectedKeys
     }) {
-      debugger;
+      _global__.doNothing("onSelect");
     },
     onOpenChange(openKeys) {
-      debugger;
-      const latestOpenKey = VentoseUI._.last(openKeys);
-      const openKeyArray = VentoseUI._.safeSplit(latestOpenKey, "###").filter(VentoseUI._.isInput);
+      _global__.doNothing("onOpenChange");
+      const latestOpenKey = _global__.last(openKeys);
+      const openKeyArray = _global__.safeSplit(latestOpenKey, "###").filter(_global__.isInput);
       const _openKeys = [];
       for (let index = 0; index < openKeyArray.length; index++) {
         const element = openKeyArray[index];
@@ -122,7 +121,7 @@ var _sfc_main$1 = Vue.defineComponent({
     let _slot;
     return Vue.createVNode("div", {
       "class": "layout-menu beautiful-scroll flex1"
-    }, [JSON.stringify(this.State_App.arr_selectedMenuId), Vue.createVNode(Vue.resolveComponent("aMenu"), {
+    }, [Vue.createVNode(Vue.resolveComponent("aMenu"), {
       "theme": this.State_App.theme,
       "openKeys": this.state.openKeys,
       "openChange": this.onOpenChange,
