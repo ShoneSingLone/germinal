@@ -6,3 +6,7 @@ dist-ssr
 .idea
 package-lock.json
 dist-lib
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/germinal/v17/.suo
