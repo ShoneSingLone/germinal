@@ -6,11 +6,12 @@ import path from "path";
 import svgHelper from "./vite/config/plugins/svg";
 import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
-import cssOnly from "rollup-plugin-css-only";
+// import cssOnly from "rollup-plugin-css-only";
 import fs from "fs";
 
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
+const ROOT_PATH = "./";
 console.log("🚀 isPro", isPro, "isLib", isLib);
 
 /* https://vitejs.dev/config/ */
@@ -32,7 +33,7 @@ export default defineConfig({
 			}
 		}
 	},
-	base: "./",
+	base: ROOT_PATH,
 	resolve: {
 		alias: {
 			vue: "vue/dist/vue.esm-bundler.js",
@@ -117,7 +118,8 @@ export default defineConfig({
 		}),
 		injectHtml({
 			data: {
-				version: Date.now()
+				version: Date.now(),
+				ROOT_PATH
 			}
 		})
 	].concat(

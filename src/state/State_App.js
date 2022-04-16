@@ -94,7 +94,8 @@ export const Actions_App = {
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
-		const currentAppVersion = $("meta[data-version]").data("version");
+		/* const currentAppVersion = $("meta[data-version]").data("version"); */
+		const currentAppVersion = window.APP_VERSION;
 		console.log(
 			"🚀:",
 			"currentAppVersion",

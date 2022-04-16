@@ -25,7 +25,7 @@ function Menu(id, label, icon = "mail", children = []) {
 export const menuTree = [];
 
 const MODULES_DEFAULT_ROUTES = import.meta.glob("../views/modules/**/*");
-_.doNothing("viewModules", MODULES_DEFAULT_ROUTES);
+_.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 
 /**
  * 按约定规则由源码文件夹生成的routes
