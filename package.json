@@ -3,9 +3,9 @@
 	"version": "0.0.0",
 	"scripts": {
 		"serve": "vite preview",
-		"build": "npm run build:ui && npm run copy:ui && npm run build:app",
+		"build": "npm run build:ui && npm run build:app",
 		"build:app": "cross-env NODE_ENV=production cross-env type=app vite build",
-		"build:ui": "cross-env NODE_ENV=production cross-env type=lib vite build",
+		"build:ui": "cross-env NODE_ENV=production cross-env type=lib vite build && npm run copy:ui",
 		"copy:ui": "node ./build/tools/copy_ui.js",
 		"lint": "prettier --write ./src",
 		"bs": "npm i && npm run make:language",

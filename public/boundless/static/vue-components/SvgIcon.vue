@@ -35,7 +35,9 @@
 
 <script>
 async ({ defineComponent, markRaw, loadText, _ }) => {
+	const getIconPath = icon => `${ROOT_URL}/assets/images/svg/${icon}.svg`;
 	const ICON_STRING_CACHE = {};
+
 	return defineComponent(
 		markRaw({
 			TEMPLATE_PLACEHOLDER,
@@ -49,9 +51,7 @@ async ({ defineComponent, markRaw, loadText, _ }) => {
 				const targetDom = document.getElementById(this.id);
 				let iconSvgString = ICON_STRING_CACHE[this.icon];
 				if (!iconSvgString) {
-					iconSvgString = await loadText(
-						`${ROOT_URL}/assets/images/svg/${this.icon}.svg`
-					);
+					iconSvgString = await loadText(getIconPath(this.icon));
 					ICON_STRING_CACHE[this.icon] = iconSvgString;
 				}
 				if (iconSvgString) {

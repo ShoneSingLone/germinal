@@ -38,7 +38,13 @@ export const appPlugins = {
 };
 
 export const Utils = {
-	dateFormat(date, format = "YYYY-MM-DD") {
+	dateFormat(date, format) {
+		if (!format) {
+			format = "YYYY-MM-DD";
+		}
+		if (format === 1) {
+			format = "YYYY-MM-DD HH:mm:ss";
+		}
 		const label = dayjs(date).format(format);
 		return label === "Invalid Date" ? "--" : label;
 	},

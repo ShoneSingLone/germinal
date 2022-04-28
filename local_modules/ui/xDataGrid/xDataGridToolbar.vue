@@ -1,6 +1,7 @@
 <script lang="jsx">
 import { defineComponent } from "vue";
 import { _ } from "../loadCommonUtil";
+import { setPagination } from "./common";
 import xColFilter from "./xColFilter.vue";
 
 export default defineComponent({
@@ -20,9 +21,9 @@ export default defineComponent({
 				preset: "query",
 				onClick: async () => {
 					if (this.configs.queryTableList) {
-						await this.configs.queryTableList({
-							pagination: { page: 1 }
-						});
+						/* reset 当前页为1 */
+						setPagination(this.configs, { page: 1 });
+						await this.configs.queryTableList({ pagination: { page: 1 } });
 					}
 				}
 			};
