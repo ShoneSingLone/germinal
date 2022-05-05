@@ -61,6 +61,7 @@ function closeTips(followId) {
 	}, timeoutDelay);
 }
 
+/* 鼠标hover处理 */
 $(document).on("mouseenter.uiPopver", "[data-follow-id]", function (event) {
 	console.log("hover.uiPopver,this", this.dataset);
 	const followId = this.dataset.followId;
@@ -69,7 +70,7 @@ $(document).on("mouseenter.uiPopver", "[data-follow-id]", function (event) {
 	if (popverIndexCollection[followId]) {
 		return;
 	}
-	const options = popverOptionsCollection[followId] || {};
+	const options = popverOptionsCollection[followId] || { content: "" };
 
 	const popoverIndex = layer.tips(options.content, `#${followId}`, {
 		tips: [layer.UP, "#0FA6D8"],

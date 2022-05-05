@@ -64,7 +64,7 @@ import {
 	t_dialogOptions
 } from "./xSingle/dialog/dialog";
 import { _ as mylodash } from "./loadCommonUtil.js";
-import { State_UI } from "./State_UI";
+import { State_UI, Cpt_UI_locale } from "./State_UI";
 import dayjs from "dayjs";
 /* @ts-ignore */
 window.dayjs = dayjs;
@@ -252,6 +252,7 @@ export { defColActionsBtnlist as defColActionsBtnlist };
 export { defDataGridOption as defDataGridOption };
 export { setDataGridInfo as setDataGridInfo };
 export { State_UI as State_UI };
+export { Cpt_UI_locale as Cpt_UI_locale };
 export { lStorage as lStorage };
 export { EVENT_TYPE as EVENT_TYPE };
 

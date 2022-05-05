@@ -47,7 +47,9 @@ const State_table = reactive(
 		columns: {
 			...defCol({
 				label: $t("a").label,
-				prop: "a"
+				prop: "a",
+				onFilter: (value, record) => record.address.indexOf(value) === 0,
+				sorter: (a, b) => a.address.length - b.address.length
 			}),
 			...defCol({
 				label: $t("b").label,

@@ -3,7 +3,7 @@
 import { onMounted, reactive } from "vue";
 import { _ } from "@ventose/ui";
 import { Actions_App } from "lsrc/state/State_App";
-import { setDocumentTitle } from "@ventose/ui";
+import { setDocumentTitle, Cpt_UI_locale } from "@ventose/ui";
 
 const state = reactive({ isLoading: true });
 
@@ -20,7 +20,9 @@ onMounted(async () => {
 </script>
 <template>
 	<aSpin v-if="state.isLoading">Loading...</aSpin>
-	<RouterView v-else />
+	<aConfigProvider v-else :locale="Cpt_UI_locale.value">
+		<RouterView />
+	</aConfigProvider>
 </template>
 
 <style lang="less" src="./styles/App.less"></style>
