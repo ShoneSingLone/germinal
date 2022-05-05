@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { _ } from "../loadCommonUtil";
 
 export default defineComponent({
-	name: "xButtonCountDown",
+	name: "XButtonCountDown",
 	props: {
 		configs: {
 			type: Object,
@@ -23,7 +23,7 @@ export default defineComponent({
 				text: vm.configs.text.normal,
 				async onClick() {
 					if (_.isFunction(vm.configs.onClick)) {
-						await vm.configs.onClick({ countDown });
+						await vm.configs.onClick({ countDown: vm.countDown });
 					}
 				}
 			}
@@ -48,19 +48,21 @@ export default defineComponent({
 		handleCaptchaCountChange(captchaCount) {
 			if (captchaCount === 0) {
 				/*按钮显示*/
-				btnConfigs.text = this.configs.text.normal;
+				this.btnConfigs.text = this.configs.text.normal;
 				/*按钮可点击状态*/
-				btnConfigs.disabled = false;
+				this.btnConfigs.disabled = false;
 				return;
 			}
 
 			const setCounDownText = () => {
-				return (btnConfigs.text = `${this.configs.countMax - captchaCount} s`);
+				return (this.btnConfigs.text = `${
+					this.configs.countMax - captchaCount
+				} s`);
 			};
 
 			if (captchaCount === 1) {
 				setCounDownText();
-				btnConfigs.disabled = true;
+				this.btnConfigs.disabled = true;
 				return;
 			}
 

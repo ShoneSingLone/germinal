@@ -22,12 +22,12 @@ export default defineConfig({
 		},
 		proxy: {
 			"/v1": {
-				target: "https://wwww.singlone.work/https/book/",
+				target: "https://wwww.singlone.work/s/api/",
 				changeOrigin: true,
 				secure: false
 			},
-			"/auth/v1": {
-				target: "https://wwww.singlone.work/https/book/",
+			"/v1/auth": {
+				target: "https://wwww.singlone.work/s/api/",
 				changeOrigin: true,
 				secure: false
 			}

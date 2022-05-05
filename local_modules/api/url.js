@@ -1,8 +1,8 @@
 import { _ } from "@ventose/ui";
 
 window.URL_API_VERSION = "/v1";
-window.URL_BASE = "www.singlone.work/https/book";
-window.URL_API_BASE = `https://${window.URL_BASE}`;
+window.URL_BASE = "www.singlone.work";
+window.URL_API_BASE = `https://${window.URL_BASE}/s/api`;
 window.URL_WS_BASE = `wss://www.singlone.work/ws`;
 
 const auth = "/auth";

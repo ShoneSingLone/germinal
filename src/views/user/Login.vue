@@ -20,7 +20,7 @@ import {
 			<!-- <TabPane key="credentials" :tab="$t('user.login.tab-login-credentials').label" > </TabPane> -->
 			<!-- <TabPane key="mobile" :tab="$t('user.login.tab-login-mobile').label"> <LoginCredentialsMobile /> </TabPane> -->
 			<!-- </Tabs> -->
-			<Alert
+			<aAlert
 				v-if="State_Login.alertTips"
 				type="error"
 				show-icon

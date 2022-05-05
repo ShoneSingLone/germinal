@@ -1,5 +1,9 @@
 /**/
 module.exports = {
+	mvDist: {
+		src: "./dist",
+		tar: "D:GitHubwiichatserverapppublic"
+	},
 	deploy: {
 		username: "foobarbo",
 		port: 22,
