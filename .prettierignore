@@ -6,3 +6,5 @@ dist-ssr
 node_modules/*
 *.min.js
 *.less
+Ventose.js
+Ventose.css
