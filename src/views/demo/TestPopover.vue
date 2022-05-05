@@ -22,9 +22,9 @@ const PopoverContent = defineComponent(
 
 			return () => {
 				return (
-					<aButton type="primary" onClick={add}>
+					<aCard type="primary" onClick={add}>
 						{State.count}
-					</aButton>
+					</aCard>
 				);
 			};
 		}

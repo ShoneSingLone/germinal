@@ -52316,7 +52316,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	function installPopoverDirective(app, appSettings) {
 		const appId = _global__.genId("appId");
 		console.log("todo addPlugin");
-		appAddPlugin[appId] = appSettings.addPlugins;
+		appAddPlugin[appId] = appSettings.appPlugins;
 		app.directive("uiPopover", {
 			mounted(el, binding) {
 				const followId = _global__.genId("xPopoverTarget");

@@ -128,7 +128,7 @@ return {label: "显示的对应语言", prop: "key"};
 import "@ventose/ui/loadCommonUtil.js";
 ```
 
-## addPlugins
+## appPlugins
 
 针对popover 单例的使用，Vue3 以应用为单位配置属性的方式相较于Vue2的全局配置，带来了灵活，就需要但对每个应用单独配置，
 
@@ -139,8 +139,8 @@ if (this.options.component) {
         `<div id="${this.id}" class="x-popover-content"/>`
     ).prependTo($("body"));
     const popoverApp = createApp(this.options.component);
-    /* 独立应用，配置是否共享、同步，可以配置，此处用addPlugins方法，保持一致 */
-    addPlugins(popoverApp);
+    /* 独立应用，配置是否共享、同步，可以配置，此处用appPlugins方法，保持一致 */
+    appPlugins(popoverApp);
     const vm = popoverApp.mount(`#${this.id}`);
     this.$popoverDOM = $(vm.$el);
     this.$popoverDOM.appendTo(this.$popoverMountDOM);
@@ -148,7 +148,7 @@ if (this.options.component) {
 }
 ```
 
-跟 Vue2 有不同的处理方式在于 addPlugins 的使用。主要是 Vue app 化后无法共享 component 这类的配置信息
+跟 Vue2 有不同的处理方式在于 appPlugins 的使用。主要是 Vue app 化后无法共享 component 这类的配置信息
 
 ## 状态管理 ~~VueX~~
 
@@ -224,10 +224,14 @@ State_App.count: {{State_App.count}}
 <xItem :configs="inputConfigs" v-model="state.name"/>
 ```
 
-### xTable
+### xDataGrid
 
 - 拖动排序 字典下拉顺序=> order的修改
 
+
+### Utils
+
+- setDocumentTitle()
 ## 自定义的折叠按钮(未使用)
 
 ```html

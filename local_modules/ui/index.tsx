@@ -44,7 +44,7 @@ import {
 import "ant-design-vue/es/form/style/index.css";
 import $ from "jquery";
 import layer from "./xSingle/layer/layer";
-import { installPopoverDirective } from "./xSingle/popover.js";
+import { installPopoverDirective } from "./xSingle/popover";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xForm from "./xForm/xForm.vue";
