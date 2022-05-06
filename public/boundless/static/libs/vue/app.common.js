@@ -1,7 +1,7 @@
 (() => {
 	const $t = function (prop, payload) {
 		const result = { label: prop, prop: prop };
-		/!*使用 {变量名} 赋值*!/;
+		/* 使用 {变量名} 赋值 */
 		_.templateSettings.interpolate = /{([\s\S]+?)}/g;
 		if ($t.options) {
 			const temp = $t.options[prop];

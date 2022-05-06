@@ -5,9 +5,10 @@ import {
 	defItem,
 	defDataGridOption,
 	defCol,
-	defPagination
+	defPagination,
+	State_UI
 } from "@ventose/ui";
-import { $t } from "lsrc/language";
+const { $t } = State_UI;
 
 /* data */
 const State_query = reactive({

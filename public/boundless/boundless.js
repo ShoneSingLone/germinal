@@ -11,10 +11,9 @@ $(async () => {
 	}
 	window.VIEW_URL = `${ROOT_URL}/business/views/${VIEW_NAME}`;
 
-	const { asyncImportSFC, _, lStorage, State_UI, loadText } = Vue;
+	const { _, lStorage, State_UI } = Vue;
 	/* 应用配置 */
 	/*当前国际化语言*/
-	lStorage.language = lStorage.language || State_UI.language;
 	lStorage.appConfigs = {
 		/*分页器字段*/
 		pagination: {
@@ -27,12 +26,12 @@ $(async () => {
 	/*并行异步加载*/
 	const [i18nString, App, components] = await Promise.all([
 		/* 加载对应语言message */
-		loadText(`${ROOT_URL}/static/i18n/${lStorage.language}.json`),
+		_.asyncLoadText(`${ROOT_URL}/static/i18n/${State_UI.language}.json`),
 		/* 视图入口页面 */
-		asyncImportSFC(`${VIEW_URL}/View-${VIEW_NAME}.vue`),
+		_.asyncImportSFC(`${VIEW_URL}/View-${VIEW_NAME}.vue`),
 		/* 自定义通用组件 */
 		Promise.all([
-			asyncImportSFC(`${ROOT_URL}/static/vue-components/SvgIcon.vue`)
+			_.asyncImportSFC(`${ROOT_URL}/static/vue-components/SvgIcon.vue`)
 		])
 	]);
 

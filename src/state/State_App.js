@@ -1,11 +1,9 @@
 import { reactive, watch, computed } from "vue";
-import { lStorage, setCSSVariables, UI, _ } from "@ventose/ui";
+import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
-import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
-import { $t } from "lsrc/language";
 export const State_App = reactive({
 	theme: "light",
 	menuTree: [],
@@ -38,15 +36,12 @@ if (State_App.isDev) {
 }
 
 /* getter 就用computed代替 commit直接修改  */
-export const APP_LANGUAGE = computed({
-	get: () => State_App.configs.language,
-	set: lang => (State_App.configs.language = lang)
-});
 
-export const APP_CLASS_PREFIX = computed({
+export const Cpt_APP_CLASS_PREFIX = computed({
 	get: () => State_App.configs.prefixCls,
 	set: prefixCls => (State_App.configs.prefixCls = prefixCls)
 });
+
 export const getColor = colorName => {
 	return State_App.configs?.colors ? State_App.configs?.colors[colorName] : "";
 };
@@ -94,6 +89,10 @@ export const Actions_App = {
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
+		window.STATIC_DIR = $(`link[rel='icon']`)[0].href.replace(
+			"favicon.ico",
+			""
+		);
 		/* const currentAppVersion = $("meta[data-version]").data("version"); */
 		const currentAppVersion = window.APP_VERSION;
 		console.log(
@@ -105,10 +104,18 @@ export const Actions_App = {
 		const isLoadConfigs =
 			State_App.isDev || State_App.configs.version !== currentAppVersion;
 		if (isLoadConfigs) {
-			const configs = (await ajax.loadText("./configs.jsx"))();
+			const configs = (await _.asyncExecFnString("./configs.jsx"))();
 			configs.version = currentAppVersion;
 			State_App.configs = configs;
 		}
+
+		/* i18n */
+		const i18nString = await _.asyncLoadText(
+			`${STATIC_DIR}boundless/static/i18n/${State_UI.language}.json`
+		);
+		State_UI.i18nMessage = _.safeParse(i18nString, []);
+		/* i18n */
+
 		/* 加载样式变量 */
 		callback && callback(State_App);
 		console.timeEnd("initAppConfigs");

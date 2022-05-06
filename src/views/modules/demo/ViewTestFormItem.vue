@@ -3,13 +3,13 @@ import { defineComponent } from "vue";
 import {
 	_,
 	defItem,
+	State_UI,
 	defDataGridOption,
 	defCol,
 	defColActions,
-	State_UI,
 	defColActionsBtnlist
 } from "@ventose/ui";
-import { $t } from "lsrc/language";
+const { $t } = State_UI;
 
 export default defineComponent({
 	props: {

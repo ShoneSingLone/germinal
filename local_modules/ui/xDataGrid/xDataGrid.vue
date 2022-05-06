@@ -63,7 +63,7 @@ export default defineComponent({
 				return this.configs.renderTable({ vm: this });
 			} else {
 				const slots = {
-					emptyText: (
+					emptyText: () => (
 						<div class="ant-empty ant-empty-normal">
 							<div class="ant-empty-image">
 								<svg

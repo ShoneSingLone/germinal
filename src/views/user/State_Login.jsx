@@ -1,5 +1,4 @@
 import { reactive, watch } from "vue";
-import { $t } from "lsrc/language";
 import {
 	_,
 	UI,
@@ -7,13 +6,15 @@ import {
 	EVENT_TYPE,
 	validateForm,
 	AllWasWell,
-	lStorage
+	lStorage,
+	State_UI
 } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
 import { API } from "germinal_api";
 import { router, routeNames } from "lsrc/router/router";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
+const { $t } = State_UI;
 
 function handleLoginSuccess(res) {
 	// 延迟 1 秒显示欢迎信息
@@ -58,14 +59,13 @@ const TAB_KEYS_MAP = {
 };
 
 const LOGIN_TYPE = {
-	email: "email",
 	email: "email"
 };
 export const State_Login = reactive({
 	alertTips: "",
 	captchaCount: 0,
 	loginType: LOGIN_TYPE.email,
-	activeTabKey: Object.keys(TAB_KEYS_MAP)[1],
+	activeTabKey: Object.keys(TAB_KEYS_MAP)[0],
 	rememberMe: true,
 	data: {
 		email: lStorage.email || "",
@@ -108,24 +108,32 @@ export const State_Login = reactive({
 		type: "primary",
 		class: "login-button flex center",
 		text: () => $t("user.login.login").label,
-		onClick: async () => {
-			try {
-				const currentFormProp = TAB_KEYS_MAP[State_Login.activeTabKey];
-				const currentFormConfigs = State_Login[currentFormProp];
-				const validateResults = await validateForm(currentFormConfigs);
-				if (AllWasWell(validateResults)) {
-					await Actions_App.Login(State_Login.data);
-					handleLoginSuccess();
-				} else {
-					throw new Error("未通过验证");
-				}
-			} catch (e) {
-				handleLoginFail(e);
-				console.error(e);
-			}
-		}
+		onClick: onSubmitClick
 	}
 });
+
+async function onSubmitClick() {
+	try {
+		const activeTabKey = State_Login.activeTabKey;
+		if (!activeTabKey) {
+			throw new Error("miss activeTabKey");
+		}
+		const currentFormProp = TAB_KEYS_MAP[activeTabKey];
+		console.log(State_Login);
+		console.log(State_Login.activeTabKey);
+		const currentFormConfigs = State_Login[currentFormProp];
+		const validateResults = await validateForm(currentFormConfigs);
+		if (AllWasWell(validateResults)) {
+			await Actions_App.Login(State_Login.data);
+			handleLoginSuccess();
+		} else {
+			throw new Error("未通过验证");
+		}
+	} catch (e) {
+		handleLoginFail(e);
+		console.error(e);
+	}
+}
 
 /*获取验证码*/
 export async function getCaptcha(params) {

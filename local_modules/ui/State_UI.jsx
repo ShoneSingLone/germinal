@@ -12,6 +12,7 @@ import { lStorage } from "./tools/storage";
 /* 可以与外部通信，可以增改 */
 export const State_UI = reactive({
 	language: lStorage["language"] || "zh-CN",
+	onLanguageChange: false,
 	LANGUAGE: {
 		enUs,
 		zhCn
@@ -35,11 +36,15 @@ export const State_UI = reactive({
 		return result;
 	}
 });
+
 watch(
 	() => State_UI.language,
 	language => {
 		lStorage["language"] = language;
 		dayjs.locale(language === "zh-CN" ? "zh-cn" : "en");
+		if (State_UI.onLanguageChange) {
+			State_UI.onLanguageChange(language, State_UI);
+		}
 	},
 	{
 		immediate: true
@@ -47,7 +52,7 @@ watch(
 );
 
 export const Cpt_UI_locale = computed(() => {
-	const currentLanguage = _.camelCase(State_UI.language || "zh_CN");
+	const currentLanguage = _.camelCase(State_UI.language);
 	const locale = State_UI.LANGUAGE[currentLanguage];
 	return locale;
 });

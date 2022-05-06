@@ -6,9 +6,9 @@ import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
-import { $t } from "lsrc/language";
-import { _, setDocumentTitle } from "@ventose/ui";
+import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
+const { $t } = State_UI;
 
 export const NewRoute = (name, component, options = {}) =>
 	_.merge(
@@ -105,7 +105,7 @@ router.beforeEach(async (to, from) => {
 				path: defaultRoutePath
 			};
 		}
-
+		debugger;
 		if (!State_App.user) {
 			await Actions_App.setUserInfo();
 		}
