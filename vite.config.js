@@ -11,7 +11,7 @@ import fs from "fs";
 
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
-const ROOT_PATH = "./";
+const baseRoot = "./";
 console.log("🚀 isPro", isPro, "isLib", isLib);
 
 /* https://vitejs.dev/config/ */
@@ -33,7 +33,7 @@ export default defineConfig({
 			}
 		}
 	},
-	base: ROOT_PATH,
+	base: baseRoot,
 	resolve: {
 		alias: {
 			vue: "vue/dist/vue.esm-bundler.js",
@@ -117,10 +117,7 @@ export default defineConfig({
 			// },
 		}),
 		injectHtml({
-			data: {
-				version: Date.now(),
-				ROOT_PATH
-			}
+			data: { version: Date.now() }
 		})
 	].concat(
 		(() => {

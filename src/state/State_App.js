@@ -26,8 +26,8 @@ export const State_App = reactive({
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs || {},
-	// isDev: import.meta.env.MODE === "development"
-	isDev: true
+	// isDev: true
+	isDev: import.meta.env.MODE === "development"
 });
 
 if (State_App.isDev) {
@@ -89,29 +89,19 @@ export const Actions_App = {
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
-		window.STATIC_DIR = $(`link[rel='icon']`)[0].href.replace(
-			"favicon.ico",
-			""
-		);
-		/* const currentAppVersion = $("meta[data-version]").data("version"); */
-		const currentAppVersion = window.APP_VERSION;
-		console.log(
-			"🚀:",
-			"currentAppVersion",
-			JSON.stringify(currentAppVersion, null, 2)
-		);
+		console.log("🚀:", "__APP_VERSION", JSON.stringify(__APP_VERSION, null, 2));
 		/* 开发模式|没有configs|configs的version落后当前版本 */
 		const isLoadConfigs =
-			State_App.isDev || State_App.configs.version !== currentAppVersion;
+			State_App.isDev || State_App.configs.version !== __APP_VERSION;
 		if (isLoadConfigs) {
 			const configs = (await _.asyncExecFnString("./configs.jsx"))();
-			configs.version = currentAppVersion;
+			configs.version = __APP_VERSION;
 			State_App.configs = configs;
 		}
 
 		/* i18n */
 		const i18nString = await _.asyncLoadText(
-			`${STATIC_DIR}boundless/static/i18n/${State_UI.language}.json`
+			`${__URL_STATIC_DIR}boundless/static/i18n/${State_UI.language}.json`
 		);
 		State_UI.i18nMessage = _.safeParse(i18nString, []);
 		/* i18n */

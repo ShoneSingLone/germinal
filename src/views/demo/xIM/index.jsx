@@ -7,7 +7,7 @@ export default defineComponent({
 		return {};
 	},
 	async mounted() {
-		const socket_url = `${window.URL_WS_BASE}?token=${
+		const socket_url = `${__URL_WS_BASE}?token=${
 			lStorage[STATIC_WORD.ACCESS_TOKEN]
 		}`;
 		const socket = new WebSocket(socket_url);
