@@ -14,7 +14,7 @@
 			</xForm>
 		</aCard>
 
-		<aCard style="margin: 20px">
+		<aCard style="margin: 20px" v-if="isShowTable">
 			<xDataGridToolbar :configs="configs_table">
 				<xGap f="1" />
 				<!--审批类型-->
@@ -46,6 +46,7 @@ async ({
 	setCSSVariables,
 	AllWasWell,
 	validateForm,
+	compileHtmlAndGetVNode,
 	_,
 	hooks,
 	h
@@ -60,6 +61,7 @@ async ({
 		data() {
 			const vm = this;
 			return {
+				isShowTable: false,
 				formItems: {
 					...defItem({
 						labelVNodeRender(configs, className) {
@@ -120,17 +122,18 @@ async ({
 								label: $t("密码").label,
 								prop: configs.prop,
 								className,
-								popContent: h(
-									"ul",
-									null,
-									[
+								popContent: compileHtmlAndGetVNode(
+									`<ul>${[
 										$t(`8~32个字符`).label,
 										$t(
 											`至少包含以下字符中的3种:大写字母、小写字母、数字、特殊字符\`~!@#\$%\^\&\*\(\)-_=+\[\{\]\}\|;: \'\\\",\.\/\?`
 										).label,
 										$t(`必须包含特殊字符`).label,
 										$t(`不允许包含正序或逆序用户名`).label
-									].map(content => h("li", null, content))
+									]
+										.map(content => `<li>${content}</li>`)
+										.join("")}</ul>`,
+									{}
 								)
 							});
 						},
@@ -141,11 +144,11 @@ async ({
 							FormRules.custom({
 								validator(value, { rule }) {
 									/*
-                    8~32个字符
-                    至少包含以下字符中的3种:大写字母、小写字母、数字、特殊字符`~!@#$%^&*()-_=+[{]}|;:'\",./?
-                    必须包含特殊字符
-                    不允许包含正序或逆序用户名
-                  */
+					8~32个字符
+					至少包含以下字符中的3种:大写字母、小写字母、数字、特殊字符`~!@#$%^&*()-_=+[{]}|;:'\",./?
+					必须包含特殊字符
+					不允许包含正序或逆序用户名
+				  */
 									const valueLength = String(value).length;
 									if (valueLength < 8 || valueLength > 32) {
 										rule.msg = $t(`8~32个字符`).label;
@@ -307,11 +310,13 @@ async ({
 				})
 			};
 		},
-		mounted() {
+		async mounted() {
 			/* 背景图地址需要路径参数 */
 			State_App.CSSVariables.backgroundImageUrl = `url(./bg.jpeg) center /cover no-repeat`;
 			setCSSVariables(State_App.CSSVariables);
 			this.setQuerySelectOptions();
+			await _.sleep(1000 * 1);
+			this.isShowTable = true;
 		},
 		methods: {
 			async handleLoginSuccess() {
