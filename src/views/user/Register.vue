@@ -1,11 +1,12 @@
 <script setup>
 import { reactive, computed } from "vue";
-import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { State_Register } from "./State_Register";
 import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
+import { State_UI } from "@ventose/ui";
+const { $t } = State_UI;
 
 const levelNames = {
 	0: "user.password.strength.short",

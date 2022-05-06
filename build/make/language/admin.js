@@ -9,7 +9,7 @@ module.exports = {
 	/* tips */
 	welcome: m("欢迎", "welcome"),
 	"welcome.back": m("欢迎回来", "welcome back"),
-	"login.title": m("antd vue3 admin", "antd vue3 admin"),
+	"login.title": m("demo", "demo"),
 	/* system */
 	BackHome: m("回到主页", "Back Home"),
 	notFoundTips: m(
@@ -21,10 +21,7 @@ module.exports = {
 		"您确定要注销吗？",
 		"Are you sure you would like to logout?"
 	),
-	"layouts.userLayout.title": m(
-		"Ant Design 是西湖区最具影响力的 Web 设计规范",
-		"Ant Design is the most influential web design specification in Xihu district"
-	),
+	"layouts.userLayout.title": m("我亦无他，惟手熟尔。", "Diligent"),
 	/*  */
 	"user.login.username": m("用户名", "username"),
 	"user.login.password": m("密码", "password"),

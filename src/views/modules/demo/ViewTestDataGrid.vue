@@ -10,8 +10,8 @@ import {
 	defColActionsBtnlist,
 	UI
 } from "@ventose/ui";
-import { $t } from "lsrc/language";
 import ViewTestFormItem from "./ViewTestFormItem.vue";
+const { $t } = State_UI;
 
 export default defineComponent({
 	mounted() {

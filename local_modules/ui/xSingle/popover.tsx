@@ -1,6 +1,7 @@
 import $ from "jquery";
 import layer from "./layer/layer";
 import { _ } from "../loadCommonUtil";
+import { createApp, defineComponent } from "vue";
 
 const timeoutDelay = 400;
 /* 缓存 popover 的配置信息 */
@@ -8,14 +9,15 @@ const popverOptionsCollection = {};
 /**/
 const popverIndexCollection = {};
 const appAddPlugin = {};
+const appDependState = {};
 const timerCollection = {};
 const visibleArea = {};
 
 /* 监听 触发popover的事件 hover click */
 export function installPopoverDirective(app, appSettings) {
 	const appId = _.genId("appId");
-	console.log("todo addPlugin");
-	appAddPlugin[appId] = appSettings.addPlugins;
+	appAddPlugin[appId] = appSettings.appPlugins;
+	appDependState[appId] = appSettings.dependState;
 	app.directive("uiPopover", {
 		mounted(el, binding) {
 			const followId = _.genId("xPopoverTarget");
@@ -39,6 +41,7 @@ export function installPopoverDirective(app, appSettings) {
 /* listener */
 $(document).on("click.uiPopver", "[data-follow-id]", function (event) {
 	const followId = this.dataset["followId"];
+	const appId = this.dataset["appId"];
 	const popverOptions = popverOptionsCollection[followId];
 	new Popover(this, popverOptions);
 	/*记录当前的popover 点击到其他位置即消除当前，只允许同时有一个框，添加的是click标识*/
@@ -61,21 +64,46 @@ function closeTips(followId) {
 	}, timeoutDelay);
 }
 
+/* 鼠标hover处理 */
 $(document).on("mouseenter.uiPopver", "[data-follow-id]", function (event) {
 	console.log("hover.uiPopver,this", this.dataset);
 	const followId = this.dataset.followId;
+	const appId = this.dataset["appId"];
+
 	inVisibleArea(followId);
 	/*如果存在，不重复添加*/
 	if (popverIndexCollection[followId]) {
 		return;
 	}
-	const options = popverOptionsCollection[followId] || {};
-
-	const popoverIndex = layer.tips(options.content, `#${followId}`, {
+	const options = popverOptionsCollection[followId] || { content: "" };
+	if (!options.content) {
+		return;
+	}
+	let app;
+	const tipsContent = _.isPlainObject(options.content)
+		? `<div id="${followId}_content">.</div>`
+		: options.content;
+	const popoverIndex = layer.tips(tipsContent, `#${followId}`, {
 		tips: [layer.UP, "#0FA6D8"],
 		/*hover 不允许 同时多个 tips出现*/
 		/*tipsMore: false,*/
-		time: 0
+		time: 1000 * 60 * 10,
+		success(indexPanel, layerIndex) {
+			try {
+				app = createApp(options.content);
+				app.use(appAddPlugin[appId], { dependState: appDependState[appId] });
+				app.mount(`#${followId}_content`);
+			} catch (e) {
+				console.error(e);
+			}
+			options.afterOpenDialoag && options.afterOpenDialoag(app);
+		},
+		end() {
+			if (app) {
+				app.unmount();
+				app = null;
+			}
+		}
 	});
 	popverIndexCollection[followId] = popoverIndex;
 });

@@ -1,20 +1,19 @@
 import { _ } from "@ventose/ui";
-
-window.URL_API_VERSION = "/v1";
-window.URL_BASE = "www.singlone.work/https/book";
-window.URL_API_BASE = `https://${window.URL_BASE}`;
-window.URL_WS_BASE = `wss://www.singlone.work/ws`;
+import $ from "jquery";
 
 const auth = "/auth";
-const version = window.URL_API_VERSION;
+const version = __URL_API_VERSION;
+
+const prefixAuth = `${version}${auth}`;
+const prefixVersion = `${version}`;
 export const URL = {
-	test: () => `${window.URL_API_BASE}/`,
-	regster: () => `${window.URL_API_BASE}${version}/reg`,
-	Login: () => `${window.URL_API_BASE}${version}/login`,
-	VerifyEmail: () => `${window.URL_API_BASE}${version}/verify_email`,
+	test: () => `${__URL_API_BASE}/`,
+	regster: () => `${prefixVersion}/reg`,
+	Login: () => `${prefixVersion}/login`,
+	VerifyEmail: () => `${prefixVersion}/verify_email`,
 	/*  */
-	Logout: () => `${window.URL_API_BASE}${auth}${version}/logout`,
-	User: () => `${window.URL_API_BASE}${auth}${version}/user`,
+	Logout: () => `${prefixAuth}/logout`,
+	User: () => `${prefixAuth}/user`,
 	/*  */
 	/*  */
 	/*  */

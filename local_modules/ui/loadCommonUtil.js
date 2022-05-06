@@ -1,6 +1,7 @@
 /* import merge from "lodash/merge"; import each from "lodash/each"; import map from "lodash/map"; import reduce from "lodash/reduce"; import isArray from "lodash/isArray"; import isPlainObject from "lodash/isPlainObject"; import isFunction from "lodash/isFunction"; import isString from "lodash/isString"; import isBoolean from "lodash/isBoolean"; import some from "lodash/some"; import every from "lodash/every"; import debounce from "lodash/debounce"; import isNumber from "lodash/isNumber"; import filter from "lodash/filter"; import omit from "lodash/omit"; import last from "lodash/last"; import first from "lodash/first"; import cloneDeep from "lodash/cloneDeep"; import find from "lodash/find"; export const _ = {}; const lodashFunctions = { merge, each, map, reduce, isArray, isPlainObject, isFunction, isBoolean, isString, some, every, debounce, isNumber, filter, omit, last, first, cloneDeep, find }; each(lodashFunctions, (fn, prop) => (_[prop] = fn)); */
 import mylodash from "lodash";
 import dayjs from "dayjs";
+import $ from "jquery";
 
 mylodash.WORDS = {
 	INVALID_DATE: "Invalid Date",
@@ -15,6 +16,7 @@ mylodash.doNothing = (...args) => {
 		console.log.apply(console, args);
 	}
 };
+
 /* 睡眠 t:setTimeout during time*/
 mylodash.sleep = t => new Promise(r => setTimeout(r, t));
 
@@ -213,6 +215,126 @@ mylodash.preload = (baseModule, deps) => {
 			}
 		})
 	).then(() => baseModule());
+};
+
+/*
+ * @parseContent：满足`return {}`形式的字符串
+ */
+const parseContent = returnSentence => {
+	if (!returnSentence) return;
+	return new Function(`
+	${returnSentence}
+	return module();
+	`);
+};
+
+/**
+ *
+ * @param {*} url
+ * @returns
+ */
+mylodash.asyncLoadText = function (url) {
+	mylodash.asyncLoadText.cache = mylodash.asyncLoadText.cache || {};
+	/* https://learn.jquery.com/ */
+	/* https://api.jquery.com/jQuery.ajax/  */
+	return new Promise((resolve, reject) =>
+		$.ajax({
+			type: "GET",
+			async: true,
+			url,
+			dataType: "text",
+			success: resolve,
+			error: reject
+		})
+	);
+};
+
+/**
+ * async 执行jsx module 文件
+ * @param {*} url
+ */
+async function asyncExecFnString(url) {
+	let data = "";
+	try {
+		data = await mylodash.asyncLoadText(url);
+	} catch (error) {}
+	return parseContent(data);
+}
+mylodash.asyncExecFnString = asyncExecFnString;
+
+const VueComponents = {};
+
+async function asyncImportSFC(url) {
+	if (VueComponents[url]) {
+		return VueComponents[url];
+	}
+	const scfSourceCode = await mylodash.asyncLoadText(url);
+	const scfObjSourceCode = VueLoader(scfSourceCode);
+	let scfObjAsyncFn = (...args) => {
+		console.log(args);
+	};
+	try {
+		scfObjAsyncFn = eval(scfObjSourceCode);
+	} catch (e) {
+		console.error(e);
+	}
+	const scfObj = await scfObjAsyncFn(window.Vue, {
+		url
+	});
+	return scfObj;
+}
+
+mylodash.asyncImportSFC = asyncImportSFC;
+
+/**
+ * 用于Boundless 解析vue SFC文件
+ * @param {*} code
+ * @returns
+ */
+function VueLoader(code) {
+	function getSource(source, type) {
+		var regex = new RegExp("<" + type + "[^>]*>");
+		var openingTag = source.match(regex);
+		if (!openingTag) return "";
+		else openingTag = openingTag[0];
+		var targetSource = source.slice(
+			source.indexOf(openingTag) + openingTag.length,
+			source.lastIndexOf("</" + type + ">")
+		);
+		return type === "template"
+			? targetSource.replace(/`/g, "\\`")
+			: targetSource;
+	}
+
+	function splitCode() {
+		if (!/TEMPLATE_PLACEHOLDER/.test(code)) {
+			alert("SFC miss TEMPLATE_PLACEHOLDER");
+			console.error(code);
+		}
+		return getSource(code, "script").replace(
+			/TEMPLATE_PLACEHOLDER/,
+			`template: \`${getSource(code, "template")}\``
+		);
+	}
+
+	return splitCode();
+}
+
+/**
+ *
+ * @param {*} cssname
+ * @returns
+ */
+mylodash.loadCss = function (cssname) {
+	const cssPath = `${cssname}`;
+	let $link = $("<link/>", { rel: "stylesheet", type: "text/css" });
+	$link.appendTo($("head"));
+	$link[0].href = `${cssPath}?_t=${Date.now()}`;
+	/* destroy 的时候移除已加载的模块css，酌情使用 */
+	return () => {
+		$link.remove();
+		$link = null;
+	};
 };
 
 export { mylodash as _ };

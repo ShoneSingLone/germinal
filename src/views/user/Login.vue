@@ -1,16 +1,16 @@
 <script setup>
 import { reactive, computed } from "vue";
-import { $t } from "lsrc/language";
 import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { State_Login } from "./State_Login";
 import { routeNames } from "lsrc/router/router";
-import { _ } from "@ventose/ui";
+import { _, State_UI } from "@ventose/ui";
 import {
 	AlipayCircleFilled,
 	TaobaoCircleFilled,
 	WeiboCircleFilled
 } from "@ant-design/icons-vue";
+const { $t } = State_UI;
 </script>
 
 <template>
@@ -20,7 +20,7 @@ import {
 			<!-- <TabPane key="credentials" :tab="$t('user.login.tab-login-credentials').label" > </TabPane> -->
 			<!-- <TabPane key="mobile" :tab="$t('user.login.tab-login-mobile').label"> <LoginCredentialsMobile /> </TabPane> -->
 			<!-- </Tabs> -->
-			<Alert
+			<aAlert
 				v-if="State_Login.alertTips"
 				type="error"
 				show-icon

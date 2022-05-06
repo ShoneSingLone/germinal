@@ -22,9 +22,6 @@ import {
 	Spin,
 	Layout,
 	Tooltip,
-	/* global */
-	message,
-	notification,
 	Upload,
 	Switch
 } from "ant-design-vue";
@@ -43,8 +40,7 @@ import {
 /* 表单提示信息 */
 import "ant-design-vue/es/form/style/index.css";
 import $ from "jquery";
-import layer from "./xSingle/layer/layer";
-import { installPopoverDirective } from "./xSingle/popover.js";
+import { installPopoverDirective } from "./xSingle/popover";
 import xRender from "./xRender/xRender.jsx";
 import xItem from "./xForm/xItem.vue";
 import xForm from "./xForm/xForm.vue";
@@ -58,32 +54,40 @@ import xDataGridToolbar from "./xDataGrid/xDataGridToolbar.vue";
 import xCellLabel from "./xDataGrid/xCellLabel.vue";
 import xPagination from "./xDataGrid/xPagination.vue";
 import xColFilter from "./xDataGrid/xColFilter.vue";
-import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import {
-	installUIDialogComponent,
-	t_dialogOptions
-} from "./xSingle/dialog/dialog";
+import { installUIDialogComponent } from "./xSingle/dialog/dialog";
 import { _ as mylodash } from "./loadCommonUtil.js";
-import { State_UI } from "./State_UI";
+import { State_UI, Cpt_UI_locale } from "./State_UI";
 import dayjs from "dayjs";
 /* @ts-ignore */
 window.dayjs = dayjs;
 /* @ts-ignore */
 window.moment = dayjs;
+/* @ts-ignore */
+window.jquery = $;
 
-/*State_UI作为句柄，与外部通信，$t language 等属性*/
-//@ts-ignore
-if (import.meta.env.MODE === "development") {
-	//@ts-ignore
-	window.jquery = $;
-}
+import {
+	defPagination,
+	setPagination,
+	getPaginationPageSize,
+	defCol,
+	defColActions,
+	defColActionsBtnlist,
+	defDataGridOption,
+	setDataGridInfo
+} from "./xDataGrid/common";
+import { defItem, vModel, antColKey } from "./xForm/common.js";
+import { EVENT_TYPE, validateForm, AllWasWell } from "./tools/validate.js";
+import { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
+import { lStorage } from "./tools/storage.js";
+import { pickValueFrom, resetState_Value } from "./tools/form.js";
+import { UI } from "./UI";
 
-/* my-ui */
+/* my-private-ui-component */
 const componentMyUI = {
+	xButton,
 	xRender,
 	xItem,
 	xForm,
-	xButton,
 	xButtonCountDown,
 	xGap,
 	xCharts,
@@ -139,108 +143,7 @@ const components = {
 	...componentMyUI
 };
 
-/* 静态方法，与APP实例无关，引用有直接可用 */
-
-const useModel = type => {
-	return ({ title = "", content = "" }) => {
-		return new Promise((resolve, reject) => {
-			title = (isDefault => {
-				if (isDefault) {
-					const title_map = {
-						success: State_UI.$t("成功").label,
-						info: State_UI.$t("提示").label,
-						error: State_UI.$t("错误").label,
-						warning: State_UI.$t("警告").label
-					};
-					return title_map[type];
-				} else {
-					return title;
-				}
-			})(!title);
-			Modal[type]({
-				title,
-				icon: <ExclamationCircleOutlined />,
-				content: content,
-				onOk() {
-					resolve("ok");
-				},
-				onCancel() {
-					reject();
-				},
-				okText: State_UI.$t("确定").label,
-				class: "test"
-			});
-		});
-	};
-};
-
-import {
-	defPagination,
-	setPagination,
-	getPaginationPageSize,
-	defCol,
-	defColActions,
-	defColActionsBtnlist,
-	defDataGridOption,
-	setDataGridInfo
-} from "./xDataGrid/common.tsx";
-import { defItem, vModel, antColKey } from "./xForm/common.js";
-import { EVENT_TYPE, validateForm, AllWasWell } from "./tools/validate.js";
-import { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
-import { lStorage } from "./tools/storage.js";
-import { pickValueFrom, resetState_Value } from "./tools/form.js";
-
-export const UI = {
-	dialog: {
-		component: async (options: t_dialogOptions) => null,
-		success: useModel("success"),
-		info: useModel("info"),
-		error: useModel("error"),
-		warning: useModel("warning"),
-		confirm({ title = "", content = "" }) {
-			return new Promise((resolve, reject) => {
-				Modal.confirm({
-					title,
-					icon: <ExclamationCircleOutlined />,
-					content: <div>{content}</div>,
-					onOk() {
-						resolve("ok");
-					},
-					onCancel() {
-						reject();
-					},
-					okText: State_UI.$t("确定").label,
-					cancelText: State_UI.$t("取消").label,
-					class: "test"
-				});
-			});
-		},
-		delete({ title, content } = {}) {
-			title = title || State_UI.$t("删除").label;
-			content = content || State_UI.$t("删除确认提示").label;
-			return new Promise((resolve, reject) => {
-				Modal.confirm({
-					title,
-					icon: <ExclamationCircleOutlined style={"color:red"} />,
-					content,
-					okType: "danger",
-					okText: State_UI.$t("确定").label,
-					cancelText: State_UI.$t("取消").label,
-					onOk() {
-						resolve("ok");
-					},
-					onCancel() {
-						reject();
-					}
-				});
-			});
-		}
-	},
-	message,
-	notification,
-	layer
-};
-
+export { UI as UI };
 export { dayjs as moment };
 export { dayjs as dayjs };
 export { mylodash as _ };
@@ -251,7 +154,9 @@ export { defColActions as defColActions };
 export { defColActionsBtnlist as defColActionsBtnlist };
 export { defDataGridOption as defDataGridOption };
 export { setDataGridInfo as setDataGridInfo };
+/* State_UI作为句柄，与外部通信，$t language 等属性 */
 export { State_UI as State_UI };
+export { Cpt_UI_locale as Cpt_UI_locale };
 export { lStorage as lStorage };
 export { EVENT_TYPE as EVENT_TYPE };
 

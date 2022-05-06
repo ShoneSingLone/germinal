@@ -6,7 +6,7 @@ import {
 	Actions_App
 } from "lsrc/state/State_App";
 import MenuTree from "lsrc/components/MenuTree.vue";
-import logoImg from "lsrc/assets/logo.png";
+import logoImg from "lsrc/assets/logo2.jpg";
 import { reactive } from "vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";

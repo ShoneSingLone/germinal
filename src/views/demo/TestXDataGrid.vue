@@ -5,9 +5,10 @@ import {
 	defItem,
 	defDataGridOption,
 	defCol,
-	defPagination
+	defPagination,
+	State_UI
 } from "@ventose/ui";
-import { $t } from "lsrc/language";
+const { $t } = State_UI;
 
 /* data */
 const State_query = reactive({
@@ -47,7 +48,9 @@ const State_table = reactive(
 		columns: {
 			...defCol({
 				label: $t("a").label,
-				prop: "a"
+				prop: "a",
+				onFilter: (value, record) => record.address.indexOf(value) === 0,
+				sorter: (a, b) => a.address.length - b.address.length
 			}),
 			...defCol({
 				label: $t("b").label,

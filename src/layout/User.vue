@@ -1,21 +1,15 @@
 <script setup>
-import logoImg from "../assets/logo.png";
-import backgroundImg from "../assets/background.svg";
+import logoImg from "../assets/logo2.jpg";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
 import { State_App } from "lsrc/state/State_App";
 import { _ } from "@ventose/ui";
-
-_.doNothing(backgroundImg);
-const styles = {
-	container: `background:#f0f2f5 url(${backgroundImg}) no-repeat 50%;`
-};
 </script>
 
 <template>
 	<div
 		id="userLayout"
 		:class="['user-layout-wrapper', State_App.isMobile && 'mobile']">
-		<div class="container" :style="styles.container">
+		<div class="container container-background">
 			<div class="user-layout-lang">
 				<SelectLanguage class="select-lang-trigger" />
 			</div>
@@ -40,7 +34,7 @@ const styles = {
 						<a href="_self">隐私</a>
 						<a href="_self">条款</a>
 					</div>
-					<div class="copyright">Copyright &copy; 2018 vueComponent</div>
+					<div class="copyright">Copyright &copy; ventose</div>
 				</div>
 			</div>
 		</div>

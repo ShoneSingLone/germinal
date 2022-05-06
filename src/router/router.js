@@ -6,9 +6,9 @@ import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
-import { $t } from "lsrc/language";
-import { _, setDocumentTitle } from "@ventose/ui";
+import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
+const { $t } = State_UI;
 
 export const NewRoute = (name, component, options = {}) =>
 	_.merge(
@@ -36,14 +36,16 @@ const routes = [
 	{
 		name: routeNames.shell,
 		path: "/",
-		redirect: "/shell",
+		redirect: "/dashboard-workplace",
 		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [
 			{
-				name: "shell.home",
-				path: "/shell",
+				name: routeNames.dashboardWorkplace,
+				path: "/dashboard-workplace",
 				component: DevDemo
-			}
+			},
+			/* 按约定规则由源码文件夹生成的routes */
+			...ALL_DEFAULT_ROUTES
 		]
 	},
 	NewRoute(routeNames.devDemo, DevDemo),
@@ -62,10 +64,12 @@ const routes = [
 			})
 		]
 	}),
-	/* 按约定规则由源码文件夹生成的routes */
-	...ALL_DEFAULT_ROUTES,
 	/* 404兜底 */
-	{ path: "/:pathMatch(.*)*", name: "404", component: NotFound }
+	{
+		path: "/:pathMatch(.*)*",
+		name: "404",
+		component: NotFound
+	}
 ];
 
 export const router = createRouter({
@@ -85,7 +89,7 @@ const allowVisitPageWhenNoAccess = [
 ];
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
-const defaultRoutePath = toPath(routeNames.dashboardWorkplace);
+const defaultRoutePath = toPath(routeNames.shell);
 
 router.beforeEach(async (to, from) => {
 	/*NOTICE:返回 false 以取消导航*/
@@ -101,7 +105,7 @@ router.beforeEach(async (to, from) => {
 				path: defaultRoutePath
 			};
 		}
-
+		debugger;
 		if (!State_App.user) {
 			await Actions_App.setUserInfo();
 		}
