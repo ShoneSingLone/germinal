@@ -25,11 +25,6 @@ export default defineConfig({
 				target: "https://wwww.singlone.work/s/api/",
 				changeOrigin: true,
 				secure: false
-			},
-			"/v1/auth": {
-				target: "https://wwww.singlone.work/s/api/",
-				changeOrigin: true,
-				secure: false
 			}
 		}
 	},

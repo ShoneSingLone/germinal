@@ -45,6 +45,10 @@ body,
 ...;
 ```
 
+## boundless demo 页面
+
+[https://shonesinglone.github.io/germinal/boundless/index.html?VIEW_NAME=demo](https://shonesinglone.github.io/germinal/boundless/index.html?VIEW_NAME=demo)
+
 ## 开发测试 demo 页面
 
 [http://localhost:3000/#/dev-demo](http://localhost:3000/#/dev-demo)
@@ -148,7 +152,7 @@ if (this.options.component) {
 }
 ```
 
-跟 Vue2 有不同的处理方式在于 appPlugins 的使用。主要是 Vue app 化后无法共享 component 这类的配置信息
+与 Vue2 处理方式不同，需要使用 appPlugins 给`createApp`返回的`app`添加 plugin。应对 app 独立化后，无法共享 component 依赖的特性。
 
 ## 状态管理 ~~VueX~~
 
