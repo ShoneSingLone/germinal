@@ -23,7 +23,7 @@ ajax.interceptors.response.use(
 	},
 	async error => {
 		const { response } = error;
-		logError(response.data.data);
+		logError(response?.data?.data);
 		return Promise.reject(error);
 	}
 );
