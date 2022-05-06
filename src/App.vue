@@ -8,12 +8,15 @@ import { setDocumentTitle } from "@ventose/ui";
 export default defineComponent({
 	data() {
 		return {
-			isLoading: true
+			userAgent: navigator.userAgent,
+			isLoading: true,
+			State_App: {}
 		};
 	},
 	async mounted() {
 		/* 做一些初始化的处理，包括进入系统加载对应的字典 */
 		const State_App = await Actions_App.initAppConfigs();
+		this.State_App = State_App;
 		/* HTML title */
 		setDocumentTitle(State_App.configs.title);
 		/* 菜单可以从API获取 */
@@ -24,7 +27,14 @@ export default defineComponent({
 });
 </script>
 <template>
-	<aSpin v-if="isLoading">Loading...</aSpin>
+	<aAlert
+		v-if="State_App.UseMockData"
+		type="error"
+		show-icon
+		style="margin-bottom: 24px"
+		message="UseMockData" />
+	<!-- <h1> {{ userAgent }} </h1> -->
+	<aSpin v-if="isLoading"> Loading... </aSpin>
 	<RouterView v-else />
 </template>
 

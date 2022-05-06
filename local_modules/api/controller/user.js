@@ -18,7 +18,7 @@ export const user = {
 	async getVerifyEmail(params) {
 		return await ajax.post(URL.VerifyEmail(), params);
 	},
-	async user(params) {
+	async info(params) {
 		return await ajax.post(URL.User(), params);
 	}
 };

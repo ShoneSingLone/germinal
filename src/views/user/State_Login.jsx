@@ -81,7 +81,8 @@ export const State_Login = reactive({
 				FormRules.required(
 					() => $t("user.email.required").label,
 					[EVENT_TYPE.blur]
-				)
+				),
+				FormRules.email()
 			],
 			slots: { prefix: () => <UserOutlined style={styles.icon} /> }
 		}),

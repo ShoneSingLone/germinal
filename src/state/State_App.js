@@ -4,7 +4,9 @@ import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
 import md5 from "md5";
 import $ from "jquery";
+const { $t } = State_UI;
 export const State_App = reactive({
+	UseMockData: false,
 	theme: "light",
 	menuTree: [],
 	layoutStyle: {
@@ -49,6 +51,20 @@ export const getColor = colorName => {
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
 watch(
+	() => State_App.token,
+	token => {
+		lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
+		if (!token) {
+			State_App.user = false;
+		}
+	},
+	{
+		immediate: true,
+		deep: true
+	}
+);
+
+watch(
 	() => State_App.configs,
 	configs => (lStorage.appConfigs = configs),
 	{
@@ -79,13 +95,6 @@ export const Mutations_App = {
 
 /* Action 异步修改 效果同事务 自己去保证原子性 */
 export const Actions_App = {
-	setToken(token) {
-		lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
-		State_App.token = token;
-		if (!token) {
-			State_App.user = false;
-		}
-	},
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
@@ -115,7 +124,7 @@ export const Actions_App = {
 		const params = {
 			type: "user"
 		};
-		const user = await API.user.user(params);
+		const user = await API.user.info(params);
 		State_App.user = user;
 		/* if (result.role && result.role.permissions.length > 0) {
 			const role = result.role;
@@ -165,7 +174,7 @@ export const Actions_App = {
 			request: () => API.user.login(loginParams),
 			success: user => {
 				/* 设置token */
-				Actions_App.setToken(user.token);
+				State_App.token = user.token;
 			}
 		});
 	},
@@ -173,9 +182,15 @@ export const Actions_App = {
 		try {
 			const res = await API.user.logout();
 			/* 退出成功后清空token */
-			Actions_App.setToken("");
+			State_App.token = "";
 			/* fixed循环引用 */
 			const { router, routeNames } = await import("lsrc/router/router");
+			UI.message.success({
+				content: $t("成功", {
+					action: $t("退出").label
+				}).label
+			});
+			await _.sleep(1000 * 1);
 			router.push({
 				name: routeNames.userLogin
 			});
