@@ -1,4 +1,4 @@
-import { m as _export_sfc } from "./index.js";
+import { l as _export_sfc } from "./index.js";
 const _sfc_main = {};
 function _sfc_render(_ctx, _cache) {
   return Vue.openBlock(), Vue.createElementBlock("h1", null, "ViewD");

@@ -49404,24 +49404,33 @@ ajax.interceptors.response.use(async (response) => {
   } = response;
   return Promise.resolve(data4.data);
 }, async (error) => {
+  var _a, _b;
   const {
     response
   } = error;
-  logError$1(response.data.data);
+  console.log(response);
+  logError$1((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
+  if (((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.msg) === "auth") {
+    State_App.token = "";
+    await _global__.sleep(1e3);
+    window.location.reload();
+  }
   return Promise.reject(error);
 });
 function logError$1(msg) {
+  if (!msg)
+    return;
   UI.notification.error({
     message: msg
   });
   console.error(msg);
 }
-const auth = "/auth";
+const auth = "/shiro";
 const version = __URL_API_VERSION;
 const prefixAuth = `${version}${auth}`;
 const prefixVersion = `${version}`;
-const URL = {
-  test: () => `${__URL_API_BASE}/`,
+const URL = new Proxy({
+  testConnection: () => `${__URL_API_BASE}`,
   regster: () => `${prefixVersion}/reg`,
   Login: () => `${prefixVersion}/login`,
   VerifyEmail: () => `${prefixVersion}/verify_email`,
@@ -49434,7 +49443,16 @@ const URL = {
   SendSmsErr: (prefix) => `${prefix}/account/sms_err`,
   UserInfo: (prefix) => `${prefix}/api/user/info`,
   UserMenu: (prefix) => `${prefix}/api/user/nav`
-};
+}, {
+  get(obj, prop) {
+    if (obj[prop]) {
+      return obj[prop];
+    } else {
+      debugger;
+      alert(`url miss ${prop}`);
+    }
+  }
+});
 const user = {
   async login(params) {
     return await ajax.post(URL.Login(), params);
@@ -49448,13 +49466,13 @@ const user = {
   async getVerifyEmail(params) {
     return await ajax.post(URL.VerifyEmail(), params);
   },
-  async user(params) {
+  async info(params) {
     return await ajax.post(URL.User(), params);
   }
 };
 const common = {
   async testConnect(params) {
-    return await ajax.get(URL.test(), {
+    return await ajax.get(URL.testConnection(), {
       params: {
         test: "isConnect"
       }
@@ -49717,7 +49735,11 @@ function isSlowBuffer(obj) {
   };
 })();
 var md5 = md5$1.exports;
+const {
+  $t: $t$4
+} = State_UI;
 const State_App = Vue.reactive({
+  UseMockData: false,
   theme: "light",
   menuTree: [],
   layoutStyle: {
@@ -49748,6 +49770,15 @@ const getColor = (colorName) => {
   var _a, _b;
   return ((_a = State_App.configs) == null ? void 0 : _a.colors) ? (_b = State_App.configs) == null ? void 0 : _b.colors[colorName] : "";
 };
+Vue.watch(() => State_App.token, (token) => {
+  lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
+  if (!token) {
+    State_App.user = false;
+  }
+}, {
+  immediate: true,
+  deep: true
+});
 Vue.watch(() => State_App.configs, (configs) => lStorage.appConfigs = configs, {
   immediate: true,
   deep: true
@@ -49757,13 +49788,6 @@ Vue.watch(() => State_App.configs.colors, (colors) => setCSSVariables(colors), {
   deep: true
 });
 const Actions_App = {
-  setToken(token) {
-    lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
-    State_App.token = token;
-    if (!token) {
-      State_App.user = false;
-    }
-  },
   async initAppConfigs(callback) {
     console.time("initAppConfigs");
     console.log("\u{1F680}:", "__APP_VERSION", JSON.stringify(__APP_VERSION, null, 2));
@@ -49783,7 +49807,7 @@ const Actions_App = {
     const params = {
       type: "user"
     };
-    const user2 = await API.user.user(params);
+    const user2 = await API.user.info(params);
     State_App.user = user2;
   },
   async register({
@@ -49805,7 +49829,7 @@ const Actions_App = {
         email: email2
       }) => {
         UI.message.success({
-          content: $t("user.register-result.msg", {
+          content: $t$4("user.register-result.msg", {
             email: email2
           }).label
         });
@@ -49823,20 +49847,26 @@ const Actions_App = {
     await SuccessOrFail({
       request: () => API.user.login(loginParams),
       success: (user2) => {
-        Actions_App.setToken(user2.token);
+        State_App.token = user2.token;
       }
     });
   },
   Logout: async () => {
     try {
       const res = await API.user.logout();
-      Actions_App.setToken("");
+      State_App.token = "";
       const {
         router: router2,
         routeNames: routeNames2
       } = await __vitePreload(() => Promise.resolve().then(function() {
         return router$1;
       }), true ? void 0 : void 0);
+      UI.message.success({
+        content: $t$4("\u6210\u529F", {
+          action: $t$4("\u9000\u51FA").label
+        }).label
+      });
+      await _global__.sleep(1e3 * 1);
       router2.push({
         name: routeNames2.userLogin
       });
@@ -49849,11 +49879,14 @@ var App_less_vue_type_style_index_0_src_lang = "";
 const _sfc_main$9 = Vue.defineComponent({
   data() {
     return {
-      isLoading: true
+      userAgent: navigator.userAgent,
+      isLoading: true,
+      State_App: {}
     };
   },
   async mounted() {
     const State_App2 = await Actions_App.initAppConfigs();
+    this.State_App = State_App2;
     setDocumentTitle(State_App2.configs.title);
     const {
       MENUS_ALL_DEFAULT_ROUTES: MENUS_ALL_DEFAULT_ROUTES2
@@ -49864,18 +49897,27 @@ const _sfc_main$9 = Vue.defineComponent({
     this.isLoading = false;
   }
 });
-const _hoisted_1$5 = /* @__PURE__ */ Vue.createTextVNode("Loading...");
+const _hoisted_1$5 = /* @__PURE__ */ Vue.createTextVNode(" Loading... ");
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_aAlert = Vue.resolveComponent("aAlert");
   const _component_aSpin = Vue.resolveComponent("aSpin");
   const _component_RouterView = Vue.resolveComponent("RouterView");
-  return _ctx.isLoading ? (Vue.openBlock(), Vue.createBlock(_component_aSpin, {
-    key: 0
+  return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [_ctx.State_App.UseMockData ? (Vue.openBlock(), Vue.createBlock(_component_aAlert, {
+    key: 0,
+    type: "error",
+    "show-icon": "",
+    style: {
+      "margin-bottom": "24px"
+    },
+    message: "UseMockData"
+  })) : Vue.createCommentVNode("", true), _ctx.isLoading ? (Vue.openBlock(), Vue.createBlock(_component_aSpin, {
+    key: 1
   }, {
     default: Vue.withCtx(() => [_hoisted_1$5]),
     _: 1
   })) : (Vue.openBlock(), Vue.createBlock(_component_RouterView, {
-    key: 1
-  }));
+    key: 2
+  }))], 64);
 }
 var App = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render]]);
 var nprogress = { exports: {} };
@@ -50284,7 +50326,7 @@ const _sfc_main$6 = {
   }
 };
 const {
-  $t: $t$4
+  $t: $t$3
 } = State_UI;
 const SUCCESS = false;
 const FAIL = true;
@@ -50303,7 +50345,7 @@ var FormRules = {
   required(msg, trigger2 = [EVENT_TYPE.update]) {
     return makeFormRules({
       name: "required",
-      msg: msg || $t$4("\u5FC5\u586B\u9879").label,
+      msg: msg || $t$3("\u5FC5\u586B\u9879").label,
       async validator(value) {
         if (value)
           return SUCCESS;
@@ -50332,7 +50374,7 @@ var FormRules = {
   email() {
     return {
       name: "email",
-      msg: $t$4("user.email.wrong-format").label,
+      msg: () => $t$3("user.email.wrong-format").label,
       async validator(value) {
         if (RegexFn.email().test(value)) {
           return SUCCESS;
@@ -50357,7 +50399,7 @@ var FormRules = {
   }
 };
 const {
-  $t: $t$3
+  $t: $t$2
 } = State_UI;
 function handleLoginSuccess(res) {
   function timeFix() {
@@ -50366,8 +50408,8 @@ function handleLoginSuccess(res) {
     return hour < 9 ? "\u65E9\u4E0A\u597D" : hour <= 11 ? "\u4E0A\u5348\u597D" : hour <= 13 ? "\u4E2D\u5348\u597D" : hour < 20 ? "\u4E0B\u5348\u597D" : "\u665A\u4E0A\u597D";
   }
   UI.notification.success({
-    message: $t$3("welcome").label,
-    description: `${timeFix()}\uFF0C${$t$3("welcome.back").label}`
+    message: $t$2("welcome").label,
+    description: `${timeFix()}\uFF0C${$t$2("welcome.back").label}`
   });
   setTimeout(() => {
     window.location.reload();
@@ -50406,8 +50448,8 @@ const State_Login = Vue.reactive({
   configsForm: __spreadValues(__spreadValues({}, defItem({
     prop: "email",
     size: "large",
-    placeholder: () => $t$3("user.login.email.placeholder").label,
-    rules: [FormRules.required(() => $t$3("user.email.required").label, [EVENT_TYPE.blur])],
+    placeholder: () => $t$2("user.login.email.placeholder").label,
+    rules: [FormRules.required(() => $t$2("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
     slots: {
       prefix: () => Vue.createVNode(UserOutlined$1, {
         "style": styles$1.icon
@@ -50417,8 +50459,8 @@ const State_Login = Vue.reactive({
     prop: "password",
     isPassword: true,
     size: "large",
-    placeholder: () => $t$3("user.login.password.placeholder").label,
-    rules: [FormRules.required(() => $t$3("user.password.required").label, [EVENT_TYPE.blur])],
+    placeholder: () => $t$2("user.login.password.placeholder").label,
+    rules: [FormRules.required(() => $t$2("user.password.required").label, [EVENT_TYPE.blur])],
     slots: {
       prefix: () => Vue.createVNode(LockOutlined$1, {
         "style": styles$1.icon
@@ -50429,7 +50471,7 @@ const State_Login = Vue.reactive({
     size: "large",
     type: "primary",
     class: "login-button flex center",
-    text: () => $t$3("user.login.login").label,
+    text: () => $t$2("user.login.login").label,
     onClick: onSubmitClick
   }
 });
@@ -50546,7 +50588,7 @@ const _sfc_main$4 = {
   }
 };
 const {
-  $t: $t$2
+  $t: $t$1
 } = State_UI;
 const styles = {
   icon: {
@@ -50572,8 +50614,8 @@ const State_Register = Vue.reactive({
   configsForm: __spreadValues(__spreadValues(__spreadValues(__spreadValues({}, defItem({
     prop: "email",
     size: "large",
-    placeholder: () => $t$2("user.login.email.placeholder").label,
-    rules: [FormRules.required(() => $t$2("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
+    placeholder: () => $t$1("user.login.email.placeholder").label,
+    rules: [FormRules.required(() => $t$1("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
     slots: {
       prefix: () => Vue.createVNode(MailOutlined$1, {
         "style": styles.icon
@@ -50583,9 +50625,9 @@ const State_Register = Vue.reactive({
     prop: "password",
     isPassword: true,
     size: "large",
-    placeholder: () => $t$2("user.login.password.placeholder").label,
-    rules: [FormRules.required(() => $t$2("user.password.required").label, [EVENT_TYPE.update]), FormRules.custom({
-      msg: () => $t$2("user.password.strength.msg").label,
+    placeholder: () => $t$1("user.login.password.placeholder").label,
+    rules: [FormRules.required(() => $t$1("user.password.required").label, [EVENT_TYPE.update]), FormRules.custom({
+      msg: () => $t$1("user.password.strength.msg").label,
       validator: checkPasswordLevel,
       trigger: [EVENT_TYPE.update]
     })],
@@ -50601,9 +50643,9 @@ const State_Register = Vue.reactive({
     prop: "passwordConfirm",
     isPassword: true,
     size: "large",
-    placeholder: () => $t$2("user.register.confirm-password.placeholder").label,
-    rules: [FormRules.required(() => $t$2("user.password.required").label, [EVENT_TYPE.blur]), FormRules.custom({
-      msg: () => $t$2("user.password.twice.msg").label,
+    placeholder: () => $t$1("user.register.confirm-password.placeholder").label,
+    rules: [FormRules.required(() => $t$1("user.password.required").label, [EVENT_TYPE.blur]), FormRules.custom({
+      msg: () => $t$1("user.password.twice.msg").label,
       validator: async (passwordConfirm) => State_Register.configsForm.password.value !== passwordConfirm,
       trigger: [EVENT_TYPE.update]
     })],
@@ -50616,8 +50658,8 @@ const State_Register = Vue.reactive({
     prop: "verifyCode",
     size: "large",
     itemWrapperClass: "flex1",
-    placeholder: () => $t$2("user.login.mobile.verification-code.placeholder").label,
-    rules: [FormRules.required(() => $t$2("user.verification-code.required").label, [EVENT_TYPE.blur])],
+    placeholder: () => $t$1("user.login.mobile.verification-code.placeholder").label,
+    rules: [FormRules.required(() => $t$1("user.verification-code.required").label, [EVENT_TYPE.blur])],
     slots: {
       prefix: () => Vue.createVNode(MailOutlined$1, {
         "style": styles.icon
@@ -50627,7 +50669,7 @@ const State_Register = Vue.reactive({
   configsverifyCode: {
     countMax: State_App.configs.countMax,
     text: {
-      normal: () => $t$2("user.register.get-verification-code").label
+      normal: () => $t$1("user.register.get-verification-code").label
     },
     onClick: async ({
       countDown
@@ -50649,7 +50691,7 @@ const State_Register = Vue.reactive({
     size: "large",
     type: "primary",
     class: "login-button flex1 center flex",
-    text: () => $t$2("user.register.register").label,
+    text: () => $t$1("user.register.register").label,
     onClick: async () => {
       try {
         const currentFormConfigs = State_Register.configsForm;
@@ -51134,7 +51176,7 @@ var routes$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   MENUS_ALL_DEFAULT_ROUTES
 }, Symbol.toStringTag, { value: "Module" }));
 const {
-  $t: $t$1
+  $t
 } = State_UI;
 const NewRoute = (name, component, options = {}) => _global__.merge({
   name,
@@ -51156,7 +51198,7 @@ const toPath = (name) => `/${name}`;
 const routes = [
   {
     name: routeNames.shell,
-    path: "/",
+    path: toPath(routeNames.shell),
     redirect: "/dashboard-workplace",
     component: __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css"] : void 0),
     children: [
@@ -51173,11 +51215,11 @@ const routes = [
     redirect: toPath(routeNames.userLogin),
     children: [NewRoute(routeNames.userLogin, _sfc_main$4, {
       meta: {
-        title: $t$1("user.login.login").label
+        title: $t("user.login.login").label
       }
     }), NewRoute(routeNames.register, _sfc_main$3, {
       meta: {
-        title: $t$1("user.login.signup").label
+        title: $t("user.login.signup").label
       }
     })]
   }),
@@ -51209,7 +51251,6 @@ router.beforeEach(async (to, from) => {
         path: defaultRoutePath
       };
     }
-    debugger;
     if (!State_App.user) {
       await Actions_App.setUserInfo();
     }
@@ -51626,6 +51667,7 @@ async function main() {
   try {
     await API.common.testConnect();
   } catch (d2) {
+    State_App.UseMockData = true;
     const {
       loadMockData
     } = await __vitePreload(() => import("./index2.js").then(function(n2) {
@@ -51638,4 +51680,4 @@ async function main() {
   }).mount("#app");
 }
 main();
-export { Actions_App as A, State_App as S, UserOutlined$1 as U, __vitePreload as _, _global__ as a, STATIC_WORD as b, commonjsGlobal as c, _sfc_main$7 as d, defDataGridOption as e, defCol as f, defColActions as g, State_UI as h, defColActionsBtnlist as i, UI as j, defItem as k, logoImg as l, _export_sfc as m, _sfc_main$1 as n };
+export { Actions_App as A, State_App as S, UserOutlined$1 as U, __vitePreload as _, _global__ as a, STATIC_WORD as b, commonjsGlobal as c, _sfc_main$7 as d, defDataGridOption as e, defCol as f, defColActions as g, State_UI as h, defColActionsBtnlist as i, UI as j, defItem as k, _export_sfc as l, _sfc_main$1 as m };

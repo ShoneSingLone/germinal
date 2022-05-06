@@ -1,4 +1,4 @@
-import { S as State_App, a as _global__, b as STATIC_WORD, l as logoImg, A as Actions_App, U as UserOutlined, d as _sfc_main$2 } from "./index.js";
+import { S as State_App, a as _global__, b as STATIC_WORD, A as Actions_App, U as UserOutlined, d as _sfc_main$2 } from "./index.js";
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }
@@ -134,6 +134,7 @@ var _sfc_main$1 = Vue.defineComponent({
   }
 });
 var MenuTree_vue_vue_type_style_index_0_lang = "";
+var logoImg = "./statics/assets/logo3.a354024b.png";
 const _hoisted_1 = {
   class: "log",
   style: {
@@ -192,6 +193,7 @@ var _sfc_main = {
         }, {
           default: Vue.withCtx(() => [Vue.createElementVNode("div", _hoisted_1, [Vue.createElementVNode("img", {
             src: Vue.unref(logoImg),
+            class: "layout-side-logo",
             style: {
               "width": "40px",
               "height": "40px",
