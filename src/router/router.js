@@ -35,7 +35,7 @@ const toPath = name => `/${name}`;
 const routes = [
 	{
 		name: routeNames.shell,
-		path: "/",
+		path: toPath(routeNames.shell),
 		redirect: "/dashboard-workplace",
 		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [
@@ -105,7 +105,6 @@ router.beforeEach(async (to, from) => {
 				path: defaultRoutePath
 			};
 		}
-		debugger;
 		if (!State_App.user) {
 			await Actions_App.setUserInfo();
 		}

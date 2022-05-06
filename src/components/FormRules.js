@@ -61,7 +61,7 @@ export default {
 	email() {
 		return {
 			name: "email",
-			msg: $t("user.email.wrong-format").label,
+			msg: () => $t("user.email.wrong-format").label,
 			async validator(value) {
 				if (RegexFn.email().test(value)) {
 					return SUCCESS;

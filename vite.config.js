@@ -8,11 +8,10 @@ import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
 // import cssOnly from "rollup-plugin-css-only";
 import fs from "fs";
-
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
 const baseRoot = "./";
-console.log("🚀 isPro", isPro, "isLib", isLib);
+console.log("🚀 isPro", isPro, "isLib", isLib, process.argv);
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
@@ -22,7 +21,10 @@ export default defineConfig({
 		},
 		proxy: {
 			"/v1": {
-				target: "https://wwww.singlone.work/s/api/",
+				target:
+					process.platform === "win32"
+						? "http://localhost:7001/"
+						: "https://wwww.singlone.work/s/api/",
 				changeOrigin: true,
 				secure: false
 			}
@@ -112,7 +114,18 @@ export default defineConfig({
 			// },
 		}),
 		injectHtml({
-			data: { version: Date.now() }
+			/* windows平台 */
+			data: (isLocal => {
+				const urlBase = isLocal ? "localhost:7001" : "www.singlone.work";
+				return {
+					version: Date.now(),
+					urlBase,
+					urlApiBase: isLocal
+						? `http://${urlBase}`
+						: `https://${urlBase}/s/api`,
+					urlWsBase: isLocal ? `ws://${urlBase}/ws` : `wss://${urlBase}/ws`
+				};
+			})(process.argv[4] === "local")
 		})
 	].concat(
 		(() => {

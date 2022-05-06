@@ -7,9 +7,9 @@
 		<script>
 			window.__APP_VERSION = "<%- version %>";
 			window.__URL_API_VERSION = "/v1";
-			window.__URL_BASE = "www.singlone.work";
-			window.__URL_API_BASE = `https://${__URL_BASE}/s/api`;
-			window.__URL_WS_BASE = `wss://${__URL_BASE}/ws`;
+			window.__URL_BASE = "<%- urlBase %>";
+			window.__URL_API_BASE = "<%- urlApiBase %>";
+			window.__URL_WS_BASE = "<%- urlWsBase %>";
 			window.__URL_STATIC_DIR = document
 				.querySelector(`link[rel='icon']`)
 				.href.replace("favicon.ico", "");

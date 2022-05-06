@@ -2,6 +2,12 @@
 module.exports = {
 	root: true,
 	globals: {
+		__APP_VERSION: true,
+		__URL_API_VERSION: true,
+		__URL_BASE: true,
+		__URL_API_BASE: true,
+		__URL_WS_BASE: true,
+		__URL_STATIC_DIR: true,
 		TEMPLATE_PLACEHOLDER: true,
 		VIEW_URL: true,
 		ROOT_URL: true,

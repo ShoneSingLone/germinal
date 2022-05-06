@@ -271,3 +271,6 @@ export const State_UI = reactive({
 ```
 
 xItem msg 可以是 function 根据传入的参数显示不同信息
+
+- 20220506234727
+如果response 是auth 清空token refresh页面
