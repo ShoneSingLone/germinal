@@ -14,7 +14,7 @@
 			</xForm>
 		</aCard>
 
-		<aCard style="margin: 20px">
+		<aCard style="margin: 20px" v-if="isShowTable">
 			<xDataGridToolbar :configs="configs_table">
 				<xGap f="1" />
 				<!--审批类型-->
@@ -61,6 +61,7 @@ async ({
 		data() {
 			const vm = this;
 			return {
+				isShowTable: false,
 				formItems: {
 					...defItem({
 						labelVNodeRender(configs, className) {
@@ -309,11 +310,13 @@ async ({
 				})
 			};
 		},
-		mounted() {
+		async mounted() {
 			/* 背景图地址需要路径参数 */
 			State_App.CSSVariables.backgroundImageUrl = `url(./bg.jpeg) center /cover no-repeat`;
 			setCSSVariables(State_App.CSSVariables);
 			this.setQuerySelectOptions();
+			await _.sleep(1000 * 1);
+			this.isShowTable = true;
 		},
 		methods: {
 			async handleLoginSuccess() {

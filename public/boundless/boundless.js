@@ -1,7 +1,7 @@
 $(async () => {
-	const { VentoseUI, $t, Vue } = window;
-
-	const { locationSearch } = Vue;
+	const { VentoseUI, Vue } = window;
+	const { locationSearch, defineComponent, markRaw, _, lStorage, State_UI } =
+		Vue;
 
 	window.ROOT_URL = ".";
 	window.VIEW_NAME = locationSearch("VIEW_NAME");
@@ -11,7 +11,6 @@ $(async () => {
 	}
 	window.VIEW_URL = `${ROOT_URL}/business/views/${VIEW_NAME}`;
 
-	const { _, lStorage, State_UI } = Vue;
 	/* 应用配置 */
 	/*当前国际化语言*/
 	lStorage.appConfigs = {
@@ -24,18 +23,16 @@ $(async () => {
 	};
 
 	/*并行异步加载*/
-	const [i18nString, App, components] = await Promise.all([
+	const [i18nString, components] = await Promise.all([
 		/* 加载对应语言message */
 		_.asyncLoadText(`${ROOT_URL}/static/i18n/${State_UI.language}.json`),
-		/* 视图入口页面 */
-		_.asyncImportSFC(`${VIEW_URL}/View-${VIEW_NAME}.vue`),
 		/* 自定义通用组件 */
 		Promise.all([
 			_.asyncImportSFC(`${ROOT_URL}/static/vue-components/SvgIcon.vue`)
 		])
 	]);
 
-	$t.options = _.safeParse(i18nString, []);
+	State_UI.i18nMessage = _.safeParse(i18nString, []);
 	/* 插件安装 */
 	const appPlugins = {
 		install(app, options /*{dependState, appPlugins}*/) {
@@ -57,8 +54,24 @@ $(async () => {
 	window.State_App = Vue.reactive({
 		CSSVariables: {}
 	});
-	const app = Vue.createApp(App);
-	app.config.globalProperties.$t = $t;
+	const app = Vue.createApp(
+		defineComponent({
+			template: `	<aSpin v-if="!currentView">Loading...</aSpin><component :is="currentView" v-else/>`,
+			data() {
+				return {
+					currentView: false
+				};
+			},
+			async beforeMount() {
+				/* 视图入口页面 */
+				const APP = await _.asyncImportSFC(`${VIEW_URL}/View-${VIEW_NAME}.vue`);
+				this.currentView = markRaw(APP);
+				window.instance = this;
+			}
+		})
+	);
+	app.config.globalProperties.$t = State_UI.$t;
+	window.$t = State_UI.$t;
 	app.use(appPlugins, {
 		dependState: State_App,
 		appPlugins

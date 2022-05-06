@@ -1,24 +1,4 @@
 (() => {
-	const $t = function (prop, payload) {
-		const result = { label: prop, prop: prop };
-		/* 使用 {变量名} 赋值 */
-		_.templateSettings.interpolate = /{([\s\S]+?)}/g;
-		if ($t.options) {
-			const temp = $t.options[prop];
-			if (temp) {
-				result.label = _.template(temp)(payload);
-				if (!result.label) {
-					result.label = prop;
-					console.error(`i18n:${prop} "NOT_FOUND"`);
-				}
-			}
-		}
-		return result;
-	};
-	window.$t = $t;
-})();
-
-(() => {
 	window.TEMPLATE_PLACEHOLDER = "";
 	const EVENT_TYPE = VentoseUI.EVENT_TYPE;
 	const makeFormRules = options => {

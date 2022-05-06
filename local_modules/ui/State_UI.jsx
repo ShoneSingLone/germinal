@@ -19,12 +19,12 @@ export const State_UI = reactive({
 	},
 	i18nMessage: {},
 	/*i18n  使用 {变量名} 赋值 */
-	$t(prop, payload) {
+	$t(prop, payload = {}, i18nMessage = false) {
 		/* this指向 */
 		const result = { label: prop, prop: prop };
 		_.templateSettings.interpolate = /{([\s\S]+?)}/g;
 		if (State_UI.i18nMessage) {
-			const temp = State_UI.i18nMessage[prop];
+			const temp = i18nMessage ? i18nMessage[prop] : State_UI.i18nMessage[prop];
 			if (temp) {
 				result.label = _.template(temp)(payload);
 				if (!result.label) {

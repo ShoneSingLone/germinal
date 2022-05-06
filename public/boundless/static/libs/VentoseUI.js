@@ -62490,6 +62490,7 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
 	};
 	const State_UI = Vue.reactive({
 		language: lStorage["language"] || "zh-CN",
+		onLanguageChange: false,
 		LANGUAGE: {
 			enUs: defaultLocale,
 			zhCn: zhCn$1
@@ -62502,6 +62503,7 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
 			};
 			_.templateSettings.interpolate = /{([\s\S]+?)}/g;
 			if (State_UI.i18nMessage) {
+				debugger;
 				const temp = State_UI.i18nMessage[prop];
 				if (temp) {
 					result.label = _.template(temp)(payload);
@@ -62519,13 +62521,16 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
 		language => {
 			lStorage["language"] = language;
 			dayjs.locale(language === "zh-CN" ? "zh-cn" : "en");
+			if (State_UI.onLanguageChange) {
+				State_UI.onLanguageChange(language, State_UI);
+			}
 		},
 		{
 			immediate: true
 		}
 	);
 	const Cpt_UI_locale = Vue.computed(() => {
-		const currentLanguage = _.camelCase(State_UI.language || "zh_CN");
+		const currentLanguage = _.camelCase(State_UI.language);
 		const locale2 = State_UI.LANGUAGE[currentLanguage];
 		return locale2;
 	});
