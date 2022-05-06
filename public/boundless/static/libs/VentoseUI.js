@@ -62496,15 +62496,16 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
 			zhCn: zhCn$1
 		},
 		i18nMessage: {},
-		$t(prop, payload) {
+		$t(prop, payload = {}, i18nMessage = false) {
 			const result = {
 				label: prop,
 				prop
 			};
 			_.templateSettings.interpolate = /{([\s\S]+?)}/g;
 			if (State_UI.i18nMessage) {
-				debugger;
-				const temp = State_UI.i18nMessage[prop];
+				const temp = i18nMessage
+					? i18nMessage[prop]
+					: State_UI.i18nMessage[prop];
 				if (temp) {
 					result.label = _.template(temp)(payload);
 					if (!result.label) {
