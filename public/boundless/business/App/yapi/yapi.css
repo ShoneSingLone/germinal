@@ -1,0 +1,30 @@
+#app {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    position: relative;
+    margin: 0 auto;
+}
+
+#app>div.background {
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    filter: blur(65px);
+    background: var(--backgroundImageUrl);
+    opacity: .6;
+    transform: translateZ(0);
+    z-index: 0;
+}
+
+#demo-wrapper {
+    overflow: auto;
+}
+
+.content-wrapper {
+    width: 460px;
+    margin: 20px auto;
+}

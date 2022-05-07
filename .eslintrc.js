@@ -9,9 +9,9 @@ module.exports = {
 		__URL_WS_BASE: true,
 		__URL_STATIC_DIR: true,
 		TEMPLATE_PLACEHOLDER: true,
-		VIEW_URL: true,
+		APP_ROOT_URL: true,
 		ROOT_URL: true,
-		VIEW_NAME: true,
+		APP_ENTRY_NAME: true,
 		URL_PREFIX: true,
 		defineProps: true,
 		defineEmits: true

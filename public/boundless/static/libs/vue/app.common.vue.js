@@ -1,4 +1,4 @@
-(function (Vue, axios) {
+(function (Vue, axios, VueRouter) {
 	if (!Vue) {
 		alert("vue.common.js 依赖 Vue，请提前引入");
 		return;
@@ -116,14 +116,17 @@
 			if (Vue.hasOwnProperty(prop)) {
 				return Vue[prop];
 			}
+			if (VueRouter.hasOwnProperty(prop)) {
+				return VueRouter[prop];
+			}
 			if (VentoseUI.hasOwnProperty(prop)) {
 				return VentoseUI[prop];
 			}
 			if (Utils.hasOwnProperty(prop)) {
 				return Utils[prop];
 			}
-			console.error(`${prop} not in Vue VentoseUI Utils`);
+			console.error(`${prop} not in [Vue、VueRouter、VentoseUI、Utils] `);
 			return Vue[prop];
 		}
 	});
-})(window.Vue, window.axios);
+})(window.Vue, window.axios, window.VueRouter);

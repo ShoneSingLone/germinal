@@ -2,12 +2,17 @@
 
 > **_非_** 最佳实践，尽量多样： Just for fun :)
 
+- [TODO](./README/README.todo.md)
+- [BOUNDLESS](./README/README.boundless.md)
+- [I18N](./README/README.i18n.md)
+- [ISSUE](./README/README.issue.md)
+
 - `npm i -g mirror-config-china --registry=https://registry.npm.taobao.org`
   ~~[Germinal](https://shonesinglone.github.io/germinal/)[![Build
 Status](https://app.travis-ci.com/ShoneSingLone/germinal.svg?branch=master)](https://app.travis-ci.com/ShoneSingLone/germinal)~~
 
 - [Actions: deploy app](https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco)
-- [TODO](./README.todo.md)
+- [TODO](README/README.todo.md)
 
 ```js
 /* README: */
@@ -47,7 +52,8 @@ body,
 
 ## boundless demo 页面
 
-[https://shonesinglone.github.io/germinal/boundless/index.html?VIEW_NAME=demo](https://shonesinglone.github.io/germinal/boundless/index.html?VIEW_NAME=demo)
+[https://shonesinglone.github.io/germinal/boundless/index.html?APP_ENTRY_NAME=demo](https://shonesinglone.github.io/germinal/boundless/index.html?APP_ENTRY_NAME=demo)
+[http://localhost:3000/boundless/index.html?APP_ENTRY_NAME=demo](http://localhost:3000/boundless/index.html?APP_ENTRY_NAME=demo)
 
 ## 开发测试 demo 页面
 
@@ -230,6 +236,7 @@ State_App.count: {{State_App.count}}
 
 ### Utils
 
+设置title
 - setDocumentTitle()
 
 ## 自定义的折叠按钮(未使用)
