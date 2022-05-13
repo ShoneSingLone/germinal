@@ -1,4 +1,4 @@
-(function (Vue, axios) {
+(function (Vue, axios, VueRouter) {
 	if (!Vue) {
 		alert("vue.common.js 依赖 Vue，请提前引入");
 		return;
@@ -75,90 +75,11 @@
 		};
 	})();
 
-	const VueComponents = {};
-
-	async function asyncImportSFC(url) {
-		if (VueComponents[url]) {
-			return VueComponents[url];
-		}
-		const scfSourceCode = await loadText(url);
-		const scfObjSourceCode = VueLoader(scfSourceCode);
-		let scfObjAsyncFn = (...args) => {
-			console.log(args);
-		};
-		try {
-			scfObjAsyncFn = eval(scfObjSourceCode);
-		} catch (e) {
-			console.error(e);
-		}
-		const scfObj = await scfObjAsyncFn(window.Vue, {
-			url
-		});
-		return scfObj;
-	}
-
-	function VueLoader(code) {
-		function getSource(source, type) {
-			var regex = new RegExp("<" + type + "[^>]*>");
-			var openingTag = source.match(regex);
-			if (!openingTag) return "";
-			else openingTag = openingTag[0];
-			var targetSource = source.slice(
-				source.indexOf(openingTag) + openingTag.length,
-				source.lastIndexOf("</" + type + ">")
-			);
-			return type === "template"
-				? targetSource.replace(/`/g, "\\`")
-				: targetSource;
-		}
-
-		function splitCode() {
-			if (!/TEMPLATE_PLACEHOLDER/.test(code)) {
-				alert("SFC miss TEMPLATE_PLACEHOLDER");
-				console.error(code);
-			}
-			return getSource(code, "script").replace(
-				/TEMPLATE_PLACEHOLDER/,
-				`template: \`${getSource(code, "template")}\``
-			);
-		}
-
-		return splitCode();
-	}
-
-	function loadText(url) {
-		return new Promise((resolve, reject) =>
-			$.ajax({
-				type: "GET",
-				async: true,
-				url,
-				dataType: "text",
-				success: resolve,
-				error: reject
-			})
-		);
-	}
-
-	function loadCss(cssname) {
-		const cssPath = `${cssname}`;
-		let $link = $("<link/>", {
-			rel: "stylesheet",
-			type: "text/css"
-		});
-		$link.appendTo($("head"));
-		$link[0].href = `${cssPath}?_t=${Date.now()}`;
-		/* destroy 的时候移除已加载的模块css，酌情使用 */
-		return () => {
-			$link.remove();
-			$link = null;
-		};
-	}
-
 	const hooks = {
 		useCSS(url) {
 			let removeCssFn = Vue.ref(null);
 			Vue.onMounted(() => {
-				removeCssFn = loadCss(url);
+				removeCssFn = _.loadCss(url);
 			});
 			Vue.onUnmounted(() => {
 				removeCssFn();
@@ -166,12 +87,15 @@
 		}
 	};
 
+	function compileHtmlAndGetVNode(template, state) {
+		const render = Vue.compile(template);
+		return render.call(state, state);
+	}
+
 	/*  */
 	const Utils = {
+		compileHtmlAndGetVNode,
 		hooks,
-		asyncImportSFC,
-		loadText,
-		loadCss,
 		locationSearch(prop, val) {
 			let params;
 			/* set */
@@ -192,14 +116,17 @@
 			if (Vue.hasOwnProperty(prop)) {
 				return Vue[prop];
 			}
+			if (VueRouter.hasOwnProperty(prop)) {
+				return VueRouter[prop];
+			}
 			if (VentoseUI.hasOwnProperty(prop)) {
 				return VentoseUI[prop];
 			}
 			if (Utils.hasOwnProperty(prop)) {
 				return Utils[prop];
 			}
-			console.error(`${prop} not in Vue VentoseUI Utils`);
+			console.error(`${prop} not in [Vue、VueRouter、VentoseUI、Utils] `);
 			return Vue[prop];
 		}
 	});
-})(window.Vue, window.axios);
+})(window.Vue, window.axios, window.VueRouter);

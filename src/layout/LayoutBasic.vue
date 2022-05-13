@@ -6,7 +6,7 @@ import {
 	Actions_App
 } from "lsrc/state/State_App";
 import MenuTree from "lsrc/components/MenuTree.vue";
-import logoImg from "lsrc/assets/logo.png";
+import logoImg from "lsrc/assets/logo3.png";
 import { reactive } from "vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
@@ -33,7 +33,10 @@ const render = {
 			collapsible
 			:style="State_App.layoutStyle.sider">
 			<div class="log" style="width: 100%; text-align: center">
-				<img :src="logoImg" style="width: 40px; height: 40px; margin: 20px" />
+				<img
+					:src="logoImg"
+					class="layout-side-logo"
+					style="width: 40px; height: 40px; margin: 20px" />
 			</div>
 			<MenuTree v-model:tree="State_App.menuTree" />
 		</aLayoutSider>

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-async ({ defineComponent, markRaw, loadText, _ }) => {
+async ({ defineComponent, markRaw, _ }) => {
 	const getIconPath = icon => `${ROOT_URL}/assets/images/svg/${icon}.svg`;
 	const ICON_STRING_CACHE = {};
 
@@ -51,7 +51,7 @@ async ({ defineComponent, markRaw, loadText, _ }) => {
 				const targetDom = document.getElementById(this.id);
 				let iconSvgString = ICON_STRING_CACHE[this.icon];
 				if (!iconSvgString) {
-					iconSvgString = await loadText(getIconPath(this.icon));
+					iconSvgString = await _.asyncLoadText(getIconPath(this.icon));
 					ICON_STRING_CACHE[this.icon] = iconSvgString;
 				}
 				if (iconSvgString) {

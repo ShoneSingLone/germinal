@@ -22,8 +22,11 @@ module.exports = () => {
 			2
 		);
 		fs.writeFileSync(
-			path.resolve(__dirname, `../../src/language/${fileName}.js`),
-			`export default ${content}`
+			path.resolve(
+				__dirname,
+				`../../public/boundless/static/i18n/${fileName}.json`
+			),
+			`${content}`
 		);
 	});
 };

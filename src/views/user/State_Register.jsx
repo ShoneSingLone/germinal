@@ -1,12 +1,12 @@
 import { reactive } from "vue";
-import { $t } from "lsrc/language";
 import {
 	EVENT_TYPE,
 	validateForm,
 	defItem,
 	pickValueFrom,
 	AllWasWell,
-	lStorage
+	lStorage,
+	State_UI
 } from "@ventose/ui";
 import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import {
@@ -17,6 +17,7 @@ import {
 } from "lsrc/state/State_App";
 import { getCaptcha } from "./State_Login";
 import { LockOutlined, MailOutlined } from "@ant-design/icons-vue";
+const { $t } = State_UI;
 
 const styles = {
 	icon: {

@@ -1,12 +1,12 @@
 import { reactive, watch, computed } from "vue";
-import { lStorage, setCSSVariables, UI, _ } from "@ventose/ui";
+import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
-import ajax from "lsrc/request/ajax";
 import md5 from "md5";
 import $ from "jquery";
-import { $t } from "lsrc/language";
+const { $t } = State_UI;
 export const State_App = reactive({
+	UseMockData: false,
 	theme: "light",
 	menuTree: [],
 	layoutStyle: {
@@ -28,8 +28,8 @@ export const State_App = reactive({
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs || {},
-	// isDev: import.meta.env.MODE === "development"
-	isDev: true
+	// isDev: true
+	isDev: import.meta.env.MODE === "development"
 });
 
 if (State_App.isDev) {
@@ -38,21 +38,32 @@ if (State_App.isDev) {
 }
 
 /* getter 就用computed代替 commit直接修改  */
-export const APP_LANGUAGE = computed({
-	get: () => State_App.configs.language,
-	set: lang => (State_App.configs.language = lang)
-});
 
-export const APP_CLASS_PREFIX = computed({
+export const Cpt_APP_CLASS_PREFIX = computed({
 	get: () => State_App.configs.prefixCls,
 	set: prefixCls => (State_App.configs.prefixCls = prefixCls)
 });
+
 export const getColor = colorName => {
 	return State_App.configs?.colors ? State_App.configs?.colors[colorName] : "";
 };
 
 /* 副作用 effect */
 /* 同步AppConfigs 到 localStorage */
+watch(
+	() => State_App.token,
+	token => {
+		lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
+		if (!token) {
+			State_App.user = false;
+		}
+	},
+	{
+		immediate: true,
+		deep: true
+	}
+);
+
 watch(
 	() => State_App.configs,
 	configs => (lStorage.appConfigs = configs),
@@ -84,31 +95,26 @@ export const Mutations_App = {
 
 /* Action 异步修改 效果同事务 自己去保证原子性 */
 export const Actions_App = {
-	setToken(token) {
-		lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
-		State_App.token = token;
-		if (!token) {
-			State_App.user = false;
-		}
-	},
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");
-		/* const currentAppVersion = $("meta[data-version]").data("version"); */
-		const currentAppVersion = window.APP_VERSION;
-		console.log(
-			"🚀:",
-			"currentAppVersion",
-			JSON.stringify(currentAppVersion, null, 2)
-		);
+		console.log("🚀:", "__APP_VERSION", JSON.stringify(__APP_VERSION, null, 2));
 		/* 开发模式|没有configs|configs的version落后当前版本 */
 		const isLoadConfigs =
-			State_App.isDev || State_App.configs.version !== currentAppVersion;
+			State_App.isDev || State_App.configs.version !== __APP_VERSION;
 		if (isLoadConfigs) {
-			const configs = (await ajax.loadText("./configs.jsx"))();
-			configs.version = currentAppVersion;
+			const configs = (await _.asyncExecFnString("./configs.jsx"))();
+			configs.version = __APP_VERSION;
 			State_App.configs = configs;
 		}
+
+		/* i18n */
+		const i18nString = await _.asyncLoadText(
+			`${__URL_STATIC_DIR}boundless/static/i18n/${State_UI.language}.json`
+		);
+		State_UI.i18nMessage = _.safeParse(i18nString, []);
+		/* i18n */
+
 		/* 加载样式变量 */
 		callback && callback(State_App);
 		console.timeEnd("initAppConfigs");
@@ -118,7 +124,7 @@ export const Actions_App = {
 		const params = {
 			type: "user"
 		};
-		const user = await API.user.user(params);
+		const user = await API.user.info(params);
 		State_App.user = user;
 		/* if (result.role && result.role.permissions.length > 0) {
 			const role = result.role;
@@ -168,7 +174,7 @@ export const Actions_App = {
 			request: () => API.user.login(loginParams),
 			success: user => {
 				/* 设置token */
-				Actions_App.setToken(user.token);
+				State_App.token = user.token;
 			}
 		});
 	},
@@ -176,9 +182,15 @@ export const Actions_App = {
 		try {
 			const res = await API.user.logout();
 			/* 退出成功后清空token */
-			Actions_App.setToken("");
+			State_App.token = "";
 			/* fixed循环引用 */
 			const { router, routeNames } = await import("lsrc/router/router");
+			UI.message.success({
+				content: $t("成功", {
+					action: $t("退出").label
+				}).label
+			});
+			await _.sleep(1000 * 1);
 			router.push({
 				name: routeNames.userLogin
 			});

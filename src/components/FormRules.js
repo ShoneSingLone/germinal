@@ -1,5 +1,5 @@
-import { EVENT_TYPE, _ } from "@ventose/ui";
-import { $t } from "lsrc/language";
+import { EVENT_TYPE, _, State_UI } from "@ventose/ui";
+const { $t } = State_UI;
 
 /* 通过校验，无错 */
 const SUCCESS = false;
@@ -61,7 +61,7 @@ export default {
 	email() {
 		return {
 			name: "email",
-			msg: $t("user.email.wrong-format").label,
+			msg: () => $t("user.email.wrong-format").label,
 			async validator(value) {
 				if (RegexFn.email().test(value)) {
 					return SUCCESS;

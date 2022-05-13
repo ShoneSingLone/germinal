@@ -1,5 +1,5 @@
 <script setup>
-import logoImg from "../assets/logo.png";
+import logoImg from "../assets/logo2.jpg";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
 import { State_App } from "lsrc/state/State_App";
 import { _ } from "@ventose/ui";
@@ -34,7 +34,7 @@ import { _ } from "@ventose/ui";
 						<a href="_self">隐私</a>
 						<a href="_self">条款</a>
 					</div>
-					<div class="copyright">Copyright &copy; 2018 vueComponent</div>
+					<div class="copyright">Copyright &copy; ventose</div>
 				</div>
 			</div>
 		</div>

@@ -22,8 +22,10 @@ async function main() {
 	}
 
 	try {
+		/* 测试API连通性，如果不可以用，就切换模拟数据 */
 		await API.common.testConnect();
 	} catch (d) {
+		State_App.UseMockData = true;
 		const { loadMockData } = await import("germinal_api/mock");
 		await loadMockData();
 	}

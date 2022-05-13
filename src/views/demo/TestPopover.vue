@@ -6,14 +6,33 @@ import {
 	createElementBlock,
 	getCurrentInstance,
 	inject,
-	compile
+	compile,
+	markRaw
 } from "vue";
 import { defItem, UI } from "@ventose/ui";
 import xIM from "./xIM/index";
 import FormRules, { RegexFn } from "../../components/FormRules";
 import TestXDataGrid from "./TestXDataGrid.vue";
+const PopoverContent = defineComponent(
+	markRaw({
+		setup() {
+			function add() {
+				State.count++;
+			}
+
+			return () => {
+				return (
+					<aCard type="primary" onClick={add}>
+						{State.count}
+					</aCard>
+				);
+			};
+		}
+	})
+);
 /* data */
 const State = reactive({
+	configs_uiPopover: { content: PopoverContent },
 	count: 0,
 	formData: {
 		test: `1#2@(34)(Aasdf\`~!$)%)(^(&*(asd,fasf)-_=+[{]}|;:'\\",./?`
@@ -53,22 +72,6 @@ const renders = {
 	test: state => <aButton>{state.count}</aButton>
 };
 
-const PopoverContent = defineComponent({
-	setup() {
-		function add() {
-			State.count++;
-		}
-
-		return () => {
-			return (
-				<aButton type="primary" onClick={add}>
-					{State.count}
-				</aButton>
-			);
-		};
-	}
-});
-
 /* methods */
 const handlers = {
 	openTips() {
@@ -100,8 +103,8 @@ const handlers = {
 			<xItem :configs="State.formXItem.test" v-model="State.formData.test" />
 			State.formData.test:{{ State.formData.test }}
 			<xIM />
-			<aButton id="tips" v-uiPopover="{ content: 'tips1' }"
-				>v-uiPopover</aButton
+			<aButton id="tips" v-uiPopover="State.configs_uiPopover"
+				>单独的配置项变量</aButton
 			>
 			<aButton v-uiPopover="{ content: 'tips2' }">v-uiPopover</aButton>
 			<div />

@@ -9,7 +9,8 @@
 		"copy:ui": "node ./build/tools/copy_ui.js",
 		"lint": "prettier --write ./src",
 		"bs": "npm i && npm run make:language",
-		"start": "cross-env NODE_ENV=development vite --host --open",
+		"start": "cross-env NODE_ENV=development vite --host --open local",
+		"preview": "cross-env NODE_ENV=development vite --host --open",
 		"git:pull": "git pull && git pull gitee master ",
 		"git:push": "git push && git push gitee master",
 		"make:itemRender": "node ./build/make.js itemRender",
@@ -30,7 +31,6 @@
 		"nprogress": "^0.2.0",
 		"vue": "^3.2.16",
 		"vue-cli": "^2.9.6",
-		"vue-i18n": "^9.1.6",
 		"vue-router": "^4.0.11"
 	},
 	"devDependencies": {

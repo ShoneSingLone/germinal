@@ -1,6 +1,4 @@
-import { _, VentoseUIWithInstall } from "@ventose/ui";
-import { watchEffect } from "vue";
-import { appI18n, setI18nLanguage } from "lsrc/language";
+import { _, VentoseUIWithInstall, State_UI } from "@ventose/ui";
 import { router } from "lsrc/router/router";
 import LazySvg from "../components/LazySvg/LazySvg";
 import dayjs from "dayjs";
@@ -23,12 +21,12 @@ export const appPlugins = {
 			appPlugins,
 			dependState: options.dependState
 		});
-		app.use(appI18n, {
-			watch: () => {
-				/* readme:依赖State_App.confgs.language */
-				watchEffect(() => {
-					setI18nLanguage(options.dependState.configs.language);
-				});
+		app.use({
+			install: (app, { watch } = {}) => {
+				//注册i8n实例并引入语言文件
+				app.config.globalProperties.$t = State_UI.$t;
+				$("html").attr("lang", State_UI.language);
+				watch && watch();
 			}
 		});
 		app.use(router);
