@@ -55,8 +55,11 @@ async ({
 	return defineComponent({
 		TEMPLATE_PLACEHOLDER,
 		setup() {
+			/* 背景图地址需要路径参数 */
+			State_App.CSSVariables.backgroundImageUrl = `url(${ROOT_URL}/assets/images/bg.jpeg) center /cover no-repeat`;
+			setCSSVariables(State_App.CSSVariables);
 			/* unmount会移除css引用*/
-			useCSS(`${VIEW_URL}/demo.css`);
+			useCSS(`${APP_ROOT_URL}/demo.css`);
 		},
 		data() {
 			const vm = this;
@@ -144,11 +147,11 @@ async ({
 							FormRules.custom({
 								validator(value, { rule }) {
 									/*
-					8~32个字符
-					至少包含以下字符中的3种:大写字母、小写字母、数字、特殊字符`~!@#$%^&*()-_=+[{]}|;:'\",./?
-					必须包含特殊字符
-					不允许包含正序或逆序用户名
-				  */
+          8~32个字符
+          至少包含以下字符中的3种:大写字母、小写字母、数字、特殊字符`~!@#$%^&*()-_=+[{]}|;:'\",./?
+          必须包含特殊字符
+          不允许包含正序或逆序用户名
+          */
 									const valueLength = String(value).length;
 									if (valueLength < 8 || valueLength > 32) {
 										rule.msg = $t(`8~32个字符`).label;
@@ -311,9 +314,6 @@ async ({
 			};
 		},
 		async mounted() {
-			/* 背景图地址需要路径参数 */
-			State_App.CSSVariables.backgroundImageUrl = `url(./bg.jpeg) center /cover no-repeat`;
-			setCSSVariables(State_App.CSSVariables);
 			this.setQuerySelectOptions();
 			await _.sleep(1000 * 1);
 			this.isShowTable = true;

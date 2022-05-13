@@ -1176,19 +1176,6 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
     });
     presetDarkPalettes[key2].primary = presetDarkPalettes[key2][5];
   });
-  presetPalettes.red;
-  presetPalettes.volcano;
-  presetPalettes.gold;
-  presetPalettes.orange;
-  presetPalettes.yellow;
-  presetPalettes.lime;
-  presetPalettes.green;
-  presetPalettes.cyan;
-  presetPalettes.blue;
-  presetPalettes.geekblue;
-  presetPalettes.purple;
-  presetPalettes.magenta;
-  presetPalettes.grey;
   var containers = [];
   var styleElements = [];
   var usage = "insert-css: You need to provide a CSS string. Usage: insertCss(cssString[, options]).";
@@ -40719,7 +40706,6 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
   const appAddPlugin = {};
   const appDependState = {};
   const timerCollection = {};
-  const visibleArea = {};
   function installPopoverDirective(app, appSettings) {
     const appId = _global__.genId("appId");
     appAddPlugin[appId] = appSettings.appPlugins;
@@ -40753,10 +40739,8 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
       clearTimeout(timerCollection[followId]);
       delete timerCollection[followId];
     }
-    visibleArea[followId] = true;
   }
   function closeTips(followId) {
-    delete visibleArea[followId];
     timerCollection[followId] = setTimeout(() => {
       layer.close(popverIndexCollection[followId]);
       delete popverIndexCollection[followId];

@@ -1,16 +1,17 @@
 $(async () => {
-	const { VentoseUI, Vue } = window;
+	const { VentoseUI, Vue, VueRouter } = window;
 	const { locationSearch, defineComponent, markRaw, _, lStorage, State_UI } =
 		Vue;
 
-	window.ROOT_URL = ".";
-	window.VIEW_NAME = locationSearch("VIEW_NAME");
-	if (!VIEW_NAME) {
-		location.search = locationSearch("VIEW_NAME", "demo");
+	window.ROOT_URL = document
+		.querySelector(`link[rel='icon']`)
+		.href.replace("/assets/favicon.ico", "");
+	window.APP_ENTRY_NAME = _.lowerCase(locationSearch("aen" /*APP_ENTRY_NAME*/));
+	if (!APP_ENTRY_NAME) {
+		location.search = locationSearch("aen", "demo");
 		return;
 	}
-	window.VIEW_URL = `${ROOT_URL}/business/views/${VIEW_NAME}`;
-
+	window.APP_ROOT_URL = `${ROOT_URL}/business/App/${APP_ENTRY_NAME}`;
 	/* 应用配置 */
 	/*当前国际化语言*/
 	lStorage.appConfigs = {
@@ -56,7 +57,10 @@ $(async () => {
 	});
 	const app = Vue.createApp(
 		defineComponent({
-			template: `	<aSpin v-if="!currentView">Loading...</aSpin><component :is="currentView" v-else/>`,
+			template: `
+              <router-view></router-view>
+              <aSpin v-if="!currentView">Loading...</aSpin>
+              <component v-else :is="currentView"/> `,
 			data() {
 				return {
 					currentView: false
@@ -64,12 +68,19 @@ $(async () => {
 			},
 			async beforeMount() {
 				/* 视图入口页面 */
-				const APP = await _.asyncImportSFC(`${VIEW_URL}/View-${VIEW_NAME}.vue`);
+				const APP = await _.asyncImportSFC(
+					`${APP_ROOT_URL}/App-${APP_ENTRY_NAME}.vue`
+				);
 				this.currentView = markRaw(APP);
 				window.instance = this;
 			}
 		})
 	);
+	const router = VueRouter.createRouter({
+		history: VueRouter.createWebHashHistory(),
+		routes: []
+	});
+	app.use(router);
 	app.config.globalProperties.$t = State_UI.$t;
 	window.$t = State_UI.$t;
 	app.use(appPlugins, {
