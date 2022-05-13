@@ -1,7 +1,7 @@
 import { _ } from "@ventose/ui";
 
 window.URL_API_VERSION = "/v1";
-window.URL_BASE = "www.singlone.work/https/book";
+window.URL_BASE = "www.singlone.work/s/api";
 window.URL_API_BASE = `https://${window.URL_BASE}`;
 window.URL_WS_BASE = `wss://www.singlone.work/ws`;
 
