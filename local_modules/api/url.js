@@ -8,7 +8,7 @@ const prefixAuth = `${version}${auth}`;
 const prefixVersion = `${version}`;
 export const URL = new Proxy(
 	{
-		testConnection: () => `${__URL_API_BASE}`,
+		testConnection: () => `${__URL_API_BASE}/`,
 		regster: () => `${prefixVersion}/reg`,
 		Login: () => `${prefixVersion}/login`,
 		VerifyEmail: () => `${prefixVersion}/verify_email`,
