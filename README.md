@@ -236,8 +236,13 @@ State_App.count: {{State_App.count}}
 
 ### Utils
 
-设置title
-- setDocumentTitle()
+- 设置title
+	- setDocumentTitle()
+	
+- root var css 变量
+	- setCSSVariables
+
+
 
 ## 自定义的折叠按钮(未使用)
 
