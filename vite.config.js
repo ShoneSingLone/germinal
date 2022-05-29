@@ -13,6 +13,18 @@ const isLib = process.env.type === "lib";
 const baseRoot = "./";
 console.log("🚀 isPro", isPro, "isLib", isLib, process.argv);
 
+const url = {
+	local: "http://localhost:7001/",
+	remote: "https://wwww.singlone.work/s/api/"
+};
+// const isLocal = process.argv[4] === "local";
+const isLocal = false;
+const isWinPlatform = process.platform === "win32";
+const proxyTarget = isWinPlatform ? url.remote : url.remote;
+const urlBase = isLocal ? "localhost:7001" : "www.singlone.work";
+const urlApiBase = isLocal ? `http://${urlBase}` : `https://${urlBase}/s/api`;
+const urlWsBase = isLocal ? `ws://${urlBase}/ws` : `wss://${urlBase}/ws`;
+
 /* https://vitejs.dev/config/ */
 export default defineConfig({
 	server: {
@@ -21,10 +33,7 @@ export default defineConfig({
 		},
 		proxy: {
 			"/v1": {
-				target:
-					process.platform === "win32"
-						? "http://localhost:7001/"
-						: "https://wwww.singlone.work/s/api/",
+				target: proxyTarget,
 				changeOrigin: true,
 				secure: false
 			}
@@ -115,17 +124,14 @@ export default defineConfig({
 		}),
 		injectHtml({
 			/* windows平台 */
-			data: (isLocal => {
-				const urlBase = isLocal ? "localhost:7001" : "www.singlone.work";
+			data: (() => {
 				return {
 					version: Date.now(),
 					urlBase,
-					urlApiBase: isLocal
-						? `http://${urlBase}`
-						: `https://${urlBase}/s/api`,
-					urlWsBase: isLocal ? `ws://${urlBase}/ws` : `wss://${urlBase}/ws`
+					urlApiBase,
+					urlWsBase
 				};
-			})(process.argv[4] === "local")
+			})()
 		})
 	].concat(
 		(() => {

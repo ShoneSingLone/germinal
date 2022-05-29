@@ -5,9 +5,11 @@ import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
+import Webrtc from "lsrc/views/webrtc/Webrtc.vue";
 import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
 import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
+
 const { $t } = State_UI;
 
 export const NewRoute = (name, component, options = {}) =>
@@ -29,9 +31,12 @@ export const routeNames = {
 	register: "register",
 	registerResult: "register-result",
 	dashboardWorkplace: "dashboard-workplace",
+	webrtc: "webrtc",
 	404: "404"
 };
+
 const toPath = name => `/${name}`;
+
 const routes = [
 	{
 		name: routeNames.shell,
@@ -48,6 +53,7 @@ const routes = [
 			...ALL_DEFAULT_ROUTES
 		]
 	},
+	NewRoute(routeNames.webrtc, Webrtc),
 	NewRoute(routeNames.devDemo, DevDemo),
 	NewRoute(routeNames.login, LayoutUser, {
 		redirect: toPath(routeNames.userLogin),
