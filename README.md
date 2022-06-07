@@ -236,13 +236,10 @@ State_App.count: {{State_App.count}}
 
 ### Utils
 
-- 设置title
-	- setDocumentTitle()
-	
+- 设置 title
+  - setDocumentTitle()
 - root var css 变量
-	- setCSSVariables
-
-
+  - setCSSVariables
 
 ## 自定义的折叠按钮(未使用)
 
@@ -285,4 +282,11 @@ export const State_UI = reactive({
 xItem msg 可以是 function 根据传入的参数显示不同信息
 
 - 20220506234727
-如果response 是auth 清空token refresh页面
+  如果 response 是 auth 清空 token refresh 页面
+
+### 链式调用，延迟异步操作
+
+- api.service.request
+	- service 是可以延迟调用的
+	- 但是可以将异步操作放在request里面，
+	- 需要将参数传递到request

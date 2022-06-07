@@ -222,10 +222,7 @@ mylodash.preload = (baseModule, deps) => {
  */
 const parseContent = returnSentence => {
 	if (!returnSentence) return;
-	return new Function(`
-	${returnSentence}
-	return module();
-	`);
+	return new Function(`${returnSentence} return module();`);
 };
 
 /**

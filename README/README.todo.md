@@ -8,3 +8,21 @@
     - [ ] dialog
     - [ ] confirm
 - [ ] isHideFilter: true,
+
+
+
+### less
+
+/* @list:0 3 4 5 8 9 10 13 14 15 16 20 24 25 30;
+
+@len:length(@list);
+
+.makeMP(@index) when (@index > 0){
+	@i:extract(@list,@index);
+	.margin@{i} {
+		margin: @i * 1px;
+	  }
+	  .makeMP(@index - 1)
+}
+
+.makeMP(@len); */

@@ -106,11 +106,11 @@ export default defineConfig({
 		useVueJsx(),
 		svgHelper(),
 		/* 懒加载antd 自动加载对应的css */
-		usePluginImport({
+		/* usePluginImport({
 			libraryName: "ant-design-vue",
-			/* css位置 */
+			// css位置 
 			libraryDirectory: "es",
-			/* 加载的类型（less、css） */
+			// 加载的类型（less、css） 
 			style: "css"
 			// customStyleName: (name) => {
 			//     console.log('🚀:','name', JSON.stringify(name, null, 2));
@@ -121,7 +121,7 @@ export default defineConfig({
 			//     console.log('🚀:', 'cssName', JSON.stringify(cssName, null, 2));
 			//     return cssName;
 			// },
-		}),
+		}), */
 		injectHtml({
 			/* windows平台 */
 			data: (() => {

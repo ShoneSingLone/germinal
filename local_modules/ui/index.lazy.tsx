@@ -1,7 +1,44 @@
 import "./index.less";
-import "./ui.scss";
-import "ant-design-vue/dist/antd.css";
-import Antd from "ant-design-vue";
+import {
+	Avatar,
+	Alert,
+	Breadcrumb,
+	Card,
+	Descriptions,
+	Menu,
+	Modal,
+	Progress,
+	Popover,
+	Dropdown,
+	Button,
+	List,
+	Checkbox,
+	Popconfirm,
+	PageHeader,
+	Input,
+	Result,
+	Tabs,
+	Table,
+	Spin,
+	Layout,
+	Tooltip,
+	Upload,
+	Switch
+} from "ant-design-vue";
+import { DescriptionsItem } from "ant-design-vue/es/descriptions";
+import { MenuItem, SubMenu } from "ant-design-vue/es/menu";
+import { BreadcrumbItem } from "ant-design-vue/es/breadcrumb";
+import { DropdownButton } from "ant-design-vue/es/dropdown";
+import { TabPane } from "ant-design-vue/es/tabs";
+import { InputPassword } from "ant-design-vue/es/input";
+import {
+	LayoutHeader,
+	LayoutSider,
+	LayoutFooter,
+	LayoutContent
+} from "ant-design-vue/es/layout";
+/* 表单提示信息 */
+import "ant-design-vue/es/form/style/index.css";
 import $ from "jquery";
 import { installPopoverDirective } from "./xSingle/popover";
 import xRender from "./xRender/xRender.jsx";
@@ -62,7 +99,47 @@ const componentMyUI = {
 	xCellLabel
 };
 
+/* ant-d-v */
+const componentAntdV = {
+	Avatar,
+	Alert,
+	Breadcrumb,
+	BreadcrumbItem,
+	Card,
+	Descriptions,
+	DescriptionsItem,
+	Progress,
+	Popover,
+	Menu,
+	MenuItem,
+	Modal,
+	SubMenu,
+	Dropdown,
+	DropdownButton,
+	Button,
+	List,
+	Checkbox,
+	Popconfirm,
+	PageHeader,
+	Input,
+	InputPassword,
+	Result,
+	Table,
+	Tabs,
+	TabPane,
+	Tooltip,
+	Spin,
+	Layout,
+	LayoutHeader,
+	LayoutSider,
+	LayoutFooter,
+	LayoutContent,
+	Upload,
+	Switch
+};
+
 const components = {
+	...componentAntdV,
 	...componentMyUI
 };
 
@@ -109,6 +186,5 @@ export const VentoseUIWithInstall = {
 			}
 			app.component(component.name || name, component);
 		});
-		app.use(Antd);
 	}
 };

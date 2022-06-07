@@ -30,10 +30,18 @@ async ({
 			const ROUTER = useRouter();
 			/*添加路由*/
 			ROUTER.addRoute({
-				name: "login",
-				path: "/login",
+				name: "YapiHome",
+				path: "/",
 				component: () =>
-					_.asyncImportSFC(`${APP_ROOT_URL}/Views/Login/Login.vue`)
+					_.asyncImportSFC(`${APP_ROOT_URL}/Views/Application.vue`),
+				children: [
+					{
+						name: "Login",
+						path: "/login",
+						component: () =>
+							_.asyncImportSFC(`${APP_ROOT_URL}/Views/Login/Login.vue`)
+					}
+				]
 			});
 			// Router.addRoute({name:'home', path: '/', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/Home.vue`) });
 			// Router.addRoute({name:'group', path: '/group', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/Group.vue`) });
