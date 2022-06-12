@@ -196,7 +196,7 @@ mylodash.preload = (baseModule, deps) => {
 			seen[dep] = true;
 			const isCss = dep.endsWith(".css");
 			const cssSelector = isCss ? '[rel="stylesheet"]' : "";
-			if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) {
+			if (document.querySelector(`link[href="${dep}"] ${cssSelector}`)) {
 				return;
 			}
 			const link = document.createElement("link");
@@ -231,7 +231,12 @@ const parseContent = returnSentence => {
  * @returns
  */
 mylodash.asyncLoadText = function (url) {
-	mylodash.asyncLoadText.cache = mylodash.asyncLoadText.cache || {};
+	mylodash.asyncLoadText.cache = (() => {
+		if (import.meta.env.MODE === "development") {
+			return {};
+		}
+		return mylodash.asyncLoadText.cache || {};
+	})();
 	/* https://learn.jquery.com/ */
 	/* https://api.jquery.com/jQuery.ajax/  */
 	return new Promise((resolve, reject) =>
@@ -257,6 +262,7 @@ async function asyncExecFnString(url) {
 	} catch (error) {}
 	return parseContent(data);
 }
+
 mylodash.asyncExecFnString = asyncExecFnString;
 
 const VueComponents = {};
@@ -271,7 +277,14 @@ async function asyncImportSFC(url) {
 		console.log(args);
 	};
 	try {
-		scfObjAsyncFn = eval(scfObjSourceCode);
+		scfObjAsyncFn = new Function(
+			"argVue",
+			"argPayload",
+			`
+        ${scfObjSourceCode}
+        return sfc(argVue,argPayload);
+        `
+		);
 	} catch (e) {
 		console.error(e);
 	}

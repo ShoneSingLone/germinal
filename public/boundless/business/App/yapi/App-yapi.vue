@@ -1,7 +1,7 @@
 <template></template>
 
 <script>
-async ({
+async function sfc({
 	UI,
 	defCol,
 	defColActions,
@@ -21,7 +21,7 @@ async ({
 	/*VueRouter*/
 	useRouter,
 	useRoute
-}) => {
+}) {
 	const { useCSS } = hooks;
 	return defineComponent({
 		TEMPLATE_PLACEHOLDER,
@@ -50,6 +50,11 @@ async ({
 			// Router.addRoute({name:'follow', path: '/follow', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/Follows.vue`) });
 			// Router.addRoute({name:'addProject', path: '/add-project', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/AddProject.vue`) });
 
+			ROUTER.beforeEach((to, from) => {
+				// ...
+				// 返回 false 以取消导航
+			});
+
 			/*添加路由-使路由生效*/
 			const route = useRoute();
 			const currentRouteArray = ROUTER.getRoutes();
@@ -67,5 +72,5 @@ async ({
 			return () => null;
 		}
 	});
-};
+}
 </script>

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-async ({ defineComponent, markRaw, _ }) => {
+async function sfc({ defineComponent, markRaw, _ }) {
 	const getIconPath = icon => `${ROOT_URL}/assets/images/svg/${icon}.svg`;
 	const ICON_STRING_CACHE = {};
 
@@ -67,5 +67,5 @@ async ({ defineComponent, markRaw, _ }) => {
 			}
 		})
 	);
-};
+}
 </script>

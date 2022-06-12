@@ -17,6 +17,7 @@ const url = {
 	local: "http://localhost:7001/",
 	remote: "https://wwww.singlone.work/s/api/"
 };
+
 // const isLocal = process.argv[4] === "local";
 const isLocal = false;
 const isWinPlatform = process.platform === "win32";
