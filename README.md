@@ -195,6 +195,11 @@ export const Actions_App = {
 };
 ```
 
+
+## 开发
+
+App.vue 中完成
+
 ## pro-component
 
 ### xItem

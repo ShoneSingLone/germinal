@@ -52,6 +52,10 @@ export default defineConfig({
 			minify: false,
 			assetsDir: "statics/assets",
 			rollupOptions: {
+				input: {
+					main: path.resolve(__dirname, "index.html"),
+					yapi: path.resolve(__dirname, "yapi.html")
+				},
 				output: {
 					chunkFileNames: "statics/js/[name].js",
 					entryFileNames: "statics/js/[name].js"

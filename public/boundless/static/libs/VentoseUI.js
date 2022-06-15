@@ -92698,10 +92698,7 @@ var __spreadProps = (a2, b2) => __defProps(a2, __getOwnPropDescs(b2));
 	};
 	const parseContent = returnSentence => {
 		if (!returnSentence) return;
-		return new Function(`
-	${returnSentence}
-	return module();
-	`);
+		return new Function(`${returnSentence} return module();`);
 	};
 	_.asyncLoadText = function (url2) {
 		_.asyncLoadText.cache = _.asyncLoadText.cache || {};
