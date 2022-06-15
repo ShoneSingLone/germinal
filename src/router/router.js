@@ -88,6 +88,7 @@ NProgress.configure({
 });
 
 const allowVisitPageWhenNoAccess = [
+	routeNames.devDemo,
 	routeNames.login,
 	routeNames.userLogin,
 	routeNames.register,
