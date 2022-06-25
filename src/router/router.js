@@ -1,6 +1,5 @@
 import NProgress from "nprogress"; // progress bar
 import { createRouter, createWebHashHistory } from "vue-router";
-import NotFound from "lsrc/views/system/NotFound.vue";
 import LayoutUser from "lsrc/layout/User.vue";
 import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
@@ -74,7 +73,7 @@ const routes = [
 	{
 		path: "/:pathMatch(.*)*",
 		name: "404",
-		component: NotFound
+		component: () => import("lsrc/views/system/NotFound.vue")
 	}
 ];
 

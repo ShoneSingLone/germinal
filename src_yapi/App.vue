@@ -2,40 +2,24 @@
 /*https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup*/
 import { defineComponent } from "vue";
 import { _ } from "@ventose/ui";
-import { Actions_App } from "lsrc/state/State_App";
-import { setDocumentTitle } from "@ventose/ui";
+import Footer from "ysrc/components/Footer/Footer.vue";
 
 export default defineComponent({
+	components: { Footer },
 	data() {
 		return {
-			userAgent: navigator.userAgent,
-			isLoading: true,
-			State_App: {}
+			isLoading: true
 		};
 	},
 	async mounted() {
-		/* 做一些初始化的处理，包括进入系统加载对应的字典 */
-		const State_App = await Actions_App.initAppConfigs();
-		this.State_App = State_App;
-		/* HTML title */
-		setDocumentTitle(State_App.configs.title);
-		/* 菜单可以从API获取 */
-		const { MENUS_ALL_DEFAULT_ROUTES } = await import("lsrc/router/routes");
-		State_App.menuTree = MENUS_ALL_DEFAULT_ROUTES;
 		this.isLoading = false;
 	}
 });
 </script>
 <template>
-	<aAlert
-		v-if="State_App.UseMockData"
-		type="error"
-		show-icon
-		style="margin-bottom: 24px"
-		message="UseMockData" />
-	<!-- <h1> {{ userAgent }} </h1> -->
 	<aSpin v-if="isLoading"> Loading... </aSpin>
 	<RouterView v-else />
+	<Footer />
 </template>
 
 <style lang="less" src="./styles/App.less"></style>

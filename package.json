@@ -27,6 +27,7 @@
 		"germinal_api": "file:./local_modules/api",
 		"jquery": "^3.6.0",
 		"lsrc": "file:./src/",
+		"ysrc": "file:./src_yapi/",
 		"md5": "^2.3.0",
 		"nprogress": "^0.2.0",
 		"sass": "^1.52.2",

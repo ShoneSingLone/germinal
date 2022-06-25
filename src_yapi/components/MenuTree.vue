@@ -1,8 +1,8 @@
 <script lang="jsx">
-import { State_App } from "lsrc/state/State_App";
+import { State_App } from "ysrc/state/State_App";
 import { _ } from "@ventose/ui";
 import { defineComponent } from "vue";
-import { STATIC_WORD } from "lsrc/utils/common";
+import { STATIC_WORD } from "ysrc/utils/common";
 import { useRouter } from "vue-router";
 
 const pathAndIdCollection = {};
