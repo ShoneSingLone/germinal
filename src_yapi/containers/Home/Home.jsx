@@ -1,4 +1,3 @@
-import "./Home.scss";
 import { LogoSVG } from "ysrc/components/LogoSVG";
 import { defineComponent } from "vue";
 import { Mutation_App, State_App } from "ysrc/state/State_App";

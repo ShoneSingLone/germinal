@@ -8,6 +8,7 @@ import {
 	message,
 	notification
 } from "ant-design-vue";
+import _ from "lodash";
 
 /* 静态方法，与APP实例无关，引用有直接可用 */
 
@@ -43,7 +44,6 @@ const useModel = type => {
 		});
 	};
 };
-
 export const UI = {
 	dialog: {
 		component: async (options: t_dialogOptions) => null,
@@ -90,7 +90,33 @@ export const UI = {
 			});
 		}
 	},
-	message,
-	notification,
+	message: new Proxy(notification, {
+		get(target, p, receiver) {
+			const m = target[p];
+
+			return new Proxy(m, {
+				apply(target, thisArg, argArray) {
+					if (typeof argArray[0] === "string") {
+						argArray[0] = _.merge({ message: argArray[0] }, argArray[1] || {});
+					}
+					return target.apply(thisArg, argArray);
+				}
+			});
+		}
+	}),
+	notification: new Proxy(notification, {
+		get(target, p, receiver) {
+			const m = target[p];
+
+			return new Proxy(m, {
+				apply(target, thisArg, argArray) {
+					if (typeof argArray[0] === "string") {
+						argArray[0] = _.merge({ message: argArray[0] }, argArray[1] || {});
+					}
+					return target.apply(thisArg, argArray);
+				}
+			});
+		}
+	}),
 	layer
 };

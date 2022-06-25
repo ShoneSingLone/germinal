@@ -1,6 +1,6 @@
 import "./Login.scss";
 import LoginForm from "./LoginForm.vue";
-import { RegForm } from "./Reg";
+import RegForm from "./RegForm.vue";
 import { defineComponent } from "vue";
 import { State_App } from "ysrc/state/State_App";
 

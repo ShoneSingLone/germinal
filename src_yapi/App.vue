@@ -23,3 +23,4 @@ export default defineComponent({
 </template>
 
 <style lang="less" src="./styles/App.less"></style>
+<style lang="scss" src="./containers/Home/home.scss"></style>
