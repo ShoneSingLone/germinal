@@ -30,7 +30,7 @@
 
 <script lang="jsx">
 import { defineComponent } from "vue";
-import { Mutation_App } from "ysrc/state/State_App";
+import { Mutation_App } from "ysrc/state/State_App.jsx";
 import {
 	defItem,
 	EVENT_TYPE,
@@ -46,7 +46,7 @@ import {
 	MailOutlined
 } from "@ant-design/icons-vue";
 import { API } from "ysrc/api";
-import { router } from "ysrc/router/router";
+import { router } from "ysrc/router/router.jsx";
 
 const { $t } = State_UI;
 

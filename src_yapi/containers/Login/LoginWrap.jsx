@@ -1,45 +1,48 @@
+import React, { PureComponent as Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Tabs } from "antd";
+import LoginForm from "./Login";
+import RegForm from "./Reg";
 import "./Login.scss";
-import LoginForm from "./LoginForm.vue";
-import RegForm from "./RegForm.vue";
-import { defineComponent } from "vue";
-import { State_App } from "ysrc/state/State_App";
+const TabPane = Tabs.TabPane;
 
-export default defineComponent({
-	components: {
-		LoginForm
-	},
-	props: {
-		form: {
-			type: Object
-		},
-		loginWrapActiveKey: {
-			type: String
-		},
-		canRegister: {
-			type: Boolean
-		}
-	},
-	setup() {
-		return { State_App: State_App };
-	},
+@connect(state => ({
+	loginWrapActiveKey: state.user.loginWrapActiveKey,
+	canRegister: state.user.canRegister
+}))
+export default class LoginWrap extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	static propTypes = {
+		form: PropTypes.object,
+		loginWrapActiveKey: PropTypes.string,
+		canRegister: PropTypes.bool
+	};
+
 	render() {
-		/** show only login when register is disabled */
+		const { loginWrapActiveKey, canRegister } = this.props;
+		{
+			/** show only login when register is disabled */
+		}
 		return (
-			<aTabs
-				defaultActiveKey={State_App.user.loginWrapActiveKey}
+			<Tabs
+				defaultActiveKey={loginWrapActiveKey}
 				className="login-form"
 				tabBarStyle={{ border: "none" }}>
-				<aTabPane tab="登录" key="1">
+				<TabPane tab="登录" key="1">
 					<LoginForm />
-				</aTabPane>
-				<aTabPane tab={"注册"} key="2">
-					{State_App.user.canRegister ? (
+				</TabPane>
+				<TabPane tab={"注册"} key="2">
+					{canRegister ? (
 						<RegForm />
 					) : (
 						<div style={{ minHeight: 200 }}>管理员已禁止注册，请联系管理员</div>
 					)}
-				</aTabPane>
-			</aTabs>
+				</TabPane>
+			</Tabs>
 		);
 	}
-});
+}

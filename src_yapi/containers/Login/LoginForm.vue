@@ -31,9 +31,9 @@ import {
 	State_UI
 } from "@ventose/ui";
 import FormRules from "lsrc/components/FormRules";
-import { Mutation_App, State_App } from "ysrc/state/State_App";
+import { Mutation_App, State_App } from "ysrc/state/State_App.jsx";
 import { API } from "ysrc/api";
-import { router } from "ysrc/router/router";
+import { router } from "ysrc/router/router.jsx";
 
 const { $t } = State_UI;
 
@@ -105,7 +105,7 @@ export default defineComponent({
 					try {
 						const validateResults = await validateForm(vm.configsForm);
 						if (AllWasWell(validateResults)) {
-							const res = await API.user.loginActions(vm.data);
+							await API.user.loginActions(vm.data);
 							UI.notification.success("登录成功! ");
 							router.push({ path: "/group" });
 						} else {
