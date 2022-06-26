@@ -38,11 +38,11 @@ const routes = [
 			title: $t("用户登录").label
 		}
 	},
-	{
+	/* {
 		path: `/group`,
 		name: "group",
 		component: () => import("ysrc/containers/Group/Group.vue")
-	},
+	}, */
 	/* 404兜底 */
 	{
 		path: "/:pathMatch(.*)*",
