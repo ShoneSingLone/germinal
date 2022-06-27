@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+
 import "./ProjectToken.scss";
 import { getToken, updateToken } from "../../../../reducer/modules/project";
-import { connect } from "react-redux";
-import { Icon, Tooltip, message, Modal } from "antd";
+
+import { Icon, Tooltip, message, Modal } from "ant-design-vue";
 import copy from "copy-to-clipboard";
 const confirm = Modal.confirm;
 
@@ -53,35 +53,35 @@ class ProjectToken extends Component {
 
 	render() {
 		return (
-			<div className="project-token">
-				<h2 className="token-title">工具标识</h2>
-				<div className="message">
+			<div class="project-token">
+				<h2 class="token-title">工具标识</h2>
+				<div class="message">
 					每个项目都有唯一的标识token，用户可以使用这个token值来请求项目
 					openapi.
 				</div>
-				<div className="token">
+				<div class="token">
 					<span>
-						token: <span className="token-message">{this.props.token}</span>
+						token: <span class="token-message">{this.props.token}</span>
 					</span>
-					<Tooltip title="复制">
-						<Icon className="token-btn" type="copy" onClick={this.copyToken} />
-					</Tooltip>
+					<aTooltip title="复制">
+						<aIcon class="token-btn" type="copy" onClick={this.copyToken} />
+					</aTooltip>
 					{this.props.curProjectRole === "admin" ||
 					this.props.curProjectRole === "owner" ? (
-						<Tooltip title="刷新">
-							<Icon
-								className="token-btn"
+						<aTooltip title="刷新">
+							<aIcon
+								class="token-btn"
 								type="reload"
 								onClick={this.updateToken}
 							/>
-						</Tooltip>
+						</aTooltip>
 					) : null}
 				</div>
-				<div className="blockquote">
+				<div class="blockquote">
 					为确保项目内数据的安全性和私密性，请勿轻易将该token暴露给项目组外用户。
 				</div>
 				<br />
-				<h2 className="token-title">open接口：</h2>
+				<h2 class="token-title">open接口：</h2>
 				<p>
 					<a
 						target="_blank"
@@ -91,7 +91,7 @@ class ProjectToken extends Component {
 					</a>
 				</p>
 				<div>
-					<ul className="open-api">
+					<ul class="open-api">
 						<li>/api/open/run_auto_test [运行自动化测试]</li>
 						<li>/api/open/import_data [导入数据]</li>
 						<li>/api/interface/add [新增接口]</li>

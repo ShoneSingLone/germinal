@@ -1,9 +1,16 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import { Modal, Collapse, Row, Col, Input, message, Button, Icon } from "antd";
-import PropTypes from "prop-types";
+import {
+	Modal,
+	Collapse,
+	Row,
+	Col,
+	Input,
+	message,
+	Button,
+	Icon
+} from "ant-design-vue";
+
 import axios from "axios";
-import { withRouter } from "react-router";
+
 import { fetchInterfaceColList } from "../../../../../reducer/modules/interfaceCol";
 
 const { TextArea } = Input;
@@ -77,33 +84,33 @@ export default class AddColModal extends Component {
 		const { interfaceColList = [] } = this.props;
 		const { id } = this.state;
 		return (
-			<Modal
-				className="add-col-modal"
+			<aModal
+				class="add-col-modal"
 				title="添加到集合"
 				visible={this.props.visible}
 				onOk={() => this.props.onOk(id, this.state.caseName)}
 				onCancel={this.props.onCancel}>
-				<Row gutter={6} className="modal-input">
-					<Col span="5">
-						<div className="label">接口用例名：</div>
-					</Col>
-					<Col span="15">
-						<Input
+				<aRow gutter={6} class="modal-input">
+					<aCol span="5">
+						<div class="label">接口用例名：</div>
+					</aCol>
+					<aCol span="15">
+						<aInput
 							placeholder="请输入接口用例名称"
 							value={this.state.caseName}
 							onChange={e => this.setState({ caseName: e.target.value })}
 						/>
-					</Col>
-				</Row>
+					</aCol>
+				</aRow>
 				<p>请选择添加到的集合：</p>
-				<ul className="col-list">
+				<ul class="col-list">
 					{interfaceColList.length ? (
 						interfaceColList.map(col => (
 							<li
 								key={col._id}
-								className={`col-item ${col._id === id ? "selected" : ""}`}
+								class={`col-item ${col._id === id ? "selected" : ""}`}
 								onClick={() => this.select(col._id)}>
-								<Icon type="folder-open" style={{ marginRight: 6 }} />
+								<aIcon type="folder-open" style={{ marginRight: 6 }} />
 								{col.name}
 							</li>
 						))
@@ -111,44 +118,44 @@ export default class AddColModal extends Component {
 						<span>暂无集合，请添加！</span>
 					)}
 				</ul>
-				<Collapse>
+				<aCollapse>
 					<Panel header="添加新集合">
-						<Row gutter={6} className="modal-input">
-							<Col span="5">
-								<div className="label">集合名：</div>
-							</Col>
-							<Col span="15">
-								<Input
+						<aRow gutter={6} class="modal-input">
+							<aCol span="5">
+								<div class="label">集合名：</div>
+							</aCol>
+							<aCol span="15">
+								<aInput
 									placeholder="请输入集合名称"
 									value={this.state.addColName}
 									onChange={e => this.setState({ addColName: e.target.value })}
 								/>
-							</Col>
-						</Row>
-						<Row gutter={6} className="modal-input">
-							<Col span="5">
-								<div className="label">简介：</div>
-							</Col>
-							<Col span="15">
+							</aCol>
+						</aRow>
+						<aRow gutter={6} class="modal-input">
+							<aCol span="5">
+								<div class="label">简介：</div>
+							</aCol>
+							<aCol span="15">
 								<TextArea
 									rows={3}
 									placeholder="请输入集合描述"
 									value={this.state.addColDesc}
 									onChange={e => this.setState({ addColDesc: e.target.value })}
 								/>
-							</Col>
-						</Row>
-						<Row type="flex" justify="end">
-							<Button
+							</aCol>
+						</aRow>
+						<aRow type="flex" justify="end">
+							<aButton
 								style={{ float: "right" }}
 								type="primary"
 								onClick={this.addCol}>
 								添 加
-							</Button>
-						</Row>
+							</aButton>
+						</aRow>
 					</Panel>
-				</Collapse>
-			</Modal>
+				</aCollapse>
+			</aModal>
 		);
 	}
 }

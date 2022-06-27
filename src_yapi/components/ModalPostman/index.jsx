@@ -1,7 +1,16 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+
 import "./index.scss";
-import { Alert, Modal, Row, Col, Icon, Collapse, Input, Tooltip } from "antd";
+import {
+	Alert,
+	Modal,
+	Row,
+	Col,
+	Icon,
+	Collapse,
+	Input,
+	Tooltip
+} from "ant-design-vue";
 import MockList from "./MockList.js";
 import MethodsList from "./MethodsList.js";
 import VariablesSelect from "./VariablesSelect.js";
@@ -228,10 +237,10 @@ class ModalPostman extends Component {
 		};
 
 		return (
-			<Modal
+			<aModal
 				title={
 					<p>
-						<Icon type="edit" /> 高级参数设置
+						<aIcon type="edit" /> 高级参数设置
 					</p>
 				}
 				visible={visible}
@@ -241,18 +250,18 @@ class ModalPostman extends Component {
 				width={1024}
 				maskClosable={false}
 				okText="插入">
-				<Row className="modal-postman-form" type="flex">
+				<aRow class="modal-postman-form" type="flex">
 					{methodsParamsList.map((item, index) => {
 						return item.type === "dataSource" ? (
-							<Col span={8} className="modal-postman-col" key={index}>
-								<Collapse
-									className="modal-postman-collapse"
+							<aCol span={8} class="modal-postman-col" key={index}>
+								<aCollapse
+									class="modal-postman-collapse"
 									activeKey={this.state.activeKey}
 									onChange={this.handleCollapse}
 									bordered={false}
 									accordion>
-									<Panel header={<h3 className="mock-title">常量</h3>} key="1">
-										<Input
+									<Panel header={<h3 class="mock-title">常量</h3>} key="1">
+										<aInput
 											placeholder="基础参数值"
 											value={constantInput}
 											onChange={e =>
@@ -260,9 +269,7 @@ class ModalPostman extends Component {
 											}
 										/>
 									</Panel>
-									<Panel
-										header={<h3 className="mock-title">mock数据</h3>}
-										key="2">
+									<Panel header={<h3 class="mock-title">mock数据</h3>} key="2">
 										<MockList
 											click={this.mockClick(index)}
 											clickValue={item.name}
@@ -271,13 +278,13 @@ class ModalPostman extends Component {
 									{envType === "case" && (
 										<Panel
 											header={
-												<h3 className="mock-title">
+												<h3 class="mock-title">
 													变量&nbsp;
-													<Tooltip
+													<aTooltip
 														placement="top"
 														title="YApi 提供了强大的变量参数功能，你可以在测试的时候使用前面接口的 参数 或 返回值 作为 后面接口的参数，即使接口之间存在依赖，也可以轻松 一键测试~">
-														<Icon type="question-circle-o" />
-													</Tooltip>
+														<aIcon type="question-circle-o" />
+													</aTooltip>
 												</h3>
 											}
 											key="3">
@@ -288,39 +295,39 @@ class ModalPostman extends Component {
 											/>
 										</Panel>
 									)}
-								</Collapse>
-							</Col>
+								</aCollapse>
+							</aCol>
 						) : (
-							<Col span={8} className="modal-postman-col" key={index}>
+							<aCol span={8} class="modal-postman-col" key={index}>
 								<this.MethodsListSource
 									index={index}
 									value={item.name}
 									params={item.params}
 								/>
-							</Col>
+							</aCol>
 						);
 					})}
-				</Row>
-				<Row className="modal-postman-expression">
-					<Col span={6}>
-						<h3 className="title">表达式</h3>
-					</Col>
-					<Col span={18}>
-						<span className="expression-item">{outputParams()}</span>
-					</Col>
-				</Row>
-				<Row className="modal-postman-preview">
-					<Col span={6}>
-						<h3 className="title">预览</h3>
-					</Col>
-					<Col span={18}>
+				</aRow>
+				<aRow class="modal-postman-expression">
+					<aCol span={6}>
+						<h3 class="title">表达式</h3>
+					</aCol>
+					<aCol span={18}>
+						<span class="expression-item">{outputParams()}</span>
+					</aCol>
+				</aRow>
+				<aRow class="modal-postman-preview">
+					<aCol span={6}>
+						<h3 class="title">预览</h3>
+					</aCol>
+					<aCol span={18}>
 						<h3>
 							{this.handleValue(outputParams()) ||
 								(outputParams() && this.handleError())}
 						</h3>
-					</Col>
-				</Row>
-			</Modal>
+					</aCol>
+				</aRow>
+			</aModal>
 		);
 	}
 }

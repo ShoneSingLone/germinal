@@ -1,6 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import {
 	Button,
 	Form,
@@ -12,18 +9,18 @@ import {
 	Row,
 	Col,
 	Radio
-} from "antd";
+} from "ant-design-vue";
 import { addProject } from "../../reducer/modules/project.js";
 import { fetchGroupList } from "../../reducer/modules/group.js";
-import { autobind } from "core-decorators";
+
 import { setBreadcrumb } from "../../reducer/modules/user";
 const { TextArea } = Input;
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 import { pickRandomProperty, handlePath, nameLengthLimit } from "../../common";
-import constants from "../../constants/variable.js";
-import { withRouter } from "react-router";
+import constants from "ysrc/utils/variable";
+
 import "./Addproject.scss";
 
 const formItemLayout = {
@@ -121,13 +118,13 @@ class ProjectList extends Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
-			<div className="g-row">
-				<div className="g-row m-container">
+			<div class="g-row">
+				<div class="g-row m-container">
 					<Form>
 						<FormItem {...formItemLayout} label="项目名称">
 							{getFieldDecorator("name", {
 								rules: nameLengthLimit("项目")
-							})(<Input />)}
+							})(<aInput />)}
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="所属分组">
@@ -159,16 +156,16 @@ class ProjectList extends Component {
 							)}
 						</FormItem>
 
-						<hr className="breakline" />
+						<hr class="breakline" />
 
 						<FormItem
 							{...formItemLayout}
 							label={
 								<span>
 									基本路径&nbsp;
-									<Tooltip title="接口基本路径，为空是根路径">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="接口基本路径，为空是根路径">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</span>
 							}>
 							{getFieldDecorator("basepath", {
@@ -178,7 +175,7 @@ class ProjectList extends Component {
 										message: "请输入项目基本路径"
 									}
 								]
-							})(<Input onBlur={this.handlePath} />)}
+							})(<aInput onBlur={this.handlePath} />)}
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="描述">
@@ -203,34 +200,34 @@ class ProjectList extends Component {
 								initialValue: "private"
 							})(
 								<RadioGroup>
-									<Radio value="private" className="radio">
-										<Icon type="lock" />
+									<Radio value="private" class="radio">
+										<aIcon type="lock" />
 										私有
 										<br />
-										<span className="radio-desc">
+										<span class="radio-desc">
 											只有组长和项目开发者可以索引并查看项目信息
 										</span>
 									</Radio>
 									<br />
-									{/* <Radio value="public" className="radio">
-                    <Icon type="unlock" />公开<br />
-                    <span className="radio-desc">任何人都可以索引并查看项目信息</span>
+									{/* <Radio value="public" class="radio">
+                    <aIcon type="unlock" />公开<br />
+                    <span class="radio-desc">任何人都可以索引并查看项目信息</span>
                   </Radio> */}
 								</RadioGroup>
 							)}
 						</FormItem>
 					</Form>
-					<Row>
-						<Col sm={{ offset: 6 }} lg={{ offset: 3 }}>
-							<Button
-								className="m-btn"
+					<aRow>
+						<aCol sm={{ offset: 6 }} lg={{ offset: 3 }}>
+							<aButton
+								class="m-btn"
 								icon="plus"
 								type="primary"
 								onClick={this.handleOk}>
 								创建项目
-							</Button>
-						</Col>
-					</Row>
+							</aButton>
+						</aCol>
+					</aRow>
 				</div>
 			</div>
 		);

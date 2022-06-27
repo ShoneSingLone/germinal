@@ -1,8 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Form, Input, Select, Button } from "antd";
+import { Form, Input, Select, Button } from "ant-design-vue";
 
-import constants from "../../../../constants/variable.js";
+import constants from "ysrc/utils/variable";
 import { handleApiPath, nameLengthLimit } from "../../../../common.js";
 const HTTP_METHOD = constants.HTTP_METHOD;
 const HTTP_METHOD_KEYS = Object.keys(HTTP_METHOD);
@@ -86,7 +84,7 @@ class AddInterfaceForm extends Component {
 				<FormItem {...formItemLayout} label="接口名称">
 					{getFieldDecorator("title", {
 						rules: nameLengthLimit("接口")
-					})(<Input placeholder="接口名称" />)}
+					})(<aInput placeholder="接口名称" />)}
 				</FormItem>
 
 				<FormItem {...formItemLayout} label="接口路径">
@@ -98,7 +96,7 @@ class AddInterfaceForm extends Component {
 							}
 						]
 					})(
-						<Input
+						<aInput
 							onBlur={this.handlePath}
 							addonBefore={prefixSelector}
 							placeholder="/path"
@@ -110,16 +108,18 @@ class AddInterfaceForm extends Component {
 						详细的接口数据可以在编辑页面中添加
 					</span>
 				</FormItem>
-				<FormItem className="catModalfoot" wrapperCol={{ span: 24, offset: 8 }}>
-					<Button onClick={this.props.onCancel} style={{ marginRight: "10px" }}>
+				<FormItem class="catModalfoot" wrapperCol={{ span: 24, offset: 8 }}>
+					<aButton
+						onClick={this.props.onCancel}
+						style={{ marginRight: "10px" }}>
 						取消
-					</Button>
-					<Button
+					</aButton>
+					<aButton
 						type="primary"
 						htmlType="submit"
 						disabled={hasErrors(getFieldsError())}>
 						提交
-					</Button>
+					</aButton>
 				</FormItem>
 			</Form>
 		);

@@ -1,6 +1,6 @@
 import React from "react";
 import mockEditor from "./mockEditor";
-import PropTypes from "prop-types";
+
 import "./AceEditor.scss";
 
 const ModeMap = {
@@ -67,7 +67,7 @@ class AceEditor extends React.PureComponent {
 	render() {
 		return (
 			<div
-				className={this.props.className}
+				class={this.props.className}
 				style={
 					this.props.className ? undefined : this.props.style || defaultStyle
 				}

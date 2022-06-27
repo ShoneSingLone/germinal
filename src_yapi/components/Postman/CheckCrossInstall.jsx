@@ -1,6 +1,5 @@
 import React from "react";
-import { Alert } from "antd";
-import PropTypes from "prop-types";
+import { Alert } from "ant-design-vue";
 
 exports.initCrossRequest = function (fn) {
 	let startTime = 0;
@@ -26,7 +25,7 @@ CheckCrossInstall.propTypes = {
 function CheckCrossInstall(props) {
 	const hasPlugin = props.hasPlugin;
 	return (
-		<div className={hasPlugin ? null : "has-plugin"}>
+		<div class={hasPlugin ? null : "has-plugin"}>
 			{hasPlugin ? (
 				""
 			) : (

@@ -1,17 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Icon } from "antd";
+
+import { Icon } from "ant-design-vue";
 import "./Intro.scss";
 import { OverPack } from "rc-scroll-anim";
 import TweenOne from "rc-tween-one";
 import QueueAnim from "rc-queue-anim";
 
 const IntroPart = props => (
-	<li className="switch-content">
-		<div className="icon-switch">
-			<Icon type={props.iconType} />
+	<li class="switch-content">
+		<div class="icon-switch">
+			<aIcon type={props.iconType} />
 		</div>
-		<div className="text-switch">
+		<div class="text-switch">
 			<p>
 				<b>{props.title}</b>
 			</p>
@@ -52,15 +52,15 @@ class Intro extends React.PureComponent {
 			one: { x: "-=30", opacity: 0, type: "from" }
 		};
 		return (
-			<div className="intro-container">
+			<div class="intro-container">
 				<OverPack playScale="0.3">
 					<TweenOne
 						animation={animType.one}
 						key={`${id}-img`}
 						resetStyleBool
 						id={`${id}-imgWrapper`}
-						className="imgWrapper">
-						<div className="img-container" id={`${id}-img-container`}>
+						class="imgWrapper">
+						<div class="img-container" id={`${id}-img-container`}>
 							<img src={intro.img} />
 						</div>
 					</TweenOne>
@@ -71,12 +71,12 @@ class Intro extends React.PureComponent {
 						leaveReverse
 						ease={["easeOutCubic", "easeInCubic"]}
 						id={`${id}-textWrapper`}
-						className={`${id}-text des-container textWrapper`}>
+						class={`${id}-text des-container textWrapper`}>
 						<div key={`${id}-des-content`}>
-							<div className="des-title">{intro.title}</div>
-							<div className="des-detail">{intro.des}</div>
+							<div class="des-title">{intro.title}</div>
+							<div class="des-detail">{intro.des}</div>
 						</div>
-						<ul className="des-switch" key={`${id}-des-switch`}>
+						<ul class="des-switch" key={`${id}-des-switch`}>
 							{intro.detail.map(function (item, i) {
 								return (
 									<IntroPart

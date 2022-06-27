@@ -1,9 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Icon, Input, AutoComplete } from "antd";
+import { Icon, Input, AutoComplete } from "ant-design-vue";
 import "./Search.scss";
-import { withRouter } from "react-router";
+
 import axios from "axios";
 import { setCurrGroup, fetchGroupMsg } from "../../../reducer/modules/group";
 import { changeMenuItem } from "../../../reducer/modules/menu";
@@ -137,9 +134,9 @@ export default class Srch extends Component {
 		const { dataSource } = this.state;
 
 		return (
-			<div className="search-wrapper">
+			<div class="search-wrapper">
 				<AutoComplete
-					className="search-dropdown"
+					class="search-dropdown"
 					dataSource={dataSource}
 					style={{ width: "100%" }}
 					defaultActiveFirstOption={false}
@@ -149,10 +146,10 @@ export default class Srch extends Component {
 					//   option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
 					// }
 				>
-					<Input
-						prefix={<Icon type="search" className="srch-icon" />}
+					<aInput
+						prefix={<aIcon type="search" class="srch-icon" />}
 						placeholder="搜索分组/项目/接口"
-						className="search-input"
+						class="search-input"
 					/>
 				</AutoComplete>
 			</div>

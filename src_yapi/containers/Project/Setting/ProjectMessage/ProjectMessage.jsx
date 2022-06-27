@@ -1,4 +1,3 @@
-import React, { PureComponent as Component } from "react";
 import {
 	Form,
 	Input,
@@ -15,8 +14,8 @@ import {
 	Alert,
 	Modal,
 	Popover
-} from "antd";
-import PropTypes from "prop-types";
+} from "ant-design-vue";
+
 import {
 	updateProject,
 	delProject,
@@ -26,17 +25,17 @@ import {
 import { fetchGroupMsg } from "../../../../reducer/modules/group";
 import { fetchGroupList } from "../../../../reducer/modules/group.js";
 import { setBreadcrumb } from "../../../../reducer/modules/user";
-import { connect } from "react-redux";
+
 const { TextArea } = Input;
-import { withRouter } from "react-router";
+
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
-import constants from "../../../../constants/variable.js";
+import constants from "ysrc/utils/variable";
 const confirm = Modal.confirm;
 import { nameLengthLimit, entries, trim, htmlFilter } from "../../../../common";
 import "../Setting.scss";
-import _ from "underscore";
+import { _ } from "@ventose/ui";
 import ProjectTag from "./ProjectTag.js";
 // layout
 const formItemLayout = {
@@ -167,7 +166,7 @@ class ProjectMessage extends Component {
 						<p style={{ marginBottom: "8px" }}>
 							<b>请输入项目名称确认此操作:</b>
 						</p>
-						<Input id="project_name" size="large" />
+						<aInput id="project_name" size="large" />
 					</div>
 				</div>
 			),
@@ -268,7 +267,7 @@ class ProjectMessage extends Component {
 			<RadioGroup
 				onChange={this.changeProjectColor}
 				value={projectMsg.color}
-				className="color">
+				class="color">
 				{colorArr.map((item, index) => {
 					return (
 						<RadioButton
@@ -279,7 +278,7 @@ class ProjectMessage extends Component {
 								color: "#fff",
 								fontWeight: "bold"
 							}}>
-							{item[0] === projectMsg.color ? <Icon type="check" /> : null}
+							{item[0] === projectMsg.color ? <aIcon type="check" /> : null}
 						</RadioButton>
 					);
 				})}
@@ -289,11 +288,11 @@ class ProjectMessage extends Component {
 			<RadioGroup
 				onChange={this.changeProjectIcon}
 				value={projectMsg.icon}
-				className="icon">
+				class="icon">
 				{constants.PROJECT_ICON.map(item => {
 					return (
 						<RadioButton key={item} value={item} style={{ fontWeight: "bold" }}>
-							<Icon type={item} />
+							<aIcon type={item} />
 						</RadioButton>
 					);
 				})}
@@ -303,18 +302,18 @@ class ProjectMessage extends Component {
 			projectMsg.role === "owner" || projectMsg.role === "admin";
 		return (
 			<div>
-				<div className="m-panel">
-					<Row className="project-setting">
-						<Col xs={6} lg={{ offset: 1, span: 3 }} className="setting-logo">
+				<div class="m-panel">
+					<aRow class="project-setting">
+						<aCol xs={6} lg={{ offset: 1, span: 3 }} class="setting-logo">
 							<Popover
 								placement="bottom"
 								title={colorSelector}
 								content={iconSelector}
 								trigger="click"
 								overlayClassName="change-project-container">
-								<Icon
+								<aIcon
 									type={projectMsg.icon || "star-o"}
-									className="ui-logo"
+									class="ui-logo"
 									style={{
 										backgroundColor:
 											constants.PROJECT_COLOR[projectMsg.color] ||
@@ -322,15 +321,15 @@ class ProjectMessage extends Component {
 									}}
 								/>
 							</Popover>
-						</Col>
-						<Col xs={18} sm={15} lg={19} className="setting-intro">
-							<h2 className="ui-title">
+						</aCol>
+						<aCol xs={18} sm={15} lg={19} class="setting-intro">
+							<h2 class="ui-title">
 								{(currGroup.group_name || "") + " / " + (projectMsg.name || "")}
 							</h2>
-							{/* <p className="ui-desc">{projectMsg.desc}</p> */}
-						</Col>
-					</Row>
-					<hr className="breakline" />
+							{/* <p class="ui-desc">{projectMsg.desc}</p> */}
+						</aCol>
+					</aRow>
+					<hr class="breakline" />
 					<Form>
 						<FormItem {...formItemLayout} label="项目ID">
 							<span>{this.props.projectMsg._id}</span>
@@ -339,7 +338,7 @@ class ProjectMessage extends Component {
 							{getFieldDecorator("name", {
 								initialValue: initFormValues.name,
 								rules: nameLengthLimit("项目")
-							})(<Input />)}
+							})(<aInput />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="所属分组">
 							{getFieldDecorator("group_id", {
@@ -366,9 +365,9 @@ class ProjectMessage extends Component {
 							label={
 								<span>
 									接口基本路径&nbsp;
-									<Tooltip title="基本路径为空表示根路径">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="基本路径为空表示根路径">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</span>
 							}>
 							{getFieldDecorator("basepath", {
@@ -379,7 +378,7 @@ class ProjectMessage extends Component {
 										message: "请输入基本路径! "
 									}
 								]
-							})(<Input />)}
+							})(<aInput />)}
 						</FormItem>
 
 						<FormItem
@@ -387,12 +386,12 @@ class ProjectMessage extends Component {
 							label={
 								<span>
 									MOCK地址&nbsp;
-									<Tooltip title="具体使用方法请查看文档">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="具体使用方法请查看文档">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</span>
 							}>
-							<Input disabled value={mockUrl} onChange={() => {}} />
+							<aInput disabled value={mockUrl} onChange={() => {}} />
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="描述">
@@ -411,9 +410,9 @@ class ProjectMessage extends Component {
 							label={
 								<span>
 									tag 信息&nbsp;
-									<Tooltip title="定义 tag 信息，过滤接口">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="定义 tag 信息，过滤接口">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</span>
 							}>
 							<ProjectTag tagMsg={tag} ref={this.tagSubmit} />
@@ -424,9 +423,9 @@ class ProjectMessage extends Component {
 							label={
 								<span>
 									mock严格模式&nbsp;
-									<Tooltip title="开启后 mock 请求会对 query，body form 的必须字段和 json schema 进行校验">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="开启后 mock 请求会对 query，body form 的必须字段和 json schema 进行校验">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</span>
 							}>
 							{getFieldDecorator("strice", {
@@ -439,9 +438,9 @@ class ProjectMessage extends Component {
 							label={
 								<span>
 									开启json5&nbsp;
-									<Tooltip title="开启后可在接口 body 和返回值中写 json 字段">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="开启后可在接口 body 和返回值中写 json 字段">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</span>
 							}>
 							{getFieldDecorator("is_json5", {
@@ -466,21 +465,21 @@ class ProjectMessage extends Component {
 								initialValue: initFormValues.project_type
 							})(
 								<RadioGroup>
-									<Radio value="private" className="radio">
-										<Icon type="lock" />
+									<Radio value="private" class="radio">
+										<aIcon type="lock" />
 										私有
 										<br />
-										<span className="radio-desc">
+										<span class="radio-desc">
 											只有组长和项目开发者可以索引并查看项目信息
 										</span>
 									</Radio>
 									<br />
 									{projectMsg.role === "admin" && (
-										<Radio value="public" className="radio">
-											<Icon type="unlock" />
+										<Radio value="public" class="radio">
+											<aIcon type="unlock" />
 											公开
 											<br />
-											<span className="radio-desc">
+											<span class="radio-desc">
 												任何人都可以索引并查看项目信息
 											</span>
 										</Radio>
@@ -490,43 +489,43 @@ class ProjectMessage extends Component {
 						</FormItem>
 					</Form>
 
-					<div className="btnwrap-changeproject">
-						<Button
-							className="m-btn btn-save"
+					<div class="btnwrap-changeproject">
+						<aButton
+							class="m-btn btn-save"
 							icon="save"
 							type="primary"
 							size="large"
 							onClick={this.handleOk}>
 							保 存
-						</Button>
+						</aButton>
 					</div>
 
 					{/* 只有组长和管理员有权限删除项目 */}
 					{projectMsg.role === "owner" || projectMsg.role === "admin" ? (
-						<div className="danger-container">
-							<div className="title">
-								<h2 className="content">
-									<Icon type="exclamation-circle-o" /> 危险操作
+						<div class="danger-container">
+							<div class="title">
+								<h2 class="content">
+									<aIcon type="exclamation-circle-o" /> 危险操作
 								</h2>
-								<Button onClick={this.toggleDangerOptions}>
+								<aButton onClick={this.toggleDangerOptions}>
 									查 看
-									<Icon type={this.state.showDangerOptions ? "up" : "down"} />
-								</Button>
+									<aIcon type={this.state.showDangerOptions ? "up" : "down"} />
+								</aButton>
 							</div>
 							{this.state.showDangerOptions ? (
-								<Card hoverable={true} className="card-danger">
-									<div className="card-danger-content">
+								<Card hoverable={true} class="card-danger">
+									<div class="card-danger-content">
 										<h3>删除项目</h3>
 										<p>项目一旦删除，将无法恢复数据，请慎重操作！</p>
 										<p>只有组长和管理员有权限删除项目。</p>
 									</div>
-									<Button
+									<aButton
 										type="danger"
 										ghost
-										className="card-danger-btn"
+										class="card-danger-btn"
 										onClick={this.showConfirm}>
 										删除
-									</Button>
+									</aButton>
 								</Card>
 							) : null}
 						</div>

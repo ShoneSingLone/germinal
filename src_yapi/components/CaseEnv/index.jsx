@@ -1,8 +1,8 @@
 // 测试集合中的环境切换
 
 import React from "react";
-import PropTypes from "prop-types";
-import { Select, Row, Col, Collapse, Icon, Tooltip } from "antd";
+
+import { Select, Row, Col, Collapse, Icon, Tooltip } from "ant-design-vue";
 const Option = Select.Option;
 const Panel = Collapse.Panel;
 import "./index.scss";
@@ -26,7 +26,7 @@ export default class CaseEnv extends React.Component {
 
 	render() {
 		return (
-			<Collapse
+			<aCollapse
 				style={{
 					margin: 0,
 					marginBottom: "16px"
@@ -39,30 +39,30 @@ export default class CaseEnv extends React.Component {
 						<span>
 							{" "}
 							选择测试用例环境
-							<Tooltip title="默认使用测试用例选择的环境">
+							<aTooltip title="默认使用测试用例选择的环境">
 								{" "}
-								<Icon type="question-circle-o" />{" "}
-							</Tooltip>
+								<aIcon type="question-circle-o" />{" "}
+							</aTooltip>
 						</span>
 					}
 					key="1">
-					<div className="case-env">
+					<div class="case-env">
 						{this.props.envList.length > 0 && (
 							<div>
 								{this.props.envList.map(item => {
 									return (
-										<Row
+										<aRow
 											key={item._id}
 											type="flex"
 											justify="space-around"
 											align="middle"
-											className="env-item">
-											<Col span={6} className="label">
-												<Tooltip title={item.name}>
-													<span className="label-name">{item.name}</span>
-												</Tooltip>
-											</Col>
-											<Col span={18}>
+											class="env-item">
+											<aCol span={6} class="label">
+												<aTooltip title={item.name}>
+													<span class="label-name">{item.name}</span>
+												</aTooltip>
+											</aCol>
+											<aCol span={18}>
 												<Select
 													style={{
 														width: "100%"
@@ -84,15 +84,15 @@ export default class CaseEnv extends React.Component {
 														);
 													})}
 												</Select>
-											</Col>
-										</Row>
+											</aCol>
+										</aRow>
 									);
 								})}
 							</div>
 						)}
 					</div>
 				</Panel>
-			</Collapse>
+			</aCollapse>
 		);
 	}
 }

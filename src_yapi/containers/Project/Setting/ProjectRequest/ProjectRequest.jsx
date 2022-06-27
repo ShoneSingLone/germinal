@@ -1,7 +1,4 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Form, Button, message } from "antd";
+import { Form, Button, message } from "ant-design-vue";
 const FormItem = Form.Item;
 import "./project-request.scss";
 import AceEditor from "client/components/AceEditor/AceEditor";
@@ -81,7 +78,7 @@ export default class ProjectRequest extends Component {
 const ErrorCode=400;
 `;
 		return (
-			<div className="project-request">
+			<div class="project-request">
 				<pre>
 					<code>{codeString}</code>
 				</pre>
@@ -93,7 +90,7 @@ const ErrorCode=400;
 							data={pre_script}
 							onChange={editor => this.setState({ pre_script: editor.text })}
 							fullScreen={true}
-							className="request-editor"
+							class="request-editor"
 						/>
 					</FormItem>
 					<FormItem
@@ -103,13 +100,13 @@ const ErrorCode=400;
 							data={after_script}
 							onChange={editor => this.setState({ after_script: editor.text })}
 							fullScreen={true}
-							className="request-editor"
+							class="request-editor"
 						/>
 					</FormItem>
 					<FormItem {...tailFormItemLayout}>
-						<Button onClick={this.handleSubmit} type="primary">
+						<aButton onClick={this.handleSubmit} type="primary">
 							保存
-						</Button>
+						</aButton>
 					</FormItem>
 				</Form>
 			</div>

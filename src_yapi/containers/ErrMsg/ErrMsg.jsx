@@ -1,8 +1,5 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Icon } from "antd";
+import { Icon } from "ant-design-vue";
 import "./ErrMsg.scss";
-import { withRouter } from "react-router";
 
 /**
  * 错误信息提示
@@ -83,11 +80,11 @@ class ErrMsg extends Component {
 			}
 		}
 		return (
-			<div className="err-msg">
-				<Icon type={icon} className="icon" />
-				<p className="title">{title}</p>
-				<p className="desc">{desc}</p>
-				<p className="opration">{opration}</p>
+			<div class="err-msg">
+				<aIcon type={icon} class="icon" />
+				<p class="title">{title}</p>
+				<p class="desc">{desc}</p>
+				<p class="opration">{opration}</p>
 			</div>
 		);
 	}

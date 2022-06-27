@@ -1,7 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import PropTypes from "prop-types";
 import {
 	fetchInterfaceColList,
 	fetchInterfaceCaseList,
@@ -12,9 +8,18 @@ import {
 import { fetchProjectList } from "../../../../reducer/modules/project";
 import axios from "axios";
 import ImportInterface from "./ImportInterface";
-import { Input, Icon, Button, Modal, message, Tooltip, Tree, Form } from "antd";
+import {
+	Input,
+	Icon,
+	Button,
+	Modal,
+	message,
+	Tooltip,
+	Tree,
+	Form
+} from "ant-design-vue";
 import { arrayChangeIndex } from "../../../../common.js";
-import _ from "underscore";
+import { _ } from "@ventose/ui";
 
 const TreeNode = Tree.TreeNode;
 const FormItem = Form.Item;
@@ -27,18 +32,18 @@ const ColModalForm = Form.create()(props => {
 	const { visible, onCancel, onCreate, form, title } = props;
 	const { getFieldDecorator } = form;
 	return (
-		<Modal visible={visible} title={title} onCancel={onCancel} onOk={onCreate}>
+		<aModal visible={visible} title={title} onCancel={onCancel} onOk={onCreate}>
 			<Form layout="vertical">
 				<FormItem label="集合名">
 					{getFieldDecorator("colName", {
 						rules: [{ required: true, message: "请输入集合命名！" }]
-					})(<Input />)}
+					})(<aInput />)}
 				</FormItem>
 				<FormItem label="简介">
-					{getFieldDecorator("colDesc")(<Input type="textarea" />)}
+					{getFieldDecorator("colDesc")(<aInput type="textarea" />)}
 				</FormItem>
 			</Form>
-		</Modal>
+		</aModal>
 	);
 });
 
@@ -418,19 +423,19 @@ export default class InterfaceColMenu extends Component {
 		const currProjectId = this.props.match.params.id;
 		// const menu = (col) => {
 		//   return (
-		//     <Menu>
-		//       <Menu.Item>
+		//     <aMenu>
+		//       <aMenu.Item>
 		//         <span onClick={() => this.showColModal('edit', col)}>修改集合</span>
-		//       </Menu.Item>
-		//       <Menu.Item>
+		//       </aMenu.Item>
+		//       <aMenu.Item>
 		//         <span onClick={() => {
 		//           this.showDelColConfirm(col._id)
 		//         }}>删除集合</span>
-		//       </Menu.Item>
-		//       <Menu.Item>
+		//       </aMenu.Item>
+		//       <aMenu.Item>
 		//         <span onClick={() => this.showImportInterface(col._id)}>导入接口</span>
-		//       </Menu.Item>
-		//     </Menu>
+		//       </aMenu.Item>
+		//     </aMenu>
 		//   )
 		// };
 
@@ -477,16 +482,16 @@ export default class InterfaceColMenu extends Component {
 					key={"case_" + interfaceCase._id}
 					title={
 						<div
-							className="menu-title"
+							class="menu-title"
 							onMouseEnter={() => this.enterItem(interfaceCase._id)}
 							onMouseLeave={this.leaveItem}
 							title={interfaceCase.casename}>
-							<span className="casename">{interfaceCase.casename}</span>
-							<div className="btns">
-								<Tooltip title="删除用例">
-									<Icon
+							<span class="casename">{interfaceCase.casename}</span>
+							<div class="btns">
+								<aTooltip title="删除用例">
+									<aIcon
 										type="delete"
-										className="interface-delete-icon"
+										class="interface-delete-icon"
 										onClick={e => {
 											e.stopPropagation();
 											this.showDelCaseConfirm(interfaceCase._id);
@@ -498,11 +503,11 @@ export default class InterfaceColMenu extends Component {
 													: "none"
 										}}
 									/>
-								</Tooltip>
-								<Tooltip title="克隆用例">
-									<Icon
+								</aTooltip>
+								<aTooltip title="克隆用例">
+									<aIcon
 										type="copy"
-										className="interface-delete-icon"
+										class="interface-delete-icon"
 										onClick={e => {
 											e.stopPropagation();
 											this.caseCopy(interfaceCase._id);
@@ -514,7 +519,7 @@ export default class InterfaceColMenu extends Component {
 													: "none"
 										}}
 									/>
-								</Tooltip>
+								</aTooltip>
 							</div>
 						</div>
 					}
@@ -554,25 +559,25 @@ export default class InterfaceColMenu extends Component {
 
 		return (
 			<div>
-				<div className="interface-filter">
-					<Input placeholder="搜索测试集合" onChange={this.filterCol} />
-					<Tooltip placement="bottom" title="添加集合">
-						<Button
+				<div class="interface-filter">
+					<aInput placeholder="搜索测试集合" onChange={this.filterCol} />
+					<aTooltip placement="bottom" title="添加集合">
+						<aButton
 							type="primary"
 							style={{ marginLeft: "16px" }}
 							onClick={() => this.showColModal("add")}
-							className="btn-filter">
+							class="btn-filter">
 							添加集合
-						</Button>
-					</Tooltip>
+						</aButton>
+					</aTooltip>
 				</div>
 				<div
-					className="tree-wrapper"
+					class="tree-wrapper"
 					style={{
 						maxHeight: parseInt(document.body.clientHeight) - headHeight + "px"
 					}}>
 					<Tree
-						className="col-list-tree"
+						class="col-list-tree"
 						defaultExpandedKeys={currentKes.expands}
 						defaultSelectedKeys={currentKes.selects}
 						expandedKeys={currentKes.expands}
@@ -586,55 +591,55 @@ export default class InterfaceColMenu extends Component {
 							<TreeNode
 								key={"col_" + col._id}
 								title={
-									<div className="menu-title">
+									<div class="menu-title">
 										<span>
-											<Icon type="folder-open" style={{ marginRight: 5 }} />
+											<aIcon type="folder-open" style={{ marginRight: 5 }} />
 											<span>{col.name}</span>
 										</span>
-										<div className="btns">
-											<Tooltip title="删除集合">
-												<Icon
+										<div class="btns">
+											<aTooltip title="删除集合">
+												<aIcon
 													type="delete"
 													style={{ display: list.length > 1 ? "" : "none" }}
-													className="interface-delete-icon"
+													class="interface-delete-icon"
 													onClick={() => {
 														this.showDelColConfirm(col._id);
 													}}
 												/>
-											</Tooltip>
-											<Tooltip title="编辑集合">
-												<Icon
+											</aTooltip>
+											<aTooltip title="编辑集合">
+												<aIcon
 													type="edit"
-													className="interface-delete-icon"
+													class="interface-delete-icon"
 													onClick={e => {
 														e.stopPropagation();
 														this.showColModal("edit", col);
 													}}
 												/>
-											</Tooltip>
-											<Tooltip title="导入接口">
-												<Icon
+											</aTooltip>
+											<aTooltip title="导入接口">
+												<aIcon
 													type="plus"
-													className="interface-delete-icon"
+													class="interface-delete-icon"
 													onClick={e => {
 														e.stopPropagation();
 														this.showImportInterfaceModal(col._id);
 													}}
 												/>
-											</Tooltip>
-											<Tooltip title="克隆集合">
-												<Icon
+											</aTooltip>
+											<aTooltip title="克隆集合">
+												<aIcon
 													type="copy"
-													className="interface-delete-icon"
+													class="interface-delete-icon"
 													onClick={e => {
 														e.stopPropagation();
 														this.copyInterface(col);
 													}}
 												/>
-											</Tooltip>
+											</aTooltip>
 										</div>
 										{/*<Dropdown overlay={menu(col)} trigger={['click']} onClick={e => e.stopPropagation()}>
-                      <Icon className="opts-icon" type='ellipsis'/>
+                      <aIcon class="opts-icon" type='ellipsis'/>
                     </Dropdown>*/}
 									</div>
 								}>
@@ -643,7 +648,7 @@ export default class InterfaceColMenu extends Component {
 						))}
 					</Tree>
 				</div>
-				<ColModalForm
+				<aColModalForm
 					ref={this.saveFormRef}
 					type={colModalType}
 					visible={colModalVisible}
@@ -653,18 +658,18 @@ export default class InterfaceColMenu extends Component {
 					onCreate={this.addorEditCol}
 				/>
 
-				<Modal
+				<aModal
 					title="导入接口到集合"
 					visible={importInterVisible}
 					onOk={this.handleImportOk}
 					onCancel={this.handleImportCancel}
-					className="import-case-modal"
+					class="import-case-modal"
 					width={800}>
 					<ImportInterface
 						currProjectId={currProjectId}
 						selectInterface={this.selectInterface}
 					/>
-				</Modal>
+				</aModal>
 			</div>
 		);
 	}

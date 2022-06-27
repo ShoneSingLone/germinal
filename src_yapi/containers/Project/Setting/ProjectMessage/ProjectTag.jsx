@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Icon, Row, Col, Input } from "antd";
+
+import { Icon, Row, Col, Input } from "ant-design-vue";
 import "./ProjectTag.scss";
 
 class ProjectTag extends Component {
@@ -70,9 +70,9 @@ class ProjectTag extends Component {
 		const commonTpl = (item, index, name) => {
 			const length = this.state[name].length - 1;
 			return (
-				<Row key={index} className="tag-item">
-					<Col span={6} className="item-name">
-						<Input
+				<aRow key={index} class="tag-item">
+					<aCol span={6} class="item-name">
+						<aInput
 							placeholder={`请输入 ${name} 名称`}
 							// style={{ width: '200px' }}
 							value={item.name || ""}
@@ -80,9 +80,9 @@ class ProjectTag extends Component {
 								this.addHeader(e.target.value, index, name, "name")
 							}
 						/>
-					</Col>
-					<Col span={12}>
-						<Input
+					</aCol>
+					<aCol span={12}>
+						<aInput
 							placeholder="请输入tag 描述信息"
 							style={{ width: "90%", marginRight: 8 }}
 							onChange={e =>
@@ -90,24 +90,24 @@ class ProjectTag extends Component {
 							}
 							value={item.desc || ""}
 						/>
-					</Col>
-					<Col span={2} className={index === length ? " tag-last-row" : null}>
+					</aCol>
+					<aCol span={2} class={index === length ? " tag-last-row" : null}>
 						{/* 新增的项中，只有最后一项没有有删除按钮 */}
-						<Icon
-							className="dynamic-delete-button delete"
+						<aIcon
+							class="dynamic-delete-button delete"
 							type="delete"
 							onClick={e => {
 								e.stopPropagation();
 								this.delHeader(index, name);
 							}}
 						/>
-					</Col>
-				</Row>
+					</aCol>
+				</aRow>
 			);
 		};
 
 		return (
-			<div className="project-tag">
+			<div class="project-tag">
 				{this.state.tag.map((item, index) => {
 					return commonTpl(item, index, "tag");
 				})}

@@ -1,5 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
 import {
 	Button,
 	Input,
@@ -15,10 +13,10 @@ import {
 	Row,
 	Col,
 	Alert
-} from "antd";
-import constants from "../../constants/variable.js";
+} from "ant-design-vue";
+import constants from "ysrc/utils/variable";
 import AceEditor from "client/components/AceEditor/AceEditor";
-import _ from "underscore";
+import { _ } from "@ventose/ui";
 import { isJson, deepCopyJson, json5_parse } from "../../common.js";
 import axios from "axios";
 import ModalPostman from "../ModalPostman/index.js";
@@ -83,12 +81,12 @@ const ParamsNameComponent = props => {
 			<div>
 				{example && (
 					<div>
-						示例： <span className="table-desc">{example}</span>
+						示例： <span class="table-desc">{example}</span>
 					</div>
 				)}
 				{desc && (
 					<div>
-						备注： <span className="table-desc">{desc}</span>
+						备注： <span class="table-desc">{desc}</span>
 					</div>
 				)}
 			</div>
@@ -98,11 +96,11 @@ const ParamsNameComponent = props => {
 	return (
 		<div>
 			{isNull ? (
-				<Input disabled value={name} className="key" />
+				<aInput disabled value={name} class="key" />
 			) : (
-				<Tooltip placement="topLeft" title={<TooltipTitle />}>
-					<Input disabled value={name} className="key" />
-				</Tooltip>
+				<aTooltip placement="topLeft" title={<aTooltipTitle />}>
+					<aInput disabled value={name} class="key" />
+				</aTooltip>
 			)}
 		</div>
 	);
@@ -622,9 +620,9 @@ ${JSON.stringify(result.header, null, 2)}
 		} = this.state;
 		// console.log(env);
 		return (
-			<div className="interface-test postman">
+			<div class="interface-test postman">
 				{this.state.modalVisible && (
-					<ModalPostman
+					<aModalPostman
 						visible={this.state.modalVisible}
 						handleCancel={this.handleModalCancel}
 						handleOk={this.handleModalOk}
@@ -635,24 +633,24 @@ ${JSON.stringify(result.header, null, 2)}
 				)}
 
 				{this.state.envModalVisible && (
-					<Modal
+					<aModal
 						title="环境设置"
 						visible={this.state.envModalVisible}
 						onOk={this.handleEnvOk}
 						onCancel={this.handleEnvCancel}
 						footer={null}
 						width={800}
-						className="env-modal">
+						class="env-modal">
 						<ProjectEnv
 							projectId={this.props.data.project_id}
 							onOk={this.handleEnvOk}
 						/>
-					</Modal>
+					</aModal>
 				)}
 				<CheckCrossInstall hasPlugin={hasPlugin} />
 
-				<div className="url">
-					<InputGroup compact style={{ display: "flex" }}>
+				<div class="url">
+					<aInputGroup compact style={{ display: "flex" }}>
 						<Select disabled value={method} style={{ flexBasis: 60 }}>
 							{Object.keys(HTTP_METHOD).map(name => {
 								<Option value={name.toUpperCase()}>
@@ -673,22 +671,22 @@ ${JSON.stringify(result.header, null, 2)}
 								value="环境配置"
 								disabled
 								style={{ cursor: "pointer", color: "#2395f1" }}>
-								<Button type="primary" onClick={this.showEnvModal}>
+								<aButton type="primary" onClick={this.showEnvModal}>
 									环境配置
-								</Button>
+								</aButton>
 							</Option>
 						</Select>
 
-						<Input
+						<aInput
 							disabled
 							value={path}
 							onChange={this.changePath}
 							spellCheck="false"
 							style={{ flexBasis: 180, flexGrow: 1 }}
 						/>
-					</InputGroup>
+					</aInputGroup>
 
-					<Tooltip
+					<aTooltip
 						placement="bottom"
 						title={(() => {
 							if (hasPlugin) {
@@ -697,61 +695,61 @@ ${JSON.stringify(result.header, null, 2)}
 								return "请安装 cross-request 插件";
 							}
 						})()}>
-						<Button
+						<aButton
 							onClick={this.reqRealInterface}
 							type="primary"
 							style={{ marginLeft: 10 }}
 							icon={loading ? "loading" : ""}>
 							{loading ? "取消" : "发送"}
-						</Button>
-					</Tooltip>
+						</aButton>
+					</aTooltip>
 
-					<Tooltip
+					<aTooltip
 						placement="bottom"
 						title={() => {
 							return this.props.type === "inter"
 								? "保存到测试集"
 								: "更新该用例";
 						}}>
-						<Button
+						<aButton
 							onClick={this.props.save}
 							type="primary"
 							style={{ marginLeft: 10 }}>
 							{this.props.type === "inter" ? "保存" : "更新"}
-						</Button>
-					</Tooltip>
+						</aButton>
+					</aTooltip>
 				</div>
 
-				<Collapse defaultActiveKey={["0", "1", "2", "3"]} bordered={true}>
+				<aCollapse defaultActiveKey={["0", "1", "2", "3"]} bordered={true}>
 					<Panel
 						header="PATH PARAMETERS"
 						key="0"
-						className={req_params.length === 0 ? "hidden" : ""}>
+						class={req_params.length === 0 ? "hidden" : ""}>
 						{req_params.map((item, index) => {
 							return (
-								<div key={index} className="key-value-wrap">
-									{/* <Tooltip
+								<div key={index} class="key-value-wrap">
+									{/* <aTooltip
                     placement="topLeft"
-                    title={<TooltipContent example={item.example} desc={item.desc} />}
+                    title={<aTooltipContent example={item.example} desc={item.desc} />}
                   >
-                    <Input disabled value={item.name} className="key" />
-                  </Tooltip> */}
+                    <aInput disabled value={item.name} class="key" />
+                  </aTooltip> */}
 									<ParamsNameComponent
 										example={item.example}
 										desc={item.desc}
 										name={item.name}
 									/>
-									<span className="eq-symbol">=</span>
-									<Input
+									<span class="eq-symbol">=</span>
+									<aInput
 										value={item.value}
-										className="value"
+										class="value"
 										onChange={e =>
 											this.changeParam("req_params", e.target.value, index)
 										}
 										placeholder="参数值"
 										id={`req_params_${index}`}
 										addonAfter={
-											<Icon
+											<aIcon
 												type="edit"
 												onClick={() =>
 													this.showModal(item.value, index, "req_params")
@@ -762,27 +760,27 @@ ${JSON.stringify(result.header, null, 2)}
 								</div>
 							);
 						})}
-						<Button
+						<aButton
 							style={{ display: "none" }}
 							type="primary"
 							icon="plus"
 							onClick={this.addPathParam}>
 							添加Path参数
-						</Button>
+						</aButton>
 					</Panel>
 					<Panel
 						header="QUERY PARAMETERS"
 						key="1"
-						className={req_query.length === 0 ? "hidden" : ""}>
+						class={req_query.length === 0 ? "hidden" : ""}>
 						{req_query.map((item, index) => {
 							return (
-								<div key={index} className="key-value-wrap">
-									{/* <Tooltip
+								<div key={index} class="key-value-wrap">
+									{/* <aTooltip
                     placement="topLeft"
-                    title={<TooltipContent example={item.example} desc={item.desc} />}
+                    title={<aTooltipContent example={item.example} desc={item.desc} />}
                   >
-                    <Input disabled value={item.name} className="key" />
-                  </Tooltip> */}
+                    <aInput disabled value={item.name} class="key" />
+                  </aTooltip> */}
 									<ParamsNameComponent
 										example={item.example}
 										desc={item.desc}
@@ -790,14 +788,10 @@ ${JSON.stringify(result.header, null, 2)}
 									/>
 									&nbsp;
 									{item.required == 1 ? (
-										<Checkbox
-											className="params-enable"
-											checked={true}
-											disabled
-										/>
+										<Checkbox class="params-enable" checked={true} disabled />
 									) : (
 										<Checkbox
-											className="params-enable"
+											class="params-enable"
 											checked={item.enable}
 											onChange={e =>
 												this.changeParam(
@@ -809,17 +803,17 @@ ${JSON.stringify(result.header, null, 2)}
 											}
 										/>
 									)}
-									<span className="eq-symbol">=</span>
-									<Input
+									<span class="eq-symbol">=</span>
+									<aInput
 										value={item.value}
-										className="value"
+										class="value"
 										onChange={e =>
 											this.changeParam("req_query", e.target.value, index)
 										}
 										placeholder="参数值"
 										id={`req_query_${index}`}
 										addonAfter={
-											<Icon
+											<aIcon
 												type="edit"
 												onClick={() =>
 													this.showModal(item.value, index, "req_query")
@@ -830,37 +824,37 @@ ${JSON.stringify(result.header, null, 2)}
 								</div>
 							);
 						})}
-						<Button
+						<aButton
 							style={{ display: "none" }}
 							type="primary"
 							icon="plus"
 							onClick={this.addQuery}>
 							添加Query参数
-						</Button>
+						</aButton>
 					</Panel>
 					<Panel
 						header="HEADERS"
 						key="2"
-						className={req_headers.length === 0 ? "hidden" : ""}>
+						class={req_headers.length === 0 ? "hidden" : ""}>
 						{req_headers.map((item, index) => {
 							return (
-								<div key={index} className="key-value-wrap">
-									{/* <Tooltip
+								<div key={index} class="key-value-wrap">
+									{/* <aTooltip
                     placement="topLeft"
-                    title={<TooltipContent example={item.example} desc={item.desc} />}
+                    title={<aTooltipContent example={item.example} desc={item.desc} />}
                   >
-                    <Input disabled value={item.name} className="key" />
-                  </Tooltip> */}
+                    <aInput disabled value={item.name} class="key" />
+                  </aTooltip> */}
 									<ParamsNameComponent
 										example={item.example}
 										desc={item.desc}
 										name={item.name}
 									/>
-									<span className="eq-symbol">=</span>
-									<Input
+									<span class="eq-symbol">=</span>
+									<aInput
 										value={item.value}
 										disabled={!!item.abled}
-										className="value"
+										class="value"
 										onChange={e =>
 											this.changeParam("req_headers", e.target.value, index)
 										}
@@ -868,7 +862,7 @@ ${JSON.stringify(result.header, null, 2)}
 										id={`req_headers_${index}`}
 										addonAfter={
 											!item.abled && (
-												<Icon
+												<aIcon
 													type="edit"
 													onClick={() =>
 														this.showModal(item.value, index, "req_headers")
@@ -880,22 +874,22 @@ ${JSON.stringify(result.header, null, 2)}
 								</div>
 							);
 						})}
-						<Button
+						<aButton
 							style={{ display: "none" }}
 							type="primary"
 							icon="plus"
 							onClick={this.addHeader}>
 							添加Header
-						</Button>
+						</aButton>
 					</Panel>
 					<Panel
 						header={
 							<div style={{ display: "flex", justifyContent: "space-between" }}>
-								<Tooltip title="F9 全屏编辑">BODY(F9)</Tooltip>
+								<aTooltip title="F9 全屏编辑">BODY(F9)</aTooltip>
 							</div>
 						}
 						key="3"
-						className={
+						class={
 							HTTP_METHOD[method].request_body &&
 							((req_body_type === "form" && req_body_form.length > 0) ||
 								req_body_type !== "form")
@@ -909,8 +903,8 @@ ${JSON.stringify(result.header, null, 2)}
 									: "none"
 							}}>
 							{req_body_type === "json" && (
-								<div className="adv-button">
-									<Button
+								<div class="adv-button">
+									<aButton
 										onClick={() =>
 											this.showModal(
 												this.state.req_body_other,
@@ -919,16 +913,16 @@ ${JSON.stringify(result.header, null, 2)}
 											)
 										}>
 										高级参数设置
-									</Button>
-									<Tooltip title="高级参数设置只在json字段值中生效">
+									</aButton>
+									<aTooltip title="高级参数设置只在json字段值中生效">
 										{"  "}
-										<Icon type="question-circle-o" />
-									</Tooltip>
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</div>
 							)}
 
 							<AceEditor
-								className="pretty-editor"
+								class="pretty-editor"
 								ref={editor => (this.aceEditor = editor)}
 								data={this.state.req_body_other}
 								mode={req_body_type === "json" ? null : "text"}
@@ -941,13 +935,13 @@ ${JSON.stringify(result.header, null, 2)}
 							<div>
 								{req_body_form.map((item, index) => {
 									return (
-										<div key={index} className="key-value-wrap">
-											{/* <Tooltip
+										<div key={index} class="key-value-wrap">
+											{/* <aTooltip
                           placement="topLeft"
-                          title={<TooltipContent example={item.example} desc={item.desc} />}
+                          title={<aTooltipContent example={item.example} desc={item.desc} />}
                         >
-                          <Input disabled value={item.name} className="key" />
-                        </Tooltip> */}
+                          <aInput disabled value={item.name} class="key" />
+                        </aTooltip> */}
 											<ParamsNameComponent
 												example={item.example}
 												desc={item.desc}
@@ -956,38 +950,38 @@ ${JSON.stringify(result.header, null, 2)}
 											&nbsp;
 											{item.required == 1 ? (
 												<Checkbox
-													className="params-enable"
+													class="params-enable"
 													checked={true}
 													disabled
 												/>
 											) : (
 												<Checkbox
-													className="params-enable"
+													class="params-enable"
 													checked={item.enable}
 													onChange={e =>
 														this.changeBody(e.target.checked, index, "enable")
 													}
 												/>
 											)}
-											<span className="eq-symbol">=</span>
+											<span class="eq-symbol">=</span>
 											{item.type === "file" ? (
 												"因Chrome最新版安全策略限制，不再支持文件上传"
 											) : (
-												// <Input
+												// <aInput
 												//   type="file"
 												//   id={'file_' + index}
 												//   onChange={e => this.changeBody(e.target.value, index, 'value')}
 												//   multiple
-												//   className="value"
+												//   class="value"
 												// />
-												<Input
+												<aInput
 													value={item.value}
-													className="value"
+													class="value"
 													onChange={e => this.changeBody(e.target.value, index)}
 													placeholder="参数值"
 													id={`req_body_form_${index}`}
 													addonAfter={
-														<Icon
+														<aIcon
 															type="edit"
 															onClick={() =>
 																this.showModal(
@@ -1003,29 +997,29 @@ ${JSON.stringify(result.header, null, 2)}
 										</div>
 									);
 								})}
-								<Button
+								<aButton
 									style={{ display: "none" }}
 									type="primary"
 									icon="plus"
 									onClick={this.addBody}>
 									添加Form参数
-								</Button>
+								</aButton>
 							</div>
 						)}
 						{HTTP_METHOD[method].request_body && req_body_type === "file" && (
 							<div>
-								<Input type="file" id="single-file" />
+								<aInput type="file" id="single-file" />
 							</div>
 						)}
 					</Panel>
-				</Collapse>
+				</aCollapse>
 
-				<Tabs size="large" defaultActiveKey="res" className="response-tab">
+				<Tabs size="large" defaultActiveKey="res" class="response-tab">
 					<Tabs.TabPane tab="Response" key="res">
-						<Spin spinning={this.state.loading}>
+						<aSpin spinning={this.state.loading}>
 							<h2
 								style={{ display: this.state.resStatusCode ? "" : "none" }}
-								className={
+								class={
 									"res-code " +
 									(this.state.resStatusCode >= 200 &&
 									this.state.resStatusCode < 400 &&
@@ -1048,9 +1042,9 @@ ${JSON.stringify(result.header, null, 2)}
 									message={
 										<span>
 											Warning &nbsp;
-											<Tooltip title="针对定义为 json schema 的返回数据进行格式校验">
-												<Icon type="question-circle-o" />
-											</Tooltip>
+											<aTooltip title="针对定义为 json schema 的返回数据进行格式校验">
+												<aIcon type="question-circle-o" />
+											</aTooltip>
 										</span>
 									}
 									type="warning"
@@ -1059,9 +1053,9 @@ ${JSON.stringify(result.header, null, 2)}
 								/>
 							)}
 
-							<div className="container-header-body">
-								<div className="header">
-									<div className="container-title">
+							<div class="container-header-body">
+								<div class="header">
+									<div class="container-title">
 										<h4>Headers</h4>
 									</div>
 									<AceEditor
@@ -1069,18 +1063,18 @@ ${JSON.stringify(result.header, null, 2)}
 											editor.renderer.setShowGutter(false);
 										}}
 										readOnly={true}
-										className="pretty-editor-header"
+										class="pretty-editor-header"
 										data={this.state.test_res_header}
 										mode="json"
 									/>
 								</div>
-								<div className="resizer">
-									<div className="container-title">
+								<div class="resizer">
+									<div class="container-title">
 										<h4 style={{ visibility: "hidden" }}>1</h4>
 									</div>
 								</div>
-								<div className="body">
-									<div className="container-title">
+								<div class="body">
+									<div class="container-title">
 										<h4>Body</h4>
 										<Checkbox
 											checked={this.state.autoPreviewHTML}
@@ -1092,28 +1086,28 @@ ${JSON.stringify(result.header, null, 2)}
 									</div>
 									{this.state.autoPreviewHTML && this.testResponseBodyIsHTML ? (
 										<iframe
-											className="pretty-editor-body"
+											class="pretty-editor-body"
 											srcDoc={this.state.test_res_body}
 										/>
 									) : (
 										<AceEditor
 											readOnly={true}
-											className="pretty-editor-body"
+											class="pretty-editor-body"
 											data={this.state.test_res_body}
 											mode={handleContentType(this.state.test_res_header)}
 										/>
 									)}
 								</div>
 							</div>
-						</Spin>
+						</aSpin>
 					</Tabs.TabPane>
 					{this.props.type === "case" ? (
 						<Tabs.TabPane
-							className="response-test"
+							class="response-test"
 							tab={
-								<Tooltip title="测试脚本，可断言返回结果，使用方法请查看文档">
+								<aTooltip title="测试脚本，可断言返回结果，使用方法请查看文档">
 									Test
-								</Tooltip>
+								</aTooltip>
 							}
 							key="test">
 							<h3 style={{ margin: "5px" }}>
@@ -1126,24 +1120,24 @@ ${JSON.stringify(result.header, null, 2)}
 							<p style={{ margin: "10px" }}>
 								注：Test 脚本只有做自动化测试才执行
 							</p>
-							<Row>
-								<Col span="18">
+							<aRow>
+								<aCol span="18">
 									<AceEditor
 										onChange={this.onOpenTest}
-										className="case-script"
+										class="case-script"
 										data={this.state.test_script}
 										ref={aceEditor => {
 											this.aceEditor = aceEditor;
 										}}
 									/>
-								</Col>
-								<Col span="6">
-									<div className="insert-code">
+								</aCol>
+								<aCol span="6">
+									<div class="insert-code">
 										{InsertCodeMap.map(item => {
 											return (
 												<div
 													style={{ cursor: "pointer" }}
-													className="code-item"
+													class="code-item"
 													key={item.title}
 													onClick={() => {
 														this.handleInsertCode("\n" + item.code);
@@ -1153,8 +1147,8 @@ ${JSON.stringify(result.header, null, 2)}
 											);
 										})}
 									</div>
-								</Col>
-							</Row>
+								</aCol>
+							</aRow>
 						</Tabs.TabPane>
 					) : null}
 				</Tabs>

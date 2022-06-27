@@ -1,7 +1,6 @@
 // progress bar
 import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
-import { LoginView } from "ysrc/containers/Login/LoginContainer";
 import { State_App } from "ysrc/state/State_App.jsx";
 import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 
@@ -33,16 +32,16 @@ const routes = [
 	{
 		path: `/login`,
 		name: "login",
-		component: LoginView,
+		component: () => import("ysrc/containers/Login/LoginContainer"),
 		meta: {
 			title: $t("用户登录").label
 		}
 	},
-	/* {
+	{
 		path: `/group`,
 		name: "group",
 		component: () => import("ysrc/containers/Group/Group.vue")
-	}, */
+	},
 	/* 404兜底 */
 	{
 		path: "/:pathMatch(.*)*",

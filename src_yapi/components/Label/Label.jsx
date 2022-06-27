@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Icon, Input, Tooltip } from "antd";
-import PropTypes from "prop-types";
+import { Icon, Input, Tooltip } from "ant-design-vue";
+
 import "./Label.scss";
 
 export default class Label extends Component {
@@ -33,37 +33,37 @@ export default class Label extends Component {
 		return (
 			<div>
 				{this.props.desc && (
-					<div className="component-label">
+					<div class="component-label">
 						{!this.state.inputShow ? (
 							<div>
 								<p>
 									{this.props.desc} &nbsp;&nbsp;
-									<Tooltip title="编辑简介">
-										<Icon
+									<aTooltip title="编辑简介">
+										<aIcon
 											onClick={this.toggle}
-											className="interface-delete-icon"
+											class="interface-delete-icon"
 											type="edit"
 										/>
-									</Tooltip>
+									</aTooltip>
 								</p>
 							</div>
 						) : (
-							<div className="label-input-wrapper">
-								<Input
+							<div class="label-input-wrapper">
+								<aInput
 									onChange={this.handleChange}
 									defaultValue={this.props.desc}
 									size="small"
 								/>
-								<Icon
-									className="interface-delete-icon"
+								<aIcon
+									class="interface-delete-icon"
 									onClick={() => {
 										this.props.onChange(this.state.inputValue);
 										this.toggle();
 									}}
 									type="check"
 								/>
-								<Icon
-									className="interface-delete-icon"
+								<aIcon
+									class="interface-delete-icon"
 									onClick={this.toggle}
 									type="close"
 								/>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+
 import "./index.scss";
 import {
-	Icon,
 	Row,
 	Col,
 	Form,
@@ -11,10 +10,10 @@ import {
 	Button,
 	AutoComplete,
 	Tooltip
-} from "antd";
+} from "ant-design-vue";
 const FormItem = Form.Item;
 const Option = Select.Option;
-import constants from "client/constants/variable.js";
+import constants from "ysrc/utils/variable";
 
 const initMap = {
 	header: [
@@ -178,8 +177,8 @@ class ProjectEnvContent extends Component {
 		const headerTpl = (item, index) => {
 			const headerLength = this.state.header.length - 1;
 			return (
-				<Row gutter={2} key={index}>
-					<Col span={10}>
+				<aRow gutter={2} key={index}>
+					<aCol span={10}>
 						<FormItem>
 							{getFieldDecorator("header[" + index + "].name", {
 								validateTrigger: ["onChange", "onBlur"],
@@ -199,87 +198,87 @@ class ProjectEnvContent extends Component {
 								/>
 							)}
 						</FormItem>
-					</Col>
-					<Col span={12}>
+					</aCol>
+					<aCol span={12}>
 						<FormItem>
 							{getFieldDecorator("header[" + index + "].value", {
 								validateTrigger: ["onChange", "onBlur"],
 								initialValue: item.value || ""
 							})(
-								<Input
+								<aInput
 									placeholder="请输入参数内容"
 									style={{ width: "90%", marginRight: 8 }}
 								/>
 							)}
 						</FormItem>
-					</Col>
-					<Col
+					</aCol>
+					<aCol
 						span={2}
-						className={index === headerLength ? " env-last-row" : null}>
+						class={index === headerLength ? " env-last-row" : null}>
 						{/* 新增的项中，只有最后一项没有有删除按钮 */}
-						<Icon
-							className="dynamic-delete-button delete"
+						<aIcon
+							class="dynamic-delete-button delete"
 							type="delete"
 							onClick={e => {
 								e.stopPropagation();
 								this.delHeader(index, "header");
 							}}
 						/>
-					</Col>
-				</Row>
+					</aCol>
+				</aRow>
 			);
 		};
 
 		const commonTpl = (item, index, name) => {
 			const length = this.state[name].length - 1;
 			return (
-				<Row gutter={2} key={index}>
-					<Col span={10}>
+				<aRow gutter={2} key={index}>
+					<aCol span={10}>
 						<FormItem>
 							{getFieldDecorator(`${name}[${index}].name`, {
 								validateTrigger: ["onChange", "onBlur"],
 								initialValue: item.name || ""
 							})(
-								<Input
+								<aInput
 									placeholder={`请输入 ${name} Name`}
 									style={{ width: "200px" }}
 									onChange={() => this.addHeader(item, index, name)}
 								/>
 							)}
 						</FormItem>
-					</Col>
-					<Col span={12}>
+					</aCol>
+					<aCol span={12}>
 						<FormItem>
 							{getFieldDecorator(`${name}[${index}].value`, {
 								validateTrigger: ["onChange", "onBlur"],
 								initialValue: item.value || ""
 							})(
-								<Input
+								<aInput
 									placeholder="请输入参数内容"
 									style={{ width: "90%", marginRight: 8 }}
 								/>
 							)}
 						</FormItem>
-					</Col>
-					<Col span={2} className={index === length ? " env-last-row" : null}>
+					</aCol>
+					<aCol span={2} class={index === length ? " env-last-row" : null}>
 						{/* 新增的项中，只有最后一项没有有删除按钮 */}
-						<Icon
-							className="dynamic-delete-button delete"
+						<aIcon
+							class="dynamic-delete-button delete"
 							type="delete"
 							onClick={e => {
 								e.stopPropagation();
 								this.delHeader(index, name);
 							}}
 						/>
-					</Col>
-				</Row>
+					</aCol>
+				</aRow>
 			);
 		};
 
 		const envTpl = data => {
 			return (
 				<div>
-					<h3 className="env-label">环境名称</h3>
+					<h3 class="env-label">环境名称</h3>
 					<FormItem required={false}>
 						{getFieldDecorator("env.name", {
 							validateTrigger: ["onChange", "onBlur"],
@@ -304,14 +303,14 @@ class ProjectEnvContent extends Component {
 								}
 							]
 						})(
-							<Input
+							<aInput
 								onChange={e => this.props.handleEnvInput(e.target.value)}
 								placeholder="请输入环境名称"
 								style={{ width: "90%", marginRight: 8 }}
 							/>
 						)}
 					</FormItem>
-					<h3 className="env-label">环境域名</h3>
+					<h3 class="env-label">环境域名</h3>
 					<FormItem required={false}>
 						{getFieldDecorator("env.domain", {
 							validateTrigger: ["onChange", "onBlur"],
@@ -336,7 +335,7 @@ class ProjectEnvContent extends Component {
 								}
 							]
 						})(
-							<Input
+							<aInput
 								placeholder="请输入环境域名"
 								style={{ width: "90%", marginRight: 8 }}
 								addonBefore={getFieldDecorator("env.protocol", {
@@ -357,26 +356,26 @@ class ProjectEnvContent extends Component {
 							/>
 						)}
 					</FormItem>
-					<h3 className="env-label">Header</h3>
+					<h3 class="env-label">Header</h3>
 					{this.state.header.map((item, index) => {
 						return headerTpl(item, index);
 					})}
 
-					<h3 className="env-label">Cookie</h3>
+					<h3 class="env-label">Cookie</h3>
 					{this.state.cookie.map((item, index) => {
 						return commonTpl(item, index, "cookie");
 					})}
 
-					<h3 className="env-label">
+					<h3 class="env-label">
 						global
 						<a
 							target="_blank"
 							rel="noopener noreferrer"
 							href="https://hellosean1025.github.io/yapi/documents/project.html#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"
 							style={{ marginLeft: 8 }}>
-							<Tooltip title="点击查看文档">
-								<Icon type="question-circle-o" style={{ fontSize: "13px" }} />
-							</Tooltip>
+							<aTooltip title="点击查看文档">
+								<aIcon type="question-circle-o" style={{ fontSize: "13px" }} />
+							</aTooltip>
 						</a>
 					</h3>
 					{this.state.global.map((item, index) => {
@@ -389,15 +388,15 @@ class ProjectEnvContent extends Component {
 		return (
 			<div>
 				{envTpl(projectMsg)}
-				<div className="btnwrap-changeproject">
-					<Button
-						className="m-btn btn-save"
+				<div class="btnwrap-changeproject">
+					<aButton
+						class="m-btn btn-save"
 						icon="save"
 						type="primary"
 						size="large"
 						onClick={this.handleOk}>
 						保 存
-					</Button>
+					</aButton>
 				</div>
 			</div>
 		);

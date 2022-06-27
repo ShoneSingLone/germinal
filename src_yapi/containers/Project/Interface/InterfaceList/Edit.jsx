@@ -1,6 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import InterfaceEditForm from "./InterfaceEditForm.js";
 import {
 	updateInterfaceData,
@@ -9,7 +6,7 @@ import {
 } from "../../../../reducer/modules/interface.js";
 import { getProject } from "../../../../reducer/modules/project.js";
 import axios from "axios";
-import { message, Modal } from "antd";
+import { message, Modal } from "ant-design-vue";
 import "./Edit.scss";
 import { withRouter, Link } from "react-router-dom";
 import ProjectTag from "../../Setting/ProjectMessage/ProjectTag.js";
@@ -188,7 +185,7 @@ class InterfaceEdit extends Component {
 	render() {
 		const { cat, basepath, switch_notice, tag } = this.props.currProject;
 		return (
-			<div className="interface-edit">
+			<div class="interface-edit">
 				{this.state.status === 1 ? (
 					<InterfaceEditForm
 						cat={cat}
@@ -207,25 +204,25 @@ class InterfaceEdit extends Component {
 							fontSize: "14px",
 							paddingTop: "10px"
 						}}>
-						<Link to={"/user/profile/" + this.state.curdata.uid}>
+						<RouterLink to={"/user/profile/" + this.state.curdata.uid}>
 							<b>{this.state.curdata.username}</b>
-						</Link>
+						</RouterLink>
 						<span>正在编辑该接口，请稍后再试...</span>
 					</div>
 				) : null}
 				{this.state.status === 0 && "正在加载，请耐心等待..."}
 
-				<Modal
+				<aModal
 					title="Tag 设置"
 					width={680}
 					visible={this.state.visible}
 					onOk={this.handleOk}
 					onCancel={this.handleCancel}
 					okText="保存">
-					<div className="tag-modal-center">
+					<div class="tag-modal-center">
 						<ProjectTag tagMsg={tag} ref={this.tagSubmit} />
 					</div>
-				</Modal>
+				</aModal>
 			</div>
 		);
 	}

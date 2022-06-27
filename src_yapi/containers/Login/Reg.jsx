@@ -1,9 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Form, Button, Input, Icon, message } from "antd";
+import { Form, Button, Input, Icon, message } from "ant-design-vue";
 import { regActions } from "../../reducer/modules/user";
-import { withRouter } from "react-router";
+
 const FormItem = Form.Item;
 const formItemStyle = {
 	marginBottom: ".16rem"
@@ -79,9 +76,9 @@ class Reg extends Component {
 					{getFieldDecorator("userName", {
 						rules: [{ required: true, message: "请输入用户名!" }]
 					})(
-						<Input
+						<aInput
 							style={changeHeight}
-							prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+							prefix={<aIcon type="user" style={{ fontSize: 13 }} />}
 							placeholder="Username"
 						/>
 					)}
@@ -98,9 +95,9 @@ class Reg extends Component {
 							}
 						]
 					})(
-						<Input
+						<aInput
 							style={changeHeight}
-							prefix={<Icon type="mail" style={{ fontSize: 13 }} />}
+							prefix={<aIcon type="mail" style={{ fontSize: 13 }} />}
 							placeholder="Email"
 						/>
 					)}
@@ -119,9 +116,9 @@ class Reg extends Component {
 							}
 						]
 					})(
-						<Input
+						<aInput
 							style={changeHeight}
-							prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+							prefix={<aIcon type="lock" style={{ fontSize: 13 }} />}
 							type="password"
 							placeholder="Password"
 						/>
@@ -141,9 +138,9 @@ class Reg extends Component {
 							}
 						]
 					})(
-						<Input
+						<aInput
 							style={changeHeight}
-							prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+							prefix={<aIcon type="lock" style={{ fontSize: 13 }} />}
 							type="password"
 							placeholder="Confirm Password"
 						/>
@@ -152,13 +149,13 @@ class Reg extends Component {
 
 				{/* 注册按钮 */}
 				<FormItem style={formItemStyle}>
-					<Button
+					<aButton
 						style={changeHeight}
 						type="primary"
 						htmlType="submit"
-						className="login-form-button">
+						class="login-form-button">
 						注册
-					</Button>
+					</aButton>
 				</FormItem>
 			</Form>
 		);

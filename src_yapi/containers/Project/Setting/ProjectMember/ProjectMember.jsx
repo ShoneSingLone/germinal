@@ -1,4 +1,3 @@
-import React, { PureComponent as Component } from "react";
 import {
 	Table,
 	Card,
@@ -12,10 +11,10 @@ import {
 	Popconfirm,
 	Switch,
 	Tooltip
-} from "antd";
-import PropTypes from "prop-types";
+} from "ant-design-vue";
+
 import { fetchGroupMsg } from "../../../../reducer/modules/group";
-import { connect } from "react-redux";
+
 import ErrMsg from "../../../../components/ErrMsg/ErrMsg.js";
 import { fetchGroupMemberList } from "../../../../reducer/modules/group.js";
 import {
@@ -257,13 +256,13 @@ class ProjectMember extends Component {
 				key: "username",
 				render: (text, record) => {
 					return (
-						<div className="m-user">
+						<div class="m-user">
 							<img
 								src={"/api/user/avatar?uid=" + record.uid}
-								className="m-user-img"
+								class="m-user-img"
 							/>
-							<p className="m-user-name">{text}</p>
-							<Tooltip placement="top" title="消息通知">
+							<p class="m-user-name">{text}</p>
+							<aTooltip placement="top" title="消息通知">
 								<span>
 									<Switch
 										size="small"
@@ -276,7 +275,7 @@ class ProjectMember extends Component {
 										onChange={e => this.changeEmailNotice(e, record.uid)}
 									/>
 								</span>
-							</Tooltip>
+							</aTooltip>
 						</div>
 					);
 				}
@@ -284,20 +283,20 @@ class ProjectMember extends Component {
 			{
 				title:
 					this.state.role === "owner" || this.state.role === "admin" ? (
-						<div className="btn-container">
-							<Button
-								className="btn"
+						<div class="btn-container">
+							<aButton
+								class="btn"
 								type="primary"
 								icon="plus"
 								onClick={this.showAddMemberModal}>
 								添加成员
-							</Button>
-							<Button
-								className="btn"
+							</aButton>
+							<aButton
+								class="btn"
 								icon="plus"
 								onClick={this.showImportMemberModal}>
 								批量导入成员
-							</Button>
+							</aButton>
 						</div>
 					) : (
 						""
@@ -310,7 +309,7 @@ class ProjectMember extends Component {
 							<div>
 								<Select
 									value={record.role + "-" + record.uid}
-									className="select"
+									class="select"
 									onChange={this.changeUserRole}>
 									<Option value={"owner-" + record.uid}>组长</Option>
 									<Option value={"dev-" + record.uid}>开发者</Option>
@@ -322,7 +321,7 @@ class ProjectMember extends Component {
 									onConfirm={this.deleteConfirm(record.uid)}
 									okText="确定"
 									cancelText="">
-									<Button type="danger" icon="delete" className="btn-danger" />
+									<aButton type="danger" icon="delete" class="btn-danger" />
 								</Popconfirm>
 							</div>
 						);
@@ -349,51 +348,51 @@ class ProjectMember extends Component {
 		));
 
 		return (
-			<div className="g-row">
-				<div className="m-panel">
+			<div class="g-row">
+				<div class="m-panel">
 					{this.state.visible ? (
-						<Modal
+						<aModal
 							title="添加成员"
 							visible={this.state.visible}
 							onOk={this.handleOk}
 							onCancel={this.handleCancel}>
-							<Row gutter={6} className="modal-input">
-								<Col span="5">
-									<div className="label usernamelabel">用户名: </div>
-								</Col>
-								<Col span="15">
+							<aRow gutter={6} class="modal-input">
+								<aCol span="5">
+									<div class="label usernamelabel">用户名: </div>
+								</aCol>
+								<aCol span="15">
 									<UsernameAutoComplete callbackState={this.onUserSelect} />
-								</Col>
-							</Row>
-							<Row gutter={6} className="modal-input">
-								<Col span="5">
-									<div className="label usernamelabel">权限: </div>
-								</Col>
-								<Col span="15">
+								</aCol>
+							</aRow>
+							<aRow gutter={6} class="modal-input">
+								<aCol span="5">
+									<div class="label usernamelabel">权限: </div>
+								</aCol>
+								<aCol span="15">
 									<Select
 										defaultValue="dev"
-										className="select"
+										class="select"
 										onChange={this.changeNewMemberRole}>
 										<Option value="owner">组长</Option>
 										<Option value="dev">开发者</Option>
 										<Option value="guest">访客</Option>
 									</Select>
-								</Col>
-							</Row>
-						</Modal>
+								</aCol>
+							</aRow>
+						</aModal>
 					) : (
 						""
 					)}
-					<Modal
+					<aModal
 						title="批量导入成员"
 						visible={this.state.modalVisible}
 						onOk={this.handleModalOk}
 						onCancel={this.handleModalCancel}>
-						<Row gutter={6} className="modal-input">
-							<Col span="5">
-								<div className="label usernamelabel">项目名: </div>
-							</Col>
-							<Col span="15">
+						<aRow gutter={6} class="modal-input">
+							<aCol span="5">
+								<div class="label usernamelabel">项目名: </div>
+							</aCol>
+							<aCol span="15">
 								<Select
 									showSearch
 									style={{ width: 200 }}
@@ -402,16 +401,16 @@ class ProjectMember extends Component {
 									onChange={this.handleChange}>
 									{children}
 								</Select>
-							</Col>
-						</Row>
-					</Modal>
+							</aCol>
+						</aRow>
+					</aModal>
 
 					<Table
 						columns={columns}
 						dataSource={this.state.projectMemberList}
 						pagination={false}
 						locale={{ emptyText: <ErrMsg type="noMemberInProject" /> }}
-						className="setting-project-member"
+						class="setting-project-member"
 					/>
 					<Card
 						bordered={false}
@@ -423,11 +422,11 @@ class ProjectMember extends Component {
 							") 人"
 						}
 						hoverable={true}
-						className="setting-group">
+						class="setting-group">
 						{this.state.groupMemberList.length ? (
 							this.state.groupMemberList.map((item, index) => {
 								return (
-									<div key={index} className="card-item">
+									<div key={index} class="card-item">
 										<img
 											src={
 												location.protocol +
@@ -436,9 +435,9 @@ class ProjectMember extends Component {
 												"/api/user/avatar?uid=" +
 												item.uid
 											}
-											className="item-img"
+											class="item-img"
 										/>
-										<p className="item-name">
+										<p class="item-name">
 											{item.username}
 											{item.uid === this.props.uid ? (
 												<Badge
@@ -453,13 +452,13 @@ class ProjectMember extends Component {
 											) : null}
 										</p>
 										{item.role === "owner" ? (
-											<p className="item-role">组长</p>
+											<p class="item-role">组长</p>
 										) : null}
 										{item.role === "dev" ? (
-											<p className="item-role">开发者</p>
+											<p class="item-role">开发者</p>
 										) : null}
 										{item.role === "guest" ? (
-											<p className="item-role">访客</p>
+											<p class="item-role">访客</p>
 										) : null}
 									</div>
 								);

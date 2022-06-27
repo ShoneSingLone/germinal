@@ -1,9 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-//import constants from '../../../../constants/variable.js'
 import {
 	Tooltip,
 	Icon,
@@ -16,7 +10,7 @@ import {
 	message,
 	Select,
 	Switch
-} from "antd";
+} from "ant-design-vue";
 import {
 	fetchInterfaceColList,
 	fetchCaseList,
@@ -32,7 +26,7 @@ import * as dnd from "reactabular-dnd";
 import * as resolve from "table-resolver";
 import axios from "axios";
 import CaseReport from "./CaseReport.js";
-import _ from "underscore";
+import { _ } from "@ventose/ui";
 import { initCrossRequest } from "client/components/Postman/CheckCrossInstall.js";
 import produce from "immer";
 import { InsertCodeMap } from "client/components/Postman/Postman.js";
@@ -719,7 +713,7 @@ class InterfaceColContent extends Component {
 						(text, { rowData }) => {
 							let record = rowData;
 							return (
-								<Link
+								<RouterLink
 									to={
 										"/project/" +
 										currProjectId +
@@ -729,7 +723,7 @@ class InterfaceColContent extends Component {
 									{record.casename.length > 23
 										? record.casename.substr(0, 20) + "..."
 										: record.casename}
-								</Link>
+								</RouterLink>
 							);
 						}
 					]
@@ -741,14 +735,14 @@ class InterfaceColContent extends Component {
 					formatters: [
 						() => {
 							return (
-								<Tooltip
+								<aTooltip
 									title={
 										<span>
 											{" "}
 											每个用例都有唯一的key，用于获取所匹配接口的响应数据，例如使用{" "}
 											<a
 												href="https://hellosean1025.github.io/yapi/documents/case.html#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%8C%E7%BC%96%E8%BE%91%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"
-												className="link-tooltip"
+												class="link-tooltip"
 												target="blank">
 												{" "}
 												变量参数{" "}
@@ -757,7 +751,7 @@ class InterfaceColContent extends Component {
 										</span>
 									}>
 									Key
-								</Tooltip>
+								</aTooltip>
 							);
 						}
 					]
@@ -793,7 +787,7 @@ class InterfaceColContent extends Component {
 							if (rowData.test_status === "loading") {
 								return (
 									<div>
-										<Spin />
+										<aSpin />
 									</div>
 								);
 							}
@@ -802,46 +796,46 @@ class InterfaceColContent extends Component {
 								case 0:
 									return (
 										<div>
-											<Tooltip title="Pass">
-												<Icon
+											<aTooltip title="Pass">
+												<aIcon
 													style={{
 														color: "#00a854"
 													}}
 													type="check-circle"
 												/>
-											</Tooltip>
+											</aTooltip>
 										</div>
 									);
 								case 400:
 									return (
 										<div>
-											<Tooltip title="请求异常">
-												<Icon
+											<aTooltip title="请求异常">
+												<aIcon
 													type="info-circle"
 													style={{
 														color: "#f04134"
 													}}
 												/>
-											</Tooltip>
+											</aTooltip>
 										</div>
 									);
 								case 1:
 									return (
 										<div>
-											<Tooltip title="验证失败">
-												<Icon
+											<aTooltip title="验证失败">
+												<aIcon
 													type="exclamation-circle"
 													style={{
 														color: "#ffbf00"
 													}}
 												/>
-											</Tooltip>
+											</aTooltip>
 										</div>
 									);
 								default:
 									return (
 										<div>
-											<Icon
+											<aIcon
 												style={{
 													color: "#00a854"
 												}}
@@ -864,14 +858,14 @@ class InterfaceColContent extends Component {
 						(text, { rowData }) => {
 							let record = rowData;
 							return (
-								<Tooltip title="跳转到对应接口">
-									<Link
+								<aTooltip title="跳转到对应接口">
+									<RouterLink
 										to={`/project/${record.project_id}/interface/api/${record.interface_id}`}>
 										{record.path.length > 23
 											? record.path + "..."
 											: record.path}
-									</Link>
-								</Tooltip>
+									</RouterLink>
+								</aTooltip>
 							);
 						}
 					]
@@ -894,13 +888,13 @@ class InterfaceColContent extends Component {
 									return null;
 								}
 								return (
-									<Button onClick={() => this.openReport(rowData.id)}>
+									<aButton onClick={() => this.openReport(rowData.id)}>
 										测试报告
-									</Button>
+									</aButton>
 								);
 							};
 							return (
-								<div className="interface-col-table-action">{reportFun()}</div>
+								<div class="interface-col-table-action">{reportFun()}</div>
 							);
 						}
 					]
@@ -946,25 +940,25 @@ class InterfaceColContent extends Component {
 		}
 
 		return (
-			<div className="interface-col">
-				<Modal
+			<div class="interface-col">
+				<aModal
 					title="通用规则配置"
 					visible={this.state.commonSettingModalVisible}
 					onOk={this.handleCommonSetting}
 					onCancel={this.cancelCommonSetting}
 					width={"1000px"}
 					style={defaultModalStyle}>
-					<div className="common-setting-modal">
-						<Row className="setting-item">
-							<Col className="col-item" span="4">
+					<div class="common-setting-modal">
+						<aRow class="setting-item">
+							<aCol class="col-item" span="4">
 								<label>
 									检查HttpCode:&nbsp;
-									<Tooltip title={"检查 http code 是否为 200"}>
-										<Icon type="question-circle-o" style={{ width: "10px" }} />
-									</Tooltip>
+									<aTooltip title={"检查 http code 是否为 200"}>
+										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+									</aTooltip>
 								</label>
-							</Col>
-							<Col className="col-item" span="18">
+							</aCol>
+							<aCol class="col-item" span="18">
 								<Switch
 									onChange={e => {
 										let { commonSetting } = this.state;
@@ -979,58 +973,58 @@ class InterfaceColContent extends Component {
 									checkedChildren="开"
 									unCheckedChildren="关"
 								/>
-							</Col>
-						</Row>
+							</aCol>
+						</aRow>
 
-						<Row className="setting-item">
-							<Col className="col-item" span="4">
+						<aRow class="setting-item">
+							<aCol class="col-item" span="4">
 								<label>
 									检查返回json:&nbsp;
-									<Tooltip
+									<aTooltip
 										title={
 											"检查接口返回数据字段值，比如检查 code 是不是等于 0"
 										}>
-										<Icon type="question-circle-o" style={{ width: "10px" }} />
-									</Tooltip>
+										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+									</aTooltip>
 								</label>
-							</Col>
-							<Col className="col-item" span="6">
-								<Input
+							</aCol>
+							<aCol class="col-item" span="6">
+								<aInput
 									value={this.state.commonSetting.checkResponseField.name}
 									onChange={this.changeCommonFieldSetting("name")}
 									placeholder="字段名"
 								/>
-							</Col>
-							<Col className="col-item" span="6">
-								<Input
+							</aCol>
+							<aCol class="col-item" span="6">
+								<aInput
 									onChange={this.changeCommonFieldSetting("value")}
 									value={this.state.commonSetting.checkResponseField.value}
 									placeholder="值"
 								/>
-							</Col>
-							<Col className="col-item" span="6">
+							</aCol>
+							<aCol class="col-item" span="6">
 								<Switch
 									onChange={this.changeCommonFieldSetting("enable")}
 									checked={this.state.commonSetting.checkResponseField.enable}
 									checkedChildren="开"
 									unCheckedChildren="关"
 								/>
-							</Col>
-						</Row>
+							</aCol>
+						</aRow>
 
-						<Row className="setting-item">
-							<Col className="col-item" span="4">
+						<aRow class="setting-item">
+							<aCol class="col-item" span="4">
 								<label>
 									检查返回数据结构:&nbsp;
-									<Tooltip
+									<aTooltip
 										title={
 											"只有 response 基于 json-schema 方式定义，该检查才会生效"
 										}>
-										<Icon type="question-circle-o" style={{ width: "10px" }} />
-									</Tooltip>
+										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+									</aTooltip>
 								</label>
-							</Col>
-							<Col className="col-item" span="18">
+							</aCol>
+							<aCol class="col-item" span="18">
 								<Switch
 									onChange={e => {
 										let { commonSetting } = this.state;
@@ -1045,22 +1039,22 @@ class InterfaceColContent extends Component {
 									checkedChildren="开"
 									unCheckedChildren="关"
 								/>
-							</Col>
-						</Row>
+							</aCol>
+						</aRow>
 
-						<Row className="setting-item">
-							<Col className="col-item  " span="4">
+						<aRow class="setting-item">
+							<aCol class="col-item  " span="4">
 								<label>
 									全局测试脚本:&nbsp;
-									<Tooltip
+									<aTooltip
 										title={
 											"在跑自动化测试时，优先调用全局脚本，只有全局脚本通过测试，才会开始跑case自定义的测试脚本"
 										}>
-										<Icon type="question-circle-o" style={{ width: "10px" }} />
-									</Tooltip>
+										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+									</aTooltip>
 								</label>
-							</Col>
-							<Col className="col-item" span="14">
+							</aCol>
+							<aCol class="col-item" span="14">
 								<div>
 									<Switch
 										onChange={e => {
@@ -1082,20 +1076,20 @@ class InterfaceColContent extends Component {
 								</div>
 								<AceEditor
 									onChange={this.onChangeTest}
-									className="case-script"
+									class="case-script"
 									data={this.state.commonSetting.checkScript.content}
 									ref={aceEditor => {
 										this.aceEditor = aceEditor;
 									}}
 								/>
-							</Col>
-							<Col span="6">
-								<div className="insert-code">
+							</aCol>
+							<aCol span="6">
+								<div class="insert-code">
 									{InsertCodeMap.map(item => {
 										return (
 											<div
 												style={{ cursor: "pointer" }}
-												className="code-item"
+												class="code-item"
 												key={item.title}
 												onClick={() => {
 													this.handleInsertCode("\n" + item.code);
@@ -1105,14 +1099,14 @@ class InterfaceColContent extends Component {
 										);
 									})}
 								</div>
-							</Col>
-						</Row>
+							</aCol>
+						</aRow>
 					</div>
-				</Modal>
-				<Row type="flex" justify="center" align="top">
-					<Col span={5}>
+				</aModal>
+				<aRow type="flex" justify="center" align="top">
+					<aCol span={5}>
 						<h2
-							className="interface-title"
+							class="interface-title"
 							style={{
 								display: "inline-block",
 								margin: "8px 20px 16px 0px"
@@ -1122,13 +1116,13 @@ class InterfaceColContent extends Component {
 								target="_blank"
 								rel="noopener noreferrer"
 								href="https://hellosean1025.github.io/yapi/documents/case.html">
-								<Tooltip title="点击查看文档">
-									<Icon type="question-circle-o" />
-								</Tooltip>
+								<aTooltip title="点击查看文档">
+									<aIcon type="question-circle-o" />
+								</aTooltip>
 							</a>
 						</h2>
-					</Col>
-					<Col span={10}>
+					</aCol>
+					<aCol span={10}>
 						<CaseEnv
 							envList={this.props.envList}
 							currProjectEnvChange={this.currProjectEnvChange}
@@ -1136,40 +1130,40 @@ class InterfaceColContent extends Component {
 							collapseKey={this.state.collapseKey}
 							changeClose={this.changeCollapseClose}
 						/>
-					</Col>
-					<Col span={9}>
+					</aCol>
+					<aCol span={9}>
 						<div
 							style={{
 								float: "right",
 								paddingTop: "8px"
 							}}>
 							{this.props.curProjectRole !== "guest" && (
-								<Tooltip title="在 YApi 服务端跑自动化测试，测试环境不能为私有网络，请确保 YApi 服务器可以访问到自动化测试环境domain">
-									<Button
+								<aTooltip title="在 YApi 服务端跑自动化测试，测试环境不能为私有网络，请确保 YApi 服务器可以访问到自动化测试环境domain">
+									<aButton
 										style={{
 											marginRight: "8px"
 										}}
 										onClick={this.autoTests}>
 										服务端测试
-									</Button>
-								</Tooltip>
+									</aButton>
+								</aTooltip>
 							)}
-							<Button
+							<aButton
 								onClick={this.openCommonSetting}
 								style={{
 									marginRight: "8px"
 								}}>
 								通用规则配置
-							</Button>
+							</aButton>
 							&nbsp;
-							<Button type="primary" onClick={this.executeTests}>
+							<aButton type="primary" onClick={this.executeTests}>
 								开始测试
-							</Button>
+							</aButton>
 						</div>
-					</Col>
-				</Row>
+					</aCol>
+				</aRow>
 
-				<div className="component-label-wrapper">
+				<div class="component-label-wrapper">
 					<Label
 						onChange={val => this.handleChangeInterfaceCol(val, col_name)}
 						desc={col_desc}
@@ -1184,18 +1178,18 @@ class InterfaceColContent extends Component {
 						borderCollapse: "collapse"
 					}}>
 					<Table.Header
-						className="interface-col-table-header"
+						class="interface-col-table-header"
 						headerRows={resolve.headerRows({ columns })}
 					/>
 
 					<Table.Body
-						className="interface-col-table-body"
+						class="interface-col-table-body"
 						rows={resolvedRows}
 						rowKey="id"
 						onRow={this.onRow}
 					/>
 				</Table.Provider>
-				<Modal
+				<aModal
 					title="测试报告"
 					width="900px"
 					style={{
@@ -1205,9 +1199,9 @@ class InterfaceColContent extends Component {
 					onCancel={this.handleCancel}
 					footer={null}>
 					<CaseReport {...this.reports[this.state.curCaseid]} />
-				</Modal>
+				</aModal>
 
-				<Modal
+				<aModal
 					title="自定义测试脚本"
 					width="660px"
 					style={{
@@ -1225,13 +1219,13 @@ class InterfaceColContent extends Component {
 						/>
 					</h3>
 					<AceEditor
-						className="case-script"
+						class="case-script"
 						data={this.state.curScript}
 						onChange={this.handleScriptChange}
 					/>
-				</Modal>
+				</aModal>
 				{this.state.autoVisible && (
-					<Modal
+					<aModal
 						title="服务端自动化测试"
 						width="780px"
 						style={{
@@ -1239,17 +1233,17 @@ class InterfaceColContent extends Component {
 						}}
 						visible={this.state.autoVisible}
 						onCancel={this.handleAuto}
-						className="autoTestsModal"
+						class="autoTestsModal"
 						footer={null}>
-						<Row type="flex" justify="space-around" className="row" align="top">
-							<Col span={3} className="label" style={{ paddingTop: "16px" }}>
+						<aRow type="flex" justify="space-around" class="row" align="top">
+							<aCol span={3} class="label" style={{ paddingTop: "16px" }}>
 								选择环境
-								<Tooltip title="默认使用测试用例选择的环境">
-									<Icon type="question-circle-o" />
-								</Tooltip>
+								<aTooltip title="默认使用测试用例选择的环境">
+									<aIcon type="question-circle-o" />
+								</aTooltip>
 								&nbsp;：
-							</Col>
-							<Col span={21}>
+							</aCol>
+							<aCol span={21}>
 								<CaseEnv
 									envList={this.props.envList}
 									currProjectEnvChange={this.currProjectEnvChange}
@@ -1257,17 +1251,13 @@ class InterfaceColContent extends Component {
 									collapseKey={this.state.collapseKey}
 									changeClose={this.changeCollapseClose}
 								/>
-							</Col>
-						</Row>
-						<Row
-							type="flex"
-							justify="space-around"
-							className="row"
-							align="middle">
-							<Col span={3} className="label">
+							</aCol>
+						</aRow>
+						<aRow type="flex" justify="space-around" class="row" align="middle">
+							<aCol span={3} class="label">
 								输出格式：
-							</Col>
-							<Col span={21}>
+							</aCol>
+							<aCol span={21}>
 								<Select value={this.state.mode} onChange={this.modeChange}>
 									<Option key="html" value="html">
 										html
@@ -1276,86 +1266,74 @@ class InterfaceColContent extends Component {
 										json
 									</Option>
 								</Select>
-							</Col>
-						</Row>
-						<Row
-							type="flex"
-							justify="space-around"
-							className="row"
-							align="middle">
-							<Col span={3} className="label">
+							</aCol>
+						</aRow>
+						<aRow type="flex" justify="space-around" class="row" align="middle">
+							<aCol span={3} class="label">
 								消息通知
-								<Tooltip title={"测试不通过时，会给项目组成员发送消息通知"}>
-									<Icon
+								<aTooltip title={"测试不通过时，会给项目组成员发送消息通知"}>
+									<aIcon
 										type="question-circle-o"
 										style={{
 											width: "10px"
 										}}
 									/>
-								</Tooltip>
+								</aTooltip>
 								&nbsp;：
-							</Col>
-							<Col span={21}>
+							</aCol>
+							<aCol span={21}>
 								<Switch
 									checked={this.state.email}
 									checkedChildren="开"
 									unCheckedChildren="关"
 									onChange={this.emailChange}
 								/>
-							</Col>
-						</Row>
-						<Row
-							type="flex"
-							justify="space-around"
-							className="row"
-							align="middle">
-							<Col span={3} className="label">
+							</aCol>
+						</aRow>
+						<aRow type="flex" justify="space-around" class="row" align="middle">
+							<aCol span={3} class="label">
 								下载数据
-								<Tooltip title={"开启后，测试数据将被下载到本地"}>
-									<Icon
+								<aTooltip title={"开启后，测试数据将被下载到本地"}>
+									<aIcon
 										type="question-circle-o"
 										style={{
 											width: "10px"
 										}}
 									/>
-								</Tooltip>
+								</aTooltip>
 								&nbsp;：
-							</Col>
-							<Col span={21}>
+							</aCol>
+							<aCol span={21}>
 								<Switch
 									checked={this.state.download}
 									checkedChildren="开"
 									unCheckedChildren="关"
 									onChange={this.downloadChange}
 								/>
-							</Col>
-						</Row>
-						<Row
-							type="flex"
-							justify="space-around"
-							className="row"
-							align="middle">
-							<Col span={21} className="autoTestUrl">
+							</aCol>
+						</aRow>
+						<aRow type="flex" justify="space-around" class="row" align="middle">
+							<aCol span={21} class="autoTestUrl">
 								<a
 									target="_blank"
 									rel="noopener noreferrer"
 									href={localUrl + autoTestsUrl}>
 									{autoTestsUrl}
 								</a>
-							</Col>
-							<Col span={3}>
-								<Button
-									className="copy-btn"
+							</aCol>
+							<aCol span={3}>
+								<aButton
+									class="copy-btn"
 									onClick={() => this.copyUrl(localUrl + autoTestsUrl)}>
 									复制
-								</Button>
-							</Col>
-						</Row>
-						<div className="autoTestMsg">
+								</aButton>
+							</aCol>
+						</aRow>
+						<div class="autoTestMsg">
 							注：访问该URL，可以测试所有用例，请确保YApi服务器可以访问到环境配置的
 							domain
 						</div>
-					</Modal>
+					</aModal>
 				)}
 			</div>
 		);

@@ -1,11 +1,8 @@
 import { reactive, watch, computed } from "vue";
 import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
-import { STATIC_WORD } from "ysrc/utils/common.words.jsx";
-import { API, SuccessOrFail } from "germinal_api";
-import md5 from "md5";
-import $ from "jquery";
 
 const { $t } = State_UI;
+
 export const State_App = reactive({
 	user: {
 		loginWrapActiveKey: "",
@@ -14,13 +11,60 @@ export const State_App = reactive({
 		isLogin: false,
 		role: {}
 	},
+	project: {
+		currPage: "",
+		projectList: "",
+		userInfo: "",
+		tableLoading: ""
+	},
+	news: {
+		newsData: "",
+		curpage: ""
+	},
 	group: {
-		currGroup: { _id: "", role: {} }
+		groupList: [],
+		currGroup: {
+			group_name: "",
+			group_desc: "",
+			custom_field1: {
+				name: "",
+				enable: false
+			}
+		},
+		field: {
+			name: "",
+			enable: false
+		},
+		member: [],
+		role: ""
 	}
 });
 
 export const Mutation_App = {
 	async changeMenuItem() {},
 	async loginActions() {},
-	async loginLdapActions() {}
+	async loginLdapActions() {},
+	async fetchGroupMemberList() {},
+	async fetchGroupMsg() {},
+	async addMember() {},
+	async delMember() {},
+	async changeMemberRole() {},
+	async fetchNewsData() {},
+	async fetchMoreNews() {},
+	async fetchInterfaceList() {},
+	async fetchGroupList() {},
+	async setCurrGroup() {},
+	async setGroupList() {},
+	async fetchProjectList() {},
+	async addProject() {},
+	async delProject() {},
+	async changeUpdateModal() {},
+	async setBreadcrumb() {},
+	delFollow() {},
+	addFollow() {},
+	getProject() {},
+	checkProjectName() {},
+	copyProjectMsg() {},
+	changeStudyTip() {},
+	finishStudy() {}
 };

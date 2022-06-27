@@ -1,10 +1,9 @@
 import "./News.scss";
-import React, { PureComponent as Component } from "react";
+
 import NewsTimeline from "./NewsTimeline/NewsTimeline";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import { Button } from "antd";
+import { Button } from "ant-design-vue";
 import { getMockUrl } from "../../reducer/modules/news.js";
 import Subnav from "../../components/Subnav/Subnav.js";
 
@@ -59,14 +58,14 @@ class News extends Component {
 						}
 					]}
 				/>
-				<div className="g-row">
-					<section className="news-box m-panel">
-						<div className="logHead">
+				<div class="g-row">
+					<section class="news-box m-panel">
+						<div class="logHead">
 							<Breadcrumb />
-							<div className="Mockurl">
+							<div class="Mockurl">
 								<span>Mock地址：</span>
 								<p>{this.state.mockURL}</p>
-								<Button type="primary">下载Mock数据</Button>
+								<aButton type="primary">下载Mock数据</aButton>
 							</div>
 						</div>
 						<NewsTimeline />

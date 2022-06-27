@@ -1,12 +1,11 @@
-import React, { PureComponent as Component } from "react";
-import { Tabs } from "antd";
-import PropTypes from "prop-types";
+import { Tabs } from "ant-design-vue";
+
 import ProjectMessage from "./ProjectMessage/ProjectMessage.js";
 import ProjectEnv from "./ProjectEnv/index.js";
 import ProjectRequest from "./ProjectRequest/ProjectRequest";
 import ProjectToken from "./ProjectToken/ProjectToken";
 import ProjectMock from "./ProjectMock/index.js";
-import { connect } from "react-redux";
+
 const TabPane = Tabs.TabPane;
 const plugin = require("client/plugin.js");
 
@@ -28,8 +27,8 @@ class Setting extends Component {
 		const id = this.props.match.params.id;
 		plugin.emitHook("sub_setting_nav", routers);
 		return (
-			<div className="g-row">
-				<Tabs type="card" className="has-affix-footer tabs-large">
+			<div class="g-row">
+				<Tabs type="card" class="has-affix-footer tabs-large">
 					<TabPane tab="项目配置" key="1">
 						<ProjectMessage projectId={+id} />
 					</TabPane>

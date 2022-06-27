@@ -1,6 +1,4 @@
 import "./MockDoc.scss";
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
 
 // 组件用法 <MockDoc mock= mockData doc= docData />
 // mockData: mock数据 格式为json
@@ -27,7 +25,7 @@ class MockDoc extends Component {
 		let htmlData = mockToArr(this.props.mock);
 		htmlData = arrToHtml(htmlData, this.props.doc);
 		return (
-			<div className="MockDoc">
+			<div class="MockDoc">
 				{htmlData.map(function (item, i) {
 					{
 						/*//类型：Object  必有字段  备注：qwqwqw*/
@@ -36,7 +34,7 @@ class MockDoc extends Component {
 						var mes = [];
 						item.mes.type
 							? mes.push(
-									<span key={i} className="keymes">
+									<span key={i} class="keymes">
 										{" "}
 										/ /类型：{item.mes.type}
 									</span>
@@ -44,22 +42,22 @@ class MockDoc extends Component {
 							: "";
 						item.mes.required
 							? mes.push(
-									<span key={i + 1} className="keymes">
+									<span key={i + 1} class="keymes">
 										必有字段
 									</span>
 							  )
 							: "";
 						item.mes.desc
 							? mes.push(
-									<span key={i + 2} className="keymes">
+									<span key={i + 2} class="keymes">
 										备注：{item.mes.desc}
 									</span>
 							  )
 							: "";
 					}
 					return (
-						<div className="jsonItem" key={i}>
-							{<span className="jsonitemNum">{i + 1}.</span>}
+						<div class="jsonItem" key={i}>
+							{<span class="jsonitemNum">{i + 1}.</span>}
 							{produceSpace(item.space)}
 							{setStrToHtml(item.str)}
 							{mes}
@@ -110,7 +108,7 @@ MockDoc.defaultProps = {
 function produceSpace(count) {
 	var space = [];
 	for (var i = 0; i < count; i++) {
-		space.push(<span key={i} className="spaces" />);
+		space.push(<span key={i} class="spaces" />);
 	}
 	return space;
 }

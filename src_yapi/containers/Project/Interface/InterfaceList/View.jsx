@@ -1,14 +1,20 @@
 import "./View.scss";
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Table, Icon, Row, Col, Tooltip, message, Button } from "antd";
-import { Link } from "react-router-dom";
+
+import {
+	Table,
+	Icon,
+	Row,
+	Col,
+	Tooltip,
+	message,
+	Button
+} from "ant-design-vue";
+
 import AceEditor from "client/components/AceEditor/AceEditor";
 import { formatTime, safeArray } from "../../../../common.js";
 import ErrMsg from "../../../../components/ErrMsg/ErrMsg.js";
 import variable from "../../../../constants/variable";
-import constants from "../../../../constants/variable.js";
+import constants from "ysrc/utils/variable";
 import copy from "copy-to-clipboard";
 import SchemaTable from "../../../../components/SchemaTable/SchemaTable.js";
 import _ from "lodash";
@@ -75,11 +81,11 @@ class View extends Component {
 						text = text || "";
 						return text.toLowerCase() === "text" ? (
 							<span>
-								<i className="query-icon text">T</i>文本
+								<i class="query-icon text">T</i>文本
 							</span>
 						) : (
 							<span>
-								<Icon type="file" className="query-icon" />
+								<aIcon type="file" class="query-icon" />
 								文件
 							</span>
 						);
@@ -122,7 +128,7 @@ class View extends Component {
 			return (
 				<div
 					style={{ display: dataSource.length ? "" : "none" }}
-					className="colBody">
+					class="colBody">
 					<Table
 						bordered
 						size="small"
@@ -141,7 +147,7 @@ class View extends Component {
 				return <SchemaTable dataSource={res_body} />;
 			} else {
 				return (
-					<div className="colBody">
+					<div class="colBody">
 						{/* <div id="vres_body_json" style={{ minHeight: h * 16 + 100 }}></div> */}
 						<AceEditor
 							data={res_body}
@@ -153,7 +159,7 @@ class View extends Component {
 			}
 		} else if (res_body_type === "raw") {
 			return (
-				<div className="colBody">
+				<div class="colBody">
 					<AceEditor
 						data={res_body}
 						readOnly={true}
@@ -171,7 +177,7 @@ class View extends Component {
 				return <SchemaTable dataSource={req_body_other} />;
 			} else {
 				return (
-					<div className="colBody">
+					<div class="colBody">
 						<AceEditor
 							data={req_body_other}
 							readOnly={true}
@@ -416,7 +422,7 @@ class View extends Component {
 			];
 
 		// statusColor = statusColor[this.props.curData.status?this.props.curData.status.toLowerCase():"undone"];
-		// const aceEditor = <div style={{ display: this.props.curData.req_body_other && (this.props.curData.req_body_type !== "form") ? "block" : "none" }} className="colBody">
+		// const aceEditor = <div style={{ display: this.props.curData.req_body_other && (this.props.curData.req_body_type !== "form") ? "block" : "none" }} class="colBody">
 		//   <AceEditor data={this.props.curData.req_body_other} readOnly={true} style={{ minHeight: 300 }} mode={this.props.curData.req_body_type === 'json' ? 'javascript' : 'text'} />
 		// </div>
 		if (!methodColor) {
@@ -439,57 +445,57 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 }`;
 
 		let res = (
-			<div className="caseContainer">
-				<h2 className="interface-title" style={{ marginTop: 0 }}>
+			<div class="caseContainer">
+				<h2 class="interface-title" style={{ marginTop: 0 }}>
 					基本信息
 				</h2>
-				<div className="panel-view">
-					<Row className="row">
-						<Col span={4} className="colKey">
+				<div class="panel-view">
+					<aRow class="row">
+						<aCol span={4} class="colKey">
 							接口名称：
-						</Col>
-						<Col span={8} className="colName">
+						</aCol>
+						<aCol span={8} class="colName">
 							<span title={title}>{title}</span>
-						</Col>
-						<Col span={4} className="colKey">
+						</aCol>
+						<aCol span={4} class="colKey">
 							创&ensp;建&ensp;人：
-						</Col>
-						<Col span={8} className="colValue">
-							<Link className="user-name" to={"/user/profile/" + uid}>
-								<img src={"/api/user/avatar?uid=" + uid} className="user-img" />
+						</aCol>
+						<aCol span={8} class="colValue">
+							<RouterLink class="user-name" to={"/user/profile/" + uid}>
+								<img src={"/api/user/avatar?uid=" + uid} class="user-img" />
 								{username}
-							</Link>
-						</Col>
-					</Row>
-					<Row className="row">
-						<Col span={4} className="colKey">
+							</RouterLink>
+						</aCol>
+					</aRow>
+					<aRow class="row">
+						<aCol span={4} class="colKey">
 							状&emsp;&emsp;态：
-						</Col>
-						<Col span={8} className={"tag-status " + this.props.curData.status}>
+						</aCol>
+						<aCol span={8} class={"tag-status " + this.props.curData.status}>
 							{status[this.props.curData.status]}
-						</Col>
-						<Col span={4} className="colKey">
+						</aCol>
+						<aCol span={4} class="colKey">
 							更新时间：
-						</Col>
-						<Col span={8}>{formatTime(up_time)}</Col>
-					</Row>
+						</aCol>
+						<aCol span={8}>{formatTime(up_time)}</aCol>
+					</aRow>
 					{safeArray(tag) && safeArray(tag).length > 0 && (
-						<Row className="row remark">
-							<Col span={4} className="colKey">
+						<aRow class="row remark">
+							<aCol span={4} class="colKey">
 								Tag ：
-							</Col>
-							<Col span={18} className="colValue">
+							</aCol>
+							<aCol span={18} class="colValue">
 								{tag.join(" , ")}
-							</Col>
-						</Row>
+							</aCol>
+						</aRow>
 					)}
-					<Row className="row">
-						<Col span={4} className="colKey">
+					<aRow class="row">
+						<aCol span={4} class="colKey">
 							接口路径：
-						</Col>
-						<Col
+						</aCol>
+						<aCol
 							span={18}
-							className="colValue"
+							class="colValue"
 							onMouseEnter={this.enterItem}
 							onMouseLeave={this.leaveItem}>
 							<span
@@ -497,17 +503,17 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 									color: methodColor.color,
 									backgroundColor: methodColor.bac
 								}}
-								className="colValue tag-method">
+								class="colValue tag-method">
 								{this.props.curData.method}
 							</span>
-							<span className="colValue">
+							<span class="colValue">
 								{this.props.currProject.basepath}
 								{this.props.curData.path}
 							</span>
-							<Tooltip title="复制路径">
-								<Icon
+							<aTooltip title="复制路径">
+								<aIcon
 									type="copy"
-									className="interface-url-icon"
+									class="interface-url-icon"
 									onClick={() =>
 										this.copyUrl(
 											this.props.currProject.basepath + this.props.curData.path
@@ -517,41 +523,41 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 										display: this.state.enter ? "inline-block" : "none"
 									}}
 								/>
-							</Tooltip>
-						</Col>
-					</Row>
-					<Row className="row">
-						<Col span={4} className="colKey">
+							</aTooltip>
+						</aCol>
+					</aRow>
+					<aRow class="row">
+						<aCol span={4} class="colKey">
 							开启转发：
-						</Col>
-						<Col span={18} className="colValue">
+						</aCol>
+						<aCol span={18} class="colValue">
 							<span>{this.props.curData.isProxy ? "开启" : "关闭"}</span>
-						</Col>
-					</Row>
+						</aCol>
+					</aRow>
 					{/* 转发环境  */}
 					{this.props.curData.isProxy ? (
-						<Row className="row">
-							<Col span={4} className="colKey">
+						<aRow class="row">
+							<aCol span={4} class="colKey">
 								转发环境：
-							</Col>
-							<Col span={18} className="colValue">
+							</aCol>
+							<aCol span={18} class="colValue">
 								<span>{showProxyEnv()}</span>
-							</Col>
-						</Row>
+							</aCol>
+						</aRow>
 					) : null}
 					{/* 转发环境  */}
 
-					<Row className="row">
-						<Col span={4} className="colKey">
+					<aRow class="row">
+						<aCol span={4} class="colKey">
 							Mock地址：
-						</Col>
-						<Col span={18} className="colValue">
+						</aCol>
+						<aCol span={18} class="colValue">
 							{this.flagMsg(
 								this.props.currProject.is_mock_open,
 								this.props.currProject.strice
 							)}
 							<span
-								className="href"
+								class="href"
 								onClick={() =>
 									window.open(
 										location.protocol +
@@ -568,19 +574,19 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 									(location.port !== "" ? ":" + location.port : "") +
 									`/mock/${this.props.currProject._id}${this.props.currProject.basepath}${this.props.curData.path}`}
 							</span>
-						</Col>
-					</Row>
-					<Row className="row">
-						<Col span={4} className="colKey">
+						</aCol>
+					</aRow>
+					<aRow class="row">
+						<aCol span={4} class="colKey">
 							ajax代码：
-						</Col>
-						<Col
+						</aCol>
+						<aCol
 							span={18}
-							className="colValue"
+							class="colValue"
 							style={{
 								position: "relative"
 							}}>
-							<Button
+							<aButton
 								onClick={() => this.copyUrl(ajaxCode)}
 								style={{
 									position: "absolute",
@@ -589,43 +595,43 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 									zIndex: 1
 								}}>
 								复制代码
-							</Button>
+							</aButton>
 							<AceEditor
 								data={ajaxCode}
 								readOnly={true}
 								mode="text"
 								style={{ minHeight: 180 }}
 							/>
-						</Col>
-					</Row>
+						</aCol>
+					</aRow>
 					{this.props.curData.custom_field_value &&
 						this.props.custom_field.enable && (
-							<Row className="row remark">
-								<Col span={4} className="colKey">
+							<aRow class="row remark">
+								<aCol span={4} class="colKey">
 									{this.props.custom_field.name}：
-								</Col>
-								<Col span={18} className="colValue">
+								</aCol>
+								<aCol span={18} class="colValue">
 									{this.props.curData.custom_field_value}
-								</Col>
-							</Row>
+								</aCol>
+							</aRow>
 						)}
 				</div>
-				{this.props.curData.desc && <h2 className="interface-title">备注</h2>}
+				{this.props.curData.desc && <h2 class="interface-title">备注</h2>}
 				{this.props.curData.desc && (
 					<div
-						className="tui-editor-contents"
+						class="tui-editor-contents"
 						style={{ margin: "0px", padding: "0px 20px", float: "none" }}
 						dangerouslySetInnerHTML={{ __html: this.props.curData.desc }}
 					/>
 				)}
 				<h2
-					className="interface-title"
+					class="interface-title"
 					style={{ display: requestShow ? "" : "none" }}>
 					请求参数
 				</h2>
 				{req_dataSource.length ? (
-					<div className="colHeader">
-						<h3 className="col-title">路径参数：</h3>
+					<div class="colHeader">
+						<h3 class="col-title">路径参数：</h3>
 						<Table
 							bordered
 							size="small"
@@ -638,8 +644,8 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 					""
 				)}
 				{dataSource.length ? (
-					<div className="colHeader">
-						<h3 className="col-title">Headers：</h3>
+					<div class="colHeader">
+						<h3 class="col-title">Headers：</h3>
 						<Table
 							bordered
 							size="small"
@@ -652,8 +658,8 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 					""
 				)}
 				{this.props.curData.req_query && this.props.curData.req_query.length ? (
-					<div className="colQuery">
-						<h3 className="col-title">Query：</h3>
+					<div class="colQuery">
+						<h3 class="col-title">Query：</h3>
 						{this.req_query(this.props.curData.req_query)}
 					</div>
 				) : (
@@ -668,7 +674,7 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 								? ""
 								: "none"
 					}}>
-					<h3 style={{ display: bodyShow ? "" : "none" }} className="col-title">
+					<h3 style={{ display: bodyShow ? "" : "none" }} class="col-title">
 						Body:
 					</h3>
 					{this.props.curData.req_body_type === "form"
@@ -683,7 +689,7 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 						  )}
 				</div>
 
-				<h2 className="interface-title">返回数据</h2>
+				<h2 class="interface-title">返回数据</h2>
 				{this.res_body(
 					this.props.curData.res_body_type,
 					this.props.curData.res_body,

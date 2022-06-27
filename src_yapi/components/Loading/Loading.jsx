@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import "./Loading.scss";
 
 export default class Loading extends React.PureComponent {
@@ -19,10 +19,10 @@ export default class Loading extends React.PureComponent {
 	render() {
 		return (
 			<div
-				className="loading-box"
+				class="loading-box"
 				style={{ display: this.state.show ? "flex" : "none" }}>
-				<div className="loading-box-bg" />
-				<div className="loading-box-inner">
+				<div class="loading-box-bg" />
+				<div class="loading-box-inner">
 					<div />
 					<div />
 					<div />

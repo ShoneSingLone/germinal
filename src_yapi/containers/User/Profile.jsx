@@ -1,4 +1,3 @@
-import React, { PureComponent as Component } from "react";
 import {
 	Row,
 	Col,
@@ -8,12 +7,11 @@ import {
 	message,
 	Upload,
 	Tooltip
-} from "antd";
+} from "ant-design-vue";
 import axios from "axios";
 import { formatTime } from "../../common.js";
-import PropTypes from "prop-types";
+
 import { setBreadcrumb, setImageUrl } from "../../reducer/modules/user";
-import { connect } from "react-redux";
 
 const EditButton = props => {
 	const { isAdmin, isOwner, onClick, name, admin } = props;
@@ -23,24 +21,24 @@ const EditButton = props => {
 			return null;
 		}
 		return (
-			<Button
+			<aButton
 				icon="edit"
 				onClick={() => {
 					onClick(name, true);
 				}}>
 				修改
-			</Button>
+			</aButton>
 		);
 	} else if (isAdmin) {
 		// 管理员
 		return (
-			<Button
+			<aButton
 				icon="edit"
 				onClick={() => {
 					onClick(name, true);
 				}}>
 				修改
-			</Button>
+			</aButton>
 		);
 	} else {
 		return null;
@@ -234,8 +232,8 @@ class Profile extends Component {
 		if (this.state.usernameEdit === false) {
 			userNameEditHtml = (
 				<div>
-					<span className="text">{userinfo.username}</span>&nbsp;&nbsp;
-					{/*<span className="text-button"  onClick={() => { this.handleEdit('usernameEdit', true) }}><Icon type="edit" />修改</span>*/}
+					<span class="text">{userinfo.username}</span>&nbsp;&nbsp;
+					{/*<span class="text-button"  onClick={() => { this.handleEdit('usernameEdit', true) }}><aIcon type="edit" />修改</span>*/}
 					{/* {btn} */}
 					{/* 站点登陆才能编辑 */}
 					{userType && (
@@ -252,29 +250,29 @@ class Profile extends Component {
 		} else {
 			userNameEditHtml = (
 				<div>
-					<Input
+					<aInput
 						value={_userinfo.username}
 						name="username"
 						onChange={this.changeUserinfo}
 						placeholder="用户名"
 					/>
-					<ButtonGroup className="edit-buttons">
-						<Button
-							className="edit-button"
+					<aButtonGroup class="edit-buttons">
+						<aButton
+							class="edit-button"
 							onClick={() => {
 								this.handleEdit("usernameEdit", false);
 							}}>
 							取消
-						</Button>
-						<Button
-							className="edit-button"
+						</aButton>
+						<aButton
+							class="edit-button"
 							onClick={() => {
 								this.updateUserinfo("username");
 							}}
 							type="primary">
 							确定
-						</Button>
-					</ButtonGroup>
+						</aButton>
+					</aButtonGroup>
 				</div>
 			);
 		}
@@ -282,8 +280,8 @@ class Profile extends Component {
 		if (this.state.emailEdit === false) {
 			emailEditHtml = (
 				<div>
-					<span className="text">{userinfo.email}</span>&nbsp;&nbsp;
-					{/*<span className="text-button" onClick={() => { this.handleEdit('emailEdit', true) }} ><Icon type="edit" />修改</span>*/}
+					<span class="text">{userinfo.email}</span>&nbsp;&nbsp;
+					{/*<span class="text-button" onClick={() => { this.handleEdit('emailEdit', true) }} ><aIcon type="edit" />修改</span>*/}
 					{/* {btn} */}
 					{/* 站点登陆才能编辑 */}
 					{userType && (
@@ -300,29 +298,29 @@ class Profile extends Component {
 		} else {
 			emailEditHtml = (
 				<div>
-					<Input
+					<aInput
 						placeholder="Email"
 						value={_userinfo.email}
 						name="email"
 						onChange={this.changeUserinfo}
 					/>
-					<ButtonGroup className="edit-buttons">
-						<Button
-							className="edit-button"
+					<aButtonGroup class="edit-buttons">
+						<aButton
+							class="edit-button"
 							onClick={() => {
 								this.handleEdit("emailEdit", false);
 							}}>
 							取消
-						</Button>
-						<Button
-							className="edit-button"
+						</aButton>
+						<aButton
+							class="edit-button"
 							type="primary"
 							onClick={() => {
 								this.updateUserinfo("email");
 							}}>
 							确定
-						</Button>
-					</ButtonGroup>
+						</aButton>
+					</aButtonGroup>
 				</div>
 			);
 		}
@@ -330,7 +328,7 @@ class Profile extends Component {
 		if (this.state.roleEdit === false) {
 			roleEditHtml = (
 				<div>
-					<span className="text">{roles[userinfo.role]}</span>&nbsp;&nbsp;
+					<span class="text">{roles[userinfo.role]}</span>&nbsp;&nbsp;
 				</div>
 			);
 		} else {
@@ -349,20 +347,20 @@ class Profile extends Component {
 			let btn = "";
 			if (userType) {
 				btn = (
-					<Button
+					<aButton
 						icon="edit"
 						onClick={() => {
 							this.handleEdit("secureEdit", true);
 						}}>
 						修改
-					</Button>
+					</aButton>
 				);
 			}
 			secureEditHtml = btn;
 		} else {
 			secureEditHtml = (
 				<div>
-					<Input
+					<aInput
 						style={{
 							display:
 								this.props.curRole === "admin" && userinfo.role != "admin"
@@ -374,108 +372,108 @@ class Profile extends Component {
 						name="old_password"
 						id="old_password"
 					/>
-					<Input
+					<aInput
 						placeholder="新的密码"
 						type="password"
 						name="password"
 						id="password"
 					/>
-					<Input
+					<aInput
 						placeholder="确认密码"
 						type="password"
 						name="verify_pass"
 						id="verify_pass"
 					/>
-					<ButtonGroup className="edit-buttons">
-						<Button
-							className="edit-button"
+					<aButtonGroup class="edit-buttons">
+						<aButton
+							class="edit-button"
 							onClick={() => {
 								this.handleEdit("secureEdit", false);
 							}}>
 							取消
-						</Button>
-						<Button
-							className="edit-button"
+						</aButton>
+						<aButton
+							class="edit-button"
 							onClick={this.updatePassword}
 							type="primary">
 							确定
-						</Button>
-					</ButtonGroup>
+						</aButton>
+					</aButtonGroup>
 				</div>
 			);
 		}
 		return (
-			<div className="user-profile">
-				<div className="user-item-body">
+			<div class="user-profile">
+				<div class="user-item-body">
 					{userinfo.uid === this.props.curUid ? (
 						<h3>个人设置</h3>
 					) : (
 						<h3>{userinfo.username} 资料设置</h3>
 					)}
 
-					<Row className="avatarCon" type="flex" justify="start">
-						<Col span={24}>
+					<aRow class="avatarCon" type="flex" justify="start">
+						<aCol span={24}>
 							{userinfo.uid === this.props.curUid ? (
 								<AvatarUpload uid={userinfo.uid}>点击上传头像</AvatarUpload>
 							) : (
-								<div className="avatarImg">
+								<div class="avatarImg">
 									<img src={`/api/user/avatar?uid=${userinfo.uid}`} />
 								</div>
 							)}
-						</Col>
-					</Row>
-					<Row className="user-item" type="flex" justify="start">
-						<div className="maoboli" />
-						<Col span={4}>用户id</Col>
-						<Col span={12}>{userinfo.uid}</Col>
-					</Row>
-					<Row className="user-item" type="flex" justify="start">
-						<div className="maoboli" />
-						<Col span={4}>用户名</Col>
-						<Col span={12}>{userNameEditHtml}</Col>
-					</Row>
-					<Row className="user-item" type="flex" justify="start">
-						<div className="maoboli" />
-						<Col span={4}>Email</Col>
-						<Col span={12}>{emailEditHtml}</Col>
-					</Row>
-					<Row
-						className="user-item"
+						</aCol>
+					</aRow>
+					<aRow class="user-item" type="flex" justify="start">
+						<div class="maoboli" />
+						<aCol span={4}>用户id</aCol>
+						<aCol span={12}>{userinfo.uid}</aCol>
+					</aRow>
+					<aRow class="user-item" type="flex" justify="start">
+						<div class="maoboli" />
+						<aCol span={4}>用户名</aCol>
+						<aCol span={12}>{userNameEditHtml}</aCol>
+					</aRow>
+					<aRow class="user-item" type="flex" justify="start">
+						<div class="maoboli" />
+						<aCol span={4}>Email</aCol>
+						<aCol span={12}>{emailEditHtml}</aCol>
+					</aRow>
+					<aRow
+						class="user-item"
 						style={{ display: this.props.curRole === "admin" ? "" : "none" }}
 						type="flex"
 						justify="start">
-						<div className="maoboli" />
-						<Col span={4}>角色</Col>
-						<Col span={12}>{roleEditHtml}</Col>
-					</Row>
-					<Row
-						className="user-item"
+						<div class="maoboli" />
+						<aCol span={4}>角色</aCol>
+						<aCol span={12}>{roleEditHtml}</aCol>
+					</aRow>
+					<aRow
+						class="user-item"
 						style={{ display: this.props.curRole === "admin" ? "" : "none" }}
 						type="flex"
 						justify="start">
-						<div className="maoboli" />
-						<Col span={4}>登陆方式</Col>
-						<Col span={12}>
+						<div class="maoboli" />
+						<aCol span={4}>登陆方式</aCol>
+						<aCol span={12}>
 							{userinfo.type === "site" ? "站点登陆" : "第三方登陆"}
-						</Col>
-					</Row>
-					<Row className="user-item" type="flex" justify="start">
-						<div className="maoboli" />
-						<Col span={4}>创建账号时间</Col>
-						<Col span={12}>{formatTime(userinfo.add_time)}</Col>
-					</Row>
-					<Row className="user-item" type="flex" justify="start">
-						<div className="maoboli" />
-						<Col span={4}>更新账号时间</Col>
-						<Col span={12}>{formatTime(userinfo.up_time)}</Col>
-					</Row>
+						</aCol>
+					</aRow>
+					<aRow class="user-item" type="flex" justify="start">
+						<div class="maoboli" />
+						<aCol span={4}>创建账号时间</aCol>
+						<aCol span={12}>{formatTime(userinfo.add_time)}</aCol>
+					</aRow>
+					<aRow class="user-item" type="flex" justify="start">
+						<div class="maoboli" />
+						<aCol span={4}>更新账号时间</aCol>
+						<aCol span={12}>{formatTime(userinfo.up_time)}</aCol>
+					</aRow>
 
 					{userType ? (
-						<Row className="user-item" type="flex" justify="start">
-							<div className="maoboli" />
-							<Col span={4}>密码</Col>
-							<Col span={12}>{secureEditHtml}</Col>
-						</Row>
+						<aRow class="user-item" type="flex" justify="start">
+							<div class="maoboli" />
+							<aCol span={4}>密码</aCol>
+							<aCol span={12}>{secureEditHtml}</aCol>
+						</aRow>
 					) : (
 						""
 					)}
@@ -529,15 +527,15 @@ class AvatarUpload extends Component {
 		// let imageUrl = this.state.imageUrl ? this.state.imageUrl : `/api/user/avatar?uid=${this.props.uid}`;
 		// console.log(this.props.uid);
 		return (
-			<div className="avatar-box">
-				<Tooltip
+			<div class="avatar-box">
+				<aTooltip
 					placement="right"
 					title={
 						<div>点击头像更换 (只支持jpg、png格式且大小不超过200kb的图片)</div>
 					}>
 					<div>
 						<Upload
-							className="avatar-uploader"
+							class="avatar-uploader"
 							name="basecode"
 							showUploadList={false}
 							action="/api/user/upload_avatar"
@@ -545,12 +543,12 @@ class AvatarUpload extends Component {
 							onChange={this.handleChange.bind(this)}>
 							{/*<Avatar size="large" src={imageUrl}  />*/}
 							<div style={{ width: 100, height: 100 }}>
-								<img className="avatar" src={imageUrl} />
+								<img class="avatar" src={imageUrl} />
 							</div>
 						</Upload>
 					</div>
-				</Tooltip>
-				<span className="avatarChange" />
+				</aTooltip>
+				<span class="avatarChange" />
 			</div>
 		);
 	}

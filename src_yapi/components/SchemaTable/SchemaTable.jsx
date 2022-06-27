@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Table } from "antd";
+import { Table } from "ant-design-vue";
 import json5 from "json5";
-import PropTypes from "prop-types";
+
 import { schemaTransformToTable } from "../../../common/schema-transformTo-table.js";
-import _ from "underscore";
+import { _ } from "@ventose/ui";
 import "./index.scss";
 
 const messageMap = {
@@ -69,9 +69,9 @@ const columns = [
 		key: "desc",
 		render: (text, item) => {
 			return _.isUndefined(item.childrenDesc) ? (
-				<span className="table-desc">{text}</span>
+				<span class="table-desc">{text}</span>
 			) : (
-				<span className="table-desc">{item.childrenDesc}</span>
+				<span class="table-desc">{item.childrenDesc}</span>
 			);
 		}
 	},

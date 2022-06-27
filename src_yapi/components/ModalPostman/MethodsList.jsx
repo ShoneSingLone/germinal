@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Row, Icon, Input, Select, Tooltip } from "antd";
-import _ from "underscore";
+
+import { Row, Icon, Input, Select, Tooltip } from "ant-design-vue";
+import { _ } from "@ventose/ui";
 const Option = Select.Option;
 
 // 深拷贝
@@ -85,7 +85,7 @@ class MethodsList extends Component {
 		let paramsIndex = props.paramsIndex;
 		let params = props.params;
 		return (
-			<Input
+			<aInput
 				size="small"
 				placeholder="请输入参数"
 				value={params[0]}
@@ -103,7 +103,7 @@ class MethodsList extends Component {
 
 		return (
 			<div>
-				<Input
+				<aInput
 					size="small"
 					placeholder="start"
 					value={params[0]}
@@ -111,7 +111,7 @@ class MethodsList extends Component {
 						this.handleParamsChange(e.target.value, clickIndex, paramsIndex, 0)
 					}
 				/>
-				<Input
+				<aInput
 					size="small"
 					placeholder="length"
 					value={params[1]}
@@ -181,22 +181,22 @@ class MethodsList extends Component {
 		let showList = moreFlag ? list.slice(0, 4) : list;
 
 		return (
-			<div className="modal-postman-form-method">
-				<h3 className="methods-title title">方法</h3>
+			<div class="modal-postman-form-method">
+				<h3 class="methods-title title">方法</h3>
 				{showList.map((item, index) => {
 					return (
-						<Row
+						<aRow
 							key={index}
 							type="flex"
 							align="middle"
-							className={
+							class={
 								"row methods-row " + (item.name === clickValue ? "checked" : "")
 							}
 							onClick={() => click(item.name, showList[index].params)}>
-							<Tooltip title={item.desc}>
+							<aTooltip title={item.desc}>
 								<span>{item.name}</span>
-							</Tooltip>
-							<span className="input-component">
+							</aTooltip>
+							<span class="input-component">
 								{item.type &&
 									this.handleComponent(
 										item,
@@ -205,12 +205,12 @@ class MethodsList extends Component {
 										item.name === clickValue ? params : []
 									)}
 							</span>
-						</Row>
+						</aRow>
 					);
 				})}
 				{moreFlag && (
-					<div className="show-more" onClick={this.showMore}>
-						<Icon type="down" />
+					<div class="show-more" onClick={this.showMore}>
+						<aIcon type="down" />
 						<span style={{ paddingLeft: "4px" }}>更多</span>
 					</div>
 				)}

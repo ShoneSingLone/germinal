@@ -1,6 +1,4 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button } from "ant-design-vue";
 const FormItem = Form.Item;
 function hasErrors(fieldsError) {
 	return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -47,26 +45,28 @@ class AddInterfaceForm extends Component {
 						initialValue: this.props.catdata
 							? this.props.catdata.name || null
 							: null
-					})(<Input placeholder="分类名称" />)}
+					})(<aInput placeholder="分类名称" />)}
 				</FormItem>
 				<FormItem {...formItemLayout} label="备注">
 					{getFieldDecorator("desc", {
 						initialValue: this.props.catdata
 							? this.props.catdata.desc || null
 							: null
-					})(<Input placeholder="备注" />)}
+					})(<aInput placeholder="备注" />)}
 				</FormItem>
 
-				<FormItem className="catModalfoot" wrapperCol={{ span: 24, offset: 8 }}>
-					<Button onClick={this.props.onCancel} style={{ marginRight: "10px" }}>
+				<FormItem class="catModalfoot" wrapperCol={{ span: 24, offset: 8 }}>
+					<aButton
+						onClick={this.props.onCancel}
+						style={{ marginRight: "10px" }}>
 						取消
-					</Button>
-					<Button
+					</aButton>
+					<aButton
 						type="primary"
 						htmlType="submit"
 						disabled={hasErrors(getFieldsError())}>
 						提交
-					</Button>
+					</aButton>
 				</FormItem>
 			</Form>
 		);

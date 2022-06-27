@@ -1,6 +1,4 @@
-import React, { PureComponent as Component } from "react";
-import { Modal, Button } from "antd";
-import PropTypes from "prop-types";
+import { Modal, Button } from "ant-design-vue";
 
 // 嵌入到 BrowserRouter 内部，覆盖掉默认的 window.confirm
 // http://reacttraining.cn/web/api/BrowserRouter/getUserConfirmation-func
@@ -35,20 +33,20 @@ class MyPopConfirm extends Component {
 			return null;
 		}
 		return (
-			<Modal
+			<aModal
 				title="你即将离开编辑页面"
 				visible={this.state.visible}
 				onCancel={this.no}
 				footer={[
-					<Button key="back" onClick={this.no}>
+					<aButton key="back" onClick={this.no}>
 						取 消
-					</Button>,
-					<Button key="submit" onClick={this.yes}>
+					</aButton>,
+					<aButton key="submit" onClick={this.yes}>
 						确 定
-					</Button>
+					</aButton>
 				]}>
 				<p>{this.props.msg}</p>
-			</Modal>
+			</aModal>
 		);
 	}
 }

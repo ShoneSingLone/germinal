@@ -1,7 +1,4 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Menu } from "antd";
+import { Menu } from "ant-design-vue";
 import { fetchNewsData } from "../../../reducer/modules/news.js";
 
 const logList = [
@@ -57,20 +54,20 @@ class NewsList extends Component {
 	}
 	render() {
 		return (
-			<div className="logList">
+			<div class="logList">
 				<h3>日志类型</h3>
-				<Menu
+				<aMenu
 					mode="inline"
 					selectedKeys={[`${this.state.selectedKeys}`]}
 					onClick={this.getLogData.bind(this)}>
 					{logList.map((item, i) => {
 						return (
-							<Menu.Item key={i} className="log-item">
+							<aMenu.Item key={i} class="log-item">
 								{item.name}
-							</Menu.Item>
+							</aMenu.Item>
 						);
 					})}
-				</Menu>
+				</aMenu>
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Tree } from "antd";
-import { connect } from "react-redux";
+
+import { Tree } from "ant-design-vue";
+
 import { fetchVariableParamsList } from "../../reducer/modules/interfaceCol.js";
 
 const TreeNode = Tree.TreeNode;
@@ -144,7 +144,7 @@ class VariablesSelect extends Component {
 		};
 
 		return (
-			<div className="modal-postman-form-variable">
+			<div class="modal-postman-form-variable">
 				<Tree
 					expandedKeys={this.state.expandedKeys}
 					selectedKeys={this.state.selectedKeys}

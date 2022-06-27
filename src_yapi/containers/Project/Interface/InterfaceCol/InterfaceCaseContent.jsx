@@ -1,10 +1,5 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import { message, Tooltip, Input } from "antd";
+import { message, Tooltip, Input } from "ant-design-vue";
 import { getEnv } from "../../../../reducer/modules/project";
 import {
 	fetchInterfaceColList,
@@ -198,19 +193,19 @@ export default class InterfaceCaseContent extends Component {
 		);
 
 		return (
-			<div style={{ padding: "6px 0" }} className="case-content">
-				<div className="case-title">
+			<div style={{ padding: "6px 0" }} class="case-content">
+				<div class="case-title">
 					{!isEditingCasename && (
-						<Tooltip title="点击编辑" placement="bottom">
-							<div className="case-name" onClick={this.triggerEditCasename}>
+						<aTooltip title="点击编辑" placement="bottom">
+							<div class="case-name" onClick={this.triggerEditCasename}>
 								{currCase.casename}
 							</div>
-						</Tooltip>
+						</aTooltip>
 					)}
 
 					{isEditingCasename && (
-						<div className="edit-case-name">
-							<Input
+						<div class="edit-case-name">
+							<aInput
 								value={editCasename}
 								onChange={e => this.setState({ editCasename: e.target.value })}
 								style={{ fontSize: 18 }}
@@ -218,13 +213,13 @@ export default class InterfaceCaseContent extends Component {
 						</div>
 					)}
 					<span
-						className="inter-link"
+						class="inter-link"
 						style={{ margin: "0px 8px 0px 6px", fontSize: 12 }}>
-						<Link
-							className="text"
+						<RouterLink
+							class="text"
 							to={`/project/${currCase.project_id}/interface/api/${currCase.interface_id}`}>
 							对应接口
-						</Link>
+						</RouterLink>
 					</span>
 				</div>
 				<div>

@@ -1,10 +1,6 @@
 import "./Header.scss";
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+
 import {
-	Icon,
 	Layout,
 	Menu,
 	Dropdown,
@@ -12,14 +8,14 @@ import {
 	Tooltip,
 	Popover,
 	Tag
-} from "antd";
+} from "ant-design-vue";
 import {
 	checkLoginState,
 	logoutActions,
 	loginTypeAction
 } from "../../reducer/modules/user";
 import { changeMenuItem } from "../../reducer/modules/menu";
-import { withRouter } from "react-router";
+
 import Srch from "./Search/Search";
 const { Header } = Layout;
 import LogoSVG from "../LogoSVG/index.js";
@@ -45,7 +41,7 @@ let HeaderMenu = {
 plugin.emitHook("header_menu", HeaderMenu);
 
 const MenuUser = props => (
-	<Menu theme="dark" className="user-menu">
+	<aMenu theme="dark" class="user-menu">
 		{Object.keys(HeaderMenu).map(key => {
 			let item = HeaderMenu[key];
 			const isAdmin = props.role === "admin";
@@ -53,49 +49,49 @@ const MenuUser = props => (
 				return null;
 			}
 			return (
-				<Menu.Item key={key}>
+				<aMenu.Item key={key}>
 					{item.name === "个人中心" ? (
-						<Link to={item.path + `/${props.uid}`}>
-							<Icon type={item.icon} />
+						<RouterLink to={item.path + `/${props.uid}`}>
+							<aIcon type={item.icon} />
 							{item.name}
-						</Link>
+						</RouterLink>
 					) : (
-						<Link to={item.path}>
-							<Icon type={item.icon} />
+						<RouterLink to={item.path}>
+							<aIcon type={item.icon} />
 							{item.name}
-						</Link>
+						</RouterLink>
 					)}
-				</Menu.Item>
+				</aMenu.Item>
 			);
 		})}
-		<Menu.Item key="9">
+		<aMenu.Item key="9">
 			<a onClick={props.logout}>
-				<Icon type="logout" />
+				<aIcon type="logout" />
 				退出
 			</a>
-		</Menu.Item>
-	</Menu>
+		</aMenu.Item>
+	</aMenu>
 );
 
 const tipFollow = (
-	<div className="title-container">
-		<h3 className="title">
-			<Icon type="star" /> 关注
+	<div class="title-container">
+		<h3 class="title">
+			<aIcon type="star" /> 关注
 		</h3>
 		<p>这里是你的专属收藏夹，便于你找到自己的项目</p>
 	</div>
 );
 const tipAdd = (
-	<div className="title-container">
-		<h3 className="title">
-			<Icon type="plus-circle" /> 新建项目
+	<div class="title-container">
+		<h3 class="title">
+			<aIcon type="plus-circle" /> 新建项目
 		</h3>
 		<p>在任何页面都可以快速新建项目</p>
 	</div>
 );
 const tipDoc = (
-	<div className="title-container">
-		<h3 className="title">
+	<div class="title-container">
+		<h3 class="title">
 			使用文档 <Tag color="orange">推荐!</Tag>
 		</h3>
 		<p>
@@ -126,7 +122,7 @@ const ToolUser = props => {
 		: `/api/user/avatar?uid=${props.uid}`;
 	return (
 		<ul>
-			<li className="toolbar-li item-search">
+			<li class="toolbar-li item-search">
 				<Srch groupList={props.groupList} />
 			</li>
 			<Popover
@@ -136,17 +132,17 @@ const ToolUser = props => {
 				placement="bottomRight"
 				arrowPointAtCenter
 				visible={props.studyTip === 1 && !props.study}>
-				<Tooltip placement="bottom" title={"我的关注"}>
-					<li className="toolbar-li">
-						<Link to="/follow">
-							<Icon
-								className="dropdown-link"
+				<aTooltip placement="bottom" title={"我的关注"}>
+					<li class="toolbar-li">
+						<RouterLink to="/follow">
+							<aIcon
+								class="dropdown-link"
 								style={{ fontSize: 16 }}
 								type="star"
 							/>
-						</Link>
+						</RouterLink>
 					</li>
-				</Tooltip>
+				</aTooltip>
 			</Popover>
 			<Popover
 				overlayClassName="popover-index"
@@ -155,17 +151,17 @@ const ToolUser = props => {
 				placement="bottomRight"
 				arrowPointAtCenter
 				visible={props.studyTip === 2 && !props.study}>
-				<Tooltip placement="bottom" title={"新建项目"}>
-					<li className="toolbar-li">
-						<Link to="/add-project">
-							<Icon
-								className="dropdown-link"
+				<aTooltip placement="bottom" title={"新建项目"}>
+					<li class="toolbar-li">
+						<RouterLink to="/add-project">
+							<aIcon
+								class="dropdown-link"
 								style={{ fontSize: 16 }}
 								type="plus-circle"
 							/>
-						</Link>
+						</RouterLink>
 					</li>
-				</Tooltip>
+				</aTooltip>
 			</Popover>
 			<Popover
 				overlayClassName="popover-index"
@@ -174,27 +170,27 @@ const ToolUser = props => {
 				placement="bottomRight"
 				arrowPointAtCenter
 				visible={props.studyTip === 3 && !props.study}>
-				<Tooltip placement="bottom" title={"使用文档"}>
-					<li className="toolbar-li">
+				<aTooltip placement="bottom" title={"使用文档"}>
+					<li class="toolbar-li">
 						<a
 							target="_blank"
 							href="https://hellosean1025.github.io/yapi"
 							rel="noopener noreferrer">
-							<Icon
-								className="dropdown-link"
+							<aIcon
+								class="dropdown-link"
 								style={{ fontSize: 16 }}
 								type="question-circle"
 							/>
 						</a>
 					</li>
-				</Tooltip>
+				</aTooltip>
 			</Popover>
-			<li className="toolbar-li">
+			<li class="toolbar-li">
 				<Dropdown
 					placement="bottomRight"
 					trigger={["click"]}
 					overlay={
-						<MenuUser
+						<aMenuUser
 							user={props.user}
 							msg={props.msg}
 							uid={props.uid}
@@ -203,13 +199,13 @@ const ToolUser = props => {
 							logout={props.logout}
 						/>
 					}>
-					<a className="dropdown-link">
-						<span className="avatar-image">
+					<a class="dropdown-link">
+						<span class="avatar-image">
 							<img src={imageUrl} />
 						</span>
 						{/*props.imageUrl? <Avatar src={props.imageUrl} />: <Avatar src={`/api/user/avatar?uid=${props.uid}`} />*/}
-						<span className="name">
-							<Icon type="down" />
+						<span class="name">
+							<aIcon type="down" />
 						</span>
 					</a>
 				</Dropdown>
@@ -326,18 +322,18 @@ export default class HeaderCom extends Component {
 		const { login, user, msg, uid, role, studyTip, study, imageUrl } =
 			this.props;
 		return (
-			<Header className="header-box m-header">
-				<div className="content g-row">
-					<Link onClick={this.relieveLink} to="/group" className="logo">
-						<div className="href">
-							<span className="img">
+			<Header class="header-box m-header">
+				<div class="content g-row">
+					<RouterLink onClick={this.relieveLink} to="/group" class="logo">
+						<div class="href">
+							<span class="img">
 								<LogoSVG length="32px" />
 							</span>
 						</div>
-					</Link>
+					</RouterLink>
 					<Breadcrumb />
 					<div
-						className="user-toolbar"
+						class="user-toolbar"
 						style={{
 							position: "relative",
 							zIndex: this.props.studyTip > 0 ? 3 : 1

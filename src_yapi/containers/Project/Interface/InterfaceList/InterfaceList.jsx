@@ -1,8 +1,13 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import axios from "axios";
-import { Table, Button, Modal, message, Tooltip, Select, Icon } from "antd";
+import {
+	Table,
+	Button,
+	Modal,
+	message,
+	Tooltip,
+	Select,
+	Icon
+} from "ant-design-vue";
 import AddInterfaceForm from "./AddInterfaceForm";
 import {
 	fetchInterfaceListMenu,
@@ -10,7 +15,7 @@ import {
 	fetchInterfaceCatList
 } from "../../../../reducer/modules/interface.js";
 import { getProject } from "../../../../reducer/modules/project.js";
-import { Link } from "react-router-dom";
+
 import variable from "../../../../constants/variable";
 import "./Edit.scss";
 import Label from "../../../../components/Label/Label.js";
@@ -216,10 +221,10 @@ class InterfaceList extends Component {
 				width: 30,
 				render: (text, item) => {
 					return (
-						<Link
+						<RouterLink
 							to={"/project/" + item.project_id + "/interface/api/" + item._id}>
-							<span className="path">{text}</span>
-						</Link>
+							<span class="path">{text}</span>
+						</RouterLink>
 					);
 				}
 			},
@@ -241,22 +246,20 @@ class InterfaceList extends Component {
 									color: methodColor.color,
 									backgroundColor: methodColor.bac
 								}}
-								className="colValue">
+								class="colValue">
 								{record.method}
 							</span>
-							<Tooltip title="开放接口" placement="topLeft">
+							<aTooltip title="开放接口" placement="topLeft">
 								<span>
-									{record.api_opened && (
-										<Icon className="opened" type="eye-o" />
-									)}
+									{record.api_opened && <aIcon class="opened" type="eye-o" />}
 								</span>
-							</Tooltip>
-							<Tooltip
+							</aTooltip>
+							<aTooltip
 								title={path}
 								placement="topLeft"
 								overlayClassName="toolTip">
-								<span className="path">{path}</span>
-							</Tooltip>
+								<span class="path">{path}</span>
+							</aTooltip>
 						</div>
 					);
 				}
@@ -270,7 +273,7 @@ class InterfaceList extends Component {
 					return (
 						<Select
 							value={item + ""}
-							className="select path"
+							class="select path"
 							onChange={catid => this.changeInterfaceCat(record._id, catid)}>
 							{this.props.catList.map(cat => {
 								return (
@@ -293,13 +296,13 @@ class InterfaceList extends Component {
 					return (
 						<Select
 							value={key + "-" + text}
-							className="select"
+							class="select"
 							onChange={this.changeInterfaceStatus}>
 							<Option value={key + "-done"}>
-								<span className="tag-status done">已完成</span>
+								<span class="tag-status done">已完成</span>
 							</Option>
 							<Option value={key + "-undone"}>
-								<span className="tag-status undone">未完成</span>
+								<span class="tag-status undone">未完成</span>
 							</Option>
 						</Select>
 					);
@@ -323,7 +326,7 @@ class InterfaceList extends Component {
 				width: 14,
 				render: text => {
 					let textMsg = text.length > 0 ? text.join("\n") : "未设置";
-					return <div className="table-desc">{textMsg}</div>;
+					return <div class="table-desc">{textMsg}</div>;
 				},
 				filters: tagFilter,
 				onFilter: (value, record) => {
@@ -378,18 +381,18 @@ class InterfaceList extends Component {
 		return (
 			<div style={{ padding: "24px" }}>
 				<h2
-					className="interface-title"
+					class="interface-title"
 					style={{ display: "inline-block", margin: 0 }}>
 					{intername ? intername : "全部接口"}共 ({total}) 个
 				</h2>
 
-				<Button
+				<aButton
 					style={{ float: "right" }}
 					disabled={isDisabled}
 					type="primary"
 					onClick={() => this.setState({ visible: true })}>
 					添加接口
-				</Button>
+				</aButton>
 				<div style={{ marginTop: "10px" }}>
 					<Label
 						onChange={value => this.handleChangeInterfaceCat(value, intername)}
@@ -397,26 +400,26 @@ class InterfaceList extends Component {
 					/>
 				</div>
 				<Table
-					className="table-interfacelist"
+					class="table-interfacelist"
 					pagination={pageConfig}
 					columns={columns}
 					onChange={this.handleChange}
 					dataSource={data}
 				/>
 				{this.state.visible && (
-					<Modal
+					<aModal
 						title="添加接口"
 						visible={this.state.visible}
 						onCancel={() => this.setState({ visible: false })}
 						footer={null}
-						className="addcatmodal">
+						class="addcatmodal">
 						<AddInterfaceForm
 							catid={this.state.catid}
 							catdata={cat}
 							onCancel={() => this.setState({ visible: false })}
 							onSubmit={this.handleAddInterface}
 						/>
-					</Modal>
+					</aModal>
 				)}
 			</div>
 		);

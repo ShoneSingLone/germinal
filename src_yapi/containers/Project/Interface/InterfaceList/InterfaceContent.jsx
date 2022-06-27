@@ -1,12 +1,9 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Tabs, Modal, Button } from "antd";
+import { Tabs, Modal, Button } from "ant-design-vue";
 import Edit from "./Edit.js";
 import View from "./View.js";
 import { Prompt } from "react-router";
 import { fetchInterfaceData } from "../../../../reducer/modules/interface.js";
-import { withRouter } from "react-router-dom";
+
 import Run from "./Run/Run.js";
 const plugin = require("client/plugin.js");
 
@@ -130,7 +127,7 @@ class Content extends Component {
 
 		const tabs = (
 			<Tabs
-				className="tabs-large"
+				class="tabs-large"
 				onChange={this.onChange}
 				activeKey={this.state.curtab}
 				defaultActiveKey="view">
@@ -147,7 +144,7 @@ class Content extends Component {
 		}
 
 		return (
-			<div className="interface-content">
+			<div class="interface-content">
 				<Prompt
 					when={
 						this.state.curtab === "edit" && this.props.editStatus ? true : false
@@ -160,20 +157,20 @@ class Content extends Component {
 				{tabs}
 				{tabContent}
 				{this.state.visible && (
-					<Modal
+					<aModal
 						title="你即将离开编辑页面"
 						visible={this.state.visible}
 						onCancel={this.handleCancel}
 						footer={[
-							<Button key="back" onClick={this.handleCancel}>
+							<aButton key="back" onClick={this.handleCancel}>
 								取 消
-							</Button>,
-							<Button key="submit" onClick={this.handleOk}>
+							</aButton>,
+							<aButton key="submit" onClick={this.handleOk}>
 								确 定
-							</Button>
+							</aButton>
 						]}>
 						<p>离开页面会丢失当前编辑的内容，确定要离开吗？</p>
-					</Modal>
+					</aModal>
 				)}
 			</div>
 		);

@@ -1,6 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { Route, Switch, Redirect, matchPath } from "react-router-dom";
 import { Subnav } from "../../components/index";
 import { fetchGroupMsg } from "../../reducer/modules/group";

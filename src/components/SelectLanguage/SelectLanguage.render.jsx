@@ -4,24 +4,24 @@ export const render = state => {
 		this.setLang(key);
 	};
 	const langMenu = (
-		<Menu
+		<aMenu
 			class={["menu", "ant-pro-header-menu"]}
 			selectedKeys={[this.currentLang]}
 			onClick={changeLang}>
 			{locales.map(locale => (
-				<Menu.Item key={locale}>
+				<aMenu.Item key={locale}>
 					<span role="img" aria-label={languageLabels[locale]}>
 						{languageIcons[locale]}
 					</span>{" "}
 					{languageLabels[locale]}
-				</Menu.Item>
+				</aMenu.Item>
 			))}
-		</Menu>
+		</aMenu>
 	);
 	return (
 		<Dropdown overlay={langMenu} placement="bottomRight">
 			<span class={prefixCls}>
-				<Icon type="global" title={i18nRender("navBar.lang")} />
+				<aIcon type="global" title={i18nRender("navBar.lang")} />
 			</span>
 		</Dropdown>
 	);

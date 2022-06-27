@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Row, Input } from "antd";
-import constants from "../../constants/variable.js";
+
+import { Row, Input } from "ant-design-vue";
+import constants from "ysrc/utils/variable";
 const wordList = constants.MOCK_SOURCE;
 const Search = Input.Search;
 
@@ -39,23 +39,23 @@ class MockList extends Component {
 		const { list, filter } = this.state;
 		const { click, clickValue } = this.props;
 		return (
-			<div className="modal-postman-form-mock">
-				<Search
+			<div class="modal-postman-form-mock">
+				<aSearch
 					onChange={this.onFilter}
 					value={filter}
 					placeholder="搜索mock数据"
-					className="mock-search"
+					class="mock-search"
 				/>
 				{list.map((item, index) => {
 					return (
-						<Row
+						<aRow
 							key={index}
 							type="flex"
 							align="middle"
-							className={"row " + (item.mock === clickValue ? "checked" : "")}
+							class={"row " + (item.mock === clickValue ? "checked" : "")}
 							onClick={() => click(item.mock)}>
 							<span>{item.mock}</span>
-						</Row>
+						</aRow>
 					);
 				})}
 			</div>

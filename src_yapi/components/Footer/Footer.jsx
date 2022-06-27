@@ -1,8 +1,6 @@
 import "./Footer.scss";
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Row, Col } from "antd";
-import { Icon } from "antd";
+
+import { Row, Col } from "ant-design-vue";
 
 const version = process.env.version;
 class Footer extends Component {
@@ -14,8 +12,8 @@ class Footer extends Component {
 	};
 	render() {
 		return (
-			<div className="footer-wrapper">
-				<Row className="footer-container">
+			<div class="footer-wrapper">
+				<aRow class="footer-container">
 					{this.props.footList.map(function (item, i) {
 						return (
 							<FootItem
@@ -26,7 +24,7 @@ class Footer extends Component {
 							/>
 						);
 					})}
-				</Row>
+				</aRow>
 			</div>
 		);
 	}
@@ -43,10 +41,10 @@ class FootItem extends Component {
 	};
 	render() {
 		return (
-			<Col span={6}>
-				<h4 className="title">
+			<aCol span={6}>
+				<h4 class="title">
 					{this.props.iconType ? (
-						<Icon type={this.props.iconType} className="icon" />
+						<aIcon type={this.props.iconType} class="icon" />
 					) : (
 						""
 					)}
@@ -55,13 +53,13 @@ class FootItem extends Component {
 				{this.props.linkList.map(function (item, i) {
 					return (
 						<p key={i}>
-							<a href={item.itemLink} className="link">
+							<a href={item.itemLink} class="link">
 								{item.itemTitle}
 							</a>
 						</p>
 					);
 				})}
-			</Col>
+			</aCol>
 		);
 	}
 }

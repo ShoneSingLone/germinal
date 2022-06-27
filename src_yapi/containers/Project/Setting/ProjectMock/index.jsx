@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Form, Switch, Button, Icon, Tooltip, message } from "antd";
+
+import { Form, Switch, Button, Icon, Tooltip, message } from "ant-design-vue";
 import AceEditor from "../../../../components/AceEditor/AceEditor";
 const FormItem = Form.Item;
 import {
@@ -95,7 +94,7 @@ export default class ProjectMock extends Component {
 
 	render() {
 		return (
-			<div className="m-panel">
+			<div class="m-panel">
 				<Form>
 					<FormItem
 						label={
@@ -105,9 +104,9 @@ export default class ProjectMock extends Component {
 									target="_blank"
 									rel="noopener noreferrer"
 									href="https://hellosean1025.github.io/yapi/documents/project.html#%E5%85%A8%E5%B1%80mock">
-									<Tooltip title="点击查看文档">
-										<Icon type="question-circle-o" />
-									</Tooltip>
+									<aTooltip title="点击查看文档">
+										<aIcon type="question-circle-o" />
+									</aTooltip>
 								</a>
 							</span>
 						}
@@ -127,12 +126,12 @@ export default class ProjectMock extends Component {
 						/>
 					</FormItem>
 					<FormItem {...tailFormItemLayout}>
-						<Button
+						<aButton
 							type="primary"
 							htmlType="submit"
 							onClick={this.handleSubmit}>
 							保存
-						</Button>
+						</aButton>
 					</FormItem>
 				</Form>
 			</div>

@@ -1,11 +1,10 @@
 import "./index.scss";
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
+
 import { Route } from "react-router-dom";
 import List from "./List.js";
-import PropTypes from "prop-types";
+
 import Profile from "./Profile.js";
-import { Row } from "antd";
+import { Row } from "ant-design-vue";
 @connect(state => {
 	return {
 		curUid: state.user.uid,
@@ -28,14 +27,14 @@ class User extends Component {
 	render() {
 		return (
 			<div>
-				<div className="g-doc">
-					<Row className="user-box">
+				<div class="g-doc">
+					<aRow class="user-box">
 						<Route path={this.props.match.path + "/list"} component={List} />
 						<Route
 							path={this.props.match.path + "/profile/:uid"}
 							component={Profile}
 						/>
-					</Row>
+					</aRow>
 				</div>
 			</div>
 		);

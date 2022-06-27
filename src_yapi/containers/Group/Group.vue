@@ -1,13 +1,14 @@
 <template />
 
 <script lang="jsx">
-import GroupList from "./GroupList/GroupList";
+/* import GroupList from "./GroupList/GroupList";
 import ProjectList from "./ProjectList/ProjectList";
 import MemberList from "./MemberList/MemberList";
 import GroupLog from "./GroupLog/GroupLog";
-import GroupSetting from "./GroupSetting/GroupSetting.vue";
+import GroupSetting from "./GroupSetting/GroupSetting.vue"; */
 import "./Group.scss";
 import axios from "axios";
+import { defineComponent } from "vue";
 
 export default defineComponent({
 	data() {
@@ -19,15 +20,16 @@ export default defineComponent({
 		let r = await axios.get("/api/group/get_mygroup");
 		try {
 			let group = r.data.data;
-			this.setState({
-				groupId: group._id
-			});
-			this.props.setCurrGroup(group);
+			this.groupId = group._id;
+			this.setCurrGroup(group);
 		} catch (e) {
 			console.error(e);
 		}
 	},
-	render() {
+	render(h) {
+		return <h1>asdf</h1>;
+	},
+	rendeasdfr() {
 		if (this.state.groupId === -1) return <Spin />;
 		const GroupContent = (
 			<aLayout
@@ -37,7 +39,7 @@ export default defineComponent({
 					marginTop: "24px"
 				}}>
 				<aSider style={{ height: "100%" }} width={300}>
-					<div className="logo" />
+					<div class="logo" />
 					<GroupList />
 				</aSider>
 				<aLayout>
@@ -82,7 +84,7 @@ export default defineComponent({
 			</aLayout>
 		);
 		return (
-			<div className="projectGround">
+			<div class="projectGround">
 				<aSwitch>
 					<Redirect exact from="/group" to={"/group/" + this.state.groupId} />
 					<Route path="/group/:groupId" render={() => GroupContent} />

@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+
 import "./index.scss";
-import { Icon, Layout, Tooltip, message, Row, Popconfirm } from "antd";
+import {
+	Icon,
+	Layout,
+	Tooltip,
+	message,
+	Row,
+	Popconfirm
+} from "ant-design-vue";
 const { Content, Sider } = Layout;
 import ProjectEnvContent from "./ProjectEnvContent.js";
-import { connect } from "react-redux";
+
 import {
 	updateEnv,
 	getProject,
@@ -160,16 +167,16 @@ class ProjectEnv extends Component {
 
 		const envSettingItems = env.map((item, index) => {
 			return (
-				<Row
+				<aRow
 					key={index}
-					className={
+					class={
 						"menu-item " + (index === currentKey ? "menu-item-checked" : "")
 					}
 					onClick={() => this.handleClick(index, item)}
 					onMouseEnter={() => this.enterItem(index)}>
-					<span className="env-icon-style">
+					<span class="env-icon-style">
 						<span
-							className="env-name"
+							class="env-name"
 							style={{ color: item.name === "新环境" && "#2395f1" }}>
 							{item.name}
 						</span>
@@ -181,9 +188,9 @@ class ProjectEnv extends Component {
 							}}
 							okText="确定"
 							cancelText="取消">
-							<Icon
+							<aIcon
 								type="delete"
-								className="interface-delete-icon"
+								class="interface-delete-icon"
 								style={{
 									display:
 										this.state.delIcon == index && env.length - 1 !== 0
@@ -193,28 +200,28 @@ class ProjectEnv extends Component {
 							/>
 						</Popconfirm>
 					</span>
-				</Row>
+				</aRow>
 			);
 		});
 
 		return (
-			<div className="m-env-panel">
-				<Layout className="project-env">
+			<div class="m-env-panel">
+				<Layout class="project-env">
 					<Sider width={195} style={{ background: "#fff" }}>
 						<div style={{ height: "100%", borderRight: 0 }}>
-							<Row className="first-menu-item menu-item">
-								<div className="env-icon-style">
+							<aRow class="first-menu-item menu-item">
+								<div class="env-icon-style">
 									<h3>
 										环境列表&nbsp;
-										<Tooltip placement="top" title="在这里添加项目的环境配置">
-											<Icon type="question-circle-o" />
-										</Tooltip>
+										<aTooltip placement="top" title="在这里添加项目的环境配置">
+											<aIcon type="question-circle-o" />
+										</aTooltip>
 									</h3>
-									<Tooltip title="添加环境变量">
-										<Icon type="plus" onClick={() => this.addParams("env")} />
-									</Tooltip>
+									<aTooltip title="添加环境变量">
+										<aIcon type="plus" onClick={() => this.addParams("env")} />
+									</aTooltip>
 								</div>
-							</Row>
+							</aRow>
 							<EasyDragSort
 								data={() => env}
 								onChange={this.handleDragMove("env")}>
@@ -222,7 +229,7 @@ class ProjectEnv extends Component {
 							</EasyDragSort>
 						</div>
 					</Sider>
-					<Layout className="env-content">
+					<Layout class="env-content">
 						<Content
 							style={{
 								background: "#fff",

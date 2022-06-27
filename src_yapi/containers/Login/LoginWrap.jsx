@@ -27,7 +27,7 @@ export default defineComponent({
 		return (
 			<aTabs
 				defaultActiveKey={State_App.user.loginWrapActiveKey}
-				className="login-form"
+				class="login-form"
 				tabBarStyle={{ border: "none" }}>
 				<aTabPane tab="登录" key="1">
 					<LoginForm />

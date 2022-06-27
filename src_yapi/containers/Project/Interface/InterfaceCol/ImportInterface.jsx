@@ -1,8 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Table, Select, Tooltip, Icon } from "antd";
+import { Table, Select, Tooltip, Icon } from "ant-design-vue";
 import variable from "../../../../constants/variable";
-import { connect } from "react-redux";
+
 const Option = Select.Option;
 import { fetchInterfaceListMenu } from "../../../../reducer/modules/interface.js";
 
@@ -178,7 +176,7 @@ export default class ImportInterface extends Component {
 								backgroundColor: methodColor.bac,
 								borderRadius: 4
 							}}
-							className="colValue">
+							class="colValue">
 							{item}
 						</span>
 					);
@@ -188,9 +186,9 @@ export default class ImportInterface extends Component {
 				title: (
 					<span>
 						状态{" "}
-						<Tooltip title="筛选满足条件的接口集合">
-							<Icon type="question-circle-o" />
-						</Tooltip>
+						<aTooltip title="筛选满足条件的接口集合">
+							<aIcon type="question-circle-o" />
+						</aTooltip>
 					</span>
 				),
 				dataIndex: "status",
@@ -198,9 +196,9 @@ export default class ImportInterface extends Component {
 					return (
 						text &&
 						(text === "done" ? (
-							<span className="tag-status done">已完成</span>
+							<span class="tag-status done">已完成</span>
 						) : (
-							<span className="tag-status undone">未完成</span>
+							<span class="tag-status undone">未完成</span>
 						))
 					);
 				},
@@ -226,7 +224,7 @@ export default class ImportInterface extends Component {
 
 		return (
 			<div>
-				<div className="select-project">
+				<div class="select-project">
 					<span>选择要导入的项目： </span>
 					<Select
 						value={this.state.project}

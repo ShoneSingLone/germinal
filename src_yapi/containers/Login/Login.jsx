@@ -1,9 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Form, Button, Input, Icon, message, Radio } from "antd";
+import { Form, Button, Input, Icon, message, Radio } from "ant-design-vue";
 import { loginActions, loginLdapActions } from "../../reducer/modules/user";
-import { withRouter } from "react-router";
+
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
@@ -107,9 +104,9 @@ class Login extends Component {
 				{/* 用户名 (Email) */}
 				<FormItem style={formItemStyle}>
 					{getFieldDecorator("email", { rules: [emailRule] })(
-						<Input
+						<aInput
 							style={changeHeight}
-							prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+							prefix={<aIcon type="user" style={{ fontSize: 13 }} />}
 							placeholder="Email"
 						/>
 					)}
@@ -120,9 +117,9 @@ class Login extends Component {
 					{getFieldDecorator("password", {
 						rules: [{ required: true, message: "请输入密码!" }]
 					})(
-						<Input
+						<aInput
 							style={changeHeight}
-							prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+							prefix={<aIcon type="lock" style={{ fontSize: 13 }} />}
 							type="password"
 							placeholder="Password"
 						/>
@@ -131,19 +128,19 @@ class Login extends Component {
 
 				{/* 登录按钮 */}
 				<FormItem style={formItemStyle}>
-					<Button
+					<aButton
 						style={changeHeight}
 						type="primary"
 						htmlType="submit"
-						className="login-form-button">
+						class="login-form-button">
 						登录
-					</Button>
+					</aButton>
 				</FormItem>
 
-				{/* <div className="qsso-breakline">
-          <span className="qsso-breakword">或</span>
+				{/* <div class="qsso-breakline">
+          <span class="qsso-breakword">或</span>
         </div>
-        <Button style={changeHeight} id="qsso-login" type="primary" className="login-form-button" size="large" ghost>QSSO登录</Button> */}
+        <aButton style={changeHeight} id="qsso-login" type="primary" class="login-form-button" size="large" ghost>QSSO登录</aButton> */}
 			</Form>
 		);
 	}

@@ -16,11 +16,11 @@ const TipBtns = () => {
 	return (
 		<div class="tip-btns">
 			<div class="btn-group">
-				<Link to="/login">
+				<RouterLink to="/login">
 					<aButton type="primary" class="btn-home btn-login">
 						登录 / 注册
 					</aButton>
-				</Link>
+				</RouterLink>
 				<aButton class="btn-home btn-home-normal">
 					<a
 						target="_blank"
@@ -100,21 +100,21 @@ const HomeGuest = params => {
 					</span>
 					<aRow key="feat-motion-row">
 						<aCol span={8} class="section-item" key="feat-wrapper-1">
-							<Icon type="appstore-o" class="img" />
+							<aIcon type="appstore-o" class="img" />
 							<h4 class="title">项目管理</h4>
 							<span class="desc">
 								提供基本的项目分组，项目管理，接口管理功能
 							</span>
 						</aCol>
 						<aCol span={8} class="section-item" key="feat-wrapper-2">
-							<Icon type="api" class="img" />
+							<aIcon type="api" class="img" />
 							<h4 class="title">接口管理</h4>
 							<span class="desc">
 								友好的接口文档，基于websocket的多人协作接口编辑功能和类postman测试工具，让多人协作成倍提升开发效率
 							</span>
 						</aCol>
 						<aCol span={8} class="section-item" key="feat-wrapper-3">
-							<Icon type="database" class="img" />
+							<aIcon type="database" class="img" />
 							<h4 class="title">MockServer</h4>
 							<span class="desc">基于Mockjs，使用简单功能强大</span>
 						</aCol>
@@ -339,7 +339,7 @@ const HomeGuest = params => {
 							</aCard>
 						</aCol>
 						<aCol lg={17} xs={14} class="section-card manage-word">
-							<Icon type="team" class="icon" />
+							<aIcon type="team" class="icon" />
 							<h3 class="title">扁平化管理模式</h3>
 							<p class="desc">
 								接口管理的逻辑较为复杂，操作频率高，层层审批将严重拖慢生产效率，因此传统的金字塔管理模式并不适用。

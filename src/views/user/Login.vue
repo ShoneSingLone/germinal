@@ -41,9 +41,9 @@ const { $t } = State_UI;
 			<div class="item-wrapper">
 				<div class="user-login-other">
 					<span>{{ $t("user.login.sign-in-with").label }}</span>
-					<router-link class="register" :to="{ name: routeNames.register }">
+					<RouterLink class="register" :to="{ name: routeNames.register }">
 						{{ $t("user.login.signup").label }}
-					</router-link>
+					</RouterLink>
 				</div>
 			</div>
 		</div>

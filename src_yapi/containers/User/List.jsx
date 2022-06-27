@@ -1,11 +1,9 @@
-import React, { PureComponent as Component } from "react";
 import { formatTime } from "../../common.js";
-import { Link } from "react-router-dom";
+
 import { setBreadcrumb } from "../../reducer/modules/user";
 //import PropTypes from 'prop-types'
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Table, Popconfirm, message, Input } from "antd";
+
+import { Table, Popconfirm, message, Input } from "ant-design-vue";
 import axios from "axios";
 
 const Search = Input.Search;
@@ -142,7 +140,11 @@ class List extends Component {
 				key: "username",
 				width: 180,
 				render: (username, item) => {
-					return <Link to={"/user/profile/" + item._id}>{item.username}</Link>;
+					return (
+						<RouterLink to={"/user/profile/" + item._id}>
+							{item.username}
+						</RouterLink>
+					);
 				}
 			},
 			{
@@ -169,7 +171,7 @@ class List extends Component {
 				render: item => {
 					return (
 						<span>
-							{/* <span className="ant-divider" /> */}
+							{/* <span class="ant-divider" /> */}
 							<Popconfirm
 								title="确认删除此用户?"
 								onConfirm={() => {
@@ -208,12 +210,12 @@ class List extends Component {
 		};
 
 		return (
-			<section className="user-table">
-				<div className="user-search-wrapper">
+			<section class="user-table">
+				<div class="user-search-wrapper">
 					<h2 style={{ marginBottom: "10px" }}>
 						用户总数：{this.state.total}位
 					</h2>
-					<Search
+					<aSearch
 						onChange={e => this.handleSearch(e.target.value)}
 						onSearch={this.handleSearch}
 						placeholder="请输入用户名"

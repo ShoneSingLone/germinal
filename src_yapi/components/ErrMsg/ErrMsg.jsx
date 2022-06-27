@@ -1,8 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Icon } from "antd";
 import "./ErrMsg.scss";
-import { withRouter } from "react-router";
+import { defineComponent } from "vue";
+import { router } from "ysrc/router/router";
 
 /**
  * 错误信息提示
@@ -24,22 +22,10 @@ import { withRouter } from "react-router";
  * @description 一般用于描述错误信息名称
  * @returns {object}
  */
-@withRouter
-class ErrMsg extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	static propTypes = {
-		type: PropTypes.string,
-		history: PropTypes.object,
-		title: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-		desc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-		opration: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-	};
-
+export const ErrMsg = defineComponent({
+	props: ["type", "history", "title", "desc", "opration"],
 	render() {
-		let { type, title, desc, opration } = this.props;
+		let { type, title, desc, opration } = this;
 		let icon = "frown-o";
 		if (type) {
 			switch (type) {
@@ -48,7 +34,12 @@ class ErrMsg extends Component {
 					desc = (
 						<span>
 							先去{" "}
-							<a onClick={() => this.props.history.push("/group")}>
+							<a
+								onClick={() =>
+									router.push({
+										path: "/group"
+									})
+								}>
 								“项目广场”
 							</a>{" "}
 							逛逛吧, 那里可以添加关注。
@@ -83,14 +74,12 @@ class ErrMsg extends Component {
 			}
 		}
 		return (
-			<div className="err-msg">
-				<Icon type={icon} className="icon" />
-				<p className="title">{title}</p>
-				<p className="desc">{desc}</p>
-				<p className="opration">{opration}</p>
+			<div class="err-msg">
+				<aIcon type={icon} class="icon" />
+				<p class="title">{title}</p>
+				<p class="desc">{desc}</p>
+				<p class="opration">{opration}</p>
 			</div>
 		);
 	}
-}
-
-export default ErrMsg;
+});

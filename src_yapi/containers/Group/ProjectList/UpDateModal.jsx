@@ -1,6 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import {
 	Modal,
 	Form,
@@ -12,7 +9,7 @@ import {
 	Button,
 	Row,
 	Col
-} from "antd";
+} from "ant-design-vue";
 import {
 	updateProject,
 	fetchProjectList,
@@ -202,12 +199,12 @@ class UpDateModal extends Component {
 		const formItems = envs.map((k, index) => {
 			const secondIndex = "next" + index; // 为保证key的唯一性
 			return (
-				<Row
+				<aRow
 					key={index}
 					type="flex"
 					justify="space-between"
 					align={index === 0 ? "middle" : "top"}>
-					<Col span={10} offset={2}>
+					<aCol span={10} offset={2}>
 						<FormItem
 							label={index === 0 ? <span>环境名称</span> : ""}
 							required={false}
@@ -237,14 +234,14 @@ class UpDateModal extends Component {
 									}
 								]
 							})(
-								<Input
+								<aInput
 									placeholder="请输入环境名称"
 									style={{ width: "90%", marginRight: 8 }}
 								/>
 							)}
 						</FormItem>
-					</Col>
-					<Col span={10}>
+					</aCol>
+					<aCol span={10}>
 						<FormItem
 							label={index === 0 ? <span>环境域名</span> : ""}
 							required={false}
@@ -276,7 +273,7 @@ class UpDateModal extends Component {
 									}
 								]
 							})(
-								<Input
+								<aInput
 									placeholder="请输入环境域名"
 									style={{ width: "90%", marginRight: 8 }}
 									addonBefore={getFieldDecorator(`envs-protocol-${index}`, {
@@ -298,24 +295,24 @@ class UpDateModal extends Component {
 								/>
 							)}
 						</FormItem>
-					</Col>
-					<Col span={2}>
+					</aCol>
+					<aCol span={2}>
 						{/* 新增的项中，只有最后一项有删除按钮 */}
 						{(envs.length > 0 && k._id) || envs.length == index + 1 ? (
-							<Icon
-								className="dynamic-delete-button"
+							<aIcon
+								class="dynamic-delete-button"
 								type="minus-circle-o"
 								onClick={() => {
 									return this.remove(k._id ? k._id : k);
 								}}
 							/>
 						) : null}
-					</Col>
-				</Row>
+					</aCol>
+				</aRow>
 			);
 		});
 		return (
-			<Modal
+			<aModal
 				title="修改项目"
 				visible={isUpdateModalShow}
 				onOk={this.handleOk}
@@ -330,7 +327,7 @@ class UpDateModal extends Component {
 									message: "请输入项目名称!"
 								}
 							]
-						})(<Input />)}
+						})(<aInput />)}
 					</FormItem>
 
 					<FormItem
@@ -338,9 +335,9 @@ class UpDateModal extends Component {
 						label={
 							<span>
 								线上域名&nbsp;
-								<Tooltip title="将根据配置的线上域名访问mock数据">
-									<Icon type="question-circle-o" />
-								</Tooltip>
+								<aTooltip title="将根据配置的线上域名访问mock数据">
+									<aIcon type="question-circle-o" />
+								</aTooltip>
 							</span>
 						}>
 						{getFieldDecorator("prd_host", {
@@ -352,7 +349,7 @@ class UpDateModal extends Component {
 								}
 							]
 						})(
-							<Input
+							<aInput
 								addonBefore={
 									<Select
 										defaultValue={initFormValues.prd_protocol}
@@ -370,9 +367,9 @@ class UpDateModal extends Component {
 						label={
 							<span>
 								基本路径&nbsp;
-								<Tooltip title="基本路径为空表示根路径">
-									<Icon type="question-circle-o" />
-								</Tooltip>
+								<aTooltip title="基本路径为空表示根路径">
+									<aIcon type="question-circle-o" />
+								</aTooltip>
 							</span>
 						}>
 						{getFieldDecorator("basepath", {
@@ -383,7 +380,7 @@ class UpDateModal extends Component {
 									message: "请输入项目基本路径! "
 								}
 							]
-						})(<Input />)}
+						})(<aInput />)}
 					</FormItem>
 
 					<FormItem {...formItemLayout} label="描述">
@@ -400,12 +397,12 @@ class UpDateModal extends Component {
 
 					{formItems}
 					<FormItem {...formItemLayoutWithOutLabel}>
-						<Button type="dashed" onClick={this.add} style={{ width: "60%" }}>
-							<Icon type="plus" /> 添加环境配置
-						</Button>
+						<aButton type="dashed" onClick={this.add} style={{ width: "60%" }}>
+							<aIcon type="plus" /> 添加环境配置
+						</aButton>
 					</FormItem>
 				</Form>
-			</Modal>
+			</aModal>
 		);
 	}
 }

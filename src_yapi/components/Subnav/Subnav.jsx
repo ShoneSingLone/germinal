@@ -1,8 +1,6 @@
 import "./Subnav.scss";
-import React, { PureComponent as Component } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Menu } from "antd";
+
+import { Menu } from "ant-design-vue";
 
 class Subnav extends Component {
 	constructor(props) {
@@ -16,24 +14,26 @@ class Subnav extends Component {
 
 	render() {
 		return (
-			<div className="m-subnav">
-				<Menu
+			<div class="m-subnav">
+				<aMenu
 					onClick={this.handleClick}
 					selectedKeys={[this.props.default]}
 					mode="horizontal"
-					className="g-row m-subnav-menu">
+					class="g-row m-subnav-menu">
 					{this.props.data.map((item, index) => {
 						// 若导航标题为两个字，则自动在中间加个空格
 						if (item.name.length === 2) {
 							item.name = item.name[0] + " " + item.name[1];
 						}
 						return (
-							<Menu.Item className="item" key={item.name.replace(" ", "")}>
-								<Link to={item.path}>{this.props.data[index].name}</Link>
-							</Menu.Item>
+							<aMenu.Item class="item" key={item.name.replace(" ", "")}>
+								<RouterLink to={item.path}>
+									{this.props.data[index].name}
+								</RouterLink>
+							</aMenu.Item>
 						);
 					})}
-				</Menu>
+				</aMenu>
 			</div>
 		);
 	}

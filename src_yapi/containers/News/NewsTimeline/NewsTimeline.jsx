@@ -1,7 +1,5 @@
-import React, { PureComponent as Component } from "react";
-import { Timeline, Spin } from "antd";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { Timeline, Spin } from "ant-design-vue";
+
 import { formatTime } from "../../../common.js";
 import { fetchNewsData } from "../../../reducer/modules/news.js";
 import { timeago } from "../../../../common/utils";
@@ -59,11 +57,11 @@ class NewsTimeline extends Component {
 			data = data.map(function (item, i) {
 				return (
 					<Timeline.Item key={i}>
-						<span className="logoTimeago">{timeago(item.add_time)}</span>
-						<span className="logusername">{item.username}</span>
-						<span className="logtype">{item.type}</span>
-						<span className="logtime">{formatTime(item.add_time)}</span>
-						<span className="logcontent">{item.content}</span>
+						<span class="logoTimeago">{timeago(item.add_time)}</span>
+						<span class="logusername">{item.username}</span>
+						<span class="logtype">{item.type}</span>
+						<span class="logtime">{formatTime(item.add_time)}</span>
+						<span class="logcontent">{item.content}</span>
 					</Timeline.Item>
 				);
 			});
@@ -71,17 +69,17 @@ class NewsTimeline extends Component {
 			data = "";
 		}
 		let pending = this.state.bidden ? (
-			<a className={this.state.bidden}>以上为全部内容</a>
+			<a class={this.state.bidden}>以上为全部内容</a>
 		) : (
-			<a className="loggetMore" onClick={this.getMore.bind(this)}>
+			<a class="loggetMore" onClick={this.getMore.bind(this)}>
 				查看更多
 			</a>
 		);
 		if (this.state.loading) {
-			pending = <Spin />;
+			pending = <aSpin />;
 		}
 		return (
-			<section className="news-timeline">
+			<section class="news-timeline">
 				{data ? <Timeline pending={pending}>{data}</Timeline> : data}
 			</section>
 		);

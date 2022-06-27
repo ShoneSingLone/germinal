@@ -1,6 +1,3 @@
-import React, { PureComponent as Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import {
 	Input,
 	Button,
@@ -13,7 +10,7 @@ import {
 	Row,
 	Col,
 	Tooltip
-} from "antd";
+} from "ant-design-vue";
 import { fetchNewsData } from "../../../reducer/modules/news.js";
 import {
 	changeGroupMsg,
@@ -25,7 +22,7 @@ import {
 } from "../../../reducer/modules/group.js";
 const { TextArea } = Input;
 import { trim } from "../../../common.js";
-import _ from "underscore";
+import { _ } from "@ventose/ui";
 import "./GroupSetting.scss";
 const confirm = Modal.confirm;
 
@@ -191,7 +188,7 @@ class GroupSetting extends Component {
 						<p>
 							<b>请输入分组名称确认此操作:</b>
 						</p>
-						<Input id="group_name" />
+						<aInput id="group_name" />
 					</div>
 				</div>
 			),
@@ -223,25 +220,25 @@ class GroupSetting extends Component {
 
 	render() {
 		return (
-			<div className="m-panel card-panel card-panel-s panel-group">
-				<Row type="flex" justify="space-around" className="row" align="middle">
-					<Col span={4} className="label">
+			<div class="m-panel card-panel card-panel-s panel-group">
+				<aRow type="flex" justify="space-around" class="row" align="middle">
+					<aCol span={4} class="label">
 						分组名：
-					</Col>
-					<Col span={20}>
-						<Input
+					</aCol>
+					<aCol span={20}>
+						<aInput
 							size="large"
 							placeholder="请输入分组名称"
 							value={this.state.currGroupName}
 							onChange={this.changeName}
 						/>
-					</Col>
-				</Row>
-				<Row type="flex" justify="space-around" className="row" align="middle">
-					<Col span={4} className="label">
+					</aCol>
+				</aRow>
+				<aRow type="flex" justify="space-around" class="row" align="middle">
+					<aCol span={4} class="label">
 						简介：
-					</Col>
-					<Col span={20}>
+					</aCol>
+					<aCol span={20}>
 						<TextArea
 							size="large"
 							rows={3}
@@ -249,18 +246,18 @@ class GroupSetting extends Component {
 							value={this.state.currGroupDesc}
 							onChange={this.changeDesc}
 						/>
-					</Col>
-				</Row>
-				<Row type="flex" justify="space-around" className="row" align="middle">
-					<Col span={4} className="label">
+					</aCol>
+				</aRow>
+				<aRow type="flex" justify="space-around" class="row" align="middle">
+					<aCol span={4} class="label">
 						接口自定义字段&nbsp;
-						<Tooltip title={"可以在接口中添加 额外字段 数据"}>
-							<Icon type="question-circle-o" style={{ width: "10px" }} />
-						</Tooltip>{" "}
+						<aTooltip title={"可以在接口中添加 额外字段 数据"}>
+							<aIcon type="question-circle-o" style={{ width: "10px" }} />
+						</aTooltip>{" "}
 						：
-					</Col>
-					<Col span={12} style={{ position: "relative" }}>
-						<Input
+					</aCol>
+					<aCol span={12} style={{ position: "relative" }}>
+						<aInput
 							placeholder="请输入自定义字段名称"
 							style={{
 								borderColor: this.state.custom_field1_rule ? "#f5222d" : ""
@@ -269,68 +266,68 @@ class GroupSetting extends Component {
 							onChange={this.changeCustomName}
 						/>
 						<div
-							className="custom-field-rule"
+							class="custom-field-rule"
 							style={{
 								display: this.state.custom_field1_rule ? "block" : "none"
 							}}>
 							自定义字段名称不能为空
 						</div>
-					</Col>
-					<Col span={2} className="label">
+					</aCol>
+					<aCol span={2} class="label">
 						开启：
-					</Col>
-					<Col span={6}>
+					</aCol>
+					<aCol span={6}>
 						<Switch
 							checked={this.state.custom_field1_enable}
 							checkedChildren="开"
 							unCheckedChildren="关"
 							onChange={this.changeCustomEnable}
 						/>
-					</Col>
-				</Row>
-				<Row type="flex" justify="center" className="row save">
-					<Col span={4} className="save-button">
-						<Button
-							className="m-btn btn-save"
+					</aCol>
+				</aRow>
+				<aRow type="flex" justify="center" class="row save">
+					<aCol span={4} class="save-button">
+						<aButton
+							class="m-btn btn-save"
 							icon="save"
 							type="primary"
 							onClick={this.editGroup}>
 							保 存
-						</Button>
-					</Col>
-				</Row>
+						</aButton>
+					</aCol>
+				</aRow>
 				{/* 只有超级管理员能删除分组 */}
 				{this.props.curUserRole === "admin" ? (
-					<Row type="flex" justify="center" className="danger-container">
-						<Col span={24} className="title">
-							<h2 className="content">
-								<Icon type="exclamation-circle-o" /> 危险操作
+					<aRow type="flex" justify="center" class="danger-container">
+						<aCol span={24} class="title">
+							<h2 class="content">
+								<aIcon type="exclamation-circle-o" /> 危险操作
 							</h2>
-							<Button onClick={this.toggleDangerOptions}>
+							<aButton onClick={this.toggleDangerOptions}>
 								查 看
-								<Icon type={this.state.showDangerOptions ? "up" : "down"} />
-							</Button>
-						</Col>
+								<aIcon type={this.state.showDangerOptions ? "up" : "down"} />
+							</aButton>
+						</aCol>
 						{this.state.showDangerOptions ? (
 							<Card
 								hoverable={true}
-								className="card-danger"
+								class="card-danger"
 								style={{ width: "100%" }}>
-								<div className="card-danger-content">
+								<div class="card-danger-content">
 									<h3>删除分组</h3>
 									<p>分组一旦删除，将无法恢复数据，请慎重操作！</p>
 									<p>只有超级管理员有权限删除分组。</p>
 								</div>
-								<Button
+								<aButton
 									type="danger"
 									ghost
-									className="card-danger-btn"
+									class="card-danger-btn"
 									onClick={this.showConfirm}>
 									删除
-								</Button>
+								</aButton>
 							</Card>
 						) : null}
-					</Row>
+					</aRow>
 				) : null}
 			</div>
 		);

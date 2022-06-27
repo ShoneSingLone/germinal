@@ -1,8 +1,6 @@
-import React, { PureComponent as Component } from "react";
-import PropTypes from "prop-types";
-import { Tabs, Layout } from "antd";
+import { Tabs, Layout } from "ant-design-vue";
 import { Route, Switch, matchPath } from "react-router-dom";
-import { connect } from "react-redux";
+
 const { Content, Sider } = Layout;
 
 import "./interface.scss";
@@ -103,10 +101,10 @@ class Interface extends Component {
 					marginTop: "24px"
 				}}>
 				<Sider style={{ height: "100%" }} width={300}>
-					<div className="left-menu">
+					<div class="left-menu">
 						<Tabs
 							type="card"
-							className="tabs-large"
+							class="tabs-large"
 							activeKey={activeKey}
 							onChange={this.onChange}>
 							<Tabs.TabPane tab="接口列表" key="api" />
@@ -133,7 +131,7 @@ class Interface extends Component {
 							overflow: "initial",
 							backgroundColor: "#fff"
 						}}>
-						<div className="right-content">
+						<div class="right-content">
 							<Switch>
 								<Route
 									exact

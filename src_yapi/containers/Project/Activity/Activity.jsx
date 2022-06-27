@@ -1,9 +1,8 @@
 import "./Activity.scss";
-import React, { PureComponent as Component } from "react";
-import TimeTree from "../../../components/TimeLine/TimeLine";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Button } from "antd";
+
+import TimeTree from "ysrc/components/TimeLine/ATimeline";
+
+import { Button } from "ant-design-vue";
 @connect(state => {
 	return {
 		uid: state.user.uid + "",
@@ -25,14 +24,14 @@ class Activity extends Component {
 	render() {
 		let { currProject } = this.props;
 		return (
-			<div className="g-row">
-				<section className="news-box m-panel">
-					<div style={{ display: "none" }} className="logHead">
+			<div class="g-row">
+				<section class="news-box m-panel">
+					<div style={{ display: "none" }} class="logHead">
 						{/*<Breadcrumb />*/}
-						<div className="projectDes">
+						<div class="projectDes">
 							<p>高效、易用、可部署的API管理平台</p>
 						</div>
-						<div className="Mockurl">
+						<div class="Mockurl">
 							<span>Mock地址：</span>
 							<p>
 								{location.protocol +
@@ -41,12 +40,12 @@ class Activity extends Component {
 									(location.port !== "" ? ":" + location.port : "") +
 									`/mock/${currProject._id}${currProject.basepath}/yourPath`}
 							</p>
-							<Button type="primary">
+							<aButton type="primary">
 								<a
 									href={`/api/project/download?project_id=${this.props.match.params.id}`}>
 									下载Mock数据
 								</a>
-							</Button>
+							</aButton>
 						</div>
 					</div>
 					<TimeTree type={"project"} typeid={+this.props.match.params.id} />

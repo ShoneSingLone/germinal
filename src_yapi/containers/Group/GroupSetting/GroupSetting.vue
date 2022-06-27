@@ -1,9 +1,7 @@
 <script lang="jsx">
-import { trim } from "../../../common.js";
-import _ from "underscore";
 import "./GroupSetting.scss";
 import { defineComponent } from "vue";
-import { UI } from "@ventose/ui";
+import { UI, _ } from "@ventose/ui";
 
 export default defineComponent({
 	props: [
@@ -33,7 +31,7 @@ export default defineComponent({
 
 	watch: {
 		asdf() {
-			this.initState(nextProps);
+			this.initState();
 			this.setState({
 				showDangerOptions: false
 			});
@@ -174,9 +172,9 @@ export default defineComponent({
 
 	render() {
 		return (
-			<div className="m-panel card-panel card-panel-s panel-group">
-				<aRow type="flex" justify="space-around" className="row" align="middle">
-					<aCol span={4} className="label">
+			<div class="m-panel card-panel card-panel-s panel-group">
+				<aRow type="flex" justify="space-around" class="row" align="middle">
+					<aCol span={4} class="label">
 						分组名：
 					</aCol>
 					<aCol span={20}>
@@ -188,8 +186,8 @@ export default defineComponent({
 						/>
 					</aCol>
 				</aRow>
-				<aRow type="flex" justify="space-around" className="row" align="middle">
-					<aCol span={4} className="label">
+				<aRow type="flex" justify="space-around" class="row" align="middle">
+					<aCol span={4} class="label">
 						简介：
 					</aCol>
 					<aCol span={20}>
@@ -202,8 +200,8 @@ export default defineComponent({
 						/>
 					</aCol>
 				</aRow>
-				<aRow type="flex" justify="space-around" className="row" align="middle">
-					<aCol span={4} className="label">
+				<aRow type="flex" justify="space-around" class="row" align="middle">
+					<aCol span={4} class="label">
 						接口自定义字段&nbsp;
 						<aTooltip title={"可以在接口中添加 额外字段 数据"}>
 							<aIcon type="question-circle-o" style={{ width: "10px" }} />
@@ -227,7 +225,7 @@ export default defineComponent({
 							自定义字段名称不能为空
 						</div>
 					</aCol>
-					<aCol span={2} className="label">
+					<aCol span={2} class="label">
 						开启：
 					</aCol>
 					<aCol span={6}>
@@ -239,8 +237,8 @@ export default defineComponent({
 						/>
 					</aCol>
 				</aRow>
-				<aRow type="flex" justify="center" className="row save">
-					<aCol span={4} className="save-button">
+				<aRow type="flex" justify="center" class="row save">
+					<aCol span={4} class="save-button">
 						<aButton
 							className="m-btn btn-save"
 							icon="save"
@@ -252,9 +250,9 @@ export default defineComponent({
 				</aRow>
 				{/* 只有超级管理员能删除分组 */}
 				{this.props.curUserRole === "admin" ? (
-					<aRow type="flex" justify="center" className="danger-container">
-						<aCol span={24} className="title">
-							<h2 className="content">
+					<aRow type="flex" justify="center" class="danger-container">
+						<aCol span={24} class="title">
+							<h2 class="content">
 								<aIcon type="exclamation-circle-o" />
 								危险操作
 							</h2>
@@ -268,7 +266,7 @@ export default defineComponent({
 								hoverable={true}
 								className="card-danger"
 								style={{ width: "100%" }}>
-								<div className="card-danger-content">
+								<div class="card-danger-content">
 									<h3>删除分组</h3>
 									<p>分组一旦删除，将无法恢复数据，请慎重操作！</p>
 									<p>只有超级管理员有权限删除分组。</p>
