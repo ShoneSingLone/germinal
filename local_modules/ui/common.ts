@@ -1,6 +1,13 @@
 import { _ } from "./loadCommonUtil";
 
-/* 对object set 或 get 属性值，保证不会undefined */
+/**
+ * 对object set 或 get 属性值，保证不会undefined
+ * MutatingProps(state,"user.role.public",false);
+ * @param item
+ * @param prop
+ * @param val
+ * @returns
+ */
 export const MutatingProps = (item, prop, val = null) => {
 	item = item || {};
 	const propArray = prop.split(".");
@@ -70,3 +77,33 @@ export const MutatingProps = (item, prop, val = null) => {
 	console.log(max);
 	console.timeEnd('duration'); //Max:11815 duration: 10010.89404296875 ms //count没超过两万，再做点其他计算，应该达不到这个数
 })();*/
+
+export const Utils = {
+	dateFormat(date, format) {
+		if (!format) {
+			format = "YYYY-MM-DD";
+		}
+		if (format === 1) {
+			format = "YYYY-MM-DD HH:mm:ss";
+		}
+		const label = dayjs(date).format(format);
+		return label === "Invalid Date" ? "--" : label;
+	},
+	keepDecimals(val, fractionDigits = 2) {
+		let num = Number((val * 100) / 1024 / 100).toFixed(fractionDigits);
+		if (num === "NaN") {
+			num = "-";
+		}
+		return num;
+	},
+	valueToLabel(value, options) {
+		const target = _.find(options, {
+			value
+		});
+		if (target) {
+			return target.label;
+		} else {
+			return "--";
+		}
+	}
+};

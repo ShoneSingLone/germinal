@@ -1,44 +1,7 @@
 import "./index.less";
-import {
-	Avatar,
-	Alert,
-	Breadcrumb,
-	Card,
-	Descriptions,
-	Menu,
-	Modal,
-	Progress,
-	Popover,
-	Dropdown,
-	Button,
-	List,
-	Checkbox,
-	Popconfirm,
-	PageHeader,
-	Input,
-	Result,
-	Tabs,
-	Table,
-	Spin,
-	Layout,
-	Tooltip,
-	Upload,
-	Switch
-} from "ant-design-vue";
-import { DescriptionsItem } from "ant-design-vue/es/descriptions";
-import { MenuItem, SubMenu } from "ant-design-vue/es/menu";
-import { BreadcrumbItem } from "ant-design-vue/es/breadcrumb";
-import { DropdownButton } from "ant-design-vue/es/dropdown";
-import { TabPane } from "ant-design-vue/es/tabs";
-import { InputPassword } from "ant-design-vue/es/input";
-import {
-	LayoutHeader,
-	LayoutSider,
-	LayoutFooter,
-	LayoutContent
-} from "ant-design-vue/es/layout";
-/* 表单提示信息 */
-import "ant-design-vue/es/form/style/index.css";
+import "./ui.scss";
+import "ant-design-vue/dist/antd.css";
+import Antd from "ant-design-vue";
 import $ from "jquery";
 import { installPopoverDirective } from "./xSingle/popover";
 import xRender from "./xRender/xRender.jsx";
@@ -55,9 +18,12 @@ import xCellLabel from "./xDataGrid/xCellLabel.vue";
 import xPagination from "./xDataGrid/xPagination.vue";
 import xColFilter from "./xDataGrid/xColFilter.vue";
 import { installUIDialogComponent } from "./xSingle/dialog/dialog";
+import { installDirective } from "./directive";
 import { _ as mylodash } from "./loadCommonUtil.js";
 import { State_UI, Cpt_UI_locale } from "./State_UI";
 import dayjs from "dayjs";
+import { RegexFn, FormRules } from "./xForm/FormRules";
+
 /* @ts-ignore */
 window.dayjs = dayjs;
 /* @ts-ignore */
@@ -99,47 +65,7 @@ const componentMyUI = {
 	xCellLabel
 };
 
-/* ant-d-v */
-const componentAntdV = {
-	Avatar,
-	Alert,
-	Breadcrumb,
-	BreadcrumbItem,
-	Card,
-	Descriptions,
-	DescriptionsItem,
-	Progress,
-	Popover,
-	Menu,
-	MenuItem,
-	Modal,
-	SubMenu,
-	Dropdown,
-	DropdownButton,
-	Button,
-	List,
-	Checkbox,
-	Popconfirm,
-	PageHeader,
-	Input,
-	InputPassword,
-	Result,
-	Table,
-	Tabs,
-	TabPane,
-	Tooltip,
-	Spin,
-	Layout,
-	LayoutHeader,
-	LayoutSider,
-	LayoutFooter,
-	LayoutContent,
-	Upload,
-	Switch
-};
-
 const components = {
-	...componentAntdV,
 	...componentMyUI
 };
 
@@ -172,9 +98,12 @@ export { vModel as vModel };
 export { antColKey as antColKey };
 export { pickValueFrom as pickValueFrom };
 export { resetState_Value as resetState_Value };
+export { RegexFn as RegexFn };
+export { FormRules as FormRules };
 
 export const VentoseUIWithInstall = {
 	install: (app, options /* {appPlugins,dependState} */) => {
+		installDirective(app, options);
 		installPopoverDirective(app, options);
 		installUIDialogComponent(UI, options);
 		mylodash.each(components, (component, name) => {
@@ -186,5 +115,6 @@ export const VentoseUIWithInstall = {
 			}
 			app.component(component.name || name, component);
 		});
+		app.use(Antd);
 	}
 };

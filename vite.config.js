@@ -13,6 +13,19 @@ const isLib = process.env.type === "lib";
 const baseRoot = "./";
 console.log("🚀 isPro", isPro, "isLib", isLib, process.argv);
 
+const url = {
+	local: "http://localhost:7001/",
+	remote: "https://wwww.singlone.work/s/api/"
+};
+
+// const isLocal = process.argv[4] === "local";
+const isLocal = false;
+const isWinPlatform = process.platform === "win32";
+const proxyTarget = isWinPlatform ? url.remote : url.remote;
+const urlBase = isLocal ? "localhost:7001" : "www.singlone.work";
+const urlApiBase = isLocal ? `http://${urlBase}` : `https://${urlBase}/s/api`;
+const urlWsBase = isLocal ? `ws://${urlBase}/ws` : `wss://${urlBase}/ws`;
+
 /* https://vitejs.dev/config/ */
 export default defineConfig({
 	server: {
@@ -21,10 +34,12 @@ export default defineConfig({
 		},
 		proxy: {
 			"/v1": {
-				target:
-					process.platform === "win32"
-						? "http://localhost:7001/"
-						: "https://wwww.singlone.work/s/api/",
+				target: proxyTarget,
+				changeOrigin: true,
+				secure: false
+			},
+			"^/api": {
+				target: "http://localhost:3001/",
 				changeOrigin: true,
 				secure: false
 			}
@@ -43,6 +58,10 @@ export default defineConfig({
 			minify: false,
 			assetsDir: "statics/assets",
 			rollupOptions: {
+				input: {
+					main: path.resolve(__dirname, "index.html"),
+					yapi: path.resolve(__dirname, "yapi.html")
+				},
 				output: {
 					chunkFileNames: "statics/js/[name].js",
 					entryFileNames: "statics/js/[name].js"
@@ -97,11 +116,11 @@ export default defineConfig({
 		useVueJsx(),
 		svgHelper(),
 		/* 懒加载antd 自动加载对应的css */
-		usePluginImport({
+		/* usePluginImport({
 			libraryName: "ant-design-vue",
-			/* css位置 */
+			// css位置 
 			libraryDirectory: "es",
-			/* 加载的类型（less、css） */
+			// 加载的类型（less、css） 
 			style: "css"
 			// customStyleName: (name) => {
 			//     console.log('🚀:','name', JSON.stringify(name, null, 2));
@@ -112,20 +131,17 @@ export default defineConfig({
 			//     console.log('🚀:', 'cssName', JSON.stringify(cssName, null, 2));
 			//     return cssName;
 			// },
-		}),
+		}), */
 		injectHtml({
 			/* windows平台 */
-			data: (isLocal => {
-				const urlBase = isLocal ? "localhost:7001" : "www.singlone.work";
+			data: (() => {
 				return {
 					version: Date.now(),
 					urlBase,
-					urlApiBase: isLocal
-						? `http://${urlBase}`
-						: `https://${urlBase}/s/api`,
-					urlWsBase: isLocal ? `ws://${urlBase}/ws` : `wss://${urlBase}/ws`
+					urlApiBase,
+					urlWsBase
 				};
-			})(process.argv[4] === "local")
+			})()
 		})
 	].concat(
 		(() => {

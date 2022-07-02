@@ -1,4 +1,7 @@
-import { EVENT_TYPE, _, State_UI } from "@ventose/ui";
+import { State_UI } from "../State_UI";
+import { EVENT_TYPE } from "../tools/validate";
+import { _ } from "../loadCommonUtil";
+
 const { $t } = State_UI;
 
 /* 通过校验，无错 */
@@ -24,7 +27,7 @@ const makeFormRules = options => {
 	return options;
 };
 
-export default {
+export const FormRules = {
 	SUCCESS,
 	FAIL,
 	required(msg, trigger = [EVENT_TYPE.update]) {
@@ -33,10 +36,22 @@ export default {
 			msg: msg || $t("必填项").label,
 			async validator(value) {
 				/*必填的简单验证*/
-				if (value) return SUCCESS;
+				if (value) {
+					/*不为空数组*/
+					if (_.isArray(value)) {
+						if (value.length > 0) {
+							return SUCCESS;
+						} else {
+							return FAIL;
+						}
+					}
+					/*TODO:object*/
+					return SUCCESS;
+				}
+
 				if (_.isBoolean(value)) return SUCCESS;
 				if (_.isNumber(value) && !_.isNaN(value)) return SUCCESS;
-				if (_.isArrayFill(value)) return SUCCESS;
+
 				return FAIL;
 			},
 			trigger
@@ -61,7 +76,7 @@ export default {
 	email() {
 		return {
 			name: "email",
-			msg: () => $t("user.email.wrong-format").label,
+			msg: () => $t("请输入email").label,
 			async validator(value) {
 				if (RegexFn.email().test(value)) {
 					return SUCCESS;

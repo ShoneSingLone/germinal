@@ -29,6 +29,7 @@ $(async () => {
 		_.asyncLoadText(`${ROOT_URL}/static/i18n/${State_UI.language}.json`),
 		/* 自定义通用组件 */
 		Promise.all([
+			/* 相互之间没有依赖关系，没有竟态 */
 			_.asyncImportSFC(`${ROOT_URL}/static/vue-components/SvgIcon.vue`)
 		])
 	]);
@@ -52,15 +53,14 @@ $(async () => {
 		}
 	};
 	/* 全局状态管理 */
-	window.State_App = Vue.reactive({
+	const State_App = Vue.reactive({
 		CSSVariables: {}
 	});
+
+	window.State_App = State_App;
+
 	const app = Vue.createApp(
 		defineComponent({
-			template: `
-              <router-view></router-view>
-              <aSpin v-if="!currentView">Loading...</aSpin>
-              <component v-else :is="currentView"/> `,
 			data() {
 				return {
 					currentView: false
@@ -73,7 +73,12 @@ $(async () => {
 				);
 				this.currentView = markRaw(APP);
 				window.instance = this;
-			}
+			},
+			/* TODO:按需进行组件编写 */
+			template: `
+              <router-view></router-view>
+              <aSpin v-if="!currentView">Loading...</aSpin>
+              <component v-else :is="currentView"/> `
 		})
 	);
 	const router = VueRouter.createRouter({

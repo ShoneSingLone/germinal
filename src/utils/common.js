@@ -1,4 +1,4 @@
-import { _, VentoseUIWithInstall, State_UI } from "@ventose/ui";
+import { _, $, VentoseUIWithInstall, State_UI } from "@ventose/ui";
 import { router } from "lsrc/router/router";
 import LazySvg from "../components/LazySvg/LazySvg";
 import dayjs from "dayjs";
@@ -32,35 +32,5 @@ export const appPlugins = {
 		app.use(router);
 		app.component("LazySvg", LazySvg);
 		return app;
-	}
-};
-
-export const Utils = {
-	dateFormat(date, format) {
-		if (!format) {
-			format = "YYYY-MM-DD";
-		}
-		if (format === 1) {
-			format = "YYYY-MM-DD HH:mm:ss";
-		}
-		const label = dayjs(date).format(format);
-		return label === "Invalid Date" ? "--" : label;
-	},
-	keepDecimals(val, fractionDigits = 2) {
-		let num = Number((val * 100) / 1024 / 100).toFixed(fractionDigits);
-		if (num === "NaN") {
-			num = "-";
-		}
-		return num;
-	},
-	valueToLabel(value, options) {
-		const target = _.find(options, {
-			value
-		});
-		if (target) {
-			return target.label;
-		} else {
-			return "--";
-		}
 	}
 };

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-async ({
+async function sfc({
 	UI,
 	defCol,
 	defColActions,
@@ -34,7 +34,7 @@ async ({
 	_,
 	hooks,
 	h
-}) => {
+}) {
 	const { useCSS } = hooks;
 	return defineComponent({
 		TEMPLATE_PLACEHOLDER,
@@ -324,5 +324,5 @@ async ({
 			}
 		}
 	});
-};
+}
 </script>

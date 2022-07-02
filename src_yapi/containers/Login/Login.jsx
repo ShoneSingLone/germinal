@@ -1,0 +1,149 @@
+import { Form, Button, Input, Icon, message, Radio } from "ant-design-vue";
+import { loginActions, loginLdapActions } from "../../reducer/modules/user";
+
+const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
+
+import "./Login.scss";
+
+const formItemStyle = {
+	marginBottom: ".16rem"
+};
+
+const changeHeight = {
+	height: ".42rem"
+};
+
+@connect(
+	state => {
+		return {
+			loginData: state.user,
+			isLDAP: state.user.isLDAP
+		};
+	},
+	{
+		loginActions,
+		loginLdapActions
+	}
+)
+@withRouter
+class Login extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			loginType: "ldap"
+		};
+	}
+
+	static propTypes = {
+		form: PropTypes.object,
+		history: PropTypes.object,
+		loginActions: PropTypes.func,
+		loginLdapActions: PropTypes.func,
+		isLDAP: PropTypes.bool
+	};
+
+	handleSubmit = e => {
+		e.preventDefault();
+		const form = this.props.form;
+		form.validateFields((err, values) => {
+			if (!err) {
+				if (this.props.isLDAP && this.state.loginType === "ldap") {
+					this.props.loginLdapActions(values).then(res => {
+						if (res.payload.data.errcode == 0) {
+							this.props.history.replace("/group");
+							message.success("登录成功! ");
+						}
+					});
+				} else {
+					this.props.loginActions(values).then(res => {
+						if (res.payload.data.errcode == 0) {
+							this.props.history.replace("/group");
+							message.success("登录成功! ");
+						}
+					});
+				}
+			}
+		});
+	};
+
+	componentDidMount() {
+		//Qsso.attach('qsso-login','/api/user/login_by_token')
+		console.log("isLDAP", this.props.isLDAP);
+	}
+	handleFormLayoutChange = e => {
+		this.setState({ loginType: e.target.value });
+	};
+
+	render() {
+		const { getFieldDecorator } = this.props.form;
+
+		const { isLDAP } = this.props;
+
+		const emailRule =
+			this.state.loginType === "ldap"
+				? {}
+				: {
+						required: true,
+						message: "请输入正确的email!",
+						pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$/
+				  };
+		return (
+			<Form onSubmit={this.handleSubmit}>
+				{/* 登录类型 (普通登录／LDAP登录) */}
+				{isLDAP && (
+					<FormItem>
+						<RadioGroup
+							defaultValue="ldap"
+							onChange={this.handleFormLayoutChange}>
+							<Radio value="ldap">LDAP</Radio>
+							<Radio value="normal">普通登录</Radio>
+						</RadioGroup>
+					</FormItem>
+				)}
+				{/* 用户名 (Email) */}
+				<FormItem style={formItemStyle}>
+					{getFieldDecorator("email", { rules: [emailRule] })(
+						<aInput
+							style={changeHeight}
+							prefix={<aIcon type="user" style={{ fontSize: 13 }} />}
+							placeholder="Email"
+						/>
+					)}
+				</FormItem>
+
+				{/* 密码 */}
+				<FormItem style={formItemStyle}>
+					{getFieldDecorator("password", {
+						rules: [{ required: true, message: "请输入密码!" }]
+					})(
+						<aInput
+							style={changeHeight}
+							prefix={<aIcon type="lock" style={{ fontSize: 13 }} />}
+							type="password"
+							placeholder="Password"
+						/>
+					)}
+				</FormItem>
+
+				{/* 登录按钮 */}
+				<FormItem style={formItemStyle}>
+					<aButton
+						style={changeHeight}
+						type="primary"
+						htmlType="submit"
+						class="login-form-button">
+						登录
+					</aButton>
+				</FormItem>
+
+				{/* <div class="qsso-breakline">
+          <span class="qsso-breakword">或</span>
+        </div>
+        <aButton style={changeHeight} id="qsso-login" type="primary" class="login-form-button" size="large" ghost>QSSO登录</aButton> */}
+			</Form>
+		);
+	}
+}
+const LoginForm = Form.create()(Login);
+export default LoginForm;

@@ -10,8 +10,8 @@ export const defItem = (options: t_itemConfigs) => {
 		options.prop = `xItem${xItemNoPropCount++}`;
 		console.error(`no xItem prop replace by ${options.prop}`);
 	}
-	if (!_.isInput(options.vIf)) {
-		options.vIf = true;
+	if (!_.isInput(options.isShow)) {
+		options.isShow = true;
 	}
 	const configs = reactive(
 		_.merge(

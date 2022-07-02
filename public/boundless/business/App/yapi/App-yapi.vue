@@ -1,7 +1,7 @@
 <template></template>
 
 <script>
-async ({
+async function sfc({
 	UI,
 	defCol,
 	defColActions,
@@ -21,7 +21,7 @@ async ({
 	/*VueRouter*/
 	useRouter,
 	useRoute
-}) => {
+}) {
 	const { useCSS } = hooks;
 	return defineComponent({
 		TEMPLATE_PLACEHOLDER,
@@ -30,10 +30,18 @@ async ({
 			const ROUTER = useRouter();
 			/*添加路由*/
 			ROUTER.addRoute({
-				name: "login",
-				path: "/login",
+				name: "YapiHome",
+				path: "/",
 				component: () =>
-					_.asyncImportSFC(`${APP_ROOT_URL}/Views/Login/Login.vue`)
+					_.asyncImportSFC(`${APP_ROOT_URL}/Views/Application.vue`),
+				children: [
+					{
+						name: "Login",
+						path: "/login",
+						component: () =>
+							_.asyncImportSFC(`${APP_ROOT_URL}/Views/Login/Login.vue`)
+					}
+				]
 			});
 			// Router.addRoute({name:'home', path: '/', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/Home.vue`) });
 			// Router.addRoute({name:'group', path: '/group', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/Group.vue`) });
@@ -41,6 +49,11 @@ async ({
 			// Router.addRoute({name:'user', path: '/user', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/User.vue`) });
 			// Router.addRoute({name:'follow', path: '/follow', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/Follows.vue`) });
 			// Router.addRoute({name:'addProject', path: '/add-project', component: () => _.asyncImportSFC(`${APP_ROOT_URL}/Views/AddProject.vue`) });
+
+			ROUTER.beforeEach((to, from) => {
+				// ...
+				// 返回 false 以取消导航
+			});
 
 			/*添加路由-使路由生效*/
 			const route = useRoute();
@@ -59,5 +72,5 @@ async ({
 			return () => null;
 		}
 	});
-};
+}
 </script>

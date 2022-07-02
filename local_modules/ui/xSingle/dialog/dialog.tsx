@@ -66,7 +66,7 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 						title: [title || ""],
 						area: area || ["800px", "520px"],
 						content: $container,
-						// offset: ['600px','600px'],
+						offset: ["160px", null],
 						btn: [
 							/*'确定', '取消'*/
 						],
@@ -110,7 +110,13 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 											},
 											/* 主要内容 */
 											renderContent() {
-												return <component options={options} class="flex1" />;
+												return (
+													<component
+														options={options}
+														class="flex1"
+														style="overflow:auto;"
+													/>
+												);
 											},
 											/* 下方按钮 */
 											renderButtons() {

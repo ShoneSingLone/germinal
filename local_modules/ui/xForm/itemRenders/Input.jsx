@@ -1,5 +1,5 @@
 import { Input, InputNumber } from "ant-design-vue";
-import { InputPassword, Textarea } from "ant-design-vue/es/input";
+import { InputPassword, Textarea, InputSearch } from "ant-design-vue/es/input";
 import { h } from "vue";
 
 /**
@@ -19,10 +19,13 @@ export default ({ property, slots, listeners }) => {
 	}
 	if (property.isTextarea) {
 		component = Textarea;
-		property.autosize = property.autosize || {
+		property.autoSize = property.autoSize || {
 			minRows: 4,
 			maxRows: 6
 		};
+	}
+	if (property.isSearch) {
+		component = InputSearch;
 	}
 	return <component {...property} {...listeners} v-slots={slots} />;
 };

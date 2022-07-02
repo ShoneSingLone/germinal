@@ -25,15 +25,21 @@
 		"axios": "^0.26.0",
 		"dayjs": "^1.10.7",
 		"germinal_api": "file:./local_modules/api",
+		"immer": "^9.0.15",
 		"jquery": "^3.6.0",
+		"json5": "^2.2.1",
+		"jsondiffpatch": "^0.4.1",
 		"lsrc": "file:./src/",
 		"md5": "^2.3.0",
 		"nprogress": "^0.2.0",
+		"sass": "^1.52.2",
 		"vue": "^3.2.16",
 		"vue-cli": "^2.9.6",
-		"vue-router": "^4.0.11"
+		"vue-router": "^4.0.11",
+		"ysrc": "file:./src_yapi/"
 	},
 	"devDependencies": {
+		"@ventose/utils-node": "^0.0.11",
 		"@vitejs/plugin-vue": "^1.9.3",
 		"@vitejs/plugin-vue-jsx": "^1.2.0",
 		"@vue/cli-plugin-eslint": "~4.5.0",

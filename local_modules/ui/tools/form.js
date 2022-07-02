@@ -4,7 +4,7 @@ export const pickValueFrom = configs => {
 	return _.reduce(
 		configs,
 		(target, config, prop) => {
-			target[prop] = config.value;
+			target[prop] = JSON.parse(JSON.stringify(config.value));
 			return target;
 		},
 		{}
@@ -14,7 +14,7 @@ export const pickValueFrom = configs => {
 /*重置reactive数据*/
 export const resetState_Value = (state, initState) => {
 	_.each(initState, (value, prop) => {
-		state[prop] = value;
+		state[prop] = JSON.parse(JSON.stringify(value));
 	});
 	return state;
 };

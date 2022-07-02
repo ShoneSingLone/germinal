@@ -28,13 +28,14 @@ export async function validateForm(configsForm) {
 			(configs, prop) =>
 				new Promise(resolve => {
 					/*处理不校验的情况*/
-					if (_.isInput(configs.vIf)) {
-						/*configs.vIf至少默认是个true，如果是falsy，则明确为不显示*/
-						const isFalse = !configs.vIf;
+					if (_.isInput(configs.isShow)) {
+						/*configs.isShow至少默认是个true，如果是falsy，则明确为不显示*/
+						const isFalse = !configs.isShow;
 						if (isFalse) {
 							return resolve();
 						}
-						const isResFalse = _.isFunction(configs.vIf) && !configs.vIf();
+						const isResFalse =
+							_.isFunction(configs.isShow) && !configs.isShow();
 						if (isResFalse) {
 							return resolve();
 						}
@@ -118,10 +119,13 @@ export const checkXItem = async (xItemConfigs, handlerResult) => {
 						);
 
 					if (isNeedVerify) {
-						const validateResult = await rule.validator(xItemConfigs.value, {
-							configs: xItemConfigs,
-							rule
-						});
+						const validateResult = await rule.validator(
+							JSON.parse(JSON.stringify(xItemConfigs.value)),
+							{
+								configs: xItemConfigs,
+								rule
+							}
+						);
 						if (validateResult) {
 							return validateResult;
 						}
