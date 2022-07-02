@@ -45,7 +45,7 @@ export default defineComponent(
 				}
 			}
 		},
-		render(h) {
+		render() {
 			return (
 				<div id={this.id}>
 					<div

@@ -172,6 +172,8 @@ Vue2 中的 this 就是用来保存状态，Vue3 的进步之处在于状态的�
 
 xItem 的设计与使用充分基于这种原则，xItem 视图本身，与 configs 相关，状态与 v-model 绑定相关。
 
+
+xItem value可以直接用configs里面的value 不需要额外的v-model
 ```js
 /* FILE:src\state\State_App.js */
 /* state State_App 相当于命名空间*/

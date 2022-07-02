@@ -45,7 +45,7 @@ class ErrMsg extends Component {
 					desc = (
 						<span>
 							先去{" "}
-							<a onClick={() => this.props.history.push("/group")}>
+							<a onClick={() => this.$router.push({ path: "/group" })}>
 								“项目广场”
 							</a>{" "}
 							逛逛吧, 那里可以添加关注。

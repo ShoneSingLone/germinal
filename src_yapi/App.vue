@@ -3,6 +3,7 @@
 import { defineComponent } from "vue";
 import { _ } from "@ventose/ui";
 import Footer from "ysrc/components/Footer/Footer.vue";
+import { Mutations_App } from "ysrc/state/State_App";
 
 export default defineComponent({
 	components: { Footer },
@@ -12,13 +13,13 @@ export default defineComponent({
 		};
 	},
 	async mounted() {
+		await Mutations_App.checkLoginState();
 		this.isLoading = false;
 	}
 });
 </script>
 <template>
-	<aSpin v-if="isLoading"> Loading... </aSpin>
-	<RouterView v-else />
+	<RouterView v-loading="isLoading" />
 	<Footer />
 </template>
 

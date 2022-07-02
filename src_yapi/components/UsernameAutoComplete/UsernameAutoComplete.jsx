@@ -1,5 +1,6 @@
-import axios from "axios";
 import { defineComponent } from "vue";
+import { API } from "ysrc/api";
+import { _ } from "@ventose/ui";
 
 /**
  * 用户名输入框自动完成组件
@@ -44,58 +45,48 @@ export default defineComponent({
 		};
 	},
 	methods: {
-		// 搜索回调
-		handleSearch(value) {
-			const params = { q: value };
-			// this.lastFetchId += 1;
-			// const fetchId = this.lastFetchId;
-			this.setState({ fetching: true });
-			axios.get("/api/user/search", { params }).then(data => {
-				// if (fetchId !== this.lastFetchId) { // for fetch callback order
-				//   return;
-				// }
-				const userList = [];
-				data = data.data.data;
-
-				if (data) {
-					data.forEach(v =>
-						userList.push({
+		doSearch: _.debounce(function (params) {
+			API.user.searchUser(params).then(({ data }) => {
+				let userList = [];
+				if (_.isArrayFill(data)) {
+					// 取回搜索值后，设置 dataSource
+					userList = _.map(data, v => {
+						return {
 							username: v.username,
 							id: v.uid
-						})
-					);
-					// 取回搜索值后，设置 dataSource
-					this.setState({
-						dataSource: userList
+						};
 					});
 				}
+				this.state.dataSource = userList;
 			});
+		}, 600),
+		// 搜索回调
+		onSearch(value) {
+			const params = { q: value };
+			this.state.fetching = true;
+			this.doSearch(params);
 		},
 		// 选中候选词时
 		handleChange(value) {
-			this.setState({
-				dataSource: [],
-				// value,
-				fetching: false
-			});
-			this.props.callbackState(value);
+			this.state.dataSource = [];
+			// value,
+			this.state.fetching = false;
+			this.callbackState(value);
 		}
 	},
-
+	computed: {
+		children() {
+			return _.map(this.state.dataSource, (item, index) => (
+				<aSelectOption key={index} value={"" + item.id}>
+					{item.username}
+				</aSelectOption>
+			));
+		}
+	},
 	render() {
-		let { dataSource, fetching } = this.state;
-
-		const children = dataSource.map((item, index))(
-			<Option key={index} value={"" + item.id}>
-				{item.username}
-			</Option>
-		);
-
-		// if (!children.length) {
-		//   fetching = false;
-		// }
+		let { fetching } = this.state;
 		return (
-			<Select
+			<aSelect
 				mode="multiple"
 				style={{ width: "100%" }}
 				placeholder="请输入用户名"
@@ -106,10 +97,10 @@ export default defineComponent({
 						<span style={{ color: "red" }}> 当前用户不存在</span>
 					) : null
 				}
-				onSearch={this.handleSearch}
+				onSearch={this.onSearch}
 				onChange={this.handleChange}>
-				{children}
-			</Select>
+				{this.children}
+			</aSelect>
 		);
 	}
 });

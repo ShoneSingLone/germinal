@@ -56292,7 +56292,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			omit$2(inputProps, ["prefix", "addonBefore", "addonAfter", "suffix"])
 		),
 		{
-			autosize: {
+			autoSize: {
 				type: [Boolean, Object],
 				default: void 0
 			},
@@ -57654,7 +57654,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				} catch (e2) {}
 			};
 			var resizeTextarea = function resizeTextarea2() {
-				var autoSize = props2.autoSize || props2.autosize;
+				var autoSize = props2.autoSize || props2.autoSize;
 				if (!autoSize || !textAreaRef.value) {
 					return;
 				}
@@ -57685,26 +57685,26 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					return;
 				}
 				emit("resize", size);
-				var autoSize = props2.autoSize || props2.autosize;
+				var autoSize = props2.autoSize || props2.autoSize;
 				if (autoSize) {
 					resizeOnNextFrame();
 				}
 			};
 			warning$2(
-				props2.autosize === void 0,
+				props2.autoSize === void 0,
 				"Input.TextArea",
-				"autosize is deprecated, please use autoSize instead."
+				"autoSize is deprecated, please use autoSize instead."
 			);
 			var renderTextArea = function renderTextArea2() {
 				var prefixCls = props2.prefixCls,
 					autoSize = props2.autoSize,
-					autosize = props2.autosize,
+					autoSize = props2.autoSize,
 					disabled = props2.disabled;
 				var otherProps = omit$2(props2, [
 					"prefixCls",
 					"onPressEnter",
 					"autoSize",
-					"autosize",
+					"autoSize",
 					"defaultValue",
 					"allowClear",
 					"type",
@@ -57739,7 +57739,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					ResizeObserver$1,
 					{
 						onResize: handleResize,
-						disabled: !(autoSize || autosize)
+						disabled: !(autoSize || autoSize)
 					},
 					{
 						default: function _default() {
@@ -92933,7 +92933,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 		if (property2.isTextarea) {
 			component = Textarea;
-			property2.autosize = property2.autosize || {
+			property2.autoSize = property2.autoSize || {
 				minRows: 4,
 				maxRows: 6
 			};

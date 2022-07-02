@@ -127,7 +127,7 @@ class ProjectMessage extends Component {
 
 							// 如果如果项目所在的分组位置发生改变
 							this.props.fetchGroupMsg(group_id);
-							// this.props.history.push('/group');
+							// this.$router.push({path:'/group'});
 							let projectName = htmlFilter(assignValue.name);
 							this.props.setBreadcrumb([
 								{

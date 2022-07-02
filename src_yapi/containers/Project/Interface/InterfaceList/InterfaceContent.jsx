@@ -40,7 +40,7 @@ class Content extends Component {
 	}
 
 	UNSAFE_componentWillMount() {
-		const params = this.props.match.params;
+		const params = this.$route.params;
 		this.actionId = params.actionId;
 		this.handleRequest(this.props);
 	}

@@ -18,9 +18,12 @@ import xCellLabel from "./xDataGrid/xCellLabel.vue";
 import xPagination from "./xDataGrid/xPagination.vue";
 import xColFilter from "./xDataGrid/xColFilter.vue";
 import { installUIDialogComponent } from "./xSingle/dialog/dialog";
+import { installDirective } from "./directive";
 import { _ as mylodash } from "./loadCommonUtil.js";
 import { State_UI, Cpt_UI_locale } from "./State_UI";
 import dayjs from "dayjs";
+import { RegexFn, FormRules } from "./xForm/FormRules";
+
 /* @ts-ignore */
 window.dayjs = dayjs;
 /* @ts-ignore */
@@ -95,9 +98,12 @@ export { vModel as vModel };
 export { antColKey as antColKey };
 export { pickValueFrom as pickValueFrom };
 export { resetState_Value as resetState_Value };
+export { RegexFn as RegexFn };
+export { FormRules as FormRules };
 
 export const VentoseUIWithInstall = {
 	install: (app, options /* {appPlugins,dependState} */) => {
+		installDirective(app, options);
 		installPopoverDirective(app, options);
 		installUIDialogComponent(UI, options);
 		mylodash.each(components, (component, name) => {

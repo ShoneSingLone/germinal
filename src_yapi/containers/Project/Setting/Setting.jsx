@@ -24,7 +24,7 @@ class Setting extends Component {
 		curProjectRole: PropTypes.string
 	};
 	render() {
-		const id = this.props.match.params.id;
+		const id = this.$route.params.id;
 		plugin.emitHook("sub_setting_nav", routers);
 		return (
 			<div class="g-row">

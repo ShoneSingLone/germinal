@@ -21,9 +21,6 @@ export default defineComponent({
 			}
 		}
 	},
-	mounted() {
-		this.init();
-	},
 	data() {
 		const vm = this;
 		return {
@@ -53,7 +50,7 @@ export default defineComponent({
 						maxTagTextLength: 10
 					}),
 					...defItem({
-						vIf: () => _.isInput(vm.State.data.Select),
+						isShow: () => _.isInput(vm.State.data.Select),
 						prop: "text",
 						label: $t("text").label,
 						placeholder: $t("AAA.BBB").label
@@ -61,6 +58,14 @@ export default defineComponent({
 				}
 			}
 		};
+	},
+	watch: {
+		"State.data.Select"() {
+			this.setSelectMultiple();
+		}
+	},
+	mounted() {
+		this.init();
 	},
 	methods: {
 		init() {
@@ -88,21 +93,16 @@ export default defineComponent({
 				}
 			);
 		}
-	},
-	watch: {
-		"State.data.Select"() {
-			this.setSelectMultiple();
-		}
 	}
 });
 </script>
 
 <template>
 	<aCard>
-		<aAlert v-if="options.__elId" message="当前为Dialog内的Form"></aAlert>
+		<aAlert v-if="options.__elId" message="当前为Dialog内的Form" />
 		<xForm
 			class="flex vertical"
-			:labelStyle="{ 'min-width': '120px', width: 'unset' }">
+			:label-style="{ 'min-width': '120px', width: 'unset' }">
 			<template v-for="(item, prop) in State.dataXItem" :key="prop">
 				<xGap t="10" />
 				<xItem v-model="State.data[prop]" :configs="State.dataXItem[prop]" />

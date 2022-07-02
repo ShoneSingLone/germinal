@@ -37,7 +37,7 @@ export default class Run extends Component {
 	};
 
 	saveCase = async (colId, caseName) => {
-		const project_id = this.props.match.params.id;
+		const project_id = this.$route.params.id;
 		const interface_id = this.props.currInterface._id;
 		const {
 			case_env,

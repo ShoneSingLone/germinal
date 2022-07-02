@@ -287,7 +287,7 @@ export default class HeaderCom extends Component {
 			.logoutActions()
 			.then(res => {
 				if (res.payload.data.errcode == 0) {
-					this.props.history.push("/");
+					this.$router.push({ path: "/" });
 					this.props.changeMenuItem("/");
 					message.success("退出成功! ");
 				} else {
@@ -310,7 +310,7 @@ export default class HeaderCom extends Component {
 		this.props.checkLoginState
 			.then(res => {
 				if (res.payload.data.errcode !== 0) {
-					this.props.history.push("/");
+					this.$router.push({ path: "/" });
 				}
 			})
 			.catch(err => {

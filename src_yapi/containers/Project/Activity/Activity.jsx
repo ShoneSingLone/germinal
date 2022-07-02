@@ -42,13 +42,13 @@ class Activity extends Component {
 							</p>
 							<aButton type="primary">
 								<a
-									href={`/api/project/download?project_id=${this.props.match.params.id}`}>
+									href={`/api/project/download?project_id=${this.$route.params.id}`}>
 									下载Mock数据
 								</a>
 							</aButton>
 						</div>
 					</div>
-					<TimeTree type={"project"} typeid={+this.props.match.params.id} />
+					<TimeTree type={"project"} typeid={+this.$route.params.id} />
 				</section>
 			</div>
 		);

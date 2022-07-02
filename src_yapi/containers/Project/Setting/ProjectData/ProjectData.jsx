@@ -91,7 +91,7 @@ class ProjectData extends Component {
 
 	UNSAFE_componentWillMount() {
 		axios
-			.get(`/api/interface/getCatMenu?project_id=${this.props.match.params.id}`)
+			.get(`/api/interface/getCatMenu?project_id=${this.$route.params.id}`)
 			.then(data => {
 				if (data.data.errcode === 0) {
 					let menuList = data.data.data;
@@ -102,11 +102,7 @@ class ProjectData extends Component {
 				}
 			});
 		plugin.emitHook("import_data", importDataModule);
-		plugin.emitHook(
-			"export_data",
-			exportDataModule,
-			this.props.match.params.id
-		);
+		plugin.emitHook("export_data", exportDataModule, this.$route.params.id);
 	}
 
 	getDataModule() {
@@ -134,7 +130,7 @@ class ProjectData extends Component {
 	handleAddInterface = async res => {
 		return await HandleImportData(
 			res,
-			this.props.match.params.id,
+			this.$route.params.id,
 			this.state.selectCatid,
 			this.state.menuList,
 			this.props.basePath,
@@ -171,7 +167,7 @@ class ProjectData extends Component {
 
 	showConfirm = async res => {
 		let that = this;
-		let typeid = this.props.match.params.id;
+		let typeid = this.$route.params.id;
 		let apiCollections = res.apis.map(item => {
 			return {
 				method: item.method,

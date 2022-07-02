@@ -664,12 +664,12 @@ class InterfaceEditForm extends Component {
 					<aCol span="6" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_query[" + index + "].example", {
 							initialValue: data.example
-						})(<TextArea autosize={true} placeholder="参数示例" />)}
+						})(<TextArea autoSize={true} placeholder="参数示例" />)}
 					</aCol>
 					<aCol span="9" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_query[" + index + "].desc", {
 							initialValue: data.desc
-						})(<TextArea autosize={true} placeholder="备注" />)}
+						})(<TextArea autoSize={true} placeholder="备注" />)}
 					</aCol>
 					<aCol span="1" class="interface-edit-item-content-col">
 						<aIcon
@@ -714,12 +714,12 @@ class InterfaceEditForm extends Component {
 					<aCol span="5" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_headers[" + index + "].example", {
 							initialValue: data.example
-						})(<TextArea autosize={true} placeholder="参数示例" />)}
+						})(<TextArea autoSize={true} placeholder="参数示例" />)}
 					</aCol>
 					<aCol span="8" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_headers[" + index + "].desc", {
 							initialValue: data.desc
-						})(<TextArea autosize={true} placeholder="备注" />)}
+						})(<TextArea autoSize={true} placeholder="备注" />)}
 					</aCol>
 					<aCol span="1" class="interface-edit-item-content-col">
 						<aIcon
@@ -769,12 +769,12 @@ class InterfaceEditForm extends Component {
 					<aCol span="5" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_body_form[" + index + "].example", {
 							initialValue: data.example
-						})(<TextArea autosize={true} placeholder="参数示例" />)}
+						})(<TextArea autoSize={true} placeholder="参数示例" />)}
 					</aCol>
 					<aCol span="7" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_body_form[" + index + "].desc", {
 							initialValue: data.desc
-						})(<TextArea autosize={true} placeholder="备注" />)}
+						})(<TextArea autoSize={true} placeholder="备注" />)}
 					</aCol>
 					<aCol span="1" class="interface-edit-item-content-col">
 						<aIcon
@@ -798,12 +798,12 @@ class InterfaceEditForm extends Component {
 					<aCol span="7" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_params[" + index + "].example", {
 							initialValue: data.example
-						})(<TextArea autosize={true} placeholder="参数示例" />)}
+						})(<TextArea autoSize={true} placeholder="参数示例" />)}
 					</aCol>
 					<aCol span="11" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_params[" + index + "].desc", {
 							initialValue: data.desc
-						})(<TextArea autosize={true} placeholder="备注" />)}
+						})(<TextArea autoSize={true} placeholder="备注" />)}
 					</aCol>
 				</aRow>
 			);
@@ -841,7 +841,7 @@ class InterfaceEditForm extends Component {
 					<div>
 						<TextArea
 							placeholder="每行一个name:examples"
-							autosize={{ minRows: 6, maxRows: 10 }}
+							autoSize={{ minRows: 6, maxRows: 10 }}
 							value={this.state.bulkValue}
 							onChange={this.handleBulkValueInput}
 						/>
@@ -1234,7 +1234,7 @@ class InterfaceEditForm extends Component {
 								<aCol class="interface-edit-item-other-body">
 									{getFieldDecorator("req_body_other", {
 										initialValue: this.state.req_body_other
-									})(<TextArea placeholder="" autosize={true} />)}
+									})(<TextArea placeholder="" autoSize={true} />)}
 								</aCol>
 							</aRow>
 						) : null}
@@ -1244,7 +1244,7 @@ class InterfaceEditForm extends Component {
 								<aCol>
 									{getFieldDecorator("req_body_other", {
 										initialValue: this.state.req_body_other
-									})(<TextArea placeholder="" autosize={{ minRows: 8 }} />)}
+									})(<TextArea placeholder="" autoSize={{ minRows: 8 }} />)}
 								</aCol>
 							</aRow>
 						) : null}

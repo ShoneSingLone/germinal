@@ -109,7 +109,7 @@ class ProjectMember extends Component {
 	// 重新获取列表
 
 	reFetchList = () => {
-		this.props.getProjectMemberList(this.props.match.params.id).then(res => {
+		this.props.getProjectMemberList(this.$route.params.id).then(res => {
 			this.setState({
 				projectMemberList: arrayAddKey(res.payload.data.data),
 				visible: false,
@@ -126,7 +126,7 @@ class ProjectMember extends Component {
 	addMembers = memberUids => {
 		this.props
 			.addMember({
-				id: this.props.match.params.id,
+				id: this.$route.params.id,
 				member_uids: memberUids,
 				role: this.state.inputRole
 			})
@@ -156,7 +156,7 @@ class ProjectMember extends Component {
 	// 删 - 删除分组成员
 	deleteConfirm = member_uid => {
 		return () => {
-			const id = this.props.match.params.id;
+			const id = this.$route.params.id;
 			this.props.delMember({ id, member_uid }).then(res => {
 				if (!res.payload.data.errcode) {
 					message.success(res.payload.data.errmsg);
@@ -168,7 +168,7 @@ class ProjectMember extends Component {
 
 	// 改 - 修改成员权限
 	changeUserRole = e => {
-		const id = this.props.match.params.id;
+		const id = this.$route.params.id;
 		const role = e.split("-")[0];
 		const member_uid = e.split("-")[1];
 		this.props.changeMemberRole({ id, member_uid, role }).then(res => {
@@ -181,7 +181,7 @@ class ProjectMember extends Component {
 
 	// 修改用户是否接收消息通知
 	changeEmailNotice = async (notice, member_uid) => {
-		const id = this.props.match.params.id;
+		const id = this.$route.params.id;
 		await this.props.changeMemberEmailNotice({ id, member_uid, notice });
 		this.reFetchList(); // 添加成功后重新获取项目成员列表
 	};
@@ -232,7 +232,7 @@ class ProjectMember extends Component {
 			this.props.projectMsg.group_id
 		);
 		const projectMemberList = await this.props.getProjectMemberList(
-			this.props.match.params.id
+			this.$route.params.id
 		);
 		this.setState({
 			groupMemberList: groupMemberList.payload.data.data,

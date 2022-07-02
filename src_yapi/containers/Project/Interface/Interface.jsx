@@ -71,25 +71,27 @@ class Interface extends Component {
 	constructor(props) {
 		super(props);
 		// this.state = {
-		//   curkey: this.props.match.params.action === 'api' ? 'api' : 'colOrCase'
+		//   curkey: this.$route.params.action === 'api' ? 'api' : 'colOrCase'
 		// }
 	}
 
 	onChange = action => {
-		let params = this.props.match.params;
+		let params = this.$route.params;
 		if (action === "colOrCase") {
 			action = this.props.isShowCol ? "col" : "case";
 		}
-		this.props.history.push("/project/" + params.id + "/interface/" + action);
+		this.$router.push({
+			path: "/project/" + params.id + "/interface/" + action
+		});
 	};
 	async UNSAFE_componentWillMount() {
 		this.props.setColData({
 			isShowCol: true
 		});
-		// await this.props.fetchInterfaceColList(this.props.match.params.id)
+		// await this.props.fetchInterfaceColList(this.$route.params.id)
 	}
 	render() {
-		const { action } = this.props.match.params;
+		const { action } = this.$route.params;
 		// const activeKey = this.state.curkey;
 		const activeKey = action === "api" ? "api" : "colOrCase";
 
@@ -113,12 +115,12 @@ class Interface extends Component {
 						{activeKey === "api" ? (
 							<InterfaceMenu
 								router={matchPath(this.props.location.pathname, contentRouter)}
-								projectId={this.props.match.params.id}
+								projectId={this.$route.params.id}
 							/>
 						) : (
 							<InterfaceColMenu
 								router={matchPath(this.props.location.pathname, contentRouter)}
-								projectId={this.props.match.params.id}
+								projectId={this.$route.params.id}
 							/>
 						)}
 					</div>

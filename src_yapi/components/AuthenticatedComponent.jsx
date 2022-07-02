@@ -33,7 +33,7 @@ export function requireAuthentication(Component) {
 			}
 			checkAuth() {
 				if (!this.props.isAuthenticated) {
-					this.props.history.push("/");
+					this.$router.push({ path: "/" });
 					this.props.changeMenuItem("/");
 				}
 			}

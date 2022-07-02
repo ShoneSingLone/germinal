@@ -39,7 +39,7 @@ export default class Project extends Component {
 	}
 
 	async UNSAFE_componentWillMount() {
-		await this.props.getProject(this.props.match.params.id);
+		await this.props.getProject(this.$route.params.id);
 		await this.props.fetchGroupMsg(this.props.curProject.group_id);
 
 		this.props.setBreadcrumb([
@@ -54,7 +54,7 @@ export default class Project extends Component {
 	}
 
 	async componentWillReceiveProps(nextProps) {
-		const currProjectId = this.props.match.params.id;
+		const currProjectId = this.$route.params.id;
 		const nextProjectId = nextProps.match.params.id;
 		if (currProjectId !== nextProjectId) {
 			await this.props.getProject(nextProjectId);

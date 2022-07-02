@@ -112,7 +112,7 @@ class InterfaceList extends Component {
 			if (res.data.errcode !== 0) {
 				return message.error(res.data.errmsg);
 			}
-			let project_id = this.props.match.params.id;
+			let project_id = this.$route.params.id;
 			await this.props.getProject(project_id);
 			await this.props.fetchInterfaceListMenu(project_id);
 			message.success("接口集合简介更新成功");
@@ -131,7 +131,7 @@ class InterfaceList extends Component {
 	};
 
 	UNSAFE_componentWillMount() {
-		this.actionId = this.props.match.params.actionId;
+		this.actionId = this.$route.params.actionId;
 		this.handleRequest(this.props);
 	}
 

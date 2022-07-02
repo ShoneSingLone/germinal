@@ -33,3 +33,21 @@ $list: 0 3 4 5 8 9 10 13 14 15 16 20 24 25 30;
 		margin-left: $i * 1px;
 	}
 }
+
+.x-loading {
+	position: relative;
+	filter: blur(1px);
+	overflow: hidden;
+}
+
+.x-loading::before {
+	content: " ";
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background: url(./xSingle/layer/imgs/loading-2.gif) center no-repeat;
+	z-index: 1;
+}

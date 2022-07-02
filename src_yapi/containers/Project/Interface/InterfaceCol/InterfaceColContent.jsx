@@ -180,14 +180,14 @@ class InterfaceColContent extends Component {
 
 	async UNSAFE_componentWillMount() {
 		const result = await this.props.fetchInterfaceColList(
-			this.props.match.params.id
+			this.$route.params.id
 		);
-		await this.props.getToken(this.props.match.params.id);
+		await this.props.getToken(this.$route.params.id);
 		let { currColId } = this.props;
-		const params = this.props.match.params;
+		const params = this.$route.params;
 		const { actionId } = params;
 		this.currColId = currColId = +actionId || result.payload.data.data[0]._id;
-		// this.props.history.push('/project/' + params.id + '/interface/col/' + currColId);
+		// this.$router.push({path:'/project/' + params.id + '/interface/col/' + currColId});
 		if (currColId && currColId != 0) {
 			await this.handleColIdChange(currColId);
 		}
@@ -213,7 +213,7 @@ class InterfaceColContent extends Component {
 			if (res.data.errcode) {
 				return message.error(res.data.errmsg);
 			}
-			let project_id = this.props.match.params.id;
+			let project_id = this.$route.params.id;
 			await this.props.fetchInterfaceColList(project_id);
 			message.success("接口集合简介更新成功");
 		});
@@ -345,7 +345,7 @@ class InterfaceColContent extends Component {
 				interfaceData.after_script,
 				createContext(
 					this.props.curUid,
-					this.props.match.params.id,
+					this.$route.params.id,
 					interfaceData.interface_id
 				)
 			);
@@ -486,7 +486,7 @@ class InterfaceColContent extends Component {
 			changes.push({ id: item._id, index: index });
 		});
 		axios.post("/api/col/up_case_index", changes).then(() => {
-			this.props.fetchInterfaceColList(this.props.match.params.id);
+			this.props.fetchInterfaceColList(this.$route.params.id);
 		});
 	};
 	onMoveRow({ sourceRowId, targetRowId }) {

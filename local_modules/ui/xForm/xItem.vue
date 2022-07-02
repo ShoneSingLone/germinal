@@ -28,17 +28,20 @@ export default defineComponent({
 	setup(props) {
 		let Cpt_isShowXItem = true;
 		let Cpt_isDisabled = false;
-		if (_.isFunction(props.configs.vIf)) {
-			Cpt_isShowXItem = computed(props.configs.vIf);
-		} else if (_.isBoolean(props.configs.vIf)) {
-			Cpt_isShowXItem = props.configs.vIf;
+		/*isShow*/
+		if (_.isFunction(props.configs.isShow)) {
+			Cpt_isShowXItem = computed(props.configs.isShow);
+		} else if (_.isBoolean(props.configs.isShow)) {
+			Cpt_isShowXItem = props.configs.isShow;
 		}
 
+		/*disabled*/
 		if (_.isFunction(props.configs.disabled)) {
 			Cpt_isDisabled = computed(props.configs.disabled);
 		} else if (_.isBoolean(props.configs.disabled)) {
 			Cpt_isDisabled = props.configs.disabled;
 		}
+		/*readonly*/
 
 		return {
 			Cpt_isShowXItem,
@@ -87,11 +90,11 @@ export default defineComponent({
 		},
 		componentSettings() {
 			const configs = this.configs;
-			configs.value = this.modelValue;
+			configs.value =
+				configs.value !== undefined ? configs.value : this.modelValue;
 			const property = {};
 			const listeners = {};
 			let slots = {};
-			let vm = this;
 
 			const pickAttrs = properties => {
 				_.each(properties, (value, prop) => {
@@ -135,6 +138,7 @@ export default defineComponent({
 			/* 后面的属性覆盖前面的属性 */
 			pickAttrs({
 				"onUpdate:value": (val, ...args) => {
+					configs.value = val;
 					this.$emit("update:modelValue", val);
 					if (_.isFunction(configs.onAfterValueChang)) {
 						configs.onAfterValueChange(configs);
@@ -291,6 +295,9 @@ export default defineComponent({
 			return null;
 		}
 		const CurrentXItem = (() => {
+			if (_.isFunction(this.configs.itemType)) {
+				return this.configs.itemType;
+			}
 			return renders[this.configs.itemType] || renders.Input;
 		})();
 

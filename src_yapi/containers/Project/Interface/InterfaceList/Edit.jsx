@@ -55,7 +55,7 @@ class InterfaceEdit extends Component {
 	}
 
 	onSubmit = async params => {
-		params.id = this.props.match.params.actionId;
+		params.id = this.$route.params.actionId;
 		let result = await axios.post("/api/interface/up", params);
 		this.props.fetchInterfaceListMenu(this.props.currProject._id).then();
 		this.props.fetchInterfaceData(params.id).then();
@@ -101,7 +101,7 @@ class InterfaceEdit extends Component {
 					"://" +
 					domain +
 					"/api/interface/solve_conflict?id=" +
-					this.props.match.params.actionId
+					this.$route.params.actionId
 			);
 			s.onopen = () => {
 				this.WebSocket = s;

@@ -1,7 +1,5 @@
 import { _, UI, lStorage, $ } from "@ventose/ui";
 import axios from "axios";
-import { STATIC_WORD } from "../utils/common.words.jsx";
-import { State_App } from "./../state/State_App.jsx";
 
 const ajax = axios.create({
 	timeout: 20000 // request timeout
@@ -10,7 +8,6 @@ const ajax = axios.create({
 // request interceptor
 ajax.interceptors.request.use(
 	config => {
-		// config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
 		return config;
 	},
 	error => Promise.reject(error)

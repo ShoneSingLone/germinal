@@ -75,15 +75,15 @@ export default class InterfaceCaseContent extends Component {
 
 	async UNSAFE_componentWillMount() {
 		const result = await this.props.fetchInterfaceColList(
-			this.props.match.params.id
+			this.$route.params.id
 		);
 		let { currCaseId } = this.props;
-		const params = this.props.match.params;
+		const params = this.$route.params;
 		const { actionId } = params;
 		currCaseId =
 			+actionId || +currCaseId || result.payload.data.data[0].caseList[0]._id;
 		let currColId = this.getColId(result.payload.data.data, currCaseId);
-		// this.props.history.push('/project/' + params.id + '/interface/case/' + currCaseId);
+		// this.$router.push({path:'/project/' + params.id + '/interface/case/' + currCaseId});
 		await this.props.fetchCaseData(currCaseId);
 		this.props.setColData({
 			currCaseId: +currCaseId,
@@ -98,7 +98,7 @@ export default class InterfaceCaseContent extends Component {
 	}
 
 	async componentWillReceiveProps(nextProps) {
-		const oldCaseId = this.props.match.params.actionId;
+		const oldCaseId = this.$route.params.actionId;
 		const newCaseId = nextProps.match.params.actionId;
 		const { interfaceColList } = nextProps;
 		let currColId = this.getColId(interfaceColList, newCaseId);
@@ -154,7 +154,7 @@ export default class InterfaceCaseContent extends Component {
 
 		const res = await axios.post("/api/col/up_case", params);
 		if (this.props.currCase.casename !== casename) {
-			this.props.fetchInterfaceColList(this.props.match.params.id);
+			this.props.fetchInterfaceColList(this.$route.params.id);
 		}
 		if (res.data.errcode) {
 			message.error(res.data.errmsg);

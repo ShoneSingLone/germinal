@@ -123,7 +123,7 @@ export default class InterfaceColMenu extends Component {
 	}
 
 	async getList() {
-		let r = await this.props.fetchInterfaceColList(this.props.match.params.id);
+		let r = await this.props.fetchInterfaceColList(this.$route.params.id);
 		this.setState({
 			list: r.payload.data.data
 		});
@@ -133,7 +133,7 @@ export default class InterfaceColMenu extends Component {
 	addorEditCol = async () => {
 		const { colName: name, colDesc: desc } = this.form.getFieldsValue();
 		const { colModalType, editColId: col_id } = this.state;
-		const project_id = this.props.match.params.id;
+		const project_id = this.$route.params.id;
 		let res = {};
 		if (colModalType === "add") {
 			res = await axios.post("/api/col/add_col", { name, desc, project_id });
@@ -162,7 +162,7 @@ export default class InterfaceColMenu extends Component {
 		if (keys.length) {
 			const type = keys[0].split("_")[0];
 			const id = keys[0].split("_")[1];
-			const project_id = this.props.match.params.id;
+			const project_id = this.$route.params.id;
 			if (type === "col") {
 				this.props.setColData({
 					isRander: false
@@ -186,7 +186,7 @@ export default class InterfaceColMenu extends Component {
 
 	showDelColConfirm = colId => {
 		let that = this;
-		const params = this.props.match.params;
+		const params = this.$route.params;
 		confirm({
 			title: "您确认删除此测试集合",
 			content: "温馨提示：该操作会删除该集合下所有测试用例，用例删除后无法恢复",
@@ -284,7 +284,7 @@ export default class InterfaceColMenu extends Component {
 	};
 	showDelCaseConfirm = caseId => {
 		let that = this;
-		const params = this.props.match.params;
+		const params = this.$route.params;
 		confirm({
 			title: "您确认删除此测试用例",
 			content: "温馨提示：用例删除后无法恢复",
@@ -331,7 +331,7 @@ export default class InterfaceColMenu extends Component {
 	};
 
 	showImportInterfaceModal = async colId => {
-		// const projectId = this.props.match.params.id;
+		// const projectId = this.$route.params.id;
 		// console.log('project', this.props.curProject)
 		const groupId = this.props.curProject.group_id;
 		await this.props.fetchProjectList(groupId);
@@ -340,7 +340,7 @@ export default class InterfaceColMenu extends Component {
 	};
 
 	handleImportOk = async () => {
-		const project_id = this.state.selectedProject || this.props.match.params.id;
+		const project_id = this.state.selectedProject || this.$route.params.id;
 		const { importColId, importInterIds } = this.state;
 		const res = await axios.post("/api/col/add_case_list", {
 			interface_list: importInterIds,
@@ -375,7 +375,7 @@ export default class InterfaceColMenu extends Component {
 	};
 
 	onDrop = async e => {
-		// const projectId = this.props.match.params.id;
+		// const projectId = this.$route.params.id;
 		const { interfaceColList } = this.props;
 		const dropColIndex = e.node.props.pos.split("-")[1];
 		const dropColId = interfaceColList[dropColIndex]._id;
@@ -420,7 +420,7 @@ export default class InterfaceColMenu extends Component {
 	render() {
 		// const { currColId, currCaseId, isShowCol } = this.props;
 		const { colModalType, colModalVisible, importInterVisible } = this.state;
-		const currProjectId = this.props.match.params.id;
+		const currProjectId = this.$route.params.id;
 		// const menu = (col) => {
 		//   return (
 		//     <aMenu>

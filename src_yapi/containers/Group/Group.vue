@@ -1,47 +1,78 @@
-<template />
-
 <script lang="jsx">
-/* import GroupList from "./GroupList/GroupList";
+import GroupList from "./GroupList/GroupList";
+/*
 import ProjectList from "./ProjectList/ProjectList";
 import MemberList from "./MemberList/MemberList";
 import GroupLog from "./GroupLog/GroupLog";
 import GroupSetting from "./GroupSetting/GroupSetting.vue"; */
 import "./Group.scss";
-import axios from "axios";
+import { API } from "ysrc/api";
 import { defineComponent } from "vue";
+import { Mutations_App, State_App } from "ysrc/state/State_App";
 
 export default defineComponent({
-	data() {
+	setup() {
 		return {
-			groupId: -1
+			State_App
 		};
 	},
-	async mounted() {
-		let r = await axios.get("/api/group/get_mygroup");
-		try {
-			let group = r.data.data;
-			this.groupId = group._id;
-			this.setCurrGroup(group);
-		} catch (e) {
-			console.error(e);
+	data() {
+		const groupId = this.$route.params.groupId || false;
+		return {
+			state: {
+				groupId
+			}
+		};
+	},
+	mounted() {
+		this.ifPathNoGroupIdGetAddAddIdToPath();
+	},
+	methods: {
+		async ifPathNoGroupIdGetAddAddIdToPath() {
+			try {
+				let jump = () => null;
+				if (!this.state.groupId) {
+					let { data: group } = await API.group.getMyGroup();
+					this.state.groupId = group._id;
+					jump = () =>
+						this.$router.push({ path: `/group/${this.state.groupId}` });
+				}
+				await Mutations_App.setCurrGroup(this.state.groupId);
+				jump();
+			} catch (e) {
+				console.error(e);
+			}
 		}
 	},
-	render(h) {
-		return <h1>asdf</h1>;
-	},
-	rendeasdfr() {
-		if (this.state.groupId === -1) return <Spin />;
-		const GroupContent = (
+	render() {
+		if (!this.state.groupId) {
+			return <aSpin />;
+		}
+
+		return (
 			<aLayout
 				style={{
 					minHeight: "calc(100vh - 100px)",
 					marginLeft: "24px",
 					marginTop: "24px"
 				}}>
-				<aSider style={{ height: "100%" }} width={300}>
+				<aLayoutSider style={{ height: "100%" }} width={300}>
+					<div class="logo">Logo</div>
+					<GroupList />
+				</aLayoutSider>
+			</aLayout>
+		);
+		return (
+			<aLayout
+				style={{
+					minHeight: "calc(100vh - 100px)",
+					marginLeft: "24px",
+					marginTop: "24px"
+				}}>
+				<aLayoutSider style={{ height: "100%" }} width={300}>
 					<div class="logo" />
 					<GroupList />
-				</aSider>
+				</aLayoutSider>
 				<aLayout>
 					<aContent
 						style={{
@@ -57,7 +88,7 @@ export default defineComponent({
 							<aTabPane tab="项目列表" key="1">
 								<ProjectList />
 							</aTabPane>
-							{this.props.currGroup.type === "public" ? (
+							{this.State_App.currGroup.type === "public" ? (
 								<aTabPane tab="成员列表" key="2">
 									<MemberList />
 								</aTabPane>
@@ -73,7 +104,7 @@ export default defineComponent({
 							)}
 							{(this.props.curUserRole === "admin" ||
 								this.props.curUserRoleInGroup === "owner") &&
-							this.props.currGroup.type !== "private" ? (
+							this.State_App.currGroup.type !== "private" ? (
 								<aTabPane tab="分组设置" key="4">
 									<GroupSetting />
 								</aTabPane>
@@ -82,14 +113,6 @@ export default defineComponent({
 					</aContent>
 				</aLayout>
 			</aLayout>
-		);
-		return (
-			<div class="projectGround">
-				<aSwitch>
-					<Redirect exact from="/group" to={"/group/" + this.state.groupId} />
-					<Route path="/group/:groupId" render={() => GroupContent} />
-				</aSwitch>
-			</div>
 		);
 	}
 });

@@ -32,7 +32,6 @@ async function sfc({
 	h
 }) {
 	const { useCSS } = hooks;
-	debugger;
 	return defineComponent({
 		TEMPLATE_PLACEHOLDER,
 		components: {

@@ -8,8 +8,15 @@ const version = Date.now();
 const FootItem = ({ linkList, title, iconType }) => {
 	return (
 		<aCol span={6}>
-			<h4 class="title">
-				{iconType ? <aIcon type={iconType} class="icon" /> : ""}
+			<h4 class="title flex horizon middle">
+				{iconType ? (
+					<LazySvg
+						icon={iconType}
+						style="width: 24px;height: 24px;display: inline-block;"
+					/>
+				) : (
+					""
+				)}
 				{title}
 			</h4>
 			{linkList.map((item, i) => {
@@ -51,7 +58,7 @@ export default defineComponent({
 				},
 				{
 					title: "反馈",
-					iconType: "aliwangwang-o",
+					iconType: "feedback",
 					linkList: [
 						{
 							itemTitle: "Github Issues",

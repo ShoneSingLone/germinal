@@ -378,7 +378,7 @@ class InterfaceMenu extends Component {
 	};
 
 	render() {
-		const matchParams = this.props.match.params;
+		const matchParams = this.$route.params;
 		// let menuList = this.state.list;
 		const searchBox = (
 			<div class="interface-filter">

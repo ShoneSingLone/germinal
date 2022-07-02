@@ -49,7 +49,7 @@ export default class AddColModal extends Component {
 	}
 
 	UNSAFE_componentWillMount() {
-		this.props.fetchInterfaceColList(this.props.match.params.id);
+		this.props.fetchInterfaceColList(this.$route.params.id);
 		this.setState({ caseName: this.props.caseName });
 	}
 
@@ -60,7 +60,7 @@ export default class AddColModal extends Component {
 
 	addCol = async () => {
 		const { addColName: name, addColDesc: desc } = this.state;
-		const project_id = this.props.match.params.id;
+		const project_id = this.$route.params.id;
 		const res = await axios.post("/api/col/add_col", {
 			name,
 			desc,

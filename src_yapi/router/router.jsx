@@ -1,7 +1,7 @@
 // progress bar
 import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
-import { State_App } from "ysrc/state/State_App.jsx";
+import { State_App } from "ysrc/state/State_App";
 import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 
 const { $t } = State_UI;
@@ -30,6 +30,11 @@ const routes = [
 		component: () => import("ysrc/containers/Home/Home")
 	},
 	{
+		path: "/dev",
+		name: "home",
+		component: () => import("ysrc/containers/Dev.vue")
+	},
+	{
 		path: `/login`,
 		name: "login",
 		component: () => import("ysrc/containers/Login/LoginContainer"),
@@ -40,6 +45,11 @@ const routes = [
 	{
 		path: `/group`,
 		name: "group",
+		component: () => import("ysrc/containers/Group/Group.vue")
+	},
+	{
+		path: `/group/:groupId`,
+		name: "groupView",
 		component: () => import("ysrc/containers/Group/Group.vue")
 	},
 	/* 404兜底 */
@@ -79,6 +89,8 @@ router.beforeEach(async (to, from) => {
 	} finally {
 		if (to?.meta?.title) {
 			setDocumentTitle(to.meta.title);
+		} else {
+			setDocumentTitle("YApi-高效、易用、功能强大的可视化接口管理平台");
 		}
 	}
 });

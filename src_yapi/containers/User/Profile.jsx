@@ -86,7 +86,7 @@ class Profile extends Component {
 	}
 
 	componentDidMount() {
-		this._uid = this.props.match.params.uid;
+		this._uid = this.$route.params.uid;
 		this.handleUserinfo(this.props);
 	}
 
