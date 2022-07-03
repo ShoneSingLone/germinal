@@ -53,12 +53,9 @@ $(async () => {
 		}
 	};
 	/* 全局状态管理 */
-	const State_App = Vue.reactive({
+	window.window.State_App = Vue.reactive({
 		CSSVariables: {}
 	});
-
-	window.State_App = State_App;
-
 	const app = Vue.createApp(
 		defineComponent({
 			data() {
@@ -89,7 +86,7 @@ $(async () => {
 	app.config.globalProperties.$t = State_UI.$t;
 	window.$t = State_UI.$t;
 	app.use(appPlugins, {
-		dependState: State_App,
+		dependState: window.State_App,
 		appPlugins
 	});
 	app.mount("#app");

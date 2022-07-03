@@ -1,4 +1,9 @@
-import { S as State_App, a as _global__, b as STATIC_WORD, A as Actions_App, U as UserOutlined, d as _sfc_main$2 } from "./index.js";
+import { S as State_App, b as STATIC_WORD, A as Actions_App, _ as _sfc_main$2 } from "./router.js";
+import { b as _global__ } from "./each.js";
+import "./common.js";
+import { U as UserOutlined } from "./UserOutlined.js";
+import "./common2.js";
+import "./form.js";
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }
@@ -133,7 +138,7 @@ var _sfc_main$1 = Vue.defineComponent({
     })]);
   }
 });
-var MenuTree_vue_vue_type_style_index_0_lang = "";
+var MenuTree_vue_vue_type_style_index_0_lang = /* @__PURE__ */ (() => ".layout-menu {\n  height: 100%;\n  overflow: auto;\n  overflow-x: hidden;\n}\n")();
 var logoImg = "./statics/assets/logo3.a354024b.png";
 const _hoisted_1 = {
   class: "log",
@@ -166,6 +171,7 @@ const _hoisted_10 = {
   class: "flex"
 };
 var _sfc_main = {
+  __name: "LayoutBasic",
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_aLayoutSider = Vue.resolveComponent("aLayoutSider");
@@ -276,5 +282,5 @@ var _sfc_main = {
     };
   }
 };
-var LayoutBasic_vue_vue_type_style_index_0_lang = "";
+var LayoutBasic_vue_vue_type_style_index_0_lang = /* @__PURE__ */ (() => ".layout-basic {\n  height: 100%;\n}\n.layout-basic > aside.ant-layout-sider > .ant-layout-sider-children {\n  display: flex;\n  flex-flow: column nowrap;\n}\n.layout-basic .header {\n  background: #fff;\n  padding: 0;\n  height: 0;\n  overflow: hidden;\n  transition: all 0.3s ease-in-out;\n}\n")();
 export { _sfc_main as default };

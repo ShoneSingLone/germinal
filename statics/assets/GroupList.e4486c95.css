@@ -1,0 +1,126 @@
+.group-bar {
+  min-height: 5rem;
+}
+.group-bar .curr-group {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
+  background-color: #32363a;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0.24rem 0.24rem 0;
+}
+.group-bar .curr-group .curr-group-name {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.22rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.group-bar .curr-group .curr-group-name .text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  font-weight: 200;
+  vertical-align: bottom;
+}
+.group-bar .curr-group .curr-group-name .name {
+  display: inline-block;
+  margin-right: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.group-bar .curr-group .curr-group-name .editSet {
+  color: rgba(255, 255, 255, 0.85);
+}
+.group-bar .curr-group .curr-group-name .editSet:hover {
+  color: #2395f1;
+}
+.group-bar .curr-group .curr-group-name .ant-dropdown-link {
+  float: right;
+  display: block;
+  color: rgba(255, 255, 255, 0.85);
+}
+.group-bar .curr-group .curr-group-name .ant-dropdown-link:hover {
+  color: #2395f1;
+}
+.group-bar .curr-group .curr-group-name .operate {
+  font-size: 0;
+  width: 150px;
+  display: inline-block;
+}
+.group-bar .curr-group .curr-group-name .operate i {
+  margin-left: 4px;
+}
+.group-bar .curr-group .curr-group-name .operate ::-webkit-scrollbar {
+  width: 0px;
+}
+.group-bar .curr-group .curr-group-desc {
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 13px;
+  max-height: 54px;
+  margin-top: 0.16rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+.group-bar .curr-group .delete-group, .group-bar .curr-group .edit-group {
+  font-size: 14px;
+  margin-left: 0.08rem;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.group-bar .curr-group .delete-group:hover, .group-bar .curr-group .edit-group:hover {
+  background-color: #2395f1;
+  border: 1px solid #2395f1;
+}
+.group-bar .group-operate {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #32363a;
+}
+.group-bar .group-operate .search {
+  flex-grow: 1;
+}
+.group-bar .group-operate .ant-input {
+  color: rgba(255, 255, 255, 0.85);
+  background-color: #32363a;
+}
+.group-bar .group-operate .ant-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: rgba(255, 255, 255, 0.67);
+}
+.group-bar .group-operate .ant-input-suffix {
+  color: rgba(255, 255, 255, 0.85);
+}
+.group-bar .group-list {
+  overflow-x: hidden;
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 24px;
+  border: none;
+}
+.group-bar .group-list .group-item {
+  font-size: 14px;
+}
+.group-bar .group-list .group-name {
+  float: left;
+}
+.group-bar .group-list .group-edit {
+  float: right;
+  font-size: 18px;
+}
+.add-group-modal .modal-input {
+  margin: 24px;
+}
+.add-group-modal .label {
+  text-align: right;
+  line-height: 28px;
+}
+.user-menu a:hover {
+  color: #ccc;
+}
