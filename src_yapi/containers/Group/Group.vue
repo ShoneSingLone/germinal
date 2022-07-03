@@ -25,10 +25,10 @@ export default defineComponent({
 		};
 	},
 	mounted() {
-		this.ifPathNoGroupIdGetAddAddIdToPath();
+		this.ifUrlNoGroupIdGetAddAddIdToUrl();
 	},
 	methods: {
-		async ifPathNoGroupIdGetAddAddIdToPath() {
+		async ifUrlNoGroupIdGetAddAddIdToUrl() {
 			try {
 				let jump = () => null;
 				if (!this.state.groupId) {
@@ -52,7 +52,6 @@ export default defineComponent({
 		return (
 			<aLayout
 				style={{
-					minHeight: "calc(100vh - 100px)",
 					marginLeft: "24px",
 					marginTop: "24px"
 				}}>

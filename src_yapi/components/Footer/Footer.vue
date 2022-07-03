@@ -35,6 +35,7 @@ const FootItem = ({ linkList, title, iconType }) => {
 export default defineComponent({
 	data() {
 		return {
+			wrapperStyle: { height: "192px" },
 			footList: [
 				{
 					title: "GitHub",
@@ -88,13 +89,16 @@ export default defineComponent({
 	},
 	mounted() {
 		$("#app").addClass("flex vertical");
+		setTimeout(() => {
+			this.wrapperStyle.height = 0;
+		}, 1000 * 10);
 	},
 	unmounted() {
 		$("#app").removeClass("flex vertical");
 	},
 	render() {
 		return (
-			<div class="footer-wrapper">
+			<div class="footer-wrapper" style={this.wrapperStyle}>
 				<aRow class="footer-container">
 					{this.footList.map((item, i) => {
 						return (
