@@ -46,22 +46,28 @@ export default defineComponent({
 	},
 	methods: {
 		doSearch: _.debounce(function (params) {
-			API.user.searchUser(params).then(({ data }) => {
-				let userList = [];
-				if (_.isArrayFill(data)) {
-					// 取回搜索值后，设置 dataSource
-					userList = _.map(data, v => {
-						return {
-							username: v.username,
-							id: v.uid
-						};
-					});
-				}
-				this.state.dataSource = userList;
-			});
+			API.user
+				.searchUser(params)
+				.then(({ data }) => {
+					let userList = [];
+					if (_.isArrayFill(data)) {
+						// 取回搜索值后，设置 dataSource
+						userList = _.map(data, v => {
+							return {
+								username: v.username,
+								id: v.uid
+							};
+						});
+					}
+					this.state.dataSource = userList;
+				})
+				.finally(() => {
+					this.state.fetching = false;
+				});
 		}, 600),
 		// 搜索回调
 		onSearch(value) {
+			if (!value) return;
 			const params = { q: value };
 			this.state.fetching = true;
 			this.doSearch(params);
@@ -94,7 +100,10 @@ export default defineComponent({
 				optionLabelProp="children"
 				notFoundContent={
 					fetching ? (
-						<span style={{ color: "red" }}> 当前用户不存在</span>
+						<>
+							<aSpin />
+							<span style="color:gray;margin-left:4px;"> 正在获取用户列表</span>
+						</>
 					) : null
 				}
 				onSearch={this.onSearch}

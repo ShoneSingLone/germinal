@@ -8,8 +8,8 @@ async function main(params) {
 	]);
 
 	_n.each(files, async i => {
-		if (path.extname(i) === ".js") {
-			await asyncFs.rename(i, i.replace(/.js$/, ".jsx"));
+		if (path.extname(i) === ".jsx") {
+			await asyncFs.rename(i, i.replace(/.jsx$/, ".tsx"));
 		}
 	});
 }

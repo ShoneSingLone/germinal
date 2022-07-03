@@ -30,16 +30,16 @@
 
 <script lang="jsx">
 import { defineComponent } from "vue";
-import { Mutation_App } from "ysrc/state/State_App.jsx";
+import { Mutations_App } from "ysrc/state/State_App.jsx";
 import {
 	defItem,
 	EVENT_TYPE,
 	UI,
 	State_UI,
 	AllWasWell,
-	validateForm
+	validateForm,
+	FormRules
 } from "@ventose/ui";
-import FormRules from "lsrc/components/FormRules";
 import {
 	UserOutlined,
 	LockOutlined,
@@ -80,7 +80,7 @@ export default defineComponent({
 	},
 	setup() {
 		return {
-			Mutation_App
+			Mutations_App
 		};
 	},
 	data() {

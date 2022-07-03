@@ -56292,7 +56292,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			omit$2(inputProps, ["prefix", "addonBefore", "addonAfter", "suffix"])
 		),
 		{
-			autoSize: {
+			autosize: {
 				type: [Boolean, Object],
 				default: void 0
 			},
@@ -57294,7 +57294,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				}
 			return t2;
 		};
-	var Search$1 = Vue.defineComponent({
+	var InputSearch = Vue.defineComponent({
 		name: "AInputSearch",
 		inheritAttrs: false,
 		props: _extends$1(_extends$1({}, inputProps$1), {
@@ -57654,7 +57654,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				} catch (e2) {}
 			};
 			var resizeTextarea = function resizeTextarea2() {
-				var autoSize = props2.autoSize || props2.autoSize;
+				var autoSize = props2.autoSize || props2.autosize;
 				if (!autoSize || !textAreaRef.value) {
 					return;
 				}
@@ -57685,26 +57685,26 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					return;
 				}
 				emit("resize", size);
-				var autoSize = props2.autoSize || props2.autoSize;
+				var autoSize = props2.autoSize || props2.autosize;
 				if (autoSize) {
 					resizeOnNextFrame();
 				}
 			};
 			warning$2(
-				props2.autoSize === void 0,
+				props2.autosize === void 0,
 				"Input.TextArea",
-				"autoSize is deprecated, please use autoSize instead."
+				"autosize is deprecated, please use autoSize instead."
 			);
 			var renderTextArea = function renderTextArea2() {
 				var prefixCls = props2.prefixCls,
 					autoSize = props2.autoSize,
-					autoSize = props2.autoSize,
+					autosize = props2.autosize,
 					disabled = props2.disabled;
 				var otherProps = omit$2(props2, [
 					"prefixCls",
 					"onPressEnter",
 					"autoSize",
-					"autoSize",
+					"autosize",
 					"defaultValue",
 					"allowClear",
 					"type",
@@ -57739,7 +57739,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 					ResizeObserver$1,
 					{
 						onResize: handleResize,
-						disabled: !(autoSize || autoSize)
+						disabled: !(autoSize || autosize)
 					},
 					{
 						default: function _default() {
@@ -58212,7 +58212,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		}
 	});
 	Input$1.Group = Group$1;
-	Input$1.Search = Search$1;
+	Input$1.Search = InputSearch;
 	Input$1.TextArea = Textarea;
 	Input$1.Password = InputPassword;
 	Input$1.install = function (app) {
@@ -90759,7 +90759,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				Input: Input$1,
 				InputGroup: Group$1,
 				InputPassword,
-				InputSearch: Search$1,
+				InputSearch,
 				Textarea,
 				Image: Image$2,
 				ImagePreviewGroup: PreviewGroup,
@@ -92796,6 +92796,78 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			$link = null;
 		};
 	};
+	_.dateFormat = function (date2, format2) {
+		if (!format2) {
+			format2 = "YYYY-MM-DD";
+		}
+		if (format2 === 1) {
+			format2 = "YYYY-MM-DD HH:mm:ss";
+		}
+		const label = dayjs(date2).format(format2);
+		return label === "Invalid Date" ? "--" : label;
+	};
+	_.keepDecimals = function (val, fractionDigits = 2) {
+		let num = Number((val * 100) / 1024 / 100).toFixed(fractionDigits);
+		if (num === "NaN") {
+			num = "-";
+		}
+		return num;
+	};
+	_.valueToLabel = function (value, options) {
+		const target = _.find(options, {
+			value
+		});
+		if (target) {
+			return target.label;
+		} else {
+			return "--";
+		}
+	};
+	_.timego = function (timestamp) {
+		let minutes, hours, days, seconds, mouth, year;
+		const timeNow = parseInt(new Date().getTime() / 1e3);
+		seconds = timeNow - timestamp;
+		if (seconds > 86400 * 30 * 12) {
+			year = parseInt(seconds / (86400 * 30 * 12));
+		} else {
+			year = 0;
+		}
+		if (seconds > 86400 * 30) {
+			mouth = parseInt(seconds / (86400 * 30));
+		} else {
+			mouth = 0;
+		}
+		if (seconds > 86400) {
+			days = parseInt(seconds / 86400);
+		} else {
+			days = 0;
+		}
+		if (seconds > 3600) {
+			hours = parseInt(seconds / 3600);
+		} else {
+			hours = 0;
+		}
+		minutes = parseInt(seconds / 60);
+		if (year > 0) {
+			return year + "\u5E74\u524D";
+		} else if (mouth > 0 && year <= 0) {
+			return mouth + "\u6708\u524D";
+		} else if (days > 0 && mouth <= 0) {
+			return days + "\u5929\u524D";
+		} else if (days <= 0 && hours > 0) {
+			return hours + "\u5C0F\u65F6\u524D";
+		} else if (hours <= 0 && minutes > 0) {
+			return minutes + "\u5206\u949F\u524D";
+		} else if (minutes <= 0 && seconds > 0) {
+			if (seconds < 30) {
+				return "\u521A\u521A";
+			} else {
+				return seconds + "\u79D2\u524D";
+			}
+		} else {
+			return "\u521A\u521A";
+		}
+	};
 	const _global__ = _;
 	const timeoutDelay = 400;
 	const popverOptionsCollection = {};
@@ -92937,6 +93009,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				minRows: 4,
 				maxRows: 6
 			};
+		}
+		if (property2.isSearch) {
+			component = InputSearch;
 		}
 		return Vue.createVNode(
 			component,
@@ -93393,13 +93468,13 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				configsForm,
 				(configs, prop) =>
 					new Promise(resolve => {
-						if (_global__.isInput(configs.vIf)) {
-							const isFalse = !configs.vIf;
+						if (_global__.isInput(configs.isShow)) {
+							const isFalse = !configs.isShow;
 							if (isFalse) {
 								return resolve();
 							}
 							const isResFalse =
-								_global__.isFunction(configs.vIf) && !configs.vIf();
+								_global__.isFunction(configs.isShow) && !configs.isShow();
 							if (isResFalse) {
 								return resolve();
 							}
@@ -93465,10 +93540,13 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 								"color:yellow;background:green;"
 							);
 						if (isNeedVerify) {
-							const validateResult = await rule.validator(xItemConfigs.value, {
-								configs: xItemConfigs,
-								rule
-							});
+							const validateResult = await rule.validator(
+								JSON.parse(JSON.stringify(xItemConfigs.value)),
+								{
+									configs: xItemConfigs,
+									rule
+								}
+							);
 							if (validateResult) {
 								return validateResult;
 							}
@@ -93625,10 +93703,10 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		setup(props2) {
 			let Cpt_isShowXItem = true;
 			let Cpt_isDisabled = false;
-			if (_global__.isFunction(props2.configs.vIf)) {
-				Cpt_isShowXItem = Vue.computed(props2.configs.vIf);
-			} else if (_global__.isBoolean(props2.configs.vIf)) {
-				Cpt_isShowXItem = props2.configs.vIf;
+			if (_global__.isFunction(props2.configs.isShow)) {
+				Cpt_isShowXItem = Vue.computed(props2.configs.isShow);
+			} else if (_global__.isBoolean(props2.configs.isShow)) {
+				Cpt_isShowXItem = props2.configs.isShow;
 			}
 			if (_global__.isFunction(props2.configs.disabled)) {
 				Cpt_isDisabled = Vue.computed(props2.configs.disabled);
@@ -93686,7 +93764,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 			},
 			componentSettings() {
 				const configs = this.configs;
-				configs.value = this.modelValue;
+				configs.value =
+					configs.value !== void 0 ? configs.value : this.modelValue;
 				const property2 = {};
 				const listeners = {};
 				let slots = {};
@@ -93724,6 +93803,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				};
 				pickAttrs2({
 					"onUpdate:value": (val, ...args) => {
+						configs.value = val;
 						this.$emit("update:modelValue", val);
 						if (_global__.isFunction(configs.onAfterValueChang)) {
 							configs.onAfterValueChange(configs);
@@ -93890,6 +93970,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				return null;
 			}
 			const CurrentXItem = (() => {
+				if (_global__.isFunction(this.configs.itemType)) {
+					return this.configs.itemType;
+				}
 				return itemRenders[this.configs.itemType] || itemRenders.Input;
 			})();
 			return Vue.createVNode(
@@ -95279,6 +95362,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 							title: [title2 || ""],
 							area: area || ["800px", "520px"],
 							content: $container,
+							offset: ["160px", null],
 							btn: [],
 							success(indexPanel, layerIndex) {
 								handleEcsPress.on(layerIndex);
@@ -95330,7 +95414,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 														component,
 														{
 															options: options,
-															class: "flex1"
+															class: "flex1",
+															style: "overflow:auto;"
 														},
 														null
 													);
@@ -95450,14 +95535,110 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 				);
 			});
 	};
+	function installLoading(app, options = {}) {
+		app.directive("loading", {
+			updated(el, binding) {
+				if (binding.value) {
+					$(el).addClass("x-loading");
+				} else {
+					$(el).removeClass("x-loading");
+				}
+			}
+		});
+	}
+	const installDirective = (app, options) => {
+		[installLoading].forEach(install2 => install2(app));
+	};
+	const { $t } = State_UI;
+	const SUCCESS = false;
+	const FAIL = true;
+	const RegexFn = {
+		email: () =>
+			/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/,
+		mobile: () => /^1[34578]\d{9}$/
+	};
+	const makeFormRules = options => {
+		options.trigger = options.trigger || [EVENT_TYPE.update];
+		options.msg = options.msg || "";
+		return options;
+	};
+	const FormRules = {
+		SUCCESS,
+		FAIL,
+		required(msg, trigger2 = [EVENT_TYPE.update]) {
+			return makeFormRules({
+				name: "required",
+				msg: msg || $t("\u5FC5\u586B\u9879").label,
+				async validator(value) {
+					if (value) {
+						if (_global__.isArray(value)) {
+							if (value.length > 0) {
+								return SUCCESS;
+							} else {
+								return FAIL;
+							}
+						}
+						return SUCCESS;
+					}
+					if (_global__.isBoolean(value)) return SUCCESS;
+					if (_global__.isNumber(value) && !_global__.isNaN(value))
+						return SUCCESS;
+					return FAIL;
+				},
+				trigger: trigger2
+			});
+		},
+		demo() {
+			return {
+				name: "Demo",
+				msg: "Demo",
+				async validator(value) {
+					await _global__.sleep(1e3);
+					return FAIL;
+				},
+				trigger: [
+					EVENT_TYPE.update,
+					EVENT_TYPE.input,
+					EVENT_TYPE.change,
+					EVENT_TYPE.blur
+				]
+			};
+		},
+		email() {
+			return {
+				name: "email",
+				msg: () => $t("\u8BF7\u8F93\u5165email").label,
+				async validator(value) {
+					if (RegexFn.email().test(value)) {
+						return SUCCESS;
+					}
+					return FAIL;
+				},
+				trigger: [
+					EVENT_TYPE.update,
+					EVENT_TYPE.input,
+					EVENT_TYPE.change,
+					EVENT_TYPE.blur
+				]
+			};
+		},
+		custom({ name: name2, msg, validator, trigger: trigger2 }) {
+			return makeFormRules({
+				name: name2,
+				msg,
+				validator,
+				trigger: trigger2
+			});
+		}
+	};
 	let xItemNoPropCount = 0;
 	const defItem = options => {
 		if (!options.prop) {
 			options.prop = `xItem${xItemNoPropCount++}`;
 			console.error(`no xItem prop replace by ${options.prop}`);
 		}
-		if (!_global__.isInput(options.vIf)) {
-			options.vIf = true;
+		if (!_global__.isInput(options.isShow)) {
+			options.isShow = true;
 		}
 		const configs = Vue.reactive(
 			_global__.merge(
@@ -95542,7 +95723,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 		return _global__.reduce(
 			configs,
 			(target, config, prop) => {
-				target[prop] = config.value;
+				target[prop] = JSON.parse(JSON.stringify(config.value));
 				return target;
 			},
 			{}
@@ -95550,7 +95731,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	};
 	const resetState_Value = (state, initState) => {
 		_global__.each(initState, (value, prop) => {
-			state[prop] = value;
+			state[prop] = JSON.parse(JSON.stringify(value));
 		});
 		return state;
 	};
@@ -95699,6 +95880,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	const _global_$ = $;
 	const VentoseUIWithInstall = {
 		install: (app, options) => {
+			installDirective(app);
 			installPopoverDirective(app, options);
 			installUIDialogComponent(UI, options);
 			_global__.each(components, (component, name2) => {
@@ -95717,6 +95899,8 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 	exports2.AllWasWell = AllWasWell;
 	exports2.Cpt_UI_locale = Cpt_UI_locale;
 	exports2.EVENT_TYPE = EVENT_TYPE;
+	exports2.FormRules = FormRules;
+	exports2.RegexFn = RegexFn;
 	exports2.State_UI = State_UI;
 	exports2.UI = UI;
 	exports2.VentoseUIWithInstall = VentoseUIWithInstall;

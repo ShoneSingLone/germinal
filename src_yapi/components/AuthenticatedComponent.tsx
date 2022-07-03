@@ -4,7 +4,7 @@ import { changeMenuItem } from "../reducer/modules/menu";
 
 export function requireAuthentication(Component) {
 	return (
-		@connect(
+		/* @connect(
 			state => {
 				return {
 					isAuthenticated: state.user.isLogin
@@ -13,7 +13,7 @@ export function requireAuthentication(Component) {
 			{
 				changeMenuItem
 			}
-		)
+		) */
 		class AuthenticatedComponent extends React.PureComponent {
 			constructor(props) {
 				super(props);

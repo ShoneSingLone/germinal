@@ -1,6 +1,6 @@
 import { LogoSVG } from "ysrc/components/LogoSVG";
 import { defineComponent } from "vue";
-import { Mutation_App, State_App } from "ysrc/state/State_App";
+import { Mutations_App, State_App } from "ysrc/state/State_App";
 import { $ } from "@ventose/ui";
 
 const TipTitle = () => {
@@ -376,7 +376,7 @@ export default defineComponent({
 	},
 	methods: {
 		toStart() {
-			Mutation_App.changeMenuItem("/group");
+			Mutations_App.changeMenuItem("/group");
 		}
 	},
 	render() {
