@@ -101,7 +101,7 @@ const dataTpl = {
 const HTTP_METHOD = constants.HTTP_METHOD;
 const HTTP_METHOD_KEYS = Object.keys(HTTP_METHOD);
 const HTTP_REQUEST_HEADER = constants.HTTP_REQUEST_HEADER;
-
+/* 
 @connect(
 	state => {
 		return {
@@ -112,7 +112,7 @@ const HTTP_REQUEST_HEADER = constants.HTTP_REQUEST_HEADER;
 	{
 		changeEditStatus
 	}
-)
+) */
 class InterfaceEditForm extends Component {
 	static propTypes = {
 		custom_field: PropTypes.object,
@@ -1009,7 +1009,7 @@ class InterfaceEditForm extends Component {
 									{_.map(projectMsg.env, (env, index) => {
 										return (
 											<Option value={env._id} key={env._id}>
-												{env.name}=>{env.domain}
+												{env.name} : {env.domain}
 											</Option>
 										);
 									})}
