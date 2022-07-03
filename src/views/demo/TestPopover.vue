@@ -10,9 +10,8 @@ import {
 	compile,
 	markRaw
 } from "vue";
-import { defItem, UI } from "@ventose/ui";
+import { defItem, UI, FormRules, RegexFn } from "@ventose/ui";
 import xIM from "./xIM/index";
-import FormRules, { RegexFn } from "../../components/FormRules";
 import TestXDataGrid from "./TestXDataGrid.vue";
 const PopoverContent = defineComponent(
 	markRaw({
@@ -101,17 +100,17 @@ const handlers = {
 <template>
 	<div class="container flex middle">
 		<div class="flex width100">
-			<xItem :configs="State.formXItem.test" v-model="State.formData.test" />
+			<xItem v-model="State.formData.test" :configs="State.formXItem.test" />
 			State.formData.test:{{ State.formData.test }}
 			<xIM />
-			<aButton id="tips" v-uiPopover="State.configs_uiPopover"
-				>单独的配置项变量</aButton
-			>
-			<aButton v-uiPopover="{ content: 'tips2' }">v-uiPopover</aButton>
+			<aButton id="tips" v-uiPopover="State.configs_uiPopover">
+				单独的配置项变量
+			</aButton>
+			<aButton v-uiPopover="{ content: 'tips2' }"> v-uiPopover </aButton>
 			<div />
-			<aButton id="target" @click="handlers.clickBtn">iframe</aButton>
+			<aButton id="target" @click="handlers.clickBtn"> iframe </aButton>
 			<div />
-			<aButton id="target2" @click="handlers.openTips">popover</aButton>
+			<aButton id="target2" @click="handlers.openTips"> popover </aButton>
 		</div>
 	</div>
 	<TestXDataGrid />

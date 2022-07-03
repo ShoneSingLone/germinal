@@ -28,10 +28,10 @@ import {
 	validateForm,
 	AllWasWell,
 	lStorage,
-	State_UI
+	State_UI,
+	FormRules
 } from "@ventose/ui";
-import FormRules from "lsrc/components/FormRules";
-import { Mutation_App, State_App } from "ysrc/state/State_App.jsx";
+import { Mutations_App, State_App } from "ysrc/state/State_App.jsx";
 import { API } from "ysrc/api";
 import { router } from "ysrc/router/router.jsx";
 
@@ -53,7 +53,7 @@ export default defineComponent({
 	},
 	setup() {
 		return {
-			Mutation_App
+			Mutations_App
 		};
 	},
 	data() {

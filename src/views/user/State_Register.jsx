@@ -6,9 +6,10 @@ import {
 	pickValueFrom,
 	AllWasWell,
 	lStorage,
-	State_UI
+	State_UI,
+	FormRules,
+	RegexFn
 } from "@ventose/ui";
-import FormRules, { RegexFn } from "lsrc/components/FormRules";
 import {
 	Actions_App,
 	getColor,
