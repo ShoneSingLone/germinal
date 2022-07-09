@@ -70,7 +70,7 @@ export default defineComponent({
 				{isShow && (
 					<div class="copy-btns" onClick={this.showConfirm}>
 						<aTooltip placement="rightTop" title="复制项目">
-							<aIcon type="copy" class="icon" />
+							<LazySvg icon="copy" class="icon" />
 						</aTooltip>
 					</div>
 				)}

@@ -26,11 +26,11 @@ class Subnav extends Component {
 							item.name = item.name[0] + " " + item.name[1];
 						}
 						return (
-							<aMenu.Item class="item" key={item.name.replace(" ", "")}>
-								<RouterLink to={item.path}>
+							<aMenuItem class="item" key={item.name.replace(" ", "")}>
+								<RouterView to={item.path}>
 									{this.props.data[index].name}
-								</RouterLink>
-							</aMenu.Item>
+								</RouterView>
+							</aMenuItem>
 						);
 					})}
 				</aMenu>

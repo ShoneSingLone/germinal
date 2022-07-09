@@ -18,7 +18,7 @@ export default defineComponent({
 		"currGroup",
 		"uid",
 		"fetchGroupMemberList",
-		"fetchGroupMsg",
+		"setCurrGroup",
 		"addMember",
 		"delMember",
 		"changeMemberRole",
@@ -39,7 +39,7 @@ export default defineComponent({
 
 	mounted() {
 		const currGroupId = (this._groupId = this.props.currGroup._id);
-		this.props.fetchGroupMsg(currGroupId).then(res => {
+		this.props.setCurrGroup(currGroupId).then(res => {
 			this.setState({
 				role: res.payload.data.data.role
 			});
@@ -64,7 +64,7 @@ export default defineComponent({
 							userInfo: arrayAddKey(res.payload.data.data)
 						});
 					});
-					this.props.fetchGroupMsg(nextProps.currGroup._id).then(res => {
+					this.props.setCurrGroup(nextProps.currGroup._id).then(res => {
 						this.setState({
 							role: res.payload.data.data.role
 						});
@@ -179,7 +179,7 @@ export default defineComponent({
 				render: (text, record) => {
 					return (
 						<div class="m-user">
-							<RouterLink to={`/user/profile/${record.uid}`}>
+							<RouterView to={`/user/profile/${record.uid}`}>
 								<img
 									src={
 										location.protocol +
@@ -190,10 +190,10 @@ export default defineComponent({
 									}
 									class="m-user-img"
 								/>
-							</RouterLink>
-							<RouterLink to={`/user/profile/${record.uid}`}>
+							</RouterView>
+							<RouterView to={`/user/profile/${record.uid}`}>
 								<p class="m-user-name">{text}</p>
-							</RouterLink>
+							</RouterView>
 						</div>
 					);
 				}
@@ -233,7 +233,7 @@ export default defineComponent({
 									okText="确定"
 									cancelText="">
 									<aButton type="danger" icon="delete" class="btn-danger" />
-									{/* <aIcon type="delete" class="btn-danger"/> */}
+									{/* <LazySvg icon="delete" class="btn-danger"/> */}
 								</aPopconfirm>
 							</div>
 						);

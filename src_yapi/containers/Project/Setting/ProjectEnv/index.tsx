@@ -214,11 +214,14 @@ class ProjectEnv extends Component {
 									<h3>
 										环境列表&nbsp;
 										<aTooltip placement="top" title="在这里添加项目的环境配置">
-											<aIcon type="question-circle-o" />
+											<LazySvg icon="question-circle-o" />
 										</aTooltip>
 									</h3>
 									<aTooltip title="添加环境变量">
-										<aIcon type="plus" onClick={() => this.addParams("env")} />
+										<LazySvg
+											icon="plus"
+											onClick={() => this.addParams("env")}
+										/>
 									</aTooltip>
 								</div>
 							</aRow>

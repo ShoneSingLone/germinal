@@ -374,7 +374,10 @@ class ProjectEnvContent extends Component {
 							href="https://hellosean1025.github.io/yapi/documents/project.html#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"
 							style={{ marginLeft: 8 }}>
 							<aTooltip title="点击查看文档">
-								<aIcon type="question-circle-o" style={{ fontSize: "13px" }} />
+								<LazySvg
+									icon="question-circle-o"
+									style={{ fontSize: "13px" }}
+								/>
 							</aTooltip>
 						</a>
 					</h3>

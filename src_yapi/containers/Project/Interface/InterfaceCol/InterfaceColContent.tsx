@@ -713,7 +713,7 @@ class InterfaceColContent extends Component {
 						(text, { rowData }) => {
 							let record = rowData;
 							return (
-								<RouterLink
+								<RouterView
 									to={
 										"/project/" +
 										currProjectId +
@@ -723,7 +723,7 @@ class InterfaceColContent extends Component {
 									{record.casename.length > 23
 										? record.casename.substr(0, 20) + "..."
 										: record.casename}
-								</RouterLink>
+								</RouterView>
 							);
 						}
 					]
@@ -859,12 +859,12 @@ class InterfaceColContent extends Component {
 							let record = rowData;
 							return (
 								<aTooltip title="跳转到对应接口">
-									<RouterLink
+									<RouterView
 										to={`/project/${record.project_id}/interface/api/${record.interface_id}`}>
 										{record.path.length > 23
 											? record.path + "..."
 											: record.path}
-									</RouterLink>
+									</RouterView>
 								</aTooltip>
 							);
 						}
@@ -954,7 +954,10 @@ class InterfaceColContent extends Component {
 								<label>
 									检查HttpCode:&nbsp;
 									<aTooltip title={"检查 http code 是否为 200"}>
-										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+										<LazySvg
+											icon="question-circle-o"
+											style={{ width: "10px" }}
+										/>
 									</aTooltip>
 								</label>
 							</aCol>
@@ -984,7 +987,10 @@ class InterfaceColContent extends Component {
 										title={
 											"检查接口返回数据字段值，比如检查 code 是不是等于 0"
 										}>
-										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+										<LazySvg
+											icon="question-circle-o"
+											style={{ width: "10px" }}
+										/>
 									</aTooltip>
 								</label>
 							</aCol>
@@ -1020,7 +1026,10 @@ class InterfaceColContent extends Component {
 										title={
 											"只有 response 基于 json-schema 方式定义，该检查才会生效"
 										}>
-										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+										<LazySvg
+											icon="question-circle-o"
+											style={{ width: "10px" }}
+										/>
 									</aTooltip>
 								</label>
 							</aCol>
@@ -1050,7 +1059,10 @@ class InterfaceColContent extends Component {
 										title={
 											"在跑自动化测试时，优先调用全局脚本，只有全局脚本通过测试，才会开始跑case自定义的测试脚本"
 										}>
-										<aIcon type="question-circle-o" style={{ width: "10px" }} />
+										<LazySvg
+											icon="question-circle-o"
+											style={{ width: "10px" }}
+										/>
 									</aTooltip>
 								</label>
 							</aCol>
@@ -1117,7 +1129,7 @@ class InterfaceColContent extends Component {
 								rel="noopener noreferrer"
 								href="https://hellosean1025.github.io/yapi/documents/case.html">
 								<aTooltip title="点击查看文档">
-									<aIcon type="question-circle-o" />
+									<LazySvg icon="question-circle-o" />
 								</aTooltip>
 							</a>
 						</h2>
@@ -1239,7 +1251,7 @@ class InterfaceColContent extends Component {
 							<aCol span={3} class="label" style={{ paddingTop: "16px" }}>
 								选择环境
 								<aTooltip title="默认使用测试用例选择的环境">
-									<aIcon type="question-circle-o" />
+									<LazySvg icon="question-circle-o" />
 								</aTooltip>
 								&nbsp;：
 							</aCol>

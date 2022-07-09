@@ -9,12 +9,12 @@ export const render = state => {
 			selectedKeys={[this.currentLang]}
 			onClick={changeLang}>
 			{locales.map(locale => (
-				<aMenu.Item key={locale}>
+				<aMenuItem key={locale}>
 					<span role="img" aria-label={languageLabels[locale]}>
 						{languageIcons[locale]}
 					</span>{" "}
 					{languageLabels[locale]}
-				</aMenu.Item>
+				</aMenuItem>
 			))}
 		</aMenu>
 	);

@@ -105,7 +105,7 @@ export default class ProjectMock extends Component {
 									rel="noopener noreferrer"
 									href="https://hellosean1025.github.io/yapi/documents/project.html#%E5%85%A8%E5%B1%80mock">
 									<aTooltip title="点击查看文档">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</a>
 							</span>

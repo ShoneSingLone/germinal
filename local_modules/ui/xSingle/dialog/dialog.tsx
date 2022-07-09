@@ -11,16 +11,16 @@ export type t_dialogOptions = {
 	title: string;
 	component: object;
 	/*关闭方法*/
-	close: Function;
+	close?: Function;
 	area?: string[];
 	/* layer 索引，用于layer close */
 	layerIndex?: number;
 	/* hook: 完成组件首次加载 */
-	afterOpenDialoag: Function;
+	afterOpenDialoag?: Function;
 	onOk: Function;
 	beforeCancel?: Function;
-	hideButtons: boolean;
-	renderButtons: Function;
+	hideButtons?: boolean;
+	renderButtons?: Function;
 };
 export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 	UI.dialog.component = async (options: t_dialogOptions) =>

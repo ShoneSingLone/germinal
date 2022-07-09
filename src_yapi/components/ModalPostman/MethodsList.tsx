@@ -210,7 +210,7 @@ class MethodsList extends Component {
 				})}
 				{moreFlag && (
 					<div class="show-more" onClick={this.showMore}>
-						<aIcon type="down" />
+						<LazySvg icon="down" />
 						<span style={{ paddingLeft: "4px" }}>更多</span>
 					</div>
 				)}

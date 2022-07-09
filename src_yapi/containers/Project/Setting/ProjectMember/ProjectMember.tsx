@@ -13,7 +13,7 @@ import {
 	Tooltip
 } from "ant-design-vue";
 
-import { fetchGroupMsg } from "../../../../reducer/modules/group";
+import { setCurrGroup } from "../../../../reducer/modules/group";
 
 import ErrMsg from "../../../../components/ErrMsg/ErrMsg.js";
 import { fetchGroupMemberList } from "../../../../reducer/modules/group.js";
@@ -53,7 +53,7 @@ const arrayAddKey = arr => {
 		getProjectMemberList,
 		addMember,
 		delMember,
-		fetchGroupMsg,
+		setCurrGroup,
 		changeMemberRole,
 		getProject,
 		fetchProjectList,
@@ -86,7 +86,7 @@ class ProjectMember extends Component {
 		changeMemberRole: PropTypes.func,
 		getProject: PropTypes.func,
 		fetchGroupMemberList: PropTypes.func,
-		fetchGroupMsg: PropTypes.func,
+		setCurrGroup: PropTypes.func,
 		getProjectMemberList: PropTypes.func,
 		fetchProjectList: PropTypes.func,
 		projectList: PropTypes.array,
@@ -228,7 +228,7 @@ class ProjectMember extends Component {
 		const groupMemberList = await this.props.fetchGroupMemberList(
 			this.props.projectMsg.group_id
 		);
-		const groupMsg = await this.props.fetchGroupMsg(
+		const groupMsg = await Methods_App.setCurrGroup(
 			this.props.projectMsg.group_id
 		);
 		const projectMemberList = await this.props.getProjectMemberList(

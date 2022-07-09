@@ -21,6 +21,12 @@ export const user = {
 			data
 		});
 	},
+	logoutActions() {
+		return ajax({
+			method: "get",
+			url: "/api/user/logout"
+		});
+	},
 	regActions(data) {
 		return ajax({
 			method: "post",

@@ -26,7 +26,6 @@ const column_require = {
 	key: "required",
 	width: 100,
 	sorter: a => {
-		debugger;
 		if (a.required === "是") {
 			return -1;
 		}
@@ -85,7 +84,7 @@ class View extends Component {
 							</span>
 						) : (
 							<span>
-								<aIcon type="file" class="query-icon" />
+								<LazySvg icon="file" class="query-icon" />
 								文件
 							</span>
 						);
@@ -461,10 +460,10 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 							创&ensp;建&ensp;人：
 						</aCol>
 						<aCol span={8} class="colValue">
-							<RouterLink class="user-name" to={"/user/profile/" + uid}>
+							<RouterView class="user-name" to={"/user/profile/" + uid}>
 								<img src={"/api/user/avatar?uid=" + uid} class="user-img" />
 								{username}
-							</RouterLink>
+							</RouterView>
 						</aCol>
 					</aRow>
 					<aRow class="row">

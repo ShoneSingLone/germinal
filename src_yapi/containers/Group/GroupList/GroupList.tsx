@@ -12,13 +12,11 @@ import {
 
 import axios from "axios";
 
-const { TextArea } = Input;
-import UsernameAutoComplete from "ysrc/components/UsernameAutoComplete/UsernameAutoComplete";
 import GuideBtns from "ysrc/components/GuideBtns/GuideBtns";
 import { _, AllWasWell, pickValueFrom, validateForm } from "@ventose/ui";
 import "./GroupList.scss";
 import { defineComponent } from "vue";
-import { Mutations_App, State_App } from "ysrc/state/State_App";
+import { Methods_App, State_App } from "ysrc/state/State_App";
 import { UI } from "@ventose/ui";
 import ViewAddGroup from "./ViewAddGroup.vue";
 import { API } from "ysrc/api";
@@ -48,7 +46,7 @@ export default defineComponent({
 		"studyTip",
 		"study",
 		"fetchNewsData",
-		"fetchGroupMsg"
+		"setCurrGroup"
 	],
 	setup() {
 		return {
@@ -82,7 +80,7 @@ export default defineComponent({
 	methods: {
 		async initGroupList() {
 			try {
-				await Mutations_App.fetchGroupList();
+				await Methods_App.fetchGroupList();
 				this.searchGroup();
 			} catch (error) {
 				console.error(error);
@@ -99,7 +97,6 @@ export default defineComponent({
 						const { newGroupName, newGroupDesc, owner_uids } = pickValueFrom(
 							instance.vm.formItems
 						);
-
 						await this.upsert({
 							...row,
 							group_name: newGroupName,
@@ -128,29 +125,23 @@ export default defineComponent({
 				});
 			}
 
-			await Mutations_App.fetchGroupList();
+			await Methods_App.fetchGroupList();
 			if (id) {
 				const currGroup = _.find(this.State_App.groupList, group => {
 					return +group._id === +id;
 				});
-				Mutations_App.setCurrGroup(currGroup);
+				Methods_App.setCurrGroup(currGroup);
 			}
-			await Mutations_App.fetchGroupMsg(State_App.currGroup._id);
-			await Mutations_App.fetchNewsData(
-				State_App.currGroup._id,
-				"group",
-				1,
-				10
-			);
-			debugger;
+			await Methods_App.setCurrGroup(State_App.currGroup._id);
+			await Methods_App.fetchNewsData(State_App.currGroup._id, "group", 1, 10);
 		},
 		async selectGroup({ key: groupId }) {
 			const currGroup = _.find(this.State_App.groupList, {
 				_id: +groupId
 			});
-			await Mutations_App.setCurrGroup(currGroup);
+			await Methods_App.setCurrGroup(currGroup);
 			this.$router.push({ path: `/group/${currGroup._id}` });
-			await Mutations_App.fetchNewsData(groupId, "group", 1, 10);
+			await Methods_App.fetchNewsData(groupId, "group", 1, 10);
 		},
 
 		searchGroup: _.debounce(function () {

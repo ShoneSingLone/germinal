@@ -78,7 +78,7 @@ class Reg extends Component {
 					})(
 						<aInput
 							style={changeHeight}
-							prefix={<aIcon type="user" style={{ fontSize: 13 }} />}
+							prefix={<LazySvg icon="user" style={{ fontSize: 13 }} />}
 							placeholder="Username"
 						/>
 					)}
@@ -97,7 +97,7 @@ class Reg extends Component {
 					})(
 						<aInput
 							style={changeHeight}
-							prefix={<aIcon type="mail" style={{ fontSize: 13 }} />}
+							prefix={<LazySvg icon="mail" style={{ fontSize: 13 }} />}
 							placeholder="Email"
 						/>
 					)}
@@ -118,7 +118,7 @@ class Reg extends Component {
 					})(
 						<aInput
 							style={changeHeight}
-							prefix={<aIcon type="lock" style={{ fontSize: 13 }} />}
+							prefix={<LazySvg icon="lock" style={{ fontSize: 13 }} />}
 							type="password"
 							placeholder="Password"
 						/>
@@ -140,7 +140,7 @@ class Reg extends Component {
 					})(
 						<aInput
 							style={changeHeight}
-							prefix={<aIcon type="lock" style={{ fontSize: 13 }} />}
+							prefix={<LazySvg icon="lock" style={{ fontSize: 13 }} />}
 							type="password"
 							placeholder="Confirm Password"
 						/>

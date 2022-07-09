@@ -1,8 +1,8 @@
 // progress bar
+import { setDocumentTitle, State_UI, _ } from "@ventose/ui";
 import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
-import { State_App } from "ysrc/state/State_App";
-import { _, setDocumentTitle, State_UI } from "@ventose/ui";
+import { Methods_App, State_App } from "ysrc/state/State_App";
 
 const { $t } = State_UI;
 
@@ -81,7 +81,24 @@ const defaultRoutePath = "/";
 
 router.beforeEach(async (to, from) => {
 	NProgress.start();
+
 	try {
+		if (!(await Methods_App.checkLoginState())) {
+			if (["/login"].includes(to.path)) {
+				return true;
+			}
+
+			debugger;
+			router.push({ path: "/login" });
+			return false;
+		}
+
+		if (State_App.user.isLogin) {
+			if (["/login"].includes(to.path)) {
+				return false;
+			}
+		}
+
 		return true;
 	} catch (error) {
 		console.error(error);

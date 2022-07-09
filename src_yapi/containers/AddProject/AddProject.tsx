@@ -164,7 +164,7 @@ class ProjectList extends Component {
 								<span>
 									基本路径&nbsp;
 									<aTooltip title="接口基本路径，为空是根路径">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -201,7 +201,7 @@ class ProjectList extends Component {
 							})(
 								<RadioGroup>
 									<Radio value="private" class="radio">
-										<aIcon type="lock" />
+										<LazySvg icon="lock" />
 										私有
 										<br />
 										<span class="radio-desc">
@@ -210,7 +210,7 @@ class ProjectList extends Component {
 									</Radio>
 									<br />
 									{/* <Radio value="public" class="radio">
-                    <aIcon type="unlock" />公开<br />
+                    <LazySvg icon="unlock" />公开<br />
                     <span class="radio-desc">任何人都可以索引并查看项目信息</span>
                   </Radio> */}
 								</RadioGroup>

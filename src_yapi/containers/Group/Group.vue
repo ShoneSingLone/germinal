@@ -8,7 +8,7 @@ import GroupSetting from "./GroupSetting/GroupSetting.vue"; */
 import "./Group.scss";
 import { API } from "ysrc/api";
 import { defineComponent } from "vue";
-import { Mutations_App, State_App } from "ysrc/state/State_App";
+import { Methods_App, State_App } from "ysrc/state/State_App";
 
 export default defineComponent({
 	setup() {
@@ -37,10 +37,12 @@ export default defineComponent({
 					jump = () =>
 						this.$router.push({ path: `/group/${this.state.groupId}` });
 				}
-				await Mutations_App.setCurrGroup(this.state.groupId);
+				await Methods_App.setCurrGroup(this.state.groupId);
 				jump();
 			} catch (e) {
 				console.error(e);
+				this.state.groupId = false;
+				this.ifUrlNoGroupIdGetAddAddIdToUrl();
 			}
 		}
 	},

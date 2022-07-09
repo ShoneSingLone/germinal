@@ -10,7 +10,7 @@ export default defineComponent({
 		"changeGroupMsg",
 		"fetchGroupList",
 		"setCurrGroup",
-		"fetchGroupMsg",
+		"setCurrGroup",
 		"fetchNewsData",
 		"updateGroupList",
 		"deleteGroup",
@@ -111,7 +111,7 @@ export default defineComponent({
 					return +group._id === +id;
 				});
 				this.props.setCurrGroup(currGroup);
-				this.props.fetchGroupMsg(this.props.currGroup._id);
+				this.props.setCurrGroup(this.props.currGroup._id);
 				this.props.fetchNewsData(this.props.currGroup._id, "group", 1, 10);
 			}
 		},
@@ -154,7 +154,6 @@ export default defineComponent({
 				),
 				onOk() {
 					const groupName = document.getElementById("group_name").value;
-					debugger;
 					if (that.props.currGroup.group_name !== groupName) {
 						message.error("分组名称有误");
 						return new Promise((resolve, reject) => {
@@ -204,7 +203,7 @@ export default defineComponent({
 					<aCol span={4} class="label">
 						接口自定义字段&nbsp;
 						<aTooltip title={"可以在接口中添加 额外字段 数据"}>
-							<aIcon type="question-circle-o" style={{ width: "10px" }} />
+							<LazySvg icon="question-circle-o" style={{ width: "10px" }} />
 						</aTooltip>
 						：
 					</aCol>
@@ -253,7 +252,7 @@ export default defineComponent({
 					<aRow type="flex" justify="center" class="danger-container">
 						<aCol span={24} class="title">
 							<h2 class="content">
-								<aIcon type="exclamation-circle-o" />
+								<LazySvg icon="exclamation-circle-o" />
 								危险操作
 							</h2>
 							<aButton onClick={this.toggleDangerOptions}>

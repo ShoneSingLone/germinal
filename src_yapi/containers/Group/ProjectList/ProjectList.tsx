@@ -134,9 +134,9 @@ export default defineComponent({
 					</aCol>
 					<aCol span={8}>
 						{isShow ? (
-							<RouterLink to="/add-project">
+							<RouterView to="/add-project">
 								<aButton type="primary">添加项目</aButton>
-							</RouterLink>
+							</RouterView>
 						) : (
 							<aTooltip title="您没有权限,请联系该分组组长或管理员">
 								<aButton type="primary" disabled>

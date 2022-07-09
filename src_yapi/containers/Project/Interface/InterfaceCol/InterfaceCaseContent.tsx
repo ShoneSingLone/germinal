@@ -215,11 +215,11 @@ export default class InterfaceCaseContent extends Component {
 					<span
 						class="inter-link"
 						style={{ margin: "0px 8px 0px 6px", fontSize: 12 }}>
-						<RouterLink
+						<RouterView
 							class="text"
 							to={`/project/${currCase.project_id}/interface/api/${currCase.interface_id}`}>
 							对应接口
-						</RouterLink>
+						</RouterView>
 					</span>
 				</div>
 				<div>
