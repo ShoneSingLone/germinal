@@ -12,7 +12,7 @@ const domClass = {
 /* itemWrapperClass */
 
 export default defineComponent({
-	name: "xItem",
+	name: "XItem",
 	props: {
 		/* 绑定的值 */
 		modelValue: {
@@ -25,6 +25,7 @@ export default defineComponent({
 			}
 		}
 	},
+	emits: ["update:modelValue"],
 	setup(props) {
 		let Cpt_isShowXItem = true;
 		let Cpt_isDisabled = false;
@@ -48,9 +49,71 @@ export default defineComponent({
 			Cpt_isDisabled
 		};
 	},
-	emits: ["update:modelValue"],
 	data() {
+		const vm = this;
+		const configs = vm.configs;
+		const handleConfigsValidate = eventType => {
+			configs.validate && configs.validate(eventType);
+		};
+		const listeners = {
+			"onUpdate:value": (val, ...args) => {
+				configs.value = val;
+				this.$emit("update:modelValue", val);
+				if (_.isFunction(configs.onAfterValueChang)) {
+					configs.onAfterValueChange(configs);
+				}
+				/* TODO: rule检测*/
+				handleConfigsValidate(EVENT_TYPE.update);
+			},
+			onChange: () => {
+				handleConfigsValidate(EVENT_TYPE.change);
+			},
+			onInput: () => {
+				handleConfigsValidate(EVENT_TYPE.input);
+			},
+			onBlur: () => {
+				handleConfigsValidate(EVENT_TYPE.blur);
+			},
+			onFocus: () => {
+				handleConfigsValidate(EVENT_TYPE.focus);
+			}
+		};
+
+		function initListenerHandler(prop, value) {
+			listeners[prop] = function (...args) {
+				/* console.log("🚀", prop, listeners[prop].queue, args); */
+				_.each(listeners[prop].queue, listener => {
+					listener(...args);
+				});
+			};
+			listeners[prop].queue = [value];
+		}
+
+		/* 后面的属性覆盖前面的属性 */
+		function addListenerFromConfigs(currentConfigs) {
+			const propsWillDeleteFromConfigs = [];
+			_.each(currentConfigs, (value, prop) => {
+				/* FIX: 监听函数单独出来。listener不知道在哪里被覆盖了，inputPassword  被 pop 包裹，childListener被修改了,UI库？？*/
+				if (_.isListener(prop)) {
+					propsWillDeleteFromConfigs.push(prop);
+					if (listeners[prop]) {
+						listeners[prop].queue.push(value);
+						return;
+					} else {
+						initListenerHandler(prop, value);
+						return;
+					}
+				}
+			});
+			_.each(propsWillDeleteFromConfigs, prop => {
+				delete currentConfigs[prop];
+			});
+			return listeners;
+		}
+		_.each(listeners, (value, prop) => initListenerHandler(prop, value));
+		addListenerFromConfigs(vm.configs);
 		return {
+			listeners,
 			/* validateInfo */
 			isRequired: false
 			/* validateInfo */
@@ -88,12 +151,13 @@ export default defineComponent({
 				this.itemTips.type === TIPS_TYPE.error ? "ant-form-item-has-error" : ""
 			].join(" ");
 		},
+
 		componentSettings() {
-			const configs = this.configs;
+			const vm = this;
+			const configs = vm.configs;
 			configs.value =
-				configs.value !== undefined ? configs.value : this.modelValue;
+				configs.value !== undefined ? configs.value : vm.modelValue;
 			const property = {};
-			const listeners = {};
 			let slots = {};
 
 			const pickAttrs = properties => {
@@ -104,7 +168,7 @@ export default defineComponent({
 					}
 
 					if (["placeholder"].includes(prop) && _.isFunction(value)) {
-						property[prop] = value(this);
+						property[prop] = value(vm);
 						return;
 					}
 
@@ -113,52 +177,11 @@ export default defineComponent({
 						return;
 					}
 
-					/* FIX: 监听函数单独出来。listener不知道在哪里被覆盖了，inputPassword  被 pop 包裹，childListener被修改了,UI库？？*/
-					if (_.isListener(prop)) {
-						if (listeners[prop]) {
-							listeners[prop].queue.push(value);
-							return;
-						} else {
-							listeners[prop] = function (...args) {
-								listeners[prop].queue.forEach(listener => listener(...args));
-							};
-							listeners[prop].queue = [value];
-							return;
-						}
-					}
 					property[prop] = value;
 					return;
 				});
 			};
 
-			const handleConfigsValidate = eventType => {
-				configs.validate && configs.validate(eventType);
-			};
-
-			/* 后面的属性覆盖前面的属性 */
-			pickAttrs({
-				"onUpdate:value": (val, ...args) => {
-					configs.value = val;
-					this.$emit("update:modelValue", val);
-					if (_.isFunction(configs.onAfterValueChang)) {
-						configs.onAfterValueChange(configs);
-					}
-					/* TODO: rule检测*/
-					handleConfigsValidate(EVENT_TYPE.update);
-				},
-				onChange: () => {
-					handleConfigsValidate(EVENT_TYPE.change);
-				},
-				onInput: () => {
-					handleConfigsValidate(EVENT_TYPE.input);
-				},
-				onBlur: () => {
-					handleConfigsValidate(EVENT_TYPE.blur);
-				},
-				onFocus: () => {
-					handleConfigsValidate(EVENT_TYPE.focus);
-				}
-			});
 			pickAttrs(this.configs);
 			pickAttrs(this.$attrs);
 
@@ -167,7 +190,7 @@ export default defineComponent({
 			} else {
 				delete property.disabled;
 			}
-			return { property, slots, listeners };
+			return { property, slots, listeners: this.listeners };
 		},
 		/* VNode */
 		tipsVNode() {
@@ -212,9 +235,10 @@ export default defineComponent({
 					return _label();
 				}
 
-				if (_.isString(_label)) {
+				if (_.isString(_label) || _label.__v_isVNode) {
 					return _label;
 				}
+				debugger;
 				return false;
 			})();
 
@@ -239,6 +263,11 @@ export default defineComponent({
 			handler(rules) {
 				this.setValidateInfo(rules);
 			}
+		}
+	},
+	mounted() {
+		if (this.configs.once) {
+			this.configs.once();
 		}
 	},
 	created() {

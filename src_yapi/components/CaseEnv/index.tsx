@@ -41,7 +41,7 @@ export default class CaseEnv extends React.Component {
 							选择测试用例环境
 							<aTooltip title="默认使用测试用例选择的环境">
 								{" "}
-								<aIcon type="question-circle-o" />{" "}
+								<LazySvg icon="question-circle-o" />{" "}
 							</aTooltip>
 						</span>
 					}

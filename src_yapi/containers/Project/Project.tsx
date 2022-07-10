@@ -1,6 +1,6 @@
 import { Route, Switch, Redirect, matchPath } from "react-router-dom";
 import { Subnav } from "../../components/index";
-import { fetchGroupMsg } from "../../reducer/modules/group";
+import { setCurrGroup } from "../../reducer/modules/group";
 import { setBreadcrumb } from "../../reducer/modules/user";
 import { getProject } from "../../reducer/modules/project";
 import Interface from "./Interface/Interface.js";
@@ -19,7 +19,7 @@ const plugin = require("client/plugin.js");
 	},
 	{
 		getProject,
-		fetchGroupMsg,
+		setCurrGroup,
 		setBreadcrumb
 	}
 )
@@ -29,7 +29,7 @@ export default class Project extends Component {
 		curProject: PropTypes.object,
 		getProject: PropTypes.func,
 		location: PropTypes.object,
-		fetchGroupMsg: PropTypes.func,
+		setCurrGroup: PropTypes.func,
 		setBreadcrumb: PropTypes.func,
 		currGroup: PropTypes.object
 	};
@@ -40,7 +40,7 @@ export default class Project extends Component {
 
 	async UNSAFE_componentWillMount() {
 		await this.props.getProject(this.$route.params.id);
-		await this.props.fetchGroupMsg(this.props.curProject.group_id);
+		await Methods_App.setCurrGroup(this.props.curProject.group_id);
 
 		this.props.setBreadcrumb([
 			{
@@ -58,7 +58,7 @@ export default class Project extends Component {
 		const nextProjectId = nextProps.match.params.id;
 		if (currProjectId !== nextProjectId) {
 			await this.props.getProject(nextProjectId);
-			await this.props.fetchGroupMsg(this.props.curProject.group_id);
+			await Methods_App.setCurrGroup(this.props.curProject.group_id);
 			this.props.setBreadcrumb([
 				{
 					name: this.props.currGroup.group_name,

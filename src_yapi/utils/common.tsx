@@ -34,3 +34,28 @@ export const appPlugins = {
 		return app;
 	}
 };
+
+// 从 Javascript 对象中选取随机属性
+export const pickRandomProperty = obj => {
+	let result;
+	let count = 0;
+	for (let prop in obj) {
+		if (Math.random() < 1 / ++count) {
+			result = prop;
+		}
+	}
+	return result;
+};
+
+export const handlePath = path => {
+	path = _.trim(path);
+	if (!path) {
+		return path;
+	}
+	if (path === "/") {
+		return "";
+	}
+	path = path[0] !== "/" ? "/" + path : path;
+	path = path[path.length - 1] === "/" ? path.substr(0, path.length - 1) : path;
+	return path;
+};

@@ -1,27 +1,15 @@
-import {
-	Button,
-	Form,
-	Input,
-	Icon,
-	Tooltip,
-	Select,
-	message,
-	Row,
-	Col,
-	Radio
-} from "ant-design-vue";
 import { addProject } from "../../reducer/modules/project.js";
 import { fetchGroupList } from "../../reducer/modules/group.js";
 
-import { setBreadcrumb } from "../../reducer/modules/user";
-const { TextArea } = Input;
-const FormItem = Form.Item;
-const Option = Select.Option;
-const RadioGroup = Radio.Group;
-import { pickRandomProperty, handlePath, nameLengthLimit } from "../../common";
 import constants from "ysrc/utils/variable";
+import { handlePath, pickRandomProperty } from "ysrc/utils/common";
 
 import "./Addproject.scss";
+import { defineComponent } from "vue";
+import { defItem, FormRules, UI, _ } from "@ventose/ui";
+import LazySvg from "../../components/LazySvg/LazySvg.jsx";
+import { State_App } from "ysrc/state/State_App.jsx";
+import { Methods_App } from "ysrc/state/State_App";
 
 const formItemLayout = {
 	labelCol: {
@@ -37,201 +25,186 @@ const formItemLayout = {
 	className: "form-item"
 };
 
-@connect(
-	state => {
-		return {
-			groupList: state.group.groupList,
-			currGroup: state.group.currGroup
-		};
+export default defineComponent({
+	setup() {
+		return { State_App };
 	},
-	{
-		fetchGroupList,
-		addProject,
-		setBreadcrumb
-	}
-)
-@withRouter
-class ProjectList extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			groupList: [],
-			currGroupId: null
-		};
-	}
-	static propTypes = {
-		groupList: PropTypes.array,
-		form: PropTypes.object,
-		currGroup: PropTypes.object,
-		addProject: PropTypes.func,
-		history: PropTypes.object,
-		setBreadcrumb: PropTypes.func,
-		fetchGroupList: PropTypes.func
-	};
+	data() {
+		const vm = this;
+		return {
+			dataXItem: {
+				...defItem({
+					value: "",
+					itemType: "Input",
+					prop: "name",
+					label: "项目名称",
+					rules: [
+						FormRules.required("请输入项目名称"),
+						FormRules.custom({
+							msg() {
+								return "old tips";
+							},
+							/* 可以根据校验修改提示信息 */
+							validator(value, { configs, rule }) {
+								const type = "项目";
+								// 返回字符串长度，汉字计数为2
+								const strLength = str => {
+									let length = 0;
+									for (let i = 0; i < str.length; i++) {
+										str.charCodeAt(i) > 255 ? (length += 2) : length++;
+									}
+									return length;
+								};
 
-	handlePath = e => {
-		let val = e.target.value;
-		this.props.form.setFieldsValue({
-			basepath: handlePath(val)
-		});
-	};
-
-	// 确认添加项目
-	@autobind
-	handleOk(e) {
-		const { form, addProject } = this.props;
-		e.preventDefault();
-		form.validateFields((err, values) => {
-			if (!err) {
-				values.group_id = values.group;
-				values.icon = constants.PROJECT_ICON[0];
-				values.color = pickRandomProperty(constants.PROJECT_COLOR);
-				addProject(values).then(res => {
-					if (res.payload.data.errcode == 0) {
-						form.resetFields();
-						message.success("创建成功! ");
-						this.props.history.push(
-							"/project/" + res.payload.data.data._id + "/interface/api"
+								const len = value ? strLength(value) : 0;
+								if (len > constants.NAME_LIMIT) {
+									rule.msg =
+										"请输入" +
+										type +
+										"名称，长度不超过" +
+										constants.NAME_LIMIT +
+										"字符(中文算作2字符)!";
+									return FormRules.FAIL;
+								} else if (len === 0) {
+									rule.msg =
+										"请输入" +
+										type +
+										"名称，长度不超过" +
+										constants.NAME_LIMIT +
+										"字符(中文算作2字符)!";
+									return FormRules.FAIL;
+								} else {
+									return FormRules.SUCCESS;
+								}
+							}
+						})
+					]
+				}),
+				...defItem({
+					value: "",
+					prop: "group",
+					label: "所属分组",
+					placeholder: "请选择项目所属的分组",
+					itemType: "Select",
+					options: [],
+					rules: [FormRules.required("请选择项目所属的分组!")],
+					once() {
+						vm.$watch(
+							"State_App.groupList",
+							groupList => {
+								vm.dataXItem.group.options = _.map(groupList, i => {
+									return {
+										label: i.group_name,
+										value: String(i._id),
+										disabled: !["dev", "owner", "admin"].includes(i.role)
+									};
+								});
+							},
+							{ immediate: true }
 						);
 					}
-				});
+				}),
+				...defItem({
+					value: "",
+					prop: "basepath",
+					label: defItem.labelWithTips({
+						label: "基本路径",
+						tips: "接口基本路径，为空是根路径",
+						icon: <LazySvg icon="question" />
+					}),
+					placeholder: "接口基本路径，为空是根路径",
+					rules: [FormRules.required("请输入项目基本路径!")]
+				}),
+				...defItem({
+					value: "",
+					prop: "desc",
+					label: "描述",
+					isTextarea: true,
+					placeholder: "描述不超过144字!",
+					max: 144
+				})
+			},
+			configs: {
+				btn_addProject: {
+					text: "创建项目",
+					type: "primary",
+					icon: <LazySvg icon="add" />,
+					async onClick() {
+						await _.sleep(3000);
+						vm.handleOk();
+					}
+				}
+			},
+			state: {
+				groupList: []
 			}
-		});
-	}
+		};
+	},
+	mounted() {
+		this.init();
+	},
 
-	async UNSAFE_componentWillMount() {
-		this.props.setBreadcrumb([{ name: "新建项目" }]);
-		if (!this.props.currGroup._id) {
-			await this.props.fetchGroupList();
+	methods: {
+		async init() {
+			Methods_App.setBreadcrumb([{ name: "新建项目" }]);
+			if (!State_App.currGroup._id) {
+				await Methods_App.fetchGroupList();
+			}
+			if (State_App.groupList.length === 0) {
+				return null;
+			}
+		},
+		handlePath(e) {
+			let val = e.target.value;
+			this.props.form.setFieldsValue({
+				basepath: handlePath(val)
+			});
+		},
+		// 确认添加项目
+		handleOk(e) {
+			const { form, addProject } = this.props;
+			e.preventDefault();
+			form.validateFields((err, values) => {
+				if (!err) {
+					values.group_id = values.group;
+					values.icon = constants.PROJECT_ICON[0];
+					values.color = pickRandomProperty(constants.PROJECT_COLOR);
+					addProject(values).then(res => {
+						if (res.payload.data.errcode == 0) {
+							form.resetFields();
+							UI.notification.success("创建成功! ");
+							this.props.history.push(
+								"/project/" + res.payload.data.data._id + "/interface/api"
+							);
+						}
+					});
+				}
+			});
 		}
-		if (this.props.groupList.length === 0) {
-			return null;
-		}
-		this.setState({
-			currGroupId: this.props.currGroup._id
-				? this.props.currGroup._id
-				: this.props.groupList[0]._id
-		});
-		this.setState({ groupList: this.props.groupList });
-	}
-
+	},
 	render() {
-		const { getFieldDecorator } = this.props.form;
 		return (
-			<div class="g-row">
+			<div class="g-row flex1 height100">
 				<div class="g-row m-container">
-					<Form>
-						<FormItem {...formItemLayout} label="项目名称">
-							{getFieldDecorator("name", {
-								rules: nameLengthLimit("项目")
-							})(<aInput />)}
-						</FormItem>
-
-						<FormItem {...formItemLayout} label="所属分组">
-							{getFieldDecorator("group", {
-								initialValue: this.state.currGroupId + "",
-								rules: [
-									{
-										required: true,
-										message: "请选择项目所属的分组!"
-									}
-								]
-							})(
-								<Select>
-									{this.state.groupList.map((item, index) => (
-										<Option
-											disabled={
-												!(
-													item.role === "dev" ||
-													item.role === "owner" ||
-													item.role === "admin"
-												)
-											}
-											value={item._id.toString()}
-											key={index}>
-											{item.group_name}
-										</Option>
-									))}
-								</Select>
-							)}
-						</FormItem>
-
-						<hr class="breakline" />
-
-						<FormItem
-							{...formItemLayout}
-							label={
-								<span>
-									基本路径&nbsp;
-									<aTooltip title="接口基本路径，为空是根路径">
-										<aIcon type="question-circle-o" />
-									</aTooltip>
-								</span>
-							}>
-							{getFieldDecorator("basepath", {
-								rules: [
-									{
-										required: false,
-										message: "请输入项目基本路径"
-									}
-								]
-							})(<aInput onBlur={this.handlePath} />)}
-						</FormItem>
-
-						<FormItem {...formItemLayout} label="描述">
-							{getFieldDecorator("desc", {
-								rules: [
-									{
-										required: false,
-										message: "描述不超过144字!",
-										max: 144
-									}
-								]
-							})(<TextArea rows={4} />)}
-						</FormItem>
-
-						<FormItem {...formItemLayout} label="权限">
-							{getFieldDecorator("project_type", {
-								rules: [
-									{
-										required: true
-									}
-								],
-								initialValue: "private"
-							})(
-								<RadioGroup>
-									<Radio value="private" class="radio">
-										<aIcon type="lock" />
-										私有
-										<br />
-										<span class="radio-desc">
-											只有组长和项目开发者可以索引并查看项目信息
-										</span>
-									</Radio>
-									<br />
-									{/* <Radio value="public" class="radio">
-                    <aIcon type="unlock" />公开<br />
-                    <span class="radio-desc">任何人都可以索引并查看项目信息</span>
-                  </Radio> */}
-								</RadioGroup>
-							)}
-						</FormItem>
-					</Form>
-					<aRow>
+					<xForm
+						class="flex vertical"
+						labelStyle={{ "min-width": "120px", width: "unset" }}>
+						{_.map(this.dataXItem, (configs, prop) => {
+							return (
+								<>
+									<xGap t="10" />
+									<xItem configs={configs} />
+								</>
+							);
+						})}
+					</xForm>
+					<aRow class="mt20">
 						<aCol sm={{ offset: 6 }} lg={{ offset: 3 }}>
-							<aButton
-								class="m-btn"
-								icon="plus"
-								type="primary"
-								onClick={this.handleOk}>
-								创建项目
-							</aButton>
+							<xButton configs={this.configs.btn_addProject} />
 						</aCol>
 					</aRow>
 				</div>
 			</div>
 		);
 	}
-}
-
-export default Form.create()(ProjectList);
+});

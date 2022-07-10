@@ -1,8 +1,8 @@
 // progress bar
+import { setDocumentTitle, State_UI, _ } from "@ventose/ui";
 import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
-import { State_App } from "ysrc/state/State_App";
-import { _, setDocumentTitle, State_UI } from "@ventose/ui";
+import { Methods_App, State_App } from "ysrc/state/State_App";
 
 const { $t } = State_UI;
 
@@ -52,6 +52,11 @@ const routes = [
 		name: "groupView",
 		component: () => import("ysrc/containers/Group/Group.vue")
 	},
+	{
+		path: `/add-project`,
+		name: "AddProject",
+		component: () => import("ysrc/containers/AddProject/AddProject")
+	},
 	/* 404兜底 */
 	{
 		path: "/:pathMatch(.*)*",
@@ -81,7 +86,26 @@ const defaultRoutePath = "/";
 
 router.beforeEach(async (to, from) => {
 	NProgress.start();
+
 	try {
+		if (!(await Methods_App.checkLoginState())) {
+			if (["/login"].includes(to.path)) {
+				return true;
+			}
+
+			router.push({ path: "/login" });
+			return false;
+		}
+
+		if (State_App.user.isLogin) {
+			if (["/login"].includes(to.path)) {
+				setTimeout(() => {
+					router.push({ path: "/" });
+				}, 300);
+				return false;
+			}
+		}
+
 		return true;
 	} catch (error) {
 		console.error(error);

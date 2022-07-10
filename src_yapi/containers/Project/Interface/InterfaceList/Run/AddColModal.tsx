@@ -110,7 +110,7 @@ export default class AddColModal extends Component {
 								key={col._id}
 								class={`col-item ${col._id === id ? "selected" : ""}`}
 								onClick={() => this.select(col._id)}>
-								<aIcon type="folder-open" style={{ marginRight: 6 }} />
+								<LazySvg icon="folder-open" style={{ marginRight: 6 }} />
 								{col.name}
 							</li>
 						))

@@ -30,7 +30,7 @@
 
 <script lang="jsx">
 import { defineComponent } from "vue";
-import { Mutations_App } from "ysrc/state/State_App.jsx";
+import { Methods_App } from "ysrc/state/State_App.jsx";
 import {
 	defItem,
 	EVENT_TYPE,
@@ -80,7 +80,7 @@ export default defineComponent({
 	},
 	setup() {
 		return {
-			Mutations_App
+			Methods_App
 		};
 	},
 	data() {

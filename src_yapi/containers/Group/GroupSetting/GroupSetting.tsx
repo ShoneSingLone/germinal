@@ -16,7 +16,7 @@ import {
 	changeGroupMsg,
 	fetchGroupList,
 	setCurrGroup,
-	fetchGroupMsg,
+	setCurrGroup,
 	updateGroupList,
 	deleteGroup
 } from "../../../reducer/modules/group.js";
@@ -38,7 +38,7 @@ const confirm = Modal.confirm;
 		changeGroupMsg,
 		fetchGroupList,
 		setCurrGroup,
-		fetchGroupMsg,
+		setCurrGroup,
 		fetchNewsData,
 		updateGroupList,
 		deleteGroup
@@ -63,7 +63,7 @@ class GroupSetting extends Component {
 		changeGroupMsg: PropTypes.func,
 		fetchGroupList: PropTypes.func,
 		setCurrGroup: PropTypes.func,
-		fetchGroupMsg: PropTypes.func,
+		setCurrGroup: PropTypes.func,
 		fetchNewsData: PropTypes.func,
 		updateGroupList: PropTypes.func,
 		deleteGroup: PropTypes.func,
@@ -149,7 +149,7 @@ class GroupSetting extends Component {
 				return +group._id === +id;
 			});
 			this.props.setCurrGroup(currGroup);
-			this.props.fetchGroupMsg(this.props.currGroup._id);
+			this.props.setCurrGroup(this.props.currGroup._id);
 			this.props.fetchNewsData(this.props.currGroup._id, "group", 1, 10);
 		}
 	};
@@ -252,7 +252,7 @@ class GroupSetting extends Component {
 					<aCol span={4} class="label">
 						接口自定义字段&nbsp;
 						<aTooltip title={"可以在接口中添加 额外字段 数据"}>
-							<aIcon type="question-circle-o" style={{ width: "10px" }} />
+							<LazySvg icon="question-circle-o" style={{ width: "10px" }} />
 						</aTooltip>{" "}
 						：
 					</aCol>
@@ -301,7 +301,7 @@ class GroupSetting extends Component {
 					<aRow type="flex" justify="center" class="danger-container">
 						<aCol span={24} class="title">
 							<h2 class="content">
-								<aIcon type="exclamation-circle-o" /> 危险操作
+								<LazySvg icon="exclamation-circle-o" /> 危险操作
 							</h2>
 							<aButton onClick={this.toggleDangerOptions}>
 								查 看

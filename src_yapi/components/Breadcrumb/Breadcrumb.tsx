@@ -1,38 +1,35 @@
 import "./Breadcrumb.scss";
 
-import { Breadcrumb } from "ant-design-vue";
+import { defineComponent } from "vue";
+import { State_App } from "ysrc/state/State_App";
+import { _ } from "@ventose/ui";
 
-@connect(state => {
-	return {
-		breadcrumb: state.user.breadcrumb
-	};
-})
-@withRouter
-export default class BreadcrumbNavigation extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	static propTypes = {
-		breadcrumb: PropTypes.array
-	};
-
+export const BreadcrumbNavigation = defineComponent({
+	setup() {
+		return {
+			State_App
+		};
+	},
+	computed: {
+		breadcrumbItems() {
+			return _.map(this.State_App.user.breadcrumb, (item, index) => {
+				if (item.href) {
+					return (
+						<aBreadcrumbItem key={index}>
+							<RouterLink to={item.href}>{item.name}</RouterLink>
+						</aBreadcrumbItem>
+					);
+				} else {
+					return <aBreadcrumbItem key={index}>{item.name}</aBreadcrumbItem>;
+				}
+			});
+		}
+	},
 	render() {
-		const getItem = this.props.breadcrumb.map((item, index) => {
-			if (item.href) {
-				return (
-					<Breadcrumb.Item key={index}>
-						<RouterLink to={item.href}>{item.name}</RouterLink>
-					</Breadcrumb.Item>
-				);
-			} else {
-				return <Breadcrumb.Item key={index}>{item.name}</Breadcrumb.Item>;
-			}
-		});
 		return (
 			<div class="breadcrumb-container">
-				<Breadcrumb>{getItem}</Breadcrumb>
+				<aBreadcrumb>{this.breadcrumbItems}</aBreadcrumb>
 			</div>
 		);
 	}
-}
+});

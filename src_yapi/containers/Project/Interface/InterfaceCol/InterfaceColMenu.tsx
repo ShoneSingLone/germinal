@@ -424,17 +424,17 @@ export default class InterfaceColMenu extends Component {
 		// const menu = (col) => {
 		//   return (
 		//     <aMenu>
-		//       <aMenu.Item>
+		//       <aMenuItem>
 		//         <span onClick={() => this.showColModal('edit', col)}>修改集合</span>
-		//       </aMenu.Item>
-		//       <aMenu.Item>
+		//       </aMenuItem>
+		//       <aMenuItem>
 		//         <span onClick={() => {
 		//           this.showDelColConfirm(col._id)
 		//         }}>删除集合</span>
-		//       </aMenu.Item>
-		//       <aMenu.Item>
+		//       </aMenuItem>
+		//       <aMenuItem>
 		//         <span onClick={() => this.showImportInterface(col._id)}>导入接口</span>
-		//       </aMenu.Item>
+		//       </aMenuItem>
 		//     </aMenu>
 		//   )
 		// };
@@ -593,7 +593,7 @@ export default class InterfaceColMenu extends Component {
 								title={
 									<div class="menu-title">
 										<span>
-											<aIcon type="folder-open" style={{ marginRight: 5 }} />
+											<LazySvg icon="folder-open" style={{ marginRight: 5 }} />
 											<span>{col.name}</span>
 										</span>
 										<div class="btns">

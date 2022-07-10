@@ -1,16 +1,30 @@
 import { reactive, watch, computed } from "vue";
 import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
 import { API } from "ysrc/api";
+import { router } from "ysrc/router/router";
 
 const { $t } = State_UI;
 
+const LOADING_STATUS = 0;
+const GUEST_STATUS = 1;
+const MEMBER_STATUS = 2;
+
 export const State_App = reactive({
 	user: {
-		loginWrapActiveKey: "",
-		canRegister: true,
-		isLDAP: true,
 		isLogin: false,
-		role: {}
+		canRegister: true,
+		isLDAP: false,
+		userName: null,
+		uid: null,
+		email: "",
+		loginState: LOADING_STATUS,
+		loginWrapActiveKey: "1",
+		role: "",
+		type: "",
+		breadcrumb: [],
+		studyTip: 0,
+		study: false,
+		imageUrl: ""
 	},
 	project: {
 		currPage: "",
@@ -46,79 +60,125 @@ export const State_App = reactive({
 
 window.State_App = State_App;
 
-const LOADING_STATUS = 0;
-const GUEST_STATUS = 1;
-const MEMBER_STATUS = 2;
-
-export const Actions_App = {
+export const Methods_App = {
+	setMenu(menu) {
+		State_App.menu = _.merge({}, State_App.menu, menu);
+	},
 	setUser(user) {
 		State_App.user = _.merge({}, State_App.user, user);
 	},
 	setNews(news) {
 		State_App.news = _.merge({}, State_App.news, news);
-	}
-};
-export const Mutations_App = {
-	async checkLoginState() {
-		const { data, response } = await API.user.getUserStatus();
-		Actions_App.setUser({
-			isLogin: response.data.errcode == 0,
-			isLDAP: response.data.ladp,
-			canRegister: response.data.canRegister,
-			role: data ? data.role : null,
-			loginState: response.data.errcode == 0 ? MEMBER_STATUS : GUEST_STATUS,
-			userName: data ? data.username : null,
-			uid: data ? data._id : null,
-			type: data ? data.type : null,
-			study: data ? data.study : false
-		});
 	},
-	/**
-	 * 如果是group对象，直接赋值，
-	 * 如果是Id则需要query
-	 * @param groupIdOrObject
-	 * @returns {Promise<void>}
-	 */
-	async setCurrGroup(groupIdOrObject) {
-		if (!_.isPlainObject(groupIdOrObject)) {
-			const { data } = await API.group.getMyGroupBy(groupIdOrObject);
-			groupIdOrObject = data;
+	setBreadcrumb(breadcrumb) {
+		Methods_App.setUser({ breadcrumb });
+	},
+	async checkLoginState() {
+		if (State_App.user.isLogin) {
+			return true;
 		}
-		State_App.currGroup = _.merge({}, State_App.currGroup, groupIdOrObject);
+		try {
+			const { data, response } = await API.user.getUserStatus();
+			Methods_App.setUser({
+				isLogin: response.data.errcode == 0,
+				isLDAP: response.data.ladp,
+				canRegister: response.data.canRegister,
+				role: data ? data.role : null,
+				loginState: response.data.errcode == 0 ? MEMBER_STATUS : GUEST_STATUS,
+				userName: data ? data.username : null,
+				uid: data ? data._id : null,
+				type: data ? data.type : null,
+				study: data ? data.study : false
+			});
+		} catch (error) {
+			console.error(error);
+		} finally {
+			return State_App.user.isLogin;
+		}
 	},
 	async fetchGroupList() {
 		const { data: groupList } = await API.group.getMyGroupList();
 		State_App.groupList = groupList;
 	},
-	async fetchGroupMsg(groupId) {
-		const { data } = await API.group.getGroupAuth(groupId);
-		await Mutations_App.setCurrGroup(data);
-		Actions_App.setUser({
-			role: data.role,
+	/**
+	 * 如果group是对象，直接赋值，
+	 * 如果是Id(可能不是数字),则需要request
+	 * @param group
+	 * @returns {Promise<void>}
+	 */
+	async setCurrGroup(group) {
+		let groupId;
+		if (!_.isPlainObject(group)) {
+			groupId = parseInt(group);
+			if (!_.isNumber(groupId)) {
+				throw new Error("miss groupId");
+			}
+			const { data } = await API.group.getMyGroupBy(groupId);
+			group = data;
+		}
+		State_App.currGroup = _.merge({}, State_App.currGroup, group);
+		Methods_App.setUser({
+			role: group.role,
 			field: {
-				name: data.custom_field1.name,
-				enable: data.custom_field1.enable
+				name: group.custom_field1.name,
+				enable: group.custom_field1.enable
 			}
 		});
 	},
 	async fetchNewsData(typeid, type, page, limit, selectValue) {
-		const { data } = await API.news.getLogList({
-			typeid,
-			type,
-			page,
-			limit,
-			selectValue
-		});
-		Actions_App.setNews({
-			curpage: 1,
-			newsData: {
-				total: data.total,
-				list: _.sortBy(data.list, function (a, b) {
-					return b.add_time - a.add_time;
-				})
-			}
+		try {
+			const { data } = await API.news.getLogList({
+				typeid,
+				type,
+				page,
+				limit,
+				selectValue
+			});
+			Methods_App.setNews({
+				curpage: 1,
+				newsData: {
+					total: data.total,
+					list: _.sortBy(data.list, (a, b) => {
+						if (a && b) {
+							return b.add_time - a.add_time;
+						}
+						return false;
+					})
+				}
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	async changeStudyTip() {
+		State_App.user.studyTip++;
+	},
+	async finishStudy() {
+		Methods_App.setUser({
+			study: true,
+			studyTip: 0
 		});
 	},
+	async logoutActions() {
+		try {
+			const { data } = await API.user.logoutActions();
+			Methods_App.setUser({
+				isLogin: false,
+				loginState: GUEST_STATUS,
+				userName: null,
+				uid: null,
+				role: "",
+				type: ""
+			});
+			if (data === "ok") {
+				router.push({ path: "/login" });
+				UI.notification.success("退出成功! ");
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	async fetchInterfaceListMenu() {},
 	async fetchProjectList() {},
 	async changeMenuItem() {},
 	async loginActions() {},
@@ -136,12 +196,10 @@ export const Mutations_App = {
 	async addProject() {},
 	async delProject() {},
 	async changeUpdateModal() {},
-	async setBreadcrumb() {},
 	delFollow() {},
 	addFollow() {},
 	getProject() {},
 	checkProjectName() {},
 	copyProjectMsg() {},
-	changeStudyTip() {},
-	finishStudy() {}
+	loginTypeAction() {}
 };

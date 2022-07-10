@@ -7,13 +7,6 @@ export const group = {
 			url: "/api/group/get_mygroup"
 		});
 	},
-	getGroupAuth(groupId) {
-		return ajax({
-			method: "get",
-			url: "/api/group/get",
-			params: { id: groupId }
-		});
-	},
 	addGroup(data) {
 		return ajax({
 			method: "post",

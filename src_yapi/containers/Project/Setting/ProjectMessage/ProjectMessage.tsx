@@ -22,7 +22,7 @@ import {
 	getProject,
 	upsetProject
 } from "../../../../reducer/modules/project";
-import { fetchGroupMsg } from "../../../../reducer/modules/group";
+import { setCurrGroup } from "../../../../reducer/modules/group";
 import { fetchGroupList } from "../../../../reducer/modules/group.js";
 import { setBreadcrumb } from "../../../../reducer/modules/user";
 
@@ -67,7 +67,7 @@ const Option = Select.Option;
 		updateProject,
 		delProject,
 		getProject,
-		fetchGroupMsg,
+		setCurrGroup,
 		upsetProject,
 		fetchGroupList,
 		setBreadcrumb
@@ -90,7 +90,7 @@ class ProjectMessage extends Component {
 		delProject: PropTypes.func,
 		getProject: PropTypes.func,
 		history: PropTypes.object,
-		fetchGroupMsg: PropTypes.func,
+		setCurrGroup: PropTypes.func,
 		upsetProject: PropTypes.func,
 		groupList: PropTypes.array,
 		projectList: PropTypes.array,
@@ -126,7 +126,7 @@ class ProjectMessage extends Component {
 							message.success("修改成功! ");
 
 							// 如果如果项目所在的分组位置发生改变
-							this.props.fetchGroupMsg(group_id);
+							this.props.setCurrGroup(group_id);
 							// this.$router.push({path:'/group'});
 							let projectName = htmlFilter(assignValue.name);
 							this.props.setBreadcrumb([
@@ -226,7 +226,7 @@ class ProjectMessage extends Component {
 
 	async UNSAFE_componentWillMount() {
 		await this.props.fetchGroupList();
-		await this.props.fetchGroupMsg(this.props.projectMsg.group_id);
+		await Methods_App.setCurrGroup(this.props.projectMsg.group_id);
 	}
 
 	render() {
@@ -278,7 +278,7 @@ class ProjectMessage extends Component {
 								color: "#fff",
 								fontWeight: "bold"
 							}}>
-							{item[0] === projectMsg.color ? <aIcon type="check" /> : null}
+							{item[0] === projectMsg.color ? <LazySvg icon="check" /> : null}
 						</RadioButton>
 					);
 				})}
@@ -366,7 +366,7 @@ class ProjectMessage extends Component {
 								<span>
 									接口基本路径&nbsp;
 									<aTooltip title="基本路径为空表示根路径">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -387,7 +387,7 @@ class ProjectMessage extends Component {
 								<span>
 									MOCK地址&nbsp;
 									<aTooltip title="具体使用方法请查看文档">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -411,7 +411,7 @@ class ProjectMessage extends Component {
 								<span>
 									tag 信息&nbsp;
 									<aTooltip title="定义 tag 信息，过滤接口">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -424,7 +424,7 @@ class ProjectMessage extends Component {
 								<span>
 									mock严格模式&nbsp;
 									<aTooltip title="开启后 mock 请求会对 query，body form 的必须字段和 json schema 进行校验">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -439,7 +439,7 @@ class ProjectMessage extends Component {
 								<span>
 									开启json5&nbsp;
 									<aTooltip title="开启后可在接口 body 和返回值中写 json 字段">
-										<aIcon type="question-circle-o" />
+										<LazySvg icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -466,7 +466,7 @@ class ProjectMessage extends Component {
 							})(
 								<RadioGroup>
 									<Radio value="private" class="radio">
-										<aIcon type="lock" />
+										<LazySvg icon="lock" />
 										私有
 										<br />
 										<span class="radio-desc">
@@ -476,7 +476,7 @@ class ProjectMessage extends Component {
 									<br />
 									{projectMsg.role === "admin" && (
 										<Radio value="public" class="radio">
-											<aIcon type="unlock" />
+											<LazySvg icon="unlock" />
 											公开
 											<br />
 											<span class="radio-desc">
@@ -505,7 +505,7 @@ class ProjectMessage extends Component {
 						<div class="danger-container">
 							<div class="title">
 								<h2 class="content">
-									<aIcon type="exclamation-circle-o" /> 危险操作
+									<LazySvg icon="exclamation-circle-o" /> 危险操作
 								</h2>
 								<aButton onClick={this.toggleDangerOptions}>
 									查 看

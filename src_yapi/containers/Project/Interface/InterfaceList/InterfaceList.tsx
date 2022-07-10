@@ -221,10 +221,10 @@ class InterfaceList extends Component {
 				width: 30,
 				render: (text, item) => {
 					return (
-						<RouterLink
+						<RouterView
 							to={"/project/" + item.project_id + "/interface/api/" + item._id}>
 							<span class="path">{text}</span>
-						</RouterLink>
+						</RouterView>
 					);
 				}
 			},

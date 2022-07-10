@@ -204,9 +204,9 @@ class InterfaceEdit extends Component {
 							fontSize: "14px",
 							paddingTop: "10px"
 						}}>
-						<RouterLink to={"/user/profile/" + this.state.curdata.uid}>
+						<RouterView to={"/user/profile/" + this.state.curdata.uid}>
 							<b>{this.state.curdata.username}</b>
-						</RouterLink>
+						</RouterView>
 						<span>正在编辑该接口，请稍后再试...</span>
 					</div>
 				) : null}

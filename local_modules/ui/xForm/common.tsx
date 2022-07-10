@@ -5,7 +5,7 @@ import { t_itemConfigs } from "./itemRenders/index";
 let xItemNoPropCount = 0;
 
 /*make item configs */
-export const defItem = (options: t_itemConfigs) => {
+export function defItem(options: t_itemConfigs) {
 	if (!options.prop) {
 		options.prop = `xItem${xItemNoPropCount++}`;
 		console.error(`no xItem prop replace by ${options.prop}`);
@@ -20,9 +20,8 @@ export const defItem = (options: t_itemConfigs) => {
 				/* 提示信息，可以用于提示或者定位 */
 				itemTips: {},
 				/*item 的类型 case by case 跟ui库关联*/
-				itemType: options.itemType || "Input",
+				itemType: options.itemType || "Input"
 				/*默认绑定的是value*/
-				value: options.value || ""
 			},
 			options
 		)
@@ -31,6 +30,15 @@ export const defItem = (options: t_itemConfigs) => {
 	return {
 		[configs.prop]: configs
 	};
+}
+
+defItem.labelWithTips = ({ label, tips, icon }) => {
+	return (
+		<span class="flex middle">
+			{label}
+			<aTooltip title={tips}>{icon}</aTooltip>
+		</span>
+	);
 };
 
 /***

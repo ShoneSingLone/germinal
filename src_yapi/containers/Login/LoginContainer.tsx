@@ -2,7 +2,7 @@ import Login from "./LoginWrap";
 import { LogoSVG } from "ysrc/components/LogoSVG";
 import { defineComponent } from "vue";
 
-export const LoginView = defineComponent({
+export default defineComponent({
 	render() {
 		return (
 			<div class="g-body login-body flex1">
@@ -18,7 +18,7 @@ export const LoginView = defineComponent({
 							<aCol xs={20} sm={16} md={12} lg={8} class="container-login">
 								<aCard class="card-login">
 									<h2 class="login-title">YAPI</h2>
-									<div class="login-logo">
+									<div class="login-logo elevation-12">
 										<LogoSVG length="100px" />
 									</div>
 									<Login />

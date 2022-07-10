@@ -141,9 +141,9 @@ class List extends Component {
 				width: 180,
 				render: (username, item) => {
 					return (
-						<RouterLink to={"/user/profile/" + item._id}>
+						<RouterView to={"/user/profile/" + item._id}>
 							{item.username}
-						</RouterLink>
+						</RouterView>
 					);
 				}
 			},

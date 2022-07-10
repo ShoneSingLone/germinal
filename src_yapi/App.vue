@@ -3,22 +3,29 @@
 import { defineComponent } from "vue";
 import { _ } from "@ventose/ui";
 import Footer from "ysrc/components/Footer/Footer.vue";
-import { Mutations_App } from "ysrc/state/State_App";
+import Header from "ysrc/components/Header/Header";
+import { Methods_App, State_App } from "ysrc/state/State_App";
 
 export default defineComponent({
-	components: { Footer },
+	components: { Footer, Header },
+	setup() {
+		return {
+			State_App
+		};
+	},
 	data() {
 		return {
 			isLoading: true
 		};
 	},
 	async mounted() {
-		await Mutations_App.checkLoginState();
+		/* try { } catch (error) {} */
 		this.isLoading = false;
 	}
 });
 </script>
 <template>
+	<Header v-if="State_App.user.loginState !== 1" />
 	<RouterView v-loading="isLoading" />
 	<Footer />
 </template>

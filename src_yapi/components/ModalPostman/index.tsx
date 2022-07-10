@@ -240,7 +240,7 @@ class ModalPostman extends Component {
 			<aModal
 				title={
 					<p>
-						<aIcon type="edit" /> 高级参数设置
+						<LazySvg icon="edit" /> 高级参数设置
 					</p>
 				}
 				visible={visible}
@@ -283,7 +283,7 @@ class ModalPostman extends Component {
 													<aTooltip
 														placement="top"
 														title="YApi 提供了强大的变量参数功能，你可以在测试的时候使用前面接口的 参数 或 返回值 作为 后面接口的参数，即使接口之间存在依赖，也可以轻松 一键测试~">
-														<aIcon type="question-circle-o" />
+														<LazySvg icon="question-circle-o" />
 													</aTooltip>
 												</h3>
 											}

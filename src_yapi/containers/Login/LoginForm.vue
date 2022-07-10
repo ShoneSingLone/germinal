@@ -31,7 +31,7 @@ import {
 	State_UI,
 	FormRules
 } from "@ventose/ui";
-import { Mutations_App, State_App } from "ysrc/state/State_App.jsx";
+import { Methods_App, State_App } from "ysrc/state/State_App.jsx";
 import { API } from "ysrc/api";
 import { router } from "ysrc/router/router.jsx";
 
@@ -53,7 +53,7 @@ export default defineComponent({
 	},
 	setup() {
 		return {
-			Mutations_App
+			Methods_App
 		};
 	},
 	data() {

@@ -12,13 +12,11 @@ import {
 
 import axios from "axios";
 
-const { TextArea } = Input;
-import UsernameAutoComplete from "ysrc/components/UsernameAutoComplete/UsernameAutoComplete";
 import GuideBtns from "ysrc/components/GuideBtns/GuideBtns";
 import { _, AllWasWell, pickValueFrom, validateForm } from "@ventose/ui";
 import "./GroupList.scss";
 import { defineComponent } from "vue";
-import { Mutations_App, State_App } from "ysrc/state/State_App";
+import { Methods_App, State_App } from "ysrc/state/State_App";
 import { UI } from "@ventose/ui";
 import ViewAddGroup from "./ViewAddGroup.vue";
 import { API } from "ysrc/api";
@@ -48,7 +46,7 @@ export default defineComponent({
 		"studyTip",
 		"study",
 		"fetchNewsData",
-		"fetchGroupMsg"
+		"setCurrGroup"
 	],
 	setup() {
 		return {
@@ -82,7 +80,7 @@ export default defineComponent({
 	methods: {
 		async initGroupList() {
 			try {
-				await Mutations_App.fetchGroupList();
+				await Methods_App.fetchGroupList();
 				this.searchGroup();
 			} catch (error) {
 				console.error(error);
@@ -99,7 +97,6 @@ export default defineComponent({
 						const { newGroupName, newGroupDesc, owner_uids } = pickValueFrom(
 							instance.vm.formItems
 						);
-
 						await this.upsert({
 							...row,
 							group_name: newGroupName,
@@ -128,29 +125,23 @@ export default defineComponent({
 				});
 			}
 
-			await Mutations_App.fetchGroupList();
+			await Methods_App.fetchGroupList();
 			if (id) {
 				const currGroup = _.find(this.State_App.groupList, group => {
 					return +group._id === +id;
 				});
-				Mutations_App.setCurrGroup(currGroup);
+				Methods_App.setCurrGroup(currGroup);
 			}
-			await Mutations_App.fetchGroupMsg(State_App.currGroup._id);
-			await Mutations_App.fetchNewsData(
-				State_App.currGroup._id,
-				"group",
-				1,
-				10
-			);
-			debugger;
+			await Methods_App.setCurrGroup(State_App.currGroup._id);
+			await Methods_App.fetchNewsData(State_App.currGroup._id, "group", 1, 10);
 		},
 		async selectGroup({ key: groupId }) {
 			const currGroup = _.find(this.State_App.groupList, {
 				_id: +groupId
 			});
-			await Mutations_App.setCurrGroup(currGroup);
+			await Methods_App.setCurrGroup(currGroup);
 			this.$router.push({ path: `/group/${currGroup._id}` });
-			await Mutations_App.fetchNewsData(groupId, "group", 1, 10);
+			await Methods_App.fetchNewsData(groupId, "group", 1, 10);
 		},
 
 		searchGroup: _.debounce(function () {
@@ -173,10 +164,10 @@ export default defineComponent({
 	render() {
 		const { currGroup } = this.State_App;
 		return (
-			<div class="m-group">
-				{/* 初始引导， */}
-				{/* {!this.State_App.user.study ? <div class="study-mask" /> : null} */}
-				<div class="group-bar" v-loading={this.groupListForShow.length === 0}>
+			<div class="m-group flex1 height100">
+				<div
+					class="group-bar flex vertical"
+					v-loading={this.groupListForShow.length === 0}>
 					<div class="curr-group">
 						<div class="curr-group-name">
 							<span class="name">{currGroup.group_name}</span>
@@ -205,36 +196,18 @@ export default defineComponent({
 						onClick={this.selectGroup}
 						selectedKeys={[`${currGroup._id}`]}>
 						{this.groupListForShow.map(group => {
+							let icon = "folderOpen";
 							if (group.type === "private") {
-								return (
-									<aMenuItem
-										key={`${group._id}`}
-										class="group-item flex"
-										style={{
-											zIndex: this.State_App.user.studyTip === 0 ? 3 : 1
-										}}>
-										<LazySvg icon="user" style="width:16px;" />
-										<aPopover
-											overlayClassName="popover-index"
-											content={<GuideBtns />}
-											title={tip}
-											placement="right"
-											visible={
-												this.State_App.user.studyTip === 0 &&
-												!this.State_App.user.study
-											}>
-											{group.group_name}
-										</aPopover>
-									</aMenuItem>
-								);
-							} else {
-								return (
-									<aMenuItem key={`${group._id}`} class="group-item">
-										<LazySvg icon="folderOpen" style="width:16px;" />
-										{group.group_name}
-									</aMenuItem>
-								);
+								icon = "user";
 							}
+							return (
+								<aMenuItem key={`${group._id}`} class="group-item flex">
+									<div class="flex">
+										<LazySvg icon={icon} style="width:16px;" />
+										<span>{group.group_name}</span>
+									</div>
+								</aMenuItem>
+							);
 						})}
 					</aMenu>
 				</div>

@@ -62,9 +62,9 @@ class NewsList extends Component {
 					onClick={this.getLogData.bind(this)}>
 					{logList.map((item, i) => {
 						return (
-							<aMenu.Item key={i} class="log-item">
+							<aMenuItem key={i} class="log-item">
 								{item.name}
-							</aMenu.Item>
+							</aMenuItem>
 						);
 					})}
 				</aMenu>
