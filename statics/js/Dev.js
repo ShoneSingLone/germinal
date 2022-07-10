@@ -1,7 +1,7 @@
 import { G as GroupList } from "./GroupList.js";
 import { a as _export_sfc } from "./each.js";
 import "./yapi.js";
-import "./common2.js";
+import "./FormRules.js";
 import "./form.js";
 var _sfc_main = {
   components: {

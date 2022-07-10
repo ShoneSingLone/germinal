@@ -1,39 +1,8 @@
-import { b as _global__, S as State_UI, a as _export_sfc, U as UI, v as validateForm, g as AllWasWell } from "./each.js";
-import { A as API, S as State_App, M as Mutations_App } from "./yapi.js";
-import { d as defItem, F as FormRules } from "./common2.js";
+import { b as _global__, g as defItem, S as State_UI, a as _export_sfc, U as UI, v as validateForm, h as AllWasWell } from "./each.js";
+import { A as API, S as State_App, M as Methods_App } from "./yapi.js";
+import { F as FormRules } from "./FormRules.js";
 import { p as pickValueFrom } from "./form.js";
-var GuideBtns = Vue.defineComponent({
-  props: ["changeStudyTip", "finishStudy", "isLast"],
-  methods: {
-    nextStep() {
-      this.props.changeStudyTip();
-      if (this.props.isLast) {
-        this.props.finishStudy();
-      }
-    },
-    exitGuide() {
-      this.props.finishStudy();
-    }
-  },
-  render() {
-    return Vue.createVNode("div", {
-      "class": "btn-container"
-    }, [Vue.createVNode(Vue.resolveComponent("aButton"), {
-      "class": "btn",
-      "type": "primary",
-      "onClick": this.nextStep
-    }, {
-      default: () => [this.props.isLast ? "\u5B8C \u6210" : "\u4E0B\u4E00\u6B65"]
-    }), Vue.createVNode(Vue.resolveComponent("aButton"), {
-      "class": "btn",
-      "type": "dashed",
-      "onClick": this.exitGuide
-    }, {
-      default: () => [Vue.createTextVNode("\u9000\u51FA\u6307\u5F15")]
-    })]);
-  }
-});
-var GroupList$1 = /* @__PURE__ */ (() => '.group-bar {\n  min-height: 5rem;\n}\n.group-bar .curr-group {\n  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;\n  background-color: #32363a;\n  color: rgba(255, 255, 255, 0.85);\n  padding: 0.24rem 0.24rem 0;\n}\n.group-bar .curr-group .curr-group-name {\n  color: rgba(255, 255, 255, 0.85);\n  font-size: 0.22rem;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.group-bar .curr-group .curr-group-name .text {\n  display: inline-block;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  max-width: 140px;\n  font-weight: 200;\n  vertical-align: bottom;\n}\n.group-bar .curr-group .curr-group-name .name {\n  display: inline-block;\n  margin-right: 20px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.group-bar .curr-group .curr-group-name .editSet {\n  color: rgba(255, 255, 255, 0.85);\n}\n.group-bar .curr-group .curr-group-name .editSet:hover {\n  color: #2395f1;\n}\n.group-bar .curr-group .curr-group-name .ant-dropdown-link {\n  float: right;\n  display: block;\n  color: rgba(255, 255, 255, 0.85);\n}\n.group-bar .curr-group .curr-group-name .ant-dropdown-link:hover {\n  color: #2395f1;\n}\n.group-bar .curr-group .curr-group-name .operate {\n  font-size: 0;\n  width: 150px;\n  display: inline-block;\n}\n.group-bar .curr-group .curr-group-name .operate i {\n  margin-left: 4px;\n}\n.group-bar .curr-group .curr-group-name .operate ::-webkit-scrollbar {\n  width: 0px;\n}\n.group-bar .curr-group .curr-group-desc {\n  color: rgba(255, 255, 255, 0.67);\n  font-size: 13px;\n  max-height: 54px;\n  margin-top: 0.16rem;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  -webkit-line-clamp: 3;\n  -webkit-box-orient: vertical;\n  display: -webkit-box;\n}\n.group-bar .curr-group .delete-group, .group-bar .curr-group .edit-group {\n  font-size: 14px;\n  margin-left: 0.08rem;\n  cursor: pointer;\n  border: 1px solid rgba(255, 255, 255, 0.85);\n  padding: 6px 12px;\n  border-radius: 4px;\n  transition: all 0.2s;\n}\n.group-bar .curr-group .delete-group:hover, .group-bar .curr-group .edit-group:hover {\n  background-color: #2395f1;\n  border: 1px solid #2395f1;\n}\n.group-bar .group-operate {\n  padding: 16px 24px;\n  display: flex;\n  justify-content: space-around;\n  background-color: #32363a;\n}\n.group-bar .group-operate .search {\n  flex-grow: 1;\n}\n.group-bar .group-operate .ant-input {\n  color: rgba(255, 255, 255, 0.85);\n  background-color: #32363a;\n}\n.group-bar .group-operate .ant-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */\n  color: rgba(255, 255, 255, 0.67);\n}\n.group-bar .group-operate .ant-input-suffix {\n  color: rgba(255, 255, 255, 0.85);\n}\n.group-bar .group-list {\n  overflow-x: hidden;\n  border-bottom: 1px solid #e9e9e9;\n  padding-bottom: 24px;\n  border: none;\n}\n.group-bar .group-list .group-item {\n  font-size: 14px;\n}\n.group-bar .group-list .group-name {\n  float: left;\n}\n.group-bar .group-list .group-edit {\n  float: right;\n  font-size: 18px;\n}\n.add-group-modal .modal-input {\n  margin: 24px;\n}\n.add-group-modal .label {\n  text-align: right;\n  line-height: 28px;\n}\n.user-menu a:hover {\n  color: #ccc;\n}')();
+var GroupList$1 = "";
 var UsernameAutoComplete = Vue.defineComponent({
   props: ["callbackState"],
   data() {
@@ -193,13 +162,13 @@ var ViewAddGroup = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_rende
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }
-const tip = Vue.createVNode("div", {
+Vue.createVNode("div", {
   "class": "title-container"
 }, [Vue.createVNode("h3", {
   "class": "title"
 }, [Vue.createTextVNode("\u6B22\u8FCE\u4F7F\u7528 YApi ~")]), Vue.createVNode("p", null, [Vue.createTextVNode("\u8FD9\u91CC\u7684 "), Vue.createVNode("b", null, [Vue.createTextVNode("\u201C\u4E2A\u4EBA\u7A7A\u95F4\u201D")]), " ", Vue.createTextVNode("\u662F\u4F60\u81EA\u5DF1\u624D\u80FD\u770B\u5230\u7684\u5206\u7EC4\uFF0C\u4F60\u62E5\u6709\u8FD9\u4E2A\u5206\u7EC4\u7684\u5168\u90E8\u6743\u9650\uFF0C\u53EF\u4EE5\u5728\u8FD9\u4E2A\u5206\u7EC4\u91CC\u63A2\u7D22 YApi \u7684\u529F\u80FD\u3002")])]);
 var GroupList = Vue.defineComponent({
-  props: ["groupList", "currGroup", "fetchGroupList", "setCurrGroup", "setGroupList", "match", "history", "curUserRole", "curUserRoleInGroup", "studyTip", "study", "fetchNewsData", "fetchGroupMsg"],
+  props: ["groupList", "currGroup", "fetchGroupList", "setCurrGroup", "setGroupList", "match", "history", "curUserRole", "curUserRoleInGroup", "studyTip", "study", "fetchNewsData", "setCurrGroup"],
   setup() {
     return {
       State_App
@@ -231,7 +200,7 @@ var GroupList = Vue.defineComponent({
   methods: {
     async initGroupList() {
       try {
-        await Mutations_App.fetchGroupList();
+        await Methods_App.fetchGroupList();
         this.searchGroup();
       } catch (error) {
         console.error(error);
@@ -282,16 +251,15 @@ var GroupList = Vue.defineComponent({
           owner_uids
         });
       }
-      await Mutations_App.fetchGroupList();
+      await Methods_App.fetchGroupList();
       if (id) {
         const currGroup = _global__.find(this.State_App.groupList, (group) => {
           return +group._id === +id;
         });
-        Mutations_App.setCurrGroup(currGroup);
+        Methods_App.setCurrGroup(currGroup);
       }
-      await Mutations_App.fetchGroupMsg(State_App.currGroup._id);
-      await Mutations_App.fetchNewsData(State_App.currGroup._id, "group", 1, 10);
-      debugger;
+      await Methods_App.setCurrGroup(State_App.currGroup._id);
+      await Methods_App.fetchNewsData(State_App.currGroup._id, "group", 1, 10);
     },
     async selectGroup({
       key: groupId
@@ -299,11 +267,11 @@ var GroupList = Vue.defineComponent({
       const currGroup = _global__.find(this.State_App.groupList, {
         _id: +groupId
       });
-      await Mutations_App.setCurrGroup(currGroup);
+      await Methods_App.setCurrGroup(currGroup);
       this.$router.push({
         path: `/group/${currGroup._id}`
       });
-      await Mutations_App.fetchNewsData(groupId, "group", 1, 10);
+      await Methods_App.fetchNewsData(groupId, "group", 1, 10);
     },
     searchGroup: _global__.debounce(function() {
       const {
@@ -328,9 +296,9 @@ var GroupList = Vue.defineComponent({
       currGroup
     } = this.State_App;
     return Vue.createVNode("div", {
-      "class": "m-group"
+      "class": "m-group flex1 height100"
     }, [Vue.withDirectives(Vue.createVNode("div", {
-      "class": "group-bar"
+      "class": "group-bar flex vertical"
     }, [Vue.createVNode("div", {
       "class": "curr-group"
     }, [Vue.createVNode("div", {
@@ -362,38 +330,21 @@ var GroupList = Vue.defineComponent({
       "onClick": this.selectGroup,
       "selectedKeys": [`${currGroup._id}`]
     }, _isSlot(_slot = this.groupListForShow.map((group) => {
+      let icon = "folderOpen";
       if (group.type === "private") {
-        return Vue.createVNode(Vue.resolveComponent("aMenuItem"), {
-          "key": `${group._id}`,
-          "class": "group-item flex",
-          "style": {
-            zIndex: this.State_App.user.studyTip === 0 ? 3 : 1
-          }
-        }, {
-          default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
-            "icon": "user",
-            "style": "width:16px;"
-          }, null), Vue.createVNode(Vue.resolveComponent("aPopover"), {
-            "overlayClassName": "popover-index",
-            "content": Vue.createVNode(GuideBtns, null, null),
-            "title": tip,
-            "placement": "right",
-            "visible": this.State_App.user.studyTip === 0 && !this.State_App.user.study
-          }, {
-            default: () => [group.group_name]
-          })]
-        });
-      } else {
-        return Vue.createVNode(Vue.resolveComponent("aMenuItem"), {
-          "key": `${group._id}`,
-          "class": "group-item"
-        }, {
-          default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
-            "icon": "folderOpen",
-            "style": "width:16px;"
-          }, null), group.group_name]
-        });
+        icon = "user";
       }
+      return Vue.createVNode(Vue.resolveComponent("aMenuItem"), {
+        "key": `${group._id}`,
+        "class": "group-item flex"
+      }, {
+        default: () => [Vue.createVNode("div", {
+          "class": "flex"
+        }, [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+          "icon": icon,
+          "style": "width:16px;"
+        }, null), Vue.createVNode("span", null, [group.group_name])])]
+      });
     })) ? _slot : {
       default: () => [_slot]
     })]), [[Vue.resolveDirective("loading"), this.groupListForShow.length === 0]])]);

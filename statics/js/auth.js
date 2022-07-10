@@ -1,7 +1,7 @@
 import { M as Mock } from "./index.js";
 import "./router.js";
 import "./each.js";
-import "./common2.js";
+import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
 const MOCK_MAP = [

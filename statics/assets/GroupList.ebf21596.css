@@ -1,5 +1,5 @@
 .group-bar {
-  min-height: 5rem;
+  height: 100%;
 }
 .group-bar .curr-group {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
@@ -66,7 +66,8 @@
   -webkit-box-orient: vertical;
   display: -webkit-box;
 }
-.group-bar .curr-group .delete-group, .group-bar .curr-group .edit-group {
+.group-bar .curr-group .delete-group,
+.group-bar .curr-group .edit-group {
   font-size: 14px;
   margin-left: 0.08rem;
   cursor: pointer;
@@ -75,7 +76,8 @@
   border-radius: 4px;
   transition: all 0.2s;
 }
-.group-bar .curr-group .delete-group:hover, .group-bar .curr-group .edit-group:hover {
+.group-bar .curr-group .delete-group:hover,
+.group-bar .curr-group .edit-group:hover {
   background-color: #2395f1;
   border: 1px solid #2395f1;
 }
@@ -92,7 +94,8 @@
   color: rgba(255, 255, 255, 0.85);
   background-color: #32363a;
 }
-.group-bar .group-operate .ant-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.group-bar .group-operate .ant-input::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
   color: rgba(255, 255, 255, 0.67);
 }
 .group-bar .group-operate .ant-input-suffix {

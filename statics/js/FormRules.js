@@ -78,22 +78,4 @@ const FormRules = {
     });
   }
 };
-let xItemNoPropCount = 0;
-const defItem = (options) => {
-  if (!options.prop) {
-    options.prop = `xItem${xItemNoPropCount++}`;
-    console.error(`no xItem prop replace by ${options.prop}`);
-  }
-  if (!_global__.isInput(options.isShow)) {
-    options.isShow = true;
-  }
-  const configs = Vue.reactive(_global__.merge({}, {
-    itemTips: {},
-    itemType: options.itemType || "Input",
-    value: options.value || ""
-  }, options));
-  return {
-    [configs.prop]: configs
-  };
-};
-export { FormRules as F, defItem as d };
+export { FormRules as F };

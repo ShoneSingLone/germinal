@@ -1,4 +1,4 @@
-import { m as commonjsGlobal, _ as __vitePreload } from "./each.js";
+import { o as commonjsGlobal, _ as __vitePreload } from "./each.js";
 var mock = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -7025,7 +7025,7 @@ var mock = { exports: {} };
 })(mock);
 var Mock = mock.exports;
 async function loadMockData() {
-  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/router.js","statics/js/each.js","statics/assets/each.c0d42f81.css","statics/js/common2.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
+  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/router.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
   Mock.setup({ timeout: 300 });
 }
 var index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({

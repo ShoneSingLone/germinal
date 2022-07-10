@@ -1,5 +1,4 @@
-import { L as LogoSVG } from "./index5.js";
-import { S as State_App, M as Mutations_App } from "./yapi.js";
+import { S as State_App, M as Methods_App, L as LogoSVG } from "./yapi.js";
 import { c as _global_$ } from "./each.js";
 const TipTitle = () => {
   return Vue.createVNode("div", {
@@ -15,7 +14,7 @@ const TipBtns = () => {
     "class": "tip-btns"
   }, [Vue.createVNode("div", {
     "class": "btn-group"
-  }, [Vue.createVNode(Vue.resolveComponent("RouterLink"), {
+  }, [Vue.createVNode(Vue.resolveComponent("RouterView"), {
     "to": "/login"
   }, {
     default: () => [Vue.createVNode(Vue.resolveComponent("aButton"), {
@@ -86,7 +85,7 @@ const HomeGuest = (params) => {
         "class": "desc"
       }, [Vue.createTextVNode("\u65E8\u5728\u4E3A\u5F00\u53D1\u3001\u4EA7\u54C1\u3001\u6D4B\u8BD5\u4EBA\u5458\u63D0\u4F9B\u66F4\u4F18\u96C5\u7684\u63A5\u53E3\u7BA1\u7406\u670D\u52A1")])]), Vue.createVNode("div", {
         "class": "btn-group"
-      }, [Vue.createVNode(Vue.resolveComponent("RouterLink"), {
+      }, [Vue.createVNode(Vue.resolveComponent("RouterView"), {
         "to": "/login"
       }, {
         default: () => [Vue.createVNode(Vue.resolveComponent("aButton"), {
@@ -121,8 +120,8 @@ const HomeGuest = (params) => {
       "class": "section-item",
       "key": "feat-wrapper-1"
     }, {
-      default: () => [Vue.createVNode(Vue.resolveComponent("aIcon"), {
-        "type": "appstore-o",
+      default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+        "icon": "appstore-o",
         "class": "img"
       }, null), Vue.createVNode("h4", {
         "class": "title"
@@ -134,8 +133,8 @@ const HomeGuest = (params) => {
       "class": "section-item",
       "key": "feat-wrapper-2"
     }, {
-      default: () => [Vue.createVNode(Vue.resolveComponent("aIcon"), {
-        "type": "api",
+      default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+        "icon": "api",
         "class": "img"
       }, null), Vue.createVNode("h4", {
         "class": "title"
@@ -147,8 +146,8 @@ const HomeGuest = (params) => {
       "class": "section-item",
       "key": "feat-wrapper-3"
     }, {
-      default: () => [Vue.createVNode(Vue.resolveComponent("aIcon"), {
-        "type": "database",
+      default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+        "icon": "database",
         "class": "img"
       }, null), Vue.createVNode("h4", {
         "class": "title"
@@ -377,8 +376,8 @@ const HomeGuest = (params) => {
       "xs": 14,
       "class": "section-card manage-word"
     }, {
-      default: () => [Vue.createVNode(Vue.resolveComponent("aIcon"), {
-        "type": "team",
+      default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+        "icon": "team",
         "class": "icon"
       }, null), Vue.createVNode("h3", {
         "class": "title"
@@ -415,7 +414,7 @@ var Home = Vue.defineComponent({
   },
   methods: {
     toStart() {
-      Mutations_App.changeMenuItem("/group");
+      Methods_App.changeMenuItem("/group");
     }
   },
   render() {

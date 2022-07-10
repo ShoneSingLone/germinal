@@ -1,6 +1,6 @@
 import { d as _sfc_main$1 } from "./router.js";
 import "./each.js";
-import "./common2.js";
+import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
 var _sfc_main = {

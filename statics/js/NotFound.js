@@ -1,6 +1,6 @@
 import { c as routeNames } from "./router.js";
 import "./each.js";
-import "./common2.js";
+import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
 const _sfc_main = {
