@@ -23,9 +23,21 @@ mylodash.sleep = t => new Promise(r => setTimeout(r, t));
 /* 组件属性是否是on开头，组件的事件监听*/
 const onRE = /^on[^a-z]/;
 mylodash.isOn = key => onRE.test(key);
-mylodash.isModelListener = key => key.startsWith("onUpdate:");
-mylodash.isListener = key =>
-	mylodash.isOn(key) || mylodash.isModelListener(key);
+mylodash.isModelListener = key => {
+	key = String(key);
+	if (!key) {
+		return false;
+	}
+
+	return key.startsWith("onUpdate:");
+};
+mylodash.isListener = key => {
+	key = String(key);
+	if (!key) {
+		return false;
+	}
+	return mylodash.isOn(key) || mylodash.isModelListener(key);
+};
 /**/
 /*是否非空数组*/
 mylodash.isArrayFill = arr => mylodash.isArray(arr) && arr.length > 0;

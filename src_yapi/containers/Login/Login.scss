@@ -45,6 +45,9 @@
 	margin-bottom: 1.6rem;
 	border-radius: 0.04rem;
 	position: relative;
+	.ant-card-body{
+		box-shadow: 0 7px 8px -4px rgb(0 0 0 / 20%), 0 12px 17px 2px rgb(0 0 0 / 14%), 0 5px 22px 4px rgb(0 0 0 / 12%) !important;
+	}
 	.login-logo {
 		font-size: 0;
 		position: absolute;

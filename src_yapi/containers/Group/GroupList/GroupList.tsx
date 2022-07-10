@@ -164,10 +164,10 @@ export default defineComponent({
 	render() {
 		const { currGroup } = this.State_App;
 		return (
-			<div class="m-group">
-				{/* 初始引导， */}
-				{/* {!this.State_App.user.study ? <div class="study-mask" /> : null} */}
-				<div class="group-bar" v-loading={this.groupListForShow.length === 0}>
+			<div class="m-group flex1 height100">
+				<div
+					class="group-bar flex vertical"
+					v-loading={this.groupListForShow.length === 0}>
 					<div class="curr-group">
 						<div class="curr-group-name">
 							<span class="name">{currGroup.group_name}</span>
@@ -196,36 +196,18 @@ export default defineComponent({
 						onClick={this.selectGroup}
 						selectedKeys={[`${currGroup._id}`]}>
 						{this.groupListForShow.map(group => {
+							let icon = "folderOpen";
 							if (group.type === "private") {
-								return (
-									<aMenuItem
-										key={`${group._id}`}
-										class="group-item flex"
-										style={{
-											zIndex: this.State_App.user.studyTip === 0 ? 3 : 1
-										}}>
-										<LazySvg icon="user" style="width:16px;" />
-										<aPopover
-											overlayClassName="popover-index"
-											content={<GuideBtns />}
-											title={tip}
-											placement="right"
-											visible={
-												this.State_App.user.studyTip === 0 &&
-												!this.State_App.user.study
-											}>
-											{group.group_name}
-										</aPopover>
-									</aMenuItem>
-								);
-							} else {
-								return (
-									<aMenuItem key={`${group._id}`} class="group-item">
-										<LazySvg icon="folderOpen" style="width:16px;" />
-										{group.group_name}
-									</aMenuItem>
-								);
+								icon = "user";
 							}
+							return (
+								<aMenuItem key={`${group._id}`} class="group-item flex">
+									<div class="flex">
+										<LazySvg icon={icon} style="width:16px;" />
+										<span>{group.group_name}</span>
+									</div>
+								</aMenuItem>
+							);
 						})}
 					</aMenu>
 				</div>

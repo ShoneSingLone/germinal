@@ -3,6 +3,7 @@ import { ErrMsg } from "ysrc/components/ErrMsg/ErrMsg";
 
 import "./ProjectList.scss";
 import { defineComponent } from "vue";
+import { State_App } from "ysrc/state/State_App";
 
 export default defineComponent({
 	props: [
@@ -20,14 +21,24 @@ export default defineComponent({
 		"studyTip",
 		"study"
 	],
+	setup() {
+		return { State_App };
+	},
 	data() {
+		const vm = this;
 		return {
+			configs: {},
 			state: {
 				visible: false,
 				protocol: "http://",
 				projectData: []
 			}
 		};
+	},
+	computed: {
+		isShow() {
+			return /(admin)|(owner)|(dev)/.test(this.State_App.currGroup.role);
+		}
 	},
 	methods: {
 		// 取消修改
@@ -49,7 +60,7 @@ export default defineComponent({
 		receiveRes() {
 			{
 				this.props.fetchProjectList(
-					this.props.currGroup._id,
+					this.State_App.currGroup._id,
 					this.props.currPage
 				);
 			}
@@ -73,8 +84,6 @@ export default defineComponent({
 			return b.up_time - a.up_time;
 		});
 		projectData = [...followProject, ...noFollow];
-
-		const isShow = /(admin)|(owner)|(dev)/.test(this.props.currGroup.role);
 
 		const Follow = () => {
 			return followProject.length ? (
@@ -103,7 +112,7 @@ export default defineComponent({
 								<ProjectCard
 									projectData={item}
 									callbackResult={this.receiveRes}
-									isShow={isShow}
+									isShow={this.isShow}
 								/>
 							</aCol>
 						);
@@ -129,14 +138,15 @@ export default defineComponent({
 				class="m-panel card-panel card-panel-s project-list">
 				<aRow class="project-list-header">
 					<aCol span={16} style={{ textAlign: "left" }}>
-						{this.props.currGroup.group_name} 分组共 ({projectData.length})
-						个项目
+						{this.State_App.currGroup.group_name} 分组共 ({projectData.length})
+						个项目{" "}
+						{/* {this.isShow ? JSON.stringify(this.State_App.currGroup, null, 2) : ""} */}
 					</aCol>
-					<aCol span={8}>
-						{isShow ? (
-							<RouterView to="/add-project">
-								<aButton type="primary">添加项目</aButton>
-							</RouterView>
+					<aCol span={8} class="flex end">
+						{this.isShow ? (
+							<RouterLink to="/add-project">
+								<aButton type="primary">添加项目</aButton>{" "}
+							</RouterLink>
 						) : (
 							<aTooltip title="您没有权限,请联系该分组组长或管理员">
 								<aButton type="primary" disabled>
@@ -147,7 +157,7 @@ export default defineComponent({
 					</aCol>
 				</aRow>
 				<aRow>
-					{this.props.currGroup.type === "private" ? (
+					{this.State_App.currGroup.type === "private" ? (
 						<OwnerSpace />
 					) : projectData.length ? (
 						projectData.map((item, index) => {
@@ -156,13 +166,15 @@ export default defineComponent({
 									<ProjectCard
 										projectData={item}
 										callbackResult={this.receiveRes}
-										isShow={isShow}
+										isShow={this.isShow}
 									/>
 								</aCol>
 							);
 						})
 					) : (
-						<ErrMsg type="noProject" />
+						<div class="flex center width100">
+							<ErrMsg type="noProject" />
+						</div>
 					)}
 				</aRow>
 			</div>

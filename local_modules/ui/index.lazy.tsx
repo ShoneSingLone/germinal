@@ -75,7 +75,7 @@ import {
 	defDataGridOption,
 	setDataGridInfo
 } from "./xDataGrid/common";
-import { defItem, vModel, antColKey } from "./xForm/common.js";
+import { defItem, vModel, antColKey } from "./xForm/common.jsx";
 import { EVENT_TYPE, validateForm, AllWasWell } from "./tools/validate.js";
 import { setDocumentTitle, setCSSVariables } from "./tools/dom.js";
 import { lStorage } from "./tools/storage.js";

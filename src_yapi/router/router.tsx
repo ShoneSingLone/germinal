@@ -52,6 +52,11 @@ const routes = [
 		name: "groupView",
 		component: () => import("ysrc/containers/Group/Group.vue")
 	},
+	{
+		path: `/add-project`,
+		name: "AddProject",
+		component: () => import("ysrc/containers/AddProject/AddProject")
+	},
 	/* 404兜底 */
 	{
 		path: "/:pathMatch(.*)*",
@@ -88,13 +93,15 @@ router.beforeEach(async (to, from) => {
 				return true;
 			}
 
-			debugger;
 			router.push({ path: "/login" });
 			return false;
 		}
 
 		if (State_App.user.isLogin) {
 			if (["/login"].includes(to.path)) {
+				setTimeout(() => {
+					router.push({ path: "/" });
+				}, 300);
 				return false;
 			}
 		}

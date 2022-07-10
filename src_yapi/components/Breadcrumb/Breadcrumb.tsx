@@ -10,21 +10,25 @@ export const BreadcrumbNavigation = defineComponent({
 			State_App
 		};
 	},
+	computed: {
+		breadcrumbItems() {
+			return _.map(this.State_App.user.breadcrumb, (item, index) => {
+				if (item.href) {
+					return (
+						<aBreadcrumbItem key={index}>
+							<RouterLink to={item.href}>{item.name}</RouterLink>
+						</aBreadcrumbItem>
+					);
+				} else {
+					return <aBreadcrumbItem key={index}>{item.name}</aBreadcrumbItem>;
+				}
+			});
+		}
+	},
 	render() {
-		const getItem = _.map(this.State_App.user.breadcrumb, (item, index) => {
-			if (item.href) {
-				return (
-					<aBreadcrumbItem key={index}>
-						<RouterLink to={item.href}>{item.name}</RouterLink>
-					</aBreadcrumbItem>
-				);
-			} else {
-				return <aBreadcrumbItem key={index}>{item.name}</aBreadcrumbItem>;
-			}
-		});
 		return (
 			<div class="breadcrumb-container">
-				<aBreadcrumb>{getItem}</aBreadcrumb>
+				<aBreadcrumb>{this.breadcrumbItems}</aBreadcrumb>
 			</div>
 		);
 	}

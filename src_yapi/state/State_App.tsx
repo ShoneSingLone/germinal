@@ -22,15 +22,6 @@ export const State_App = reactive({
 		role: "",
 		type: "",
 		breadcrumb: [],
-		breadcrumb: [
-			{
-				name: "name",
-				href: "group"
-			},
-			{
-				name: "当前页面"
-			}
-		],
 		studyTip: 0,
 		study: false,
 		imageUrl: ""
@@ -78,6 +69,9 @@ export const Methods_App = {
 	},
 	setNews(news) {
 		State_App.news = _.merge({}, State_App.news, news);
+	},
+	setBreadcrumb(breadcrumb) {
+		Methods_App.setUser({ breadcrumb });
 	},
 	async checkLoginState() {
 		if (State_App.user.isLogin) {
@@ -202,7 +196,6 @@ export const Methods_App = {
 	async addProject() {},
 	async delProject() {},
 	async changeUpdateModal() {},
-	async setBreadcrumb() {},
 	delFollow() {},
 	addFollow() {},
 	getProject() {},

@@ -16,6 +16,9 @@ export const MutatingProps = (item, prop, val = null) => {
 
 	const setVal = () => {
 		while ((key = propArray.shift())) {
+			if (!key) {
+				debugger;
+			}
 			/* 如果是最后一项，就赋值后退出 */
 			if (propArray.length === 0) {
 				nextItem[key] = val;

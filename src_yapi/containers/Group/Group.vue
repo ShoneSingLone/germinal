@@ -1,7 +1,7 @@
 <script lang="jsx">
 import GroupList from "./GroupList/GroupList";
-/*
 import ProjectList from "./ProjectList/ProjectList";
+/*
 import MemberList from "./MemberList/MemberList";
 import GroupLog from "./GroupLog/GroupLog";
 import GroupSetting from "./GroupSetting/GroupSetting.vue"; */
@@ -48,7 +48,7 @@ export default defineComponent({
 	},
 	render() {
 		if (!this.state.groupId) {
-			return <aSpin />;
+			return <aSpin class="flex vertical middle center height100" />;
 		}
 
 		return (
@@ -57,10 +57,25 @@ export default defineComponent({
 					marginLeft: "24px",
 					marginTop: "24px"
 				}}>
-				<aLayoutSider style={{ height: "100%" }} width={300}>
+				<aLayoutSider width={300} class="flex vertical height100">
 					<div class="logo">Logo</div>
 					<GroupList />
 				</aLayoutSider>
+				<aLayout>
+					<aLayoutContent
+						style={{
+							height: "100%",
+							margin: "0 24px 0 16px",
+							overflow: "initial",
+							backgroundColor: "#fff"
+						}}>
+						<aTabs type="card" class="m-tab tabs-large height100">
+							<aTabPane tab="项目列表" key="1">
+								<ProjectList />
+							</aTabPane>
+						</aTabs>
+					</aLayoutContent>
+				</aLayout>
 			</aLayout>
 		);
 		return (
@@ -70,10 +85,6 @@ export default defineComponent({
 					marginLeft: "24px",
 					marginTop: "24px"
 				}}>
-				<aLayoutSider style={{ height: "100%" }} width={300}>
-					<div class="logo" />
-					<GroupList />
-				</aLayoutSider>
 				<aLayout>
 					<aContent
 						style={{

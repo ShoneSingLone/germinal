@@ -220,7 +220,7 @@ export default defineComponent({
 	},
 	render() {
 		return (
-			<aLayoutHeader class="header-box m-header">
+			<aLayoutHeader class="header-box m-header elevation-4">
 				<div class="content g-row flex middle">
 					<LogoSVG length="32px" />
 					<BreadcrumbNavigation />
