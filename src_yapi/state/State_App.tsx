@@ -62,13 +62,14 @@ window.State_App = State_App;
 
 export const Methods_App = {
 	setMenu(menu) {
-		State_App.menu = _.merge({}, State_App.menu, menu);
+		/* notice！！_.merge 空数组不会替换*/
+		State_App.menu = Object.assign({}, State_App.menu, menu);
 	},
 	setUser(user) {
-		State_App.user = _.merge({}, State_App.user, user);
+		State_App.user = Object.assign({}, State_App.user, user);
 	},
 	setNews(news) {
-		State_App.news = _.merge({}, State_App.news, news);
+		State_App.news = Object.assign({}, State_App.news, news);
 	},
 	setBreadcrumb(breadcrumb) {
 		Methods_App.setUser({ breadcrumb });

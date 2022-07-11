@@ -8,6 +8,11 @@ const ajax = axios.create({
 // request interceptor
 ajax.interceptors.request.use(
 	config => {
+		if (config.data) {
+			_.each(["name"], prop => {
+				config.data[prop] = _.htmlFilter(config.data[prop]);
+			});
+		}
 		return config;
 	},
 	error => Promise.reject(error)

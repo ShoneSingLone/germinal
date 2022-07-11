@@ -231,14 +231,15 @@ export default defineComponent({
 
 			let label = (() => {
 				const _label = this.configs.label;
-				if (_.isFunction(_label)) {
-					return _label();
-				}
+				if (_label) {
+					if (_.isFunction(_label)) {
+						return _label();
+					}
 
-				if (_.isString(_label) || _label.__v_isVNode) {
-					return _label;
+					if (_.isString(_label) || _label.__v_isVNode) {
+						return _label;
+					}
 				}
-				debugger;
 				return false;
 			})();
 

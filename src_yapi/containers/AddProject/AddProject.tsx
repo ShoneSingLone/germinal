@@ -1,15 +1,21 @@
-import { addProject } from "../../reducer/modules/project.js";
-import { fetchGroupList } from "../../reducer/modules/group.js";
-
 import constants from "ysrc/utils/variable";
 import { handlePath, pickRandomProperty } from "ysrc/utils/common";
 
 import "./Addproject.scss";
 import { defineComponent } from "vue";
-import { defItem, FormRules, UI, _ } from "@ventose/ui";
+import {
+	AllWasWell,
+	defItem,
+	FormRules,
+	pickValueFrom,
+	UI,
+	validateForm,
+	_
+} from "@ventose/ui";
 import LazySvg from "../../components/LazySvg/LazySvg.jsx";
 import { State_App } from "ysrc/state/State_App.jsx";
 import { Methods_App } from "ysrc/state/State_App";
+import { API } from "./../../api/index";
 
 const formItemLayout = {
 	labelCol: {
@@ -34,16 +40,16 @@ export default defineComponent({
 		return {
 			dataXItem: {
 				...defItem({
-					value: "",
 					itemType: "Input",
-					prop: "name",
 					label: "项目名称",
+					prop: "name",
+					value: "",
 					rules: [
 						FormRules.required("请输入项目名称"),
 						FormRules.custom({
-							msg() {
-								return "old tips";
-							},
+							msg: "",
+							name: "",
+							trigger: "",
 							/* 可以根据校验修改提示信息 */
 							validator(value, { configs, rule }) {
 								const type = "项目";
@@ -82,7 +88,7 @@ export default defineComponent({
 				}),
 				...defItem({
 					value: "",
-					prop: "group",
+					prop: "group_id",
 					label: "所属分组",
 					placeholder: "请选择项目所属的分组",
 					itemType: "Select",
@@ -92,7 +98,7 @@ export default defineComponent({
 						vm.$watch(
 							"State_App.groupList",
 							groupList => {
-								vm.dataXItem.group.options = _.map(groupList, i => {
+								vm.dataXItem.group_id.options = _.map(groupList, i => {
 									return {
 										label: i.group_name,
 										value: String(i._id),
@@ -121,7 +127,34 @@ export default defineComponent({
 					label: "描述",
 					isTextarea: true,
 					placeholder: "描述不超过144字!",
-					max: 144
+					showCount: true,
+					maxlength: 144
+				}),
+				...defItem({
+					itemType: "RadioGroup",
+					value: "private",
+					prop: "project_type",
+					label: "权限",
+					options: [
+						{
+							label: (
+								<span class="flex">
+									<LazySvg icon="lockStrok" />
+									<span>私有</span>
+								</span>
+							),
+							value: "private"
+						},
+						{
+							label: (
+								<span class="flex">
+									<LazySvg icon="unlock" />
+									<span>公开</span>
+								</span>
+							),
+							value: "public"
+						}
+					]
 				})
 			},
 			configs: {
@@ -130,8 +163,22 @@ export default defineComponent({
 					type: "primary",
 					icon: <LazySvg icon="add" />,
 					async onClick() {
-						await _.sleep(3000);
-						vm.handleOk();
+						// 确认添加项目
+						try {
+							const validateResults = await validateForm(vm.dataXItem);
+							if (AllWasWell(validateResults)) {
+								const formData = pickValueFrom(vm.dataXItem);
+								formData.icon = constants.PROJECT_ICON[0];
+								formData.color = pickRandomProperty(constants.PROJECT_COLOR);
+								const { data } = await API.project.addProject(formData);
+								UI.notification.success("创建成功! ");
+								vm.$router.push({ path: `/project/${data._id}/interface/api` });
+							} else {
+								throw new Error("未通过验证");
+							}
+						} catch (e) {
+							console.error(e);
+						}
 					}
 				}
 			},
@@ -158,27 +205,6 @@ export default defineComponent({
 			let val = e.target.value;
 			this.props.form.setFieldsValue({
 				basepath: handlePath(val)
-			});
-		},
-		// 确认添加项目
-		handleOk(e) {
-			const { form, addProject } = this.props;
-			e.preventDefault();
-			form.validateFields((err, values) => {
-				if (!err) {
-					values.group_id = values.group;
-					values.icon = constants.PROJECT_ICON[0];
-					values.color = pickRandomProperty(constants.PROJECT_COLOR);
-					addProject(values).then(res => {
-						if (res.payload.data.errcode == 0) {
-							form.resetFields();
-							UI.notification.success("创建成功! ");
-							this.props.history.push(
-								"/project/" + res.payload.data.data._id + "/interface/api"
-							);
-						}
-					});
-				}
 			});
 		}
 	},
