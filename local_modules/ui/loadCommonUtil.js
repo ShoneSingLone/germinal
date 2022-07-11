@@ -434,5 +434,8 @@ mylodash.timego = function (timestamp) {
 		return "刚刚";
 	}
 };
-
+mylodash.htmlFilter = html => {
+	let reg = /<\/?.+?\/?>/g;
+	return html.replace(reg, "") || "";
+};
 export { mylodash as _ };

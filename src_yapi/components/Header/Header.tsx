@@ -64,7 +64,10 @@ export default defineComponent({
 	setup() {
 		return { State_App };
 	},
-	methos: {
+	methods: {
+		setBreadcrumb() {
+			Methods_App.setBreadcrumb([]);
+		},
 		linkTo(e) {
 			if (e.key != "/doc") {
 				this.props.changeMenuItem(e.key);
@@ -222,7 +225,11 @@ export default defineComponent({
 		return (
 			<aLayoutHeader class="header-box m-header elevation-4">
 				<div class="content g-row flex middle">
-					<LogoSVG length="32px" />
+					<span onClick={this.setBreadcrumb}>
+						<RouterLink to="/" class="flex">
+							<LogoSVG length="32px" />
+						</RouterLink>
+					</span>
 					<BreadcrumbNavigation />
 					<span class="flex1"></span>
 					{this.ToolUser}

@@ -231,7 +231,7 @@ export default defineComponent({
 
 			let label = (() => {
 				const _label = this.configs.label;
-				if (label) {
+				if (_label) {
 					if (_.isFunction(_label)) {
 						return _label();
 					}
@@ -240,7 +240,6 @@ export default defineComponent({
 						return _label;
 					}
 				}
-				debugger;
 				return false;
 			})();
 

@@ -1,5 +1,5 @@
-import { RadioGroup } from "ant-design-vue/es/radio";
-
+import Radio, { RadioGroup, RadioButton } from "ant-design-vue/es/radio";
+import { _ } from "@ventose/ui";
 /**
  * @Description
  * @date 2021-11-09
@@ -8,5 +8,23 @@ import { RadioGroup } from "ant-design-vue/es/radio";
  * @returns {any}
  */
 export default ({ property, slots, listeners }) => {
-	return <RadioGroup {...property} {...listeners} v-slots={slots} />;
+	const _property = _.omit(property, ["options"]);
+	const renderOptions = () => {
+		if (property.isButton) {
+			return _.map(property.options, option => {
+				return <RadioButton value={option.value}>{option.label}</RadioButton>;
+			});
+		}
+		return _.map(property.options, option => {
+			return <Radio value={option.value}>{option.label}</Radio>;
+		});
+	};
+
+	return (
+		<RadioGroup
+			{...property}
+			{...listeners}
+			v-slots={{ default: renderOptions }}
+		/>
+	);
 };

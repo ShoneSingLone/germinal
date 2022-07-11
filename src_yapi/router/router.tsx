@@ -25,11 +25,6 @@ const toPath = name => `/${name}`;
 
 const routes = [
 	{
-		path: "/",
-		name: "home",
-		component: () => import("ysrc/containers/Home/Home")
-	},
-	{
 		path: "/dev",
 		name: "home",
 		component: () => import("ysrc/containers/Dev.vue")
@@ -62,6 +57,13 @@ const routes = [
 		path: "/:pathMatch(.*)*",
 		name: "404",
 		component: () => import("lsrc/views/system/NotFound.vue")
+	},
+	{
+		path: "/",
+		name: "home",
+		redirect: to => {
+			return { path: "/group" };
+		}
 	}
 ];
 
@@ -74,19 +76,10 @@ NProgress.configure({
 	showSpinner: false
 });
 
-const allowVisitPageWhenNoAccess = [
-	routeNames.login,
-	routeNames.userLogin,
-	routeNames.register,
-	routeNames.registerResult
-];
 // no redirect allowList
-const loginRoutePath = toPath(routeNames.userLogin);
-const defaultRoutePath = "/";
 
 router.beforeEach(async (to, from) => {
 	NProgress.start();
-
 	try {
 		if (!(await Methods_App.checkLoginState())) {
 			if (["/login"].includes(to.path)) {
