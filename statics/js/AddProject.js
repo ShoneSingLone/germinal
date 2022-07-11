@@ -1,7 +1,8 @@
 import { c as constants } from "./variable.js";
-import { S as State_App, a as LazySvg, M as Methods_App, h as handlePath, p as pickRandomProperty } from "./yapi.js";
-import { g as defItem, b as _global__, U as UI } from "./each.js";
+import { S as State_App, a as LazySvg, p as pickRandomProperty, A as API, M as Methods_App, h as handlePath } from "./yapi.js";
+import { d as defItem, _ as _global__, v as validateForm, e as AllWasWell, U as UI } from "./each.js";
 import { F as FormRules } from "./FormRules.js";
+import { p as pickValueFrom } from "./form.js";
 var Addproject = "";
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
@@ -17,14 +18,14 @@ var AddProject = Vue.defineComponent({
     return {
       dataXItem: {
         ...defItem({
-          value: "",
           itemType: "Input",
-          prop: "name",
           label: "\u9879\u76EE\u540D\u79F0",
+          prop: "name",
+          value: "",
           rules: [FormRules.required("\u8BF7\u8F93\u5165\u9879\u76EE\u540D\u79F0"), FormRules.custom({
-            msg() {
-              return "old tips";
-            },
+            msg: "",
+            name: "",
+            trigger: "",
             validator(value, {
               configs,
               rule
@@ -52,7 +53,7 @@ var AddProject = Vue.defineComponent({
         }),
         ...defItem({
           value: "",
-          prop: "group",
+          prop: "group_id",
           label: "\u6240\u5C5E\u5206\u7EC4",
           placeholder: "\u8BF7\u9009\u62E9\u9879\u76EE\u6240\u5C5E\u7684\u5206\u7EC4",
           itemType: "Select",
@@ -60,7 +61,7 @@ var AddProject = Vue.defineComponent({
           rules: [FormRules.required("\u8BF7\u9009\u62E9\u9879\u76EE\u6240\u5C5E\u7684\u5206\u7EC4!")],
           once() {
             vm.$watch("State_App.groupList", (groupList) => {
-              vm.dataXItem.group.options = _global__.map(groupList, (i) => {
+              vm.dataXItem.group_id.options = _global__.map(groupList, (i) => {
                 return {
                   label: i.group_name,
                   value: String(i._id),
@@ -91,7 +92,29 @@ var AddProject = Vue.defineComponent({
           label: "\u63CF\u8FF0",
           isTextarea: true,
           placeholder: "\u63CF\u8FF0\u4E0D\u8D85\u8FC7144\u5B57!",
-          max: 144
+          showCount: true,
+          maxlength: 144
+        }),
+        ...defItem({
+          itemType: "RadioGroup",
+          value: "private",
+          prop: "project_type",
+          label: "\u6743\u9650",
+          options: [{
+            label: Vue.createVNode("span", {
+              "class": "flex"
+            }, [Vue.createVNode(LazySvg, {
+              "icon": "lockStrok"
+            }, null), Vue.createVNode("span", null, [Vue.createTextVNode("\u79C1\u6709")])]),
+            value: "private"
+          }, {
+            label: Vue.createVNode("span", {
+              "class": "flex"
+            }, [Vue.createVNode(LazySvg, {
+              "icon": "unlock"
+            }, null), Vue.createVNode("span", null, [Vue.createTextVNode("\u516C\u5F00")])]),
+            value: "public"
+          }]
         })
       },
       configs: {
@@ -102,8 +125,25 @@ var AddProject = Vue.defineComponent({
             "icon": "add"
           }, null),
           async onClick() {
-            await _global__.sleep(3e3);
-            vm.handleOk();
+            try {
+              const validateResults = await validateForm(vm.dataXItem);
+              if (AllWasWell(validateResults)) {
+                const formData = pickValueFrom(vm.dataXItem);
+                formData.icon = constants.PROJECT_ICON[0];
+                formData.color = pickRandomProperty(constants.PROJECT_COLOR);
+                const {
+                  data
+                } = await API.project.addProject(formData);
+                UI.notification.success("\u521B\u5EFA\u6210\u529F! ");
+                vm.$router.push({
+                  path: `/project/${data._id}/interface/api`
+                });
+              } else {
+                throw new Error("\u672A\u901A\u8FC7\u9A8C\u8BC1");
+              }
+            } catch (e) {
+              console.error(e);
+            }
           }
         }
       },
@@ -131,27 +171,6 @@ var AddProject = Vue.defineComponent({
       let val = e.target.value;
       this.props.form.setFieldsValue({
         basepath: handlePath(val)
-      });
-    },
-    handleOk(e) {
-      const {
-        form,
-        addProject
-      } = this.props;
-      e.preventDefault();
-      form.validateFields((err, values) => {
-        if (!err) {
-          values.group_id = values.group;
-          values.icon = constants.PROJECT_ICON[0];
-          values.color = pickRandomProperty(constants.PROJECT_COLOR);
-          addProject(values).then((res) => {
-            if (res.payload.data.errcode == 0) {
-              form.resetFields();
-              UI.notification.success("\u521B\u5EFA\u6210\u529F! ");
-              this.props.history.push("/project/" + res.payload.data.data._id + "/interface/api");
-            }
-          });
-        }
       });
     }
   },

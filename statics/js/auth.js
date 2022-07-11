@@ -1,5 +1,5 @@
 import { M as Mock } from "./index.js";
-import "./router.js";
+import "./main.js";
 import "./each.js";
 import "./FormRules.js";
 import "./UserOutlined.js";

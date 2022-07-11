@@ -1,14 +1,9 @@
-import { c as routeNames } from "./router.js";
-import "./each.js";
-import "./FormRules.js";
-import "./UserOutlined.js";
-import "./form.js";
 const _sfc_main = {
   __name: "NotFound",
   setup(__props) {
     const router = VueRouter.useRouter();
     function go() {
-      router.push({ name: routeNames.shell });
+      router.push({ path: "/" });
     }
     return (_ctx, _cache) => {
       const _component_aButton = Vue.resolveComponent("aButton");

@@ -1,6 +1,6 @@
 import { G as GroupList } from "./GroupList.js";
 import { c as constants } from "./variable.js";
-import { C as Card, M as Meta, G as Grid, b as _global__, r as Modal } from "./each.js";
+import { C as Card, M as Meta, G as Grid, _ as _global__, r as Modal } from "./each.js";
 import { r as router, S as State_App, A as API, M as Methods_App } from "./yapi.js";
 import "./FormRules.js";
 import "./form.js";

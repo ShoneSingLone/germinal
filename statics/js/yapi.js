@@ -1,4 +1,4 @@
-import { c as _global_$, U as UI, _ as __vitePreload, N as NProgress, s as setDocumentTitle, S as State_UI, b as _global__, n as AutoComplete, a as _export_sfc, i as isFunction_1, L as LoadingOutlined, e as each, d as dayjs, V as VentoseUIWithInstall } from "./each.js";
+import { m as _global_$, _ as _global__, U as UI, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, n as AutoComplete, c as _export_sfc, j as isFunction_1, L as LoadingOutlined, i as each, k as dayjs, V as VentoseUIWithInstall } from "./each.js";
 var Footer = "";
 function _isSlot$1(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
@@ -103,6 +103,11 @@ const ajax = axios.create({
   timeout: 2e4
 });
 ajax.interceptors.request.use((config) => {
+  if (config.data) {
+    _global__.each(["name"], (prop) => {
+      config.data[prop] = _global__.htmlFilter(config.data[prop]);
+    });
+  }
   return config;
 }, (error) => Promise.reject(error));
 ajax.interceptors.response.use(async (response) => {
@@ -161,6 +166,15 @@ const user = {
     return ajax({
       method: "post",
       url: "/api/user/reg",
+      data
+    });
+  }
+};
+const project = {
+  addProject(data) {
+    return ajax({
+      method: "post",
+      url: "/api/project/add",
       data
     });
   }
@@ -226,17 +240,13 @@ const news = {
 const API = {
   user,
   group,
-  news
+  news,
+  project
 };
 const {
   $t
 } = State_UI;
 const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: () => __vitePreload(() => import("./Home.js"), true ? ["statics/js/Home.js","statics/js/each.js","statics/assets/each.60e59025.css"] : void 0)
-  },
   {
     path: "/dev",
     name: "home",
@@ -263,12 +273,21 @@ const routes = [
   {
     path: `/add-project`,
     name: "AddProject",
-    component: () => __vitePreload(() => import("./AddProject.js"), true ? ["statics/js/AddProject.js","statics/assets/AddProject.ab64bc0f.css","statics/js/variable.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js"] : void 0)
+    component: () => __vitePreload(() => import("./AddProject.js"), true ? ["statics/js/AddProject.js","statics/assets/AddProject.ab64bc0f.css","statics/js/variable.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: "/:pathMatch(.*)*",
     name: "404",
-    component: () => __vitePreload(() => import("./NotFound.js"), true ? ["statics/js/NotFound.js","statics/js/router.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./NotFound.js"), true ? [] : void 0)
+  },
+  {
+    path: "/",
+    name: "home",
+    redirect: (to) => {
+      return {
+        path: "/group"
+      };
+    }
   }
 ];
 const router = VueRouter.createRouter({
@@ -370,13 +389,13 @@ const State_App = Vue.reactive({
 window.State_App = State_App;
 const Methods_App = {
   setMenu(menu) {
-    State_App.menu = _global__.merge({}, State_App.menu, menu);
+    State_App.menu = Object.assign({}, State_App.menu, menu);
   },
   setUser(user2) {
-    State_App.user = _global__.merge({}, State_App.user, user2);
+    State_App.user = Object.assign({}, State_App.user, user2);
   },
   setNews(news2) {
-    State_App.news = _global__.merge({}, State_App.news, news2);
+    State_App.news = Object.assign({}, State_App.news, news2);
   },
   setBreadcrumb(breadcrumb) {
     Methods_App.setUser({
@@ -820,7 +839,10 @@ var Header = Vue.defineComponent({
       State_App
     };
   },
-  methos: {
+  methods: {
+    setBreadcrumb() {
+      Methods_App.setBreadcrumb([]);
+    },
     linkTo(e) {
       if (e.key != "/doc") {
         this.props.changeMenuItem(e.key);
@@ -992,9 +1014,16 @@ var Header = Vue.defineComponent({
     }, {
       default: () => [Vue.createVNode("div", {
         "class": "content g-row flex middle"
-      }, [Vue.createVNode(LogoSVG, {
-        "length": "32px"
-      }, null), Vue.createVNode(BreadcrumbNavigation, null, null), Vue.createVNode("span", {
+      }, [Vue.createVNode("span", {
+        "onClick": this.setBreadcrumb
+      }, [Vue.createVNode(Vue.resolveComponent("RouterLink"), {
+        "to": "/",
+        "class": "flex"
+      }, {
+        default: () => [Vue.createVNode(LogoSVG, {
+          "length": "32px"
+        }, null)]
+      })]), Vue.createVNode(BreadcrumbNavigation, null, null), Vue.createVNode("span", {
         "class": "flex1"
       }, null), this.ToolUser])]
     });
@@ -1033,7 +1062,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 var App = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 var LazySvg$1 = "";
-const icons = { "../../assets/svg/add.svg": () => true ? __vitePreload(() => import("./add.js"), []) : null, "../../assets/svg/addGroup.svg": () => true ? __vitePreload(() => import("./addGroup.js"), []) : null, "../../assets/svg/feedback.svg": () => true ? __vitePreload(() => import("./feedback.js"), []) : null, "../../assets/svg/folderOpen.svg": () => true ? __vitePreload(() => import("./folderOpen.js"), []) : null, "../../assets/svg/github.svg": () => true ? __vitePreload(() => import("./github.js"), []) : null, "../../assets/svg/lockStrok.svg": () => true ? __vitePreload(() => import("./lockStrok2.js"), []) : null, "../../assets/svg/logout.svg": () => true ? __vitePreload(() => import("./logout2.js"), []) : null, "../../assets/svg/mail.svg": () => true ? __vitePreload(() => import("./mail2.js"), []) : null, "../../assets/svg/mobile.svg": () => true ? __vitePreload(() => import("./mobile2.js"), []) : null, "../../assets/svg/question.svg": () => true ? __vitePreload(() => import("./question.js"), []) : null, "../../assets/svg/search.svg": () => true ? __vitePreload(() => import("./search.js"), []) : null, "../../assets/svg/solution.svg": () => true ? __vitePreload(() => import("./solution.js"), []) : null, "../../assets/svg/star.svg": () => true ? __vitePreload(() => import("./star.js"), []) : null, "../../assets/svg/team.svg": () => true ? __vitePreload(() => import("./team.js"), []) : null, "../../assets/svg/user.svg": () => true ? __vitePreload(() => import("./user2.js"), []) : null };
+const icons = { "../../assets/svg/add.svg": () => true ? __vitePreload(() => import("./add.js"), []) : null, "../../assets/svg/addGroup.svg": () => true ? __vitePreload(() => import("./addGroup.js"), []) : null, "../../assets/svg/feedback.svg": () => true ? __vitePreload(() => import("./feedback.js"), []) : null, "../../assets/svg/folderOpen.svg": () => true ? __vitePreload(() => import("./folderOpen.js"), []) : null, "../../assets/svg/github.svg": () => true ? __vitePreload(() => import("./github.js"), []) : null, "../../assets/svg/lockStrok.svg": () => true ? __vitePreload(() => import("./lockStrok2.js"), []) : null, "../../assets/svg/logout.svg": () => true ? __vitePreload(() => import("./logout2.js"), []) : null, "../../assets/svg/mail.svg": () => true ? __vitePreload(() => import("./mail2.js"), []) : null, "../../assets/svg/mobile.svg": () => true ? __vitePreload(() => import("./mobile2.js"), []) : null, "../../assets/svg/question.svg": () => true ? __vitePreload(() => import("./question.js"), []) : null, "../../assets/svg/search.svg": () => true ? __vitePreload(() => import("./search.js"), []) : null, "../../assets/svg/solution.svg": () => true ? __vitePreload(() => import("./solution.js"), []) : null, "../../assets/svg/star.svg": () => true ? __vitePreload(() => import("./star.js"), []) : null, "../../assets/svg/team.svg": () => true ? __vitePreload(() => import("./team.js"), []) : null, "../../assets/svg/unlock.svg": () => true ? __vitePreload(() => import("./unlock.js"), []) : null, "../../assets/svg/user.svg": () => true ? __vitePreload(() => import("./user2.js"), []) : null };
 const modules = {};
 each(icons, (icon, path) => {
   const prop = path.replace(/(.*)\/(.*)\.svg$/g, (match, p1, p2) => `${p2}`);

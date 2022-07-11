@@ -1,4 +1,4 @@
-import { d as _sfc_main$1 } from "./router.js";
+import { b as _sfc_main$1 } from "./main.js";
 import "./each.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
