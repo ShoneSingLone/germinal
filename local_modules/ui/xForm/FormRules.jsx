@@ -10,8 +10,7 @@ const SUCCESS = false;
 const FAIL = true;
 
 export const RegexFn = {
-	email: () =>
-		/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/,
+	email: () => /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
 	mobile: () => /^1[34578]\d{9}$/
 };
 

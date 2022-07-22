@@ -1,4 +1,4 @@
-import Login from "./LoginWrap";
+import LoginWrap from "./LoginWrap";
 import { LogoSVG } from "ysrc/components/LogoSVG";
 import { defineComponent } from "vue";
 
@@ -21,7 +21,7 @@ export default defineComponent({
 									<div class="login-logo elevation-12">
 										<LogoSVG length="100px" />
 									</div>
-									<Login />
+									<LoginWrap />
 								</aCard>
 							</aCol>
 						</aRow>

@@ -10,7 +10,9 @@ ajax.interceptors.request.use(
 	config => {
 		if (config.data) {
 			_.each(["name"], prop => {
-				config.data[prop] = _.htmlFilter(config.data[prop]);
+				if (config.data[prop]) {
+					config.data[prop] = _.htmlFilter(config.data[prop]);
+				}
 			});
 		}
 		return config;

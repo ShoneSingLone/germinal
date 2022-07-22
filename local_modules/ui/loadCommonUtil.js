@@ -435,6 +435,7 @@ mylodash.timego = function (timestamp) {
 	}
 };
 mylodash.htmlFilter = html => {
+	if (!html) return;
 	let reg = /<\/?.+?\/?>/g;
 	return html.replace(reg, "") || "";
 };
