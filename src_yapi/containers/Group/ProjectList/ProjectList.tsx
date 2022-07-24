@@ -1,14 +1,15 @@
 import ProjectCard from "ysrc/components/ProjectCard/ProjectCard";
+import ViewAddProject from "ysrc/containers/AddProject/ViewAddProject";
 import { ErrMsg } from "ysrc/components/ErrMsg/ErrMsg";
 
 import "./ProjectList.scss";
 import { defineComponent } from "vue";
-import { State_App } from "ysrc/state/State_App";
+import { Methods_App, State_App } from "ysrc/state/State_App";
+import { AllWasWell, pickValueFrom, UI, validateForm, _ } from "@ventose/ui";
 
 export default defineComponent({
 	props: [
 		"form",
-		"fetchProjectList",
 		"addProject",
 		"delProject",
 		"changeUpdateModal",
@@ -28,6 +29,7 @@ export default defineComponent({
 		const vm = this;
 		return {
 			configs: {},
+			isLoading: false,
 			state: {
 				visible: false,
 				protocol: "http://",
@@ -36,18 +38,45 @@ export default defineComponent({
 		};
 	},
 	computed: {
+		projectData() {
+			return this.State_App.project.projectList;
+		},
 		isShow() {
-			return /(admin)|(owner)|(dev)/.test(this.State_App.currGroup.role);
+			return /(admin)|(owner)|(dev)/.test(this.State_App.user.role);
+		}
+	},
+	watch: {
+		"$route.params.groupId": {
+			immediate: true,
+			handler() {
+				this.isLoading = true;
+				this.fetchProjectList();
+			}
 		}
 	},
 	methods: {
-		// 取消修改
-		handleCancel() {
-			this.props.form.resetFields();
-			this.setState({
-				visible: false
+		showProjectView() {
+			const vm = this;
+			UI.dialog.component({
+				title: "添加项目",
+				component: ViewAddProject,
+				area: ["840px", "550px"],
+				okText: "创建项目",
+				groupId: vm.$route.params.groupId,
+				onOk: async dialog => {
+					const res = await dialog.vm.submit();
+					if (res) {
+						dialog.close();
+						Methods_App.fetchProjectList(vm.$route.params.groupId);
+					}
+				}
 			});
 		},
+		fetchProjectList: _.debounce(async function () {
+			await Methods_App.fetchProjectList(this.$route.params.groupId);
+			this.isLoading = false;
+		}),
+		// 取消修改
 
 		// 修改线上域名的协议类型 (http/https)
 		protocolChange(value) {
@@ -67,7 +96,7 @@ export default defineComponent({
 		}
 	},
 	render() {
-		let projectData = this.state.projectData;
+		let projectData = this.projectData;
 		let noFollow = [];
 		let followProject = [];
 		for (var i in projectData) {
@@ -134,19 +163,23 @@ export default defineComponent({
 
 		return (
 			<div
+				v-loading={this.isLoading}
 				style={{ paddingTop: "24px" }}
 				class="m-panel card-panel card-panel-s project-list">
 				<aRow class="project-list-header">
 					<aCol span={16} style={{ textAlign: "left" }}>
-						{this.State_App.currGroup.group_name} 分组共 ({projectData.length})
-						个项目{" "}
+						<span> {this.$route.params}</span>
+						<span>{this.State_App.currGroup.group_name} </span>
+						<span>分组共</span>
+						<span> ({this.State_App.project.projectList.length})</span>
+						<span>个项目</span>
 						{/* {this.isShow ? JSON.stringify(this.State_App.currGroup, null, 2) : ""} */}
 					</aCol>
 					<aCol span={8} class="flex end">
 						{this.isShow ? (
-							<RouterLink to="/add-project">
-								<aButton type="primary">添加项目</aButton>{" "}
-							</RouterLink>
+							<aButton type="primary" onClick={this.showProjectView}>
+								添加项目
+							</aButton>
 						) : (
 							<aTooltip title="您没有权限,请联系该分组组长或管理员">
 								<aButton type="primary" disabled>

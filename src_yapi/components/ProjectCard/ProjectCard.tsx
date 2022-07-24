@@ -4,10 +4,15 @@ import constants from "ysrc/utils/variable";
 import produce from "immer";
 import { defineComponent } from "vue";
 import { _ } from "@ventose/ui";
+import LazySvg from "ysrc/components/LazySvg/LazySvg";
+import { State_App } from "ysrc/state/State_App";
+import { API } from "ysrc/api";
+
 const confirm = Modal.confirm;
 
 export default defineComponent({
 	props: [
+		"configs",
 		"projectData",
 		"uid",
 		"inFollowPage",
@@ -21,25 +26,57 @@ export default defineComponent({
 		"copyProjectMsg",
 		"currPage"
 	],
-	mounted() {
-		this.add = _.debounce(this.add, 400);
-		this.del = _.debounce(this.del, 400);
+	setup() {
+		return { State_App };
 	},
-	methods: {},
+	mounted() {},
+	methods: {
+		add: _.debounce(function () {
+			const { projectData } = this;
+			const uid = this.State_App.user.uid;
+			const param = {
+				uid,
+				projectid: projectData._id,
+				projectname: projectData.name,
+				icon: projectData.icon || constants.PROJECT_ICON[0],
+				color: projectData.color || constants.PROJECT_COLOR.blue
+			};
+			debugger;
+
+			const res = API.project.addFollow(param);
+			this.props.addFollow(param).then(res => {
+				if (res.payload.data.errcode === 0) {
+					this.props.callbackResult();
+					// message.success('已添加关注！');  // 星号已做出反馈 无需重复提醒用户
+				}
+			});
+		}, 400),
+		del: _.debounce(function () {
+			const id = this.props.projectData.projectid || this.props.projectData._id;
+			this.props.delFollow(id).then(res => {
+				if (res.payload.data.errcode === 0) {
+					this.props.callbackResult();
+					// message.success('已取消关注！');  // 星号已做出反馈 无需重复提醒用户
+				}
+			});
+		}, 400)
+	},
 	render() {
-		const { projectData, inFollowPage, isShow } = this.props;
+		const projectData = this.projectData;
+		const inFollowPage = this.inFollowPage;
+		const isShow = this.isShow;
 		return (
 			<div class="card-container">
-				<Card
+				<aCard
 					bordered={false}
 					class="m-card"
 					onClick={() =>
-						this.props.history.push(
-							"/project/" + (projectData.projectid || projectData._id)
-						)
+						this.$router.push({
+							path: "/project/" + (projectData.projectid || projectData._id)
+						})
 					}>
-					<aIcon
-						type={projectData.icon || "star-o"}
+					<LazySvg
+						icon={projectData.icon || "star-o"}
 						class="ui-logo"
 						style={{
 							backgroundColor:
@@ -50,30 +87,32 @@ export default defineComponent({
 					<h4 class="ui-title">
 						{projectData.name || projectData.projectname}
 					</h4>
-				</Card>
-				<div
-					class="card-btns"
-					onClick={projectData.follow || inFollowPage ? this.del : this.add}>
-					<aTooltip
-						placement="rightTop"
-						title={
-							projectData.follow || inFollowPage ? "取消关注" : "添加关注"
-						}>
-						<aIcon
-							type={projectData.follow || inFollowPage ? "star" : "star-o"}
-							class={
-								"icon " + (projectData.follow || inFollowPage ? "active" : "")
-							}
-						/>
-					</aTooltip>
-				</div>
-				{isShow && (
-					<div class="copy-btns" onClick={this.showConfirm}>
-						<aTooltip placement="rightTop" title="复制项目">
-							<LazySvg icon="copy" class="icon" />
+				</aCard>
+				<div class="card-btns flex">
+					{isShow && (
+						<span class="pointer" onClick={this.showConfirm}>
+							<aTooltip placement="rightTop" title="复制项目">
+								<LazySvg icon="copy" />
+							</aTooltip>
+						</span>
+					)}
+					<span
+						class="pointer"
+						onClick={projectData.follow || inFollowPage ? this.del : this.add}>
+						<aTooltip
+							placement="rightTop"
+							title={
+								projectData.follow || inFollowPage ? "取消关注" : "添加关注"
+							}>
+							<LazySvg
+								icon={
+									projectData.follow || inFollowPage ? "follow" : "unfollow"
+								}
+								onClick={this.showConfirm}
+							/>
 						</aTooltip>
-					</div>
-				)}
+					</span>
+				</div>
 			</div>
 		);
 	}
