@@ -27,6 +27,15 @@ export default defineComponent({
 	},
 	data() {
 		const vm = this;
+
+		vm.fetchProjectList = _.debounce(async function () {
+			await Methods_App.fetchProjectList(vm.$route.params.groupId);
+			vm.isLoading = false;
+		});
+		vm.updateProjectList = () => {
+			vm.isLoading = true;
+			vm.fetchProjectList();
+		};
 		return {
 			configs: {},
 			isLoading: false,
@@ -50,7 +59,7 @@ export default defineComponent({
 			immediate: true,
 			handler() {
 				this.isLoading = true;
-				this.fetchProjectList();
+				this.updateProjectList();
 			}
 		}
 	},
@@ -67,15 +76,11 @@ export default defineComponent({
 					const res = await dialog.vm.submit();
 					if (res) {
 						dialog.close();
-						Methods_App.fetchProjectList(vm.$route.params.groupId);
+						vm.updateProjectList();
 					}
 				}
 			});
 		},
-		fetchProjectList: _.debounce(async function () {
-			await Methods_App.fetchProjectList(this.$route.params.groupId);
-			this.isLoading = false;
-		}),
 		// 取消修改
 
 		// 修改线上域名的协议类型 (http/https)
@@ -83,17 +88,8 @@ export default defineComponent({
 			this.setState({
 				protocol: value
 			});
-		},
-		// 获取 ProjectCard 组件的关注事件回调，收到后更新数据
-
-		receiveRes() {
-			{
-				this.props.fetchProjectList(
-					this.State_App.currGroup._id,
-					this.props.currPage
-				);
-			}
 		}
+		// 获取 ProjectCard 组件的关注事件回调，收到后更新数据
 	},
 	render() {
 		let projectData = this.projectData;
@@ -123,7 +119,7 @@ export default defineComponent({
 							<aCol xs={8} lg={6} xxl={4} key={index}>
 								<ProjectCard
 									projectData={item}
-									callbackResult={this.receiveRes}
+									callbackResult={this.updateProjectList}
 								/>
 							</aCol>
 						);
@@ -140,7 +136,7 @@ export default defineComponent({
 							<aCol xs={8} lg={6} xxl={4} key={index}>
 								<ProjectCard
 									projectData={item}
-									callbackResult={this.receiveRes}
+									callbackResult={this.updateProjectList}
 									isShow={this.isShow}
 								/>
 							</aCol>
@@ -198,7 +194,7 @@ export default defineComponent({
 								<aCol xs={8} lg={6} xxl={4} key={index}>
 									<ProjectCard
 										projectData={item}
-										callbackResult={this.receiveRes}
+										callbackResult={this.updateProjectList}
 										isShow={this.isShow}
 									/>
 								</aCol>

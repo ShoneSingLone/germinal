@@ -12,14 +12,10 @@ const confirm = Modal.confirm;
 
 export default defineComponent({
 	props: [
-		"configs",
 		"projectData",
 		"uid",
 		"inFollowPage",
 		"callbackResult",
-		"history",
-		"delFollow",
-		"addFollow",
 		"isShow",
 		"getProject",
 		"checkProjectName",
@@ -31,7 +27,7 @@ export default defineComponent({
 	},
 	mounted() {},
 	methods: {
-		add: _.debounce(function () {
+		add: _.debounce(async function () {
 			const { projectData } = this;
 			const uid = this.State_App.user.uid;
 			const param = {
@@ -41,30 +37,27 @@ export default defineComponent({
 				icon: projectData.icon || constants.PROJECT_ICON[0],
 				color: projectData.color || constants.PROJECT_COLOR.blue
 			};
-			debugger;
-
-			const res = API.project.addFollow(param);
-			this.props.addFollow(param).then(res => {
-				if (res.payload.data.errcode === 0) {
-					this.props.callbackResult();
-					// message.success('已添加关注！');  // 星号已做出反馈 无需重复提醒用户
-				}
-			});
+			const { data } = await API.project.addFollow(param);
+			if (data) {
+				debugger;
+				this.callbackResult();
+			}
 		}, 400),
-		del: _.debounce(function () {
-			const id = this.props.projectData.projectid || this.props.projectData._id;
-			this.props.delFollow(id).then(res => {
-				if (res.payload.data.errcode === 0) {
-					this.props.callbackResult();
-					// message.success('已取消关注！');  // 星号已做出反馈 无需重复提醒用户
-				}
-			});
+		del: _.debounce(async function () {
+			const id = this.projectData.projectid || this.projectData._id;
+			const { data } = await API.project.delFollow(id);
+			if (data) {
+				debugger;
+				this.callbackResult();
+			}
 		}, 400)
 	},
 	render() {
 		const projectData = this.projectData;
 		const inFollowPage = this.inFollowPage;
 		const isShow = this.isShow;
+		debugger;
+
 		return (
 			<div class="card-container">
 				<aCard

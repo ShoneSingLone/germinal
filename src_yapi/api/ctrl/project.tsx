@@ -8,6 +8,15 @@ export const project = {
 			data
 		});
 	},
+	delFollow(projectid) {
+		return ajax({
+			method: "post",
+			url: "/api/follow/del",
+			data: {
+				projectid
+			}
+		});
+	},
 	addProject(data) {
 		return ajax({
 			method: "post",

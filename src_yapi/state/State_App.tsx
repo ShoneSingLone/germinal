@@ -181,6 +181,8 @@ export const Methods_App = {
 	},
 	async fetchInterfaceListMenu() {},
 	async fetchProjectList(groupId) {
+		if (!groupId) return;
+		groupId = Number(groupId);
 		const { data } = await API.project.list(groupId);
 		State_App.project.projectList = data.list;
 	},
@@ -200,8 +202,6 @@ export const Methods_App = {
 	async addProject() {},
 	async delProject() {},
 	async changeUpdateModal() {},
-	delFollow() {},
-	addFollow() {},
 	getProject() {},
 	checkProjectName() {},
 	copyProjectMsg() {},
