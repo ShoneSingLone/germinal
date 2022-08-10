@@ -1,13 +1,13 @@
 <template>
-	<div :id="id">
+	<div :id="id" class="xIcon">
 		<div
 			class="next-loading next-open next-loading-inline"
 			style="width: 100%; height: 100%; overflow: hidden">
 			<div class="next-loading-tip">
-				<div class="next-loading-indicator"></div>
+				<div class="next-loading-indicator" />
 			</div>
 			<div class="next-loading-component next-loading-wrap">
-				<div class="next-loading-masker"></div>
+				<div class="next-loading-masker" />
 				<div class="demo-basic">
 					<LoadingOutlined />
 				</div>
@@ -75,6 +75,9 @@ export default defineComponent(
 </script>
 
 <style lang="scss">
+.xIcon {
+	width: 16px;
+}
 div[id^="lazy-svg_"] {
 	display: flex;
 }
