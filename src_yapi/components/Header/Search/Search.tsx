@@ -137,7 +137,7 @@ export default defineComponent({
 					// }
 				>
 					<aInput
-						prefix={<LazySvg icon="search" class="srch-icon" />}
+						prefix={<xIcon icon="search" class="srch-icon" />}
 						placeholder="搜索分组/项目/接口"
 						class="search-input"
 					/>

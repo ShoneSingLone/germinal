@@ -185,6 +185,7 @@ export const Methods_App = {
 		groupId = Number(groupId);
 		const { data } = await API.project.list(groupId);
 		State_App.project.projectList = data.list;
+		console.log("State_App.project.projectList", State_App.project.projectList);
 	},
 	async changeMenuItem() {},
 	async loginActions() {},

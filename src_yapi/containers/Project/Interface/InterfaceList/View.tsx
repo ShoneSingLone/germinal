@@ -84,7 +84,7 @@ class View extends Component {
 							</span>
 						) : (
 							<span>
-								<LazySvg icon="file" class="query-icon" />
+								<xIcon icon="file" class="query-icon" />
 								文件
 							</span>
 						);

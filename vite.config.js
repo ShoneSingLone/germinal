@@ -39,11 +39,6 @@ export default defineConfig({
 				changeOrigin: true,
 				secure: false
 			},
-			"^/api": {
-				target: "http://localhost:3001/",
-				changeOrigin: true,
-				secure: false
-			},
 			"^/devyapi": {
 				target: "http://localhost:3001/",
 				changeOrigin: true,
@@ -67,7 +62,7 @@ export default defineConfig({
 			rollupOptions: {
 				input: {
 					main: path.resolve(__dirname, "index.html"),
-					music: path.resolve(__dirname, "music.html"),
+					// music: path.resolve(__dirname, "music.html"),
 					yapi: path.resolve(__dirname, "yapi.html")
 				},
 				output: {

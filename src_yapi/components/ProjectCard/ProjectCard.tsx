@@ -4,7 +4,6 @@ import constants from "ysrc/utils/variable";
 import produce from "immer";
 import { defineComponent } from "vue";
 import { _ } from "@ventose/ui";
-import LazySvg from "ysrc/components/LazySvg/LazySvg";
 import { State_App } from "ysrc/state/State_App";
 import { API } from "ysrc/api";
 
@@ -25,7 +24,6 @@ export default defineComponent({
 	setup() {
 		return { State_App };
 	},
-	mounted() {},
 	methods: {
 		add: _.debounce(async function () {
 			const { projectData } = this;
@@ -39,24 +37,42 @@ export default defineComponent({
 			};
 			const { data } = await API.project.addFollow(param);
 			if (data) {
-				debugger;
 				this.callbackResult();
 			}
-		}, 400),
+		}, 300),
 		del: _.debounce(async function () {
 			const id = this.projectData.projectid || this.projectData._id;
 			const { data } = await API.project.delFollow(id);
 			if (data) {
-				debugger;
 				this.callbackResult();
 			}
-		}, 400)
+		}, 300)
+	},
+	computed: {
+		isFollowStatus() {
+			return Boolean(this.projectData.follow || this.inFollowPage);
+		},
+		followIconTitle() {
+			return this.isFollowStatus ? "取消关注" : "添加关注";
+		},
+		followIconIcon() {
+			return this.isFollowStatus ? "follow" : "unfollow";
+		},
+		followIconClickHandler() {
+			return this.isFollowStatus ? this.del : this.add;
+		}
 	},
 	render() {
 		const projectData = this.projectData;
-		const inFollowPage = this.inFollowPage;
 		const isShow = this.isShow;
-		debugger;
+		/* 处于follow页面全是已follow的 */
+		const followIcon = (
+			<span class="pointer" onClick={this.followIconClickHandler}>
+				<aTooltip placement="rightTop" title={this.followIconTitle}>
+					<xIcon icon={this.followIconIcon} onClick={this.showConfirm} />
+				</aTooltip>
+			</span>
+		);
 
 		return (
 			<div class="card-container">
@@ -68,7 +84,8 @@ export default defineComponent({
 							path: "/project/" + (projectData.projectid || projectData._id)
 						})
 					}>
-					<LazySvg
+					{this.isFollowStatus ? "true" : "false"}
+					<xIcon
 						icon={projectData.icon || "star-o"}
 						class="ui-logo"
 						style={{
@@ -85,26 +102,11 @@ export default defineComponent({
 					{isShow && (
 						<span class="pointer" onClick={this.showConfirm}>
 							<aTooltip placement="rightTop" title="复制项目">
-								<LazySvg icon="copy" />
+								<xIcon icon="copy" />
 							</aTooltip>
 						</span>
 					)}
-					<span
-						class="pointer"
-						onClick={projectData.follow || inFollowPage ? this.del : this.add}>
-						<aTooltip
-							placement="rightTop"
-							title={
-								projectData.follow || inFollowPage ? "取消关注" : "添加关注"
-							}>
-							<LazySvg
-								icon={
-									projectData.follow || inFollowPage ? "follow" : "unfollow"
-								}
-								onClick={this.showConfirm}
-							/>
-						</aTooltip>
-					</span>
+					{followIcon}
 				</div>
 			</div>
 		);

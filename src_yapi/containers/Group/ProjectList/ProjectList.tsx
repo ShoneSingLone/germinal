@@ -65,6 +65,7 @@ export default defineComponent({
 	},
 	methods: {
 		showProjectView() {
+			debugger;
 			const vm = this;
 			UI.dialog.component({
 				title: "添加项目",

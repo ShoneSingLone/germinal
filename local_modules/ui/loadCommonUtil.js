@@ -169,7 +169,7 @@ mylodash.ensureValueDone = async fnGetValue => {
 			const value = await fnGetValue();
 			if (value) {
 				exeFnGetValue = null;
-				resolve();
+				resolve(value);
 			} else {
 				setTimeout(exeFnGetValue, 1000 * exeFnGetValue.count++);
 			}

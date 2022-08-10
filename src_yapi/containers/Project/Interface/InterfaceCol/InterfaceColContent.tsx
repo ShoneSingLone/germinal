@@ -954,10 +954,7 @@ class InterfaceColContent extends Component {
 								<label>
 									检查HttpCode:&nbsp;
 									<aTooltip title={"检查 http code 是否为 200"}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</label>
 							</aCol>
@@ -987,10 +984,7 @@ class InterfaceColContent extends Component {
 										title={
 											"检查接口返回数据字段值，比如检查 code 是不是等于 0"
 										}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</label>
 							</aCol>
@@ -1026,10 +1020,7 @@ class InterfaceColContent extends Component {
 										title={
 											"只有 response 基于 json-schema 方式定义，该检查才会生效"
 										}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</label>
 							</aCol>
@@ -1059,10 +1050,7 @@ class InterfaceColContent extends Component {
 										title={
 											"在跑自动化测试时，优先调用全局脚本，只有全局脚本通过测试，才会开始跑case自定义的测试脚本"
 										}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</label>
 							</aCol>
@@ -1129,7 +1117,7 @@ class InterfaceColContent extends Component {
 								rel="noopener noreferrer"
 								href="https://hellosean1025.github.io/yapi/documents/case.html">
 								<aTooltip title="点击查看文档">
-									<LazySvg icon="question-circle-o" />
+									<xIcon icon="question-circle-o" />
 								</aTooltip>
 							</a>
 						</h2>
@@ -1251,7 +1239,7 @@ class InterfaceColContent extends Component {
 							<aCol span={3} class="label" style={{ paddingTop: "16px" }}>
 								选择环境
 								<aTooltip title="默认使用测试用例选择的环境">
-									<LazySvg icon="question-circle-o" />
+									<xIcon icon="question-circle-o" />
 								</aTooltip>
 								&nbsp;：
 							</aCol>

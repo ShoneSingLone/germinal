@@ -11,7 +11,7 @@ import { UI, _ } from "@ventose/ui";
 const tipFollow = (
 	<div class="title-container">
 		<h3 class="title">
-			<LazySvg icon="star" />
+			<xIcon icon="star" />
 			关注
 		</h3>
 		<p>这里是你的专属收藏夹，便于你找到自己的项目</p>
@@ -20,7 +20,7 @@ const tipFollow = (
 const tipAdd = (
 	<div class="title-container">
 		<h3 class="title">
-			<LazySvg icon="plus-circle" />
+			<xIcon icon="plus-circle" />
 			新建项目
 		</h3>
 		<p>在任何页面都可以快速新建项目</p>
@@ -122,7 +122,7 @@ export default defineComponent({
 				if (i.path) {
 					link = (
 						<RouterLink to={i.path}>
-							<LazySvg icon={i.icon} style={iconStyle} />
+							<xIcon icon={i.icon} style={iconStyle} />
 						</RouterLink>
 					);
 				}
@@ -130,7 +130,7 @@ export default defineComponent({
 				if (i.href) {
 					link = (
 						<a target="_blank" href={i.href} rel="noopener noreferrer">
-							<LazySvg icon={i.icon} style={iconStyle} />
+							<xIcon icon={i.icon} style={iconStyle} />
 						</a>
 					);
 				}
@@ -200,7 +200,7 @@ export default defineComponent({
 
 							const menuContent = (
 								<>
-									<LazySvg icon={item.icon} />
+									<xIcon icon={item.icon} />
 									<span class="ml4">{item.name}</span>
 								</>
 							);

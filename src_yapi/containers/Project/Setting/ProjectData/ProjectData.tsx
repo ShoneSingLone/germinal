@@ -335,7 +335,7 @@ class ProjectData extends Component {
 						<span class="label">
 							开启url导入&nbsp;
 							<aTooltip title="swagger url 导入">
-								<LazySvg icon="question-circle-o" />
+								<xIcon icon="question-circle-o" />
 							</aTooltip>{" "}
 							&nbsp;&nbsp;
 						</span>
@@ -373,7 +373,7 @@ class ProjectData extends Component {
 						<aSpin spinning={this.state.showLoading} tip="上传中...">
 							<Dragger {...uploadMess}>
 								<p class="ant-upload-drag-icon">
-									<LazySvg icon="inbox" />
+									<xIcon icon="inbox" />
 								</p>
 								<p class="ant-upload-text">点击或者拖拽文件到上传区域</p>
 								<p
@@ -408,7 +408,7 @@ class ProjectData extends Component {
 										rel="noopener noreferrer"
 										href="https://hellosean1025.github.io/yapi/documents/data.html">
 										<aTooltip title="点击查看文档">
-											<LazySvg icon="question-circle-o" />
+											<xIcon icon="question-circle-o" />
 										</aTooltip>
 									</a>
 								</h3>
@@ -473,7 +473,7 @@ class ProjectData extends Component {
 												</p>
 											</div>
 										}>
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>{" "}
 								</span>
 								<Select value={this.state.dataSync} onChange={this.onChange}>
@@ -543,7 +543,7 @@ class ProjectData extends Component {
 											disabled={this.state.curExportType === "json"}>
 											添加wiki&nbsp;
 											<aTooltip title="开启后 html 和 markdown 数据导出会带上wiki数据">
-												<LazySvg icon="question-circle-o" />
+												<xIcon icon="question-circle-o" />
 											</aTooltip>{" "}
 										</Checkbox>
 									</div>

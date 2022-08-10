@@ -66,13 +66,13 @@ const render = {
 							<aMenu>
 								<aMenuItem>
 									<div class="flex">
-										<LazySvg icon="user" />
+										<xIcon icon="user" />
 										{{ State_App.user.email }}
 									</div>
 								</aMenuItem>
 								<aMenuItem>
 									<div class="flex" @click="Actions_App.Logout">
-										<LazySvg icon="logout" />
+										<xIcon icon="logout" />
 										{{ $t("logout").label }}
 									</div>
 								</aMenuItem>

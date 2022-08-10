@@ -8,7 +8,7 @@ import { useRouter } from "vue-router";
 const pathAndIdCollection = {};
 
 const getIcon = icon => {
-	return <LazySvg icon={icon} style="width:16px;height:100%;" />;
+	return <xIcon icon={icon} style="width:16px;height:100%;" />;
 };
 
 const render_GenMenuItem = (menuInfo, parentId, router) => {

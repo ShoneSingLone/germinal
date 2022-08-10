@@ -18,6 +18,8 @@ export const State_UI = reactive({
 		zhCn
 	},
 	i18nMessage: {},
+	/* 放svg文件的文件夹路径*/
+	assetsSvgPath: "",
 	/*i18n  使用 {变量名} 赋值 */
 	$t(prop, payload = {}, i18nMessage = false) {
 		/* this指向 */

@@ -278,7 +278,7 @@ class ProjectMessage extends Component {
 								color: "#fff",
 								fontWeight: "bold"
 							}}>
-							{item[0] === projectMsg.color ? <LazySvg icon="check" /> : null}
+							{item[0] === projectMsg.color ? <xIcon icon="check" /> : null}
 						</RadioButton>
 					);
 				})}
@@ -366,7 +366,7 @@ class ProjectMessage extends Component {
 								<span>
 									接口基本路径&nbsp;
 									<aTooltip title="基本路径为空表示根路径">
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -387,7 +387,7 @@ class ProjectMessage extends Component {
 								<span>
 									MOCK地址&nbsp;
 									<aTooltip title="具体使用方法请查看文档">
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -411,7 +411,7 @@ class ProjectMessage extends Component {
 								<span>
 									tag 信息&nbsp;
 									<aTooltip title="定义 tag 信息，过滤接口">
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -424,7 +424,7 @@ class ProjectMessage extends Component {
 								<span>
 									mock严格模式&nbsp;
 									<aTooltip title="开启后 mock 请求会对 query，body form 的必须字段和 json schema 进行校验">
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -439,7 +439,7 @@ class ProjectMessage extends Component {
 								<span>
 									开启json5&nbsp;
 									<aTooltip title="开启后可在接口 body 和返回值中写 json 字段">
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>
 								</span>
 							}>
@@ -466,7 +466,7 @@ class ProjectMessage extends Component {
 							})(
 								<RadioGroup>
 									<Radio value="private" class="radio">
-										<LazySvg icon="lock" />
+										<xIcon icon="lock" />
 										私有
 										<br />
 										<span class="radio-desc">
@@ -476,7 +476,7 @@ class ProjectMessage extends Component {
 									<br />
 									{projectMsg.role === "admin" && (
 										<Radio value="public" class="radio">
-											<LazySvg icon="unlock" />
+											<xIcon icon="unlock" />
 											公开
 											<br />
 											<span class="radio-desc">
@@ -505,7 +505,7 @@ class ProjectMessage extends Component {
 						<div class="danger-container">
 							<div class="title">
 								<h2 class="content">
-									<LazySvg icon="exclamation-circle-o" /> 危险操作
+									<xIcon icon="exclamation-circle-o" /> 危险操作
 								</h2>
 								<aButton onClick={this.toggleDangerOptions}>
 									查 看

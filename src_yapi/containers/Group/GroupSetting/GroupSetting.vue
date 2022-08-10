@@ -203,7 +203,7 @@ export default defineComponent({
 					<aCol span={4} class="label">
 						接口自定义字段&nbsp;
 						<aTooltip title={"可以在接口中添加 额外字段 数据"}>
-							<LazySvg icon="question-circle-o" style={{ width: "10px" }} />
+							<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 						</aTooltip>
 						：
 					</aCol>
@@ -252,7 +252,7 @@ export default defineComponent({
 					<aRow type="flex" justify="center" class="danger-container">
 						<aCol span={24} class="title">
 							<h2 class="content">
-								<LazySvg icon="exclamation-circle-o" />
+								<xIcon icon="exclamation-circle-o" />
 								危险操作
 							</h2>
 							<aButton onClick={this.toggleDangerOptions}>

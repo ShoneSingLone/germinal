@@ -593,7 +593,7 @@ export default class InterfaceColMenu extends Component {
 								title={
 									<div class="menu-title">
 										<span>
-											<LazySvg icon="folder-open" style={{ marginRight: 5 }} />
+											<xIcon icon="folder-open" style={{ marginRight: 5 }} />
 											<span>{col.name}</span>
 										</span>
 										<div class="btns">

@@ -1,6 +1,5 @@
 import { _, $, VentoseUIWithInstall, State_UI } from "@ventose/ui";
 import { router } from "lsrc/router/router";
-import LazySvg from "lsrc/components/LazySvg/LazySvg";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 
@@ -25,12 +24,12 @@ export const appPlugins = {
 			install: (app, { watch } = {}) => {
 				//注册i8n实例并引入语言文件
 				app.config.globalProperties.$t = State_UI.$t;
+				State_UI.assetsSvgPath = `${__URL_STATIC_DIR}assets/svg`;
 				$("html").attr("lang", State_UI.language);
 				watch && watch();
 			}
 		});
 		app.use(router);
-		app.component("LazySvg", LazySvg);
 		return app;
 	}
 };

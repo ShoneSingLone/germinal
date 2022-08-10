@@ -12,7 +12,6 @@ import {
 	validateForm,
 	_
 } from "@ventose/ui";
-import LazySvg from "ysrc/components/LazySvg/LazySvg";
 import { State_App } from "ysrc/state/State_App.jsx";
 import { Methods_App } from "ysrc/state/State_App";
 import { API } from "../../api/index";
@@ -125,7 +124,7 @@ export default defineComponent({
 					label: defItem.labelWithTips({
 						label: "基本路径",
 						tips: "接口基本路径，为空是根路径",
-						icon: <LazySvg icon="question" />
+						icon: <xIcon icon="question" />
 					}),
 					placeholder: "接口基本路径，为空是根路径",
 					rules: [FormRules.required("请输入项目基本路径!")]
@@ -148,7 +147,7 @@ export default defineComponent({
 						{
 							label: (
 								<span class="flex">
-									<LazySvg icon="lockStrok" />
+									<xIcon icon="lockStrok" />
 									<span>私有</span>
 								</span>
 							),
@@ -157,7 +156,7 @@ export default defineComponent({
 						{
 							label: (
 								<span class="flex">
-									<LazySvg icon="unlock" />
+									<xIcon icon="unlock" />
 									<span>公开</span>
 								</span>
 							),
@@ -170,7 +169,7 @@ export default defineComponent({
 				btn_addProject: {
 					text: "创建项目",
 					type: "primary",
-					icon: <LazySvg icon="add" />,
+					icon: <xIcon icon="add" />,
 					async onClick() {}
 				}
 			},

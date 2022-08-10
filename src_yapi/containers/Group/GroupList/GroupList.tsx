@@ -171,7 +171,7 @@ export default defineComponent({
 							<span class="name">{currGroup.group_name}</span>
 							<aTooltip title="添加分组">
 								<a class="editSet">
-									<LazySvg
+									<xIcon
 										class="btn"
 										icon="addGroup"
 										onClick={this.showAddGroupView}
@@ -201,7 +201,7 @@ export default defineComponent({
 							return (
 								<aMenuItem key={`${group._id}`} class="group-item flex">
 									<div class="flex">
-										<LazySvg icon={icon} style="width:16px;" />
+										<xIcon icon={icon} style="width:16px;" />
 										<span>{group.group_name}</span>
 									</div>
 								</aMenuItem>

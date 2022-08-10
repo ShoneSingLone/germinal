@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"bs": "npm i && npm run make:language",
-		"start": "cross-env NODE_ENV=development vite --host --open local",
+		"start": "cross-env NODE_ENV=development vite --host --open",
 		"lint": "npm run lint:src && npm run lint:yapi",
 		"lint:src": "prettier --write ./src",
 		"lint:yapi": "prettier --write ./src_yapi",
@@ -32,6 +32,7 @@
 		"json5": "^2.2.1",
 		"jsondiffpatch": "^0.4.1",
 		"lsrc": "file:./src/",
+		"msrc": "file:./src_music/",
 		"md5": "^2.3.0",
 		"nprogress": "^0.2.0",
 		"sass": "^1.52.2",

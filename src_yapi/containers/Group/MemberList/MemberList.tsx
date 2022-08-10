@@ -233,7 +233,7 @@ export default defineComponent({
 									okText="确定"
 									cancelText="">
 									<aButton type="danger" icon="delete" class="btn-danger" />
-									{/* <LazySvg icon="delete" class="btn-danger"/> */}
+									{/* <xIcon icon="delete" class="btn-danger"/> */}
 								</aPopconfirm>
 							</div>
 						);

@@ -574,7 +574,7 @@ class InterfaceMenu extends Component {
 											this.changeExpands();
 										}}
 										to={"/project/" + matchParams.id + "/interface/api"}>
-										<LazySvg icon="folder" style={{ marginRight: 5 }} />
+										<xIcon icon="folder" style={{ marginRight: 5 }} />
 										全部接口
 									</RouterView>
 								}

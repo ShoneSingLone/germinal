@@ -271,12 +271,12 @@ State_App.count: {{State_App.count}}
 - 20211117 登陆框 blur 未触发 update 校验
 - 20211127022841 v-uiPopover
 - 20220110095314
-  - LazySvg ：异步，动态懒加载 src\assets\svg 目录下单个文件，经过插件处理，分别打包成独立文件
+  - xIcon ：异步，动态懒加载 src\assets\svg 目录下单个文件，经过插件处理，分别打包成独立文件
   - SvgRender: 同步，首页不想让用户看到 loading 状态，可提前加载图标
 
 ```html
 <!-- src\assets\svg\lockStrok.svg -->
-<LazySvg
+<xIcon
 	icon="lockStrok"
 	style="color: red; height: 100px; width: 100px; outline: 1px solid black; margin: 10px; " />
 ```
@@ -288,6 +288,8 @@ State_App.count: {{State_App.count}}
 ```js
 export const State_UI = reactive({
 	language: lStorage["language"] || "zh-CN",
+	/* svg 的路径  */
+	assetsSvgPath:'',
 	$t: (prop, payload) => ({
 		label: prop
 	})
@@ -305,3 +307,5 @@ xItem msg 可以是 function 根据传入的参数显示不同信息
 	- service 是可以延迟调用的
 	- 但是可以将异步操作放在request里面，
 	- 需要将参数传递到request
+
+

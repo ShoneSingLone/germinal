@@ -10,7 +10,7 @@ const FootItem = ({ linkList, title, iconType }) => {
 		<aCol span={6}>
 			<h4 class="title flex horizon middle">
 				{iconType ? (
-					<LazySvg
+					<xIcon
 						icon={iconType}
 						style="width: 24px;height: 24px;display: inline-block;"
 					/>
