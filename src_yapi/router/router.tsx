@@ -47,11 +47,6 @@ const routes = [
 		name: "groupView",
 		component: () => import("ysrc/containers/Group/Group.vue")
 	},
-	{
-		path: `/add-project`,
-		name: "AddProject",
-		component: () => import("ysrc/containers/AddProject/AddProject")
-	},
 	/* 404兜底 */
 	{
 		path: "/:pathMatch(.*)*",

@@ -1,6 +1,6 @@
 import { _, $, VentoseUIWithInstall, State_UI } from "@ventose/ui";
 import { router } from "lsrc/router/router";
-import LazySvg from "../components/LazySvg/LazySvg";
+import LazySvg from "lsrc/components/LazySvg/LazySvg";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 

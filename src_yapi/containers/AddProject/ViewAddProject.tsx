@@ -12,10 +12,10 @@ import {
 	validateForm,
 	_
 } from "@ventose/ui";
-import LazySvg from "../../components/LazySvg/LazySvg.jsx";
+import LazySvg from "ysrc/components/LazySvg/LazySvg";
 import { State_App } from "ysrc/state/State_App.jsx";
 import { Methods_App } from "ysrc/state/State_App";
-import { API } from "./../../api/index";
+import { API } from "../../api/index";
 
 const formItemLayout = {
 	labelCol: {
@@ -32,6 +32,15 @@ const formItemLayout = {
 };
 
 export default defineComponent({
+	props: {
+		/* Dialog 默认传入参数 */
+		options: {
+			type: Object,
+			default() {
+				return { __elId: false };
+			}
+		}
+	},
 	setup() {
 		return { State_App };
 	},
@@ -39,6 +48,30 @@ export default defineComponent({
 		const vm = this;
 		return {
 			dataXItem: {
+				...defItem({
+					value: vm.options.groupId || "",
+					prop: "group_id",
+					label: "所属分组",
+					placeholder: "请选择项目所属的分组",
+					itemType: "Select",
+					options: [],
+					rules: [FormRules.required("请选择项目所属的分组!")],
+					once() {
+						vm.$watch(
+							"State_App.groupList",
+							groupList => {
+								vm.dataXItem.group_id.options = _.map(groupList, i => {
+									return {
+										label: i.group_name,
+										value: String(i._id),
+										disabled: !["dev", "owner", "admin"].includes(i.role)
+									};
+								});
+							},
+							{ immediate: true }
+						);
+					}
+				}),
 				...defItem({
 					itemType: "Input",
 					label: "项目名称",
@@ -85,30 +118,6 @@ export default defineComponent({
 							}
 						})
 					]
-				}),
-				...defItem({
-					value: "",
-					prop: "group_id",
-					label: "所属分组",
-					placeholder: "请选择项目所属的分组",
-					itemType: "Select",
-					options: [],
-					rules: [FormRules.required("请选择项目所属的分组!")],
-					once() {
-						vm.$watch(
-							"State_App.groupList",
-							groupList => {
-								vm.dataXItem.group_id.options = _.map(groupList, i => {
-									return {
-										label: i.group_name,
-										value: String(i._id),
-										disabled: !["dev", "owner", "admin"].includes(i.role)
-									};
-								});
-							},
-							{ immediate: true }
-						);
-					}
 				}),
 				...defItem({
 					value: "",
@@ -162,24 +171,7 @@ export default defineComponent({
 					text: "创建项目",
 					type: "primary",
 					icon: <LazySvg icon="add" />,
-					async onClick() {
-						// 确认添加项目
-						try {
-							const validateResults = await validateForm(vm.dataXItem);
-							if (AllWasWell(validateResults)) {
-								const formData = pickValueFrom(vm.dataXItem);
-								formData.icon = constants.PROJECT_ICON[0];
-								formData.color = pickRandomProperty(constants.PROJECT_COLOR);
-								const { data } = await API.project.addProject(formData);
-								UI.notification.success("创建成功! ");
-								vm.$router.push({ path: `/project/${data._id}/interface/api` });
-							} else {
-								throw new Error("未通过验证");
-							}
-						} catch (e) {
-							console.error(e);
-						}
-					}
+					async onClick() {}
 				}
 			},
 			state: {
@@ -188,6 +180,7 @@ export default defineComponent({
 		};
 	},
 	mounted() {
+		this.options.vm = this;
 		this.init();
 	},
 
@@ -199,6 +192,25 @@ export default defineComponent({
 			}
 			if (State_App.groupList.length === 0) {
 				return null;
+			}
+		},
+		async submit() {
+			const vm = this;
+			// 确认添加项目
+			try {
+				const validateResults = await validateForm(vm.dataXItem);
+				if (AllWasWell(validateResults)) {
+					const formData = pickValueFrom(vm.dataXItem);
+					formData.icon = constants.PROJECT_ICON[0];
+					formData.color = pickRandomProperty(constants.PROJECT_COLOR);
+					const { data } = await API.project.addProject(formData);
+					UI.notification.success("创建成功! ");
+					return true;
+				} else {
+					throw new Error("未通过验证");
+				}
+			} catch (e) {
+				console.error(e);
 			}
 		},
 		handlePath(e) {
@@ -224,11 +236,6 @@ export default defineComponent({
 							);
 						})}
 					</xForm>
-					<aRow class="mt20">
-						<aCol sm={{ offset: 6 }} lg={{ offset: 3 }}>
-							<xButton configs={this.configs.btn_addProject} />
-						</aCol>
-					</aRow>
 				</div>
 			</div>
 		);

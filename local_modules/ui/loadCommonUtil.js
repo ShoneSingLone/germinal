@@ -292,10 +292,9 @@ async function asyncImportSFC(url) {
 		scfObjAsyncFn = new Function(
 			"argVue",
 			"argPayload",
-			`
-        ${scfObjSourceCode}
-        return sfc(argVue,argPayload);
-        `
+			`\n
+return (${scfObjSourceCode})(argVue,argPayload);
+`
 		);
 	} catch (e) {
 		console.error(e);

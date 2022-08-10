@@ -136,9 +136,7 @@ export default defineComponent({
 			await Methods_App.fetchNewsData(State_App.currGroup._id, "group", 1, 10);
 		},
 		async selectGroup({ key: groupId }) {
-			const currGroup = _.find(this.State_App.groupList, {
-				_id: +groupId
-			});
+			const currGroup = _.find(this.State_App.groupList, { _id: +groupId });
 			await Methods_App.setCurrGroup(currGroup);
 			this.$router.push({ path: `/group/${currGroup._id}` });
 			await Methods_App.fetchNewsData(groupId, "group", 1, 10);
