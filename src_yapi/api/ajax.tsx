@@ -2,6 +2,7 @@ import { _, UI, lStorage, $ } from "@ventose/ui";
 import axios from "axios";
 
 const ajax = axios.create({
+	baseURL: "/devyapi",
 	timeout: 20000 // request timeout
 });
 

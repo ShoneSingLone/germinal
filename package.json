@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"bs": "npm i && npm run make:language",
-		"start": "cross-env NODE_ENV=development vite --host --open local",
+		"start": "cross-env NODE_ENV=development vite --host --open",
 		"lint": "npm run lint:src && npm run lint:yapi",
 		"lint:src": "prettier --write ./src",
 		"lint:yapi": "prettier --write ./src_yapi",
