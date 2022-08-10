@@ -8,6 +8,7 @@ import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
 // import cssOnly from "rollup-plugin-css-only";
 import fs from "fs";
+
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
 const baseRoot = "./";
@@ -60,6 +61,7 @@ export default defineConfig({
 			rollupOptions: {
 				input: {
 					main: path.resolve(__dirname, "index.html"),
+					music: path.resolve(__dirname, "music.html"),
 					yapi: path.resolve(__dirname, "yapi.html")
 				},
 				output: {
