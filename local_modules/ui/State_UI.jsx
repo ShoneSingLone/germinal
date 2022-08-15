@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import "dayjs/locale/en-au";
 import { lStorage } from "./tools/storage";
+import { get, set } from "idb-keyval";
 
 /* 可以与外部通信，可以增改 */
 export const State_UI = reactive({
