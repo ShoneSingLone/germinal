@@ -1846,6 +1846,10 @@ async function main() {
   Vue.createApp(PageToolboxHome).use(appPlugins, {
     dependState: State_App
   }).mount("#app");
+  const $LOADING = $(`#app-loading-wrapper`);
+  $LOADING.addClass("hide");
+  await _global__.sleep(3e3);
+  $LOADING.remove();
 }
 main();
 export { Actions_App as A, State_App as S, _sfc_main$b as _, STATIC_WORD as a, _sfc_main$5 as b };

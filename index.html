@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" href="./favicon.ico" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script>
-			window.__APP_VERSION = "1661011901943";
-			window.__URL_API_VERSION = "/v1";
-			window.__URL_BASE = "www.singlone.work";
-			window.__URL_API_BASE = "https://www.singlone.work/s/api";
-			window.__URL_WS_BASE = "wss://www.singlone.work/ws";
-			window.__URL_STATIC_DIR = document.querySelector(`link[rel='icon']`).href.replace("favicon.ico", "");
-		</script>
-		<title>--</title>
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="./favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script>
+		window.__APP_VERSION = "1661016327462";
+		window.__URL_API_VERSION = "/v1";
+		window.__URL_BASE = "www.singlone.work";
+		window.__URL_API_BASE = "https://www.singlone.work/s/api";
+		window.__URL_WS_BASE = "wss://www.singlone.work/ws";
+		window.__URL_STATIC_DIR = document.querySelector(`link[rel='icon']`).href.replace("favicon.ico", "");
+	</script>
+	<title>--</title>
 				
 <script src="./boundless/static/libs/vue/3.2.31/vue.global.js"></script>
 <script src="./boundless/static/libs/vue/router/4.0.12/vue-router.global.min.js"></script>
@@ -20,116 +21,473 @@
 <script src="./boundless/static/libs/lodash.js"></script>
 <script src="./boundless/static/libs/jquery.js"></script>
 				
-		<script type="module" crossorigin src="./statics/js/main.js"></script>
-		<link rel="modulepreload" href="./statics/js/index.js">
-		<link rel="modulepreload" href="./statics/js/FormRules.js">
-		<link rel="modulepreload" href="./statics/js/UserOutlined.js">
-		<link rel="modulepreload" href="./statics/js/ViewAddGroup.js">
-		<link rel="stylesheet" href="./statics/assets/index.3063078d.css">
-		<link rel="stylesheet" href="./statics/assets/main.02906783.css">
-	</head>
+  <script type="module" crossorigin src="./statics/js/main.js"></script>
+  <link rel="modulepreload" href="./statics/js/index.js">
+  <link rel="modulepreload" href="./statics/js/FormRules.js">
+  <link rel="modulepreload" href="./statics/js/UserOutlined.js">
+  <link rel="modulepreload" href="./statics/js/ViewAddGroup.js">
+  <link rel="stylesheet" href="./statics/assets/index.3063078d.css">
+  <link rel="stylesheet" href="./statics/assets/main.02906783.css">
+</head>
 
-	<body>
-		<div id="app">
-			 
-  
-  
-<style>
-	body {
-	  margin: 0;
-	}
-	.loader {
-	  position: absolute;
-	  top: 50%;
-	  left: 40%;
-	  margin-left: 10%;
-	  transform: translate3d(-50%, -50%, 0);
-	}
-	.dot {
-	  width: 24px;
-	  height: 24px;
-	  background: #3ac;
-	  border-radius: 100%;
-	  display: inline-block;
-	  animation: slide 1s infinite;
-	}
-	.dot:nth-child(1) {
-	  animation-delay: 0.1s;
-	  background: #32aacc;
-	}
-	.dot:nth-child(2) {
-	  animation-delay: 0.2s;
-	  background: #64aacc;
-	}
-	.dot:nth-child(3) {
-	  animation-delay: 0.3s;
-	  background: #96aacc;
-	}
-	.dot:nth-child(4) {
-	  animation-delay: 0.4s;
-	  background: #c8aacc;
-	}
-	.dot:nth-child(5) {
-	  animation-delay: 0.5s;
-	  background: #faaacc;
-	}
-	@-moz-keyframes slide {
-	  0% {
-		transform: scale(1);
-	  }
-	  50% {
-		opacity: 0.3;
-		transform: scale(2);
-	  }
-	  100% {
-		transform: scale(1);
-	  }
-	}
-	@-webkit-keyframes slide {
-	  0% {
-		transform: scale(1);
-	  }
-	  50% {
-		opacity: 0.3;
-		transform: scale(2);
-	  }
-	  100% {
-		transform: scale(1);
-	  }
-	}
-	@-o-keyframes slide {
-	  0% {
-		transform: scale(1);
-	  }
-	  50% {
-		opacity: 0.3;
-		transform: scale(2);
-	  }
-	  100% {
-		transform: scale(1);
-	  }
-	}
-	@keyframes slide {
-	  0% {
-		transform: scale(1);
-	  }
-	  50% {
-		opacity: 0.3;
-		transform: scale(2);
-	  }
-	  100% {
-		transform: scale(1);
-	  }
-	}
-	</style>
-			<div class="loader">
-				<div class="dot"></div>
-				<div class="dot"></div>
-				<div class="dot"></div>
-				<div class="dot"></div>
-				<div class="dot"></div>
-			  </div>
+<body>
+	<div id="app">
+	</div>
+	<div id="app-loading-wrapper">
+		<style>
+			#app-loading-wrapper {
+				opacity: 1;
+				transition: opacity 1.3s ease-out;
+				z-index: 1;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #3e6fa3;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			#app-loading-wrapper.hide {
+				opacity: 0;
+			}
+
+			#app-loading-wrapper .app-loading {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				z-index: 2;
+				perspective: 500px;
+			}
+
+			#app-loading-wrapper i {
+				display: block;
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				border-radius: 8px;
+				opacity: 0;
+				background: rgba(255, 255, 255, 0.5);
+				box-shadow: 0px 0px 10px white;
+				animation-name: spin;
+				animation-duration: 3s;
+				animation-iteration-count: infinite;
+				animation-timing-function: ease-in-out;
+			}
+
+			#app-loading-wrapper i:nth-child(1) {
+				transform: rotate(-11.6129deg) translate3d(80px, 0, 0);
+				animation-delay: 0.04839s;
+			}
+
+			#app-loading-wrapper i:nth-child(2) {
+				transform: rotate(-23.22581deg) translate3d(80px, 0, 0);
+				animation-delay: 0.09677s;
+			}
+
+			#app-loading-wrapper i:nth-child(3) {
+				transform: rotate(-34.83871deg) translate3d(80px, 0, 0);
+				animation-delay: 0.14516s;
+			}
+
+			#app-loading-wrapper i:nth-child(4) {
+				transform: rotate(-46.45161deg) translate3d(80px, 0, 0);
+				animation-delay: 0.19355s;
+			}
+
+			#app-loading-wrapper i:nth-child(5) {
+				transform: rotate(-58.06452deg) translate3d(80px, 0, 0);
+				animation-delay: 0.24194s;
+			}
+
+			#app-loading-wrapper i:nth-child(6) {
+				transform: rotate(-69.67742deg) translate3d(80px, 0, 0);
+				animation-delay: 0.29032s;
+			}
+
+			#app-loading-wrapper i:nth-child(7) {
+				transform: rotate(-81.29032deg) translate3d(80px, 0, 0);
+				animation-delay: 0.33871s;
+			}
+
+			#app-loading-wrapper i:nth-child(8) {
+				transform: rotate(-92.90323deg) translate3d(80px, 0, 0);
+				animation-delay: 0.3871s;
+			}
+
+			#app-loading-wrapper i:nth-child(9) {
+				transform: rotate(-104.51613deg) translate3d(80px, 0, 0);
+				animation-delay: 0.43548s;
+			}
+
+			#app-loading-wrapper i:nth-child(10) {
+				transform: rotate(-116.12903deg) translate3d(80px, 0, 0);
+				animation-delay: 0.48387s;
+			}
+
+			#app-loading-wrapper i:nth-child(11) {
+				transform: rotate(-127.74194deg) translate3d(80px, 0, 0);
+				animation-delay: 0.53226s;
+			}
+
+			#app-loading-wrapper i:nth-child(12) {
+				transform: rotate(-139.35484deg) translate3d(80px, 0, 0);
+				animation-delay: 0.58065s;
+			}
+
+			#app-loading-wrapper i:nth-child(13) {
+				transform: rotate(-150.96774deg) translate3d(80px, 0, 0);
+				animation-delay: 0.62903s;
+			}
+
+			#app-loading-wrapper i:nth-child(14) {
+				transform: rotate(-162.58065deg) translate3d(80px, 0, 0);
+				animation-delay: 0.67742s;
+			}
+
+			#app-loading-wrapper i:nth-child(15) {
+				transform: rotate(-174.19355deg) translate3d(80px, 0, 0);
+				animation-delay: 0.72581s;
+			}
+
+			#app-loading-wrapper i:nth-child(16) {
+				transform: rotate(-185.80645deg) translate3d(80px, 0, 0);
+				animation-delay: 0.77419s;
+			}
+
+			#app-loading-wrapper i:nth-child(17) {
+				transform: rotate(-197.41935deg) translate3d(80px, 0, 0);
+				animation-delay: 0.82258s;
+			}
+
+			#app-loading-wrapper i:nth-child(18) {
+				transform: rotate(-209.03226deg) translate3d(80px, 0, 0);
+				animation-delay: 0.87097s;
+			}
+
+			#app-loading-wrapper i:nth-child(19) {
+				transform: rotate(-220.64516deg) translate3d(80px, 0, 0);
+				animation-delay: 0.91935s;
+			}
+
+			#app-loading-wrapper i:nth-child(20) {
+				transform: rotate(-232.25806deg) translate3d(80px, 0, 0);
+				animation-delay: 0.96774s;
+			}
+
+			#app-loading-wrapper i:nth-child(21) {
+				transform: rotate(-243.87097deg) translate3d(80px, 0, 0);
+				animation-delay: 1.01613s;
+			}
+
+			#app-loading-wrapper i:nth-child(22) {
+				transform: rotate(-255.48387deg) translate3d(80px, 0, 0);
+				animation-delay: 1.06452s;
+			}
+
+			#app-loading-wrapper i:nth-child(23) {
+				transform: rotate(-267.09677deg) translate3d(80px, 0, 0);
+				animation-delay: 1.1129s;
+			}
+
+			#app-loading-wrapper i:nth-child(24) {
+				transform: rotate(-278.70968deg) translate3d(80px, 0, 0);
+				animation-delay: 1.16129s;
+			}
+
+			#app-loading-wrapper i:nth-child(25) {
+				transform: rotate(-290.32258deg) translate3d(80px, 0, 0);
+				animation-delay: 1.20968s;
+			}
+
+			#app-loading-wrapper i:nth-child(26) {
+				transform: rotate(-301.93548deg) translate3d(80px, 0, 0);
+				animation-delay: 1.25806s;
+			}
+
+			#app-loading-wrapper i:nth-child(27) {
+				transform: rotate(-313.54839deg) translate3d(80px, 0, 0);
+				animation-delay: 1.30645s;
+			}
+
+			#app-loading-wrapper i:nth-child(28) {
+				transform: rotate(-325.16129deg) translate3d(80px, 0, 0);
+				animation-delay: 1.35484s;
+			}
+
+			#app-loading-wrapper i:nth-child(29) {
+				transform: rotate(-336.77419deg) translate3d(80px, 0, 0);
+				animation-delay: 1.40323s;
+			}
+
+			#app-loading-wrapper i:nth-child(30) {
+				transform: rotate(-348.3871deg) translate3d(80px, 0, 0);
+				animation-delay: 1.45161s;
+			}
+
+			#app-loading-wrapper i:nth-child(31) {
+				transform: rotate(-360deg) translate3d(80px, 0, 0);
+				animation-delay: 1.5s;
+			}
+
+			#app-loading-wrapper i:nth-child(32) {
+				transform: rotate(-371.6129deg) translate3d(80px, 0, 0);
+				animation-delay: 1.54839s;
+			}
+
+			#app-loading-wrapper i:nth-child(33) {
+				transform: rotate(-383.22581deg) translate3d(80px, 0, 0);
+				animation-delay: 1.59677s;
+			}
+
+			#app-loading-wrapper i:nth-child(34) {
+				transform: rotate(-394.83871deg) translate3d(80px, 0, 0);
+				animation-delay: 1.64516s;
+			}
+
+			#app-loading-wrapper i:nth-child(35) {
+				transform: rotate(-406.45161deg) translate3d(80px, 0, 0);
+				animation-delay: 1.69355s;
+			}
+
+			#app-loading-wrapper i:nth-child(36) {
+				transform: rotate(-418.06452deg) translate3d(80px, 0, 0);
+				animation-delay: 1.74194s;
+			}
+
+			#app-loading-wrapper i:nth-child(37) {
+				transform: rotate(-429.67742deg) translate3d(80px, 0, 0);
+				animation-delay: 1.79032s;
+			}
+
+			#app-loading-wrapper i:nth-child(38) {
+				transform: rotate(-441.29032deg) translate3d(80px, 0, 0);
+				animation-delay: 1.83871s;
+			}
+
+			#app-loading-wrapper i:nth-child(39) {
+				transform: rotate(-452.90323deg) translate3d(80px, 0, 0);
+				animation-delay: 1.8871s;
+			}
+
+			#app-loading-wrapper i:nth-child(40) {
+				transform: rotate(-464.51613deg) translate3d(80px, 0, 0);
+				animation-delay: 1.93548s;
+			}
+
+			#app-loading-wrapper i:nth-child(41) {
+				transform: rotate(-476.12903deg) translate3d(80px, 0, 0);
+				animation-delay: 1.98387s;
+			}
+
+			#app-loading-wrapper i:nth-child(42) {
+				transform: rotate(-487.74194deg) translate3d(80px, 0, 0);
+				animation-delay: 2.03226s;
+			}
+
+			#app-loading-wrapper i:nth-child(43) {
+				transform: rotate(-499.35484deg) translate3d(80px, 0, 0);
+				animation-delay: 2.08065s;
+			}
+
+			#app-loading-wrapper i:nth-child(44) {
+				transform: rotate(-510.96774deg) translate3d(80px, 0, 0);
+				animation-delay: 2.12903s;
+			}
+
+			#app-loading-wrapper i:nth-child(45) {
+				transform: rotate(-522.58065deg) translate3d(80px, 0, 0);
+				animation-delay: 2.17742s;
+			}
+
+			#app-loading-wrapper i:nth-child(46) {
+				transform: rotate(-534.19355deg) translate3d(80px, 0, 0);
+				animation-delay: 2.22581s;
+			}
+
+			#app-loading-wrapper i:nth-child(47) {
+				transform: rotate(-545.80645deg) translate3d(80px, 0, 0);
+				animation-delay: 2.27419s;
+			}
+
+			#app-loading-wrapper i:nth-child(48) {
+				transform: rotate(-557.41935deg) translate3d(80px, 0, 0);
+				animation-delay: 2.32258s;
+			}
+
+			#app-loading-wrapper i:nth-child(49) {
+				transform: rotate(-569.03226deg) translate3d(80px, 0, 0);
+				animation-delay: 2.37097s;
+			}
+
+			#app-loading-wrapper i:nth-child(50) {
+				transform: rotate(-580.64516deg) translate3d(80px, 0, 0);
+				animation-delay: 2.41935s;
+			}
+
+			#app-loading-wrapper i:nth-child(51) {
+				transform: rotate(-592.25806deg) translate3d(80px, 0, 0);
+				animation-delay: 2.46774s;
+			}
+
+			#app-loading-wrapper i:nth-child(52) {
+				transform: rotate(-603.87097deg) translate3d(80px, 0, 0);
+				animation-delay: 2.51613s;
+			}
+
+			#app-loading-wrapper i:nth-child(53) {
+				transform: rotate(-615.48387deg) translate3d(80px, 0, 0);
+				animation-delay: 2.56452s;
+			}
+
+			#app-loading-wrapper i:nth-child(54) {
+				transform: rotate(-627.09677deg) translate3d(80px, 0, 0);
+				animation-delay: 2.6129s;
+			}
+
+			#app-loading-wrapper i:nth-child(55) {
+				transform: rotate(-638.70968deg) translate3d(80px, 0, 0);
+				animation-delay: 2.66129s;
+			}
+
+			#app-loading-wrapper i:nth-child(56) {
+				transform: rotate(-650.32258deg) translate3d(80px, 0, 0);
+				animation-delay: 2.70968s;
+			}
+
+			#app-loading-wrapper i:nth-child(57) {
+				transform: rotate(-661.93548deg) translate3d(80px, 0, 0);
+				animation-delay: 2.75806s;
+			}
+
+			#app-loading-wrapper i:nth-child(58) {
+				transform: rotate(-673.54839deg) translate3d(80px, 0, 0);
+				animation-delay: 2.80645s;
+			}
+
+			#app-loading-wrapper i:nth-child(59) {
+				transform: rotate(-685.16129deg) translate3d(80px, 0, 0);
+				animation-delay: 2.85484s;
+			}
+
+			#app-loading-wrapper i:nth-child(60) {
+				transform: rotate(-696.77419deg) translate3d(80px, 0, 0);
+				animation-delay: 2.90323s;
+			}
+
+			#app-loading-wrapper i:nth-child(61) {
+				transform: rotate(-708.3871deg) translate3d(80px, 0, 0);
+				animation-delay: 2.95161s;
+			}
+
+			#app-loading-wrapper i:nth-child(62) {
+				transform: rotate(-720deg) translate3d(80px, 0, 0);
+				animation-delay: 3s;
+			}
+
+			@keyframes spin {
+				from {
+					opacity: 0;
+				}
+
+				to {
+					opacity: 0.6;
+					transform: translate3d(-4px, -4px, 570px);
+				}
+			}
+
+			#app-loading-wrapper #black {
+				position: absolute;
+				left: 10px;
+				bottom: 10px;
+				color: rgba(255, 255, 255, 0.6);
+				text-decoration: none;
+			}
+
+			#app-loading-wrapper #black:after {
+				content: 'Black & white';
+			}
+
+			#app-loading-wrapper #black:target {
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+				background: #111;
+				cursor: default;
+			}
+
+			#app-loading-wrapper #black:target:after {
+				content: '';
+			}
+		</style>
+		<div class="app-loading" id="app-loading">
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
 		</div>
-		
-	</body>
+	</div>
+	
+</body>
+
 </html>
