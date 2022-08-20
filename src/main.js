@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import PageToolboxHome from "./PageToolboxHome.vue";
 import { appPlugins } from "lsrc/utils/common";
 import { State_App } from "lsrc/state/State_App";
-import $ from "jquery";
 import { _, $ } from "@ventose/ui";
 import { API } from "germinal_api";
 
