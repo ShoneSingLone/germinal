@@ -1,5 +1,7 @@
 # Info
-
+- 2022年8月20日
+	- 建议用npm，因为使用了`"file:./local_moduels"`,pnpm似乎还没有支持......
+	
 > **_非_** 最佳实践，尽量多样： Just for fun :)
 
 - [TODO](./README/README.todo.md)

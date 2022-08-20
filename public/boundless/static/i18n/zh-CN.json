@@ -28,12 +28,12 @@
   "tips.404": "请求的资源不存在",
   "welcome": "欢迎",
   "welcome.back": "欢迎回来",
-  "login.title": "demo",
+  "login.title": "Toolbox",
   "BackHome": "回到主页",
   "notFoundTips": "对不起，没有找到您要访问的页面",
   "layouts.usermenu.dialog.title": "信息",
   "layouts.usermenu.dialog.content": "您确定要注销吗？",
-  "layouts.userLayout.title": "我亦无他，惟手熟尔。",
+  "layouts.userLayout.title": "个人项目，仅供交流学习",
   "user.login.username": "用户名",
   "user.login.password": "密码",
   "user.login.email.placeholder": "邮箱",
@@ -72,5 +72,6 @@
   "user.confirm-password.required": "请确认密码！",
   "user.phone-number.required": "请输入正确的手机号",
   "user.phone-number.wrong-format": "手机号格式错误！",
-  "user.verification-code.required": "请输入验证码！"
+  "user.verification-code.required": "请输入验证码！",
+  "music": "音乐"
 }

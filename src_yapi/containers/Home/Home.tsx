@@ -2,6 +2,7 @@ import { LogoSVG } from "ysrc/components/LogoSVG";
 import { defineComponent } from "vue";
 import { Methods_App, State_App } from "ysrc/state/State_App";
 import { $ } from "@ventose/ui";
+import { RouterLink } from "vue-router";
 
 const TipTitle = () => {
 	return (
@@ -16,11 +17,11 @@ const TipBtns = () => {
 	return (
 		<div class="tip-btns">
 			<div class="btn-group">
-				<RouterView to="/login">
+				<RouterLink to="/login">
 					<aButton type="primary" class="btn-home btn-login">
 						登录 / 注册
 					</aButton>
-				</RouterView>
+				</RouterLink>
 				<aButton class="btn-home btn-home-normal">
 					<a
 						target="_blank"
@@ -77,11 +78,11 @@ const HomeGuest = params => {
 									</span>
 								</div>
 								<div class="btn-group">
-									<RouterView to="/login">
+									<RouterLink to="/login">
 										<aButton type="primary" class="btn-home btn-login">
 											登录 / 注册
 										</aButton>
-									</RouterView>
+									</RouterLink>
 									{/* {ThirdLogin ? <ThirdLogin /> : null} */}
 								</div>
 							</div>

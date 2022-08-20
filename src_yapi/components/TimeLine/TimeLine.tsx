@@ -166,9 +166,9 @@ export default defineComponent({
 				return (
 					<aTimeline.Item
 						dot={
-							<RouterView to={`/user/profile/${item.uid}`}>
+							<RouterLink to={`/user/profile/${item.uid}`}>
 								<aAvatar src={`/api/user/avatar?uid=${item.uid}`} />
-							</RouterView>
+							</RouterLink>
 						}
 						key={i}>
 						<div class="logMesHeade">

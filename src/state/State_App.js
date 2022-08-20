@@ -4,19 +4,13 @@ import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
 import md5 from "md5";
 import $ from "jquery";
+
 const { $t } = State_UI;
 export const State_App = reactive({
 	UseMockData: false,
 	theme: "light",
 	menuTree: [],
-	layoutStyle: {
-		header: {
-			height: "64px"
-		},
-		sider: {
-			width: "200px"
-		}
-	},
+	layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
 	/*菜单折叠*/
 	collapsed: false,
 	/*当前选择菜单*/
@@ -28,7 +22,6 @@ export const State_App = reactive({
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs || {},
-	// isDev: true
 	isDev: import.meta.env.MODE === "development"
 });
 
@@ -157,11 +150,11 @@ export const Actions_App = {
 		await SuccessOrFail({
 			request: () => API.user.regster(params_register),
 			success: ({ email }) => {
-				UI.message.success({
-					content: $t("user.register-result.msg", {
+				UI.message.success(
+					$t("user.register-result.msg", {
 						email: email
 					}).label
-				});
+				);
 			}
 		});
 	},
@@ -185,11 +178,7 @@ export const Actions_App = {
 			State_App.token = "";
 			/* fixed循环引用 */
 			const { router, routeNames } = await import("lsrc/router/router");
-			UI.message.success({
-				content: $t("成功", {
-					action: $t("退出").label
-				}).label
-			});
+			UI.message.success($t("成功", { action: $t("退出").label }).label);
 			await _.sleep(1000 * 1);
 			router.push({
 				name: routeNames.userLogin

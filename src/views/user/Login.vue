@@ -10,6 +10,7 @@ import {
 	TaobaoCircleFilled,
 	WeiboCircleFilled
 } from "@ant-design/icons-vue";
+
 const { $t } = State_UI;
 </script>
 
@@ -22,8 +23,8 @@ const { $t } = State_UI;
 			<!-- </Tabs> -->
 			<aAlert
 				v-if="State_Login.alertTips"
-				type="error"
 				show-icon
+				type="error"
 				style="margin-bottom: 24px"
 				:message="State_Login.alertTips" />
 			<LoginCredentials />
@@ -40,10 +41,9 @@ const { $t } = State_UI;
 			</div>
 			<div class="item-wrapper">
 				<div class="user-login-other">
-					<span>{{ $t("user.login.sign-in-with").label }}</span>
-					<RouterView class="register" :to="{ name: routeNames.register }">
+					<RouterLink class="register" :to="{ name: routeNames.register }">
 						{{ $t("user.login.signup").label }}
-					</RouterView>
+					</RouterLink>
 				</div>
 			</div>
 		</div>
