@@ -3,8 +3,9 @@ import PageToolboxHome from "./PageToolboxHome.vue";
 import { appPlugins } from "lsrc/utils/common";
 import { State_App } from "lsrc/state/State_App";
 import $ from "jquery";
-import { _ } from "@ventose/ui";
+import { _, $ } from "@ventose/ui";
 import { API } from "germinal_api";
+
 // import "./main.test"
 async function main() {
 	window.BASE_URL = (() => {
