@@ -1,14 +1,14 @@
 import { S as State_App, a as STATIC_WORD, A as Actions_App, _ as _sfc_main$2 } from "./main.js";
-import { _ as _global__ } from "./each.js";
+import { _ as _global__ } from "./index.js";
 import { U as UserOutlined } from "./UserOutlined.js";
 import "./FormRules.js";
-import "./form.js";
+import "./ViewAddGroup.js";
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }
 const pathAndIdCollection = {};
 const getIcon = (icon) => {
-  return Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+  return Vue.createVNode(Vue.resolveComponent("xIcon"), {
     "icon": icon,
     "style": "width:16px;height:100%;"
   }, null);
@@ -177,7 +177,7 @@ var _sfc_main = {
       const _component_aBreadcrumbItem = Vue.resolveComponent("aBreadcrumbItem");
       const _component_aBreadcrumb = Vue.resolveComponent("aBreadcrumb");
       const _component_aAvatar = Vue.resolveComponent("aAvatar");
-      const _component_LazySvg = Vue.resolveComponent("LazySvg");
+      const _component_xIcon = Vue.resolveComponent("xIcon");
       const _component_aMenuItem = Vue.resolveComponent("aMenuItem");
       const _component_aMenu = Vue.resolveComponent("aMenu");
       const _component_aDropdown = Vue.resolveComponent("aDropdown");
@@ -234,7 +234,7 @@ var _sfc_main = {
             }, {
               overlay: Vue.withCtx(() => [Vue.createVNode(_component_aMenu, null, {
                 default: Vue.withCtx(() => [Vue.createVNode(_component_aMenuItem, null, {
-                  default: Vue.withCtx(() => [Vue.createElementVNode("div", _hoisted_10, [Vue.createVNode(_component_LazySvg, {
+                  default: Vue.withCtx(() => [Vue.createElementVNode("div", _hoisted_10, [Vue.createVNode(_component_xIcon, {
                     icon: "user"
                   }), Vue.createTextVNode(" " + Vue.toDisplayString(Vue.unref(State_App).user.email), 1)])]),
                   _: 1
@@ -242,7 +242,7 @@ var _sfc_main = {
                   default: Vue.withCtx(() => [Vue.createElementVNode("div", {
                     class: "flex",
                     onClick: _cache[2] || (_cache[2] = (...args) => Vue.unref(Actions_App).Logout && Vue.unref(Actions_App).Logout(...args))
-                  }, [Vue.createVNode(_component_LazySvg, {
+                  }, [Vue.createVNode(_component_xIcon, {
                     icon: "logout"
                   }), Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.$t("logout").label), 1)])]),
                   _: 1

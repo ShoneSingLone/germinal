@@ -1,11 +1,11 @@
-import { _ as _global__, E as EVENT_TYPE, S as State_UI } from "./each.js";
+import { _ as _global__, E as EVENT_TYPE, S as State_UI } from "./index.js";
 const {
   $t
 } = State_UI;
 const SUCCESS = false;
 const FAIL = true;
 const RegexFn = {
-  email: () => /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/,
+  email: () => /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
   mobile: () => /^1[34578]\d{9}$/
 };
 const makeFormRules = (options) => {

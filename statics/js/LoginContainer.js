@@ -1,8 +1,8 @@
-import { l as lStorage, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, U as UI, S as State_UI, c as _export_sfc } from "./each.js";
-import { M as Methods_App, A as API, r as router, S as State_App, L as LogoSVG } from "./yapi.js";
+import { l as lStorage, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, k as API, U as UI, S as State_UI, c as _export_sfc } from "./index.js";
+import { M as Methods_App, r as router, S as State_App, L as LogoSVG } from "./yapi.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, M as MailOutlined, L as LockOutlined } from "./UserOutlined.js";
-var Login$1 = "";
+var Login = "";
 const {
   $t: $t$1
 } = State_UI;
@@ -261,7 +261,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 var RegForm = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-var Login = Vue.defineComponent({
+var LoginWrap = Vue.defineComponent({
   components: {
     LoginForm
   },
@@ -345,7 +345,7 @@ var LoginContainer = Vue.defineComponent({
             "class": "login-logo elevation-12"
           }, [Vue.createVNode(LogoSVG, {
             "length": "100px"
-          }, null)]), Vue.createVNode(Login, null, null)]
+          }, null)]), Vue.createVNode(LoginWrap, null, null)]
         })]
       })]
     })])])]);

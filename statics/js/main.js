@@ -1,7 +1,7 @@
-import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, N as NProgress, i as each, j as isFunction_1, L as LoadingOutlined, k as dayjs, V as VentoseUIWithInstall, m as _global_$ } from "./each.js";
+import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, N as NProgress, i as dayjs, V as VentoseUIWithInstall, j as _global_$ } from "./index.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, L as LockOutlined, M as MailOutlined } from "./UserOutlined.js";
-import { p as pickValueFrom } from "./form.js";
+import { p as pickValueFrom, V as ViewAddGroup } from "./ViewAddGroup.js";
 var GlobalOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M854.4 800.9c.2-.3.5-.6.7-.9C920.6 722.1 960 621.7 960 512s-39.4-210.1-104.8-288c-.2-.3-.5-.5-.7-.8-1.1-1.3-2.1-2.5-3.2-3.7-.4-.5-.8-.9-1.2-1.4l-4.1-4.7-.1-.1c-1.5-1.7-3.1-3.4-4.6-5.1l-.1-.1c-3.2-3.4-6.4-6.8-9.7-10.1l-.1-.1-4.8-4.8-.3-.3c-1.5-1.5-3-2.9-4.5-4.3-.5-.5-1-1-1.6-1.5-1-1-2-1.9-3-2.8-.3-.3-.7-.6-1-1C736.4 109.2 629.5 64 512 64s-224.4 45.2-304.3 119.2c-.3.3-.7.6-1 1-1 .9-2 1.9-3 2.9-.5.5-1 1-1.6 1.5-1.5 1.4-3 2.9-4.5 4.3l-.3.3-4.8 4.8-.1.1c-3.3 3.3-6.5 6.7-9.7 10.1l-.1.1c-1.6 1.7-3.1 3.4-4.6 5.1l-.1.1c-1.4 1.5-2.8 3.1-4.1 4.7-.4.5-.8.9-1.2 1.4-1.1 1.2-2.1 2.5-3.2 3.7-.2.3-.5.5-.7.8C103.4 301.9 64 402.3 64 512s39.4 210.1 104.8 288c.2.3.5.6.7.9l3.1 3.7c.4.5.8.9 1.2 1.4l4.1 4.7c0 .1.1.1.1.2 1.5 1.7 3 3.4 4.6 5l.1.1c3.2 3.4 6.4 6.8 9.6 10.1l.1.1c1.6 1.6 3.1 3.2 4.7 4.7l.3.3c3.3 3.3 6.7 6.5 10.1 9.6 80.1 74 187 119.2 304.5 119.2s224.4-45.2 304.3-119.2a300 300 0 0010-9.6l.3-.3c1.6-1.6 3.2-3.1 4.7-4.7l.1-.1c3.3-3.3 6.5-6.7 9.6-10.1l.1-.1c1.5-1.7 3.1-3.3 4.6-5 0-.1.1-.1.1-.2 1.4-1.5 2.8-3.1 4.1-4.7.4-.5.8-.9 1.2-1.4a99 99 0 003.3-3.7zm4.1-142.6c-13.8 32.6-32 62.8-54.2 90.2a444.07 444.07 0 00-81.5-55.9c11.6-46.9 18.8-98.4 20.7-152.6H887c-3 40.9-12.6 80.6-28.5 118.3zM887 484H743.5c-1.9-54.2-9.1-105.7-20.7-152.6 29.3-15.6 56.6-34.4 81.5-55.9A373.86 373.86 0 01887 484zM658.3 165.5c39.7 16.8 75.8 40 107.6 69.2a394.72 394.72 0 01-59.4 41.8c-15.7-45-35.8-84.1-59.2-115.4 3.7 1.4 7.4 2.9 11 4.4zm-90.6 700.6c-9.2 7.2-18.4 12.7-27.7 16.4V697a389.1 389.1 0 01115.7 26.2c-8.3 24.6-17.9 47.3-29 67.8-17.4 32.4-37.8 58.3-59 75.1zm59-633.1c11 20.6 20.7 43.3 29 67.8A389.1 389.1 0 01540 327V141.6c9.2 3.7 18.5 9.1 27.7 16.4 21.2 16.7 41.6 42.6 59 75zM540 640.9V540h147.5c-1.6 44.2-7.1 87.1-16.3 127.8l-.3 1.2A445.02 445.02 0 00540 640.9zm0-156.9V383.1c45.8-2.8 89.8-12.5 130.9-28.1l.3 1.2c9.2 40.7 14.7 83.5 16.3 127.8H540zm-56 56v100.9c-45.8 2.8-89.8 12.5-130.9 28.1l-.3-1.2c-9.2-40.7-14.7-83.5-16.3-127.8H484zm-147.5-56c1.6-44.2 7.1-87.1 16.3-127.8l.3-1.2c41.1 15.6 85 25.3 130.9 28.1V484H336.5zM484 697v185.4c-9.2-3.7-18.5-9.1-27.7-16.4-21.2-16.7-41.7-42.7-59.1-75.1-11-20.6-20.7-43.3-29-67.8 37.2-14.6 75.9-23.3 115.8-26.1zm0-370a389.1 389.1 0 01-115.7-26.2c8.3-24.6 17.9-47.3 29-67.8 17.4-32.4 37.8-58.4 59.1-75.1 9.2-7.2 18.4-12.7 27.7-16.4V327zM365.7 165.5c3.7-1.5 7.3-3 11-4.4-23.4 31.3-43.5 70.4-59.2 115.4-21-12-40.9-26-59.4-41.8 31.8-29.2 67.9-52.4 107.6-69.2zM165.5 365.7c13.8-32.6 32-62.8 54.2-90.2 24.9 21.5 52.2 40.3 81.5 55.9-11.6 46.9-18.8 98.4-20.7 152.6H137c3-40.9 12.6-80.6 28.5-118.3zM137 540h143.5c1.9 54.2 9.1 105.7 20.7 152.6a444.07 444.07 0 00-81.5 55.9A373.86 373.86 0 01137 540zm228.7 318.5c-39.7-16.8-75.8-40-107.6-69.2 18.5-15.8 38.4-29.7 59.4-41.8 15.7 45 35.8 84.1 59.2 115.4-3.7-1.4-7.4-2.9-11-4.4zm292.6 0c-3.7 1.5-7.3 3-11 4.4 23.4-31.3 43.5-70.4 59.2-115.4 21 12 40.9 26 59.4 41.8a373.81 373.81 0 01-107.6 69.2z" } }] }, "name": "global", "theme": "outlined" };
 var GlobalOutlinedSvg = GlobalOutlined$2;
 function _objectSpread(target) {
@@ -43,27 +43,34 @@ const STATIC_WORD = {
   GB: "GB"
 };
 const ajax = axios.create({
+  baseURL: "https://www.singlone.work/s/api/",
   timeout: 2e4
 });
-ajax.interceptors.request.use((config) => {
-  config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
-  return config;
-}, (error) => Promise.reject(error));
-ajax.interceptors.response.use(async (response) => {
-  const { data } = response;
-  return Promise.resolve(data.data);
-}, async (error) => {
-  var _a, _b;
-  const { response } = error;
-  console.log(response);
-  logError$1((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
-  if (((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.msg) === "auth") {
-    State_App.token = "";
-    await _global__.sleep(1e3);
-    window.location.reload();
+ajax.interceptors.request.use(
+  (config) => {
+    config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+ajax.interceptors.response.use(
+  async (response) => {
+    const { data } = response;
+    return Promise.resolve(data.data);
+  },
+  async (error) => {
+    var _a, _b;
+    const { response } = error;
+    console.log(response);
+    logError$1((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
+    if (((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.msg) === "auth") {
+      State_App.token = "";
+      await _global__.sleep(1e3);
+      window.location.reload();
+    }
+    return Promise.reject(error);
   }
-  return Promise.reject(error);
-});
+);
 function logError$1(msg) {
   if (!msg)
     return;
@@ -76,30 +83,33 @@ const auth = "/shiro";
 const version = __URL_API_VERSION;
 const prefixAuth = `${version}${auth}`;
 const prefixVersion = `${version}`;
-const URL = new Proxy({
-  testConnection: () => `${__URL_API_BASE}/`,
-  regster: () => `${prefixVersion}/reg`,
-  Login: () => `${prefixVersion}/login`,
-  VerifyEmail: () => `${prefixVersion}/verify_email`,
-  Logout: () => `${prefixAuth}/logout`,
-  User: () => `${prefixAuth}/user`,
-  ForgePassword: (prefix) => `${auth}${prefix}/forge-password`,
-  Register: (prefix) => `${auth}${prefix}/register`,
-  twoStepCode: (prefix) => `${auth}${prefix}/2step-code`,
-  SendSms: (prefix) => `${prefix}/account/sms`,
-  SendSmsErr: (prefix) => `${prefix}/account/sms_err`,
-  UserInfo: (prefix) => `${prefix}/api/user/info`,
-  UserMenu: (prefix) => `${prefix}/api/user/nav`
-}, {
-  get(obj, prop) {
-    if (obj[prop]) {
-      return obj[prop];
-    } else {
-      debugger;
-      alert(`url miss ${prop}`);
+const URL = new Proxy(
+  {
+    testConnection: () => `${__URL_API_BASE}/`,
+    regster: () => `${prefixVersion}/reg`,
+    Login: () => `${prefixVersion}/login`,
+    VerifyEmail: () => `${prefixVersion}/verify_email`,
+    Logout: () => `${prefixAuth}/logout`,
+    User: () => `${prefixAuth}/user`,
+    ForgePassword: (prefix) => `${auth}${prefix}/forge-password`,
+    Register: (prefix) => `${auth}${prefix}/register`,
+    twoStepCode: (prefix) => `${auth}${prefix}/2step-code`,
+    SendSms: (prefix) => `${prefix}/account/sms`,
+    SendSmsErr: (prefix) => `${prefix}/account/sms_err`,
+    UserInfo: (prefix) => `${prefix}/api/user/info`,
+    UserMenu: (prefix) => `${prefix}/api/user/nav`
+  },
+  {
+    get(obj, prop) {
+      if (obj[prop]) {
+        return obj[prop];
+      } else {
+        debugger;
+        alert(`url miss ${prop}`);
+      }
     }
   }
-});
+);
 const user = {
   async login(params) {
     return await ajax.post(URL.Login(), params);
@@ -145,7 +155,9 @@ const SuccessOrFail = async (options) => {
     } else if (promise) {
       resSuccess = await success(await promise());
     } else {
-      console.error("SuccessOrFail \u672A\u63D0\u4F9B request \u6216\u8005 promise \u6216\u8005\u4E0D\u662F\u53EF\u8FD0\u884C\u56DE\u8C03");
+      console.error(
+        "SuccessOrFail \u672A\u63D0\u4F9B request \u6216\u8005 promise \u6216\u8005\u4E0D\u662F\u53EF\u8FD0\u884C\u56DE\u8C03"
+      );
     }
   } catch (error2) {
     await fail(error2);
@@ -384,14 +396,7 @@ const State_App = Vue.reactive({
   UseMockData: false,
   theme: "light",
   menuTree: [],
-  layoutStyle: {
-    header: {
-      height: "64px"
-    },
-    sider: {
-      width: "200px"
-    }
-  },
+  layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
   collapsed: false,
   arr_selectedMenuId: [],
   token: lStorage[STATIC_WORD.ACCESS_TOKEN],
@@ -412,23 +417,35 @@ const getColor = (colorName) => {
   var _a, _b;
   return ((_a = State_App.configs) == null ? void 0 : _a.colors) ? (_b = State_App.configs) == null ? void 0 : _b.colors[colorName] : "";
 };
-Vue.watch(() => State_App.token, (token) => {
-  lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
-  if (!token) {
-    State_App.user = false;
+Vue.watch(
+  () => State_App.token,
+  (token) => {
+    lStorage[STATIC_WORD.ACCESS_TOKEN] = token;
+    if (!token) {
+      State_App.user = false;
+    }
+  },
+  {
+    immediate: true,
+    deep: true
   }
-}, {
-  immediate: true,
-  deep: true
-});
-Vue.watch(() => State_App.configs, (configs) => lStorage.appConfigs = configs, {
-  immediate: true,
-  deep: true
-});
-Vue.watch(() => State_App.configs.colors, (colors) => setCSSVariables(colors), {
-  immediate: true,
-  deep: true
-});
+);
+Vue.watch(
+  () => State_App.configs,
+  (configs) => lStorage.appConfigs = configs,
+  {
+    immediate: true,
+    deep: true
+  }
+);
+Vue.watch(
+  () => State_App.configs.colors,
+  (colors) => setCSSVariables(colors),
+  {
+    immediate: true,
+    deep: true
+  }
+);
 const Actions_App = {
   async initAppConfigs(callback) {
     console.time("initAppConfigs");
@@ -439,7 +456,9 @@ const Actions_App = {
       configs.version = __APP_VERSION;
       State_App.configs = configs;
     }
-    const i18nString = await _global__.asyncLoadText(`${__URL_STATIC_DIR}boundless/static/i18n/${State_UI.language}.json`);
+    const i18nString = await _global__.asyncLoadText(
+      `${__URL_STATIC_DIR}boundless/static/i18n/${State_UI.language}.json`
+    );
     State_UI.i18nMessage = _global__.safeParse(i18nString, []);
     callback && callback(State_App);
     console.timeEnd("initAppConfigs");
@@ -463,11 +482,11 @@ const Actions_App = {
     await SuccessOrFail({
       request: () => API.user.regster(params_register),
       success: ({ email: email2 }) => {
-        UI.message.success({
-          content: $t$3("user.register-result.msg", {
+        UI.message.success(
+          $t$3("user.register-result.msg", {
             email: email2
           }).label
-        });
+        );
       }
     });
   },
@@ -490,11 +509,7 @@ const Actions_App = {
       const { router: router2, routeNames: routeNames2 } = await __vitePreload(() => Promise.resolve().then(function() {
         return router$1;
       }), true ? void 0 : void 0);
-      UI.message.success({
-        content: $t$3("\u6210\u529F", {
-          action: $t$3("\u9000\u51FA").label
-        }).label
-      });
+      UI.message.success($t$3("\u6210\u529F", { action: $t$3("\u9000\u51FA").label }).label);
       await _global__.sleep(1e3 * 1);
       router2.push({
         name: routeNames2.userLogin
@@ -505,7 +520,7 @@ const Actions_App = {
   }
 };
 var App_less_vue_type_style_index_0_src_lang = "";
-const _sfc_main$a = Vue.defineComponent({
+const _sfc_main$c = Vue.defineComponent({
   data() {
     return {
       userAgent: navigator.userAgent,
@@ -524,31 +539,21 @@ const _sfc_main$a = Vue.defineComponent({
     this.isLoading = false;
   }
 });
-const _hoisted_1$6 = /* @__PURE__ */ Vue.createTextVNode(" Loading... ");
-function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_aAlert = Vue.resolveComponent("aAlert");
+const _hoisted_1$8 = /* @__PURE__ */ Vue.createTextVNode(" Loading...");
+function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aSpin = Vue.resolveComponent("aSpin");
   const _component_RouterView = Vue.resolveComponent("RouterView");
-  return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
-    _ctx.State_App.UseMockData ? (Vue.openBlock(), Vue.createBlock(_component_aAlert, {
-      key: 0,
-      type: "error",
-      "show-icon": "",
-      style: { "margin-bottom": "24px" },
-      message: "UseMockData"
-    })) : Vue.createCommentVNode("", true),
-    _ctx.isLoading ? (Vue.openBlock(), Vue.createBlock(_component_aSpin, { key: 1 }, {
-      default: Vue.withCtx(() => [
-        _hoisted_1$6
-      ]),
-      _: 1
-    })) : (Vue.openBlock(), Vue.createBlock(_component_RouterView, { key: 2 }))
-  ], 64);
+  return _ctx.isLoading ? (Vue.openBlock(), Vue.createBlock(_component_aSpin, { key: 0 }, {
+    default: Vue.withCtx(() => [
+      _hoisted_1$8
+    ]),
+    _: 1
+  })) : (Vue.openBlock(), Vue.createBlock(_component_RouterView, { key: 1 }));
 }
-var App = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$2]]);
+var PageToolboxHome = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$3]]);
 var logoImg = "./statics/assets/logo2.f9552052.jpg";
-const _hoisted_1$5 = ["aria-label"];
-const _sfc_main$9 = {
+const _hoisted_1$7 = ["aria-label"];
+const _sfc_main$b = {
   __name: "SelectLanguage",
   setup(__props) {
     const languageLabels = {
@@ -581,7 +586,7 @@ const _sfc_main$9 = {
                     Vue.createElementVNode("span", {
                       role: "img",
                       "aria-label": locale.label
-                    }, Vue.toDisplayString(locale.icon), 9, _hoisted_1$5),
+                    }, Vue.toDisplayString(locale.icon), 9, _hoisted_1$7),
                     Vue.createElementVNode("span", null, Vue.toDisplayString(locale.label), 1)
                   ]),
                   _: 2
@@ -599,17 +604,17 @@ const _sfc_main$9 = {
     };
   }
 };
-const _hoisted_1$4 = { class: "container container-background" };
-const _hoisted_2$4 = { class: "user-layout-lang" };
-const _hoisted_3$3 = { class: "user-layout-content" };
-const _hoisted_4$3 = { class: "top" };
-const _hoisted_5$3 = { class: "header" };
-const _hoisted_6$3 = { href: "/" };
-const _hoisted_7$2 = ["src"];
+const _hoisted_1$6 = { class: "container container-background" };
+const _hoisted_2$6 = { class: "user-layout-lang" };
+const _hoisted_3$5 = { class: "user-layout-content" };
+const _hoisted_4$4 = { class: "top" };
+const _hoisted_5$4 = { class: "header" };
+const _hoisted_6$4 = { href: "/" };
+const _hoisted_7$3 = ["src"];
 const _hoisted_8$1 = { class: "title" };
 const _hoisted_9 = { class: "desc" };
 const _hoisted_10 = /* @__PURE__ */ Vue.createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 ventose</div></div>', 1);
-const _sfc_main$8 = {
+const _sfc_main$a = {
   __name: "User",
   setup(__props) {
     return (_ctx, _cache) => {
@@ -618,19 +623,19 @@ const _sfc_main$8 = {
         id: "userLayout",
         class: Vue.normalizeClass(["user-layout-wrapper", Vue.unref(State_App).isMobile && "mobile"])
       }, [
-        Vue.createElementVNode("div", _hoisted_1$4, [
-          Vue.createElementVNode("div", _hoisted_2$4, [
-            Vue.createVNode(_sfc_main$9, { class: "select-lang-trigger" })
+        Vue.createElementVNode("div", _hoisted_1$6, [
+          Vue.createElementVNode("div", _hoisted_2$6, [
+            Vue.createVNode(_sfc_main$b, { class: "select-lang-trigger" })
           ]),
-          Vue.createElementVNode("div", _hoisted_3$3, [
-            Vue.createElementVNode("div", _hoisted_4$3, [
-              Vue.createElementVNode("div", _hoisted_5$3, [
-                Vue.createElementVNode("a", _hoisted_6$3, [
+          Vue.createElementVNode("div", _hoisted_3$5, [
+            Vue.createElementVNode("div", _hoisted_4$4, [
+              Vue.createElementVNode("div", _hoisted_5$4, [
+                Vue.createElementVNode("a", _hoisted_6$4, [
                   Vue.createElementVNode("img", {
                     src: Vue.unref(logoImg),
                     class: "logo",
                     alt: "logo"
-                  }, null, 8, _hoisted_7$2),
+                  }, null, 8, _hoisted_7$3),
                   Vue.createElementVNode("span", _hoisted_8$1, Vue.toDisplayString(_ctx.$t("login.title").label), 1)
                 ])
               ]),
@@ -755,7 +760,7 @@ async function getCaptcha(params) {
     console.error(e);
   }
 }
-var _sfc_main$7 = {
+var _sfc_main$9 = {
   __name: "LoginCredentials",
   setup(__props) {
     return (_ctx, _cache) => {
@@ -777,17 +782,17 @@ var _sfc_main$7 = {
     };
   }
 };
-const _hoisted_1$3 = { class: "main" };
-const _hoisted_2$3 = { class: "user-layout-login ant-form ant-form-horizontal" };
-const _hoisted_3$2 = { class: "item-wrapper flex between" };
-const _hoisted_4$2 = {
+const _hoisted_1$5 = { class: "main" };
+const _hoisted_2$5 = { class: "user-layout-login ant-form ant-form-horizontal" };
+const _hoisted_3$4 = { class: "item-wrapper flex between" };
+const _hoisted_4$3 = {
   href: "/user/recover",
   class: "forge-password"
 };
-const _hoisted_5$2 = { class: "item-wrapper" };
-const _hoisted_6$2 = { class: "item-wrapper" };
-const _hoisted_7$1 = { class: "user-login-other" };
-const _sfc_main$6 = {
+const _hoisted_5$3 = { class: "item-wrapper" };
+const _hoisted_6$3 = { class: "item-wrapper" };
+const _hoisted_7$2 = { class: "user-login-other" };
+const _sfc_main$8 = {
   __name: "Login",
   setup(__props) {
     const { $t: $t2 } = State_UI;
@@ -795,18 +800,18 @@ const _sfc_main$6 = {
       const _component_aAlert = Vue.resolveComponent("aAlert");
       const _component_aCheckbox = Vue.resolveComponent("aCheckbox");
       const _component_xButton = Vue.resolveComponent("xButton");
-      const _component_RouterView = Vue.resolveComponent("RouterView");
-      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$3, [
-        Vue.createElementVNode("div", _hoisted_2$3, [
+      const _component_RouterLink = Vue.resolveComponent("RouterLink");
+      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$5, [
+        Vue.createElementVNode("div", _hoisted_2$5, [
           Vue.unref(State_Login).alertTips ? (Vue.openBlock(), Vue.createBlock(_component_aAlert, {
             key: 0,
-            type: "error",
             "show-icon": "",
+            type: "error",
             style: { "margin-bottom": "24px" },
             message: Vue.unref(State_Login).alertTips
           }, null, 8, ["message"])) : Vue.createCommentVNode("", true),
-          Vue.createVNode(_sfc_main$7),
-          Vue.createElementVNode("div", _hoisted_3$2, [
+          Vue.createVNode(_sfc_main$9),
+          Vue.createElementVNode("div", _hoisted_3$4, [
             Vue.createVNode(_component_aCheckbox, {
               checked: Vue.unref(State_Login).rememberMe,
               "onUpdate:checked": _cache[0] || (_cache[0] = ($event) => Vue.unref(State_Login).rememberMe = $event)
@@ -816,17 +821,16 @@ const _sfc_main$6 = {
               ]),
               _: 1
             }, 8, ["checked"]),
-            Vue.createElementVNode("a", _hoisted_4$2, Vue.toDisplayString(Vue.unref($t2)("user.login.forgot-password").label), 1)
+            Vue.createElementVNode("a", _hoisted_4$3, Vue.toDisplayString(Vue.unref($t2)("user.login.forgot-password").label), 1)
           ]),
-          Vue.createElementVNode("div", _hoisted_5$2, [
+          Vue.createElementVNode("div", _hoisted_5$3, [
             Vue.createVNode(_component_xButton, {
               configs: Vue.unref(State_Login).configsSubmit
             }, null, 8, ["configs"])
           ]),
-          Vue.createElementVNode("div", _hoisted_6$2, [
-            Vue.createElementVNode("div", _hoisted_7$1, [
-              Vue.createElementVNode("span", null, Vue.toDisplayString(Vue.unref($t2)("user.login.sign-in-with").label), 1),
-              Vue.createVNode(_component_RouterView, {
+          Vue.createElementVNode("div", _hoisted_6$3, [
+            Vue.createElementVNode("div", _hoisted_7$2, [
+              Vue.createVNode(_component_RouterLink, {
                 class: "register",
                 to: { name: Vue.unref(routeNames).register }
               }, {
@@ -1013,13 +1017,13 @@ function checkPasswordLevel(value) {
   State_Register.isShowCheckPasswordPopover = State_Register.statePassword.level <= 3;
   return isFail;
 }
-const _hoisted_1$2 = { class: "main" };
-const _hoisted_2$2 = { class: "user-layout-login ant-form ant-form-horizontal" };
-const _hoisted_3$1 = { style: { width: "240px" } };
-const _hoisted_4$1 = { style: { "margin-top": "10px" } };
-const _hoisted_5$1 = { class: "flex" };
-const _hoisted_6$1 = { class: "item-wrapper flex" };
-const _sfc_main$5 = {
+const _hoisted_1$4 = { class: "main" };
+const _hoisted_2$4 = { class: "user-layout-login ant-form ant-form-horizontal" };
+const _hoisted_3$3 = { style: { width: "240px" } };
+const _hoisted_4$2 = { style: { "margin-top": "10px" } };
+const _hoisted_5$2 = { class: "flex" };
+const _hoisted_6$2 = { class: "item-wrapper flex" };
+const _sfc_main$7 = {
   __name: "Register",
   setup(__props) {
     const { $t: $t2 } = State_UI;
@@ -1057,9 +1061,9 @@ const _sfc_main$5 = {
       const _component_Popover = Vue.resolveComponent("Popover");
       const _component_xButtonCountDown = Vue.resolveComponent("xButtonCountDown");
       const _component_xButton = Vue.resolveComponent("xButton");
-      const _component_RouterView = Vue.resolveComponent("RouterView");
-      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$2, [
-        Vue.createElementVNode("div", _hoisted_2$2, [
+      const _component_RouterLink = Vue.resolveComponent("RouterLink");
+      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$4, [
+        Vue.createElementVNode("div", _hoisted_2$4, [
           Vue.createElementVNode("h3", null, [
             Vue.createElementVNode("span", null, Vue.toDisplayString(Vue.unref($t2)("user.register.register").label), 1)
           ]),
@@ -1078,7 +1082,7 @@ const _sfc_main$5 = {
               placement: "rightTop"
             }, {
               content: Vue.withCtx(() => [
-                Vue.createElementVNode("div", _hoisted_3$1, [
+                Vue.createElementVNode("div", _hoisted_3$3, [
                   Vue.createElementVNode("div", {
                     class: Vue.normalizeClass(["user-register", Vue.unref(passwordLevelClass)])
                   }, Vue.toDisplayString(Vue.unref($t2)(Vue.unref(passwordLevelName)).label), 3),
@@ -1088,7 +1092,7 @@ const _sfc_main$5 = {
                     "stroke-color": Vue.unref(passwordLevelColor),
                     "get-popup-container": (trigger) => trigger.parentElement
                   }, null, 8, ["percent", "stroke-color", "get-popup-container"]),
-                  Vue.createElementVNode("div", _hoisted_4$1, [
+                  Vue.createElementVNode("div", _hoisted_4$2, [
                     Vue.createElementVNode("span", null, Vue.toDisplayString(Vue.unref($t2)("user.register.password.popover-message").label), 1)
                   ])
                 ])
@@ -1111,7 +1115,7 @@ const _sfc_main$5 = {
               autocomplete: "current-password"
             }, null, 8, ["modelValue", "configs"]),
             Vue.createVNode(_component_xGap, { t: "20" }),
-            Vue.createElementVNode("div", _hoisted_5$1, [
+            Vue.createElementVNode("div", _hoisted_5$2, [
               Vue.createVNode(_component_xItem, {
                 modelValue: Vue.unref(State_Register).data.verifyCode,
                 "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => Vue.unref(State_Register).data.verifyCode = $event),
@@ -1125,12 +1129,12 @@ const _sfc_main$5 = {
             ])
           ]),
           Vue.createVNode(_component_xGap, { t: "20" }),
-          Vue.createElementVNode("div", _hoisted_6$1, [
+          Vue.createElementVNode("div", _hoisted_6$2, [
             Vue.createVNode(_component_xButton, {
               configs: Vue.unref(State_Register).configsSubmit
             }, null, 8, ["configs"]),
             Vue.createVNode(_component_xGap, { l: "80" }),
-            Vue.createVNode(_component_RouterView, {
+            Vue.createVNode(_component_RouterLink, {
               class: "register",
               to: { name: Vue.unref(routeNames).login }
             }, {
@@ -1162,7 +1166,7 @@ var xIM = Vue.defineComponent({
     }, [Vue.createTextVNode("test")]);
   }
 });
-var _sfc_main$4 = {
+var _sfc_main$6 = {
   __name: "TestXDataGrid",
   setup(__props) {
     const {
@@ -1267,19 +1271,19 @@ var _sfc_main$4 = {
     };
   }
 };
-const _hoisted_1$1 = {
+const _hoisted_1$3 = {
   class: "container flex middle"
 };
-const _hoisted_2$1 = {
+const _hoisted_2$3 = {
   class: "flex width100"
 };
-const _hoisted_3 = /* @__PURE__ */ Vue.createTextVNode(" \u5355\u72EC\u7684\u914D\u7F6E\u9879\u53D8\u91CF ");
-const _hoisted_4 = /* @__PURE__ */ Vue.createTextVNode(" v-uiPopover ");
-const _hoisted_5 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
-const _hoisted_6 = /* @__PURE__ */ Vue.createTextVNode(" iframe ");
-const _hoisted_7 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
+const _hoisted_3$2 = /* @__PURE__ */ Vue.createTextVNode(" \u5355\u72EC\u7684\u914D\u7F6E\u9879\u53D8\u91CF ");
+const _hoisted_4$1 = /* @__PURE__ */ Vue.createTextVNode(" v-uiPopover ");
+const _hoisted_5$1 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
+const _hoisted_6$1 = /* @__PURE__ */ Vue.createTextVNode(" iframe ");
+const _hoisted_7$1 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
 const _hoisted_8 = /* @__PURE__ */ Vue.createTextVNode(" popover ");
-var _sfc_main$3 = {
+var _sfc_main$5 = {
   __name: "TestPopover",
   setup(__props) {
     const PopoverContent = Vue.defineComponent(Vue.markRaw({
@@ -1358,37 +1362,37 @@ var _sfc_main$3 = {
       const _component_xItem = Vue.resolveComponent("xItem");
       const _component_aButton = Vue.resolveComponent("aButton");
       const _directive_uiPopover = Vue.resolveDirective("uiPopover");
-      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createElementVNode("div", _hoisted_1$1, [Vue.createElementVNode("div", _hoisted_2$1, [Vue.createVNode(_component_xItem, {
+      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createElementVNode("div", _hoisted_1$3, [Vue.createElementVNode("div", _hoisted_2$3, [Vue.createVNode(_component_xItem, {
         modelValue: State.formData.test,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => State.formData.test = $event),
         configs: State.formXItem.test
       }, null, 8, ["modelValue", "configs"]), Vue.createTextVNode(" State.formData.test:" + Vue.toDisplayString(State.formData.test) + " ", 1), Vue.createVNode(Vue.unref(xIM)), Vue.withDirectives((Vue.openBlock(), Vue.createBlock(_component_aButton, {
         id: "tips"
       }, {
-        default: Vue.withCtx(() => [_hoisted_3]),
+        default: Vue.withCtx(() => [_hoisted_3$2]),
         _: 1
       })), [[_directive_uiPopover, State.configs_uiPopover]]), Vue.withDirectives((Vue.openBlock(), Vue.createBlock(_component_aButton, null, {
-        default: Vue.withCtx(() => [_hoisted_4]),
+        default: Vue.withCtx(() => [_hoisted_4$1]),
         _: 1
       })), [[_directive_uiPopover, {
         content: "tips2"
-      }]]), _hoisted_5, Vue.createVNode(_component_aButton, {
+      }]]), _hoisted_5$1, Vue.createVNode(_component_aButton, {
         id: "target",
         onClick: handlers.clickBtn
       }, {
-        default: Vue.withCtx(() => [_hoisted_6]),
+        default: Vue.withCtx(() => [_hoisted_6$1]),
         _: 1
-      }, 8, ["onClick"]), _hoisted_7, Vue.createVNode(_component_aButton, {
+      }, 8, ["onClick"]), _hoisted_7$1, Vue.createVNode(_component_aButton, {
         id: "target2",
         onClick: handlers.openTips
       }, {
         default: Vue.withCtx(() => [_hoisted_8]),
         _: 1
-      }, 8, ["onClick"])])]), Vue.createVNode(_sfc_main$4)], 64);
+      }, 8, ["onClick"])])]), Vue.createVNode(_sfc_main$6)], 64);
     };
   }
 };
-const _sfc_main$2 = Vue.defineComponent({
+const _sfc_main$4 = Vue.defineComponent({
   data() {
     const vm = this;
     return {
@@ -1396,33 +1400,35 @@ const _sfc_main$2 = Vue.defineComponent({
       configs_btn: {
         preset: "query",
         async onClick() {
-          const component = await _global__.asyncImportSFC(`/boundless/business/App/demo/demo.vue`);
+          const component = await _global__.asyncImportSFC(
+            `/boundless/business/App/demo/demo.vue`
+          );
           vm.currentComponent = Vue.markRaw(component);
         }
       }
     };
   }
 });
-function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xButton = Vue.resolveComponent("xButton");
   return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
     Vue.createVNode(_component_xButton, { configs: _ctx.configs_btn }, null, 8, ["configs"]),
     (Vue.openBlock(), Vue.createBlock(Vue.resolveDynamicComponent(_ctx.currentComponent)))
   ], 64);
 }
-var TestBoundless = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1]]);
-const _hoisted_1 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless start", -1);
-const _hoisted_2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless end", -1);
-var _sfc_main$1 = {
+var TestBoundless = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$2]]);
+const _hoisted_1$2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless start", -1);
+const _hoisted_2$2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless end", -1);
+var _sfc_main$3 = {
   __name: "HelloWorld",
   setup(__props) {
     return (_ctx, _cache) => {
       const _component_RouterView = Vue.resolveComponent("RouterView");
-      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createElementVNode("div", null, [_hoisted_1, Vue.createVNode(TestBoundless), _hoisted_2]), Vue.createVNode(_sfc_main$3), Vue.createVNode(_component_RouterView)], 64);
+      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createElementVNode("div", null, [_hoisted_1$2, Vue.createVNode(TestBoundless), _hoisted_2$2]), Vue.createVNode(_sfc_main$5), Vue.createVNode(_component_RouterView)], 64);
     };
   }
 };
-const _sfc_main = Vue.defineComponent({
+const _sfc_main$2 = Vue.defineComponent({
   data() {
     return {
       tips: "tips"
@@ -1448,10 +1454,166 @@ const _sfc_main = Vue.defineComponent({
     }
   }
 });
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("h1", null, Vue.toDisplayString(_ctx.tips), 1);
 }
-var Webrtc = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+var Webrtc = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1]]);
+var DesktopIconItem_vue_vue_type_style_index_0_lang = "";
+const _sfc_main$1 = Vue.defineComponent({
+  name: "DesktopIconItem",
+  props: {
+    configs: {
+      type: Object,
+      default: function() {
+        return { title: "unknown", icon: "unknown", handler: () => "unknown" };
+      }
+    }
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    imgClass() {
+      return `desktopicon-img ${this.configs.icon}`;
+    }
+  },
+  mounted() {
+  },
+  methods: {}
+});
+const _hoisted_1$1 = ["title"];
+const _hoisted_2$1 = { class: "desktopicon_title mb10" };
+const _hoisted_3$1 = { class: "l" };
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Vue.openBlock(), Vue.createElementBlock("div", {
+    onClick: _cache[0] || (_cache[0] = (...args) => _ctx.configs.onClick && _ctx.configs.onClick(...args)),
+    class: "desktopicon",
+    title: _ctx.configs.title,
+    style: { "opacity": "1", "transform": "scale(1, 1)", "left": "30px", "top": "108px" }
+  }, [
+    Vue.createElementVNode("div", {
+      class: Vue.normalizeClass(_ctx.imgClass),
+      role: "img",
+      "aria-hidden": "true"
+    }, null, 2),
+    Vue.createElementVNode("div", _hoisted_2$1, [
+      Vue.createElementVNode("div", _hoisted_3$1, Vue.toDisplayString(_ctx.$t(_ctx.configs.title).label), 1)
+    ])
+  ], 8, _hoisted_1$1);
+}
+var DesktopIconItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render]]);
+const _hoisted_1 = {
+  class: "view-toolbox-shell flex vertical"
+};
+const _hoisted_2 = {
+  class: "view-toolbox-shell_header x-ui-glossy"
+};
+const _hoisted_3 = {
+  class: "flex middle",
+  style: {
+    "height": "100%",
+    "padding": "0 24px"
+  }
+};
+const _hoisted_4 = /* @__PURE__ */ Vue.createElementVNode("span", {
+  class: "flex1"
+}, null, -1);
+const _hoisted_5 = ["src"];
+const _hoisted_6 = {
+  class: "flex"
+};
+const _hoisted_7 = {
+  class: "flex1 layout-desktop-container bg4"
+};
+var _sfc_main = {
+  __name: "ViewToolboxShell",
+  setup(__props) {
+    const $t2 = State_UI.$t;
+    const desktopIconConfigs = {
+      music: {
+        title: $t2("music").label,
+        icon: "music",
+        onClick() {
+          UI.dialog.component({
+            title: "\u6DFB\u52A0\u5206\u7EC4",
+            component: ViewAddGroup,
+            area: ["480px", "360px"],
+            onOk: async (instance) => {
+              const validateResults = await validateForm(instance.vm.formItems);
+              if (AllWasWell(validateResults)) {
+                const {
+                  newGroupName,
+                  newGroupDesc,
+                  owner_uids
+                } = pickValueFrom(instance.vm.formItems);
+                await this.upsert({
+                  group_name: newGroupName,
+                  group_desc: newGroupDesc,
+                  owner_uids
+                });
+                instance.close();
+              } else {
+                throw new Error("\u672A\u901A\u8FC7\u9A8C\u8BC1");
+              }
+            }
+          });
+        }
+      }
+    };
+    return (_ctx, _cache) => {
+      const _component_xIcon = Vue.resolveComponent("xIcon");
+      const _component_aAvatar = Vue.resolveComponent("aAvatar");
+      const _component_aMenuItem = Vue.resolveComponent("aMenuItem");
+      const _component_aMenu = Vue.resolveComponent("aMenu");
+      const _component_aDropdown = Vue.resolveComponent("aDropdown");
+      const _component_xGap = Vue.resolveComponent("xGap");
+      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [Vue.createElementVNode("div", _hoisted_2, [Vue.createElementVNode("div", _hoisted_3, [_hoisted_4, Vue.createVNode(_component_aDropdown, {
+        placement: "bottomRight"
+      }, {
+        overlay: Vue.withCtx(() => [Vue.createVNode(_component_aMenu, null, {
+          default: Vue.withCtx(() => [Vue.createVNode(_component_aMenuItem, null, {
+            default: Vue.withCtx(() => [Vue.createElementVNode("div", _hoisted_6, [Vue.createVNode(_component_xIcon, {
+              icon: "user"
+            }), Vue.createTextVNode(" " + Vue.toDisplayString(Vue.unref(State_App).user.email), 1)])]),
+            _: 1
+          }), Vue.createVNode(_component_aMenuItem, null, {
+            default: Vue.withCtx(() => [Vue.createElementVNode("div", {
+              class: "flex",
+              onClick: _cache[0] || (_cache[0] = (...args) => Vue.unref(Actions_App).Logout && Vue.unref(Actions_App).Logout(...args))
+            }, [Vue.createVNode(_component_xIcon, {
+              icon: "logout"
+            }), Vue.createTextVNode(" " + Vue.toDisplayString(Vue.unref($t2)("logout").label), 1)])]),
+            _: 1
+          })]),
+          _: 1
+        })]),
+        default: Vue.withCtx(() => [Vue.createVNode(_component_aAvatar, null, {
+          icon: Vue.withCtx(() => {
+            var _a, _b;
+            return [((_b = (_a = Vue.unref(State_App)) == null ? void 0 : _a.user) == null ? void 0 : _b.avatar) ? (Vue.openBlock(), Vue.createElementBlock("img", {
+              key: 0,
+              src: Vue.unref(State_App).user.avatar
+            }, null, 8, _hoisted_5)) : (Vue.openBlock(), Vue.createBlock(_component_xIcon, {
+              key: 1,
+              style: {
+                "width": "100%",
+                "height": "100%"
+              },
+              icon: "user"
+            }))];
+          }),
+          _: 1
+        })]),
+        _: 1
+      }), Vue.createVNode(_component_xGap, {
+        r: 10
+      })])]), Vue.createElementVNode("div", _hoisted_7, [Vue.createVNode(DesktopIconItem, {
+        configs: desktopIconConfigs.music
+      }, null, 8, ["configs"])])]);
+    };
+  }
+};
+var ViewToolboxShell_vue_vue_type_style_index_0_lang = "";
 const routeNames$1 = {
   shell: "shell",
   404: "404"
@@ -1459,31 +1621,35 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/each.js","statics/assets/each.60e59025.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/each.js","statics/assets/each.60e59025.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/each.js","statics/assets/each.60e59025.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.3063078d.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.3063078d.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index5.js"), ["statics/js/index5.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.3063078d.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
-const ALL_DEFAULT_ROUTES = _global__.reduce(MODULES_DEFAULT_ROUTES, (targetRoutes, component, path) => {
-  const originUrl = path.replace("../views/modules/", "");
-  const pathArray = originUrl.split("/");
-  const filePath = _global__.last(pathArray);
-  const matchRes = filePath.match(/^View(.*)\.(vue|jsx|tsx)$/);
-  if (matchRes) {
-    const fileName = matchRes[1];
-    if (!fileName)
-      alert(originUrl);
-    pathArray[pathArray.length - 1] = fileName;
-    const kebabCase = pathArray.map(_global__.kebabCase);
-    const route = {
-      name: `${kebabCase.join(".").replaceAll("-", "_")}`,
-      path: `/${kebabCase.join("/").replaceAll("-", "_")}`,
-      component: async () => {
-        const module = await component();
-        return module.default;
-      }
-    };
-    targetRoutes.push(route);
-  }
-  return targetRoutes;
-}, []);
+const ALL_DEFAULT_ROUTES = _global__.reduce(
+  MODULES_DEFAULT_ROUTES,
+  (targetRoutes, component, path) => {
+    const originUrl = path.replace("../views/modules/", "");
+    const pathArray = originUrl.split("/");
+    const filePath = _global__.last(pathArray);
+    const matchRes = filePath.match(/^View(.*)\.(vue|jsx|tsx)$/);
+    if (matchRes) {
+      const fileName = matchRes[1];
+      if (!fileName)
+        alert(originUrl);
+      pathArray[pathArray.length - 1] = fileName;
+      const kebabCase = pathArray.map(_global__.kebabCase);
+      const route = {
+        name: `${kebabCase.join(".").replaceAll("-", "_")}`,
+        path: `/${kebabCase.join("/").replaceAll("-", "_")}`,
+        component: async () => {
+          const module = await component();
+          return module.default;
+        }
+      };
+      targetRoutes.push(route);
+    }
+    return targetRoutes;
+  },
+  []
+);
 const MENUS_ALL_DEFAULT_ROUTES = ALL_DEFAULT_ROUTES.map((i) => {
   const menuInfo = {
     id: i.name,
@@ -1504,11 +1670,14 @@ var routes$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   MENUS_ALL_DEFAULT_ROUTES
 }, Symbol.toStringTag, { value: "Module" }));
 const { $t } = State_UI;
-const NewRoute = (name, component, options = {}) => _global__.merge({
-  name,
-  path: `/${name}`,
-  component
-}, options);
+const NewRoute = (name, component, options = {}) => _global__.merge(
+  {
+    name,
+    path: `/${name}`,
+    component
+  },
+  options
+);
 const routeNames = {
   shell: "shell",
   devDemo: "dev-demo",
@@ -1524,30 +1693,35 @@ const routeNames = {
 const toPath = (name) => `/${name}`;
 const routes = [
   {
-    name: routeNames.shell,
-    path: toPath(routeNames.shell),
+    name: "ViewToolboxShell",
+    path: "/",
+    component: _sfc_main
+  },
+  {
+    name: "PageDashboard",
+    path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
+    component: __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/ViewAddGroup.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
         path: "/dashboard-workplace",
-        component: _sfc_main$1
+        component: _sfc_main$3
       },
       ...ALL_DEFAULT_ROUTES
     ]
   },
   NewRoute(routeNames.webrtc, Webrtc),
-  NewRoute(routeNames.devDemo, _sfc_main$1),
-  NewRoute(routeNames.login, _sfc_main$8, {
+  NewRoute(routeNames.devDemo, _sfc_main$3),
+  NewRoute(routeNames.login, _sfc_main$a, {
     redirect: toPath(routeNames.userLogin),
     children: [
-      NewRoute(routeNames.userLogin, _sfc_main$6, {
+      NewRoute(routeNames.userLogin, _sfc_main$8, {
         meta: {
           title: $t("user.login.login").label
         }
       }),
-      NewRoute(routeNames.register, _sfc_main$5, {
+      NewRoute(routeNames.register, _sfc_main$7, {
         meta: {
           title: $t("user.login.signup").label
         }
@@ -1575,7 +1749,7 @@ const allowVisitPageWhenNoAccess = [
   routeNames.registerResult
 ];
 const loginRoutePath = toPath(routeNames.userLogin);
-const defaultRoutePath = toPath(routeNames.shell);
+const defaultRoutePath = toPath("/");
 router.beforeEach(async (to, from) => {
   var _a;
   _global__.doNothing(to.path, from.path);
@@ -1631,62 +1805,6 @@ var router$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   routeNames,
   router
 }, Symbol.toStringTag, { value: "Module" }));
-var LazySvg$1 = "";
-const icons = { "../../assets/svg/lockStrok.svg": () => true ? __vitePreload(() => import("./lockStrok.js"), []) : null, "../../assets/svg/logout.svg": () => true ? __vitePreload(() => import("./logout.js"), []) : null, "../../assets/svg/mail.svg": () => true ? __vitePreload(() => import("./mail.js"), []) : null, "../../assets/svg/mobile.svg": () => true ? __vitePreload(() => import("./mobile.js"), []) : null, "../../assets/svg/user.svg": () => true ? __vitePreload(() => import("./user.js"), []) : null };
-const modules = {};
-each(icons, (icon, path) => {
-  const prop = path.replace(/(.*)\/(.*)\.svg$/g, (match, p1, p2) => `${p2}`);
-  modules[prop] = icon;
-});
-const ICON_STRING_CACHE = {};
-var LazySvg = Vue.defineComponent(Vue.markRaw({
-  props: ["icon"],
-  data() {
-    const id = "lazy-svg_" + this._.uid;
-    return {
-      id
-    };
-  },
-  async mounted() {
-    const targetDom = document.getElementById(this.id);
-    let iconSvgString = ICON_STRING_CACHE[this.icon];
-    if (!iconSvgString) {
-      const getComponent = modules[this.icon];
-      if (isFunction_1(getComponent)) {
-        const {
-          default: iconString
-        } = await getComponent();
-        ICON_STRING_CACHE[this.icon] = iconSvgString = iconString;
-      }
-    }
-    if (iconSvgString) {
-      const $svg = $(iconSvgString).css("height", "100%").css("width", "100%");
-      if (targetDom) {
-        setTimeout(() => {
-          targetDom.innerHTML = $svg[0].outerHTML;
-        }, 30);
-      }
-    }
-  },
-  render() {
-    return Vue.createVNode("div", {
-      "id": this.id
-    }, [Vue.createVNode("div", {
-      "class": "next-loading next-open next-loading-inline",
-      "style": "width:100%;height:100%;overflow:hidden"
-    }, [Vue.createVNode("div", {
-      "class": "next-loading-tip"
-    }, [Vue.createVNode("div", {
-      "class": "next-loading-indicator"
-    }, null)]), Vue.createVNode("div", {
-      "class": "next-loading-component next-loading-wrap"
-    }, [Vue.createVNode("div", {
-      "class": "next-loading-masker"
-    }, null), Vue.createVNode("div", {
-      "class": "demo-basic"
-    }, [Vue.createVNode(LoadingOutlined, null, null)])])])]);
-  }
-}));
 dayjs.locale("zh-cn");
 const appPlugins = {
   install: (app, options) => {
@@ -1697,12 +1815,12 @@ const appPlugins = {
     app.use({
       install: (app2, { watch } = {}) => {
         app2.config.globalProperties.$t = State_UI.$t;
+        State_UI.assetsSvgPath = `${__URL_STATIC_DIR}assets/svg`;
         _global_$("html").attr("lang", State_UI.language);
         watch && watch();
       }
     });
     app.use(router);
-    app.component("LazySvg", LazySvg);
     return app;
   }
 };
@@ -1720,14 +1838,14 @@ async function main() {
     await API.common.testConnect();
   } catch (d) {
     State_App.UseMockData = true;
-    const { loadMockData } = await __vitePreload(() => import("./index.js").then(function(n) {
+    const { loadMockData } = await __vitePreload(() => import("./index2.js").then(function(n) {
       return n.i;
-    }), true ? ["statics/js/index.js","statics/js/each.js","statics/assets/each.60e59025.css"] : void 0);
+    }), true ? ["statics/js/index2.js","statics/js/index.js","statics/assets/index.3063078d.css"] : void 0);
     await loadMockData();
   }
-  Vue.createApp(App).use(appPlugins, {
+  Vue.createApp(PageToolboxHome).use(appPlugins, {
     dependState: State_App
   }).mount("#app");
 }
 main();
-export { Actions_App as A, State_App as S, _sfc_main$9 as _, STATIC_WORD as a, _sfc_main$3 as b };
+export { Actions_App as A, State_App as S, _sfc_main$b as _, STATIC_WORD as a, _sfc_main$5 as b };

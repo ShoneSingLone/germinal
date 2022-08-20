@@ -1,8 +1,8 @@
 import { b as _sfc_main$1 } from "./main.js";
-import "./each.js";
+import "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
-import "./form.js";
+import "./ViewAddGroup.js";
 var _sfc_main = {
   __name: "ViewWorkplace",
   setup(__props) {

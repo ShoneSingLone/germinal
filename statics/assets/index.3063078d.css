@@ -107,11 +107,23 @@ div[id^="svg-icon_"] {
 .w100 {
   width: 100%;
 }
+.x-ui-glossy {
+  position: relative;
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  z-index: 10;
+}
 .x-item > .ant-form-item-control {
   position: relative;
 }
 .x-item > .ant-form-item-control .ant-input-number {
   width: 100%;
+}
+.x-item .ant-form-item-explain.ant-form-item-explain-error {
+  color: #ff4d4f;
 }
 .layui-layer-imgbar,
 .layui-layer-imgtit a,
@@ -1475,7 +1487,7 @@ div[id^="xDialog_"] {
   box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12) !important;
 }/*!
  * 
- * ant-design-vue v3.2.10
+ * ant-design-vue v3.2.11
  *
  * Copyright 2017-present, ant-design-vue.
  * All rights reserved.
@@ -7092,6 +7104,7 @@ html {
 }
 .ant-dropdown-menu-title-content {
   flex: auto;
+  white-space: nowrap;
 }
 .ant-dropdown-menu-title-content > a {
   color: inherit;
@@ -29997,7 +30010,45 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 
 
-/*# sourceMappingURL=antd.css.map*/
+/*# sourceMappingURL=antd.css.map*/.xIcon {
+  width: 16px;
+}
+div[id^=lazy-svg_] {
+  display: flex;
+}
+.next-loading {
+  height: 100%;
+  width: 100%;
+}
+.next-loading.next-open {
+  pointer-events: none;
+}
+.next-loading .next-loading-component {
+  opacity: 0.7;
+  filter: blur(1px);
+  filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=1, MakeShadow=false)";
+  position: relative;
+  pointer-events: none;
+}
+.next-loading-masker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  opacity: 0.2;
+  background: #fff;
+}
+.next-loading-inline {
+  display: inline-block;
+}
+.next-loading-tip {
+  display: block;
+  position: absolute;
+  z-index: 4;
+  text-align: center;
+}
 .table-options {
 	display: flex;
 	flex-flow: row nowrap;

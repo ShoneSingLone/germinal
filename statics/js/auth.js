@@ -1,9 +1,9 @@
-import { M as Mock } from "./index.js";
+import { M as Mock } from "./index2.js";
 import "./main.js";
-import "./each.js";
+import "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
-import "./form.js";
+import "./ViewAddGroup.js";
 const MOCK_MAP = [
   [
     "/https/book/v1/login",

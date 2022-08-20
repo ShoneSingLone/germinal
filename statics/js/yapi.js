@@ -1,4 +1,4 @@
-import { m as _global_$, _ as _global__, U as UI, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, n as AutoComplete, c as _export_sfc, j as isFunction_1, L as LoadingOutlined, i as each, k as dayjs, V as VentoseUIWithInstall } from "./each.js";
+import { j as _global_$, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, k as API, _ as _global__, U as UI, m as AutoComplete, c as _export_sfc, i as dayjs, V as VentoseUIWithInstall } from "./index.js";
 var Footer = "";
 function _isSlot$1(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
@@ -14,7 +14,7 @@ const FootItem = ({
   }, {
     default: () => [Vue.createVNode("h4", {
       "class": "title flex horizon middle"
-    }, [iconType ? Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+    }, [iconType ? Vue.createVNode(Vue.resolveComponent("xIcon"), {
       "icon": iconType,
       "style": "width: 24px;height: 24px;display: inline-block;"
     }, null) : "", title]), linkList.map((item, i) => {
@@ -99,150 +99,6 @@ var _sfc_main$1 = Vue.defineComponent({
 });
 var Header$1 = "";
 var Search = "";
-const ajax = axios.create({
-  timeout: 2e4
-});
-ajax.interceptors.request.use((config) => {
-  if (config.data) {
-    _global__.each(["name"], (prop) => {
-      config.data[prop] = _global__.htmlFilter(config.data[prop]);
-    });
-  }
-  return config;
-}, (error) => Promise.reject(error));
-ajax.interceptors.response.use(async (response) => {
-  var _a, _b;
-  if (((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.errcode) !== 0) {
-    UI.message.error((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.errmsg);
-    return Promise.reject(response);
-  }
-  return Promise.resolve({
-    data: response.data.data,
-    response
-  });
-}, async (error) => {
-  var _a;
-  const {
-    response
-  } = error;
-  console.log(response);
-  logError((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
-  return Promise.reject(error);
-});
-function logError(msg) {
-  if (!msg)
-    return;
-  UI.notification.error(msg);
-  console.error(msg);
-}
-const user = {
-  getUserStatus() {
-    return ajax({
-      method: "get",
-      url: "/api/user/status"
-    });
-  },
-  searchUser(params) {
-    return ajax({
-      method: "get",
-      url: "/api/user/search",
-      params
-    });
-  },
-  loginActions(data) {
-    return ajax({
-      method: "post",
-      url: "/api/user/login",
-      data
-    });
-  },
-  logoutActions() {
-    return ajax({
-      method: "get",
-      url: "/api/user/logout"
-    });
-  },
-  regActions(data) {
-    return ajax({
-      method: "post",
-      url: "/api/user/reg",
-      data
-    });
-  }
-};
-const project = {
-  addProject(data) {
-    return ajax({
-      method: "post",
-      url: "/api/project/add",
-      data
-    });
-  }
-};
-const group = {
-  getMyGroup() {
-    return ajax({
-      method: "get",
-      url: "/api/group/get_mygroup"
-    });
-  },
-  addGroup(data) {
-    return ajax({
-      method: "post",
-      url: "/api/group/add",
-      data
-    });
-  },
-  updateGroup(data) {
-    return ajax({
-      method: "post",
-      url: "/api/group/up",
-      data
-    });
-  },
-  getMyGroupList() {
-    return ajax({
-      method: "get",
-      url: "/api/group/list"
-    });
-  },
-  getMyGroupBy(groupId) {
-    return ajax({
-      method: "get",
-      url: "/api/group/get",
-      params: {
-        id: groupId
-      }
-    });
-  }
-};
-const news = {
-  getLogList({
-    typeid,
-    type,
-    page,
-    limit,
-    selectValue
-  }) {
-    return ajax({
-      method: "get",
-      url: "/api/log/list",
-      params: {
-        typeid,
-        type,
-        page,
-        limit: limit ? limit : 10,
-        selectValue
-      }
-    });
-  }
-};
-const API = {
-  user,
-  group,
-  news,
-  project
-};
 const {
   $t
 } = State_UI;
@@ -250,12 +106,12 @@ const routes = [
   {
     path: "/dev",
     name: "home",
-    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewAddGroup.js","statics/js/FormRules.js"] : void 0)
   },
   {
     path: `/login`,
     name: "login",
-    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
+    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
     meta: {
       title: $t("\u7528\u6237\u767B\u5F55").label
     }
@@ -263,17 +119,12 @@ const routes = [
   {
     path: `/group`,
     name: "group",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.516e3701.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/form.js","statics/js/variable.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.3c5216bd.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewAddGroup.js","statics/js/FormRules.js"] : void 0)
   },
   {
     path: `/group/:groupId`,
     name: "groupView",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.516e3701.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/form.js","statics/js/variable.js"] : void 0)
-  },
-  {
-    path: `/add-project`,
-    name: "AddProject",
-    component: () => __vitePreload(() => import("./AddProject.js"), true ? ["statics/js/AddProject.js","statics/assets/AddProject.ab64bc0f.css","statics/js/variable.js","statics/js/each.js","statics/assets/each.60e59025.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.3c5216bd.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewAddGroup.js","statics/js/FormRules.js"] : void 0)
   },
   {
     path: "/:pathMatch(.*)*",
@@ -357,7 +208,7 @@ const State_App = Vue.reactive({
   },
   project: {
     currPage: "",
-    projectList: "",
+    projectList: [],
     userInfo: "",
     tableLoading: ""
   },
@@ -391,11 +242,11 @@ const Methods_App = {
   setMenu(menu) {
     State_App.menu = Object.assign({}, State_App.menu, menu);
   },
-  setUser(user2) {
-    State_App.user = Object.assign({}, State_App.user, user2);
+  setUser(user) {
+    State_App.user = Object.assign({}, State_App.user, user);
   },
-  setNews(news2) {
-    State_App.news = Object.assign({}, State_App.news, news2);
+  setNews(news) {
+    State_App.news = Object.assign({}, State_App.news, news);
   },
   setBreadcrumb(breadcrumb) {
     Methods_App.setUser({
@@ -434,24 +285,24 @@ const Methods_App = {
     } = await API.group.getMyGroupList();
     State_App.groupList = groupList;
   },
-  async setCurrGroup(group2) {
+  async setCurrGroup(group) {
     let groupId;
-    if (!_global__.isPlainObject(group2)) {
-      groupId = parseInt(group2);
+    if (!_global__.isPlainObject(group)) {
+      groupId = parseInt(group);
       if (!_global__.isNumber(groupId)) {
         throw new Error("miss groupId");
       }
       const {
         data
       } = await API.group.getMyGroupBy(groupId);
-      group2 = data;
+      group = data;
     }
-    State_App.currGroup = _global__.merge({}, State_App.currGroup, group2);
+    State_App.currGroup = _global__.merge({}, State_App.currGroup, group);
     Methods_App.setUser({
-      role: group2.role,
+      role: group.role,
       field: {
-        name: group2.custom_field1.name,
-        enable: group2.custom_field1.enable
+        name: group.custom_field1.name,
+        enable: group.custom_field1.enable
       }
     });
   },
@@ -516,7 +367,15 @@ const Methods_App = {
   },
   async fetchInterfaceListMenu() {
   },
-  async fetchProjectList() {
+  async fetchProjectList(groupId) {
+    if (!groupId)
+      return;
+    groupId = Number(groupId);
+    const {
+      data
+    } = await API.project.list(groupId);
+    State_App.project.projectList = data.list;
+    console.log("State_App.project.projectList", State_App.project.projectList);
   },
   async changeMenuItem() {
   },
@@ -543,10 +402,6 @@ const Methods_App = {
   async delProject() {
   },
   async changeUpdateModal() {
-  },
-  delFollow() {
-  },
-  addFollow() {
   },
   getProject() {
   },
@@ -656,7 +511,7 @@ var Srch = Vue.defineComponent({
       "onSearch": this.handleSearch
     }, {
       default: () => [Vue.createVNode(Vue.resolveComponent("aInput"), {
-        "prefix": Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+        "prefix": Vue.createVNode(Vue.resolveComponent("xIcon"), {
           "icon": "search",
           "class": "srch-icon"
         }, null),
@@ -809,14 +664,14 @@ Vue.createVNode("div", {
   "class": "title-container"
 }, [Vue.createVNode("h3", {
   "class": "title"
-}, [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+}, [Vue.createVNode(Vue.resolveComponent("xIcon"), {
   "icon": "star"
 }, null), Vue.createTextVNode("\u5173\u6CE8")]), Vue.createVNode("p", null, [Vue.createTextVNode("\u8FD9\u91CC\u662F\u4F60\u7684\u4E13\u5C5E\u6536\u85CF\u5939\uFF0C\u4FBF\u4E8E\u4F60\u627E\u5230\u81EA\u5DF1\u7684\u9879\u76EE")])]);
 Vue.createVNode("div", {
   "class": "title-container"
 }, [Vue.createVNode("h3", {
   "class": "title"
-}, [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+}, [Vue.createVNode(Vue.resolveComponent("xIcon"), {
   "icon": "plus-circle"
 }, null), Vue.createTextVNode("\u65B0\u5EFA\u9879\u76EE")]), Vue.createVNode("p", null, [Vue.createTextVNode("\u5728\u4EFB\u4F55\u9875\u9762\u90FD\u53EF\u4EE5\u5FEB\u901F\u65B0\u5EFA\u9879\u76EE")])]);
 Vue.createVNode("div", {
@@ -871,7 +726,7 @@ var Header = Vue.defineComponent({
         groupList,
         study,
         studyTip,
-        user: user2,
+        user,
         msg,
         role,
         logout,
@@ -903,7 +758,7 @@ var Header = Vue.defineComponent({
           link = Vue.createVNode(Vue.resolveComponent("RouterLink"), {
             "to": i.path
           }, {
-            default: () => [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+            default: () => [Vue.createVNode(Vue.resolveComponent("xIcon"), {
               "icon": i.icon,
               "style": iconStyle
             }, null)]
@@ -914,7 +769,7 @@ var Header = Vue.defineComponent({
             "target": "_blank",
             "href": i.href,
             "rel": "noopener noreferrer"
-          }, [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+          }, [Vue.createVNode(Vue.resolveComponent("xIcon"), {
             "icon": i.icon,
             "style": iconStyle
           }, null)]);
@@ -982,7 +837,7 @@ var Header = Vue.defineComponent({
         if (item.adminFlag && !isAdmin) {
           return null;
         }
-        const menuContent = Vue.createVNode(Vue.Fragment, null, [Vue.createVNode(Vue.resolveComponent("LazySvg"), {
+        const menuContent = Vue.createVNode(Vue.Fragment, null, [Vue.createVNode(Vue.resolveComponent("xIcon"), {
           "icon": item.icon
         }, null), Vue.createVNode("span", {
           "class": "ml4"
@@ -1061,62 +916,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   ], 64);
 }
 var App = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-var LazySvg$1 = "";
-const icons = { "../../assets/svg/add.svg": () => true ? __vitePreload(() => import("./add.js"), []) : null, "../../assets/svg/addGroup.svg": () => true ? __vitePreload(() => import("./addGroup.js"), []) : null, "../../assets/svg/feedback.svg": () => true ? __vitePreload(() => import("./feedback.js"), []) : null, "../../assets/svg/folderOpen.svg": () => true ? __vitePreload(() => import("./folderOpen.js"), []) : null, "../../assets/svg/github.svg": () => true ? __vitePreload(() => import("./github.js"), []) : null, "../../assets/svg/lockStrok.svg": () => true ? __vitePreload(() => import("./lockStrok2.js"), []) : null, "../../assets/svg/logout.svg": () => true ? __vitePreload(() => import("./logout2.js"), []) : null, "../../assets/svg/mail.svg": () => true ? __vitePreload(() => import("./mail2.js"), []) : null, "../../assets/svg/mobile.svg": () => true ? __vitePreload(() => import("./mobile2.js"), []) : null, "../../assets/svg/question.svg": () => true ? __vitePreload(() => import("./question.js"), []) : null, "../../assets/svg/search.svg": () => true ? __vitePreload(() => import("./search.js"), []) : null, "../../assets/svg/solution.svg": () => true ? __vitePreload(() => import("./solution.js"), []) : null, "../../assets/svg/star.svg": () => true ? __vitePreload(() => import("./star.js"), []) : null, "../../assets/svg/team.svg": () => true ? __vitePreload(() => import("./team.js"), []) : null, "../../assets/svg/unlock.svg": () => true ? __vitePreload(() => import("./unlock.js"), []) : null, "../../assets/svg/user.svg": () => true ? __vitePreload(() => import("./user2.js"), []) : null };
-const modules = {};
-each(icons, (icon, path) => {
-  const prop = path.replace(/(.*)\/(.*)\.svg$/g, (match, p1, p2) => `${p2}`);
-  modules[prop] = icon;
-});
-const ICON_STRING_CACHE = {};
-var LazySvg = Vue.defineComponent(Vue.markRaw({
-  props: ["icon"],
-  data() {
-    const id = "lazy-svg_" + this._.uid;
-    return {
-      id
-    };
-  },
-  async mounted() {
-    const targetDom = document.getElementById(this.id);
-    let iconSvgString = ICON_STRING_CACHE[this.icon];
-    if (!iconSvgString) {
-      const getComponent = modules[this.icon];
-      if (isFunction_1(getComponent)) {
-        const {
-          default: iconString
-        } = await getComponent();
-        ICON_STRING_CACHE[this.icon] = iconSvgString = iconString;
-      }
-    }
-    if (iconSvgString) {
-      const $svg = $(iconSvgString).css("height", "100%").css("width", "100%");
-      if (targetDom) {
-        setTimeout(() => {
-          targetDom.innerHTML = $svg[0].outerHTML;
-        }, 30);
-      }
-    }
-  },
-  render(h) {
-    return Vue.createVNode("div", {
-      "id": this.id
-    }, [Vue.createVNode("div", {
-      "class": "next-loading next-open next-loading-inline",
-      "style": "width:100%;height:100%;overflow:hidden"
-    }, [Vue.createVNode("div", {
-      "class": "next-loading-tip"
-    }, [Vue.createVNode("div", {
-      "class": "next-loading-indicator"
-    }, null)]), Vue.createVNode("div", {
-      "class": "next-loading-component next-loading-wrap"
-    }, [Vue.createVNode("div", {
-      "class": "next-loading-masker"
-    }, null), Vue.createVNode("div", {
-      "class": "demo-basic"
-    }, [Vue.createVNode(LoadingOutlined, null, null)])])])]);
-  }
-}));
 dayjs.locale("zh-cn");
 const appPlugins = {
   install: (app, options) => {
@@ -1129,12 +928,12 @@ const appPlugins = {
         watch
       } = {}) => {
         app2.config.globalProperties.$t = State_UI.$t;
+        State_UI.assetsSvgPath = `${__URL_STATIC_DIR}assets/svg`;
         _global_$("html").attr("lang", State_UI.language);
         watch && watch();
       }
     });
     app.use(router);
-    app.component("LazySvg", LazySvg);
     return app;
   }
 };
@@ -1166,4 +965,4 @@ async function main() {
   }).mount("#app");
 }
 main();
-export { API as A, LogoSVG as L, Methods_App as M, State_App as S, LazySvg as a, handlePath as h, pickRandomProperty as p, router as r };
+export { LogoSVG as L, Methods_App as M, State_App as S, handlePath as h, pickRandomProperty as p, router as r };
