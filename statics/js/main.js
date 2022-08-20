@@ -1826,12 +1826,12 @@ const appPlugins = {
 };
 async function main() {
   window.BASE_URL = (() => {
-    const mainSrc = $("script").last().attr("src");
+    const mainSrc = _global_$("script").last().attr("src");
     return _global__.safeSplit(mainSrc, "main.js")[0];
   })();
   if (State_App.isDev) {
-    window.jquery = $;
-    window.$ = $;
+    window.jquery = _global_$;
+    window.$ = _global_$;
     window.State_App = State_App;
   }
   try {
@@ -1846,7 +1846,7 @@ async function main() {
   Vue.createApp(PageToolboxHome).use(appPlugins, {
     dependState: State_App
   }).mount("#app");
-  const $LOADING = $(`#app-loading-wrapper`);
+  const $LOADING = _global_$(`#app-loading-wrapper`);
   $LOADING.addClass("hide");
   await _global__.sleep(3e3);
   $LOADING.remove();
