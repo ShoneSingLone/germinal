@@ -20,6 +20,7 @@ export default defineComponent({
 				disabled: false,
 				size: "large",
 				style: { minWidth: "112px" },
+				class: "center",
 				text: vm.configs.text.normal,
 				async onClick() {
 					if (_.isFunction(vm.configs.onClick)) {

@@ -8,6 +8,8 @@ import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
 // import cssOnly from "rollup-plugin-css-only";
 import fs from "fs";
+import basicSsl from "@vitejs/plugin-basic-ssl";
+
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
 const baseRoot = "./";
@@ -19,16 +21,16 @@ const url = {
 };
 
 // const isLocal = process.argv[4] === "local";
-const isLocal = false;
 const isWinPlatform = process.platform === "win32";
 const proxyTarget = isWinPlatform ? url.remote : url.remote;
-const urlBase = isLocal ? "localhost:7001" : "www.singlone.work";
-const urlApiBase = isLocal ? `http://${urlBase}` : `https://${urlBase}/s/api`;
-const urlWsBase = isLocal ? `ws://${urlBase}/ws` : `wss://${urlBase}/ws`;
+const urlBase = "www.singlone.work";
+const urlApiBase = `https://${urlBase}/s/api`;
+const urlWsBase = `wss://${urlBase}/ws`;
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
 	server: {
+		https: true,
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd())]
 		},
@@ -38,10 +40,11 @@ export default defineConfig({
 				changeOrigin: true,
 				secure: false
 			},
-			"^/api": {
+			"^/devyapi": {
 				target: "http://localhost:3001/",
 				changeOrigin: true,
-				secure: false
+				secure: false,
+				rewrite: path => path.replace(/^\/devyapi/, "")
 			}
 		}
 	},
@@ -60,6 +63,7 @@ export default defineConfig({
 			rollupOptions: {
 				input: {
 					main: path.resolve(__dirname, "index.html"),
+					// music: path.resolve(__dirname, "music.html"),
 					yapi: path.resolve(__dirname, "yapi.html")
 				},
 				output: {
@@ -112,6 +116,7 @@ export default defineConfig({
 		return options;
 	})(),
 	plugins: [
+		basicSsl(),
 		useVue(),
 		useVueJsx(),
 		svgHelper(),

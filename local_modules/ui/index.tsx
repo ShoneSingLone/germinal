@@ -12,6 +12,7 @@ import xButtonCountDown from "./xButton/xButtonCountDown.vue";
 import xGap from "./xLayout/xGap.vue";
 import xCharts from "./xCharts/xCharts.vue";
 import xView from "./xView/xView.vue";
+import xIcon from "./xIcon/xIcon.vue";
 import xDataGrid from "./xDataGrid/xDataGrid.vue";
 import xDataGridToolbar from "./xDataGrid/xDataGridToolbar.vue";
 import xCellLabel from "./xDataGrid/xCellLabel.vue";
@@ -58,6 +59,7 @@ const componentMyUI = {
 	xGap,
 	xCharts,
 	xView,
+	xIcon,
 	xDataGrid,
 	xDataGridToolbar,
 	xColFilter,

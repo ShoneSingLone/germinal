@@ -91,10 +91,9 @@ export const UI = {
 		}
 	},
 	message: new Proxy(notification, {
-		get(target, p, receiver) {
-			const m = target[p];
-
-			return new Proxy(m, {
+		get(notificationApi, propertyKey, receiver) {
+			const notificationApiElement = notificationApi[propertyKey];
+			return new Proxy(notificationApiElement, {
 				apply(target, thisArg, argArray) {
 					if (typeof argArray[0] === "string") {
 						argArray[0] = _.merge({ message: argArray[0] }, argArray[1] || {});

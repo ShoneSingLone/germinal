@@ -2,6 +2,7 @@ import { _, UI, lStorage, $ } from "@ventose/ui";
 import axios from "axios";
 
 const ajax = axios.create({
+	baseURL: "/devyapi",
 	timeout: 20000 // request timeout
 });
 
@@ -10,7 +11,9 @@ ajax.interceptors.request.use(
 	config => {
 		if (config.data) {
 			_.each(["name"], prop => {
-				config.data[prop] = _.htmlFilter(config.data[prop]);
+				if (config.data[prop]) {
+					config.data[prop] = _.htmlFilter(config.data[prop]);
+				}
 			});
 		}
 		return config;

@@ -4,6 +4,7 @@ import { STATIC_WORD } from "../utils/common.words";
 import { State_App } from "./../state/State_App";
 
 const ajax = axios.create({
+	baseURL: "https://www.singlone.work/s/api/",
 	timeout: 20000 // request timeout
 });
 

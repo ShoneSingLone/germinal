@@ -28,7 +28,7 @@ export const State_App = reactive({
 	},
 	project: {
 		currPage: "",
-		projectList: "",
+		projectList: [],
 		userInfo: "",
 		tableLoading: ""
 	},
@@ -180,7 +180,13 @@ export const Methods_App = {
 		}
 	},
 	async fetchInterfaceListMenu() {},
-	async fetchProjectList() {},
+	async fetchProjectList(groupId) {
+		if (!groupId) return;
+		groupId = Number(groupId);
+		const { data } = await API.project.list(groupId);
+		State_App.project.projectList = data.list;
+		console.log("State_App.project.projectList", State_App.project.projectList);
+	},
 	async changeMenuItem() {},
 	async loginActions() {},
 	async loginLdapActions() {},
@@ -197,8 +203,6 @@ export const Methods_App = {
 	async addProject() {},
 	async delProject() {},
 	async changeUpdateModal() {},
-	delFollow() {},
-	addFollow() {},
 	getProject() {},
 	checkProjectName() {},
 	copyProjectMsg() {},

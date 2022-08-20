@@ -27,14 +27,7 @@ export default defineComponent({
 });
 </script>
 <template>
-	<aAlert
-		v-if="State_App.UseMockData"
-		type="error"
-		show-icon
-		style="margin-bottom: 24px"
-		message="UseMockData" />
-	<!-- <h1> {{ userAgent }} </h1> -->
-	<aSpin v-if="isLoading"> Loading... </aSpin>
+	<aSpin v-if="isLoading"> Loading...</aSpin>
 	<RouterView v-else />
 </template>
 

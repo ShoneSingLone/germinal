@@ -25,10 +25,10 @@ export default defineComponent({
 		};
 	},
 	mounted() {
-		this.ifUrlNoGroupIdGetAddAddIdToUrl();
+		this.ifUrlNoGroupIdGetAndAddIdToUrl();
 	},
 	methods: {
-		async ifUrlNoGroupIdGetAddAddIdToUrl() {
+		async ifUrlNoGroupIdGetAndAddIdToUrl() {
 			try {
 				let jump = () => null;
 				if (!this.state.groupId) {
@@ -42,7 +42,7 @@ export default defineComponent({
 			} catch (e) {
 				console.error(e);
 				this.state.groupId = false;
-				this.ifUrlNoGroupIdGetAddAddIdToUrl();
+				this.ifUrlNoGroupIdGetAndAddIdToUrl();
 			}
 		}
 	},

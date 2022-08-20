@@ -4,6 +4,9 @@ import constants from "ysrc/utils/variable";
 import produce from "immer";
 import { defineComponent } from "vue";
 import { _ } from "@ventose/ui";
+import { State_App } from "ysrc/state/State_App";
+import { API } from "ysrc/api";
+
 const confirm = Modal.confirm;
 
 export default defineComponent({
@@ -12,34 +15,78 @@ export default defineComponent({
 		"uid",
 		"inFollowPage",
 		"callbackResult",
-		"history",
-		"delFollow",
-		"addFollow",
 		"isShow",
 		"getProject",
 		"checkProjectName",
 		"copyProjectMsg",
 		"currPage"
 	],
-	mounted() {
-		this.add = _.debounce(this.add, 400);
-		this.del = _.debounce(this.del, 400);
+	setup() {
+		return { State_App };
 	},
-	methods: {},
+	methods: {
+		add: _.debounce(async function () {
+			const { projectData } = this;
+			const uid = this.State_App.user.uid;
+			const param = {
+				uid,
+				projectid: projectData._id,
+				projectname: projectData.name,
+				icon: projectData.icon || constants.PROJECT_ICON[0],
+				color: projectData.color || constants.PROJECT_COLOR.blue
+			};
+			const { data } = await API.project.addFollow(param);
+			if (data) {
+				this.callbackResult();
+			}
+		}, 300),
+		del: _.debounce(async function () {
+			const id = this.projectData.projectid || this.projectData._id;
+			const { data } = await API.project.delFollow(id);
+			if (data) {
+				this.callbackResult();
+			}
+		}, 300)
+	},
+	computed: {
+		isFollowStatus() {
+			return Boolean(this.projectData.follow || this.inFollowPage);
+		},
+		followIconTitle() {
+			return this.isFollowStatus ? "取消关注" : "添加关注";
+		},
+		followIconIcon() {
+			return this.isFollowStatus ? "follow" : "unfollow";
+		},
+		followIconClickHandler() {
+			return this.isFollowStatus ? this.del : this.add;
+		}
+	},
 	render() {
-		const { projectData, inFollowPage, isShow } = this.props;
+		const projectData = this.projectData;
+		const isShow = this.isShow;
+		/* 处于follow页面全是已follow的 */
+		const followIcon = (
+			<span class="pointer" onClick={this.followIconClickHandler}>
+				<aTooltip placement="rightTop" title={this.followIconTitle}>
+					<xIcon icon={this.followIconIcon} onClick={this.showConfirm} />
+				</aTooltip>
+			</span>
+		);
+
 		return (
 			<div class="card-container">
-				<Card
+				<aCard
 					bordered={false}
 					class="m-card"
 					onClick={() =>
-						this.props.history.push(
-							"/project/" + (projectData.projectid || projectData._id)
-						)
+						this.$router.push({
+							path: "/project/" + (projectData.projectid || projectData._id)
+						})
 					}>
-					<aIcon
-						type={projectData.icon || "star-o"}
+					{this.isFollowStatus ? "true" : "false"}
+					<xIcon
+						icon={projectData.icon || "star-o"}
 						class="ui-logo"
 						style={{
 							backgroundColor:
@@ -50,30 +97,17 @@ export default defineComponent({
 					<h4 class="ui-title">
 						{projectData.name || projectData.projectname}
 					</h4>
-				</Card>
-				<div
-					class="card-btns"
-					onClick={projectData.follow || inFollowPage ? this.del : this.add}>
-					<aTooltip
-						placement="rightTop"
-						title={
-							projectData.follow || inFollowPage ? "取消关注" : "添加关注"
-						}>
-						<aIcon
-							type={projectData.follow || inFollowPage ? "star" : "star-o"}
-							class={
-								"icon " + (projectData.follow || inFollowPage ? "active" : "")
-							}
-						/>
-					</aTooltip>
+				</aCard>
+				<div class="card-btns flex">
+					{isShow && (
+						<span class="pointer" onClick={this.showConfirm}>
+							<aTooltip placement="rightTop" title="复制项目">
+								<xIcon icon="copy" />
+							</aTooltip>
+						</span>
+					)}
+					{followIcon}
 				</div>
-				{isShow && (
-					<div class="copy-btns" onClick={this.showConfirm}>
-						<aTooltip placement="rightTop" title="复制项目">
-							<LazySvg icon="copy" class="icon" />
-						</aTooltip>
-					</div>
-				)}
 			</div>
 		);
 	}

@@ -489,14 +489,14 @@ class InterfaceMenu extends Component {
 							class="container-title"
 							onMouseEnter={() => this.enterItem(item._id)}
 							onMouseLeave={this.leaveItem}>
-							<RouterView
+							<RouterLink
 								class="interface-item"
 								onClick={e => e.stopPropagation()}
 								to={
 									"/project/" + matchParams.id + "/interface/api/" + item._id
 								}>
 								{item.title}
-							</RouterView>
+							</RouterLink>
 							<div class="btns">
 								<aTooltip title="删除接口">
 									<aIcon
@@ -568,15 +568,15 @@ class InterfaceMenu extends Component {
 							<TreeNode
 								class="item-all-interface"
 								title={
-									<RouterView
+									<RouterLink
 										onClick={e => {
 											e.stopPropagation();
 											this.changeExpands();
 										}}
 										to={"/project/" + matchParams.id + "/interface/api"}>
-										<LazySvg icon="folder" style={{ marginRight: 5 }} />
+										<xIcon icon="folder" style={{ marginRight: 5 }} />
 										全部接口
-									</RouterView>
+									</RouterLink>
 								}
 								key="root"
 							/>
@@ -588,7 +588,7 @@ class InterfaceMenu extends Component {
 												class="container-title"
 												onMouseEnter={() => this.enterItem(item._id)}
 												onMouseLeave={this.leaveItem}>
-												<RouterView
+												<RouterLink
 													class="interface-item"
 													onClick={e => {
 														e.stopPropagation();
@@ -605,7 +605,7 @@ class InterfaceMenu extends Component {
 														style={{ marginRight: 5 }}
 													/>
 													{item.name}
-												</RouterView>
+												</RouterLink>
 												<div class="btns">
 													<aTooltip title="删除分类">
 														<aIcon

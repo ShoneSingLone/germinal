@@ -916,7 +916,7 @@ ${JSON.stringify(result.header, null, 2)}
 									</aButton>
 									<aTooltip title="高级参数设置只在json字段值中生效">
 										{"  "}
-										<LazySvg icon="question-circle-o" />
+										<xIcon icon="question-circle-o" />
 									</aTooltip>
 								</div>
 							)}
@@ -1043,7 +1043,7 @@ ${JSON.stringify(result.header, null, 2)}
 										<span>
 											Warning &nbsp;
 											<aTooltip title="针对定义为 json schema 的返回数据进行格式校验">
-												<LazySvg icon="question-circle-o" />
+												<xIcon icon="question-circle-o" />
 											</aTooltip>
 										</span>
 									}

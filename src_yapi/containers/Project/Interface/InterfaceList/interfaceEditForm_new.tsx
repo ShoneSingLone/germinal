@@ -640,7 +640,7 @@ class InterfaceEditForm extends Component {
 						span="1"
 						easy_drag_sort_child="true"
 						class="interface-edit-item-content-col interface-edit-item-content-col-drag">
-						<LazySvg icon="bars" />
+						<xIcon icon="bars" />
 					</aCol>
 					<aCol
 						span="4"
@@ -688,7 +688,7 @@ class InterfaceEditForm extends Component {
 						span="1"
 						easy_drag_sort_child="true"
 						class="interface-edit-item-content-col interface-edit-item-content-col-drag">
-						<LazySvg icon="bars" />
+						<xIcon icon="bars" />
 					</aCol>
 					<aCol span="4" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_headers[" + index + "].name", {
@@ -738,7 +738,7 @@ class InterfaceEditForm extends Component {
 						span="1"
 						easy_drag_sort_child="true"
 						class="interface-edit-item-content-col interface-edit-item-content-col-drag">
-						<LazySvg icon="bars" />
+						<xIcon icon="bars" />
 					</aCol>
 					<aCol span="4" class="interface-edit-item-content-col">
 						{getFieldDecorator("req_body_form[" + index + "].name", {
@@ -901,10 +901,7 @@ class InterfaceEditForm extends Component {
 												</p>
 											</div>
 										}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</span>
 							}>
@@ -1167,7 +1164,7 @@ class InterfaceEditForm extends Component {
 								JSON-SCHEMA:&nbsp;
 								{!projectMsg.is_json5 && (
 									<aTooltip title="项目 -> 设置 开启 json5">
-										<LazySvg icon="question-circle-o" />{" "}
+										<xIcon icon="question-circle-o" />{" "}
 									</aTooltip>
 								)}
 							</span>
@@ -1253,7 +1250,7 @@ class InterfaceEditForm extends Component {
 						返回数据设置&nbsp;
 						{!projectMsg.is_json5 && (
 							<aTooltip title="项目 -> 设置 开启 json5">
-								<LazySvg icon="question-circle-o" class="tooltip" />{" "}
+								<xIcon icon="question-circle-o" class="tooltip" />{" "}
 							</aTooltip>
 						)}
 						{getFieldDecorator("res_body_is_json_schema", {
@@ -1406,10 +1403,7 @@ class InterfaceEditForm extends Component {
 								<span>
 									消息通知&nbsp;
 									<aTooltip title={"开启消息通知，可在 项目设置 里修改"}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</span>
 							}>
@@ -1425,10 +1419,7 @@ class InterfaceEditForm extends Component {
 								<span>
 									开放接口&nbsp;
 									<aTooltip title={"用户可以在 数据导出 时选择只导出公开接口"}>
-										<LazySvg
-											icon="question-circle-o"
-											style={{ width: "10px" }}
-										/>
+										<xIcon icon="question-circle-o" style={{ width: "10px" }} />
 									</aTooltip>
 								</span>
 							}>

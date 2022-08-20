@@ -136,9 +136,7 @@ export default defineComponent({
 			await Methods_App.fetchNewsData(State_App.currGroup._id, "group", 1, 10);
 		},
 		async selectGroup({ key: groupId }) {
-			const currGroup = _.find(this.State_App.groupList, {
-				_id: +groupId
-			});
+			const currGroup = _.find(this.State_App.groupList, { _id: +groupId });
 			await Methods_App.setCurrGroup(currGroup);
 			this.$router.push({ path: `/group/${currGroup._id}` });
 			await Methods_App.fetchNewsData(groupId, "group", 1, 10);
@@ -173,7 +171,7 @@ export default defineComponent({
 							<span class="name">{currGroup.group_name}</span>
 							<aTooltip title="添加分组">
 								<a class="editSet">
-									<LazySvg
+									<xIcon
 										class="btn"
 										icon="addGroup"
 										onClick={this.showAddGroupView}
@@ -203,7 +201,7 @@ export default defineComponent({
 							return (
 								<aMenuItem key={`${group._id}`} class="group-item flex">
 									<div class="flex">
-										<LazySvg icon={icon} style="width:16px;" />
+										<xIcon icon={icon} style="width:16px;" />
 										<span>{group.group_name}</span>
 									</div>
 								</aMenuItem>

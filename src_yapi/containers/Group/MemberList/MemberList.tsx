@@ -3,6 +3,7 @@ import UsernameAutoComplete from "ysrc/components/UsernameAutoComplete/UsernameA
 import { State_App } from "ysrc/state/State_App";
 import { defineComponent } from "vue";
 import "./MemberList.scss";
+import { RouterLink } from "vue-router";
 
 function arrayAddKey(arr) {
 	return arr.map((item, index) => {
@@ -179,7 +180,7 @@ export default defineComponent({
 				render: (text, record) => {
 					return (
 						<div class="m-user">
-							<RouterView to={`/user/profile/${record.uid}`}>
+							<RouterLink to={`/user/profile/${record.uid}`}>
 								<img
 									src={
 										location.protocol +
@@ -190,10 +191,10 @@ export default defineComponent({
 									}
 									class="m-user-img"
 								/>
-							</RouterView>
-							<RouterView to={`/user/profile/${record.uid}`}>
+							</RouterLink>
+							<RouterLink to={`/user/profile/${record.uid}`}>
 								<p class="m-user-name">{text}</p>
-							</RouterView>
+							</RouterLink>
 						</div>
 					);
 				}
@@ -233,7 +234,7 @@ export default defineComponent({
 									okText="确定"
 									cancelText="">
 									<aButton type="danger" icon="delete" class="btn-danger" />
-									{/* <LazySvg icon="delete" class="btn-danger"/> */}
+									{/* <xIcon icon="delete" class="btn-danger"/> */}
 								</aPopconfirm>
 							</div>
 						);

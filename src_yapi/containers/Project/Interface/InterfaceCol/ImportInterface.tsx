@@ -187,7 +187,7 @@ export default class ImportInterface extends Component {
 					<span>
 						状态{" "}
 						<aTooltip title="筛选满足条件的接口集合">
-							<LazySvg icon="question-circle-o" />
+							<xIcon icon="question-circle-o" />
 						</aTooltip>
 					</span>
 				),

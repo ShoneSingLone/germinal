@@ -84,7 +84,7 @@ class View extends Component {
 							</span>
 						) : (
 							<span>
-								<LazySvg icon="file" class="query-icon" />
+								<xIcon icon="file" class="query-icon" />
 								文件
 							</span>
 						);
@@ -460,10 +460,10 @@ async ${_.camelCase(this.props.curData.path)}({params,data}) {
 							创&ensp;建&ensp;人：
 						</aCol>
 						<aCol span={8} class="colValue">
-							<RouterView class="user-name" to={"/user/profile/" + uid}>
+							<RouterLink class="user-name" to={"/user/profile/" + uid}>
 								<img src={"/api/user/avatar?uid=" + uid} class="user-img" />
 								{username}
-							</RouterView>
+							</RouterLink>
 						</aCol>
 					</aRow>
 					<aRow class="row">

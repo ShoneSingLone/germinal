@@ -336,7 +336,7 @@ class UpDateModal extends Component {
 							<span>
 								线上域名&nbsp;
 								<aTooltip title="将根据配置的线上域名访问mock数据">
-									<LazySvg icon="question-circle-o" />
+									<xIcon icon="question-circle-o" />
 								</aTooltip>
 							</span>
 						}>
@@ -368,7 +368,7 @@ class UpDateModal extends Component {
 							<span>
 								基本路径&nbsp;
 								<aTooltip title="基本路径为空表示根路径">
-									<LazySvg icon="question-circle-o" />
+									<xIcon icon="question-circle-o" />
 								</aTooltip>
 							</span>
 						}>
@@ -398,7 +398,7 @@ class UpDateModal extends Component {
 					{formItems}
 					<FormItem {...formItemLayoutWithOutLabel}>
 						<aButton type="dashed" onClick={this.add} style={{ width: "60%" }}>
-							<LazySvg icon="plus" /> 添加环境配置
+							<xIcon icon="plus" /> 添加环境配置
 						</aButton>
 					</FormItem>
 				</Form>

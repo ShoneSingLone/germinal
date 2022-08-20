@@ -28,12 +28,12 @@
   "tips.404": "not found",
   "welcome": "welcome",
   "welcome.back": "welcome back",
-  "login.title": "demo",
+  "login.title": "Toolbox",
   "BackHome": "Back Home",
   "notFoundTips": "Sorry, you don't have access to this page.",
   "layouts.usermenu.dialog.title": "Message",
   "layouts.usermenu.dialog.content": "Are you sure you would like to logout?",
-  "layouts.userLayout.title": "Diligent",
+  "layouts.userLayout.title": "Individual project for exchange study only",
   "user.login.username": "username",
   "user.login.password": "password",
   "user.login.email.placeholder": "Email",
@@ -72,5 +72,6 @@
   "user.confirm-password.required": "Please confirm your password!",
   "user.phone-number.required": "Please enter your phone number!",
   "user.phone-number.wrong-format": "Please enter a valid phone number",
-  "user.verification-code.required": "Please enter the verification code!"
+  "user.verification-code.required": "Please enter the verification code!",
+  "music": "Music"
 }

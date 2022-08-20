@@ -166,14 +166,14 @@ export default defineComponent({
 				return (
 					<aTimeline.Item
 						dot={
-							<RouterView to={`/user/profile/${item.uid}`}>
+							<RouterLink to={`/user/profile/${item.uid}`}>
 								<aAvatar src={`/api/user/avatar?uid=${item.uid}`} />
-							</RouterView>
+							</RouterLink>
 						}
 						key={i}>
 						<div class="logMesHeade">
 							<span class="logoTimeago">{timeago(item.add_time)}</span>
-							{/*<span class="logusername"><RouterView to={`/user/profile/${item.uid}`}><LazySvg icon="user" />{item.username}</RouterView></span>*/}
+							{/*<span class="logusername"><RouterView to={`/user/profile/${item.uid}`}><xIcon icon="user" />{item.username}</RouterView></span>*/}
 							<span class="logtype">{logType[item.type]}动态</span>
 							<span class="logtime">{_.dateFormat(item.add_time)}</span>
 						</div>

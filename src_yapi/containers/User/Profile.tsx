@@ -233,7 +233,7 @@ class Profile extends Component {
 			userNameEditHtml = (
 				<div>
 					<span class="text">{userinfo.username}</span>&nbsp;&nbsp;
-					{/*<span class="text-button"  onClick={() => { this.handleEdit('usernameEdit', true) }}><LazySvg icon="edit" />修改</span>*/}
+					{/*<span class="text-button"  onClick={() => { this.handleEdit('usernameEdit', true) }}><xIcon icon="edit" />修改</span>*/}
 					{/* {btn} */}
 					{/* 站点登陆才能编辑 */}
 					{userType && (
@@ -281,7 +281,7 @@ class Profile extends Component {
 			emailEditHtml = (
 				<div>
 					<span class="text">{userinfo.email}</span>&nbsp;&nbsp;
-					{/*<span class="text-button" onClick={() => { this.handleEdit('emailEdit', true) }} ><LazySvg icon="edit" />修改</span>*/}
+					{/*<span class="text-button" onClick={() => { this.handleEdit('emailEdit', true) }} ><xIcon icon="edit" />修改</span>*/}
 					{/* {btn} */}
 					{/* 站点登陆才能编辑 */}
 					{userType && (

@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import PageToolboxHome from "./PageToolboxHome.vue";
 import { appPlugins } from "lsrc/utils/common";
 import { State_App } from "lsrc/state/State_App";
 import $ from "jquery";
@@ -30,7 +30,7 @@ async function main() {
 		await loadMockData();
 	}
 
-	createApp(App)
+	createApp(PageToolboxHome)
 		.use(appPlugins, {
 			dependState: State_App
 		})

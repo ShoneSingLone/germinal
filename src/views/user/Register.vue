@@ -116,9 +116,9 @@ const configsTestPopover = {
 			<div class="item-wrapper flex">
 				<xButton :configs="State_Register.configsSubmit" />
 				<xGap l="80" />
-				<RouterView class="register" :to="{ name: routeNames.login }">
+				<RouterLink class="register" :to="{ name: routeNames.login }">
 					{{ $t("user.register.sign-in").label }}
-				</RouterView>
+				</RouterLink>
 			</div>
 		</div>
 	</div>

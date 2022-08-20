@@ -5,6 +5,7 @@ import { setBreadcrumb } from "../../reducer/modules/user";
 
 import { Table, Popconfirm, message, Input } from "ant-design-vue";
 import axios from "axios";
+import { RouterLink } from "vue-router";
 
 const Search = Input.Search;
 const limit = 20;
@@ -141,9 +142,9 @@ class List extends Component {
 				width: 180,
 				render: (username, item) => {
 					return (
-						<RouterView to={"/user/profile/" + item._id}>
+						<RouterLink to={"/user/profile/" + item._id}>
 							{item.username}
-						</RouterView>
+						</RouterLink>
 					);
 				}
 			},

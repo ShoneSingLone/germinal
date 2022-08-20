@@ -21,7 +21,7 @@ export const render = state => {
 	return (
 		<Dropdown overlay={langMenu} placement="bottomRight">
 			<span class={prefixCls}>
-				<LazySvg icon="global" title={i18nRender("navBar.lang")} />
+				<xIcon icon="global" title={i18nRender("navBar.lang")} />
 			</span>
 		</Dropdown>
 	);

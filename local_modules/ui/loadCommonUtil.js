@@ -169,7 +169,7 @@ mylodash.ensureValueDone = async fnGetValue => {
 			const value = await fnGetValue();
 			if (value) {
 				exeFnGetValue = null;
-				resolve();
+				resolve(value);
 			} else {
 				setTimeout(exeFnGetValue, 1000 * exeFnGetValue.count++);
 			}
@@ -292,10 +292,9 @@ async function asyncImportSFC(url) {
 		scfObjAsyncFn = new Function(
 			"argVue",
 			"argPayload",
-			`
-        ${scfObjSourceCode}
-        return sfc(argVue,argPayload);
-        `
+			`\n
+return (${scfObjSourceCode})(argVue,argPayload);
+`
 		);
 	} catch (e) {
 		console.error(e);
@@ -435,6 +434,7 @@ mylodash.timego = function (timestamp) {
 	}
 };
 mylodash.htmlFilter = html => {
+	if (!html) return;
 	let reg = /<\/?.+?\/?>/g;
 	return html.replace(reg, "") || "";
 };

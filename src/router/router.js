@@ -5,6 +5,7 @@ import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import Webrtc from "lsrc/views/webrtc/Webrtc.vue";
+import ViewToolboxShell from "lsrc/views/ToolboxShell/ViewToolboxShell.vue";
 import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
 import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
@@ -38,8 +39,13 @@ const toPath = name => `/${name}`;
 
 const routes = [
 	{
-		name: routeNames.shell,
-		path: toPath(routeNames.shell),
+		name: "ViewToolboxShell",
+		path: "/",
+		component: ViewToolboxShell
+	},
+	{
+		name: "PageDashboard",
+		path: "/dashboard",
 		redirect: "/dashboard-workplace",
 		component: import("lsrc/layout/LayoutBasic.vue"),
 		children: [
@@ -95,7 +101,7 @@ const allowVisitPageWhenNoAccess = [
 ];
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
-const defaultRoutePath = toPath(routeNames.shell);
+const defaultRoutePath = toPath("/");
 
 router.beforeEach(async (to, from) => {
 	/*NOTICE:返回 false 以取消导航*/
