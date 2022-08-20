@@ -2,7 +2,7 @@
 	"name": "germinal",
 	"version": "0.0.0",
 	"scripts": {
-		"bs": "npm i && npm run make:language",
+		"bs": "npm i --legacy-peer-deps && npm run make:language",
 		"start": "cross-env NODE_ENV=development vite --host --open",
 		"lint": "npm run lint:src && npm run lint:yapi",
 		"lint:src": "prettier --write ./src",
@@ -23,7 +23,6 @@
 		"@ant-design/icons-vue": "^6.0.1",
 		"@popperjs/core": "^2.10.2",
 		"@ventose/ui": "file:./local_modules/ui",
-		"@vitejs/plugin-basic-ssl": "^0.1.2",
 		"ant-design-vue": "^3.0.0-alpha.3",
 		"axios": "^0.26.0",
 		"dayjs": "^1.10.7",
@@ -43,6 +42,7 @@
 		"ysrc": "file:./src_yapi/"
 	},
 	"devDependencies": {
+		"@vitejs/plugin-basic-ssl": "^0.1.2",
 		"@ventose/utils-node": "^0.0.11",
 		"@vitejs/plugin-vue": "^1.9.3",
 		"@vitejs/plugin-vue-jsx": "^1.2.0",
