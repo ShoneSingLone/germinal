@@ -35,6 +35,10 @@ async function main() {
 			dependState: State_App
 		})
 		.mount("#app");
+	const $LOADING = $(`#app-loading-wrapper`);
+	$LOADING.addClass("hide");
+	await _.sleep(3000);
+	$LOADING.remove();
 }
 
 main();
