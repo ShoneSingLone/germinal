@@ -1,8 +1,8 @@
 import { S as State_App, a as STATIC_WORD, A as Actions_App, _ as _sfc_main$2 } from "./main.js";
-import { _ as _global__ } from "./index.js";
+import { _ as _global__ } from "./nprogress.js";
 import { U as UserOutlined } from "./UserOutlined.js";
 import "./FormRules.js";
-import "./ViewAddGroup.js";
+import "./form.js";
 function _isSlot(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }

@@ -1,7 +1,7 @@
-import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, N as NProgress, i as dayjs, V as VentoseUIWithInstall, j as _global_$ } from "./index.js";
+import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, i as _global_$, N as NProgress, j as dayjs, V as VentoseUIWithInstall } from "./nprogress.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, L as LockOutlined, M as MailOutlined } from "./UserOutlined.js";
-import { p as pickValueFrom, V as ViewAddGroup } from "./ViewAddGroup.js";
+import { p as pickValueFrom } from "./form.js";
 var GlobalOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M854.4 800.9c.2-.3.5-.6.7-.9C920.6 722.1 960 621.7 960 512s-39.4-210.1-104.8-288c-.2-.3-.5-.5-.7-.8-1.1-1.3-2.1-2.5-3.2-3.7-.4-.5-.8-.9-1.2-1.4l-4.1-4.7-.1-.1c-1.5-1.7-3.1-3.4-4.6-5.1l-.1-.1c-3.2-3.4-6.4-6.8-9.7-10.1l-.1-.1-4.8-4.8-.3-.3c-1.5-1.5-3-2.9-4.5-4.3-.5-.5-1-1-1.6-1.5-1-1-2-1.9-3-2.8-.3-.3-.7-.6-1-1C736.4 109.2 629.5 64 512 64s-224.4 45.2-304.3 119.2c-.3.3-.7.6-1 1-1 .9-2 1.9-3 2.9-.5.5-1 1-1.6 1.5-1.5 1.4-3 2.9-4.5 4.3l-.3.3-4.8 4.8-.1.1c-3.3 3.3-6.5 6.7-9.7 10.1l-.1.1c-1.6 1.7-3.1 3.4-4.6 5.1l-.1.1c-1.4 1.5-2.8 3.1-4.1 4.7-.4.5-.8.9-1.2 1.4-1.1 1.2-2.1 2.5-3.2 3.7-.2.3-.5.5-.7.8C103.4 301.9 64 402.3 64 512s39.4 210.1 104.8 288c.2.3.5.6.7.9l3.1 3.7c.4.5.8.9 1.2 1.4l4.1 4.7c0 .1.1.1.1.2 1.5 1.7 3 3.4 4.6 5l.1.1c3.2 3.4 6.4 6.8 9.6 10.1l.1.1c1.6 1.6 3.1 3.2 4.7 4.7l.3.3c3.3 3.3 6.7 6.5 10.1 9.6 80.1 74 187 119.2 304.5 119.2s224.4-45.2 304.3-119.2a300 300 0 0010-9.6l.3-.3c1.6-1.6 3.2-3.1 4.7-4.7l.1-.1c3.3-3.3 6.5-6.7 9.6-10.1l.1-.1c1.5-1.7 3.1-3.3 4.6-5 0-.1.1-.1.1-.2 1.4-1.5 2.8-3.1 4.1-4.7.4-.5.8-.9 1.2-1.4a99 99 0 003.3-3.7zm4.1-142.6c-13.8 32.6-32 62.8-54.2 90.2a444.07 444.07 0 00-81.5-55.9c11.6-46.9 18.8-98.4 20.7-152.6H887c-3 40.9-12.6 80.6-28.5 118.3zM887 484H743.5c-1.9-54.2-9.1-105.7-20.7-152.6 29.3-15.6 56.6-34.4 81.5-55.9A373.86 373.86 0 01887 484zM658.3 165.5c39.7 16.8 75.8 40 107.6 69.2a394.72 394.72 0 01-59.4 41.8c-15.7-45-35.8-84.1-59.2-115.4 3.7 1.4 7.4 2.9 11 4.4zm-90.6 700.6c-9.2 7.2-18.4 12.7-27.7 16.4V697a389.1 389.1 0 01115.7 26.2c-8.3 24.6-17.9 47.3-29 67.8-17.4 32.4-37.8 58.3-59 75.1zm59-633.1c11 20.6 20.7 43.3 29 67.8A389.1 389.1 0 01540 327V141.6c9.2 3.7 18.5 9.1 27.7 16.4 21.2 16.7 41.6 42.6 59 75zM540 640.9V540h147.5c-1.6 44.2-7.1 87.1-16.3 127.8l-.3 1.2A445.02 445.02 0 00540 640.9zm0-156.9V383.1c45.8-2.8 89.8-12.5 130.9-28.1l.3 1.2c9.2 40.7 14.7 83.5 16.3 127.8H540zm-56 56v100.9c-45.8 2.8-89.8 12.5-130.9 28.1l-.3-1.2c-9.2-40.7-14.7-83.5-16.3-127.8H484zm-147.5-56c1.6-44.2 7.1-87.1 16.3-127.8l.3-1.2c41.1 15.6 85 25.3 130.9 28.1V484H336.5zM484 697v185.4c-9.2-3.7-18.5-9.1-27.7-16.4-21.2-16.7-41.7-42.7-59.1-75.1-11-20.6-20.7-43.3-29-67.8 37.2-14.6 75.9-23.3 115.8-26.1zm0-370a389.1 389.1 0 01-115.7-26.2c8.3-24.6 17.9-47.3 29-67.8 17.4-32.4 37.8-58.4 59.1-75.1 9.2-7.2 18.4-12.7 27.7-16.4V327zM365.7 165.5c3.7-1.5 7.3-3 11-4.4-23.4 31.3-43.5 70.4-59.2 115.4-21-12-40.9-26-59.4-41.8 31.8-29.2 67.9-52.4 107.6-69.2zM165.5 365.7c13.8-32.6 32-62.8 54.2-90.2 24.9 21.5 52.2 40.3 81.5 55.9-11.6 46.9-18.8 98.4-20.7 152.6H137c3-40.9 12.6-80.6 28.5-118.3zM137 540h143.5c1.9 54.2 9.1 105.7 20.7 152.6a444.07 444.07 0 00-81.5 55.9A373.86 373.86 0 01137 540zm228.7 318.5c-39.7-16.8-75.8-40-107.6-69.2 18.5-15.8 38.4-29.7 59.4-41.8 15.7 45 35.8 84.1 59.2 115.4-3.7-1.4-7.4-2.9-11-4.4zm292.6 0c-3.7 1.5-7.3 3-11 4.4 23.4-31.3 43.5-70.4 59.2-115.4 21 12 40.9 26 59.4 41.8a373.81 373.81 0 01-107.6 69.2z" } }] }, "name": "global", "theme": "outlined" };
 var GlobalOutlinedSvg = GlobalOutlined$2;
 function _objectSpread(target) {
@@ -391,7 +391,7 @@ function isSlowBuffer(obj) {
   };
 })();
 var md5 = md5$1.exports;
-const { $t: $t$3 } = State_UI;
+const { $t: $t$4 } = State_UI;
 const State_App = Vue.reactive({
   UseMockData: false,
   theme: "light",
@@ -483,7 +483,7 @@ const Actions_App = {
       request: () => API.user.regster(params_register),
       success: ({ email: email2 }) => {
         UI.message.success(
-          $t$3("user.register-result.msg", {
+          $t$4("user.register-result.msg", {
             email: email2
           }).label
         );
@@ -509,7 +509,7 @@ const Actions_App = {
       const { router: router2, routeNames: routeNames2 } = await __vitePreload(() => Promise.resolve().then(function() {
         return router$1;
       }), true ? void 0 : void 0);
-      UI.message.success($t$3("\u6210\u529F", { action: $t$3("\u9000\u51FA").label }).label);
+      UI.message.success($t$4("\u6210\u529F", { action: $t$4("\u9000\u51FA").label }).label);
       await _global__.sleep(1e3 * 1);
       router2.push({
         name: routeNames2.userLogin
@@ -540,7 +540,7 @@ const _sfc_main$c = Vue.defineComponent({
   }
 });
 const _hoisted_1$8 = /* @__PURE__ */ Vue.createTextVNode(" Loading...");
-function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aSpin = Vue.resolveComponent("aSpin");
   const _component_RouterView = Vue.resolveComponent("RouterView");
   return _ctx.isLoading ? (Vue.openBlock(), Vue.createBlock(_component_aSpin, { key: 0 }, {
@@ -550,7 +550,7 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   })) : (Vue.openBlock(), Vue.createBlock(_component_RouterView, { key: 1 }));
 }
-var PageToolboxHome = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$3]]);
+var PageToolboxHome = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$5]]);
 var logoImg = "./statics/assets/logo2.f9552052.jpg";
 const _hoisted_1$7 = ["aria-label"];
 const _sfc_main$b = {
@@ -650,7 +650,7 @@ const _sfc_main$a = {
   }
 };
 const {
-  $t: $t$2
+  $t: $t$3
 } = State_UI;
 function handleLoginSuccess(res) {
   function timeFix() {
@@ -659,8 +659,8 @@ function handleLoginSuccess(res) {
     return hour < 9 ? "\u65E9\u4E0A\u597D" : hour <= 11 ? "\u4E0A\u5348\u597D" : hour <= 13 ? "\u4E2D\u5348\u597D" : hour < 20 ? "\u4E0B\u5348\u597D" : "\u665A\u4E0A\u597D";
   }
   UI.notification.success({
-    message: $t$2("welcome").label,
-    description: `${timeFix()}\uFF0C${$t$2("welcome.back").label}`
+    message: $t$3("welcome").label,
+    description: `${timeFix()}\uFF0C${$t$3("welcome.back").label}`
   });
   setTimeout(() => {
     window.location.reload();
@@ -700,8 +700,8 @@ const State_Login = Vue.reactive({
     ...defItem({
       prop: "email",
       size: "large",
-      placeholder: () => $t$2("user.login.email.placeholder").label,
-      rules: [FormRules.required(() => $t$2("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
+      placeholder: () => $t$3("user.login.email.placeholder").label,
+      rules: [FormRules.required(() => $t$3("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
       slots: {
         prefix: () => Vue.createVNode(UserOutlined, {
           "style": styles$1.icon
@@ -712,8 +712,8 @@ const State_Login = Vue.reactive({
       prop: "password",
       isPassword: true,
       size: "large",
-      placeholder: () => $t$2("user.login.password.placeholder").label,
-      rules: [FormRules.required(() => $t$2("user.password.required").label, [EVENT_TYPE.blur])],
+      placeholder: () => $t$3("user.login.password.placeholder").label,
+      rules: [FormRules.required(() => $t$3("user.password.required").label, [EVENT_TYPE.blur])],
       slots: {
         prefix: () => Vue.createVNode(LockOutlined, {
           "style": styles$1.icon
@@ -725,7 +725,7 @@ const State_Login = Vue.reactive({
     size: "large",
     type: "primary",
     class: "login-button flex center",
-    text: () => $t$2("user.login.login").label,
+    text: () => $t$3("user.login.login").label,
     onClick: onSubmitClick
   }
 });
@@ -847,7 +847,7 @@ const _sfc_main$8 = {
   }
 };
 const {
-  $t: $t$1
+  $t: $t$2
 } = State_UI;
 const styles = {
   icon: {
@@ -874,8 +874,8 @@ const State_Register = Vue.reactive({
     ...defItem({
       prop: "email",
       size: "large",
-      placeholder: () => $t$1("user.login.email.placeholder").label,
-      rules: [FormRules.required(() => $t$1("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
+      placeholder: () => $t$2("user.login.email.placeholder").label,
+      rules: [FormRules.required(() => $t$2("user.email.required").label, [EVENT_TYPE.blur]), FormRules.email()],
       slots: {
         prefix: () => Vue.createVNode(MailOutlined, {
           "style": styles.icon
@@ -886,9 +886,9 @@ const State_Register = Vue.reactive({
       prop: "password",
       isPassword: true,
       size: "large",
-      placeholder: () => $t$1("user.login.password.placeholder").label,
-      rules: [FormRules.required(() => $t$1("user.password.required").label, [EVENT_TYPE.update]), FormRules.custom({
-        msg: () => $t$1("user.password.strength.msg").label,
+      placeholder: () => $t$2("user.login.password.placeholder").label,
+      rules: [FormRules.required(() => $t$2("user.password.required").label, [EVENT_TYPE.update]), FormRules.custom({
+        msg: () => $t$2("user.password.strength.msg").label,
         validator: checkPasswordLevel,
         trigger: [EVENT_TYPE.update]
       })],
@@ -905,9 +905,9 @@ const State_Register = Vue.reactive({
       prop: "passwordConfirm",
       isPassword: true,
       size: "large",
-      placeholder: () => $t$1("user.register.confirm-password.placeholder").label,
-      rules: [FormRules.required(() => $t$1("user.password.required").label, [EVENT_TYPE.blur]), FormRules.custom({
-        msg: () => $t$1("user.password.twice.msg").label,
+      placeholder: () => $t$2("user.register.confirm-password.placeholder").label,
+      rules: [FormRules.required(() => $t$2("user.password.required").label, [EVENT_TYPE.blur]), FormRules.custom({
+        msg: () => $t$2("user.password.twice.msg").label,
         validator: async (passwordConfirm) => State_Register.configsForm.password.value !== passwordConfirm,
         trigger: [EVENT_TYPE.update]
       })],
@@ -921,8 +921,8 @@ const State_Register = Vue.reactive({
       prop: "verifyCode",
       size: "large",
       itemWrapperClass: "flex1",
-      placeholder: () => $t$1("user.login.mobile.verification-code.placeholder").label,
-      rules: [FormRules.required(() => $t$1("user.verification-code.required").label, [EVENT_TYPE.blur])],
+      placeholder: () => $t$2("user.login.mobile.verification-code.placeholder").label,
+      rules: [FormRules.required(() => $t$2("user.verification-code.required").label, [EVENT_TYPE.blur])],
       slots: {
         prefix: () => Vue.createVNode(MailOutlined, {
           "style": styles.icon
@@ -933,7 +933,7 @@ const State_Register = Vue.reactive({
   configsverifyCode: {
     countMax: State_App.configs.countMax,
     text: {
-      normal: () => $t$1("user.register.get-verification-code").label
+      normal: () => $t$2("user.register.get-verification-code").label
     },
     onClick: async ({
       countDown
@@ -955,7 +955,7 @@ const State_Register = Vue.reactive({
     size: "large",
     type: "primary",
     class: "login-button flex1 center flex",
-    text: () => $t$1("user.register.register").label,
+    text: () => $t$2("user.register.register").label,
     onClick: async () => {
       try {
         const currentFormConfigs = State_Register.configsForm;
@@ -1409,25 +1409,37 @@ const _sfc_main$4 = Vue.defineComponent({
     };
   }
 });
-function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xButton = Vue.resolveComponent("xButton");
   return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
     Vue.createVNode(_component_xButton, { configs: _ctx.configs_btn }, null, 8, ["configs"]),
     (Vue.openBlock(), Vue.createBlock(Vue.resolveDynamicComponent(_ctx.currentComponent)))
   ], 64);
 }
-var TestBoundless = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$2]]);
+var TestBoundless = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4]]);
+var _sfc_main$3 = Vue.defineComponent({
+  components: {
+    TestPopover: _sfc_main$5,
+    TestBoundless
+  }
+});
 const _hoisted_1$2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless start", -1);
 const _hoisted_2$2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless end", -1);
-var _sfc_main$3 = {
-  __name: "HelloWorld",
-  setup(__props) {
-    return (_ctx, _cache) => {
-      const _component_RouterView = Vue.resolveComponent("RouterView");
-      return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [Vue.createElementVNode("div", null, [_hoisted_1$2, Vue.createVNode(TestBoundless), _hoisted_2$2]), Vue.createVNode(_sfc_main$5), Vue.createVNode(_component_RouterView)], 64);
-    };
-  }
-};
+function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_TestBoundless = Vue.resolveComponent("TestBoundless");
+  const _component_TestPopover = Vue.resolveComponent("TestPopover");
+  const _component_RouterView = Vue.resolveComponent("RouterView");
+  return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
+    Vue.createElementVNode("div", null, [
+      _hoisted_1$2,
+      Vue.createVNode(_component_TestBoundless),
+      _hoisted_2$2
+    ]),
+    Vue.createVNode(_component_TestPopover),
+    Vue.createVNode(_component_RouterView)
+  ], 64);
+}
+var DevDemo = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3]]);
 const _sfc_main$2 = Vue.defineComponent({
   data() {
     return {
@@ -1454,10 +1466,10 @@ const _sfc_main$2 = Vue.defineComponent({
     }
   }
 });
-function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("h1", null, Vue.toDisplayString(_ctx.tips), 1);
 }
-var Webrtc = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1]]);
+var Webrtc = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
 var DesktopIconItem_vue_vue_type_style_index_0_lang = "";
 const _sfc_main$1 = Vue.defineComponent({
   name: "DesktopIconItem",
@@ -1484,7 +1496,7 @@ const _sfc_main$1 = Vue.defineComponent({
 const _hoisted_1$1 = ["title"];
 const _hoisted_2$1 = { class: "desktopicon_title mb10" };
 const _hoisted_3$1 = { class: "l" };
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("div", {
     onClick: _cache[0] || (_cache[0] = (...args) => _ctx.configs.onClick && _ctx.configs.onClick(...args)),
     class: "desktopicon",
@@ -1501,119 +1513,118 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 8, _hoisted_1$1);
 }
-var DesktopIconItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render]]);
-const _hoisted_1 = {
-  class: "view-toolbox-shell flex vertical"
-};
-const _hoisted_2 = {
-  class: "view-toolbox-shell_header x-ui-glossy"
-};
-const _hoisted_3 = {
-  class: "flex middle",
-  style: {
-    "height": "100%",
-    "padding": "0 24px"
-  }
-};
-const _hoisted_4 = /* @__PURE__ */ Vue.createElementVNode("span", {
-  class: "flex1"
-}, null, -1);
-const _hoisted_5 = ["src"];
-const _hoisted_6 = {
-  class: "flex"
-};
-const _hoisted_7 = {
-  class: "flex1 layout-desktop-container bg4"
-};
-var _sfc_main = {
-  __name: "ViewToolboxShell",
-  setup(__props) {
-    const $t2 = State_UI.$t;
-    const desktopIconConfigs = {
-      music: {
-        title: $t2("music").label,
-        icon: "music",
-        onClick() {
-          UI.dialog.component({
-            title: "\u6DFB\u52A0\u5206\u7EC4",
-            component: ViewAddGroup,
-            area: ["480px", "360px"],
-            onOk: async (instance) => {
-              const validateResults = await validateForm(instance.vm.formItems);
-              if (AllWasWell(validateResults)) {
-                const {
-                  newGroupName,
-                  newGroupDesc,
-                  owner_uids
-                } = pickValueFrom(instance.vm.formItems);
-                await this.upsert({
-                  group_name: newGroupName,
-                  group_desc: newGroupDesc,
-                  owner_uids
-                });
-                instance.close();
-              } else {
-                throw new Error("\u672A\u901A\u8FC7\u9A8C\u8BC1");
+var DesktopIconItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
+const $t$1 = State_UI.$t;
+var _sfc_main = Vue.defineComponent({
+  components: {
+    DesktopIconItem
+  },
+  data() {
+    return {
+      desktopIconConfigs: {
+        music: {
+          title: $t$1("music").label,
+          icon: "music",
+          onClick() {
+            UI.layer.open({
+              type: UI.layer.IFRAME,
+              title: "Music",
+              maxmin: true,
+              area: ["800px", "600px"],
+              content: "./#/music",
+              success() {
+                _global_$(this).css("height", "100%");
               }
-            }
-          });
+            });
+          }
         }
       }
     };
-    return (_ctx, _cache) => {
-      const _component_xIcon = Vue.resolveComponent("xIcon");
-      const _component_aAvatar = Vue.resolveComponent("aAvatar");
-      const _component_aMenuItem = Vue.resolveComponent("aMenuItem");
-      const _component_aMenu = Vue.resolveComponent("aMenu");
-      const _component_aDropdown = Vue.resolveComponent("aDropdown");
-      const _component_xGap = Vue.resolveComponent("xGap");
-      return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [Vue.createElementVNode("div", _hoisted_2, [Vue.createElementVNode("div", _hoisted_3, [_hoisted_4, Vue.createVNode(_component_aDropdown, {
-        placement: "bottomRight"
-      }, {
-        overlay: Vue.withCtx(() => [Vue.createVNode(_component_aMenu, null, {
-          default: Vue.withCtx(() => [Vue.createVNode(_component_aMenuItem, null, {
-            default: Vue.withCtx(() => [Vue.createElementVNode("div", _hoisted_6, [Vue.createVNode(_component_xIcon, {
-              icon: "user"
-            }), Vue.createTextVNode(" " + Vue.toDisplayString(Vue.unref(State_App).user.email), 1)])]),
-            _: 1
-          }), Vue.createVNode(_component_aMenuItem, null, {
-            default: Vue.withCtx(() => [Vue.createElementVNode("div", {
-              class: "flex",
-              onClick: _cache[0] || (_cache[0] = (...args) => Vue.unref(Actions_App).Logout && Vue.unref(Actions_App).Logout(...args))
-            }, [Vue.createVNode(_component_xIcon, {
-              icon: "logout"
-            }), Vue.createTextVNode(" " + Vue.toDisplayString(Vue.unref($t2)("logout").label), 1)])]),
-            _: 1
-          })]),
-          _: 1
-        })]),
-        default: Vue.withCtx(() => [Vue.createVNode(_component_aAvatar, null, {
-          icon: Vue.withCtx(() => {
-            var _a, _b;
-            return [((_b = (_a = Vue.unref(State_App)) == null ? void 0 : _a.user) == null ? void 0 : _b.avatar) ? (Vue.openBlock(), Vue.createElementBlock("img", {
-              key: 0,
-              src: Vue.unref(State_App).user.avatar
-            }, null, 8, _hoisted_5)) : (Vue.openBlock(), Vue.createBlock(_component_xIcon, {
-              key: 1,
-              style: {
-                "width": "100%",
-                "height": "100%"
-              },
-              icon: "user"
-            }))];
-          }),
-          _: 1
-        })]),
-        _: 1
-      }), Vue.createVNode(_component_xGap, {
-        r: 10
-      })])]), Vue.createElementVNode("div", _hoisted_7, [Vue.createVNode(DesktopIconItem, {
-        configs: desktopIconConfigs.music
-      }, null, 8, ["configs"])])]);
-    };
   }
-};
+});
 var ViewToolboxShell_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1 = { class: "view-toolbox-shell flex vertical" };
+const _hoisted_2 = { class: "view-toolbox-shell_header x-ui-glossy" };
+const _hoisted_3 = {
+  class: "flex middle",
+  style: { "height": "100%", "padding": "0 24px" }
+};
+const _hoisted_4 = /* @__PURE__ */ Vue.createElementVNode("span", { class: "flex1" }, null, -1);
+const _hoisted_5 = ["src"];
+const _hoisted_6 = { class: "flex" };
+const _hoisted_7 = { class: "flex1 layout-desktop-container bg4" };
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_xIcon = Vue.resolveComponent("xIcon");
+  const _component_aAvatar = Vue.resolveComponent("aAvatar");
+  const _component_aMenuItem = Vue.resolveComponent("aMenuItem");
+  const _component_aMenu = Vue.resolveComponent("aMenu");
+  const _component_aDropdown = Vue.resolveComponent("aDropdown");
+  const _component_xGap = Vue.resolveComponent("xGap");
+  const _component_DesktopIconItem = Vue.resolveComponent("DesktopIconItem");
+  return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
+    Vue.createElementVNode("div", _hoisted_2, [
+      Vue.createElementVNode("div", _hoisted_3, [
+        _hoisted_4,
+        Vue.createVNode(_component_aDropdown, { placement: "bottomRight" }, {
+          overlay: Vue.withCtx(() => [
+            Vue.createVNode(_component_aMenu, null, {
+              default: Vue.withCtx(() => [
+                Vue.createVNode(_component_aMenuItem, null, {
+                  default: Vue.withCtx(() => [
+                    Vue.createElementVNode("div", _hoisted_6, [
+                      Vue.createVNode(_component_xIcon, { icon: "user" }),
+                      Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.State_App.user.email), 1)
+                    ])
+                  ]),
+                  _: 1
+                }),
+                Vue.createVNode(_component_aMenuItem, null, {
+                  default: Vue.withCtx(() => [
+                    Vue.createElementVNode("div", {
+                      class: "flex",
+                      onClick: _cache[0] || (_cache[0] = (...args) => _ctx.Actions_App.Logout && _ctx.Actions_App.Logout(...args))
+                    }, [
+                      Vue.createVNode(_component_xIcon, { icon: "logout" }),
+                      Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.$t("logout").label), 1)
+                    ])
+                  ]),
+                  _: 1
+                })
+              ]),
+              _: 1
+            })
+          ]),
+          default: Vue.withCtx(() => [
+            Vue.createVNode(_component_aAvatar, null, {
+              icon: Vue.withCtx(() => {
+                var _a, _b;
+                return [
+                  ((_b = (_a = _ctx.State_App) == null ? void 0 : _a.user) == null ? void 0 : _b.avatar) ? (Vue.openBlock(), Vue.createElementBlock("img", {
+                    key: 0,
+                    src: _ctx.State_App.user.avatar
+                  }, null, 8, _hoisted_5)) : (Vue.openBlock(), Vue.createBlock(_component_xIcon, {
+                    key: 1,
+                    style: { "width": "100%", "height": "100%" },
+                    icon: "user"
+                  }))
+                ];
+              }),
+              _: 1
+            })
+          ]),
+          _: 1
+        }),
+        Vue.createVNode(_component_xGap, { r: 10 })
+      ])
+    ]),
+    Vue.createElementVNode("div", _hoisted_7, [
+      Vue.createVNode(_component_DesktopIconItem, {
+        configs: _ctx.desktopIconConfigs.music
+      }, null, 8, ["configs"])
+    ])
+  ]);
+}
+var ViewToolboxShell = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 const routeNames$1 = {
   shell: "shell",
   404: "404"
@@ -1621,7 +1632,7 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.3063078d.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.3063078d.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index5.js"), ["statics/js/index5.js","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/ViewAddGroup.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.3063078d.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 const ALL_DEFAULT_ROUTES = _global__.reduce(
   MODULES_DEFAULT_ROUTES,
@@ -1695,24 +1706,32 @@ const routes = [
   {
     name: "ViewToolboxShell",
     path: "/",
-    component: _sfc_main
+    component: ViewToolboxShell
+  },
+  {
+    name: "ViewMusic",
+    path: "/music",
+    meta: {
+      title: $t("Music").label
+    },
+    component: () => __vitePreload(() => import("./ViewMusic.js"), true ? ["statics/js/ViewMusic.js","statics/assets/ViewMusic.ea7da02b.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/UserOutlined.js"] : void 0)
   },
   {
     name: "PageDashboard",
     path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/ViewAddGroup.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
         path: "/dashboard-workplace",
-        component: _sfc_main$3
+        component: DevDemo
       },
       ...ALL_DEFAULT_ROUTES
     ]
   },
   NewRoute(routeNames.webrtc, Webrtc),
-  NewRoute(routeNames.devDemo, _sfc_main$3),
+  NewRoute(routeNames.devDemo, DevDemo),
   NewRoute(routeNames.login, _sfc_main$a, {
     redirect: toPath(routeNames.userLogin),
     children: [
@@ -1749,7 +1768,7 @@ const allowVisitPageWhenNoAccess = [
   routeNames.registerResult
 ];
 const loginRoutePath = toPath(routeNames.userLogin);
-const defaultRoutePath = toPath("/");
+const defaultRoutePath = "/";
 router.beforeEach(async (to, from) => {
   var _a;
   _global__.doNothing(to.path, from.path);
@@ -1838,18 +1857,19 @@ async function main() {
     await API.common.testConnect();
   } catch (d) {
     State_App.UseMockData = true;
-    const { loadMockData } = await __vitePreload(() => import("./index2.js").then(function(n) {
+    const { loadMockData } = await __vitePreload(() => import("./index.js").then(function(n) {
       return n.i;
-    }), true ? ["statics/js/index2.js","statics/js/index.js","statics/assets/index.3063078d.css"] : void 0);
+    }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"] : void 0);
     await loadMockData();
   }
   Vue.createApp(PageToolboxHome).use(appPlugins, {
     dependState: State_App
   }).mount("#app");
-  const $LOADING = _global_$(`#app-loading-wrapper`);
-  $LOADING.addClass("hide");
+  const $AppLoadingWrapper = _global_$(`#app-loading-wrapper`);
+  await _global__.sleep(1e3);
+  $AppLoadingWrapper.addClass("hide");
   await _global__.sleep(3e3);
-  $LOADING.remove();
+  $AppLoadingWrapper.remove();
 }
 main();
 export { Actions_App as A, State_App as S, _sfc_main$b as _, STATIC_WORD as a, _sfc_main$5 as b };

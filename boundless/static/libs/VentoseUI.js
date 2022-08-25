@@ -32637,7 +32637,7 @@
     }
     return Array.isArray(value) ? value : [value];
   }
-  function get$1(entity, path2) {
+  function get$2(entity, path2) {
     var current = entity;
     for (var i2 = 0; i2 < path2.length; i2 += 1) {
       if (current === null || current === void 0) {
@@ -32667,9 +32667,9 @@
     }
     return clone;
   }
-  function set(entity, paths, value) {
+  function set$1(entity, paths, value) {
     var removeIfUndefined = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : false;
-    if (paths.length && removeIfUndefined && value === void 0 && !get$1(entity, paths.slice(0, -1))) {
+    if (paths.length && removeIfUndefined && value === void 0 && !get$2(entity, paths.slice(0, -1))) {
       return entity;
     }
     return internalSet(entity, paths, value, removeIfUndefined);
@@ -32678,12 +32678,12 @@
     return toArray$5(path2);
   }
   function getValue(store, namePath) {
-    var value = get$1(store, namePath);
+    var value = get$2(store, namePath);
     return value;
   }
   function setValue(store, namePath, value) {
     var removeIfUndefined = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : false;
-    var newStore = set(store, namePath, value, removeIfUndefined);
+    var newStore = set$1(store, namePath, value, removeIfUndefined);
     return newStore;
   }
   function containsNamePath(namePathList, namePath) {
@@ -33099,7 +33099,7 @@
       return object2 === source || baseIsMatch(object2, source, matchData);
     };
   }
-  function get(object2, path2, defaultValue) {
+  function get$1(object2, path2, defaultValue) {
     var result = object2 == null ? void 0 : baseGet(object2, path2);
     return result === void 0 ? defaultValue : result;
   }
@@ -33109,7 +33109,7 @@
       return matchesStrictComparable(toKey(path2), srcValue);
     }
     return function(object2) {
-      var objValue = get(object2, path2);
+      var objValue = get$1(object2, path2);
       return objValue === void 0 && objValue === srcValue ? hasIn(object2, path2) : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
     };
   }
@@ -62577,10 +62577,19 @@
         config.btn = "btn" in config ? config.btn : READY.btn[0];
         layer.closeAll("dialog");
         break;
-      case layer.IFRAME:
+      case layer.IFRAME: {
         var content = config.content = conType ? config.content : [config.content || "", "auto"];
-        config.content = '<iframe scrolling="' + (config.content[1] || "auto") + '" allowtransparency="true" id="' + DOMS[4] + times + '" name="' + DOMS[4] + times + `" onload="this.className='';" class="layui-layer-load" frameborder="0" src="` + config.content[0] + '"></iframe>';
+        config.content = `<iframe 
+	scrolling="${config.content[1] || "auto"}" 
+	allowtransparency="true" id="${DOMS[4] + times}" 
+	onload="this.className=''" 
+	style="height:100%;" 
+	class="layui-layer-load" 
+	frameborder="0" 
+src="${config.content[0]}">
+</iframe>`;
         break;
+      }
       case layer.LOADING:
         delete config.title;
         delete config.closeBtn;
@@ -62877,7 +62886,7 @@
     if (config.success) {
       if (config.type == 2) {
         layero.find("iframe").on("load", function() {
-          config.success(layero, that.index);
+          config.success.call(this, layero, that.index);
         });
       } else {
         config.success(layero, that.index);
@@ -64161,6 +64170,34 @@ return (${scfObjSourceCode})(argVue,argPayload);
       total: "total"
     }
   };
+  function promisifyRequest(request) {
+    return new Promise((resolve, reject) => {
+      request.oncomplete = request.onsuccess = () => resolve(request.result);
+      request.onabort = request.onerror = () => reject(request.error);
+    });
+  }
+  function createStore(dbName, storeName) {
+    const request = indexedDB.open(dbName);
+    request.onupgradeneeded = () => request.result.createObjectStore(storeName);
+    const dbp = promisifyRequest(request);
+    return (txMode, callback) => dbp.then((db) => callback(db.transaction(storeName, txMode).objectStore(storeName)));
+  }
+  let defaultGetStoreFunc;
+  function defaultGetStore() {
+    if (!defaultGetStoreFunc) {
+      defaultGetStoreFunc = createStore("keyval-store", "keyval");
+    }
+    return defaultGetStoreFunc;
+  }
+  function get(key2, customStore = defaultGetStore()) {
+    return customStore("readonly", (store) => promisifyRequest(store.get(key2)));
+  }
+  function set(key2, value, customStore = defaultGetStore()) {
+    return customStore("readwrite", (store) => {
+      store.put(value, key2);
+      return promisifyRequest(store.transaction);
+    });
+  }
   const State_UI = Vue.reactive({
     language: lStorage["language"] || "zh-CN",
     onLanguageChange: false,
@@ -65315,8 +65352,10 @@ return (${scfObjSourceCode})(argVue,argPayload);
     ]);
   }
   var xView = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5]]);
-  const ICON_STRING_CACHE = {};
   var _sfc_main$5 = Vue.defineComponent(Vue.markRaw({
+    components: {
+      LoadingOutlined: LoadingOutlined$1
+    },
     name: "xIcon",
     props: ["icon"],
     data() {
@@ -65324,6 +65363,12 @@ return (${scfObjSourceCode})(argVue,argPayload);
       return {
         id
       };
+    },
+    computed: {
+      iconKey() {
+        const _iconKey = _global__.camelCase(this.getIconPath()).replace(/\s/, "");
+        return _iconKey;
+      }
     },
     methods: {
       getIconPath() {
@@ -65333,10 +65378,10 @@ return (${scfObjSourceCode})(argVue,argPayload);
         if (!this.icon)
           return;
         try {
-          let iconSvgString = ICON_STRING_CACHE[this.icon];
+          let iconSvgString = await get(this.iconKey);
           if (!iconSvgString) {
-            iconSvgString = await _global__.asyncLoadText(this.getIconPath(this.icon));
-            ICON_STRING_CACHE[this.icon] = iconSvgString;
+            iconSvgString = await _global__.asyncLoadText(this.getIconPath());
+            await set(this.iconKey, iconSvgString);
           }
           if (iconSvgString) {
             const $svg = $(iconSvgString).css("height", "100%").css("width", "100%");
@@ -65359,7 +65404,7 @@ return (${scfObjSourceCode})(argVue,argPayload);
     }
   }));
   var xIcon_vue_vue_type_style_index_0_lang = "";
-  const _hoisted_1$2 = ["id"];
+  const _hoisted_1$2 = ["id", "aria-label"];
   const _hoisted_2$1 = {
     class: "next-loading next-open next-loading-inline",
     style: { "width": "100%", "height": "100%", "overflow": "hidden" }
@@ -65372,9 +65417,11 @@ return (${scfObjSourceCode})(argVue,argPayload);
   const _hoisted_6 = { class: "demo-basic" };
   function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     const _component_LoadingOutlined = Vue.resolveComponent("LoadingOutlined");
-    return Vue.openBlock(), Vue.createElementBlock("div", {
+    return Vue.openBlock(), Vue.createElementBlock("span", {
       id: _ctx.id,
-      class: "xIcon"
+      role: "img",
+      "aria-label": this.icon,
+      class: "xIcon anticon"
     }, [
       Vue.createElementVNode("div", _hoisted_2$1, [
         _hoisted_3$1,

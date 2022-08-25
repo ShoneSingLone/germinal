@@ -1,4 +1,4 @@
-import { _ as _global__, E as EVENT_TYPE, S as State_UI } from "./index.js";
+import { _ as _global__, E as EVENT_TYPE, S as State_UI } from "./nprogress.js";
 const {
   $t
 } = State_UI;

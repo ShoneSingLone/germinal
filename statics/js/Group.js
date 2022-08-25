@@ -1,8 +1,8 @@
 import { G as GroupList } from "./GroupList.js";
-import { _ as _global__, k as API, M as Modal, d as defItem, v as validateForm, e as AllWasWell, U as UI } from "./index.js";
-import { S as State_App, M as Methods_App, p as pickRandomProperty, h as handlePath, r as router } from "./yapi.js";
+import { _ as _global__, M as Modal, d as defItem, v as validateForm, e as AllWasWell, U as UI } from "./nprogress.js";
+import { S as State_App, A as API, M as Methods_App, p as pickRandomProperty, h as handlePath, r as router } from "./yapi.js";
 import { F as FormRules } from "./FormRules.js";
-import { p as pickValueFrom } from "./ViewAddGroup.js";
+import { p as pickValueFrom } from "./form.js";
 var ProjectCard$1 = "";
 var constants = {
   PAGE_LIMIT: 10,

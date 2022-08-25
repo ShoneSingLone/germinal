@@ -1,4 +1,4 @@
-import { j as _global_$, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, k as API, _ as _global__, U as UI, m as AutoComplete, c as _export_sfc, i as dayjs, V as VentoseUIWithInstall } from "./index.js";
+import { i as _global_$, _ as _global__, U as UI, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, k as AutoComplete, c as _export_sfc, j as dayjs, V as VentoseUIWithInstall } from "./nprogress.js";
 var Footer = "";
 function _isSlot$1(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
@@ -99,6 +99,178 @@ var _sfc_main$1 = Vue.defineComponent({
 });
 var Header$1 = "";
 var Search = "";
+const ajax = axios.create({
+  baseURL: "/devyapi",
+  timeout: 2e4
+});
+ajax.interceptors.request.use((config) => {
+  if (config.data) {
+    _global__.each(["name"], (prop) => {
+      if (config.data[prop]) {
+        config.data[prop] = _global__.htmlFilter(config.data[prop]);
+      }
+    });
+  }
+  return config;
+}, (error) => Promise.reject(error));
+ajax.interceptors.response.use(async (response) => {
+  var _a, _b;
+  if (((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.errcode) !== 0) {
+    UI.message.error((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.errmsg);
+    return Promise.reject(response);
+  }
+  return Promise.resolve({
+    data: response.data.data,
+    response
+  });
+}, async (error) => {
+  var _a;
+  const {
+    response
+  } = error;
+  console.log(response);
+  logError((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
+  return Promise.reject(error);
+});
+function logError(msg) {
+  if (!msg)
+    return;
+  UI.notification.error(msg);
+  console.error(msg);
+}
+const user = {
+  getUserStatus() {
+    return ajax({
+      method: "get",
+      url: "/api/user/status"
+    });
+  },
+  searchUser(params) {
+    return ajax({
+      method: "get",
+      url: "/api/user/search",
+      params
+    });
+  },
+  loginActions(data) {
+    return ajax({
+      method: "post",
+      url: "/api/user/login",
+      data
+    });
+  },
+  logoutActions() {
+    return ajax({
+      method: "get",
+      url: "/api/user/logout"
+    });
+  },
+  regActions(data) {
+    return ajax({
+      method: "post",
+      url: "/api/user/reg",
+      data
+    });
+  }
+};
+const project = {
+  addFollow(data) {
+    return ajax({
+      method: "post",
+      url: "/api/follow/add",
+      data
+    });
+  },
+  delFollow(projectid) {
+    return ajax({
+      method: "post",
+      url: "/api/follow/del",
+      data: {
+        projectid
+      }
+    });
+  },
+  addProject(data) {
+    return ajax({
+      method: "post",
+      url: "/api/project/add",
+      data
+    });
+  },
+  list(groupId) {
+    return ajax({
+      method: "get",
+      url: "/api/project/list",
+      params: {
+        group_id: Number(groupId)
+      }
+    });
+  }
+};
+const group = {
+  getMyGroup() {
+    return ajax({
+      method: "get",
+      url: "/api/group/get_mygroup"
+    });
+  },
+  addGroup(data) {
+    return ajax({
+      method: "post",
+      url: "/api/group/add",
+      data
+    });
+  },
+  updateGroup(data) {
+    return ajax({
+      method: "post",
+      url: "/api/group/up",
+      data
+    });
+  },
+  getMyGroupList() {
+    return ajax({
+      method: "get",
+      url: "/api/group/list"
+    });
+  },
+  getMyGroupBy(groupId) {
+    return ajax({
+      method: "get",
+      url: "/api/group/get",
+      params: {
+        id: groupId
+      }
+    });
+  }
+};
+const news = {
+  getLogList({
+    typeid,
+    type,
+    page,
+    limit,
+    selectValue
+  }) {
+    return ajax({
+      method: "get",
+      url: "/api/log/list",
+      params: {
+        typeid,
+        type,
+        page,
+        limit: limit ? limit : 10,
+        selectValue
+      }
+    });
+  }
+};
+const API = {
+  user,
+  group,
+  news,
+  project
+};
 const {
   $t
 } = State_UI;
@@ -106,12 +278,12 @@ const routes = [
   {
     path: "/dev",
     name: "home",
-    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewAddGroup.js","statics/js/FormRules.js"] : void 0)
+    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: `/login`,
     name: "login",
-    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
+    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
     meta: {
       title: $t("\u7528\u6237\u767B\u5F55").label
     }
@@ -119,12 +291,12 @@ const routes = [
   {
     path: `/group`,
     name: "group",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.3c5216bd.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewAddGroup.js","statics/js/FormRules.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.3c5216bd.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: `/group/:groupId`,
     name: "groupView",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.3c5216bd.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.3063078d.css","statics/js/ViewAddGroup.js","statics/js/FormRules.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.3c5216bd.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: "/:pathMatch(.*)*",
@@ -242,11 +414,11 @@ const Methods_App = {
   setMenu(menu) {
     State_App.menu = Object.assign({}, State_App.menu, menu);
   },
-  setUser(user) {
-    State_App.user = Object.assign({}, State_App.user, user);
+  setUser(user2) {
+    State_App.user = Object.assign({}, State_App.user, user2);
   },
-  setNews(news) {
-    State_App.news = Object.assign({}, State_App.news, news);
+  setNews(news2) {
+    State_App.news = Object.assign({}, State_App.news, news2);
   },
   setBreadcrumb(breadcrumb) {
     Methods_App.setUser({
@@ -285,24 +457,24 @@ const Methods_App = {
     } = await API.group.getMyGroupList();
     State_App.groupList = groupList;
   },
-  async setCurrGroup(group) {
+  async setCurrGroup(group2) {
     let groupId;
-    if (!_global__.isPlainObject(group)) {
-      groupId = parseInt(group);
+    if (!_global__.isPlainObject(group2)) {
+      groupId = parseInt(group2);
       if (!_global__.isNumber(groupId)) {
         throw new Error("miss groupId");
       }
       const {
         data
       } = await API.group.getMyGroupBy(groupId);
-      group = data;
+      group2 = data;
     }
-    State_App.currGroup = _global__.merge({}, State_App.currGroup, group);
+    State_App.currGroup = _global__.merge({}, State_App.currGroup, group2);
     Methods_App.setUser({
-      role: group.role,
+      role: group2.role,
       field: {
-        name: group.custom_field1.name,
-        enable: group.custom_field1.enable
+        name: group2.custom_field1.name,
+        enable: group2.custom_field1.enable
       }
     });
   },
@@ -726,7 +898,7 @@ var Header = Vue.defineComponent({
         groupList,
         study,
         studyTip,
-        user,
+        user: user2,
         msg,
         role,
         logout,
@@ -965,4 +1137,4 @@ async function main() {
   }).mount("#app");
 }
 main();
-export { LogoSVG as L, Methods_App as M, State_App as S, handlePath as h, pickRandomProperty as p, router as r };
+export { API as A, LogoSVG as L, Methods_App as M, State_App as S, handlePath as h, pickRandomProperty as p, router as r };

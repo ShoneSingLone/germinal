@@ -1,8 +1,8 @@
 import { G as GroupList } from "./GroupList.js";
-import { c as _export_sfc } from "./index.js";
+import { c as _export_sfc } from "./nprogress.js";
 import "./yapi.js";
-import "./ViewAddGroup.js";
 import "./FormRules.js";
+import "./form.js";
 var _sfc_main = {
   components: {
     GroupList

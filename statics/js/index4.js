@@ -1,8 +1,8 @@
 import { b as _sfc_main$1 } from "./main.js";
-import "./index.js";
+import "./nprogress.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
-import "./ViewAddGroup.js";
+import "./form.js";
 var _sfc_main = {
   __name: "index",
   setup(__props) {
