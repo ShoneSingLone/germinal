@@ -3,40 +3,21 @@
 		<a-layout-sider class="elevation-2">
 			<a-menu v-model:selectedKeys="selectedKeys" theme="light" mode="inline">
 				<AMenuItem key="0">
-					<span class="flex">
-						<xIcon icon="playlist" class="mr8" />
-						{{ $t("当前播放列表").label }}</span
+					<span class="flex"
+						><xIcon icon="playlist" class="mr8" />{{
+							$t("当前播放列表").label
+						}}</span
 					>
 				</AMenuItem>
 				<AMenuItem key="1">
-					<span class="flex">
-						<xIcon icon="music" class="mr8" /> {{ $t("发现音乐").label }}</span
+					<span class="flex"
+						><xIcon icon="music" class="mr8" /> {{ $t("发现音乐").label }}</span
 					>
 				</AMenuItem>
-				<a-sub-menu key="sub1">
-					<template #title>
-						<span>
-							<user-outlined />
-							<span>User</span>
-						</span>
-					</template>
-					<AMenuItem key="3">Tom</AMenuItem>
-					<AMenuItem key="4">Bill</AMenuItem>
-					<AMenuItem key="5">Alex</AMenuItem>
-				</a-sub-menu>
-				<a-sub-menu key="sub2">
-					<template #title>
-						<span>
-							<team-outlined />
-							<span>Team</span>
-						</span>
-					</template>
-					<AMenuItem key="6">Team 1</AMenuItem>
-					<AMenuItem key="8">Team 2</AMenuItem>
-				</a-sub-menu>
-				<AMenuItem key="9">
-					<file-outlined />
-					<span>File</span>
+				<AMenuItem key="2">
+					<span class="flex"
+						><xIcon icon="user" class="mr8" /> {{ $t("歌手").label }}</span
+					>
 				</AMenuItem>
 			</a-menu>
 		</a-layout-sider>
@@ -68,7 +49,7 @@
 			</main>
 			<a-layout-footer
 				style="height: 88px; background: white"
-				class="elevation-1">
+				class="flex middle elevation-1">
 				<ViewMusicPlayer />
 			</a-layout-footer>
 		</a-layout>
