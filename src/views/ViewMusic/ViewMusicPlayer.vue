@@ -4,22 +4,24 @@
 			<xIcon :icon="iconPlayModel" />
 		</xButton>
 		<xGap l="16" />
-		<xButton :configs="{ text: '停止' }">
-			<xIcon icon="stopsong" />
-		</xButton>
-		<xGap l="16" />
 		<xButton :configs="{ text: '上一曲' }">
 			<xIcon icon="prevsong" />
 		</xButton>
-		<xGap l="8" />
+		<xGap l="4" />
+		<xButton :configs="{ text: '停止' }">
+			<xIcon icon="stopsong" />
+		</xButton>
+		<xGap l="4" />
 		<xButton :configs="playOrPause" />
-		<xGap l="8" />
+		<xGap l="4" />
 		<xButton :configs="{ text: '下一曲' }">
 			<xIcon icon="nextsong" />
 		</xButton>
 		<xGap l="16" />
-		<div class="volume flex horizon">
-			<xIcon icon="sound" />
+		<xButton
+			class="volume flex horizon"
+			:configs="{ text: '音量', onClick: toggleVolumeMute }">
+			<xIcon :icon="iconSound" />
 			<xGap l="4" />
 			<div class="flex1">
 				<ASlider
@@ -28,7 +30,7 @@
 					:tooltip-visible="isTooltipVisible"
 					@change="showTooltip" />
 			</div>
-		</div>
+		</xButton>
 	</div>
 </template>
 <script lang="jsx">
@@ -54,12 +56,16 @@ export default defineComponent({
 			},
 			isPlaying: false,
 			volume: 20,
-			isTooltipVisible: false
+			isTooltipVisible: false,
+			isMute: false
 		};
 	},
 	computed: {
 		iconPlayModel() {
 			return this.playModelIconArray[this.playModel];
+		},
+		iconSound() {
+			return this.isMute ? "soundMute" : "sound";
 		}
 	},
 	watch: {
@@ -84,7 +90,10 @@ export default defineComponent({
 		},
 		delayHideIsTooltipVisible: _.debounce(function () {
 			this.isTooltipVisible = false;
-		}, 1000 * 3)
+		}, 1000 * 3),
+		toggleVolumeMute() {
+			this.isMute = !this.isMute;
+		}
 	}
 });
 </script>
