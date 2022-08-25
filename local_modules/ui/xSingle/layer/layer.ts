@@ -376,25 +376,21 @@ ClassLayer.pt.creat = function () {
 			config.btn = "btn" in config ? config.btn : READY.btn[0];
 			layer.closeAll("dialog");
 			break;
-		case layer.IFRAME:
+		case layer.IFRAME: {
 			var content = (config.content = conType
 				? config.content
 				: [config.content || "", "auto"]);
-			config.content =
-				'<iframe scrolling="' +
-				(config.content[1] || "auto") +
-				'" allowtransparency="true" id="' +
-				DOMS[4] +
-				"" +
-				times +
-				'" name="' +
-				DOMS[4] +
-				"" +
-				times +
-				'" onload="this.className=\'\';" class="layui-layer-load" frameborder="0" src="' +
-				config.content[0] +
-				'"></iframe>';
+			config.content = `<iframe 
+	scrolling="${config.content[1] || "auto"}" 
+	allowtransparency="true" id="${DOMS[4] + times}" 
+	onload="this.className=''" 
+	style="height:100%;" 
+	class="layui-layer-load" 
+	frameborder="0" 
+src="${config.content[0]}">
+</iframe>`;
 			break;
+		}
 		case layer.LOADING:
 			delete config.title;
 			delete config.closeBtn;
@@ -831,7 +827,7 @@ ClassLayer.pt.callback = function () {
 	if (config.success) {
 		if (config.type == 2) {
 			layero.find("iframe").on("load", function () {
-				config.success(layero, that.index);
+				config.success.call(this, layero, that.index);
 			});
 		} else {
 			config.success(layero, that.index);

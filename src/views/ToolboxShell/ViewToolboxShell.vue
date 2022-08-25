@@ -1,47 +1,41 @@
-<script setup lang="jsx">
+<script lang="jsx">
 import { State_App, Actions_App } from "lsrc/state/State_App";
-import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
+import { State_UI, UI, $ } from "@ventose/ui";
+import { defineComponent } from "vue";
 import DesktopIconItem from "./DesktopIconItem.vue";
-import {
-	AllWasWell,
-	pickValueFrom,
-	State_UI,
-	UI,
-	validateForm
-} from "@ventose/ui";
-import ViewAddGroup from "ysrc/containers/Group/GroupList/ViewAddGroup.vue";
 
 const $t = State_UI.$t;
 
-const desktopIconConfigs = {
-	music: {
-		title: $t("music").label,
-		icon: "music",
-		onClick() {
-			UI.dialog.component({
-				title: "添加分组",
-				component: ViewAddGroup,
-				area: ["480px", "360px"],
-				onOk: async instance => {
-					const validateResults = await validateForm(instance.vm.formItems);
-					if (AllWasWell(validateResults)) {
-						const { newGroupName, newGroupDesc, owner_uids } = pickValueFrom(
-							instance.vm.formItems
-						);
-						await this.upsert({
-							group_name: newGroupName,
-							group_desc: newGroupDesc,
-							owner_uids: owner_uids
+export default defineComponent({
+	components: {
+		DesktopIconItem
+	},
+	data() {
+		const vm = this;
+		return {
+			desktopIconConfigs: {
+				music: {
+					title: $t("music").label,
+					icon: "music",
+					onClick() {
+						UI.layer.open({
+							type: UI.layer.IFRAME,
+							title: "Music",
+							maxmin: true,
+							area: ["800px", "600px"],
+							content: "./#/music",
+							success() {
+								$(this).css("height", "100%");
+							}
 						});
-						instance.close();
-					} else {
-						throw new Error("未通过验证");
+
+						// vm.$router.push({ name: "ViewMusic" });
 					}
 				}
-			});
-		}
+			}
+		};
 	}
-};
+});
 </script>
 
 <template>
