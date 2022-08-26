@@ -1,4 +1,4 @@
-import { S as State_App, a as STATIC_WORD, A as Actions_App, _ as _sfc_main$2 } from "./main.js";
+import { S as State_App, a as STATIC_WORD, b as Actions_App, _ as _sfc_main$2 } from "./main.js";
 import { _ as _global__ } from "./nprogress.js";
 import { U as UserOutlined } from "./UserOutlined.js";
 import "./FormRules.js";

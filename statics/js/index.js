@@ -1,4 +1,4 @@
-import { m as commonjsGlobal, a as __vitePreload } from "./nprogress.js";
+import { p as commonjsGlobal, a as __vitePreload } from "./nprogress.js";
 var mock = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {

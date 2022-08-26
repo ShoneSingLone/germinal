@@ -65379,7 +65379,8 @@ return (${scfObjSourceCode})(argVue,argPayload);
           return;
         try {
           let iconSvgString = await get(this.iconKey);
-          if (!iconSvgString) {
+          if (!iconSvgString || iconSvgString === "undefined") {
+            debugger;
             iconSvgString = await _global__.asyncLoadText(this.getIconPath());
             await set(this.iconKey, iconSvgString);
           }
@@ -65657,14 +65658,9 @@ return (${scfObjSourceCode})(argVue,argPayload);
   }
   var xPagination = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3]]);
   var _sfc_main$3 = Vue.defineComponent({
-    name: "xDataGrid",
+    name: "XDataGrid",
     components: {
       xPagination
-    },
-    setup() {
-      return {
-        Cpt_UI_locale
-      };
     },
     props: {
       configs: {
@@ -65673,6 +65669,11 @@ return (${scfObjSourceCode})(argVue,argPayload);
           return {};
         }
       }
+    },
+    setup() {
+      return {
+        Cpt_UI_locale
+      };
     },
     data() {
       return {
@@ -65763,13 +65764,19 @@ return (${scfObjSourceCode})(argVue,argPayload);
               }
             }
           };
+          const scroll = (() => {
+            if (this.configs.scroll) {
+              return this.configs.scroll;
+            }
+            return {
+              x: 300
+            };
+          })();
           return Vue.createVNode(Table, Vue.mergeProps({
             "loading": this.configs.isLoading,
             "dataSource": this.configs.dataSource,
             "columns": this.Cpt_Columns,
-            "scroll": {
-              x: 1500
-            },
+            "scroll": scroll,
             "pagination": false,
             "locale": this.Cpt_UI_locale.Table
           }, this.Cpt_AntTableProperty), slots);

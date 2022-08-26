@@ -1,3 +1,6 @@
+#ViewMusicPlayer {
+  width: 100%;
+}
 #ViewMusicPlayer .site-layout .site-layout-background {
   background: #fff;
 }
@@ -6,6 +9,9 @@
   min-width: 0;
   background: #ffffff;
   transition: all 0.2s;
+}
+#ViewMusicPlayer .volume {
+  width: 120px;
 }
 #ViewMusic .site-layout .site-layout-background {
   background: #fff;

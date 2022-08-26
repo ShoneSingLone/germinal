@@ -64269,6 +64269,12 @@ function set(key2, value, customStore = defaultGetStore()) {
     return promisifyRequest(store.transaction);
   });
 }
+function clear(customStore = defaultGetStore()) {
+  return customStore("readwrite", (store) => {
+    store.clear();
+    return promisifyRequest(store.transaction);
+  });
+}
 const State_UI = Vue.reactive({
   language: lStorage["language"] || "zh-CN",
   onLanguageChange: false,
@@ -65450,7 +65456,8 @@ var _sfc_main$5 = Vue.defineComponent(Vue.markRaw({
         return;
       try {
         let iconSvgString = await get(this.iconKey);
-        if (!iconSvgString) {
+        if (!iconSvgString || iconSvgString === "undefined") {
+          debugger;
           iconSvgString = await _global__.asyncLoadText(this.getIconPath());
           await set(this.iconKey, iconSvgString);
         }
@@ -65702,14 +65709,9 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
 }
 var xPagination = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3]]);
 var _sfc_main$3 = Vue.defineComponent({
-  name: "xDataGrid",
+  name: "XDataGrid",
   components: {
     xPagination
-  },
-  setup() {
-    return {
-      Cpt_UI_locale
-    };
   },
   props: {
     configs: {
@@ -65718,6 +65720,11 @@ var _sfc_main$3 = Vue.defineComponent({
         return {};
       }
     }
+  },
+  setup() {
+    return {
+      Cpt_UI_locale
+    };
   },
   data() {
     return {
@@ -65808,13 +65815,19 @@ var _sfc_main$3 = Vue.defineComponent({
             }
           }
         };
+        const scroll = (() => {
+          if (this.configs.scroll) {
+            return this.configs.scroll;
+          }
+          return {
+            x: 300
+          };
+        })();
         return Vue.createVNode(Table, Vue.mergeProps({
           "loading": this.configs.isLoading,
           "dataSource": this.configs.dataSource,
           "columns": this.Cpt_Columns,
-          "scroll": {
-            x: 1500
-          },
+          "scroll": scroll,
           "pagination": false,
           "locale": this.Cpt_UI_locale.Table
         }, this.Cpt_AntTableProperty), slots);
@@ -66785,4 +66798,4 @@ var nprogress = { exports: {} };
   });
 })(nprogress);
 var NProgress = nprogress.exports;
-export { AntdIcon as A, EVENT_TYPE as E, FileOutlined$1 as F, Modal as M, NProgress as N, State_UI as S, UI as U, VentoseUIWithInstall as V, _global__ as _, __vitePreload as a, setDocumentTitle as b, _export_sfc as c, defItem as d, AllWasWell as e, defDataGridOption as f, defPagination as g, defCol as h, _global_$ as i, dayjs as j, AutoComplete$1 as k, lStorage as l, commonjsGlobal as m, defColActions as n, defColActionsBtnlist as o, setCSSVariables as s, validateForm as v };
+export { AntdIcon as A, EVENT_TYPE as E, Modal as M, NProgress as N, State_UI as S, UI as U, VentoseUIWithInstall as V, _global__ as _, __vitePreload as a, setDocumentTitle as b, _export_sfc as c, defItem as d, AllWasWell as e, defDataGridOption as f, defPagination as g, defCol as h, _global_$ as i, dayjs as j, get as k, lStorage as l, clear as m, set as n, AutoComplete$1 as o, commonjsGlobal as p, defColActions as q, defColActionsBtnlist as r, setCSSVariables as s, validateForm as v };

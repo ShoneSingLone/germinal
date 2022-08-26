@@ -1,4 +1,4 @@
-import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, i as _global_$, N as NProgress, j as dayjs, V as VentoseUIWithInstall } from "./nprogress.js";
+import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, i as _global_$, N as NProgress, j as dayjs, V as VentoseUIWithInstall, k as get, m as clear, n as set } from "./nprogress.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, L as LockOutlined, M as MailOutlined } from "./UserOutlined.js";
 import { p as pickValueFrom } from "./form.js";
@@ -42,35 +42,45 @@ const STATIC_WORD = {
   M: "M",
   GB: "GB"
 };
-const ajax = axios.create({
-  baseURL: "https://www.singlone.work/s/api/",
-  timeout: 2e4
-});
-ajax.interceptors.request.use(
-  (config) => {
-    config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-ajax.interceptors.response.use(
-  async (response) => {
-    const { data } = response;
-    return Promise.resolve(data.data);
-  },
-  async (error) => {
-    var _a, _b;
-    const { response } = error;
-    console.log(response);
-    logError$1((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
-    if (((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.msg) === "auth") {
-      State_App.token = "";
-      await _global__.sleep(1e3);
-      window.location.reload();
-    }
-    return Promise.reject(error);
+const reqInterceptor = (config) => {
+  config.headers.token = lStorage[STATIC_WORD.ACCESS_TOKEN] || "";
+  return config;
+};
+const resInterceptor = async (response) => {
+  const { data } = response;
+  return Promise.resolve(data == null ? void 0 : data.data);
+};
+const resErrorHandler = async (error) => {
+  var _a, _b;
+  const { response } = error;
+  console.log(response);
+  logError$1((_a = response == null ? void 0 : response.data) == null ? void 0 : _a.data);
+  if (((_b = response == null ? void 0 : response.data) == null ? void 0 : _b.msg) === "auth") {
+    State_App.token = "";
+    await _global__.sleep(1e3);
+    window.location.reload();
   }
-);
+  return Promise.reject(error);
+};
+function genAjax(options = {}) {
+  options.baseURL = options.baseURL || "https://www.singlone.work/s/api/";
+  options.reqInterceptor = options.reqInterceptor || reqInterceptor;
+  options.resInterceptor = options.resInterceptor || resInterceptor;
+  options.resErrorHandler = options.resErrorHandler || resErrorHandler;
+  const ajax2 = axios.create({
+    baseURL: options.baseURL,
+    timeout: 2e4
+  });
+  ajax2.interceptors.request.use(
+    options.reqInterceptor,
+    (error) => Promise.reject(error)
+  );
+  ajax2.interceptors.response.use(
+    options.resInterceptor,
+    options.resErrorHandler
+  );
+  return ajax2;
+}
 function logError$1(msg) {
   if (!msg)
     return;
@@ -79,6 +89,7 @@ function logError$1(msg) {
   });
   console.error(msg);
 }
+var ajax$1 = genAjax();
 const auth = "/shiro";
 const version = __URL_API_VERSION;
 const prefixAuth = `${version}${auth}`;
@@ -112,33 +123,65 @@ const URL = new Proxy(
 );
 const user = {
   async login(params) {
-    return await ajax.post(URL.Login(), params);
+    return await ajax$1.post(URL.Login(), params);
   },
   async regster(params) {
-    return await ajax.post(URL.regster(), params);
+    return await ajax$1.post(URL.regster(), params);
   },
   async logout() {
-    return await ajax.post(URL.Logout());
+    return await ajax$1.post(URL.Logout());
   },
   async getVerifyEmail(params) {
-    return await ajax.post(URL.VerifyEmail(), params);
+    return await ajax$1.post(URL.VerifyEmail(), params);
   },
   async info(params) {
-    return await ajax.post(URL.User(), params);
+    return await ajax$1.post(URL.User(), params);
   }
 };
 const common = {
   async testConnect(params) {
-    return await ajax.get(URL.testConnection(), {
+    return await ajax$1.get(URL.testConnection(), {
       params: {
         test: "isConnect"
       }
     });
   }
 };
+const ajax = genAjax({
+  baseURL: "https://www.singlone.work/s/wyapi",
+  reqInterceptor: (i) => i,
+  resInterceptor: (i) => {
+    if (i.data.code === 200) {
+      return i.data;
+    }
+  }
+});
+const music = {
+  async getPersonalizedNewSong() {
+    return await ajax({
+      method: "GET",
+      url: "/personalized/newsong"
+    });
+  },
+  async getSongUrlBuId(id) {
+    return await ajax({
+      method: "GET",
+      url: "/song/url",
+      params: { id }
+    });
+  },
+  async getSongDetailBuId(id) {
+    return await ajax({
+      method: "GET",
+      url: "/song/detail",
+      params: { id }
+    });
+  }
+};
 const API = {
   common,
-  user
+  user,
+  music
 };
 const logError = ({ error, response }) => {
   _global__.doNothing("error: ", error, "response: ", response);
@@ -1714,7 +1757,7 @@ const routes = [
     meta: {
       title: $t("Music").label
     },
-    component: () => __vitePreload(() => import("./ViewMusic.js"), true ? ["statics/js/ViewMusic.js","statics/assets/ViewMusic.ea7da02b.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/UserOutlined.js"] : void 0)
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.76613d00.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
   },
   {
     name: "PageDashboard",
@@ -1843,7 +1886,19 @@ const appPlugins = {
     return app;
   }
 };
+function formatDuring(during) {
+  const s = Math.floor(during) % 60;
+  during = Math.floor(during / 60);
+  const i = during % 60;
+  const ii = i < 10 ? `0${i}` : i;
+  const ss = s < 10 ? `0${s}` : s;
+  return ii + ":" + ss;
+}
 async function main() {
+  if (__APP_VERSION !== await get("__APP_VERSION")) {
+    await clear();
+    await set("__APP_VERSION", __APP_VERSION);
+  }
   window.BASE_URL = (() => {
     const mainSrc = _global_$("script").last().attr("src");
     return _global__.safeSplit(mainSrc, "main.js")[0];
@@ -1872,4 +1927,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { Actions_App as A, State_App as S, _sfc_main$b as _, STATIC_WORD as a, _sfc_main$5 as b };
+export { API as A, State_App as S, _sfc_main$b as _, STATIC_WORD as a, Actions_App as b, _sfc_main$5 as c, formatDuring as f };
