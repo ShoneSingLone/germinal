@@ -48,7 +48,8 @@ export default defineComponent(
 				if (!this.icon) return;
 				try {
 					let iconSvgString = await get(this.iconKey);
-					if (!iconSvgString) {
+					if (!iconSvgString || iconSvgString === "undefined") {
+						debugger;
 						iconSvgString = await _.asyncLoadText(this.getIconPath());
 						await set(this.iconKey, iconSvgString);
 					}
@@ -84,6 +85,7 @@ export default defineComponent(
 .xIcon {
 	width: 16px;
 }
+
 div[id^="lazy-svg_"] {
 	display: flex;
 }
@@ -91,6 +93,7 @@ div[id^="lazy-svg_"] {
 .next-loading {
 	height: 100%;
 	width: 100%;
+
 	&.next-open {
 		pointer-events: none;
 	}
