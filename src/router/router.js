@@ -49,7 +49,7 @@ const routes = [
 		meta: {
 			title: $t("Music").label
 		},
-		component: () => import("lsrc/views/ViewMusic/ViewMusic.vue")
+		component: () => import("lsrc/views/ViewMusic/LayoutMusic.vue")
 	},
 	{
 		name: "PageDashboard",

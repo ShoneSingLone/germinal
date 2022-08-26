@@ -4,9 +4,14 @@ import { appPlugins } from "lsrc/utils/common";
 import { State_App } from "lsrc/state/State_App";
 import { _, $ } from "@ventose/ui";
 import { API } from "germinal_api";
+import { get, set, clear } from "idb-keyval";
 
 // import "./main.test"
 async function main() {
+	if (__APP_VERSION !== (await get("__APP_VERSION"))) {
+		await clear();
+		await set("__APP_VERSION", __APP_VERSION);
+	}
 	window.BASE_URL = (() => {
 		const mainSrc = $("script").last().attr("src");
 		return _.safeSplit(mainSrc, "main.js")[0];
