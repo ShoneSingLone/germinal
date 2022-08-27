@@ -22,7 +22,7 @@ var _sfc_main = {
         },
         isHideQuery: true,
         async queryTableList() {
-          await Actions_Music.getPersonalizedNewSong();
+          await Actions_Music.updatePersonalizedNewSong();
         },
         isHideFilter: true,
         isHidePagination: true,
@@ -35,7 +35,6 @@ var _sfc_main = {
             renderCell({
               record
             }) {
-              console.log(record);
               return Vue.createVNode("span", {
                 "class": "flex middle"
               }, [Vue.createVNode(Vue.resolveComponent("a-avatar"), {

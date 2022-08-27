@@ -34,7 +34,6 @@ var _sfc_main = {
             renderCell({
               record
             }) {
-              console.log(record);
               return Vue.createVNode("span", {
                 "class": "flex middle"
               }, [Vue.createVNode(Vue.resolveComponent("a-avatar"), {

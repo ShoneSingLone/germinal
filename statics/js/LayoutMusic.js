@@ -212,7 +212,7 @@ var _sfc_main$1 = Vue.defineComponent({
     };
   },
   async mounted() {
-    await Actions_Music.getPersonalizedNewSong();
+    await Actions_Music.updatePersonalizedNewSong();
   }
 });
 var MusicPlayer_vue_vue_type_style_index_0_lang = "";

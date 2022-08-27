@@ -16,10 +16,6 @@ var _sfc_main = {
   data() {
     return {
       playListFindNew: defDataGridOption({
-        scroll: {
-          x: 300,
-          y: 300
-        },
         async queryTableList() {
           await _global__.sleep(1e3);
         },
@@ -34,7 +30,6 @@ var _sfc_main = {
             renderCell({
               record
             }) {
-              console.log(record);
               return Vue.createVNode("span", {
                 "class": "flex middle"
               }, [Vue.createVNode(Vue.resolveComponent("a-avatar"), {

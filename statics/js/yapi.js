@@ -1,4 +1,4 @@
-import { i as _global_$, _ as _global__, U as UI, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, o as AutoComplete, c as _export_sfc, j as dayjs, V as VentoseUIWithInstall } from "./nprogress.js";
+import { j as _global_$, _ as _global__, U as UI, a as __vitePreload, N as NProgress, b as setDocumentTitle, S as State_UI, o as AutoComplete, c as _export_sfc, i as dayjs, V as VentoseUIWithInstall } from "./nprogress.js";
 var Footer = "";
 function _isSlot$1(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);

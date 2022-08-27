@@ -1,4 +1,4 @@
-import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, i as _global_$, N as NProgress, j as dayjs, V as VentoseUIWithInstall, k as get, m as clear, n as set } from "./nprogress.js";
+import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, N as NProgress, i as dayjs, V as VentoseUIWithInstall, j as _global_$, k as get, m as clear, n as set } from "./nprogress.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, L as LockOutlined, M as MailOutlined } from "./UserOutlined.js";
 import { p as pickValueFrom } from "./form.js";
@@ -1563,21 +1563,15 @@ var _sfc_main = Vue.defineComponent({
     DesktopIconItem
   },
   data() {
+    const vm = this;
     return {
       desktopIconConfigs: {
         music: {
           title: $t$1("music").label,
           icon: "music",
           onClick() {
-            UI.layer.open({
-              type: UI.layer.IFRAME,
-              title: "Music",
-              maxmin: true,
-              area: ["800px", "600px"],
-              content: "./#/music",
-              success() {
-                _global_$(this).css("height", "100%");
-              }
+            vm.$router.push({
+              path: "music"
             });
           }
         }
