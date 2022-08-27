@@ -73,7 +73,7 @@ export default {
 									{
 										text: $t("播放")?.label,
 										async onClick() {
-											await Actions_Music.playSongBuId(record.id);
+											await Actions_Music.playSongById(record.id);
 										}
 									}
 								]

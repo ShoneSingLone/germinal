@@ -1,4 +1,5 @@
 <template>
+	<xDataGridToolbar :configs="playListFindNew" />
 	<xDataGrid :configs="playListFindNew" />
 </template>
 
@@ -28,8 +29,9 @@ export default {
 		return {
 			playListFindNew: defDataGridOption({
 				scroll: { x: 300, y: 300 },
+				isHideQuery: true,
 				async queryTableList() {
-					await _.sleep(1000);
+					await Actions_Music.getPersonalizedNewSong();
 				},
 				isHideFilter: true,
 				isHidePagination: true,
@@ -74,7 +76,7 @@ export default {
 										text: $t("播放")?.label,
 										async onClick() {
 											Actions_Music.pushSongToPlaylist(record);
-											await Actions_Music.playSongBuId(record.id);
+											await Actions_Music.playSongById(record.id);
 										}
 									}
 								]

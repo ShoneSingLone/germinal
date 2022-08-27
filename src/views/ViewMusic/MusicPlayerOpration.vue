@@ -1,5 +1,5 @@
 <template>
-	<xButton :configs="{ text: '上一曲' }">
+	<xButton :configs="{ text: '上一曲', onClick: Actions_Music.palyPrevSong }">
 		<xIcon icon="prevsong" />
 	</xButton>
 	<xGap l="4" />
@@ -9,7 +9,7 @@
 	<xGap l="4" />
 	<xButton :configs="playOrPause" />
 	<xGap l="4" />
-	<xButton :configs="{ text: '下一曲' }">
+	<xButton :configs="{ text: '下一曲', onClick: Actions_Music.playNextSong }">
 		<xIcon icon="nextsong" />
 	</xButton>
 </template>
