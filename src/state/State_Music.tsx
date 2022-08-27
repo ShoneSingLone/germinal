@@ -16,7 +16,7 @@ export const State_Music = reactive({
 			return 20;
 		}
 	})(),
-	playList: [], //播放列表,
+	playlist: [], //播放列表,
 	showPlayList: false,
 	id: 0,
 	url: "",
@@ -38,6 +38,11 @@ const cacheAudioVolume = _.debounce(function (audiovolume) {
 }, 1000);
 
 export const Actions_Music = {
+	removeSongFromPlaylistByIndex(index) {
+		if (index <= State_Music.playlist.length - 1) {
+			State_Music.playlist.splice(index, 1);
+		}
+	},
 	playMethods: {
 		rePlay() {},
 		next() {},
@@ -96,6 +101,13 @@ export const Actions_Music = {
 			State_Music.audio.pause();
 		}
 	},
+	pushSongToPlaylist(newSong) {
+		const id = newSong.id;
+
+		if (!_.some(State_Music.playlist, { id })) {
+			State_Music.playlist.push(newSong);
+		}
+	},
 	async playSongBuId(id) {
 		if (id == State_Music.songId) return;
 		State_Music.isPlaying = false;
@@ -148,3 +160,5 @@ watch(
 		Actions_Music.handlePlayEnd();
 	}
 );
+
+watch(State_Music, state => {});

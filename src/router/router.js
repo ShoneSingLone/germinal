@@ -46,10 +46,28 @@ const routes = [
 	{
 		name: "ViewMusic",
 		path: "/music",
+		redirect: "/music/new",
 		meta: {
 			title: $t("Music").label
 		},
-		component: () => import("lsrc/views/ViewMusic/LayoutMusic.vue")
+		component: () => import("lsrc/views/ViewMusic/LayoutMusic.vue"),
+		children: [
+			{
+				name: "new",
+				path: "/music/new",
+				component: () => import("lsrc/views/ViewMusic/PlayListFindNew.vue")
+			},
+			{
+				name: "playlist",
+				path: "/music/playlist",
+				component: () => import("lsrc/views/ViewMusic/PlayList.vue")
+			},
+			{
+				name: "singer",
+				path: "/music/singer",
+				component: () => import("lsrc/views/ViewMusic/PlayListSinger.vue")
+			}
+		]
 	},
 	{
 		name: "PageDashboard",
