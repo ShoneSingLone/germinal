@@ -32,7 +32,7 @@ export default defineComponent({
 		};
 	},
 	async mounted() {
-		await Actions_Music.getPersonalizedNewSong();
+		await Actions_Music.updatePersonalizedNewSong();
 	}
 });
 </script>

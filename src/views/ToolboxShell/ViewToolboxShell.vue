@@ -18,18 +18,17 @@ export default defineComponent({
 					title: $t("music").label,
 					icon: "music",
 					onClick() {
-						UI.layer.open({
-							type: UI.layer.IFRAME,
-							title: "Music",
-							maxmin: true,
-							area: ["800px", "600px"],
-							content: "./#/music",
-							success() {
-								$(this).css("height", "100%");
-							}
-						});
-
-						// vm.$router.push({ name: "ViewMusic" });
+						/*UI.layer.open({
+              type: UI.layer.IFRAME,
+              title: "Music",
+              maxmin: true,
+              area: ["800px", "600px"],
+              content: "./#/music",
+              success() {
+                $(this).css("height", "100%");
+              }
+            });*/
+						vm.$router.push({ path: "music" });
 					}
 				}
 			}
