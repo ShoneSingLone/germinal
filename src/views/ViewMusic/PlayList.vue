@@ -27,7 +27,6 @@ export default {
 	data() {
 		return {
 			playListFindNew: defDataGridOption({
-				scroll: { x: 300, y: 300 },
 				async queryTableList() {
 					await _.sleep(1000);
 				},
@@ -40,7 +39,6 @@ export default {
 						prop: "name",
 						width: 200,
 						renderCell({ record }) {
-							console.log(record);
 							return (
 								<span class="flex middle">
 									<a-avatar shape="square" src={record.picUrl} />
