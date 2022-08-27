@@ -65457,7 +65457,6 @@ var _sfc_main$5 = Vue.defineComponent(Vue.markRaw({
       try {
         let iconSvgString = await get(this.iconKey);
         if (!iconSvgString || iconSvgString === "undefined") {
-          debugger;
           iconSvgString = await _global__.asyncLoadText(this.getIconPath());
           await set(this.iconKey, iconSvgString);
         }

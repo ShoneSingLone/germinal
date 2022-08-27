@@ -1,173 +1,27 @@
-import { l as lStorage, _ as _global__, c as _export_sfc, d as defItem, f as defDataGridOption, h as defCol, q as defColActions, S as State_UI, r as defColActionsBtnlist } from "./nprogress.js";
-import { A as API, f as formatDuring } from "./main.js";
+import { S as State_Music, A as Actions_Music, C as Cpt_iconPlayModel, a as Cpt_iconSound } from "./State_Music.js";
+import { c as _export_sfc, _ as _global__ } from "./nprogress.js";
+import { f as formatDuring } from "./main.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
-const State_Music = Vue.reactive({
-  songId: 0,
-  personalizedNewSong: [],
-  audio: new Audio(),
-  loopType: 0,
-  volume: (() => {
-    const volume = lStorage["PLAYER-VOLUME"];
-    if (volume) {
-      return volume * 100;
-    } else {
-      return 20;
-    }
-  })(),
-  playList: [],
-  showPlayList: false,
-  id: 0,
-  url: "",
-  songUrl: {},
-  song: {},
-  isPlaying: false,
-  isPause: false,
-  sliderInput: false,
-  ended: false,
-  muted: false,
-  currentTime: 0,
-  duration: 0
-});
-let intervalTimer = null;
-const cacheAudioVolume = _global__.debounce(function(audiovolume) {
-  lStorage["PLAYER-VOLUME"] = audiovolume;
-}, 1e3);
-const Actions_Music = {
-  playMethods: {
-    rePlay() {
-    },
-    next() {
-    },
-    randomPlay() {
-    }
-  },
-  handlePlayEnd() {
-    console.log("\u64AD\u653E\u7ED3\u675F");
-    Actions_Music.stopSong();
-    switch (State_Music.loopType) {
-      case 0:
-        Actions_Music.playMethods.rePlay();
-        break;
-      case 1:
-        Actions_Music.playMethods.next();
-        break;
-      case 2:
-        Actions_Music.playMethods.randomPlay();
-        break;
-    }
-  },
-  stopSong() {
-    State_Music.isPlaying = false;
-    State_Music.audio.pause();
-    State_Music.audio.currentTime = 0;
-    State_Music.currentTime = 0;
-  },
-  setCurrentTime(val) {
-    State_Music.audio.currentTime = val;
-  },
-  intervalCurrentTime() {
-    State_Music.currentTime = parseInt(State_Music.audio.currentTime.toString());
-    State_Music.duration = parseInt(State_Music.audio.duration.toString());
-    State_Music.ended = State_Music.audio.ended;
-  },
-  setVolume(n) {
-    n = n > 100 ? 100 : n;
-    n = n < 0 ? 0 : n;
-    State_Music.volume = n;
-    const audioVolume = n / 100;
-    State_Music.audio.volume = audioVolume;
-    cacheAudioVolume(audioVolume);
-  },
-  toggleVolumeMute() {
-    State_Music.muted = !State_Music.muted;
-    State_Music.audio.muted = State_Music.muted;
-  },
-  togglePlayOrPause() {
-    if (!State_Music.songId)
-      return;
-    State_Music.isPlaying = !State_Music.isPlaying;
-    if (State_Music.isPlaying) {
-      State_Music.audio.play();
-    } else {
-      State_Music.audio.pause();
-    }
-  },
-  async playSongBuId(id) {
-    if (id == State_Music.songId)
-      return;
-    State_Music.isPlaying = false;
-    const res = await API.music.getSongUrlBuId(id);
-    const data = res.data;
-    State_Music.audio.src = _global__.first(data).url;
-    function canPlay() {
-      return new Promise((resolve) => {
-        State_Music.audio.oncanplay = function() {
-          if (intervalTimer) {
-            clearInterval(intervalTimer);
-          }
-          intervalTimer = setInterval(Actions_Music.intervalCurrentTime, 1e3);
-          resolve(State_Music.duration);
-        };
-      });
-    }
-    State_Music.audio.load();
-    await canPlay();
-    await State_Music.audio.play();
-    State_Music.isPlaying = true;
-    State_Music.songUrl = data;
-    State_Music.url = data.url;
-    State_Music.songId = id;
-    const audioVolume = State_Music.volume / 100;
-    State_Music.audio.volume = audioVolume;
-    cacheAudioVolume(audioVolume);
-  },
-  async getPersonalizedNewSong() {
-    if (State_Music.personalizedNewSong.length === 0) {
-      const {
-        result
-      } = await API.music.getPersonalizedNewSong();
-      State_Music.personalizedNewSong = result;
-    }
-    return State_Music.personalizedNewSong;
-  }
-};
-const Cpt_iconSound = Vue.computed(() => {
-  return State_Music.muted ? "soundMute" : "sound";
-});
-Vue.watch(() => State_Music.ended, (ended) => {
-  if (!ended)
-    return;
-  Actions_Music.handlePlayEnd();
-});
 var MusicPlayerModel_vue_vue_type_style_index_0_lang = "";
-const playModelIconArray = ["playOrder", "playRandom", "playLoop"];
 const _sfc_main$5 = {
-  data() {
+  setup() {
     return {
-      playModel: 0
+      State_Music,
+      Actions_Music,
+      Cpt_iconPlayModel
     };
-  },
-  computed: {
-    iconPlayModel() {
-      return playModelIconArray[this.playModel];
-    }
-  },
-  methods: {
-    async togglePlayModel() {
-      this.playModel = (this.playModel + 1) % playModelIconArray.length;
-    }
   }
 };
 function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_xButton = Vue.resolveComponent("xButton");
   return Vue.openBlock(), Vue.createBlock(_component_xButton, {
-    configs: { text: "\u64AD\u653E\u65B9\u5F0F", onClick: $options.togglePlayModel }
+    configs: { text: "\u64AD\u653E\u65B9\u5F0F", onClick: $setup.Actions_Music.togglePlayModel }
   }, {
     default: Vue.withCtx(() => [
-      Vue.createVNode(_component_xIcon, { icon: $options.iconPlayModel }, null, 8, ["icon"])
+      Vue.createVNode(_component_xIcon, { icon: $setup.Cpt_iconPlayModel }, null, 8, ["icon"])
     ]),
     _: 1
   }, 8, ["configs"]);
@@ -222,12 +76,14 @@ function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xButton = Vue.resolveComponent("xButton");
   const _component_xGap = Vue.resolveComponent("xGap");
   return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
-    Vue.createVNode(_component_xButton, { configs: { text: "\u4E0A\u4E00\u66F2" } }, {
+    Vue.createVNode(_component_xButton, {
+      configs: { text: "\u4E0A\u4E00\u66F2", onClick: $setup.Actions_Music.palyPrevSong }
+    }, {
       default: Vue.withCtx(() => [
         Vue.createVNode(_component_xIcon, { icon: "prevsong" })
       ]),
       _: 1
-    }),
+    }, 8, ["configs"]),
     Vue.createVNode(_component_xGap, { l: "4" }),
     Vue.createVNode(_component_xButton, {
       configs: { text: "\u505C\u6B62", onClick: $setup.Actions_Music.stopSong }
@@ -240,12 +96,14 @@ function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     Vue.createVNode(_component_xGap, { l: "4" }),
     Vue.createVNode(_component_xButton, { configs: $data.playOrPause }, null, 8, ["configs"]),
     Vue.createVNode(_component_xGap, { l: "4" }),
-    Vue.createVNode(_component_xButton, { configs: { text: "\u4E0B\u4E00\u66F2" } }, {
+    Vue.createVNode(_component_xButton, {
+      configs: { text: "\u4E0B\u4E00\u66F2", onClick: $setup.Actions_Music.playNextSong }
+    }, {
       default: Vue.withCtx(() => [
         Vue.createVNode(_component_xIcon, { icon: "nextsong" })
       ]),
       _: 1
-    })
+    }, 8, ["configs"])
   ], 64);
 }
 var MusicPlayerOpration = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4]]);
@@ -379,9 +237,6 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   ]);
 }
 var MusicPlayer = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
-const {
-  $t
-} = State_UI;
 var _sfc_main = Vue.defineComponent({
   components: {
     MusicPlayer
@@ -392,110 +247,18 @@ var _sfc_main = Vue.defineComponent({
     };
   },
   data() {
+    const selectedKey = this.$route.name || "playlist";
     return {
       collapsed: false,
-      selectedKeys: ["1"],
-      State_query: {
-        data: {
-          username: "",
-          type: ["AAA"],
-          timeStartEnd: [],
-          endTime: "",
-          startTime: ""
-        },
-        dataXItem: {
-          ...defItem({
-            prop: "type",
-            label: $t("\u7C7B\u578B").label,
-            itemType: "Select",
-            options: [],
-            mode: "multiple",
-            maxTagCount: 1,
-            maxTagTextLength: 10,
-            style: {
-              width: "200px"
-            }
-          }),
-          ...defItem({
-            prop: "username",
-            label: $t("\u7528\u6237\u540D").label,
-            placeholder: $t("\u8BF7\u8F93\u5165\u7528\u6237\u540D").label
-          })
-        }
-      },
-      State_table: defDataGridOption({
-        scroll: {
-          x: 300,
-          y: 300
-        },
-        async queryTableList() {
-          await _global__.sleep(1e3);
-        },
-        isHideFilter: true,
-        isHidePagination: true,
-        dataSource: [],
-        columns: {
-          ...defCol({
-            label: $t("\u6B4C\u66F2\u6807\u9898").label,
-            prop: "name",
-            width: 200,
-            renderCell({
-              record
-            }) {
-              console.log(record);
-              return Vue.createVNode("span", {
-                "class": "flex middle"
-              }, [Vue.createVNode(Vue.resolveComponent("a-avatar"), {
-                "shape": "square",
-                "src": record.picUrl
-              }, null), Vue.createVNode(Vue.resolveComponent("xGap"), {
-                "l": "4"
-              }, null), Vue.createVNode("span", null, [record.name])]);
-            }
-          }),
-          ...defCol({
-            label: $t("\u6B4C\u624B").label,
-            width: 200,
-            prop: "artists_name",
-            renderCell({
-              record
-            }) {
-              return Vue.createVNode("span", null, [record.song.artists[0].name]);
-            }
-          }),
-          ...defCol({
-            label: $t("\u6240\u5C5E\u4E13\u8F91").label,
-            prop: "album_name",
-            renderCell({
-              record
-            }) {
-              return Vue.createVNode("span", null, [record.song.album.name]);
-            }
-          }),
-          ...defColActions({
-            width: 100,
-            renderCell({
-              record,
-              index
-            }) {
-              var _a;
-              return defColActionsBtnlist({
-                btns: [{
-                  text: (_a = $t("\u64AD\u653E")) == null ? void 0 : _a.label,
-                  async onClick() {
-                    await Actions_Music.playSongBuId(record.id);
-                  }
-                }]
-              });
-            }
-          })
-        }
-      })
+      selectedKeys: [selectedKey]
     };
   },
   watch: {
-    "State_Music.personalizedNewSong"(personalizedNewSong) {
-      this.State_table.dataSource = personalizedNewSong;
+    selectedKeys(selectedKeys) {
+      const viewName = selectedKeys[0];
+      this.$router.push({
+        path: `/music/${viewName}`
+      });
     }
   }
 });
@@ -511,10 +274,10 @@ const _hoisted_5 = { style: { "height": "100%", "padding": "24px", "background":
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_AMenuItem = Vue.resolveComponent("AMenuItem");
-  const _component_a_menu = Vue.resolveComponent("a-menu");
+  const _component_AMenu = Vue.resolveComponent("AMenu");
   const _component_ALayoutSider = Vue.resolveComponent("ALayoutSider");
   const _component_ALayoutHeader = Vue.resolveComponent("ALayoutHeader");
-  const _component_xDataGrid = Vue.resolveComponent("xDataGrid");
+  const _component_RouterView = Vue.resolveComponent("RouterView");
   const _component_MusicPlayer = Vue.resolveComponent("MusicPlayer");
   const _component_ALayoutFooter = Vue.resolveComponent("ALayoutFooter");
   const _component_a_layout = Vue.resolveComponent("a-layout");
@@ -525,14 +288,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     default: Vue.withCtx(() => [
       Vue.createVNode(_component_ALayoutSider, { class: "elevation-2" }, {
         default: Vue.withCtx(() => [
-          Vue.createVNode(_component_a_menu, {
+          Vue.createVNode(_component_AMenu, {
             selectedKeys: _ctx.selectedKeys,
             "onUpdate:selectedKeys": _cache[0] || (_cache[0] = ($event) => _ctx.selectedKeys = $event),
             theme: "light",
             mode: "inline"
           }, {
             default: Vue.withCtx(() => [
-              Vue.createVNode(_component_AMenuItem, { key: "0" }, {
+              Vue.createVNode(_component_AMenuItem, { key: "playlist" }, {
                 default: Vue.withCtx(() => [
                   Vue.createElementVNode("span", _hoisted_1, [
                     Vue.createVNode(_component_xIcon, {
@@ -544,7 +307,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 ]),
                 _: 1
               }),
-              Vue.createVNode(_component_AMenuItem, { key: "1" }, {
+              Vue.createVNode(_component_AMenuItem, { key: "new" }, {
                 default: Vue.withCtx(() => [
                   Vue.createElementVNode("span", _hoisted_2, [
                     Vue.createVNode(_component_xIcon, {
@@ -556,7 +319,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 ]),
                 _: 1
               }),
-              Vue.createVNode(_component_AMenuItem, { key: "2" }, {
+              Vue.createVNode(_component_AMenuItem, { key: "singer" }, {
                 default: Vue.withCtx(() => [
                   Vue.createElementVNode("span", _hoisted_3, [
                     Vue.createVNode(_component_xIcon, {
@@ -585,7 +348,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           }),
           Vue.createElementVNode("main", _hoisted_4, [
             Vue.createElementVNode("div", _hoisted_5, [
-              Vue.createVNode(_component_xDataGrid, { configs: _ctx.State_table }, null, 8, ["configs"])
+              Vue.createVNode(_component_RouterView)
             ])
           ]),
           Vue.createVNode(_component_ALayoutFooter, {

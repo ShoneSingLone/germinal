@@ -1754,10 +1754,28 @@ const routes = [
   {
     name: "ViewMusic",
     path: "/music",
+    redirect: "/music/new",
     meta: {
       title: $t("Music").label
     },
-    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.76613d00.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.76613d00.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
+    children: [
+      {
+        name: "new",
+        path: "/music/new",
+        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+      },
+      {
+        name: "playlist",
+        path: "/music/playlist",
+        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+      },
+      {
+        name: "singer",
+        path: "/music/singer",
+        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+      }
+    ]
   },
   {
     name: "PageDashboard",
