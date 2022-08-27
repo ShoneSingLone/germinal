@@ -1,6 +1,6 @@
 import { API } from "germinal_api";
 import { reactive, watch, computed } from "vue";
-import { _, lStorage } from "@ventose/ui";
+import { _, lStorage, setDocumentTitle } from "@ventose/ui";
 import { get, set } from "idb-keyval";
 
 export const State_Music = reactive({
@@ -16,7 +16,7 @@ export const State_Music = reactive({
 			return 20;
 		}
 	})(),
-	playList: [], //播放列表,
+	playlist: [], //播放列表,
 	showPlayList: false,
 	id: 0,
 	url: "",
@@ -31,38 +31,103 @@ export const State_Music = reactive({
 	duration: 0 //总播放时长
 });
 
-let intervalTimer = null;
+let intervalTimer: NodeJS.Timer;
+
+/* typescript 属性名称与数组保持一致 */
+const LOOP_TYPE_NAME_ARRAY = [
+	"playOrder",
+	"playRandom",
+	"playLoop",
+	"playSingleLoop"
+] as const;
+
+type type_PlayMethods = {
+	[prop in typeof LOOP_TYPE_NAME_ARRAY[number]]: Function;
+};
+
+const playMethods: type_PlayMethods = {
+	playLoop(currentSongIndex) {
+		const next = currentSongIndex + 1;
+		if (next > State_Music.playlist.length - 1) {
+			Actions_Music.playSongById(State_Music.playlist[0]?.id);
+		} else {
+			Actions_Music.playSongById(State_Music.playlist[next]?.id);
+		}
+	},
+	playRandom(currentSongIndex) {
+		let next: number;
+		/* 如果只有一首，循环一首 */
+		if (State_Music.playlist.length === 1) {
+			next = 0;
+			Actions_Music.playSongById(State_Music.playlist[0]?.id);
+			return;
+		}
+		const max = State_Music.playlist.length - 1;
+		const min = 0;
+		const getNext = () => Math.floor(Math.random() * (max - min + 1)) + min;
+		next = getNext();
+		while (next === currentSongIndex) {
+			next = getNext();
+		}
+		Actions_Music.playSongById(State_Music.playlist[next]?.id);
+	},
+	playOrder(currentSongIndex) {
+		const next = currentSongIndex + 1;
+		if (next > State_Music.playlist.length - 1) {
+			Actions_Music.stopSong();
+		} else {
+			Actions_Music.playSongById(State_Music.playlist[next]?.id);
+		}
+	},
+	playSingleLoop(currentSongIndex) {
+		Actions_Music.playSongById(State_Music.playlist[currentSongIndex]?.id);
+	}
+};
 
 const cacheAudioVolume = _.debounce(function (audiovolume) {
 	lStorage["PLAYER-VOLUME"] = audiovolume;
 }, 1000);
 
 export const Actions_Music = {
-	playMethods: {
-		rePlay() {},
-		next() {},
-		randomPlay() {}
-	},
-	handlePlayEnd() {
-		console.log("播放结束");
-		Actions_Music.stopSong();
-		switch (State_Music.loopType) {
-			case 0:
-				Actions_Music.playMethods.rePlay();
-				break;
-			case 1:
-				Actions_Music.playMethods.next();
-				break;
-			case 2:
-				Actions_Music.playMethods.randomPlay();
-				break;
+	playMethods,
+	palyPrevSong() {
+		const currentSongIndex = _.findIndex(State_Music.playlist, {
+			id: State_Music.songId
+		});
+		if (currentSongIndex > -1) {
+			if (currentSongIndex === 0) {
+				Actions_Music.playSongById(
+					State_Music.playlist[State_Music.playlist.length - 1]?.id
+				);
+			} else {
+				Actions_Music.playSongById(
+					State_Music.playlist[currentSongIndex - 1]?.id
+				);
+			}
 		}
 	},
-	stopSong() {
-		State_Music.isPlaying = false;
-		State_Music.audio.pause();
-		State_Music.audio.currentTime = 0;
-		State_Music.currentTime = 0;
+	playNextSong() {
+		const currentSongIndex = _.findIndex(State_Music.playlist, {
+			id: State_Music.songId
+		});
+		if (currentSongIndex > -1) {
+			Actions_Music.playMethods.playLoop(currentSongIndex);
+		}
+	},
+	removeSongFromPlaylistByIndex(index) {
+		if (index <= State_Music.playlist.length - 1) {
+			State_Music.playlist.splice(index, 1);
+		}
+	},
+	handlePlayEnd() {
+		console.log("播放结束", Cpt_iconPlayModel.value);
+		Actions_Music.stopSong();
+		const currentSongIndex = _.findIndex(State_Music.playlist, {
+			id: State_Music.songId
+		});
+		if (currentSongIndex > -1) {
+			Actions_Music.playMethods[Cpt_iconPlayModel.value](currentSongIndex);
+		}
 	},
 	setCurrentTime(val) {
 		State_Music.audio.currentTime = val;
@@ -83,6 +148,10 @@ export const Actions_Music = {
 		State_Music.audio.volume = audioVolume;
 		cacheAudioVolume(audioVolume);
 	},
+	async togglePlayModel() {
+		State_Music.loopType =
+			(State_Music.loopType + 1) % LOOP_TYPE_NAME_ARRAY.length;
+	},
 	toggleVolumeMute() {
 		State_Music.muted = !State_Music.muted;
 		State_Music.audio.muted = State_Music.muted;
@@ -96,13 +165,28 @@ export const Actions_Music = {
 			State_Music.audio.pause();
 		}
 	},
-	async playSongBuId(id) {
-		if (id == State_Music.songId) return;
+	pushSongToPlaylist(newSong) {
+		const id = newSong.id;
+		if (!_.some(State_Music.playlist, { id })) {
+			State_Music.playlist.push(newSong);
+		}
+	},
+	stopSong() {
 		State_Music.isPlaying = false;
-
+		State_Music.audio.pause();
+		State_Music.audio.currentTime = 0;
+		State_Music.currentTime = 0;
+		setDocumentTitle("Music");
+	},
+	async playSongById(id) {
+		if (!id) {
+			return;
+		}
+		if (State_Music.isPlaying && id === State_Music.songId) {
+			return;
+		}
 		const res = await API.music.getSongUrlBuId(id);
 		const data = res.data;
-
 		State_Music.audio.src = _.first(data).url;
 
 		function canPlay() {
@@ -117,9 +201,14 @@ export const Actions_Music = {
 			});
 		}
 
+		Actions_Music.stopSong();
+		const record = _.find(State_Music.playlist, { id });
+		if (record) {
+			setDocumentTitle(record.name);
+		}
 		State_Music.audio.load();
 		await canPlay();
-		await State_Music.audio.play();
+		State_Music.audio.play();
 		State_Music.isPlaying = true;
 		State_Music.songUrl = data;
 		State_Music.url = data.url;
@@ -141,6 +230,10 @@ export const Cpt_iconSound = computed(() => {
 	return State_Music.muted ? "soundMute" : "sound";
 });
 
+export const Cpt_iconPlayModel = computed(() => {
+	return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
+});
+
 watch(
 	() => State_Music.ended,
 	ended => {
@@ -148,3 +241,5 @@ watch(
 		Actions_Music.handlePlayEnd();
 	}
 );
+
+watch(State_Music, state => {});

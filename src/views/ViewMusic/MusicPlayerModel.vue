@@ -1,28 +1,24 @@
 <template>
-	<xButton :configs="{ text: '播放方式', onClick: togglePlayModel }">
-		<xIcon :icon="iconPlayModel" />
+	<xButton
+		:configs="{ text: '播放方式', onClick: Actions_Music.togglePlayModel }">
+		<xIcon :icon="Cpt_iconPlayModel" />
 	</xButton>
 </template>
 
 <script>
-import { Actions_Music } from "lsrc/state/State_Music";
+import {
+	Actions_Music,
+	State_Music,
+	Cpt_iconPlayModel
+} from "lsrc/state/State_Music";
 
-const playModelIconArray = ["playOrder", "playRandom", "playLoop"];
 export default {
-	data() {
+	setup() {
 		return {
-			playModel: 0
+			State_Music,
+			Actions_Music,
+			Cpt_iconPlayModel
 		};
-	},
-	computed: {
-		iconPlayModel() {
-			return playModelIconArray[this.playModel];
-		}
-	},
-	methods: {
-		async togglePlayModel() {
-			this.playModel = (this.playModel + 1) % playModelIconArray.length;
-		}
 	}
 };
 </script>

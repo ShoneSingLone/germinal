@@ -49,7 +49,6 @@ export default defineComponent(
 				try {
 					let iconSvgString = await get(this.iconKey);
 					if (!iconSvgString || iconSvgString === "undefined") {
-						debugger;
 						iconSvgString = await _.asyncLoadText(this.getIconPath());
 						await set(this.iconKey, iconSvgString);
 					}
