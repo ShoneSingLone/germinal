@@ -217,11 +217,9 @@ export const Actions_Music = {
 		State_Music.audio.volume = audioVolume;
 		cacheAudioVolume(audioVolume);
 	},
-	async getPersonalizedNewSong() {
-		if (State_Music.personalizedNewSong.length === 0) {
-			const { result } = await API.music.getPersonalizedNewSong();
-			State_Music.personalizedNewSong = result;
-		}
+	async updatePersonalizedNewSong() {
+		const { result } = await API.music.getPersonalizedNewSong();
+		State_Music.personalizedNewSong = result;
 		return State_Music.personalizedNewSong;
 	}
 };

@@ -31,7 +31,7 @@ export default {
 				scroll: { x: 300, y: 300 },
 				isHideQuery: true,
 				async queryTableList() {
-					await Actions_Music.getPersonalizedNewSong();
+					await Actions_Music.updatePersonalizedNewSong();
 				},
 				isHideFilter: true,
 				isHidePagination: true,
