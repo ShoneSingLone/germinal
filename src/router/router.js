@@ -66,6 +66,11 @@ const routes = [
 				name: "singer",
 				path: "/music/singer",
 				component: () => import("lsrc/views/ViewMusic/PlayListSinger.vue")
+			},
+			{
+				name: "private",
+				path: "/music/private",
+				component: () => import("lsrc/views/ViewMusic/PlayListPrivate.vue")
 			}
 		]
 	},

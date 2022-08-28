@@ -10,6 +10,9 @@ export default defineComponent({
 	components: {
 		DesktopIconItem
 	},
+	setup() {
+		return { State_App };
+	},
 	data() {
 		const vm = this;
 		return {
@@ -18,16 +21,6 @@ export default defineComponent({
 					title: $t("music").label,
 					icon: "music",
 					onClick() {
-						/*UI.layer.open({
-              type: UI.layer.IFRAME,
-              title: "Music",
-              maxmin: true,
-              area: ["800px", "600px"],
-              content: "./#/music",
-              success() {
-                $(this).css("height", "100%");
-              }
-            });*/
 						vm.$router.push({ path: "music" });
 					}
 				}
@@ -86,17 +79,6 @@ export default defineComponent({
 		height: 64px;
 		z-index: 1;
 		position: relative;
-		/* &::before {
-      content: " ";
-      background: inherit;
-      position: absolute;
-      left: -25px; //giving minus -25px left position
-      right: 0;
-      top: -25px; //giving minus -25px top position
-      bottom: 0;
-      box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.3);
-      filter: blur(10px);
-    } */
 	}
 
 	.layout-desktop-container {
