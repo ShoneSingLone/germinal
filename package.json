@@ -22,6 +22,7 @@
 	"dependencies": {
 		"@ant-design/icons-vue": "^6.0.1",
 		"@popperjs/core": "^2.10.2",
+		"@surely-vue/table": "^2.4.7",
 		"@ventose/ui": "file:./local_modules/ui",
 		"ant-design-vue": "^3.0.0-alpha.3",
 		"axios": "^0.26.0",
@@ -39,11 +40,12 @@
 		"vue": "^3.2.16",
 		"vue-cli": "^2.9.6",
 		"vue-router": "^4.0.11",
+		"vue3-virtual-scroller": "^0.2.3",
 		"ysrc": "file:./src_yapi/"
 	},
 	"devDependencies": {
-		"@vitejs/plugin-basic-ssl": "^0.1.2",
 		"@ventose/utils-node": "^0.0.11",
+		"@vitejs/plugin-basic-ssl": "^0.1.2",
 		"@vitejs/plugin-vue": "^1.9.3",
 		"@vitejs/plugin-vue-jsx": "^1.2.0",
 		"@vue/cli-plugin-eslint": "~4.5.0",

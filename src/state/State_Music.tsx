@@ -2,6 +2,7 @@ import { API } from "germinal_api";
 import { reactive, watch, computed } from "vue";
 import { _, lStorage, setDocumentTitle } from "@ventose/ui";
 import { get, set } from "idb-keyval";
+import { State_App } from "lsrc/state/State_App";
 
 export const State_Music = reactive({
 	songId: 0,
@@ -185,9 +186,20 @@ export const Actions_Music = {
 		if (State_Music.isPlaying && id === State_Music.songId) {
 			return;
 		}
-		const res = await API.music.getSongUrlBuId(id);
-		const data = res.data;
-		State_Music.audio.src = _.first(data).url;
+		const record = _.find(State_Music.playlist, { id });
+
+		let audioSrc, data;
+		if (record.file_path) {
+			audioSrc = `https://www.singlone.work/s/api//v1/shiro/remote_file?url=resource/Music/${record.file_path}&token=${State_App.token}`;
+			record.url = audioSrc;
+			data = [record];
+		} else {
+			const res = await API.music.getSongUrlBuId(id);
+			data = res.data;
+			audioSrc = _.first(data).url;
+		}
+
+		State_Music.audio.src = audioSrc;
 
 		function canPlay() {
 			return new Promise(resolve => {
@@ -202,7 +214,6 @@ export const Actions_Music = {
 		}
 
 		Actions_Music.stopSong();
-		const record = _.find(State_Music.playlist, { id });
 		if (record) {
 			setDocumentTitle(record.name);
 		}

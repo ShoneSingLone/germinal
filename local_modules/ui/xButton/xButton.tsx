@@ -30,6 +30,12 @@ export default defineComponent({
 		Button
 	},
 	props: {
+		payload: {
+			type: Object,
+			default() {
+				return {};
+			}
+		},
 		configs: {
 			type: Object,
 			default() {

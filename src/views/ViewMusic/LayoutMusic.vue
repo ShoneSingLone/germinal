@@ -19,6 +19,12 @@
 						><xIcon icon="user" class="mr8" /> {{ $t("歌手").label }}</span
 					>
 				</AMenuItem>
+				<AMenuItem key="private">
+					<span class="flex"
+						><xIcon icon="privateNet" class="mr8" />
+						{{ $t("私藏").label }}</span
+					>
+				</AMenuItem>
 			</AMenu>
 		</ALayoutSider>
 		<a-layout style="height: 100vh" class="flex vertical">
