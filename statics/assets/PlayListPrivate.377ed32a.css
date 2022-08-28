@@ -1,0 +1,16 @@
+#PlayListPrivate {
+  height: 100%;
+  overflow: auto;
+}
+#PlayListPrivate .row {
+  width: 100%;
+}
+#PlayListPrivate .row .cell {
+  width: 25%;
+}
+#PlayListPrivate .user {
+  height: 32%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}

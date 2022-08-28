@@ -65039,6 +65039,12 @@ return (${scfObjSourceCode})(argVue,argPayload);
       Button
     },
     props: {
+      payload: {
+        type: Object,
+        default() {
+          return {};
+        }
+      },
       configs: {
         type: Object,
         default() {

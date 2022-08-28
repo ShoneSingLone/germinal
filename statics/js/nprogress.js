@@ -1608,7 +1608,7 @@ function useLocaleReceiver(componentName, defaultLocale$1, propsLocale) {
   });
   return [componentLocale];
 }
-var Empty$2 = function Empty() {
+var Empty$1 = function Empty() {
   var _useConfigInject = useConfigInject("empty", {}), getPrefixCls2 = _useConfigInject.getPrefixCls;
   var prefixCls = getPrefixCls2("empty-img-default");
   return Vue.createVNode("svg", {
@@ -1655,8 +1655,8 @@ var Empty$2 = function Empty() {
     "d": "M5.698 5.63H0L2.898.704zM9.259.704h4.985V5.63H9.259z"
   }, null)])])]);
 };
-Empty$2.PRESENTED_IMAGE_DEFAULT = true;
-var DefaultEmptyImg = Empty$2;
+Empty$1.PRESENTED_IMAGE_DEFAULT = true;
+var DefaultEmptyImg = Empty$1;
 var Simple = function Simple2() {
   var _useConfigInject = useConfigInject("empty", {}), getPrefixCls2 = _useConfigInject.getPrefixCls;
   var prefixCls = getPrefixCls2("empty-img-simple");
@@ -1838,7 +1838,7 @@ var x = function() {
   return w("boolean", { type: Boolean });
 }, N = function() {
   return w("string", { type: String });
-}, q = function() {
+}, q$1 = function() {
   return w("number", { type: Number });
 }, S = function() {
   return w("array", { type: Array });
@@ -1911,7 +1911,7 @@ function I(e2) {
     return r2 || y("arrayOf - value validation error:\n" + P(n2)), r2;
   } });
 }
-function J(e2) {
+function J$1(e2) {
   return T("instanceOf", { type: e2 });
 }
 function M(e2) {
@@ -1984,7 +1984,7 @@ var $$1 = function() {
   } }, { key: "string", get: function() {
     return N().def(this.defaults.string);
   } }, { key: "number", get: function() {
-    return q().def(this.defaults.number);
+    return q$1().def(this.defaults.number);
   } }, { key: "array", get: function() {
     return S().def(this.defaults.array);
   } }, { key: "object", get: function() {
@@ -2013,7 +2013,7 @@ function z(e2) {
     } }]), o2;
   }($$1)).defaults = n$1({}, e2), i2;
 }
-$$1.defaults = {}, $$1.custom = L, $$1.oneOf = Y, $$1.instanceOf = J, $$1.oneOfType = B, $$1.arrayOf = I, $$1.objectOf = M, $$1.shape = R, $$1.utils = { validate: function(e2, t2) {
+$$1.defaults = {}, $$1.custom = L, $$1.oneOf = Y, $$1.instanceOf = J$1, $$1.oneOfType = B, $$1.arrayOf = I, $$1.objectOf = M, $$1.shape = R, $$1.utils = { validate: function(e2, t2) {
   return true === _$1(t2, e2, true);
 }, toType: function(e2, t2, n2) {
   return void 0 === n2 && (n2 = false), n2 ? w(e2, t2) : T(e2, t2);
@@ -2115,27 +2115,27 @@ Empty2.props = {
     default: void 0
   }
 };
-var Empty$1 = withInstall(Empty2);
+var J = withInstall(Empty2);
 var RenderEmpty = function RenderEmpty2(props3) {
   var _useConfigInject = useConfigInject("empty", props3), prefixCls = _useConfigInject.prefixCls;
   var renderHtml = function renderHtml2(componentName) {
     switch (componentName) {
       case "Table":
       case "List":
-        return Vue.createVNode(Empty$1, {
-          "image": Empty$1.PRESENTED_IMAGE_SIMPLE
+        return Vue.createVNode(J, {
+          "image": J.PRESENTED_IMAGE_SIMPLE
         }, null);
       case "Select":
       case "TreeSelect":
       case "Cascader":
       case "Transfer":
       case "Mentions":
-        return Vue.createVNode(Empty$1, {
-          "image": Empty$1.PRESENTED_IMAGE_SIMPLE,
+        return Vue.createVNode(J, {
+          "image": J.PRESENTED_IMAGE_SIMPLE,
           "class": "".concat(prefixCls.value, "-small")
         }, null);
       default:
-        return Vue.createVNode(Empty$1, null, null);
+        return Vue.createVNode(J, null, null);
     }
   };
   return renderHtml(props3.componentName);
@@ -14670,7 +14670,7 @@ var __rest$T = globalThis && globalThis.__rest || function(s2, e2) {
 };
 function noop$a() {
 }
-var Tooltip$1 = Vue.defineComponent({
+var Tooltip = Vue.defineComponent({
   name: "Tooltip",
   inheritAttrs: false,
   props: {
@@ -15124,7 +15124,7 @@ var ToolTip = Vue.defineComponent({
         onVisibleChange: handleVisibleChange,
         onPopupAlign
       });
-      return Vue.createVNode(Tooltip$1, vcTooltipProps, {
+      return Vue.createVNode(Tooltip, vcTooltipProps, {
         default: function _default9() {
           return [visible.value ? cloneElement(child, {
             class: childCls
@@ -15141,7 +15141,7 @@ var ToolTip = Vue.defineComponent({
     };
   }
 });
-var Tooltip = withInstall(ToolTip);
+var X = withInstall(ToolTip);
 var popoverProps = function popoverProps2() {
   return _extends$1(_extends$1({}, abstractTooltipProps()), {
     content: PropTypes$1.any,
@@ -15184,7 +15184,7 @@ var Popover$1 = Vue.defineComponent({
       }, [content])]);
     };
     return function() {
-      return Vue.createVNode(Tooltip, _objectSpread2$1(_objectSpread2$1({}, omit$2(props3, ["title", "content"])), {}, {
+      return Vue.createVNode(X, _objectSpread2$1(_objectSpread2$1({}, omit$2(props3, ["title", "content"])), {}, {
         "prefixCls": prefixCls.value,
         "ref": tooltipRef,
         "transitionName": getTransitionName$2(rootPrefixCls.value, "zoom-big", props3.transitionName)
@@ -17275,7 +17275,7 @@ var menuItemProps = function menuItemProps2() {
     onFocus: Function
   };
 };
-var MenuItem$1 = Vue.defineComponent({
+var ne = Vue.defineComponent({
   name: "AMenuItem",
   inheritAttrs: false,
   props: menuItemProps(),
@@ -17407,7 +17407,7 @@ var MenuItem$1 = Vue.defineComponent({
         optionRoleProps["aria-selected"] = selected.value;
       }
       var icon = getPropsSlot(slots, props3, "icon");
-      return Vue.createVNode(Tooltip, _objectSpread2$1(_objectSpread2$1({}, tooltipProps3), {}, {
+      return Vue.createVNode(X, _objectSpread2$1(_objectSpread2$1({}, tooltipProps3), {}, {
         "placement": rtl2.value ? "left" : "right",
         "overlayClassName": "".concat(prefixCls.value, "-inline-collapsed-tooltip")
       }), {
@@ -17662,7 +17662,7 @@ var subMenuProps = function subMenuProps2() {
     onTitleClick: Function
   };
 };
-var SubMenu$1 = Vue.defineComponent({
+var te = Vue.defineComponent({
   name: "ASubMenu",
   inheritAttrs: false,
   props: subMenuProps(),
@@ -18352,7 +18352,7 @@ var Menu = Vue.defineComponent({
         "onMousedown": props3.onMousedown,
         "prefixCls": "".concat(prefixCls.value, "-overflow"),
         "component": "ul",
-        "itemComponent": MenuItem$1,
+        "itemComponent": ne,
         "class": [className.value, attrs.class],
         "role": "menu",
         "id": props3.id,
@@ -18363,7 +18363,7 @@ var Menu = Vue.defineComponent({
         "renderRawRest": function renderRawRest(omitItems) {
           var len = omitItems.length;
           var originOmitItems = len ? childList.slice(-len) : null;
-          return Vue.createVNode(Vue.Fragment, null, [Vue.createVNode(SubMenu$1, {
+          return Vue.createVNode(Vue.Fragment, null, [Vue.createVNode(te, {
             "eventKey": OVERFLOW_KEY,
             "key": OVERFLOW_KEY,
             "title": overflowedIndicator,
@@ -18375,7 +18375,7 @@ var Menu = Vue.defineComponent({
             }
           }), Vue.createVNode(PathContext, null, {
             default: function _default9() {
-              return [Vue.createVNode(SubMenu$1, {
+              return [Vue.createVNode(te, {
                 "eventKey": OVERFLOW_KEY,
                 "key": OVERFLOW_KEY,
                 "title": overflowedIndicator,
@@ -18477,15 +18477,15 @@ var Divider$1 = Vue.defineComponent({
 });
 Menu.install = function(app) {
   app.component(Menu.name, Menu);
-  app.component(MenuItem$1.name, MenuItem$1);
-  app.component(SubMenu$1.name, SubMenu$1);
+  app.component(ne.name, ne);
+  app.component(te.name, te);
   app.component(Divider$1.name, Divider$1);
   app.component(ItemGroup.name, ItemGroup);
   return app;
 };
-Menu.Item = MenuItem$1;
+Menu.Item = ne;
 Menu.Divider = Divider$1;
-Menu.SubMenu = SubMenu$1;
+Menu.SubMenu = te;
 Menu.ItemGroup = ItemGroup;
 var breadcrumbProps = function breadcrumbProps2() {
   return {
@@ -24221,7 +24221,7 @@ var OperationNode = Vue.defineComponent({
               return [tabs.map(function(tab) {
                 var _a2, _b;
                 var removable = editable && tab.closable !== false && !tab.disabled;
-                return Vue.createVNode(MenuItem$1, {
+                return Vue.createVNode(ne, {
                   "key": tab.key,
                   "id": "".concat(popupId.value, "-").concat(tab.key),
                   "role": "option",
@@ -33876,14 +33876,14 @@ function compute(e2, i2) {
     null != p2 && p2 === document.body && n(p2) && !n(document.documentElement) || null != p2 && n(p2, a2) && s2.push(p2);
   }
   for (var m2 = o2.visualViewport ? o2.visualViewport.width : innerWidth, g2 = o2.visualViewport ? o2.visualViewport.height : innerHeight, w2 = window.scrollX || pageXOffset, v2 = window.scrollY || pageYOffset, W = e2.getBoundingClientRect(), b2 = W.height, H = W.width, y2 = W.top, E2 = W.right, M2 = W.bottom, V2 = W.left, x2 = "start" === d2 || "nearest" === d2 ? y2 : "end" === d2 ? M2 : y2 + b2 / 2, I2 = "center" === u2 ? V2 + H / 2 : "end" === u2 ? E2 : V2, C = [], T2 = 0; T2 < s2.length; T2++) {
-    var k2 = s2[T2], B2 = k2.getBoundingClientRect(), D2 = B2.height, O2 = B2.width, R2 = B2.top, X = B2.right, Y2 = B2.bottom, L2 = B2.left;
-    if ("if-needed" === l2 && y2 >= 0 && V2 >= 0 && M2 <= g2 && E2 <= m2 && y2 >= R2 && M2 <= Y2 && V2 >= L2 && E2 <= X)
+    var k2 = s2[T2], B2 = k2.getBoundingClientRect(), D2 = B2.height, O2 = B2.width, R2 = B2.top, X2 = B2.right, Y2 = B2.bottom, L2 = B2.left;
+    if ("if-needed" === l2 && y2 >= 0 && V2 >= 0 && M2 <= g2 && E2 <= m2 && y2 >= R2 && M2 <= Y2 && V2 >= L2 && E2 <= X2)
       return C;
     var S2 = getComputedStyle(k2), j2 = parseInt(S2.borderLeftWidth, 10), q2 = parseInt(S2.borderTopWidth, 10), z2 = parseInt(S2.borderRightWidth, 10), A2 = parseInt(S2.borderBottomWidth, 10), F2 = 0, G = 0, J2 = "offsetWidth" in k2 ? k2.offsetWidth - k2.clientWidth - j2 - z2 : 0, K = "offsetHeight" in k2 ? k2.offsetHeight - k2.clientHeight - q2 - A2 : 0;
     if (f2 === k2)
       F2 = "start" === d2 ? x2 : "end" === d2 ? x2 - g2 : "nearest" === d2 ? r(v2, v2 + g2, g2, q2, A2, v2 + x2, v2 + x2 + b2, b2) : x2 - g2 / 2, G = "start" === u2 ? I2 : "center" === u2 ? I2 - m2 / 2 : "end" === u2 ? I2 - m2 : r(w2, w2 + m2, m2, j2, z2, w2 + I2, w2 + I2 + H, H), F2 = Math.max(0, F2 + v2), G = Math.max(0, G + w2);
     else {
-      F2 = "start" === d2 ? x2 - R2 - q2 : "end" === d2 ? x2 - Y2 + A2 + K : "nearest" === d2 ? r(R2, Y2, D2, q2, A2 + K, x2, x2 + b2, b2) : x2 - (R2 + D2 / 2) + K / 2, G = "start" === u2 ? I2 - L2 - j2 : "center" === u2 ? I2 - (L2 + O2 / 2) + J2 / 2 : "end" === u2 ? I2 - X + z2 + J2 : r(L2, X, O2, j2, z2 + J2, I2, I2 + H, H);
+      F2 = "start" === d2 ? x2 - R2 - q2 : "end" === d2 ? x2 - Y2 + A2 + K : "nearest" === d2 ? r(R2, Y2, D2, q2, A2 + K, x2, x2 + b2, b2) : x2 - (R2 + D2 / 2) + K / 2, G = "start" === u2 ? I2 - L2 - j2 : "center" === u2 ? I2 - (L2 + O2 / 2) + J2 / 2 : "end" === u2 ? I2 - X2 + z2 + J2 : r(L2, X2, O2, j2, z2 + J2, I2, I2 + H, H);
       var N2 = k2.scrollLeft, P2 = k2.scrollTop;
       x2 += P2 - (F2 = Math.max(0, Math.min(P2 + F2, k2.scrollHeight - D2 + K))), I2 += N2 - (G = Math.max(0, Math.min(N2 + G, k2.scrollWidth - O2 + J2)));
     }
@@ -42570,7 +42570,7 @@ var Options = Vue.defineComponent({
     };
   }
 });
-var Pagination$2 = {
+var Pagination$1 = {
   items_per_page: "\u6761/\u9875",
   jump_to: "\u8DF3\u81F3",
   jump_to_confirm: "\u786E\u5B9A",
@@ -42651,7 +42651,7 @@ var VcPagination = Vue.defineComponent({
       type: Boolean,
       default: void 0
     },
-    locale: PropTypes$1.object.def(Pagination$2),
+    locale: PropTypes$1.object.def(Pagination$1),
     itemRender: PropTypes$1.func.def(defaultItemRender),
     prevIcon: PropTypes$1.any,
     nextIcon: PropTypes$1.any,
@@ -43226,7 +43226,7 @@ var paginationProps = function paginationProps2() {
     "onUpdate:pageSize": Function
   };
 };
-var Pagination$1 = Vue.defineComponent({
+var Pagination = Vue.defineComponent({
   name: "APagination",
   inheritAttrs: false,
   props: paginationProps(),
@@ -43303,7 +43303,7 @@ var Pagination$1 = Vue.defineComponent({
     };
   }
 });
-var Pagination = withInstall(Pagination$1);
+var q = withInstall(Pagination);
 var listItemMetaProps = function listItemMetaProps2() {
   return {
     avatar: PropTypes$1.any,
@@ -43641,7 +43641,7 @@ var List$1 = Vue.defineComponent({
       var classString = _extends$1(_extends$1({}, classObj.value), _defineProperty$Y({}, "".concat(prefixCls.value, "-something-after-last-item"), isSomethingAfterLastItem));
       var paginationContent = props3.pagination ? Vue.createVNode("div", {
         "class": "".concat(prefixCls.value, "-pagination")
-      }, [Vue.createVNode(Pagination, _objectSpread2$1(_objectSpread2$1({}, paginationProps3.value), {}, {
+      }, [Vue.createVNode(q, _objectSpread2$1(_objectSpread2$1({}, paginationProps3.value), {}, {
         "onChange": onPaginationChange,
         "onShowSizeChange": onPaginationShowSizeChange
       }), null)]) : null;
@@ -43822,7 +43822,7 @@ var DropdownMenu = Vue.defineComponent({
           return [!loading.value && options.map(function(option, index2) {
             var _a2, _b;
             var value = option.value, disabled = option.disabled, _option$label = option.label, label = _option$label === void 0 ? option.value : _option$label;
-            return Vue.createVNode(MenuItem$1, {
+            return Vue.createVNode(ne, {
               "key": value,
               "disabled": disabled,
               "onMouseenter": function onMouseenter2() {
@@ -43836,14 +43836,14 @@ var DropdownMenu = Vue.defineComponent({
                 }) : label];
               }
             });
-          }), !loading.value && options.length === 0 ? Vue.createVNode(MenuItem$1, {
+          }), !loading.value && options.length === 0 ? Vue.createVNode(ne, {
             "key": "notFoundContent",
             "disabled": true
           }, {
             default: function _default10() {
               return [(_a = slots.notFoundContent) === null || _a === void 0 ? void 0 : _a.call(slots)];
             }
-          }) : null, loading.value && Vue.createVNode(MenuItem$1, {
+          }) : null, loading.value && Vue.createVNode(ne, {
             "key": "loading",
             "disabled": true
           }, {
@@ -45933,7 +45933,7 @@ var Popconfirm = Vue.defineComponent({
       var placement = props3.placement, overlayClassName = props3.overlayClassName, restProps = __rest$l(props3, ["placement", "overlayClassName"]);
       var otherProps = omit$2(restProps, ["title", "content", "cancelText", "okText", "onUpdate:visible", "onConfirm", "onCancel"]);
       var overlayClassNames = classNames(prefixClsConfirm.value, overlayClassName);
-      return Vue.createVNode(Tooltip, _objectSpread2$1(_objectSpread2$1({}, otherProps), {}, {
+      return Vue.createVNode(X, _objectSpread2$1(_objectSpread2$1({}, otherProps), {}, {
         "prefixCls": popoverPrefixCls.value,
         "placement": placement,
         "onVisibleChange": onVisibleChange,
@@ -46867,7 +46867,7 @@ var Rate = Vue.defineComponent({
       var tooltips = props3.tooltips;
       if (!tooltips)
         return node;
-      return Vue.createVNode(Tooltip, {
+      return Vue.createVNode(X, {
         "title": tooltips[index2]
       }, {
         default: function _default9() {
@@ -49343,7 +49343,7 @@ var SliderTooltip = Vue.defineComponent({
       cancelKeepAlign();
     });
     return function() {
-      return Vue.createVNode(Tooltip, _objectSpread2$1(_objectSpread2$1({
+      return Vue.createVNode(X, _objectSpread2$1(_objectSpread2$1({
         "ref": innerRef
       }, props3), attrs), slots);
     };
@@ -53220,7 +53220,7 @@ function injectSorter(prefixCls, columns, sorterSates, triggerSorter, defaultSor
           }, [Vue.createVNode("span", {
             "class": "".concat(prefixCls, "-column-sorter-inner")
           }, [upNode, downNode])])]);
-          return showSorterTooltip ? Vue.createVNode(Tooltip, tooltipProps3, {
+          return showSorterTooltip ? Vue.createVNode(X, tooltipProps3, {
             default: function _default9() {
               return [renderSortTitle];
             }
@@ -55764,8 +55764,8 @@ var FilterDropdown = Vue.defineComponent({
       var selectedKeys = filteredKeys.value;
       var column = props3.column, locale2 = props3.locale, tablePrefixCls = props3.tablePrefixCls, filterMultiple = props3.filterMultiple, dropdownPrefixCls = props3.dropdownPrefixCls, getPopupContainer = props3.getPopupContainer, prefixCls = props3.prefixCls;
       if ((column.filters || []).length === 0) {
-        return Vue.createVNode(Empty$1, {
-          "image": Empty$1.PRESENTED_IMAGE_SIMPLE,
+        return Vue.createVNode(J, {
+          "image": J.PRESENTED_IMAGE_SIMPLE,
           "description": locale2.filterEmptyText,
           "imageStyle": {
             height: 24
@@ -56599,7 +56599,7 @@ var InteralTable = Vue.defineComponent({
           paginationSize = mergedSize.value === "small" || mergedSize.value === "middle" ? "small" : void 0;
         }
         var renderPagination = function renderPagination2(position2) {
-          return Vue.createVNode(Pagination, _objectSpread2$1(_objectSpread2$1({}, mergedPagination.value), {}, {
+          return Vue.createVNode(q, _objectSpread2$1(_objectSpread2$1({}, mergedPagination.value), {}, {
             "class": ["".concat(prefixCls.value, "-pagination ").concat(prefixCls.value, "-pagination-").concat(position2), mergedPagination.value.class],
             "size": paginationSize
           }), null);
@@ -56983,7 +56983,7 @@ var ListBody = Vue.defineComponent({
       var prefixCls = props3.prefixCls, filteredRenderItems = props3.filteredRenderItems, selectedKeys = props3.selectedKeys, globalDisabled = props3.disabled, showRemove = props3.showRemove;
       var paginationNode = null;
       if (mergedPagination.value) {
-        paginationNode = Vue.createVNode(Pagination, {
+        paginationNode = Vue.createVNode(q, {
           "simple": true,
           "size": "small",
           "disabled": globalDisabled,
@@ -60169,7 +60169,7 @@ var Base = Vue.defineComponent({
       }, null);
       var title = slots.editableTooltip ? slots.editableTooltip() : state.editStr;
       var ariaLabel = typeof title === "string" ? title : "";
-      return triggerType.indexOf("icon") !== -1 ? Vue.createVNode(Tooltip, {
+      return triggerType.indexOf("icon") !== -1 ? Vue.createVNode(X, {
         "key": "edit",
         "title": tooltip === false ? "" : title
       }, {
@@ -60200,7 +60200,7 @@ var Base = Vue.defineComponent({
       var icon = slots.copyableIcon ? slots.copyableIcon({
         copied: !!state.copied
       }) : defaultIcon;
-      return Vue.createVNode(Tooltip, {
+      return Vue.createVNode(X, {
         "key": "copy",
         "title": tooltip === false ? "" : title
       }, {
@@ -60302,7 +60302,7 @@ var Base = Vue.defineComponent({
                 }
               }, textProps3), {
                 default: function _default10() {
-                  return [showTooltip ? Vue.createVNode(Tooltip, {
+                  return [showTooltip ? Vue.createVNode(X, {
                     "title": tooltip === true ? _children : title
                   }, {
                     default: function _default11() {
@@ -61622,7 +61622,7 @@ var ListItem = Vue.defineComponent({
         }
       })]);
       var listContainerNameClass = (_listContainerNameCla = {}, _defineProperty$Y(_listContainerNameCla, "".concat(prefixCls, "-list-").concat(listType, "-container"), true), _defineProperty$Y(_listContainerNameCla, "".concat(className), !!className), _listContainerNameCla);
-      var item = file.status === "error" ? Vue.createVNode(Tooltip, {
+      var item = file.status === "error" ? Vue.createVNode(X, {
         "title": message2,
         "getPopupContainer": function getPopupContainer(node) {
           return node.parentNode;
@@ -62266,7 +62266,7 @@ var components$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   Dropdown: Dropdown$1,
   DropdownButton,
   Drawer: index$c,
-  Empty: Empty$1,
+  Empty: J,
   Form: Form$1,
   FormItem,
   FormItemRest,
@@ -62290,9 +62290,9 @@ var components$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   message,
   Menu,
   MenuDivider: Divider$1,
-  MenuItem: MenuItem$1,
+  MenuItem: ne,
   MenuItemGroup: ItemGroup,
-  SubMenu: SubMenu$1,
+  SubMenu: te,
   Mentions: index$a,
   MentionsOption,
   Modal,
@@ -62300,7 +62300,7 @@ var components$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   StatisticCountdown,
   notification,
   PageHeader: index$9,
-  Pagination,
+  Pagination: q,
   Popconfirm: index$8,
   Popover: Popover$2,
   Progress,
@@ -62345,7 +62345,7 @@ var components$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   TimeRangePicker,
   Timeline,
   TimelineItem,
-  Tooltip,
+  Tooltip: X,
   Typography: Typography$1,
   TypographyLink: Link$1,
   TypographyParagraph: Paragraph$1,
@@ -62912,27 +62912,27 @@ ClassLayer.pt.move = function() {
   });
   _DOC.on("mousemove", function(e2) {
     if (dict.moveStart) {
-      var X = e2.clientX - dict.offset[0], Y2 = e2.clientY - dict.offset[1], fixed = layero.css("position") === "fixed";
+      var X2 = e2.clientX - dict.offset[0], Y2 = e2.clientY - dict.offset[1], fixed = layero.css("position") === "fixed";
       e2.preventDefault();
       dict.stX = fixed ? 0 : $win.scrollLeft();
       dict.stY = fixed ? 0 : $win.scrollTop();
       if (!config.moveOut) {
         var setRig = $win.width() - layero.outerWidth() + dict.stX, setBot = $win.height() - layero.outerHeight() + dict.stY;
-        X < dict.stX && (X = dict.stX);
-        X > setRig && (X = setRig);
+        X2 < dict.stX && (X2 = dict.stX);
+        X2 > setRig && (X2 = setRig);
         Y2 < dict.stY && (Y2 = dict.stY);
         Y2 > setBot && (Y2 = setBot);
       }
       layero.css({
-        left: X,
+        left: X2,
         top: Y2
       });
     }
     if (config.resize && dict.resizeStart) {
-      var X = e2.clientX - dict.offset[0], Y2 = e2.clientY - dict.offset[1];
+      var X2 = e2.clientX - dict.offset[0], Y2 = e2.clientY - dict.offset[1];
       e2.preventDefault();
       layer.style(that.index, {
-        width: dict.area[0] + X,
+        width: dict.area[0] + X2,
         height: dict.area[1] + Y2
       });
       dict.isResize = true;
@@ -64060,7 +64060,7 @@ var DatePicker$1 = locale;
 var typeTemplate = "${label}\u4E0D\u662F\u4E00\u4E2A\u6709\u6548\u7684${type}";
 var localeValues = {
   locale: "zh-cn",
-  Pagination: Pagination$2,
+  Pagination: Pagination$1,
   DatePicker: DatePicker$1,
   TimePicker,
   Calendar: DatePicker$1,
@@ -65116,6 +65116,12 @@ var xButton = Vue.defineComponent({
     Button
   },
   props: {
+    payload: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
     configs: {
       type: Object,
       default() {
@@ -65554,6 +65560,18 @@ function setPagination(StateTable, pagination) {
     StateTable.pagination[PAGINATION_MAP[prop]] = value;
   });
 }
+function getPaginationPageSize(StateTable) {
+  const PAGINATION_MAP = lStorage.appConfigs.pagination;
+  const pagination = StateTable.pagination;
+  const {
+    page,
+    size
+  } = PAGINATION_MAP;
+  return {
+    [page]: pagination[page],
+    [size]: pagination[size]
+  };
+}
 function defCol(options) {
   return {
     [options.prop]: {
@@ -65643,11 +65661,25 @@ function filterColIsShow(isShow, prop) {
     return true;
   }
 }
+function setDataGridInfo(StateBind, result = {
+  data: []
+}) {
+  const {
+    data: data8 = [],
+    total: total2 = false
+  } = result;
+  StateBind.dataSource = data8;
+  if (total2 || total2 === 0) {
+    setPagination(StateBind, {
+      total: total2
+    });
+  }
+}
 const PAGE_SIZE_OPTIONS = ["10", "20", "30"];
 var _sfc_main$4 = Vue.defineComponent({
   name: "xPagination",
   components: {
-    Pagination
+    Pagination: q
   },
   props: {
     onPaginationChange: {
@@ -66797,4 +66829,4 @@ var nprogress = { exports: {} };
   });
 })(nprogress);
 var NProgress = nprogress.exports;
-export { AntdIcon as A, EVENT_TYPE as E, Modal as M, NProgress as N, State_UI as S, UI as U, VentoseUIWithInstall as V, _global__ as _, __vitePreload as a, setDocumentTitle as b, _export_sfc as c, defItem as d, AllWasWell as e, defDataGridOption as f, defPagination as g, defCol as h, dayjs as i, _global_$ as j, get as k, lStorage as l, clear as m, set as n, AutoComplete$1 as o, commonjsGlobal as p, defColActions as q, defColActionsBtnlist as r, setCSSVariables as s, validateForm as v };
+export { AntdIcon as A, Button as B, Modal as C, Dropdown$1 as D, EVENT_TYPE as E, J, Menu as M, NProgress as N, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, __vitePreload as a, setDocumentTitle as b, _export_sfc as c, defItem as d, AllWasWell as e, defDataGridOption as f, defPagination as g, defCol as h, Spin as i, dayjs as j, _global_$ as k, lStorage as l, get as m, ne as n, clear as o, set as p, q, AutoComplete$1 as r, setCSSVariables as s, te as t, commonjsGlobal as u, validateForm as v, defColActions as w, defColActionsBtnlist as x, getPaginationPageSize as y, setDataGridInfo as z };

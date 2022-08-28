@@ -1,4 +1,4 @@
-import { p as commonjsGlobal, a as __vitePreload } from "./nprogress.js";
+import { u as commonjsGlobal, a as __vitePreload } from "./nprogress.js";
 var mock = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -7103,7 +7103,7 @@ var mock = { exports: {} };
 })(mock);
 var Mock = mock.exports;
 async function loadMockData() {
-  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/main.js","statics/assets/main.02906783.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
+  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/main.js","statics/assets/main.b05894ae.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
   Mock.setup({ timeout: 300 });
 }
 var index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({

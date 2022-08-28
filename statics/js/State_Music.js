@@ -1,4 +1,4 @@
-import { A as API } from "./main.js";
+import { S as State_App, A as API } from "./main.js";
 import { l as lStorage, _ as _global__, b as setDocumentTitle } from "./nprogress.js";
 const State_Music = Vue.reactive({
   songId: 0,
@@ -166,9 +166,20 @@ const Actions_Music = {
     if (State_Music.isPlaying && id === State_Music.songId) {
       return;
     }
-    const res = await API.music.getSongUrlBuId(id);
-    const data = res.data;
-    State_Music.audio.src = _global__.first(data).url;
+    const record = _global__.find(State_Music.playlist, {
+      id
+    });
+    let audioSrc, data;
+    if (record.file_path) {
+      audioSrc = `https://www.singlone.work/s/api//v1/shiro/remote_file?url=resource/Music/${record.file_path}&token=${State_App.token}`;
+      record.url = audioSrc;
+      data = [record];
+    } else {
+      const res = await API.music.getSongUrlBuId(id);
+      data = res.data;
+      audioSrc = _global__.first(data).url;
+    }
+    State_Music.audio.src = audioSrc;
     function canPlay() {
       return new Promise((resolve) => {
         State_Music.audio.oncanplay = function() {
@@ -181,9 +192,6 @@ const Actions_Music = {
       });
     }
     Actions_Music.stopSong();
-    const record = _global__.find(State_Music.playlist, {
-      id
-    });
     if (record) {
       setDocumentTitle(record.name);
     }

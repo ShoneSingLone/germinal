@@ -266,11 +266,12 @@ var LayoutMusic_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = { class: "flex" };
 const _hoisted_2 = { class: "flex" };
 const _hoisted_3 = { class: "flex" };
-const _hoisted_4 = {
+const _hoisted_4 = { class: "flex" };
+const _hoisted_5 = {
   class: "ant-layout-content elevation-1 flex1",
   style: { "margin": "16px", "overflow": "auto" }
 };
-const _hoisted_5 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "min-height": "360px" } };
+const _hoisted_6 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "min-height": "360px" } };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_AMenuItem = Vue.resolveComponent("AMenuItem");
@@ -330,6 +331,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ])
                 ]),
                 _: 1
+              }),
+              Vue.createVNode(_component_AMenuItem, { key: "private" }, {
+                default: Vue.withCtx(() => [
+                  Vue.createElementVNode("span", _hoisted_4, [
+                    Vue.createVNode(_component_xIcon, {
+                      icon: "privateNet",
+                      class: "mr8"
+                    }),
+                    Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.$t("\u79C1\u85CF").label), 1)
+                  ])
+                ]),
+                _: 1
               })
             ]),
             _: 1
@@ -346,8 +359,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             style: { "background": "#fff", "padding": "0" },
             class: "elevation-1"
           }),
-          Vue.createElementVNode("main", _hoisted_4, [
-            Vue.createElementVNode("div", _hoisted_5, [
+          Vue.createElementVNode("main", _hoisted_5, [
+            Vue.createElementVNode("div", _hoisted_6, [
               Vue.createVNode(_component_RouterView)
             ])
           ]),
