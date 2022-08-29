@@ -6,9 +6,9 @@ import path from "path";
 import svgHelper from "./vite/config/plugins/svg";
 import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
+// import cssOnly from "rollup-plugin-css-only";
+import fs from "fs";
 // import basicSsl from "@vitejs/plugin-basic-ssl";
-import { VitePWA } from "vite-plugin-pwa";
-import commonjs from "rollup-plugin-commonjs";
 
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
@@ -29,11 +29,7 @@ const urlWsBase = `wss://${urlBase}/ws`;
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
-	optimizeDeps: {
-		indlude: ["dayjs"]
-	},
 	server: {
-		open: "/yapi.html",
 		https: true,
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd())]
@@ -120,14 +116,10 @@ export default defineConfig({
 		return options;
 	})(),
 	plugins: [
-		VitePWA(),
 		// basicSsl(),
 		useVue(),
 		useVueJsx(),
 		svgHelper(),
-		commonjs({
-			include: "node_modules/**"
-		}),
 		/* 懒加载antd 自动加载对应的css */
 		/* usePluginImport({
 			libraryName: "ant-design-vue",

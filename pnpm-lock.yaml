@@ -1541,7 +1541,7 @@ packages:
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
     dependencies:
-      chalk: 3.0.0
+      chalk: mirrors.tencent.com/chalk/3.0.0
       error-stack-parser: 2.1.4
       string-width: 4.2.3
       strip-ansi: 6.0.1
@@ -1898,7 +1898,7 @@ packages:
       cli-highlight: 2.1.11
       clipboardy: 2.3.0
       cliui: 6.0.0
-      copy-webpack-plugin: 5.1.2_webpack@4.46.0
+      copy-webpack-plugin: mirrors.tencent.com/copy-webpack-plugin/5.1.2_webpack@4.46.0
       css-loader: 3.6.0_webpack@4.46.0
       cssnano: 4.1.11
       debug: mirrors.tencent.com/debug/4.3.4
@@ -1915,7 +1915,7 @@ packages:
       lodash.mapvalues: 4.6.0
       lodash.transform: 4.6.0
       mini-css-extract-plugin: 0.9.0_webpack@4.46.0
-      minimist: 1.2.6
+      minimist: mirrors.tencent.com/minimist/1.2.6
       pnp-webpack-plugin: 1.7.0
       portfinder: 1.0.32
       postcss-loader: 3.0.0
@@ -3210,14 +3210,6 @@ packages:
       escape-string-regexp: 1.0.5
       supports-color: 5.5.0
 
-  /chalk/3.0.0:
-    resolution: {integrity: sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==}
-    engines: {node: '>=8'}
-    dependencies:
-      ansi-styles: 4.3.0
-      supports-color: 7.2.0
-    dev: true
-
   /chalk/4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
@@ -3353,10 +3345,10 @@ packages:
     engines: {node: '>=8.0.0', npm: '>=5.0.0'}
     hasBin: true
     dependencies:
-      chalk: 4.1.2
-      highlight.js: 10.7.3
+      chalk: mirrors.tencent.com/chalk/4.1.2
+      highlight.js: mirrors.tencent.com/highlight.js/10.7.3
       mz: mirrors.tencent.com/mz/2.7.0
-      parse5: mirrors.tencent.com/parse5/5.1.1
+      parse5: 5.1.1
       parse5-htmlparser2-tree-adapter: 6.0.1
       yargs: 16.2.0
     dev: true
@@ -3435,7 +3427,7 @@ packages:
     engines: {node: '>= 4.0'}
     dependencies:
       '@types/q': 1.5.5
-      chalk: 2.4.2
+      chalk: mirrors.tencent.com/chalk/2.4.2
       q: 1.5.1
     dev: true
 
@@ -3969,27 +3961,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /copy-webpack-plugin/5.1.2_webpack@4.46.0:
-    resolution: {integrity: sha512-Uh7crJAco3AjBvgAy9Z75CjK8IG+gxaErro71THQ+vv/bl4HaQcpkexAY8KVW/T6D2W2IRr+couF/knIRkZMIQ==}
-    engines: {node: '>= 6.9.0'}
-    peerDependencies:
-      webpack: ^4.0.0 || ^5.0.0
-    dependencies:
-      cacache: mirrors.tencent.com/cacache/12.0.4
-      find-cache-dir: 2.1.0
-      glob-parent: 3.1.0
-      globby: 7.1.1
-      is-glob: 4.0.3
-      loader-utils: 1.4.0
-      minimatch: 3.1.2
-      normalize-path: 3.0.0
-      p-limit: 2.3.0
-      schema-utils: 1.0.0
-      serialize-javascript: 4.0.0
-      webpack: 4.46.0
-      webpack-log: 2.0.0
-    dev: true
-
   /core-js-compat/3.25.0:
     resolution: {integrity: sha512-extKQM0g8/3GjFx9US12FAgx8KJawB7RCQ5y8ipYLbmfzEzmFRWdDjIlxDx82g7ygcNG85qMVUSRyABouELdow==}
     dependencies:
@@ -4206,7 +4177,7 @@ packages:
       postcss-calc: 7.0.5
       postcss-colormin: 4.0.3
       postcss-convert-values: 4.0.1
-      postcss-discard-comments: 4.0.2
+      postcss-discard-comments: mirrors.tencent.com/postcss-discard-comments/4.0.2
       postcss-discard-duplicates: 4.0.2
       postcss-discard-empty: 4.0.1
       postcss-discard-overridden: 4.0.1
@@ -5243,9 +5214,9 @@ packages:
       cross-spawn: 7.0.3
       get-stream: 5.2.0
       human-signals: 1.1.1
-      is-stream: mirrors.tencent.com/is-stream/2.0.1
-      merge-stream: 2.0.0
-      npm-run-path: mirrors.tencent.com/npm-run-path/4.0.1
+      is-stream: 2.0.1
+      merge-stream: mirrors.tencent.com/merge-stream/2.0.0
+      npm-run-path: 4.0.1
       onetime: 5.1.2
       p-finally: 2.0.1
       signal-exit: 3.0.7
@@ -6119,10 +6090,6 @@ packages:
     resolution: {integrity: sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==}
     dev: true
 
-  /highlight.js/10.7.3:
-    resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
-    dev: true
-
   /hmac-drbg/1.0.1:
     resolution: {integrity: sha1-0nRXAQJabHdabFRXk+1QL8DGSaE=}
     dependencies:
@@ -6578,7 +6545,7 @@ packages:
       hex-color-regex: 1.1.0
       hsl-regex: 1.0.0
       hsla-regex: 1.0.0
-      rgb-regex: 1.0.1
+      rgb-regex: mirrors.tencent.com/rgb-regex/1.0.1
       rgba-regex: 1.0.0
     dev: true
 
@@ -6799,6 +6766,10 @@ packages:
     dependencies:
       call-bind: 1.0.2
 
+  /is-stream/2.0.1:
+    resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
+    engines: {node: '>=8'}
+
   /is-string/1.0.7:
     resolution: {integrity: sha512-tE2UXzivje6ofPW7l23cjDOMa09gb7xlAqG6jG5ej6uPV32TlWP3NKPigtaGeHNu9fohccRYvIiZMfOOnOYUtg==}
     engines: {node: '>= 0.4'}
@@ -6891,7 +6862,7 @@ packages:
     engines: {node: '>= 10.13.0'}
     dependencies:
       '@types/node': 18.7.13
-      merge-stream: 2.0.0
+      merge-stream: mirrors.tencent.com/merge-stream/2.0.0
       supports-color: 7.2.0
     dev: false
 
@@ -7206,6 +7177,10 @@ packages:
     resolution: {integrity: sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=}
     dev: true
 
+  /lodash.sortby/4.7.0:
+    resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
+    dev: false
+
   /lodash.transform/4.6.0:
     resolution: {integrity: sha1-EjBkIvYzJK7YSD0/ODMrX2cFR6A=}
     dev: true
@@ -7380,6 +7355,7 @@ packages:
 
   /merge-stream/2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
+    dev: true
 
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -7787,6 +7763,13 @@ packages:
       pify: 3.0.0
     dev: false
 
+  /npm-run-path/4.0.1:
+    resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
+    engines: {node: '>=8'}
+    dependencies:
+      path-key: mirrors.tencent.com/path-key/3.1.1
+    dev: true
+
   /nprogress/0.2.0:
     resolution: {integrity: sha1-y480xTIT2JVyP8urkH6UIq28r7E=}
     dev: false
@@ -8105,7 +8088,15 @@ packages:
   /parse5-htmlparser2-tree-adapter/6.0.1:
     resolution: {integrity: sha512-qPuWvbLgvDGilKc5BoicRovlT4MtYT6JfJyBOMDsKoiT+GiuP5qyrPCnR9HcPECIJJmZh5jRndyNThnhhb/vlA==}
     dependencies:
-      parse5: mirrors.tencent.com/parse5/6.0.1
+      parse5: 6.0.1
+    dev: true
+
+  /parse5/5.1.1:
+    resolution: {integrity: sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==}
+    dev: true
+
+  /parse5/6.0.1:
+    resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==}
     dev: true
 
   /parseurl/1.3.3:
@@ -8316,13 +8307,6 @@ packages:
     dependencies:
       postcss: 7.0.39
       postcss-value-parser: 3.3.1
-    dev: true
-
-  /postcss-discard-comments/4.0.2:
-    resolution: {integrity: sha512-RJutN259iuRf3IW7GZyLM5Sw4GLTOH8FmsXBnv8Ab/Tc2k4SR4qbV4DNbyyY4+Sjo362SyDmW2DQ7lBSChrpkg==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      postcss: 7.0.39
     dev: true
 
   /postcss-discard-duplicates/4.0.2:
@@ -9052,10 +9036,6 @@ packages:
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
-
-  /rgb-regex/1.0.1:
-    resolution: {integrity: sha1-wODWiC3w4jviVKR16O3UGRX+rrE=}
-    dev: true
 
   /rgba-regex/1.0.0:
     resolution: {integrity: sha1-QzdOLiyglosO8VI0YLfXMP8i7rM=}
@@ -9882,7 +9862,7 @@ packages:
     resolution: {integrity: sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==}
     engines: {node: '>=6'}
     dependencies:
-      has-flag: 3.0.0
+      has-flag: mirrors.tencent.com/has-flag/3.0.0
     dev: true
 
   /supports-color/7.2.0:
@@ -9904,7 +9884,7 @@ packages:
     engines: {node: '>=4.0.0'}
     hasBin: true
     dependencies:
-      chalk: 2.4.2
+      chalk: mirrors.tencent.com/chalk/2.4.2
       coa: 2.0.2
       css-select: 2.1.0
       css-select-base-adapter: 0.1.1
@@ -9975,7 +9955,7 @@ packages:
     resolution: {integrity: sha512-G13vtMYPT/J8A4X2SjdtBTphZlrp1gKv6hZiOjw14RCWg6GbHuQBGtjlx75xLbYV/wEc0D7G5K4rxKP/cXk8Bw==}
     engines: {node: '>=10'}
     dependencies:
-      is-stream: mirrors.tencent.com/is-stream/2.0.1
+      is-stream: 2.0.1
       temp-dir: 2.0.0
       type-fest: 0.16.0
       unique-string: 2.0.0
@@ -10695,7 +10675,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      chalk: 4.1.2
+      chalk: mirrors.tencent.com/chalk/4.1.2
       hash-sum: 2.0.0
       loader-utils: 2.0.2
       vue: mirrors.tencent.com/vue/3.2.37
@@ -10811,7 +10791,7 @@ packages:
       acorn: 7.4.1
       acorn-walk: mirrors.tencent.com/acorn-walk/7.2.0
       bfj: 6.1.2
-      chalk: 2.4.2
+      chalk: mirrors.tencent.com/chalk/2.4.2
       commander: 2.20.3
       ejs: 2.7.4
       express: 4.18.1
@@ -10977,7 +10957,7 @@ packages:
   /whatwg-url/7.1.0:
     resolution: {integrity: sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==}
     dependencies:
-      lodash.sortby: mirrors.tencent.com/lodash.sortby/4.7.0
+      lodash.sortby: 4.7.0
       tr46: 1.0.1
       webidl-conversions: 4.0.2
     dev: false
@@ -11396,6 +11376,37 @@ packages:
       y18n: 4.0.3
     dev: true
 
+  mirrors.tencent.com/chalk/2.4.2:
+    resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/chalk/-/chalk-2.4.2.tgz}
+    name: chalk
+    version: 2.4.2
+    engines: {node: '>=4'}
+    dependencies:
+      ansi-styles: 3.2.1
+      escape-string-regexp: 1.0.5
+      supports-color: 5.5.0
+    dev: true
+
+  mirrors.tencent.com/chalk/3.0.0:
+    resolution: {integrity: sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/chalk/-/chalk-3.0.0.tgz}
+    name: chalk
+    version: 3.0.0
+    engines: {node: '>=8'}
+    dependencies:
+      ansi-styles: 4.3.0
+      supports-color: 7.2.0
+    dev: true
+
+  mirrors.tencent.com/chalk/4.1.2:
+    resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/chalk/-/chalk-4.1.2.tgz}
+    name: chalk
+    version: 4.1.2
+    engines: {node: '>=10'}
+    dependencies:
+      ansi-styles: 4.3.0
+      supports-color: 7.2.0
+    dev: true
+
   mirrors.tencent.com/chardet/0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/chardet/-/chardet-0.7.0.tgz}
     name: chardet
@@ -11428,6 +11439,30 @@ packages:
     version: 1.8.0
     dependencies:
       safe-buffer: 5.1.2
+
+  mirrors.tencent.com/copy-webpack-plugin/5.1.2_webpack@4.46.0:
+    resolution: {integrity: sha512-Uh7crJAco3AjBvgAy9Z75CjK8IG+gxaErro71THQ+vv/bl4HaQcpkexAY8KVW/T6D2W2IRr+couF/knIRkZMIQ==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/copy-webpack-plugin/-/copy-webpack-plugin-5.1.2.tgz}
+    id: mirrors.tencent.com/copy-webpack-plugin/5.1.2
+    name: copy-webpack-plugin
+    version: 5.1.2
+    engines: {node: '>= 6.9.0'}
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
+    dependencies:
+      cacache: mirrors.tencent.com/cacache/12.0.4
+      find-cache-dir: 2.1.0
+      glob-parent: 3.1.0
+      globby: 7.1.1
+      is-glob: 4.0.3
+      loader-utils: 1.4.0
+      minimatch: mirrors.tencent.com/minimatch/3.1.2
+      normalize-path: 3.0.0
+      p-limit: 2.3.0
+      schema-utils: 1.0.0
+      serialize-javascript: 4.0.0
+      webpack: 4.46.0
+      webpack-log: 2.0.0
+    dev: true
 
   mirrors.tencent.com/core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/core-util-is/-/core-util-is-1.0.2.tgz}
@@ -11616,6 +11651,13 @@ packages:
     dependencies:
       assert-plus: 1.0.0
 
+  mirrors.tencent.com/has-flag/3.0.0:
+    resolution: {integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/has-flag/-/has-flag-3.0.0.tgz}
+    name: has-flag
+    version: 3.0.0
+    engines: {node: '>=4'}
+    dev: true
+
   mirrors.tencent.com/has-property-descriptors/1.0.0:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/has-property-descriptors/-/has-property-descriptors-1.0.0.tgz}
     name: has-property-descriptors
@@ -11636,6 +11678,12 @@ packages:
     dependencies:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
+    dev: true
+
+  mirrors.tencent.com/highlight.js/10.7.3:
+    resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/highlight.js/-/highlight.js-10.7.3.tgz}
+    name: highlight.js
+    version: 10.7.3
     dev: true
 
   mirrors.tencent.com/import-fresh/2.0.0:
@@ -11705,6 +11753,7 @@ packages:
     name: is-stream
     version: 2.0.1
     engines: {node: '>=8'}
+    dev: true
 
   mirrors.tencent.com/json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz}
@@ -11737,11 +11786,10 @@ packages:
       - zenObservable
     dev: true
 
-  mirrors.tencent.com/lodash.sortby/4.7.0:
-    resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/lodash.sortby/-/lodash.sortby-4.7.0.tgz}
-    name: lodash.sortby
-    version: 4.7.0
-    dev: false
+  mirrors.tencent.com/merge-stream/2.0.0:
+    resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/merge-stream/-/merge-stream-2.0.0.tgz}
+    name: merge-stream
+    version: 2.0.0
 
   mirrors.tencent.com/miller-rabin/4.0.1:
     resolution: {integrity: sha512-115fLhvZVqWwHPbClyntxEVfVDfl9DLLTuJvq3g2O/Oxi8AiNouAHvDSzHS0viUJc+V5vm3eq91Xwqn9dp4jRA==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/miller-rabin/-/miller-rabin-4.0.1.tgz}
@@ -11751,6 +11799,20 @@ packages:
     dependencies:
       bn.js: 4.12.0
       brorand: 1.1.0
+    dev: true
+
+  mirrors.tencent.com/minimatch/3.1.2:
+    resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/minimatch/-/minimatch-3.1.2.tgz}
+    name: minimatch
+    version: 3.1.2
+    dependencies:
+      brace-expansion: mirrors.tencent.com/brace-expansion/1.1.11
+    dev: true
+
+  mirrors.tencent.com/minimist/1.2.6:
+    resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/minimist/-/minimist-1.2.6.tgz}
+    name: minimist
+    version: 1.2.6
     dev: true
 
   mirrors.tencent.com/ms/2.0.0:
@@ -11804,15 +11866,6 @@ packages:
       path-key: mirrors.tencent.com/path-key/3.1.1
     dev: true
 
-  mirrors.tencent.com/npm-run-path/4.0.1:
-    resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/npm-run-path/-/npm-run-path-4.0.1.tgz}
-    name: npm-run-path
-    version: 4.0.1
-    engines: {node: '>=8'}
-    dependencies:
-      path-key: mirrors.tencent.com/path-key/3.1.1
-    dev: true
-
   mirrors.tencent.com/p-retry/3.0.1:
     resolution: {integrity: sha512-XE6G4+YTTkT2a0UWb2kjZe8xNwf8bIbnqpc/IS/idOBVhyves0mK5OJgeocjx7q5pvX/6m23xuzVPYT1uGM73w==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/p-retry/-/p-retry-3.0.1.tgz}
     name: p-retry
@@ -11820,18 +11873,6 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       retry: 0.12.0
-    dev: true
-
-  mirrors.tencent.com/parse5/5.1.1:
-    resolution: {integrity: sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/parse5/-/parse5-5.1.1.tgz}
-    name: parse5
-    version: 5.1.1
-    dev: true
-
-  mirrors.tencent.com/parse5/6.0.1:
-    resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/parse5/-/parse5-6.0.1.tgz}
-    name: parse5
-    version: 6.0.1
     dev: true
 
   mirrors.tencent.com/path-key/2.0.1:
@@ -11846,6 +11887,15 @@ packages:
     name: path-key
     version: 3.1.1
     engines: {node: '>=8'}
+
+  mirrors.tencent.com/postcss-discard-comments/4.0.2:
+    resolution: {integrity: sha512-RJutN259iuRf3IW7GZyLM5Sw4GLTOH8FmsXBnv8Ab/Tc2k4SR4qbV4DNbyyY4+Sjo362SyDmW2DQ7lBSChrpkg==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/postcss-discard-comments/-/postcss-discard-comments-4.0.2.tgz}
+    name: postcss-discard-comments
+    version: 4.0.2
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      postcss: 7.0.39
+    dev: true
 
   mirrors.tencent.com/prelude-ls/1.1.2:
     resolution: {integrity: sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/prelude-ls/-/prelude-ls-1.1.2.tgz}
@@ -11897,6 +11947,12 @@ packages:
     name: ret
     version: 0.1.15
     engines: {node: '>=0.12'}
+    dev: true
+
+  mirrors.tencent.com/rgb-regex/1.0.1:
+    resolution: {integrity: sha1-wODWiC3w4jviVKR16O3UGRX+rrE=, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/rgb-regex/-/rgb-regex-1.0.1.tgz}
+    name: rgb-regex
+    version: 1.0.1
     dev: true
 
   mirrors.tencent.com/rimraf/2.6.3:
