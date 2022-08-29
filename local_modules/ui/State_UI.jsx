@@ -3,7 +3,7 @@ import { computed, reactive, watch } from "vue";
 // import enUs from "ant-design-vue/es/date-picker/locale/en_US";
 import enUs from "ant-design-vue/es/locale/en_US";
 import zhCn from "ant-design-vue/es/locale/zh_CN";
-import _ from "lodash";
+import { _ } from "./loadCommonUtil";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import "dayjs/locale/en-au";

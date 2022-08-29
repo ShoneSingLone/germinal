@@ -2,13 +2,8 @@ import { t_dialogOptions } from "./xSingle/dialog/dialog";
 import { State_UI } from "./State_UI";
 import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 import layer from "./xSingle/layer/layer";
-import {
-	Modal,
-	/* global */
-	message,
-	notification
-} from "ant-design-vue";
-import _ from "lodash";
+import { Modal, /* global */ message, notification } from "ant-design-vue";
+import { _ } from "./loadCommonUtil";
 
 /* 静态方法，与APP实例无关，引用有直接可用 */
 
@@ -28,6 +23,7 @@ const useModel = type => {
 					return title;
 				}
 			})(!title);
+
 			Modal[type]({
 				title,
 				icon: <ExclamationCircleOutlined />,
@@ -44,6 +40,7 @@ const useModel = type => {
 		});
 	};
 };
+/* 全局单例，比如弹窗，提示，消息，确认，还有Layer */
 export const UI = {
 	dialog: {
 		component: async (options: t_dialogOptions) => null,
