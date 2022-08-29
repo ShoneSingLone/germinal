@@ -44,8 +44,10 @@ export function formatDuring(during) {
 	during = Math.floor(during / 60);
 	const i = during % 60;
 
-	const ii = i < 10 ? `0${i}` : i;
-	const ss = s < 10 ? `0${s}` : s;
+	let ii = i < 10 ? `0${i}` : i;
+	let ss = s < 10 ? `0${s}` : s;
 
+	ii = _.isNaN(ii) ? "00" : ii;
+	ss = _.isNaN(ss) ? "00" : ss;
 	return ii + ":" + ss;
 }
