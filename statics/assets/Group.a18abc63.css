@@ -8,30 +8,6 @@
   transform: translateY(0);
   transition: all 0.2s;
 }
-.card-container:hover .m-card,
-.card-container:hover .card-btns,
-.card-container:hover .copy-btns {
-  transform: translateY(-4px);
-}
-.card-container:hover .m-card .ant-card-body {
-  background-color: #ececec;
-  box-shadow: 0 4px 8px rgba(50, 50, 93, 0.11), 0 4px 6px rgba(0, 0, 0, 0.08);
-}
-.card-container:hover .card-btns .icon {
-  color: rgba(39, 56, 72, 0.85);
-}
-.card-container:hover .copy-btns .icon {
-  color: #2395f1;
-}
-.card-container:hover .card-btns .icon.active,
-.card-container:hover .copy-btns .icon.active {
-  color: #fac200;
-}
-.card-container:active .m-card,
-.card-container:active .card-btns,
-.card-container:active .copy-btns {
-  transform: translateY(4px);
-}
 .card-container .ant-card:not(.ant-card-no-hovering):hover {
   box-shadow: none;
 }

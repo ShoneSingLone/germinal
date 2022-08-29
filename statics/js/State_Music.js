@@ -160,7 +160,7 @@ const Actions_Music = {
     setDocumentTitle("Music");
   },
   async playSongById(id) {
-    if (!id) {
+    if (!_global__.isInput(id)) {
       return;
     }
     if (State_Music.isPlaying && id === State_Music.songId) {
@@ -170,8 +170,8 @@ const Actions_Music = {
       id
     });
     let audioSrc, data;
-    if (record.file_path) {
-      audioSrc = `https://www.singlone.work/s/api//v1/shiro/remote_file?url=resource/Music/${record.file_path}&token=${State_App.token}`;
+    if (record.title) {
+      audioSrc = `https://www.singlone.work/s/api//v1/shiro/remote_music_file?id=${record.id}&token=${State_App.token}`;
       record.url = audioSrc;
       data = [record];
     } else {

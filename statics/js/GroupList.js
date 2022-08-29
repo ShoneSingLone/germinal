@@ -206,7 +206,7 @@ var GroupList = Vue.defineComponent({
         console.error(error);
       }
     },
-    showAddGroupView(row = {}) {
+    openAddGroupDialog(row = {}) {
       UI.dialog.component({
         title: "\u6DFB\u52A0\u5206\u7EC4",
         component: ViewAddGroup,
@@ -313,7 +313,7 @@ var GroupList = Vue.defineComponent({
       }, [Vue.createVNode(Vue.resolveComponent("xIcon"), {
         "class": "btn",
         "icon": "addGroup",
-        "onClick": this.showAddGroupView,
+        "onClick": this.openAddGroupDialog,
         "style": "width:16px;"
       }, null)])]
     })]), Vue.createVNode("div", {

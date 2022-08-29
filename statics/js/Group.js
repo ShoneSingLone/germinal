@@ -1,5 +1,5 @@
 import { G as GroupList } from "./GroupList.js";
-import { _ as _global__, C as Modal, d as defItem, v as validateForm, e as AllWasWell, U as UI } from "./nprogress.js";
+import { _ as _global__, F as Modal, d as defItem, v as validateForm, e as AllWasWell, U as UI } from "./nprogress.js";
 import { S as State_App, A as API, M as Methods_App, p as pickRandomProperty, h as handlePath, r as router } from "./yapi.js";
 import { F as FormRules } from "./FormRules.js";
 import { p as pickValueFrom } from "./form.js";
@@ -290,20 +290,35 @@ var ProjectCard = Vue.defineComponent({
       "title": this.followIconTitle
     }, {
       default: () => [Vue.createVNode(Vue.resolveComponent("xIcon"), {
-        "icon": this.followIconIcon,
-        "onClick": this.showConfirm
+        "icon": this.followIconIcon
       }, null)]
     })]);
+    const copyIcon = (() => {
+      if (isShow) {
+        return Vue.createVNode("span", {
+          "class": "pointer",
+          "onClick": this.showConfirm
+        }, [Vue.createVNode(Vue.resolveComponent("aTooltip"), {
+          "placement": "rightTop",
+          "title": "\u590D\u5236\u9879\u76EE"
+        }, {
+          default: () => [Vue.createVNode(Vue.resolveComponent("xIcon"), {
+            "icon": "copy"
+          }, null)]
+        })]);
+      }
+      return null;
+    })();
     return Vue.createVNode("div", {
       "class": "card-container"
     }, [Vue.createVNode(Vue.resolveComponent("aCard"), {
-      "bordered": false,
+      "hoverable": true,
       "class": "m-card",
       "onClick": () => this.$router.push({
         path: "/project/" + (projectData.projectid || projectData._id)
       })
     }, {
-      default: () => [this.isFollowStatus ? "true" : "false", Vue.createVNode(Vue.resolveComponent("xIcon"), {
+      default: () => [Vue.createVNode(Vue.resolveComponent("xIcon"), {
         "icon": projectData.icon || "star-o",
         "class": "ui-logo",
         "style": {
@@ -314,21 +329,13 @@ var ProjectCard = Vue.defineComponent({
       }, [projectData.name || projectData.projectname])]
     }), Vue.createVNode("div", {
       "class": "card-btns flex"
-    }, [isShow && Vue.createVNode("span", {
-      "class": "pointer",
-      "onClick": this.showConfirm
-    }, [Vue.createVNode(Vue.resolveComponent("aTooltip"), {
-      "placement": "rightTop",
-      "title": "\u590D\u5236\u9879\u76EE"
-    }, {
-      default: () => [Vue.createVNode(Vue.resolveComponent("xIcon"), {
-        "icon": "copy"
-      }, null)]
-    })]), followIcon])]);
+    }, [copyIcon, Vue.createVNode(Vue.resolveComponent("xGap"), {
+      "l": "10"
+    }, null), followIcon])]);
   }
 });
 var Addproject = "";
-function _isSlot(s) {
+function _isSlot$1(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
 }
 var ViewAddProject = Vue.defineComponent({
@@ -522,7 +529,7 @@ var ViewAddProject = Vue.defineComponent({
         "min-width": "120px",
         width: "unset"
       }
-    }, _isSlot(_slot = _global__.map(this.dataXItem, (configs, prop) => {
+    }, _isSlot$1(_slot = _global__.map(this.dataXItem, (configs, prop) => {
       return Vue.createVNode(Vue.Fragment, null, [Vue.createVNode(Vue.resolveComponent("xGap"), {
         "t": "10"
       }, null), Vue.createVNode(Vue.resolveComponent("xItem"), {
@@ -597,6 +604,9 @@ const ErrMsg = Vue.defineComponent({
   }
 });
 var ProjectList$1 = "";
+function _isSlot(s) {
+  return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
+}
 var ProjectList = Vue.defineComponent({
   props: ["form", "addProject", "delProject", "changeUpdateModal", "projectList", "userInfo", "tableLoading", "currGroup", "setBreadcrumb", "currPage", "studyTip", "study"],
   setup() {
@@ -629,6 +639,7 @@ var ProjectList = Vue.defineComponent({
       return this.State_App.project.projectList;
     },
     isShow() {
+      debugger;
       return /(admin)|(owner)|(dev)/.test(this.State_App.user.role);
     }
   },
@@ -642,8 +653,7 @@ var ProjectList = Vue.defineComponent({
     }
   },
   methods: {
-    showProjectView() {
-      debugger;
+    openAddProjectDialog() {
       const vm = this;
       UI.dialog.component({
         title: "\u6DFB\u52A0\u9879\u76EE",
@@ -685,54 +695,86 @@ var ProjectList = Vue.defineComponent({
     });
     projectData = [...followProject, ...noFollow];
     const Follow = () => {
-      return followProject.length ? Vue.createVNode(Vue.resolveComponent("aRow"), null, {
-        default: () => [Vue.createVNode("h3", {
-          "class": "owner-type"
-        }, [Vue.createTextVNode("\u6211\u7684\u5173\u6CE8")]), followProject.map((item, index) => {
-          return Vue.createVNode(Vue.resolveComponent("aCol"), {
-            "xs": 8,
-            "lg": 6,
-            "xxl": 4,
-            "key": index
-          }, {
-            default: () => [Vue.createVNode(ProjectCard, {
-              "projectData": item,
-              "callbackResult": this.updateProjectList
-            }, null)]
-          });
-        })]
-      }) : null;
+      if (followProject.length) {
+        return Vue.createVNode(Vue.resolveComponent("aRow"), {
+          "style": {
+            borderBottom: "1px solid #eee",
+            marginBottom: "15px"
+          }
+        }, {
+          default: () => [Vue.createVNode("h3", {
+            "class": "owner-type"
+          }, [Vue.createTextVNode("\u6211\u7684\u5173\u6CE8")]), _global__.map(followProject, (item, index) => {
+            return Vue.createVNode(Vue.resolveComponent("aCol"), {
+              "xs": 8,
+              "lg": 6,
+              "xxl": 4,
+              "key": index
+            }, {
+              default: () => [Vue.createVNode(ProjectCard, {
+                "projectData": item,
+                "callbackResult": this.updateProjectList
+              }, null)]
+            });
+          })]
+        });
+      }
+      return null;
     };
     const NoFollow = () => {
-      return noFollow.length ? Vue.createVNode(Vue.resolveComponent("aRow"), {
-        "style": {
-          borderBottom: "1px solid #eee",
-          marginBottom: "15px"
-        }
-      }, {
-        default: () => [Vue.createVNode("h3", {
-          "class": "owner-type"
-        }, [Vue.createTextVNode("\u6211\u7684\u9879\u76EE")]), noFollow.map((item, index) => {
-          return Vue.createVNode(Vue.resolveComponent("aCol"), {
-            "xs": 8,
-            "lg": 6,
-            "xxl": 4,
-            "key": index
-          }, {
-            default: () => [Vue.createVNode(ProjectCard, {
-              "projectData": item,
-              "callbackResult": this.updateProjectList,
-              "isShow": this.isShow
-            }, null)]
-          });
-        })]
-      }) : null;
+      if (noFollow.length) {
+        return Vue.createVNode(Vue.resolveComponent("aRow"), {
+          "style": {
+            borderBottom: "1px solid #eee",
+            marginBottom: "15px"
+          }
+        }, {
+          default: () => [Vue.createVNode("h3", {
+            "class": "owner-type"
+          }, [Vue.createTextVNode("\u6211\u7684\u9879\u76EE")]), _global__.map(noFollow, (item, index) => {
+            return Vue.createVNode(Vue.resolveComponent("aCol"), {
+              "xs": 8,
+              "lg": 6,
+              "xxl": 4,
+              "key": index
+            }, {
+              default: () => [Vue.createVNode(ProjectCard, {
+                "projectData": item,
+                "callbackResult": this.updateProjectList,
+                "isShow": this.isShow
+              }, null)]
+            });
+          })]
+        });
+      }
+      return null;
     };
     const OwnerSpace = () => {
       return projectData.length ? Vue.createVNode("div", null, [Vue.createVNode(NoFollow, null, null), Vue.createVNode(Follow, null, null)]) : Vue.createVNode(ErrMsg, {
         "type": "noProject"
       }, null);
     };
+    const addProjectButton = (() => {
+      if (this.isShow) {
+        return Vue.createVNode(Vue.resolveComponent("aButton"), {
+          "type": "primary",
+          "onClick": this.openAddProjectDialog
+        }, {
+          default: () => [Vue.createTextVNode("\u6DFB\u52A0\u9879\u76EE")]
+        });
+      } else {
+        return Vue.createVNode(Vue.resolveComponent("aTooltip"), {
+          "title": "\u60A8\u6CA1\u6709\u6743\u9650,\u8BF7\u8054\u7CFB\u8BE5\u5206\u7EC4\u7EC4\u957F\u6216\u7BA1\u7406\u5458"
+        }, {
+          default: () => [Vue.createVNode(Vue.resolveComponent("aButton"), {
+            "type": "primary",
+            "disabled": true
+          }, {
+            default: () => [Vue.createTextVNode("\u6DFB\u52A0\u9879\u76EE")]
+          })]
+        });
+      }
+    })();
     return Vue.withDirectives(Vue.createVNode("div", {
       "style": {
         paddingTop: "24px"
@@ -751,22 +793,8 @@ var ProjectList = Vue.defineComponent({
       }), Vue.createVNode(Vue.resolveComponent("aCol"), {
         "span": 8,
         "class": "flex end"
-      }, {
-        default: () => [this.isShow ? Vue.createVNode(Vue.resolveComponent("aButton"), {
-          "type": "primary",
-          "onClick": this.showProjectView
-        }, {
-          default: () => [Vue.createTextVNode("\u6DFB\u52A0\u9879\u76EE")]
-        }) : Vue.createVNode(Vue.resolveComponent("aTooltip"), {
-          "title": "\u60A8\u6CA1\u6709\u6743\u9650,\u8BF7\u8054\u7CFB\u8BE5\u5206\u7EC4\u7EC4\u957F\u6216\u7BA1\u7406\u5458"
-        }, {
-          default: () => [Vue.createVNode(Vue.resolveComponent("aButton"), {
-            "type": "primary",
-            "disabled": true
-          }, {
-            default: () => [Vue.createTextVNode("\u6DFB\u52A0\u9879\u76EE")]
-          })]
-        })]
+      }, _isSlot(addProjectButton) ? addProjectButton : {
+        default: () => [addProjectButton]
       })]
     }), Vue.createVNode(Vue.resolveComponent("aRow"), null, {
       default: () => [this.State_App.currGroup.type === "private" ? Vue.createVNode(OwnerSpace, null, null) : projectData.length ? projectData.map((item, index) => {

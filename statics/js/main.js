@@ -6018,8 +6018,10 @@ function formatDuring(during) {
   const s = Math.floor(during) % 60;
   during = Math.floor(during / 60);
   const i = during % 60;
-  const ii2 = i < 10 ? `0${i}` : i;
-  const ss2 = s < 10 ? `0${s}` : s;
+  let ii2 = i < 10 ? `0${i}` : i;
+  let ss2 = s < 10 ? `0${s}` : s;
+  ii2 = _global__.isNaN(ii2) ? "00" : ii2;
+  ss2 = _global__.isNaN(ss2) ? "00" : ss2;
   return ii2 + ":" + ss2;
 }
 async function main() {
