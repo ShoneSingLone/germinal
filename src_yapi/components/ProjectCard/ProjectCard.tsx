@@ -69,22 +69,34 @@ export default defineComponent({
 		const followIcon = (
 			<span class="pointer" onClick={this.followIconClickHandler}>
 				<aTooltip placement="rightTop" title={this.followIconTitle}>
-					<xIcon icon={this.followIconIcon} onClick={this.showConfirm} />
+					<xIcon icon={this.followIconIcon} />
 				</aTooltip>
 			</span>
 		);
 
+		const copyIcon = (() => {
+			if (isShow) {
+				return (
+					<span class="pointer" onClick={this.showConfirm}>
+						<aTooltip placement="rightTop" title="复制项目">
+							<xIcon icon="copy" />
+						</aTooltip>
+					</span>
+				);
+			}
+			return null;
+		})();
+
 		return (
 			<div class="card-container">
 				<aCard
-					bordered={false}
+					hoverable
 					class="m-card"
 					onClick={() =>
 						this.$router.push({
 							path: "/project/" + (projectData.projectid || projectData._id)
 						})
 					}>
-					{this.isFollowStatus ? "true" : "false"}
 					<xIcon
 						icon={projectData.icon || "star-o"}
 						class="ui-logo"
@@ -99,13 +111,8 @@ export default defineComponent({
 					</h4>
 				</aCard>
 				<div class="card-btns flex">
-					{isShow && (
-						<span class="pointer" onClick={this.showConfirm}>
-							<aTooltip placement="rightTop" title="复制项目">
-								<xIcon icon="copy" />
-							</aTooltip>
-						</span>
-					)}
+					{copyIcon}
+					<xGap l="10" />
 					{followIcon}
 				</div>
 			</div>

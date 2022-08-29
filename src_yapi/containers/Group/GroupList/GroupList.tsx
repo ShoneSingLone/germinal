@@ -86,7 +86,7 @@ export default defineComponent({
 				console.error(error);
 			}
 		},
-		showAddGroupView(row = {}) {
+		openAddGroupDialog(row = {}) {
 			UI.dialog.component({
 				title: "添加分组",
 				component: ViewAddGroup,
@@ -174,7 +174,7 @@ export default defineComponent({
 									<xIcon
 										class="btn"
 										icon="addGroup"
-										onClick={this.showAddGroupView}
+										onClick={this.openAddGroupDialog}
 										style="width:16px;"
 									/>
 								</a>

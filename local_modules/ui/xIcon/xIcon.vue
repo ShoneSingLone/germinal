@@ -28,6 +28,7 @@ const ICON_STRING_CACHE = {};
 
 export default defineComponent(
 	markRaw({
+		components: { LoadingOutlined },
 		name: "xIcon",
 		props: ["icon"],
 		data() {
