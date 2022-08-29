@@ -51,6 +51,7 @@ export default defineComponent({
 			return this.State_App.project.projectList;
 		},
 		isShow() {
+			debugger;
 			return /(admin)|(owner)|(dev)/.test(this.State_App.user.role);
 		}
 	},
@@ -64,8 +65,7 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		showProjectView() {
-			debugger;
+		openAddProjectDialog() {
 			const vm = this;
 			UI.dialog.component({
 				title: "添加项目",
@@ -112,39 +112,48 @@ export default defineComponent({
 		projectData = [...followProject, ...noFollow];
 
 		const Follow = () => {
-			return followProject.length ? (
-				<aRow>
-					<h3 class="owner-type">我的关注</h3>
-					{followProject.map((item, index) => {
-						return (
-							<aCol xs={8} lg={6} xxl={4} key={index}>
-								<ProjectCard
-									projectData={item}
-									callbackResult={this.updateProjectList}
-								/>
-							</aCol>
-						);
-					})}
-				</aRow>
-			) : null;
+			if (followProject.length) {
+				return (
+					<aRow
+						style={{ borderBottom: "1px solid #eee", marginBottom: "15px" }}>
+						<h3 class="owner-type">我的关注</h3>
+						{_.map(followProject, (item, index) => {
+							return (
+								<aCol xs={8} lg={6} xxl={4} key={index}>
+									<ProjectCard
+										projectData={item}
+										callbackResult={this.updateProjectList}
+									/>
+								</aCol>
+							);
+						})}
+					</aRow>
+				);
+			}
+			return null;
 		};
 		const NoFollow = () => {
-			return noFollow.length ? (
-				<aRow style={{ borderBottom: "1px solid #eee", marginBottom: "15px" }}>
-					<h3 class="owner-type">我的项目</h3>
-					{noFollow.map((item, index) => {
-						return (
-							<aCol xs={8} lg={6} xxl={4} key={index}>
-								<ProjectCard
-									projectData={item}
-									callbackResult={this.updateProjectList}
-									isShow={this.isShow}
-								/>
-							</aCol>
-						);
-					})}
-				</aRow>
-			) : null;
+			if (noFollow.length) {
+				return (
+					<aRow
+						style={{ borderBottom: "1px solid #eee", marginBottom: "15px" }}>
+						<h3 class="owner-type">我的项目</h3>
+						{_.map(noFollow, (item, index) => {
+							return (
+								<aCol xs={8} lg={6} xxl={4} key={index}>
+									<ProjectCard
+										projectData={item}
+										callbackResult={this.updateProjectList}
+										isShow={this.isShow}
+									/>
+								</aCol>
+							);
+						})}
+					</aRow>
+				);
+			}
+
+			return null;
 		};
 
 		const OwnerSpace = () => {
@@ -157,6 +166,24 @@ export default defineComponent({
 				<ErrMsg type="noProject" />
 			);
 		};
+
+		const addProjectButton = (() => {
+			if (this.isShow) {
+				return (
+					<aButton type="primary" onClick={this.openAddProjectDialog}>
+						添加项目
+					</aButton>
+				);
+			} else {
+				return (
+					<aTooltip title="您没有权限,请联系该分组组长或管理员">
+						<aButton type="primary" disabled>
+							添加项目
+						</aButton>
+					</aTooltip>
+				);
+			}
+		})();
 
 		return (
 			<div
@@ -173,17 +200,7 @@ export default defineComponent({
 						{/* {this.isShow ? JSON.stringify(this.State_App.currGroup, null, 2) : ""} */}
 					</aCol>
 					<aCol span={8} class="flex end">
-						{this.isShow ? (
-							<aButton type="primary" onClick={this.showProjectView}>
-								添加项目
-							</aButton>
-						) : (
-							<aTooltip title="您没有权限,请联系该分组组长或管理员">
-								<aButton type="primary" disabled>
-									添加项目
-								</aButton>
-							</aTooltip>
-						)}
+						{addProjectButton}
 					</aCol>
 				</aRow>
 				<aRow>

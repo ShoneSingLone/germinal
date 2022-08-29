@@ -11,41 +11,6 @@
 		transition: all 0.2s;
 	}
 
-	&:hover {
-		.m-card,
-		.card-btns,
-		.copy-btns {
-			transform: translateY(-4px);
-		}
-
-		.m-card .ant-card-body {
-			background-color: $color-bg-gray;
-			box-shadow: 0 4px 8px rgba(50, 50, 93, 0.11),
-				0 4px 6px rgba(0, 0, 0, 0.08);
-		}
-
-		.card-btns .icon {
-			color: rgba(39, 56, 72, 0.85);
-		}
-
-		.copy-btns .icon {
-			color: #2395f1;
-		}
-
-		.card-btns .icon.active,
-		.copy-btns .icon.active {
-			color: #fac200;
-		}
-	}
-
-	&:active {
-		.m-card,
-		.card-btns,
-		.copy-btns {
-			transform: translateY(4px);
-		}
-	}
-
 	// 覆盖 card 组件 hover 状态的默认阴影样式
 	.ant-card:not(.ant-card-no-hovering):hover {
 		box-shadow: none;
