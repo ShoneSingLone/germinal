@@ -5,7 +5,8 @@ import Login from "lsrc/views/user/Login.vue";
 import Register from "lsrc/views/user/Register.vue";
 import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import Webrtc from "lsrc/views/webrtc/Webrtc.vue";
-import { State_App, Actions_App, Mutations_App } from "lsrc/state/State_App";
+import ViewToolboxShell from "lsrc/views/ToolboxShell/ViewToolboxShell.vue";
+import { State_App, Actions_App } from "lsrc/state/State_App";
 import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
 
@@ -38,10 +39,46 @@ const toPath = name => `/${name}`;
 
 const routes = [
 	{
-		name: routeNames.shell,
-		path: toPath(routeNames.shell),
+		name: "ViewToolboxShell",
+		path: "/",
+		component: ViewToolboxShell
+	},
+	{
+		name: "ViewMusic",
+		path: "/music",
+		redirect: "/music/new",
+		meta: {
+			title: $t("Music").label
+		},
+		component: () => import("lsrc/views/ViewMusic/LayoutMusic.vue"),
+		children: [
+			{
+				name: "new",
+				path: "/music/new",
+				component: () => import("lsrc/views/ViewMusic/PlayListFindNew.vue")
+			},
+			{
+				name: "playlist",
+				path: "/music/playlist",
+				component: () => import("lsrc/views/ViewMusic/PlayList.vue")
+			},
+			{
+				name: "singer",
+				path: "/music/singer",
+				component: () => import("lsrc/views/ViewMusic/PlayListSinger.vue")
+			},
+			{
+				name: "private",
+				path: "/music/private",
+				component: () => import("lsrc/views/ViewMusic/PlayListPrivate.vue")
+			}
+		]
+	},
+	{
+		name: "PageDashboard",
+		path: "/dashboard",
 		redirect: "/dashboard-workplace",
-		component: import("lsrc/layout/LayoutBasic.vue"),
+		component: () => import("lsrc/layout/LayoutBasic.vue"),
 		children: [
 			{
 				name: routeNames.dashboardWorkplace,
@@ -95,7 +132,7 @@ const allowVisitPageWhenNoAccess = [
 ];
 // no redirect allowList
 const loginRoutePath = toPath(routeNames.userLogin);
-const defaultRoutePath = toPath(routeNames.shell);
+const defaultRoutePath = "/";
 
 router.beforeEach(async (to, from) => {
 	/*NOTICE:返回 false 以取消导航*/

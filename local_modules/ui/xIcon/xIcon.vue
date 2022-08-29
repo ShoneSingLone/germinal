@@ -1,5 +1,5 @@
 <template>
-	<div :id="id" class="xIcon">
+	<span :id="id" role="img" :aria-label="this.icon" class="xIcon anticon">
 		<div
 			class="next-loading next-open next-loading-inline"
 			style="width: 100%; height: 100%; overflow: hidden">
@@ -13,7 +13,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</span>
 </template>
 
 <script lang="jsx">
@@ -23,8 +23,7 @@ import { LoadingOutlined } from "@ant-design/icons-vue";
 import { _ } from "../loadCommonUtil";
 import $ from "jquery";
 import { State_UI } from "../State_UI";
-
-const ICON_STRING_CACHE = {};
+import { get, set } from "idb-keyval";
 
 export default defineComponent(
 	markRaw({
@@ -35,6 +34,12 @@ export default defineComponent(
 			const id = "lazy-svg_" + this._.uid;
 			return { id };
 		},
+		computed: {
+			iconKey() {
+				const _iconKey = _.camelCase(this.getIconPath()).replace(/\s/, "");
+				return _iconKey;
+			}
+		},
 		methods: {
 			getIconPath() {
 				return `${State_UI.assetsSvgPath}/${this.icon}.svg`;
@@ -42,10 +47,10 @@ export default defineComponent(
 			async setIcon() {
 				if (!this.icon) return;
 				try {
-					let iconSvgString = ICON_STRING_CACHE[this.icon];
-					if (!iconSvgString) {
-						iconSvgString = await _.asyncLoadText(this.getIconPath(this.icon));
-						ICON_STRING_CACHE[this.icon] = iconSvgString;
+					let iconSvgString = await get(this.iconKey);
+					if (!iconSvgString || iconSvgString === "undefined") {
+						iconSvgString = await _.asyncLoadText(this.getIconPath());
+						await set(this.iconKey, iconSvgString);
 					}
 
 					if (iconSvgString) {
@@ -79,6 +84,7 @@ export default defineComponent(
 .xIcon {
 	width: 16px;
 }
+
 div[id^="lazy-svg_"] {
 	display: flex;
 }
@@ -86,6 +92,7 @@ div[id^="lazy-svg_"] {
 .next-loading {
 	height: 100%;
 	width: 100%;
+
 	&.next-open {
 		pointer-events: none;
 	}

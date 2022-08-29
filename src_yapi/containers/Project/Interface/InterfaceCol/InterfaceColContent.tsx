@@ -713,7 +713,7 @@ class InterfaceColContent extends Component {
 						(text, { rowData }) => {
 							let record = rowData;
 							return (
-								<RouterView
+								<RouterLink
 									to={
 										"/project/" +
 										currProjectId +
@@ -723,7 +723,7 @@ class InterfaceColContent extends Component {
 									{record.casename.length > 23
 										? record.casename.substr(0, 20) + "..."
 										: record.casename}
-								</RouterView>
+								</RouterLink>
 							);
 						}
 					]
@@ -859,12 +859,12 @@ class InterfaceColContent extends Component {
 							let record = rowData;
 							return (
 								<aTooltip title="跳转到对应接口">
-									<RouterView
+									<RouterLink
 										to={`/project/${record.project_id}/interface/api/${record.interface_id}`}>
 										{record.path.length > 23
 											? record.path + "..."
 											: record.path}
-									</RouterView>
+									</RouterLink>
 								</aTooltip>
 							);
 						}

@@ -9,7 +9,7 @@ module.exports = {
 	/* tips */
 	welcome: m("欢迎", "welcome"),
 	"welcome.back": m("欢迎回来", "welcome back"),
-	"login.title": m("demo", "demo"),
+	"login.title": m("Toolbox", "Toolbox"),
 	/* system */
 	BackHome: m("回到主页", "Back Home"),
 	notFoundTips: m(
@@ -21,7 +21,10 @@ module.exports = {
 		"您确定要注销吗？",
 		"Are you sure you would like to logout?"
 	),
-	"layouts.userLayout.title": m("我亦无他，惟手熟尔。", "Diligent"),
+	"layouts.userLayout.title": m(
+		"个人项目，仅供交流学习",
+		"Individual project for exchange study only"
+	),
 	/*  */
 	"user.login.username": m("用户名", "username"),
 	"user.login.password": m("密码", "password"),

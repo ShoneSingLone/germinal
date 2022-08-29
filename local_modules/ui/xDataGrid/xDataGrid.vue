@@ -7,11 +7,8 @@ import xPagination from "./xPagination.vue";
 import { Cpt_UI_locale } from "../State_UI";
 
 export default defineComponent({
-	name: "xDataGrid",
+	name: "XDataGrid",
 	components: { xPagination },
-	setup() {
-		return { Cpt_UI_locale };
-	},
 	props: {
 		configs: {
 			type: Object,
@@ -19,6 +16,9 @@ export default defineComponent({
 				return {};
 			}
 		}
+	},
+	setup() {
+		return { Cpt_UI_locale };
 	},
 	data() {
 		return {
@@ -110,12 +110,18 @@ export default defineComponent({
 						}
 					}
 				};
+				const scroll = (() => {
+					if (this.configs.scroll) {
+						return this.configs.scroll;
+					}
+					return { x: 300 };
+				})();
 				return (
 					<Table
 						loading={this.configs.isLoading}
 						dataSource={this.configs.dataSource}
 						columns={this.Cpt_Columns}
-						scroll={{ x: 1500 }}
+						scroll={scroll}
 						pagination={false}
 						locale={this.Cpt_UI_locale.Table}
 						{...this.Cpt_AntTableProperty}

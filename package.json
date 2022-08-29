@@ -2,7 +2,7 @@
 	"name": "germinal",
 	"version": "0.0.0",
 	"scripts": {
-		"bs": "npm i && npm run make:language",
+		"bs": "npm i --legacy-peer-deps && npm run make:language",
 		"start": "cross-env NODE_ENV=development vite --host --open",
 		"lint": "npm run lint:src && npm run lint:yapi",
 		"lint:src": "prettier --write ./src",
@@ -22,6 +22,7 @@
 	"dependencies": {
 		"@ant-design/icons-vue": "^6.0.1",
 		"@popperjs/core": "^2.10.2",
+		"@surely-vue/table": "^2.4.7",
 		"@ventose/ui": "file:./local_modules/ui",
 		"ant-design-vue": "^3.0.0-alpha.3",
 		"axios": "^0.26.0",
@@ -34,16 +35,17 @@
 		"jsondiffpatch": "^0.4.1",
 		"lsrc": "file:./src/",
 		"md5": "^2.3.0",
-		"msrc": "file:./src_music/",
 		"nprogress": "^0.2.0",
 		"sass": "^1.52.2",
 		"vue": "^3.2.16",
 		"vue-cli": "^2.9.6",
 		"vue-router": "^4.0.11",
+		"vue3-virtual-scroller": "^0.2.3",
 		"ysrc": "file:./src_yapi/"
 	},
 	"devDependencies": {
 		"@ventose/utils-node": "^0.0.11",
+		"@vitejs/plugin-basic-ssl": "^0.1.2",
 		"@vitejs/plugin-vue": "^1.9.3",
 		"@vitejs/plugin-vue-jsx": "^1.2.0",
 		"@vue/cli-plugin-eslint": "~4.5.0",

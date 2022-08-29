@@ -1,12 +1,17 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import PageToolboxHome from "./PageToolboxHome.vue";
 import { appPlugins } from "lsrc/utils/common";
 import { State_App } from "lsrc/state/State_App";
-import $ from "jquery";
-import { _ } from "@ventose/ui";
+import { _, $ } from "@ventose/ui";
 import { API } from "germinal_api";
+import { get, set, clear } from "idb-keyval";
+
 // import "./main.test"
 async function main() {
+	if (__APP_VERSION !== (await get("__APP_VERSION"))) {
+		await clear();
+		await set("__APP_VERSION", __APP_VERSION);
+	}
 	window.BASE_URL = (() => {
 		const mainSrc = $("script").last().attr("src");
 		return _.safeSplit(mainSrc, "main.js")[0];
@@ -30,11 +35,16 @@ async function main() {
 		await loadMockData();
 	}
 
-	createApp(App)
+	createApp(PageToolboxHome)
 		.use(appPlugins, {
 			dependState: State_App
 		})
 		.mount("#app");
+	const $AppLoadingWrapper = $(`#app-loading-wrapper`);
+	await _.sleep(1000);
+	$AppLoadingWrapper.addClass("hide");
+	await _.sleep(3000);
+	$AppLoadingWrapper.remove();
 }
 
 main();
