@@ -25,6 +25,11 @@
 						{{ $t("私藏").label }}</span
 					>
 				</AMenuItem>
+				<AMenuItem key="cached">
+					<span class="flex"
+						><xIcon icon="cached" class="mr8" /> {{ $t("已缓存").label }}</span
+					>
+				</AMenuItem>
 			</AMenu>
 		</ALayoutSider>
 		<a-layout style="height: 100vh" class="flex vertical">

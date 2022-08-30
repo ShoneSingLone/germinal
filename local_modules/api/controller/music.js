@@ -4,9 +4,10 @@ const ajax = genAjax({
 	baseURL: "https://www.singlone.work/s/wyapi",
 	reqInterceptor: i => i,
 	resInterceptor: i => {
-		if (i.data.code === 200) {
+		if (i?.data?.code === 200) {
 			return i.data;
 		}
+		return i;
 	}
 });
 export const music = {

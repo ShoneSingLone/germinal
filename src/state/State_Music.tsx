@@ -3,6 +3,7 @@ import { reactive, watch, computed } from "vue";
 import { _, lStorage, setDocumentTitle } from "@ventose/ui";
 import { get, set } from "idb-keyval";
 import { State_App } from "lsrc/state/State_App";
+import axios from "axios";
 
 export const State_Music = reactive({
 	songId: 0,
@@ -21,7 +22,6 @@ export const State_Music = reactive({
 	showPlayList: false,
 	id: 0,
 	url: "",
-	songUrl: {},
 	song: {},
 	isPlaying: false, //是否播放中
 	isPause: false, //是否暂停
@@ -82,6 +82,26 @@ const playMethods: type_PlayMethods = {
 	},
 	playSingleLoop(currentSongIndex) {
 		Actions_Music.playSongById(State_Music.playlist[currentSongIndex]?.id);
+	}
+};
+const cacheAudioBlob = async (records, url) => {
+	try {
+		let res = await axios.get(url.replace("http:", "").replace("https:", ""), {
+			responseType: "blob"
+		});
+		if (!res || !res.data) return;
+		if (records.song) {
+			records.title = records.name;
+			records.artists = records.song.artists[0].name;
+			records.album = records.song.album.name;
+		}
+		const audioInfo = {
+			records: JSON.parse(JSON.stringify(records)),
+			blob: res.data
+		};
+		await set(`audio_${records.id}`, audioInfo);
+	} catch (err) {
+		console.error(err);
 	}
 };
 
@@ -186,24 +206,31 @@ export const Actions_Music = {
 		if (State_Music.isPlaying && id === State_Music.songId) {
 			return;
 		}
-		const record = _.find(State_Music.playlist, { id });
+		let record = _.find(State_Music.playlist, { id });
 
-		let audioSrc, data;
-		if (record.title) {
-			audioSrc = `https://www.singlone.work/s/api//v1/shiro/remote_music_file?id=${record.id}&token=${State_App.token}`;
-			record.url = audioSrc;
-			data = [record];
+		let audioSrc;
+		const audioInfo = await get(`audio_${id}`);
+		if (audioInfo) {
+			audioSrc = window.URL.createObjectURL(audioInfo.blob);
 		} else {
-			const res = await API.music.getSongUrlBuId(id);
-			data = res.data;
-			audioSrc = _.first(data).url;
+			if (record.title) {
+				audioSrc = `https://www.singlone.work/s/api/v1/shiro/remote_music_file?id=${record.id}&token=${State_App.token}`;
+			} else {
+				const res = await API.music.getSongUrlBuId(id);
+				audioSrc = _.first(res?.data).url;
+			}
+			cacheAudioBlob(record, audioSrc);
 		}
+		if (!audioSrc) {
+			return;
+		}
+		record.url = audioSrc;
 
 		State_Music.audio.src = audioSrc;
 
 		function canPlay() {
 			return new Promise(resolve => {
-				State_Music.audio.oncanplay = function () {
+				State_Music.audio.oncanplay = function (event) {
 					if (intervalTimer) {
 						clearInterval(intervalTimer);
 					}
@@ -221,8 +248,7 @@ export const Actions_Music = {
 		await canPlay();
 		State_Music.audio.play();
 		State_Music.isPlaying = true;
-		State_Music.songUrl = data;
-		State_Music.url = data.url;
+		State_Music.url = audioSrc;
 		State_Music.songId = id;
 		const audioVolume = State_Music.volume / 100;
 		State_Music.audio.volume = audioVolume;
