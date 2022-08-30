@@ -13,8 +13,8 @@
 
 <script lang="jsx">
 import { Actions_Music, State_Music } from "lsrc/state/State_Music";
-import privatePlaylist from "./assets/AllMusicClient";
 import { reactive } from "vue";
+import { getMany, keys, del } from "idb-keyval";
 
 import {
 	_,
@@ -57,6 +57,21 @@ const playListFindNew = reactive(
 	defDataGridOption({
 		currentPlaylistPrivate: [],
 		async queryTableList(vm) {
+			let props = await keys();
+			props = props.filter(name => /^audio_/.test(name));
+			let cachedPlaylist = await getMany(props);
+			cachedPlaylist = cachedPlaylist.map(i => i.records);
+
+			playListFindNew.currentPlaylistPrivate = cachedPlaylist.filter(record => {
+				const isOk = prop => {
+					if (State_query[prop].value) {
+						return String(record[prop]).includes(State_query[prop].value);
+					} else {
+						return true;
+					}
+				};
+				return isOk("title") && isOk("artist") && isOk("album");
+			});
 			const { page, size } = getPaginationPageSize(playListFindNew);
 			const total = playListFindNew.currentPlaylistPrivate.length;
 			const data = playListFindNew.currentPlaylistPrivate.slice(
@@ -72,33 +87,18 @@ const playListFindNew = reactive(
 				label: $t("歌曲标题").label,
 				prop: "title",
 				width: 200
-				/* renderCell({ record }) {
-            return (
-              <span class="flex middle">
-                <a-avatar shape="square" src={record.picUrl} />
-                <xGap l="4" />
-                <span>{record.name}</span>
-              </span>
-            );
-          } */
 			}),
 			...defCol({
 				label: $t("歌手").label,
 				width: 200,
 				prop: "artist"
-				/* renderCell({ record }) {
-            return <span>{record.song.artists[0].name}</span>;
-          } */
 			}),
 			...defCol({
 				label: $t("所属专辑").label,
 				prop: "album"
-				/* renderCell({ record }) {
-            return <span>{record.song.album.name}</span>;
-          } */
 			}),
 			...defColActions({
-				width: 100,
+				width: 140,
 				renderCell({ record, index }) {
 					return defColActionsBtnlist({
 						btns: [
@@ -114,6 +114,13 @@ const playListFindNew = reactive(
 									};
 									Actions_Music.pushSongToPlaylist(record);
 									await Actions_Music.playSongById(record.id);
+								}
+							},
+							{
+								text: $t("移除")?.label,
+								async onClick() {
+									await del(`audio_${record.id}`);
+									playListFindNew.queryTableList();
 								}
 							}
 						]
@@ -132,28 +139,13 @@ export default {
 			playListFindNew
 		};
 	},
-	mounted() {
+	async mounted() {
 		const vm = this;
 		vm.$watch(
 			() => {
 				return `${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
 			},
-			_.debounce(function () {
-				vm.playListFindNew.currentPlaylistPrivate = privatePlaylist.filter(
-					record => {
-						const isOk = prop => {
-							if (vm.State_query[prop].value) {
-								return String(record[prop]).includes(
-									vm.State_query[prop].value
-								);
-							} else {
-								return true;
-							}
-						};
-						return isOk("title") && isOk("artist") && isOk("album");
-					}
-				);
-
+			_.debounce(async function () {
 				setPagination(vm.playListFindNew, { page: 1 });
 				vm.playListFindNew.queryTableList();
 			}, 1000),

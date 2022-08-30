@@ -71,6 +71,11 @@ const routes = [
 				name: "private",
 				path: "/music/private",
 				component: () => import("lsrc/views/ViewMusic/PlayListPrivate.vue")
+			},
+			{
+				name: "cached",
+				path: "/music/cached",
+				component: () => import("lsrc/views/ViewMusic/PlayListCached.vue")
 			}
 		]
 	},
