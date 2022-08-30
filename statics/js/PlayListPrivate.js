@@ -17168,10 +17168,6 @@ const State_query = Vue.reactive({
   })
 });
 const playListFindNew = Vue.reactive(defDataGridOption({
-  scroll: {
-    x: 300,
-    y: 400
-  },
   currentPlaylistPrivate: [],
   async queryTableList(vm) {
     const {

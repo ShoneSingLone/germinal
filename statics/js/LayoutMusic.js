@@ -267,11 +267,12 @@ const _hoisted_1 = { class: "flex" };
 const _hoisted_2 = { class: "flex" };
 const _hoisted_3 = { class: "flex" };
 const _hoisted_4 = { class: "flex" };
-const _hoisted_5 = {
+const _hoisted_5 = { class: "flex" };
+const _hoisted_6 = {
   class: "ant-layout-content elevation-1 flex1",
   style: { "margin": "16px", "overflow": "auto" }
 };
-const _hoisted_6 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "min-height": "360px" } };
+const _hoisted_7 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "min-height": "360px" } };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_AMenuItem = Vue.resolveComponent("AMenuItem");
@@ -343,6 +344,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ])
                 ]),
                 _: 1
+              }),
+              Vue.createVNode(_component_AMenuItem, { key: "cached" }, {
+                default: Vue.withCtx(() => [
+                  Vue.createElementVNode("span", _hoisted_5, [
+                    Vue.createVNode(_component_xIcon, {
+                      icon: "cached",
+                      class: "mr8"
+                    }),
+                    Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.$t("\u5DF2\u7F13\u5B58").label), 1)
+                  ])
+                ]),
+                _: 1
               })
             ]),
             _: 1
@@ -359,8 +372,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             style: { "background": "#fff", "padding": "0" },
             class: "elevation-1"
           }),
-          Vue.createElementVNode("main", _hoisted_5, [
-            Vue.createElementVNode("div", _hoisted_6, [
+          Vue.createElementVNode("main", _hoisted_6, [
+            Vue.createElementVNode("div", _hoisted_7, [
               Vue.createVNode(_component_RouterView)
             ])
           ]),

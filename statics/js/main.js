@@ -151,9 +151,11 @@ const ajax = genAjax({
   baseURL: "https://www.singlone.work/s/wyapi",
   reqInterceptor: (i) => i,
   resInterceptor: (i) => {
-    if (i.data.code === 200) {
+    var _a2;
+    if (((_a2 = i == null ? void 0 : i.data) == null ? void 0 : _a2.code) === 200) {
       return i.data;
     }
+    return i;
   }
 });
 const music = {
@@ -1778,6 +1780,11 @@ const routes = [
         name: "private",
         path: "/music/private",
         component: () => __vitePreload(() => import("./PlayListPrivate.js"), true ? ["statics/js/PlayListPrivate.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+      },
+      {
+        name: "cached",
+        path: "/music/cached",
+        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
