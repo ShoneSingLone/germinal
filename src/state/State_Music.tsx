@@ -6,6 +6,13 @@ import { State_App } from "lsrc/state/State_App";
 import axios from "axios";
 
 export const State_Music = reactive({
+	tabItems: [
+		{ key: "playlist", label: "当前播放列表", icon: "playlist" },
+		{ key: "new", label: "发现音乐", icon: "music" },
+		{ key: "singer", label: "歌手", icon: "user" },
+		{ key: "private", label: "私藏", icon: "privateNet" },
+		{ key: "cached", label: "已缓存", icon: "cached" }
+	],
 	songId: 0,
 	personalizedNewSong: [],
 	audio: new Audio(),
