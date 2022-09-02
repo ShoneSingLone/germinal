@@ -6890,6 +6890,16 @@ html {
 .surely-table-resize-handle:hover .surely-table-resize-handle-line {
   opacity: 1;
 }
+.surely-table-resize-handle.dragging::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  content: ' ';
+  width: 200vw;
+  transform: translate(-50%);
+  opacity: 0;
+}
 .dragging .surely-table-resize-handle-line {
   opacity: 1;
 }

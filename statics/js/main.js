@@ -438,6 +438,22 @@ function isSlowBuffer(obj) {
 var md5 = md5$1.exports;
 const { $t: $t$5 } = State_UI;
 const State_App = Vue.reactive({
+  isCurrentClientMobile: (() => {
+    var _a2;
+    if (/Mobi|Android|iPhone/i.test(navigator == null ? void 0 : navigator.userAgent)) {
+      return true;
+    }
+    if (navigator.userAgent.match(/Mobi/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+      return true;
+    }
+    if (!((_a2 = navigator == null ? void 0 : navigator.userAgentData) == null ? void 0 : _a2.mobile)) {
+      return false;
+    }
+    if (/Android|iPhone|iPad|iPod/i.test(navigator == null ? void 0 : navigator.platform)) {
+      return true;
+    }
+    return false;
+  })(),
   UseMockData: false,
   theme: "light",
   menuTree: [],
@@ -1676,7 +1692,7 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 const ALL_DEFAULT_ROUTES = _global__.reduce(
   MODULES_DEFAULT_ROUTES,
@@ -1759,32 +1775,32 @@ const routes = [
     meta: {
       title: $t$1("Music").label
     },
-    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.76613d00.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "singer",
         path: "/music/singer",
-        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
         path: "/music/private",
-        component: () => __vitePreload(() => import("./PlayListPrivate.js"), true ? ["statics/js/PlayListPrivate.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListPrivate.js"), true ? ["statics/js/PlayListPrivate.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
@@ -1792,7 +1808,7 @@ const routes = [
     name: "PageDashboard",
     path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
@@ -2091,10 +2107,10 @@ function Xe(e2) {
 function Je(e2) {
   return Xe(e2) && "[object Arguments]" == xe(e2);
 }
-var Ze = Object.prototype, Qe = Ze.hasOwnProperty, et = Ze.propertyIsEnumerable, tt = Je(function() {
+var Qe = Object.prototype, Ze = Qe.hasOwnProperty, et = Qe.propertyIsEnumerable, tt = Je(function() {
   return arguments;
 }()) ? Je : function(e2) {
-  return Xe(e2) && Qe.call(e2, "callee") && !et.call(e2, "callee");
+  return Xe(e2) && Ze.call(e2, "callee") && !et.call(e2, "callee");
 }, nt = Array.isArray;
 var rt = "object" == typeof exports && exports && !exports.nodeType && exports, lt = rt && "object" == typeof module && module && !module.nodeType && module, ot = lt && lt.exports === rt ? pe.Buffer : void 0, at = (ot ? ot.isBuffer : void 0) || function() {
   return false;
@@ -2209,7 +2225,7 @@ function Nt(e2) {
 function Vt(e2) {
   return Lt(e2, jt, Bt);
 }
-var Ut = Ae(pe, "DataView"), Yt = Ae(pe, "Promise"), Gt = Ae(pe, "Set"), qt = Ae(pe, "WeakMap"), Xt = Oe(Ut), Jt = Oe(He), Zt = Oe(Yt), Qt = Oe(Gt), en = Oe(qt), tn = xe;
+var Ut = Ae(pe, "DataView"), Yt = Ae(pe, "Promise"), Gt = Ae(pe, "Set"), qt = Ae(pe, "WeakMap"), Xt = Oe(Ut), Jt = Oe(He), Qt = Oe(Yt), Zt = Oe(Gt), en = Oe(qt), tn = xe;
 (Ut && "[object DataView]" != tn(new Ut(new ArrayBuffer(1))) || He && "[object Map]" != tn(new He()) || Yt && "[object Promise]" != tn(Yt.resolve()) || Gt && "[object Set]" != tn(new Gt()) || qt && "[object WeakMap]" != tn(new qt())) && (tn = function(e2) {
   var t = xe(e2), n = "[object Object]" == t ? e2.constructor : void 0, r = n ? Oe(n) : "";
   if (r)
@@ -2218,9 +2234,9 @@ var Ut = Ae(pe, "DataView"), Yt = Ae(pe, "Promise"), Gt = Ae(pe, "Set"), qt = Ae
         return "[object DataView]";
       case Jt:
         return "[object Map]";
-      case Zt:
-        return "[object Promise]";
       case Qt:
+        return "[object Promise]";
+      case Zt:
         return "[object Set]";
       case en:
         return "[object WeakMap]";
@@ -2467,15 +2483,15 @@ function Xn(e2, t, n) {
   return e2.apply(t, n);
 }
 var Jn = Math.max;
-function Zn(e2) {
+function Qn(e2) {
   return e2;
 }
-var Qn = Ve ? function(e2, t) {
+var Zn = Ve ? function(e2, t) {
   return Ve(e2, "toString", { configurable: true, enumerable: false, value: (n = t, function() {
     return n;
   }), writable: true });
   var n;
-} : Zn, er = Qn, tr = Date.now;
+} : Qn, er = Zn, tr = Date.now;
 var nr = function(e2) {
   var t = 0, n = 0;
   return function() {
@@ -2748,7 +2764,7 @@ function Or(e2) {
   var t;
 }
 function $r(e2) {
-  return "function" == typeof e2 ? e2 : null == e2 ? Zn : "object" == typeof e2 ? nt(e2) ? Rr(e2[0], e2[1]) : Sr(e2) : Or(e2);
+  return "function" == typeof e2 ? e2 : null == e2 ? Qn : "object" == typeof e2 ? nt(e2) ? Rr(e2[0], e2[1]) : Sr(e2) : Or(e2);
 }
 var jr = /\s/;
 var Er = /^\s+/;
@@ -2959,7 +2975,7 @@ function Jr(a, i, s, u, c, d) {
     return void 0 !== n ? p.value[n] : void Xr(false, "scrollTo", `\`rowKey = ${e2}\` is Invalid`);
   } };
 }
-const Zr = Array.isArray, Qr = (e2) => null !== e2 && "object" == typeof e2;
+const Qr = Array.isArray, Zr = (e2) => null !== e2 && "object" == typeof e2;
 function el(e2, t) {
   return t ? `${t}-${e2}` : `${e2}`;
 }
@@ -3160,11 +3176,18 @@ function yl({ props: o, rawColumns: a, bodyScrollWidth: i, baseHeight: s, measur
     };
     A2(v2.concat(R2, h2), 0, 0, a2), y.value = c2, m.value = d2, g.value = p2, w.value = f2, x.value = v2, b.value = h2, C.value = R2, S.value = a2;
   }, { immediate: true });
-  const K = dl(() => [].concat(y.value, g.value, m.value));
-  const T = Vue.shallowRef([]), P = Vue.shallowRef();
+  const K = Vue.shallowRef([]);
+  let T = {};
+  const P = Vue.shallowRef({});
+  Vue.watchEffect(() => {
+    T = {};
+    const e2 = {};
+    K.value = [].concat(y.value, g.value, m.value).map((t, n) => (t.columnIndex = n, e2[t.columnKey] = n, t)), P.value = e2;
+  });
+  const I = Vue.shallowRef([]), A = Vue.shallowRef();
   Vue.watchEffect(() => {
     if (o.autoHeaderHeight) {
-      T.value = function(e3) {
+      I.value = function(e3) {
         const t2 = [];
         !function e4(n3, r2, l2 = 0) {
           t2[l2] = t2[l2] || [];
@@ -3196,41 +3219,32 @@ function yl({ props: o, rawColumns: a, bodyScrollWidth: i, baseHeight: s, measur
           const i3 = a2 - o2 - 1;
           t[i3] = r, r += l[i3].finallyWidth || 0;
         }
-      P.value = { left: e2, right: t };
+      A.value = { left: e2, right: t };
     } else
-      T.value = [];
+      I.value = [];
   });
-  const I = Vue.ref(0), A = Vue.ref(0), H = Vue.ref(0), M = dl(() => I.value + A.value + H.value);
+  const H = Vue.ref(0), M = Vue.ref(0), z = Vue.ref(0), D = dl(() => H.value + M.value + z.value);
   Vue.watchEffect(() => {
     const e2 = y.value.reduce((e3, t2) => e3 + (t2.finallyWidth || 0), 0);
-    I.value = e2;
+    H.value = e2;
     const t = g.value.reduce((e3, t2) => e3 + (t2.finallyWidth || 0), 0);
-    A.value = t;
+    M.value = t;
     const n = m.value.reduce((e3, t2) => e3 + (t2.finallyWidth || 0), 0);
-    H.value = n;
-  });
-  let z = {};
-  const D = Vue.shallowRef({});
-  Vue.watchEffect(() => {
-    z = {};
-    const e2 = {};
-    K.value.forEach((t, n) => {
-      t.columnIndex = n, e2[t.columnKey] = n;
-    }), D.value = e2;
+    z.value = n;
   });
   const F = (e2, t = 1) => {
-    if (`${e2}-${t}` in z)
-      return z[`${e2}-${t}`];
+    if (`${e2}-${t}` in T)
+      return T[`${e2}-${t}`];
     const n = K.value;
     let r = 0, l = 0, o2 = 0;
     if (n[e2]) {
       const a2 = n[e2].left;
       for (let a3 = e2, i2 = e2 + t; a3 < i2; a3++)
         n[a3] && (r += n[a3].finallyWidth || 0, l += n[a3].minWidth, o2 += n[a3].maxWidth);
-      z[`${e2}-${t}`] = { width: r, left: a2, minWidth: l, maxWidth: o2 };
+      T[`${e2}-${t}`] = { width: r, left: a2, minWidth: l, maxWidth: o2 };
     }
-    return z[`${e2}-${t}`] || { width: r, left: 0, minWidth: l, maxWidth: o2 };
-  }, W = Vue.shallowRef([]), B = Vue.shallowRef([]), L = Vue.ref(false), N = dl(() => f.value - (fl ? H.value : 0)), V = (e2) => e2.length > 2e3 ? e2.slice(0, 2e3) : e2;
+    return T[`${e2}-${t}`] || { width: r, left: 0, minWidth: l, maxWidth: o2 };
+  }, W = Vue.shallowRef([]), B = Vue.shallowRef([]), L = Vue.ref(false), N = dl(() => f.value - (fl ? z.value : 0)), V = (e2) => e2.length > 2e3 ? e2.slice(0, 2e3) : e2;
   Vue.watch([p, N, g, v], ([e2, t, n]) => {
     if (!v.value)
       return W.value = V(n), void (L.value = !L.value);
@@ -3246,10 +3260,10 @@ function yl({ props: o, rawColumns: a, bodyScrollWidth: i, baseHeight: s, measur
       const e3 = _.value.get(h.value);
       B.value.push(e3.children ? Object.assign({}, e3, { children: [] }) : e3);
     }
-  }), { leftColumns: y, rightColumns: m, centerColumns: g, leftHeaderColumns: x, rightHeaderColumns: b, centerHeaderColumns: C, leftWidth: I, rightWidth: H, centerWidth: A, bodyMaxWidth: M, maxRowSpan: S, headerHeight: k, maxHeaderHeight: R, allColumns: K, getColumnPosition: F, getColumnPositionByKey: (e2) => {
-    const t = D.value[e2];
+  }), { leftColumns: y, rightColumns: m, centerColumns: g, leftHeaderColumns: x, rightHeaderColumns: b, centerHeaderColumns: C, leftWidth: H, rightWidth: z, centerWidth: M, bodyMaxWidth: D, maxRowSpan: S, headerHeight: k, maxHeaderHeight: R, allColumns: K, getColumnPosition: F, getColumnPositionByKey: (e2) => {
+    const t = P.value[e2];
     return void 0 !== t ? F(t) : void Xr(false, "scrollTo", `\`columnKey = ${e2}\` is Invalid`);
-  }, columnKeyIndexMap: D, expandIconColumnIndex: E, visibleCenterColumns: W, visibleCenterHeaderColumns: B, columnRowsForAutoHeaderHeight: T, stickyOffsets: P };
+  }, columnKeyIndexMap: P, expandIconColumnIndex: E, visibleCenterColumns: W, visibleCenterHeaderColumns: B, columnRowsForAutoHeaderHeight: I, stickyOffsets: A };
 }
 const ml = 10;
 function gl(e2, t, r, l) {
@@ -3574,12 +3588,12 @@ function Ml(...e2) {
     if (r) {
       if ("string" == typeof r)
         t.push(r);
-      else if (Zr(r))
+      else if (Qr(r))
         for (let e3 = 0; e3 < r.length; e3++) {
           const n2 = Ml(r[e3]);
           n2 && t.push(n2);
         }
-      else if (Qr(r))
+      else if (Zr(r))
         for (const e3 in r)
           r[e3] && t.push(e3);
     }
@@ -3667,10 +3681,10 @@ var Jl = Vue.defineComponent({ name: "RowDragHandler", props: { columnKey: [Stri
       return I.value + 10 <= e3 ? (H.style.left = e3 + n - 20 + "px", true) : I.value + 10 >= e3 + t2 && (H.style.left = e3 + n + t2 - 20 + "px", true);
     })() ? F.value = false : H.style.left = e2.pageX - 10 + "px";
   };
-  let J2, Z;
-  const Q = (e2) => {
+  let J2, Q;
+  const Z = (e2) => {
     for (let t = 0; t < e2.length; t++)
-      if (e2[t].identifier === Z.identifier)
+      if (e2[t].identifier === Q.identifier)
         return e2[t];
     return null;
   }, ee = (e2) => {
@@ -3678,14 +3692,14 @@ var Jl = Vue.defineComponent({ name: "RowDragHandler", props: { columnKey: [Stri
       i.value = false;
       ce2().removeChild(H);
     }
-    q2.value = e2, W = null, Z = null, J2 = null, clearInterval(z), p.value = null, f.value = null, S.value.style.opacity = "0", N.forEach((e3) => e3()), N.length = 0, Nr.cancel(T);
+    q2.value = e2, W = null, Q = null, J2 = null, clearInterval(z), p.value = null, f.value = null, S.value.style.opacity = "0", N.forEach((e3) => e3()), N.length = 0, Nr.cancel(T);
   }, te2 = (e2) => {
     e2.cancelable && e2.preventDefault();
   }, ne2 = (e2) => {
-    const t = Q(e2.touches);
-    t && X2(t, Z);
+    const t = Z(e2.touches);
+    t && X2(t, Q);
   }, re2 = (e2) => {
-    let t = Q(e2.touches);
+    let t = Z(e2.touches);
     t || (t = J2), ee(t);
   }, le2 = (e2) => e2.preventDefault(), oe2 = (e2) => {
     X2(e2, W);
@@ -3787,16 +3801,16 @@ var Jl = Vue.defineComponent({ name: "RowDragHandler", props: { columnKey: [Stri
       return;
     i.value = false;
     const t = e2.touches[0];
-    J2 = t, Z = t, B = O.value.getBoundingClientRect();
+    J2 = t, Q = t, B = O.value.getBoundingClientRect();
     const n = s.value, l = [{ target: document, type: "touchmove", listener: te2, options: { passive: false } }, { target: n, type: "touchmove", listener: ne2, options: { passive: true } }, { target: n, type: "touchend", listener: re2, options: { passive: true } }, { target: n, type: "touchcancel", listener: re2, options: { passive: true } }];
     G(l);
   } };
 } });
-const Zl = ["aria-grabbed", "data-scroll-top", "data-height", "data-row-key", "data-row-key-type", "innerHTML"];
+const Ql = ["aria-grabbed", "data-scroll-top", "data-height", "data-row-key", "data-row-key-type", "innerHTML"];
 Jl.render = function(e2, t, n, r, l, o) {
-  return Vue.openBlock(), Vue.createElementBlock("span", { ref: "spanRef", class: Vue.normalizeClass(e2.className), "aria-grabbed": e2.dragging, "aria-hidden": "true", "data-scroll-top": e2.top, "data-height": e2.height, "data-row-key": e2.rowKey, "data-row-key-type": e2.rowKeyType, unselectable: "on", onMousedown: t[0] || (t[0] = (...t2) => e2.onMousedown && e2.onMousedown(...t2)), onTouchstartPassive: t[1] || (t[1] = (...t2) => e2.onTouchStart && e2.onTouchStart(...t2)), innerHTML: e2.dragIcon }, null, 42, Zl);
+  return Vue.openBlock(), Vue.createElementBlock("span", { ref: "spanRef", class: Vue.normalizeClass(e2.className), "aria-grabbed": e2.dragging, "aria-hidden": "true", "data-scroll-top": e2.top, "data-height": e2.height, "data-row-key": e2.rowKey, "data-row-key-type": e2.rowKeyType, unselectable: "on", onMousedown: t[0] || (t[0] = (...t2) => e2.onMousedown && e2.onMousedown(...t2)), onTouchstartPassive: t[1] || (t[1] = (...t2) => e2.onTouchStart && e2.onTouchStart(...t2)), innerHTML: e2.dragIcon }, null, 42, Ql);
 }, Jl.__file = "src/components/Drag/RowHandler.vue";
-const Ql = { prefixCls: String, rowIndex: { type: Number, required: true }, rowKey: { type: [Number, String] }, column: { type: Object, default: () => ({}) }, item: { type: Object, default: () => ({}) }, wrapText: { type: Boolean, default: false }, height: { tyoe: Number, default: void 0 }, hasAppendNode: Boolean, resizeObserver: { type: Object }, calMaxHeight: Function, tooltipVisible: Boolean, getPopupContainer: Function, onCellLeave: Function }, eo = (e2, { slots: t, emit: n }) => {
+const Zl = { prefixCls: String, rowIndex: { type: Number, required: true }, rowKey: { type: [Number, String] }, column: { type: Object, default: () => ({}) }, item: { type: Object, default: () => ({}) }, wrapText: { type: Boolean, default: false }, height: { tyoe: Number, default: void 0 }, hasAppendNode: Boolean, resizeObserver: { type: Object }, calMaxHeight: Function, tooltipVisible: Boolean, getPopupContainer: Function, onCellLeave: Function }, eo = (e2, { slots: t, emit: n }) => {
   var r, l, o, a;
   const i = Ll(), s = Dl(), { prefixCls: u, column: c, wrapText: d, rowKey: p, item: f, rowIndex: v, hasAppendNode: h, tooltipVisible: y } = e2, m = c.columnKey, g = "function" == typeof c.rowDrag ? c.rowDrag({ record: f, column: c.originColumn }) : !!c.rowDrag, w = c.rowDrag, x = s.sorterStates.value.find(({ key: e3 }) => e3 === m), b = x ? x.sortOrder : null, C = { columnKey: m, sorterState: x, sorterOrder: b }, S = { [`${u}-cell-inner`]: true }, k = { [`${u}-cell-content`]: true, [`${u}-cell-wrap-text`]: void 0 === c.wrapText ? d : c.wrapText, [`${u}-cell-text-ellipsis`]: c.ellipsis }, _ = (null === (r = s.allCellProps.value[p]) || void 0 === r ? void 0 : r[c.columnKey]) || {}, j = _.props || {}, E = j.rowSpan, K = { [`${u}-cell`]: true, [`${u}-cell-multi`]: E > 1, [`${u}-cell-hidden`]: 0 === E, [`${u}-column-sort`]: C.sorterOrder, [`${u}-with-append`]: h }, T = c.dataIndex ? nl(f, c.dataIndex) : void 0, P = s.getIndexsByKey(p), I = `${e2.rowKey} ${e2.column.columnKey} ${v}`, A = { record: f, column: c.originColumn, text: T, value: T, index: v, recordIndexs: s.getIndexsByKey(p), key: I };
   let H = P && (null === (l = i.bodyCell) || void 0 === l ? void 0 : l.call(i, A)) || [];
@@ -3821,7 +3835,7 @@ const Ql = { prefixCls: String, rowIndex: { type: Number, required: true }, rowK
     U || n("cellLeave");
   }, tabindex: "-1", role: "cell", class: K }), [w ? Vue.createVNode(Jl, { disabled: !g, columnKey: m, column: c.originColumn }, { label: () => H }) : null, F ? Vue.withDirectives(V, [[Vl, z]]) : V]);
 };
-eo.props = Ql;
+eo.props = Zl;
 var to = eo;
 const no = (e2, { slots: t = {} }) => {
   var n;
@@ -4090,9 +4104,9 @@ function Xo(e2) {
 function Jo(e2, t, n) {
   return t in e2 ? Object.defineProperty(e2, t, { value: n, enumerable: true, configurable: true, writable: true }) : e2[t] = n, e2;
 }
-var Zo = { primaryColor: "#333", secondaryColor: "#E6E6E6", calculated: false };
-var Qo = function(e2, t) {
-  var n = Xo({}, e2, t.attrs), r = n.icon, l = n.primaryColor, o = n.secondaryColor, a = qo(n, Go), i = Zo;
+var Qo = { primaryColor: "#333", secondaryColor: "#E6E6E6", calculated: false };
+var Zo = function(e2, t) {
+  var n = Xo({}, e2, t.attrs), r = n.icon, l = n.primaryColor, o = n.secondaryColor, a = qo(n, Go), i = Qo;
   if (l && (i = { primaryColor: l, secondaryColor: o || No(l) }), function() {
     var e3 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : Uo;
     Vue.nextTick(function() {
@@ -4103,13 +4117,13 @@ var Qo = function(e2, t) {
   var s = r;
   return s && "function" == typeof s.icon && (s = Xo({}, s, { icon: s.icon(i.primaryColor, i.secondaryColor) })), Lo(s.icon, "svg-".concat(s.name), Xo({}, a, { "data-icon": s.name, width: "1em", height: "1em", fill: "currentColor", "aria-hidden": "true" }));
 };
-Qo.props = { icon: Object, primaryColor: String, secondaryColor: String, focusable: String }, Qo.inheritAttrs = false, Qo.displayName = "IconBase", Qo.getTwoToneColors = function() {
-  return Xo({}, Zo);
-}, Qo.setTwoToneColors = function(e2) {
+Zo.props = { icon: Object, primaryColor: String, secondaryColor: String, focusable: String }, Zo.inheritAttrs = false, Zo.displayName = "IconBase", Zo.getTwoToneColors = function() {
+  return Xo({}, Qo);
+}, Zo.setTwoToneColors = function(e2) {
   var t = e2.primaryColor, n = e2.secondaryColor;
-  Zo.primaryColor = t, Zo.secondaryColor = n || No(t), Zo.calculated = !!n;
+  Qo.primaryColor = t, Qo.secondaryColor = n || No(t), Qo.calculated = !!n;
 };
-var ea = Qo;
+var ea = Zo;
 function ta(e2, t) {
   return function(e3) {
     if (Array.isArray(e3))
@@ -4607,11 +4621,11 @@ var Fa = Vue.defineComponent({ name: "STableBodyRows", components: { ExpandIcon:
   }), J2 = dl(() => {
     var t, n, r, l;
     return null === (l = null === (r = null === (n = null === (t = i.allCellProps.value[e2.rowKey]) || void 0 === t ? void 0 : t[vl]) || void 0 === n ? void 0 : n.props) || void 0 === r ? void 0 : r.style) || void 0 === l ? void 0 : l.width;
-  }), Z = Vue.computed(() => {
+  }), Q = Vue.computed(() => {
     const t = { opacity: 1 };
     return K.value ? t.transform = `translateY(${e2.pos}px)` : t.top = `${e2.pos}px`, void 0 !== U.value ? t.height = `${U.value}px` : t.height = `${i.baseHeight.value}px`, e2.isExpandRow && 0 === y.value && (t.width = J2.value, t.minWidth = "100%"), t;
   });
-  Vue.watch(() => ({ ...Z.value }), (e3, t = {}) => {
+  Vue.watch(() => ({ ...Q.value }), (e3, t = {}) => {
     i.props.animateRows && !i.useAnimate.value && (e3.top === t.top && e3.height === t.height && e3.transform === t.transform || Vue.nextTick(() => {
       clearTimeout(E), s.vnode.el && s.vnode.el.style && (s.vnode.el.style.transition = "none", E = setTimeout(() => {
         s.vnode.el.style && (s.vnode.el.style.transition = null);
@@ -4620,15 +4634,15 @@ var Fa = Vue.defineComponent({ name: "STableBodyRows", components: { ExpandIcon:
   }, { immediate: true }), ((e3) => {
     Vue.provide(ql, e3);
   })({ top: Vue.computed(() => e2.pos), height: Vue.computed(() => void 0 !== U.value ? U.value : i.baseHeight.value), rowKey: Vue.computed(() => e2.rowKey) });
-  const Q = Vue.computed(() => ({ [`${e2.prefixCls}-cell`]: true, [`${e2.prefixCls}-position-absolute`]: true }));
-  return { rowClass: q2, rowStyle: Z, cellClass: Q, tableContext: i, mergedRowHeights: V, handleCellBlur: x, handleCellHover: b, handleClick: () => {
+  const Z = Vue.computed(() => ({ [`${e2.prefixCls}-cell`]: true, [`${e2.prefixCls}-position-absolute`]: true }));
+  return { rowClass: q2, rowStyle: Q, cellClass: Z, tableContext: i, mergedRowHeights: V, handleCellBlur: x, handleCellHover: b, handleClick: () => {
     i.props.expandRowByClick && L.value && N(e2.record, event);
   }, rowSelectionType: P, nestExpandable: W, hasNestChildren: B, mergedExpandable: L, expandIconColumnIndex: z, indentSize: D, expanded: M, onInternalTriggerExpand: N, customRowProps: T, expandColumnKey: vl, expandRowClass: X2, mergedColumns: m, height: U, cellHeight: Y, columnStartIndex: y, resizeObserver: p, calMaxHeight: d, bodyRow: c, tooltipVisible: C, hoverRowKey: g, hoverColumnKey: w, xVirtual: dl(() => i.xVirtual.value), getPopupContainer: () => O.value };
 } });
 const Wa = ["data-row-key"], Ba = ["data-row-key"];
 Fa.render = function(e2, t, n, r, l, o) {
   const a = Vue.resolveComponent("BodyExtraCell"), i = Vue.resolveComponent("ExpandIcon"), s = Vue.resolveComponent("BodyCell"), c = Vue.resolveComponent("RenderSlot"), d = Vue.resolveComponent("ExpandedRow");
-  return e2.isExpandRow ? 0 === e2.columnStartIndex ? (Vue.openBlock(), Vue.createElementBlock("div", { key: 1, ref: "bodyRow", "data-row-key": e2.rowKey, class: Vue.normalizeClass(e2.expandRowClass), style: Vue.normalizeStyle(e2.rowStyle), role: "row" }, [Vue.createVNode(d, { "prefix-cls": e2.prefixCls, item: e2.record, "row-key": e2.rowKey, "row-index": e2.rowIndex, "resize-observer": e2.resizeObserver, "cal-max-height": e2.calMaxHeight }, null, 8, ["prefix-cls", "item", "row-key", "row-index", "resize-observer", "cal-max-height"])], 14, Ba)) : Vue.createCommentVNode("v-if", true) : (Vue.openBlock(), Vue.createElementBlock("div", Vue.mergeProps({ key: 0 }, e2.customRowProps, { ref: "bodyRow", class: e2.rowClass, style: e2.rowStyle, role: "row", "data-row-key": e2.rowKey, onClick: t[0] || (t[0] = (...t2) => e2.handleClick && e2.handleClick(...t2)) }), [Vue.createVNode(c, null, { default: Vue.withCtx(() => [(Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(e2.mergedColumns, (t2, n2) => (Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, { key: t2 && t2.columnKey }, [t2 && t2.__Internal__Column__ ? (Vue.openBlock(), Vue.createBlock(a, { key: 0, "prefix-cls": e2.prefixCls, "row-key": e2.rowKey, column: e2.mergedColumns[n2], expanded: e2.expanded, record: e2.record, onMouseenter: (n3) => e2.handleCellHover(e2.rowKey, t2.columnKey), onMouseleave: e2.handleCellBlur }, null, 8, ["prefix-cls", "row-key", "column", "expanded", "record", "onMouseenter", "onMouseleave"])) : t2 ? (Vue.openBlock(), Vue.createBlock(s, { key: 1, "prefix-cls": e2.prefixCls, item: e2.record, "row-key": e2.rowKey, "row-index": e2.rowIndex, "wrap-text": e2.wrapText, column: t2, "resize-observer": e2.resizeObserver, "cal-max-height": e2.calMaxHeight, "has-append-node": t2.columnIndex === e2.expandIconColumnIndex && e2.nestExpandable, height: e2.cellHeight, "tooltip-visible": e2.tooltipVisible && e2.hoverRowKey === e2.rowKey && e2.hoverColumnKey === t2.columnKey, "get-popup-container": e2.getPopupContainer, onMouseenter: (n3) => e2.handleCellHover(e2.rowKey, t2.columnKey), onCellLeave: e2.handleCellBlur }, { appendNode: Vue.withCtx(() => [Vue.createElementVNode("span", { style: Vue.normalizeStyle(`padding-left: ${e2.indent * e2.indentSize}px`), class: Vue.normalizeClass(`${e2.prefixCls}-row-indent indent-level-${e2.indent}`) }, null, 6), Vue.createVNode(i, { expanded: e2.expanded, "prefix-cls": e2.prefixCls, expandable: e2.hasNestChildren, record: e2.record, onExpand: e2.onInternalTriggerExpand }, null, 8, ["expanded", "prefix-cls", "expandable", "record", "onExpand"])]), _: 2 }, 1032, ["prefix-cls", "item", "row-key", "row-index", "wrap-text", "column", "resize-observer", "cal-max-height", "has-append-node", "height", "tooltip-visible", "get-popup-container", "onMouseenter", "onCellLeave"])) : Vue.createCommentVNode("v-if", true)], 64))), 128))]), _: 1 }), "center" !== e2.type ? (Vue.openBlock(), Vue.createElementBlock("div", { key: 0, class: Vue.normalizeClass(`${e2.prefixCls}-cell-shadow-${e2.type}`) }, null, 2)) : Vue.createCommentVNode("v-if", true)], 16, Wa));
+  return e2.isExpandRow ? 0 === e2.columnStartIndex ? (Vue.openBlock(), Vue.createElementBlock("div", { key: 1, ref: "bodyRow", "data-row-key": e2.rowKey, class: Vue.normalizeClass(e2.expandRowClass), style: Vue.normalizeStyle(e2.rowStyle), role: "row" }, [Vue.createVNode(d, { "prefix-cls": e2.prefixCls, item: e2.record, "row-key": e2.rowKey, "row-index": e2.rowIndex, "resize-observer": e2.resizeObserver, "cal-max-height": e2.calMaxHeight }, null, 8, ["prefix-cls", "item", "row-key", "row-index", "resize-observer", "cal-max-height"])], 14, Ba)) : Vue.createCommentVNode("v-if", true) : (Vue.openBlock(), Vue.createElementBlock("div", Vue.mergeProps({ key: 0 }, e2.customRowProps, { ref: "bodyRow", class: e2.rowClass, style: e2.rowStyle, role: "row", "data-row-key": e2.rowKey, onClick: t[0] || (t[0] = (...t2) => e2.handleClick && e2.handleClick(...t2)) }), [Vue.createVNode(c, null, { default: Vue.withCtx(() => [(Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(e2.mergedColumns, (t2, n2) => (Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, { key: t2 && t2.columnKey }, [t2 && t2.__Internal__Column__ ? (Vue.openBlock(), Vue.createBlock(a, { key: 0, "prefix-cls": e2.prefixCls, "row-key": e2.rowKey, column: e2.mergedColumns[n2], expanded: e2.expanded, record: e2.record, onMouseenter: (n3) => e2.handleCellHover(e2.rowKey, t2.columnKey), onMouseleave: e2.handleCellBlur }, null, 8, ["prefix-cls", "row-key", "column", "expanded", "record", "onMouseenter", "onMouseleave"])) : t2 ? (Vue.openBlock(), Vue.createBlock(s, { key: 1, "prefix-cls": e2.prefixCls, item: e2.record, "row-key": e2.rowKey, "row-index": e2.rowIndex, "wrap-text": e2.wrapText, column: t2, "resize-observer": e2.resizeObserver, "cal-max-height": e2.calMaxHeight, "has-append-node": t2.columnIndex === e2.expandIconColumnIndex && e2.nestExpandable, height: e2.cellHeight, "tooltip-visible": e2.tooltipVisible && e2.hoverRowKey === e2.rowKey && e2.hoverColumnKey === t2.columnKey, "get-popup-container": e2.getPopupContainer, onMouseenter: (n3) => e2.handleCellHover(e2.rowKey, t2.columnKey), onCellLeave: e2.handleCellBlur }, { appendNode: Vue.withCtx(() => [Vue.createElementVNode("div", { class: Vue.normalizeClass(`${e2.prefixCls}-append-node`) }, [Vue.createElementVNode("span", { style: Vue.normalizeStyle(`padding-left: ${e2.indent * e2.indentSize}px`), class: Vue.normalizeClass(`${e2.prefixCls}-row-indent indent-level-${e2.indent}`) }, null, 6), Vue.createVNode(i, { expanded: e2.expanded, "prefix-cls": e2.prefixCls, expandable: e2.hasNestChildren, record: e2.record, onExpand: e2.onInternalTriggerExpand }, null, 8, ["expanded", "prefix-cls", "expandable", "record", "onExpand"])], 2)]), _: 2 }, 1032, ["prefix-cls", "item", "row-key", "row-index", "wrap-text", "column", "resize-observer", "cal-max-height", "has-append-node", "height", "tooltip-visible", "get-popup-container", "onMouseenter", "onCellLeave"])) : Vue.createCommentVNode("v-if", true)], 64))), 128))]), _: 1 }), "center" !== e2.type ? (Vue.openBlock(), Vue.createElementBlock("div", { key: 0, class: Vue.normalizeClass(`${e2.prefixCls}-cell-shadow-${e2.type}`) }, null, 2)) : Vue.createCommentVNode("v-if", true)], 16, Wa));
 }, Fa.__file = "src/components/Body/BodyRow.vue";
 const La = Vue.shallowRef;
 var Na = Vue.defineComponent({ name: "STableBodyRows", components: { Row: Fa }, inheritAttrs: false, props: { prefixCls: String, type: { type: String }, wrapText: { type: Boolean, default: false }, getRowClassName: { type: Function } }, setup(e2) {
@@ -4688,10 +4702,10 @@ function Xa(e2, t, n, r, l, o) {
 function Ja(e2, t, n, r, l, o, a) {
   return Xa(t & n | ~t & r, e2, t, l, o, a);
 }
-function Za(e2, t, n, r, l, o, a) {
+function Qa(e2, t, n, r, l, o, a) {
   return Xa(t & r | n & ~r, e2, t, l, o, a);
 }
-function Qa(e2, t, n, r, l, o, a) {
+function Za(e2, t, n, r, l, o, a) {
   return Xa(t ^ n ^ r, e2, t, l, o, a);
 }
 function ei(e2, t, n, r, l, o, a) {
@@ -4709,7 +4723,7 @@ function ti(e2) {
     e3[t >> 5] |= 128 << t % 32, e3[14 + (t + 64 >>> 9 << 4)] = t;
     let i = 1732584193, s = -271733879, u = -1732584194, c = 271733878;
     for (n = 0; n < e3.length; n += 16)
-      r = i, l = s, o = u, a = c, i = Ja(i, s, u, c, e3[n], 7, -680876936), c = Ja(c, i, s, u, e3[n + 1], 12, -389564586), u = Ja(u, c, i, s, e3[n + 2], 17, 606105819), s = Ja(s, u, c, i, e3[n + 3], 22, -1044525330), i = Ja(i, s, u, c, e3[n + 4], 7, -176418897), c = Ja(c, i, s, u, e3[n + 5], 12, 1200080426), u = Ja(u, c, i, s, e3[n + 6], 17, -1473231341), s = Ja(s, u, c, i, e3[n + 7], 22, -45705983), i = Ja(i, s, u, c, e3[n + 8], 7, 1770035416), c = Ja(c, i, s, u, e3[n + 9], 12, -1958414417), u = Ja(u, c, i, s, e3[n + 10], 17, -42063), s = Ja(s, u, c, i, e3[n + 11], 22, -1990404162), i = Ja(i, s, u, c, e3[n + 12], 7, 1804603682), c = Ja(c, i, s, u, e3[n + 13], 12, -40341101), u = Ja(u, c, i, s, e3[n + 14], 17, -1502002290), s = Ja(s, u, c, i, e3[n + 15], 22, 1236535329), i = Za(i, s, u, c, e3[n + 1], 5, -165796510), c = Za(c, i, s, u, e3[n + 6], 9, -1069501632), u = Za(u, c, i, s, e3[n + 11], 14, 643717713), s = Za(s, u, c, i, e3[n], 20, -373897302), i = Za(i, s, u, c, e3[n + 5], 5, -701558691), c = Za(c, i, s, u, e3[n + 10], 9, 38016083), u = Za(u, c, i, s, e3[n + 15], 14, -660478335), s = Za(s, u, c, i, e3[n + 4], 20, -405537848), i = Za(i, s, u, c, e3[n + 9], 5, 568446438), c = Za(c, i, s, u, e3[n + 14], 9, -1019803690), u = Za(u, c, i, s, e3[n + 3], 14, -187363961), s = Za(s, u, c, i, e3[n + 8], 20, 1163531501), i = Za(i, s, u, c, e3[n + 13], 5, -1444681467), c = Za(c, i, s, u, e3[n + 2], 9, -51403784), u = Za(u, c, i, s, e3[n + 7], 14, 1735328473), s = Za(s, u, c, i, e3[n + 12], 20, -1926607734), i = Qa(i, s, u, c, e3[n + 5], 4, -378558), c = Qa(c, i, s, u, e3[n + 8], 11, -2022574463), u = Qa(u, c, i, s, e3[n + 11], 16, 1839030562), s = Qa(s, u, c, i, e3[n + 14], 23, -35309556), i = Qa(i, s, u, c, e3[n + 1], 4, -1530992060), c = Qa(c, i, s, u, e3[n + 4], 11, 1272893353), u = Qa(u, c, i, s, e3[n + 7], 16, -155497632), s = Qa(s, u, c, i, e3[n + 10], 23, -1094730640), i = Qa(i, s, u, c, e3[n + 13], 4, 681279174), c = Qa(c, i, s, u, e3[n], 11, -358537222), u = Qa(u, c, i, s, e3[n + 3], 16, -722521979), s = Qa(s, u, c, i, e3[n + 6], 23, 76029189), i = Qa(i, s, u, c, e3[n + 9], 4, -640364487), c = Qa(c, i, s, u, e3[n + 12], 11, -421815835), u = Qa(u, c, i, s, e3[n + 15], 16, 530742520), s = Qa(s, u, c, i, e3[n + 2], 23, -995338651), i = ei(i, s, u, c, e3[n], 6, -198630844), c = ei(c, i, s, u, e3[n + 7], 10, 1126891415), u = ei(u, c, i, s, e3[n + 14], 15, -1416354905), s = ei(s, u, c, i, e3[n + 5], 21, -57434055), i = ei(i, s, u, c, e3[n + 12], 6, 1700485571), c = ei(c, i, s, u, e3[n + 3], 10, -1894986606), u = ei(u, c, i, s, e3[n + 10], 15, -1051523), s = ei(s, u, c, i, e3[n + 1], 21, -2054922799), i = ei(i, s, u, c, e3[n + 8], 6, 1873313359), c = ei(c, i, s, u, e3[n + 15], 10, -30611744), u = ei(u, c, i, s, e3[n + 6], 15, -1560198380), s = ei(s, u, c, i, e3[n + 13], 21, 1309151649), i = ei(i, s, u, c, e3[n + 4], 6, -145523070), c = ei(c, i, s, u, e3[n + 11], 10, -1120210379), u = ei(u, c, i, s, e3[n + 2], 15, 718787259), s = ei(s, u, c, i, e3[n + 9], 21, -343485551), i = qa(i, r), s = qa(s, l), u = qa(u, o), c = qa(c, a);
+      r = i, l = s, o = u, a = c, i = Ja(i, s, u, c, e3[n], 7, -680876936), c = Ja(c, i, s, u, e3[n + 1], 12, -389564586), u = Ja(u, c, i, s, e3[n + 2], 17, 606105819), s = Ja(s, u, c, i, e3[n + 3], 22, -1044525330), i = Ja(i, s, u, c, e3[n + 4], 7, -176418897), c = Ja(c, i, s, u, e3[n + 5], 12, 1200080426), u = Ja(u, c, i, s, e3[n + 6], 17, -1473231341), s = Ja(s, u, c, i, e3[n + 7], 22, -45705983), i = Ja(i, s, u, c, e3[n + 8], 7, 1770035416), c = Ja(c, i, s, u, e3[n + 9], 12, -1958414417), u = Ja(u, c, i, s, e3[n + 10], 17, -42063), s = Ja(s, u, c, i, e3[n + 11], 22, -1990404162), i = Ja(i, s, u, c, e3[n + 12], 7, 1804603682), c = Ja(c, i, s, u, e3[n + 13], 12, -40341101), u = Ja(u, c, i, s, e3[n + 14], 17, -1502002290), s = Ja(s, u, c, i, e3[n + 15], 22, 1236535329), i = Qa(i, s, u, c, e3[n + 1], 5, -165796510), c = Qa(c, i, s, u, e3[n + 6], 9, -1069501632), u = Qa(u, c, i, s, e3[n + 11], 14, 643717713), s = Qa(s, u, c, i, e3[n], 20, -373897302), i = Qa(i, s, u, c, e3[n + 5], 5, -701558691), c = Qa(c, i, s, u, e3[n + 10], 9, 38016083), u = Qa(u, c, i, s, e3[n + 15], 14, -660478335), s = Qa(s, u, c, i, e3[n + 4], 20, -405537848), i = Qa(i, s, u, c, e3[n + 9], 5, 568446438), c = Qa(c, i, s, u, e3[n + 14], 9, -1019803690), u = Qa(u, c, i, s, e3[n + 3], 14, -187363961), s = Qa(s, u, c, i, e3[n + 8], 20, 1163531501), i = Qa(i, s, u, c, e3[n + 13], 5, -1444681467), c = Qa(c, i, s, u, e3[n + 2], 9, -51403784), u = Qa(u, c, i, s, e3[n + 7], 14, 1735328473), s = Qa(s, u, c, i, e3[n + 12], 20, -1926607734), i = Za(i, s, u, c, e3[n + 5], 4, -378558), c = Za(c, i, s, u, e3[n + 8], 11, -2022574463), u = Za(u, c, i, s, e3[n + 11], 16, 1839030562), s = Za(s, u, c, i, e3[n + 14], 23, -35309556), i = Za(i, s, u, c, e3[n + 1], 4, -1530992060), c = Za(c, i, s, u, e3[n + 4], 11, 1272893353), u = Za(u, c, i, s, e3[n + 7], 16, -155497632), s = Za(s, u, c, i, e3[n + 10], 23, -1094730640), i = Za(i, s, u, c, e3[n + 13], 4, 681279174), c = Za(c, i, s, u, e3[n], 11, -358537222), u = Za(u, c, i, s, e3[n + 3], 16, -722521979), s = Za(s, u, c, i, e3[n + 6], 23, 76029189), i = Za(i, s, u, c, e3[n + 9], 4, -640364487), c = Za(c, i, s, u, e3[n + 12], 11, -421815835), u = Za(u, c, i, s, e3[n + 15], 16, 530742520), s = Za(s, u, c, i, e3[n + 2], 23, -995338651), i = ei(i, s, u, c, e3[n], 6, -198630844), c = ei(c, i, s, u, e3[n + 7], 10, 1126891415), u = ei(u, c, i, s, e3[n + 14], 15, -1416354905), s = ei(s, u, c, i, e3[n + 5], 21, -57434055), i = ei(i, s, u, c, e3[n + 12], 6, 1700485571), c = ei(c, i, s, u, e3[n + 3], 10, -1894986606), u = ei(u, c, i, s, e3[n + 10], 15, -1051523), s = ei(s, u, c, i, e3[n + 1], 21, -2054922799), i = ei(i, s, u, c, e3[n + 8], 6, 1873313359), c = ei(c, i, s, u, e3[n + 15], 10, -30611744), u = ei(u, c, i, s, e3[n + 6], 15, -1560198380), s = ei(s, u, c, i, e3[n + 13], 21, 1309151649), i = ei(i, s, u, c, e3[n + 4], 6, -145523070), c = ei(c, i, s, u, e3[n + 11], 10, -1120210379), u = ei(u, c, i, s, e3[n + 2], 15, 718787259), s = ei(s, u, c, i, e3[n + 9], 21, -343485551), i = qa(i, r), s = qa(s, l), u = qa(u, o), c = qa(c, a);
     return [i, s, u, c];
   }(function(e3) {
     let t;
@@ -4746,7 +4760,7 @@ const li = (e2) => {
       t2 = e3.charCodeAt(o2), t2 < 128 ? (l2 += String.fromCharCode(t2), o2++) : t2 > 191 && t2 < 224 ? (n2 = e3.charCodeAt(o2 + 1), l2 += String.fromCharCode((31 & t2) << 6 | 63 & n2), o2 += 2) : (n2 = e3.charCodeAt(o2 + 1), r2 = e3.charCodeAt(o2 + 2), l2 += String.fromCharCode((15 & t2) << 12 | (63 & n2) << 6 | 63 & r2), o2 += 3);
     return l2;
   }(u), u;
-}, oi = () => new Date(parseInt(li("MTY2MDEwODUxNDIwNA=="), 10));
+}, oi = () => new Date(parseInt(li("MTY2MjA0NDU3NzQxMg=="), 10));
 const ai = /Chrome\/(\d+)/.exec(navigator.userAgent), ii = ai && +ai[1];
 var si = Vue.defineComponent({ name: "STableBody", directives: { resize: Ga }, components: { BodyRows: Na, Empty: J, RenderVNode: ro, RenderSlot: no }, inheritAttrs: false, props: { prefixCls: String, wrapText: { type: Boolean, default: false }, bodyScrollWidth: { type: Number }, bodyWidth: { type: Number }, height: { type: [Number, String] }, scrollX: [Number, String], summaryFixed: [String, Boolean], emptyText: Function, summary: Function }, emits: ["scroll", "scrollLeft", "scrollTop", "update:bodyWidth", "update:bodyHeight", "update:bodyScrollWidth"], slots: ["emptyText"], setup(e2, { emit: r, attrs: a, expose: i }) {
   const s = Dl(), u = Vue.ref(), c = Vue.ref(), d = Vue.ref(), p = Vue.ref(), f = Vue.ref(), h = Vue.ref(), y = Vue.ref(0), m = Vue.computed(() => s.leftColumns.value), g = Vue.computed(() => s.centerColumns.value), w = Vue.computed(() => s.rightColumns.value), x = Vue.computed(() => 4 !== s.status.value.code), b = Vue.ref(), C = Vue.ref(), S = Vue.ref(), _ = Vue.ref(), R = Vue.ref(), { visible: O } = function({ hoverColumnKey: e3 }) {
@@ -4794,7 +4808,7 @@ var si = Vue.defineComponent({ name: "STableBody", directives: { resize: Ga }, c
       c.value && c.value.scrollTop !== e3 && (c.value.scrollTop = e3);
     }, { immediate: true });
   });
-  const M = Vue.computed(() => e2.bodyWidth - s.rightWidth.value > s.leftWidth.value ? { position: "absolute", left: `${s.leftWidth.value}px`, height: "100%" } : { display: "none" }), z = Vue.computed(() => s.rightWidth.value ? { position: "absolute", left: e2.bodyWidth - s.rightWidth.value + "px", height: "100%" } : { display: "none" }), D = Vue.computed(() => ({ [`${e2.prefixCls}-body`]: true })), F = Vue.computed(() => ({ [`${e2.prefixCls}-fix-left`]: true, [`${e2.prefixCls}-no-columns`]: !m.value.length })), W = Vue.computed(() => ({ [`${e2.prefixCls}-fix-right`]: true, [`${e2.prefixCls}-no-columns`]: !w.value.length })), B = Vue.computed(() => ({ [`${e2.prefixCls}-center`]: true, [`${e2.prefixCls}-no-columns`]: !g.value.length })), L = Vue.computed(() => ({ [`${e2.prefixCls}-center-viewport`]: true })), N = Vue.computed(() => ({ [`${e2.prefixCls}-center-container`]: true })), V = Vue.computed(() => s.viewportHeight.value + (e2.summaryFixed ? P.value : y.value + P.value)), U = Vue.computed(() => ({ width: `${s.centerWidth.value}px`, height: `${V.value}px` })), Y = Vue.computed(() => ({ height: `calc(100% + ${s.scrollBarSize.value || 15}px)` })), G = Vue.computed(() => ({ height: `${V.value}px`, width: `${s.bodyMaxWidth.value}px`, minWidth: "100%" })), q2 = Vue.computed(() => ({ ...a.style, maxHeight: "number" == typeof e2.height ? `${e2.height}px` : e2.height, overflowY: s.showVerticalScrollbar.value ? "scroll" : "hidden" })), X2 = Vue.computed(() => ({ height: `${V.value}px`, zIndex: "unset !important" })), Z = Vue.computed(() => ({})), Q = Vue.computed(() => {
+  const M = Vue.computed(() => e2.bodyWidth - s.rightWidth.value > s.leftWidth.value ? { position: "absolute", left: `${s.leftWidth.value}px`, height: "100%" } : { display: "none" }), z = Vue.computed(() => s.rightWidth.value ? { position: "absolute", left: e2.bodyWidth - s.rightWidth.value + "px", height: "100%" } : { display: "none" }), D = Vue.computed(() => ({ [`${e2.prefixCls}-body`]: true })), F = Vue.computed(() => ({ [`${e2.prefixCls}-fix-left`]: true, [`${e2.prefixCls}-no-columns`]: !m.value.length })), W = Vue.computed(() => ({ [`${e2.prefixCls}-fix-right`]: true, [`${e2.prefixCls}-no-columns`]: !w.value.length })), B = Vue.computed(() => ({ [`${e2.prefixCls}-center`]: true, [`${e2.prefixCls}-no-columns`]: !g.value.length })), L = Vue.computed(() => ({ [`${e2.prefixCls}-center-viewport`]: true })), N = Vue.computed(() => ({ [`${e2.prefixCls}-center-container`]: true })), V = Vue.computed(() => s.viewportHeight.value + (e2.summaryFixed ? P.value : y.value + P.value)), U = Vue.computed(() => ({ width: `${s.centerWidth.value}px`, height: `${V.value}px` })), Y = Vue.computed(() => ({ height: `calc(100% + ${s.scrollBarSize.value || 15}px)` })), G = Vue.computed(() => ({ height: `${V.value}px`, width: `${s.bodyMaxWidth.value}px`, minWidth: "100%" })), q2 = Vue.computed(() => ({ ...a.style, maxHeight: "number" == typeof e2.height ? `${e2.height}px` : e2.height, overflowY: s.showVerticalScrollbar.value ? "scroll" : "hidden" })), X2 = Vue.computed(() => ({ height: `${V.value}px`, zIndex: "unset !important" })), Q = Vue.computed(() => ({})), Z = Vue.computed(() => {
     const e3 = `${s.leftWidth.value}px`;
     return { width: e3, minWidth: e3, maxWidth: e3 };
   }), ee = Vue.computed(() => {
@@ -4812,7 +4826,7 @@ var si = Vue.defineComponent({ name: "STableBody", directives: { resize: Ga }, c
   }), oe2 = Vue.computed(() => ({ width: `${e2.bodyWidth}px` }));
   return { bodyContainerStyle: X2, measureDomStyle: Vue.computed(() => ({ width: "100%", height: "100%!important", position: "absolute!important", fontSize: "100px!important", opacity: "0.1!important", textAlign: "center!important", top: "0px!important", left: "0px!important", pointerEvents: "none", display: "block!important", color: "#000000!important", margin: "0px!important", padding: "0px!important", transform: "unset!important" })), isEmpty: H, emptyStyle: oe2, handleEmptyHeight: (e3) => {
     P.value = e3.detail.height;
-  }, bodyClass: D, fixLeftClass: F, fixRightClass: W, centerClass: B, containerClass: N, summaryViewportClass: L, summaryClass: te2, rightStyle: ee, centerStyle: Z, leftStyle: Q, summaryViewportStyle: Y, containerStyle: U, summaryStyle: re2, viewportHeight: V, leftColumns: m, centerColumns: g, rightColumns: w, bodyInnerWidth: T, handleBodyScroll: K, handleBodyInnerResize: (e3) => {
+  }, bodyClass: D, fixLeftClass: F, fixRightClass: W, centerClass: B, containerClass: N, summaryViewportClass: L, summaryClass: te2, rightStyle: ee, centerStyle: Q, leftStyle: Z, summaryViewportStyle: Y, containerStyle: U, summaryStyle: re2, viewportHeight: V, leftColumns: m, centerColumns: g, rightColumns: w, bodyInnerWidth: T, handleBodyScroll: K, handleBodyInnerResize: (e3) => {
     T.value = e3.detail.width;
   }, handleBodyScrollResize: (e3) => {
     r("update:bodyScrollWidth", e3.detail.width);
@@ -5064,7 +5078,7 @@ var zi = ({ columnKey: a, disabled: i, column: s, domRef: u }) => {
   let U = null, Y = {}, G = 0;
   const q2 = [];
   let X2 = null;
-  const J2 = Vue.ref("ICON_TYPE_DOWN"), Z = Vue.computed(() => {
+  const J2 = Vue.ref("ICON_TYPE_DOWN"), Q = Vue.computed(() => {
     switch (T.value) {
       case "left":
         return C.value;
@@ -5075,7 +5089,7 @@ var zi = ({ columnKey: a, disabled: i, column: s, domRef: u }) => {
       default:
         return [];
     }
-  }), Q = Vue.computed(() => E && "center" !== T.value ? () => {
+  }), Z = Vue.computed(() => E && "center" !== T.value ? () => {
     const { x: e2 } = Y, t = "left" === T.value ? d.value.scrollLeft + e2 : d.value.scrollLeft + e2 + b.value - w.value, n = "left" === T.value ? t + g.value : t + w.value, r = window.pageXOffset || document.documentElement.scrollLeft;
     return z.value + 10 <= t ? (W.style.left = t + r - 20 + "px", true) : z.value + 10 >= n && (W.style.left = n + r - 20 + "px", true);
   } : "center" !== T.value ? () => {
@@ -5104,7 +5118,7 @@ var zi = ({ columnKey: a, disabled: i, column: s, domRef: u }) => {
     V.value = true, z.value = e2.clientX, M.value = e2.clientY, (() => {
       const { y: e3, height: t2 } = Y, n = window.pageYOffset || document.documentElement.scrollTop;
       return M.value + 10 <= e3 ? (W.style.top = e3 + n - 20 + "px", true) : M.value > e3 + t2 && (W.style.top = e3 + n + t2 - 10 + "px", true);
-    })() ? (V.value = false, clearInterval(L)) : W.style.top = e2.pageY - 10 + "px", Q.value() ? V.value = false : W.style.left = e2.pageX - 10 + "px";
+    })() ? (V.value = false, clearInterval(L)) : W.style.top = e2.pageY - 10 + "px", Z.value() ? V.value = false : W.style.left = e2.pageX - 10 + "px";
   };
   let re2, le2;
   const oe2 = (e2) => {
@@ -5182,7 +5196,7 @@ var zi = ({ columnKey: a, disabled: i, column: s, domRef: u }) => {
   Vue.watch([c, z, V, N], () => {
     Nr.cancel(H), H = Nr(() => {
       c.value && !V.value && (J2.value = "ICON_TYPE_FORBID"), c.value && V.value ? (J2.value = "", (() => {
-        const e2 = z.value, { x: t } = I.value.getBoundingClientRect(), n = Vue.toRaw(Z.value), r = K.value - t;
+        const e2 = z.value, { x: t } = I.value.getBoundingClientRect(), n = Vue.toRaw(Q.value), r = K.value - t;
         let l = 0, o = 0;
         E && "center" !== T.value && (o = d.value.scrollLeft, l = "left" === T.value ? o : o + b.value - w.value - g.value - x.value);
         for (let t2 = 0, o2 = n.length; t2 < o2; t2++) {
@@ -5321,7 +5335,7 @@ var Ui = Vue.defineComponent({ name: "HeaderExtraCell", components: { Checkbox: 
       r2.has(e4) || (r2.add(e4), n.push(e4));
     });
     const s2 = Array.from(r2);
-    null === (t2 = (e3 = a.value).onSelectAll) || void 0 === t2 || t2.call(e3, !i, s2.map((e4) => o(e4)), n.map((e4) => o(e4))), v(s2);
+    null === (t2 = (e3 = a.value).onSelectAll) || void 0 === t2 || t2.call(e3, !i.value, s2.map((e4) => o(e4)), n.map((e4) => o(e4))), v(s2);
   }, checked: dl(() => c.value ? d.value : !!r.flattenData.value.length && i.value), indeterminate: dl(() => c.value ? !d.value && p.value : !i.value && s.value), disabled: dl(() => 0 === r.flattenData.value.length || c.value), mergedSelections: f, onMenuClick: (e3) => {
     null == e3 || e3(l.value);
   }, autoHeight: t, title: x, h: Vue.h, Fragment: Vue.Fragment };
@@ -5393,19 +5407,19 @@ Ji.render = function(e2, t, n, r, l, o) {
   const a = Vue.resolveComponent("HeaderRowsWrap"), i = Vue.resolveDirective("resize");
   return Vue.withDirectives((Vue.openBlock(), Vue.createElementBlock("div", { key: "header", ref: "headerRef", class: Vue.normalizeClass(e2.headerClass), style: Vue.normalizeStyle(e2.headerStyle), onResizeheight: t[1] || (t[1] = (t2) => e2.$emit("resizeheight", t2)) }, [Vue.createElementVNode("div", { ref: "viewportRef", class: Vue.normalizeClass(e2.viewportClass), style: Vue.normalizeStyle(e2.viewportStyle), onScrollPassive: t[0] || (t[0] = (...t2) => e2.handleViewportScroll && e2.handleViewportScroll(...t2)) }, [Vue.createElementVNode("div", { class: Vue.normalizeClass(`${e2.prefixCls}-header-container`) }, [Vue.createVNode(a, { key: "left", "prefix-cls": e2.prefixCls, "wrap-text": e2.wrapText, type: "left" }, null, 8, ["prefix-cls", "wrap-text"]), Vue.createVNode(a, { key: "center", "prefix-cls": e2.prefixCls, "wrap-text": e2.wrapText, type: "center" }, null, 8, ["prefix-cls", "wrap-text"]), Vue.createVNode(a, { key: "right", "prefix-cls": e2.prefixCls, "wrap-text": e2.wrapText, type: "right" }, null, 8, ["prefix-cls", "wrap-text"])], 2)], 38), Vue.createElementVNode("div", { class: Vue.normalizeClass(`${e2.prefixCls}-header-scrollbar`), style: Vue.normalizeStyle(e2.scrollbarStyle) }, null, 6)], 38)), [[i, void 0, "height"]]);
 }, Ji.__file = "src/components/Header/Header.vue";
-var Zi = () => {
+var Qi = () => {
   const e2 = Dl().allColumns.value;
   return Vue.createVNode("colgroup", null, [e2.map((e3) => {
     const { finallyWidth: t } = e3;
     return Vue.createVNode("col", { style: { width: `${t}px` } }, null);
   })]);
-}, Qi = Vue.defineComponent({ name: "HeaderRow", components: { HeaderExtraCell: Ui, HeaderCellVue: Fi }, props: { prefixCls: String, wrapText: Boolean, level: Number, cells: { type: Array, default: () => [] } }, setup() {
+}, Zi = Vue.defineComponent({ name: "HeaderRow", components: { HeaderExtraCell: Ui, HeaderCellVue: Fi }, props: { prefixCls: String, wrapText: Boolean, level: Number, cells: { type: Array, default: () => [] } }, setup() {
 } });
-Qi.render = function(e2, t, n, r, l, o) {
+Zi.render = function(e2, t, n, r, l, o) {
   const a = Vue.resolveComponent("HeaderExtraCell"), i = Vue.resolveComponent("HeaderCellVue");
   return Vue.openBlock(), Vue.createElementBlock("tr", null, [(Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(e2.cells, (t2) => (Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, { key: t2.key }, [t2.column.__Internal__Column__ ? (Vue.openBlock(), Vue.createBlock(a, { key: 0, component: "th", "prefix-cls": e2.prefixCls, column: t2.column, "additional-props": { colstart: t2.colStart, colend: t2.colEnd, rowspan: t2.rowSpan, colspan: t2.colSpan } }, null, 8, ["prefix-cls", "column", "additional-props"])) : (Vue.openBlock(), Vue.createBlock(i, { key: 1, column: t2.column, "prefix-cls": e2.prefixCls, "wrap-text": e2.wrapText, level: e2.level, component: "th", "additional-props": { colstart: t2.colStart, colend: t2.colEnd, rowspan: t2.rowSpan, colspan: t2.colSpan } }, null, 8, ["column", "prefix-cls", "wrap-text", "level", "additional-props"]))], 64))), 128))]);
-}, Qi.__file = "src/components/AutoHeightHeader/HeaderRow.vue";
-var es = Vue.defineComponent({ name: "STableHeader", components: { ColGroup: Zi, HeaderRowVue: Qi }, directives: { resize: Ga }, inheritAttrs: false, props: { prefixCls: String, wrapText: { type: Boolean, default: false }, sticky: { type: [Boolean, Object], default: false } }, emits: ["scrollLeft", "resizeheight"], setup(e2, { emit: r }) {
+}, Zi.__file = "src/components/AutoHeightHeader/HeaderRow.vue";
+var es = Vue.defineComponent({ name: "STableHeader", components: { ColGroup: Qi, HeaderRowVue: Zi }, directives: { resize: Ga }, inheritAttrs: false, props: { prefixCls: String, wrapText: { type: Boolean, default: false }, sticky: { type: [Boolean, Object], default: false } }, emits: ["scrollLeft", "resizeheight"], setup(e2, { emit: r }) {
   const o = Vue.ref(), a = Vue.ref(), i = Dl(), s = Vue.ref(0), u = Vue.ref();
   Vue.provide(Vr, a), Vue.provide(Ur, true), Hi({ dragColumnPlaceholderRef: u, headerRef: o, maxHeaderHeight: s });
   Vue.onMounted(() => {
@@ -5596,7 +5610,11 @@ var cs = Vue.defineComponent({ name: "STable", components: { Body: si, Header: J
   }), I = dl(() => {
     var e2, t, n;
     return null !== (n = null !== (t = null === (e2 = o.scroll) || void 0 === e2 ? void 0 : e2.y) && void 0 !== t ? t : o.height) && void 0 !== n ? n : o.maxHeight;
-  }), A = Vue.ref("number" == typeof P.value ? P.value : 0), H = dl(() => !(false === o.virtual || !I.value)), M = dl(() => o.xVirtual || false !== o.virtual && false !== o.xVirtual), z = Vue.computed(() => "function" == typeof u.value ? u.value : (e2) => {
+  }), A = Vue.ref("number" == typeof P.value ? P.value : 0);
+  Vue.watch(P, () => {
+    A.value = "number" == typeof P.value ? P.value : 0;
+  });
+  const H = dl(() => !(false === o.virtual || !I.value)), M = dl(() => o.xVirtual || false !== o.virtual && false !== o.xVirtual), z = Vue.computed(() => "function" == typeof u.value ? u.value : (e2) => {
     var t;
     return null === (t = e2) || void 0 === t ? void 0 : t[u.value];
   }), D = Vue.shallowRef([]), F = Vue.shallowRef([]);
@@ -5622,10 +5640,10 @@ var cs = Vue.defineComponent({ name: "STable", components: { Body: si, Header: J
   Vue.watchEffect(() => {
     o.defaultExpandedRowKeys && (J2.value = o.defaultExpandedRowKeys), o.defaultExpandAllRows && (J2.value = q2.value);
   })();
-  const Z = Vue.computed(() => {
+  const Q = Vue.computed(() => {
     const e2 = o.rowSelection || {}, { checkStrictly: t = true } = e2;
     return { ...e2, checkStrictly: t };
-  }), Q = Vue.computed(() => new Set(o.expandedRowKeys || J2.value || [])), ee = Vue.computed(() => {
+  }), Z = Vue.computed(() => new Set(o.expandedRowKeys || J2.value || [])), ee = Vue.computed(() => {
     const e2 = o.loading;
     return "boolean" == typeof e2 ? { spinning: e2 } : "object" == typeof e2 ? { spinning: true, ...e2 } : { spinning: false };
   });
@@ -5722,7 +5740,7 @@ var cs = Vue.defineComponent({ name: "STable", components: { Body: si, Header: J
       }
       return o3;
     } };
-  }(Se2, W, Q, z, oe2, Z), Ke2 = Jr(o, ke2, K, _, H, _e2), { rowPosition: Te2, viewportHeight: Pe2, startIndex: Ie2, endIndex: Ae2 } = Ke2, { leftWidth: He2, rightWidth: Me2, centerWidth: ze2, bodyMaxWidth: De2 } = ie2, Fe2 = Hl(o, Z, D, { prefixCls: Vue.computed(() => o.prefixCls), pageData: Se2, getRowKey: z, getRecordByKey: B, childrenColumnName: W, locale: k, flattenData: ke2, keyEntities: _e2, checkboxPropsMap: $e2, allDataRowKeys: q2, allDataRootRowKeys: X2, pageDataRowKeys: Re2, pageDataEnableRowKeys: Oe2 }), We2 = Vue.ref(null);
+  }(Se2, W, Z, z, oe2, Q), Ke2 = Jr(o, ke2, K, _, H, _e2), { rowPosition: Te2, viewportHeight: Pe2, startIndex: Ie2, endIndex: Ae2 } = Ke2, { leftWidth: He2, rightWidth: Me2, centerWidth: ze2, bodyMaxWidth: De2 } = ie2, Fe2 = Hl(o, Q, D, { prefixCls: Vue.computed(() => o.prefixCls), pageData: Se2, getRowKey: z, getRecordByKey: B, childrenColumnName: W, locale: k, flattenData: ke2, keyEntities: _e2, checkboxPropsMap: $e2, allDataRowKeys: q2, allDataRootRowKeys: X2, pageDataRowKeys: Re2, pageDataEnableRowKeys: Oe2 }), We2 = Vue.ref(null);
   let Be2, Le2;
   const Ne2 = (e2 = {}, t = "auto", n = false) => {
     n || Ye2();
@@ -5766,7 +5784,7 @@ var cs = Vue.defineComponent({ name: "STable", components: { Body: si, Header: J
   let Ge2;
   const qe2 = Vue.computed(() => De2.value - E.value);
   let Xe2;
-  const { data: Je2, pos: Ze2 } = function(t, n, r, o2, a2, i2, s2, u2) {
+  const { data: Je2, pos: Qe2 } = function(t, n, r, o2, a2, i2, s2, u2) {
     const c2 = Vue.shallowRef([]), d2 = Vue.shallowRef([]);
     let p2 = {}, f = true;
     return Vue.watch([n, o2, a2], () => {
@@ -5786,11 +5804,11 @@ var cs = Vue.defineComponent({ name: "STable", components: { Body: si, Header: J
         -1 !== r2 ? (b2 = r2, t2[r2] = e3, l[r2] = n2, h[e3.rowKey] = r2) : (h[e3.rowKey] = t2.length, t2.push(e3), l.push(n2));
       }), p2 = h, c2.value = t2, d2.value = l;
     }, { immediate: true }), { data: c2, pos: d2 };
-  }(0, Te2, ke2, Ie2, Ae2, m, Ve2, je2), Qe2 = Vue.ref(false), et2 = Vue.ref(false), tt2 = Vue.ref(false);
+  }(0, Te2, ke2, Ie2, Ae2, m, Ve2, je2), Ze2 = Vue.ref(false), et2 = Vue.ref(false), tt2 = Vue.ref(false);
   Vue.watchEffect(() => {
-    Qe2.value = fl && !!R.value, et2.value = fl && ze2.value - (E.value - He2.value - Me2.value) > R.value, tt2.value = !Qe2.value && !et2.value;
+    Ze2.value = fl && !!R.value, et2.value = fl && ze2.value - (E.value - He2.value - Me2.value) > R.value, tt2.value = !Ze2.value && !et2.value;
   });
-  const nt2 = Vue.computed(() => Ml({ [`${o.prefixCls}`]: true, [`${o.prefixCls}-support-sticky`]: fl, [`${o.prefixCls}-stripe`]: o.stripe, [`${o.prefixCls}-bordered`]: o.bordered, [`${o.prefixCls}-${o.size}`]: true, [`${o.prefixCls}-ping-left`]: Qe2.value, [`${o.prefixCls}-ping-right`]: et2.value, [`${o.prefixCls}-no-ping`]: tt2.value, [`${o.prefixCls}-has-animate`]: o.animateRows })), rt2 = Vue.computed(() => ({ [`${o.prefixCls}-wrapper`]: true, [`${o.prefixCls}-wrapper-bordered`]: o.bordered })), lt2 = Vue.computed(() => ({ height: "number" == typeof o.height ? `${o.height}px` : o.height, maxHeight: "number" == typeof o.maxHeight ? `${o.maxHeight}px` : o.maxHeight })), ot2 = dl(() => De2.value > E.value), at2 = dl(() => !!I.value && K.value - (ot2.value ? ne2.value : 0) < Pe2.value), it2 = dl(() => !o.scroll || o.scroll && false !== o.scroll.scrollToFirstRowOnChange);
+  const nt2 = Vue.computed(() => Ml({ [`${o.prefixCls}`]: true, [`${o.prefixCls}-support-sticky`]: fl, [`${o.prefixCls}-stripe`]: o.stripe, [`${o.prefixCls}-bordered`]: o.bordered, [`${o.prefixCls}-${o.size}`]: true, [`${o.prefixCls}-ping-left`]: Ze2.value, [`${o.prefixCls}-ping-right`]: et2.value, [`${o.prefixCls}-no-ping`]: tt2.value, [`${o.prefixCls}-has-animate`]: o.animateRows })), rt2 = Vue.computed(() => ({ [`${o.prefixCls}-wrapper`]: true, [`${o.prefixCls}-wrapper-bordered`]: o.bordered })), lt2 = Vue.computed(() => ({ height: "number" == typeof o.height ? `${o.height}px` : o.height, maxHeight: "number" == typeof o.maxHeight ? `${o.maxHeight}px` : o.maxHeight })), ot2 = dl(() => De2.value > E.value), at2 = dl(() => !!I.value && K.value - (ot2.value ? ne2.value : 0) < Pe2.value), it2 = dl(() => !o.scroll || o.scroll && false !== o.scroll.scrollToFirstRowOnChange);
   te2 = (e2, t, n = false) => {
     var r, l;
     n && (be2(), ge2(1, we2.value.pageSize), (null === (r = o.pagination) || void 0 === r ? void 0 : r.onChange) && o.pagination.onChange(1, we2.value.pageSize)), it2.value && (_.value = 0), null === (l = o.onChange) || void 0 === l || l.call(o, e2.pagination || we2.value, e2.filters || ve2.value, e2.sorter || ce2.value, { currentDataSource: e2.currentDataSource || pe2.value, action: t });
@@ -5821,13 +5839,13 @@ var cs = Vue.defineComponent({ name: "STable", components: { Body: si, Header: J
       p2();
     }).catch(() => {
     }) : p2();
-  }, virtual: H, xVirtual: M, dataRowPosition: Ze2, rawColumns: F, bodyHeight: K, scrollTop: _, scrollLeft: R, domScrollTop: O, domScrollLeft: $, supportSticky: fl, childrenColumnName: W, bodyScrollWidth: A, baseHeight: re2, startIndex: Ie2, data: Je2, pageData: Se2, getRecordByKey: B, getIndexsByKey: L, expandType: oe2, flattenData: ke2, expandedRowKeys: Q, indentSize: ut2, props: o, bodyWidth: E, scrollTo: Ne2, scrollBarSize: ne2, leftWidth: He2, rightWidth: Me2, centerWidth: ze2, showVerticalScrollbar: at2, showHorizontalScrollbar: ot2, getRowKey: z, selection: Fe2, updateSelectedRowKeys: (e2) => {
+  }, virtual: H, xVirtual: M, dataRowPosition: Qe2, rawColumns: F, bodyHeight: K, scrollTop: _, scrollLeft: R, domScrollTop: O, domScrollLeft: $, supportSticky: fl, childrenColumnName: W, bodyScrollWidth: A, baseHeight: re2, startIndex: Ie2, data: Je2, pageData: Se2, getRecordByKey: B, getIndexsByKey: L, expandType: oe2, flattenData: ke2, expandedRowKeys: Z, indentSize: ut2, props: o, bodyWidth: E, scrollTo: Ne2, scrollBarSize: ne2, leftWidth: He2, rightWidth: Me2, centerWidth: ze2, showVerticalScrollbar: at2, showHorizontalScrollbar: ot2, getRowKey: z, selection: Fe2, updateSelectedRowKeys: (e2) => {
     i("update:selectedRowKeys", e2);
   }, locale: k, sorterStates: ue2, changeSorter: de2, changeFilter: he2, filterStates: fe2, onTriggerExpand: (e2, t) => {
     let n;
-    const r = Q.value.has(t);
-    r ? (Q.value.delete(t), n = [...Q.value]) : n = [...Q.value, t], J2.value = n, i("update:expandedRowKeys", n), i("expand", !r, e2), i("expandedRowsChange", n);
-  }, keyEntities: _e2, pageDataRowKeys: Re2, pageDataEnableRowKeys: Oe2, checkboxPropsMap: $e2, mergedRowSelection: Z, getPopupContainer: c, allDataRowKeys: q2, allDataRootRowKeys: X2, dragRowsHandle: y, isMyChildren: Ee2, getKeyByIndexs: G, draggingColumnKey: x, dragColumnsHandle: w, onColumnDragEnd: (e2) => {
+    const r = Z.value.has(t);
+    r ? (Z.value.delete(t), n = [...Z.value]) : n = [...Z.value, t], J2.value = n, i("update:expandedRowKeys", n), i("expand", !r, e2), i("expandedRowsChange", n);
+  }, keyEntities: _e2, pageDataRowKeys: Re2, pageDataEnableRowKeys: Oe2, checkboxPropsMap: $e2, mergedRowSelection: Q, getPopupContainer: c, allDataRowKeys: q2, allDataRootRowKeys: X2, dragRowsHandle: y, isMyChildren: Ee2, getKeyByIndexs: G, draggingColumnKey: x, dragColumnsHandle: w, onColumnDragEnd: (e2) => {
     var t;
     const { dir: n, column: r, targetColumn: l } = e2, a2 = null === (t = o.onColumnDragEnd) || void 0 === t ? void 0 : t.call(o, e2);
     if (false === a2)
@@ -5999,7 +6017,7 @@ var ws = Vue.defineComponent({ name: "STableColumnGroup", slots: ["title"], __SU
 ws.render = function(e2, t, n, r, l, o) {
   return Vue.toDisplayString(null);
 }, ws.__file = "src/components/ColumnGroup.vue";
-const bs = (e2) => (e2.component(ds.name, ds), e2.component(ps.name, ps), e2.component(ws.name, ws), e2.component(gs.name, gs), e2.component(hs.name, hs), e2.component(ms.name, ms), e2), Cs = Object.assign(ds, { SELECTION_ALL: "SELECT_ALL", SELECTION_INVERT: "SELECT_INVERT", SELECTION_NONE: "SELECT_NONE", Column: ps, ColumnGroup: ws, Summary: gs, SummaryRow: hs, SummaryCell: ms, version: "2.4.7", setLicenseKey: as, install: bs });
+const bs = (e2) => (e2.component(ds.name, ds), e2.component(ps.name, ps), e2.component(ws.name, ws), e2.component(gs.name, gs), e2.component(hs.name, hs), e2.component(ms.name, ms), e2), Cs = Object.assign(ds, { SELECTION_ALL: "SELECT_ALL", SELECTION_INVERT: "SELECT_INVERT", SELECTION_NONE: "SELECT_NONE", Column: ps, ColumnGroup: ws, Summary: gs, SummaryRow: hs, SummaryCell: ms, version: "2.4.9", setLicenseKey: as, install: bs });
 var index = "";
 dayjs.locale("zh-cn");
 const appPlugins = {
@@ -6051,7 +6069,7 @@ async function main() {
     State_App.UseMockData = true;
     const { loadMockData } = await __vitePreload(() => import("./index.js").then(function(n) {
       return n.i;
-    }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css"] : void 0);
+    }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"] : void 0);
     await loadMockData();
   }
   Vue.createApp(PageToolboxHome).use(appPlugins, {

@@ -278,12 +278,12 @@ const routes = [
   {
     path: "/dev",
     name: "home",
-    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: `/login`,
     name: "login",
-    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
+    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
     meta: {
       title: $t("\u7528\u6237\u767B\u5F55").label
     }
@@ -291,12 +291,12 @@ const routes = [
   {
     path: `/group`,
     name: "group",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: `/group/:groupId`,
     name: "groupView",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.c1d3e9d1.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: "/:pathMatch(.*)*",

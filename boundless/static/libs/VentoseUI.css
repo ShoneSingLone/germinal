@@ -37,6 +37,9 @@
 .flex.like-float .el-button + .el-button {
   margin-left: 0;
 }
+.flex.around {
+  justify-content: space-around;
+}
 .flex.between {
   justify-content: space-between;
 }

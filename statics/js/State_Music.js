@@ -1,6 +1,27 @@
 import { S as State_App, A as API } from "./main.js";
 import { l as lStorage, _ as _global__, b as setDocumentTitle, m as get, p as set } from "./nprogress.js";
 const State_Music = Vue.reactive({
+  tabItems: [{
+    key: "playlist",
+    label: "\u5F53\u524D\u64AD\u653E\u5217\u8868",
+    icon: "playlist"
+  }, {
+    key: "new",
+    label: "\u53D1\u73B0\u97F3\u4E50",
+    icon: "music"
+  }, {
+    key: "singer",
+    label: "\u6B4C\u624B",
+    icon: "user"
+  }, {
+    key: "private",
+    label: "\u79C1\u85CF",
+    icon: "privateNet"
+  }, {
+    key: "cached",
+    label: "\u5DF2\u7F13\u5B58",
+    icon: "cached"
+  }],
   songId: 0,
   personalizedNewSong: [],
   audio: new Audio(),

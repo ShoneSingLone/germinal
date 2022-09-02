@@ -13,12 +13,3 @@
 #ViewMusicPlayer .volume {
   width: 120px;
 }
-#ViewMusic .site-layout .site-layout-background {
-  background: #fff;
-}
-#ViewMusic .ant-layout-sider {
-  position: relative;
-  min-width: 0;
-  background: #ffffff;
-  transition: all 0.2s;
-}
