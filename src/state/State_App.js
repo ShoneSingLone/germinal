@@ -7,6 +7,28 @@ import $ from "jquery";
 
 const { $t } = State_UI;
 export const State_App = reactive({
+	isCurrentClientMobile: (() => {
+		if (/Mobi|Android|iPhone/i.test(navigator?.userAgent)) {
+			return true;
+		}
+
+		if (
+			navigator.userAgent.match(/Mobi/i) ||
+			navigator.userAgent.match(/Android/i) ||
+			navigator.userAgent.match(/iPhone/i)
+		) {
+			return true;
+		}
+
+		if (!navigator?.userAgentData?.mobile) {
+			return false;
+		}
+
+		if (/Android|iPhone|iPad|iPod/i.test(navigator?.platform)) {
+			return true;
+		}
+		return false;
+	})(),
 	UseMockData: false,
 	theme: "light",
 	menuTree: [],
