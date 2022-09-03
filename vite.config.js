@@ -9,11 +9,17 @@ import importTo from "./vite/config/plugins/importTo";
 // import cssOnly from "rollup-plugin-css-only";
 import fs from "fs";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-
+const __APP_VERSION = Date.now().toString();
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
 const baseRoot = "./";
-console.log("🚀 isPro", isPro, "isLib", isLib, process.argv);
+console.log("🚀:", {
+	isPro,
+	isLib,
+	argv: process.argv,
+	__APP_VERSION
+});
+fs.writeFileSync("./build/make/PWA/__APP_VERSION", __APP_VERSION);
 
 const url = {
 	local: "http://localhost:7001/",
@@ -141,7 +147,7 @@ export default defineConfig({
 			/* windows平台 */
 			data: (() => {
 				return {
-					version: Date.now(),
+					version: __APP_VERSION,
 					urlBase,
 					urlApiBase,
 					urlWsBase
