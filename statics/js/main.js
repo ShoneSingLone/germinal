@@ -1692,7 +1692,7 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 const ALL_DEFAULT_ROUTES = _global__.reduce(
   MODULES_DEFAULT_ROUTES,
@@ -1775,32 +1775,32 @@ const routes = [
     meta: {
       title: $t$1("Music").label
     },
-    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "singer",
         path: "/music/singer",
-        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
         path: "/music/private",
-        component: () => __vitePreload(() => import("./PlayListPrivate.js"), true ? ["statics/js/PlayListPrivate.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListPrivate.js"), true ? ["statics/js/PlayListPrivate.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
@@ -1808,7 +1808,7 @@ const routes = [
     name: "PageDashboard",
     path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
@@ -6069,7 +6069,7 @@ async function main() {
     State_App.UseMockData = true;
     const { loadMockData } = await __vitePreload(() => import("./index.js").then(function(n) {
       return n.i;
-    }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.1a8c9d77.css"] : void 0);
+    }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css"] : void 0);
     await loadMockData();
   }
   Vue.createApp(PageToolboxHome).use(appPlugins, {

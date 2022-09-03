@@ -1071,8 +1071,8 @@ function filterEmpty() {
   children.forEach(function(child) {
     if (Array.isArray(child)) {
       res.push.apply(res, _toConsumableArray(child));
-    } else if (child.type === Vue.Fragment) {
-      res.push.apply(res, _toConsumableArray(child.children));
+    } else if ((child === null || child === void 0 ? void 0 : child.type) === Vue.Fragment) {
+      res.push.apply(res, _toConsumableArray(filterEmpty(child.children)));
     } else {
       res.push(child);
     }
@@ -2053,7 +2053,7 @@ function withUndefined(type4) {
   return type4;
 }
 var PropTypes$1 = PropTypes;
-var __rest$11 = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$10 = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -2073,7 +2073,7 @@ var Empty2 = function Empty3(props3, _ref) {
   var _a;
   var _useConfigInject = useConfigInject("empty", props3), direction = _useConfigInject.direction, prefixClsRef = _useConfigInject.prefixCls;
   var prefixCls = prefixClsRef.value;
-  var _b = _extends$1(_extends$1({}, props3), attrs), _b$image = _b.image, image = _b$image === void 0 ? defaultEmptyImg : _b$image, _b$description = _b.description, description = _b$description === void 0 ? ((_a = slots.description) === null || _a === void 0 ? void 0 : _a.call(slots)) || void 0 : _b$description, imageStyle = _b.imageStyle, _b$class = _b.class, className = _b$class === void 0 ? "" : _b$class, restProps = __rest$11(_b, ["image", "description", "imageStyle", "class"]);
+  var _b = _extends$1(_extends$1({}, props3), attrs), _b$image = _b.image, image = _b$image === void 0 ? defaultEmptyImg : _b$image, _b$description = _b.description, description = _b$description === void 0 ? ((_a = slots.description) === null || _a === void 0 ? void 0 : _a.call(slots)) || void 0 : _b$description, imageStyle = _b.imageStyle, _b$class = _b.class, className = _b$class === void 0 ? "" : _b$class, restProps = __rest$10(_b, ["image", "description", "imageStyle", "class"]);
   return Vue.createVNode(LocaleReceiver, {
     "componentName": "Empty",
     "children": function children(locale2) {
@@ -2349,7 +2349,7 @@ var Notice = Vue.defineComponent({
     };
   }
 });
-var __rest$10 = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$$ = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -2496,7 +2496,7 @@ var Notification = Vue.defineComponent({
   }
 });
 Notification.newInstance = function newNotificationInstance(properties, callback) {
-  var _a = properties || {}, _a$name = _a.name, name2 = _a$name === void 0 ? "notification" : _a$name, getContainer4 = _a.getContainer, appContext = _a.appContext, customizePrefixCls = _a.prefixCls, customRootPrefixCls = _a.rootPrefixCls, customTransitionName = _a.transitionName, hasTransitionName2 = _a.hasTransitionName, props3 = __rest$10(_a, ["name", "getContainer", "appContext", "prefixCls", "rootPrefixCls", "transitionName", "hasTransitionName"]);
+  var _a = properties || {}, _a$name = _a.name, name2 = _a$name === void 0 ? "notification" : _a$name, getContainer4 = _a.getContainer, appContext = _a.appContext, customizePrefixCls = _a.prefixCls, customRootPrefixCls = _a.rootPrefixCls, customTransitionName = _a.transitionName, hasTransitionName2 = _a.hasTransitionName, props3 = __rest$$(_a, ["name", "getContainer", "appContext", "prefixCls", "rootPrefixCls", "transitionName", "hasTransitionName"]);
   var div = document.createElement("div");
   if (getContainer4) {
     var root2 = getContainer4();
@@ -5189,7 +5189,7 @@ function registerTheme(globalPrefixCls, theme) {
     variables["".concat(type4, "-color")] = formatColor(baseColor);
     variables["".concat(type4, "-color-disabled")] = colorPalettes[1];
     variables["".concat(type4, "-color-hover")] = colorPalettes[4];
-    variables["".concat(type4, "-color-active")] = colorPalettes[7];
+    variables["".concat(type4, "-color-active")] = colorPalettes[6];
     variables["".concat(type4, "-color-outline")] = baseColor.clone().setAlpha(0.2).toRgbString();
     variables["".concat(type4, "-color-deprecated-bg")] = colorPalettes[1];
     variables["".concat(type4, "-color-deprecated-border")] = colorPalettes[3];
@@ -9420,7 +9420,7 @@ var Trigger = Vue.defineComponent({
     }
   }
 });
-var __rest$$ = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$_ = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -9517,7 +9517,7 @@ var SelectTrigger = Vue.defineComponent({
       }
     });
     return function() {
-      var _a = _extends$1(_extends$1({}, props3), attrs), _a$empty = _a.empty, empty2 = _a$empty === void 0 ? false : _a$empty, restProps = __rest$$(_a, ["empty"]);
+      var _a = _extends$1(_extends$1({}, props3), attrs), _a$empty = _a.empty, empty2 = _a$empty === void 0 ? false : _a$empty, restProps = __rest$_(_a, ["empty"]);
       var visible = restProps.visible, dropdownAlign = restProps.dropdownAlign, prefixCls = restProps.prefixCls, popupElement = restProps.popupElement, dropdownClassName = restProps.dropdownClassName, dropdownStyle = restProps.dropdownStyle, _restProps$direction = restProps.direction, direction = _restProps$direction === void 0 ? "ltr" : _restProps$direction, placement = restProps.placement, dropdownMatchSelectWidth = restProps.dropdownMatchSelectWidth, containerWidth = restProps.containerWidth, dropdownRender = restProps.dropdownRender, animation = restProps.animation, transitionName2 = restProps.transitionName, getPopupContainer = restProps.getPopupContainer, getTriggerDOMNode = restProps.getTriggerDOMNode, onPopupVisibleChange = restProps.onPopupVisibleChange, onPopupMouseEnter = restProps.onPopupMouseEnter;
       var dropdownPrefixCls = "".concat(prefixCls, "-dropdown");
       var popupNode = popupElement;
@@ -10009,7 +10009,7 @@ var useInjectOverflowContext = function useInjectOverflowContext2() {
     return null;
   }));
 };
-var __rest$_ = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$Z = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -10060,7 +10060,7 @@ var Item$3 = Vue.defineComponent({
       props3.registerSize;
       props3.itemKey;
       props3.display;
-      var order = props3.order, _props$component = props3.component, Component = _props$component === void 0 ? "div" : _props$component, restProps = __rest$_(props3, ["prefixCls", "invalidate", "item", "renderItem", "responsive", "registerSize", "itemKey", "display", "order", "component"]);
+      var order = props3.order, _props$component = props3.component, Component = _props$component === void 0 ? "div" : _props$component, restProps = __rest$Z(props3, ["prefixCls", "invalidate", "item", "renderItem", "responsive", "registerSize", "itemKey", "display", "order", "component"]);
       var children = (_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots);
       var childNode = renderItem && item !== UNDEFINED ? renderItem(item) : children;
       var overflowStyle;
@@ -10101,7 +10101,7 @@ var Item$3 = Vue.defineComponent({
     };
   }
 });
-var __rest$Z = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$Y = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -10143,15 +10143,15 @@ var RawItem = Vue.defineComponent({
     return function() {
       var _a;
       if (!context2.value) {
-        var _props$component = props3.component, Component = _props$component === void 0 ? "div" : _props$component, _restProps = __rest$Z(props3, ["component"]);
+        var _props$component = props3.component, Component = _props$component === void 0 ? "div" : _props$component, _restProps = __rest$Y(props3, ["component"]);
         return Vue.createVNode(Component, _objectSpread2$1(_objectSpread2$1({}, _restProps), attrs), {
           default: function _default9() {
             return [(_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots)];
           }
         });
       }
-      var _b = context2.value, contextClassName = _b.className, restContext = __rest$Z(_b, ["className"]);
-      var className = attrs.class, restProps = __rest$Z(attrs, ["class"]);
+      var _b = context2.value, contextClassName = _b.className, restContext = __rest$Y(_b, ["className"]);
+      var className = attrs.class, restProps = __rest$Y(attrs, ["class"]);
       return Vue.createVNode(OverflowContextProvider, {
         "value": null
       }, {
@@ -10164,7 +10164,7 @@ var RawItem = Vue.defineComponent({
     };
   }
 });
-var __rest$Y = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$X = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -10344,7 +10344,7 @@ var Overflow = Vue.defineComponent({
     return function() {
       var displayRest = restReady.value && !!omittedItems.value.length;
       var itemComponent = props3.itemComponent, renderRawItem = props3.renderRawItem, renderRawRest = props3.renderRawRest, renderRest = props3.renderRest, _props$prefixCls = props3.prefixCls, prefixCls = _props$prefixCls === void 0 ? "rc-overflow" : _props$prefixCls, suffix = props3.suffix, _props$component = props3.component, Component = _props$component === void 0 ? "div" : _props$component, id = props3.id, onMousedown2 = props3.onMousedown;
-      var className = attrs.class, style = attrs.style, restAttrs = __rest$Y(attrs, ["class", "style"]);
+      var className = attrs.class, style = attrs.style, restAttrs = __rest$X(attrs, ["class", "style"]);
       var suffixStyle = {};
       if (suffixFixedStart.value !== null && isResponsive.value) {
         suffixStyle = {
@@ -11104,7 +11104,7 @@ function toReactive(objectRef) {
   });
   return Vue.reactive(proxy);
 }
-var __rest$X = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$W = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -11569,7 +11569,7 @@ var BaseSelect = Vue.defineComponent({
       _a.onKeyup;
       _a.onKeydown;
       _a.onMousedown;
-      var onClear = _a.onClear, omitDomProps = _a.omitDomProps, getRawInputElement = _a.getRawInputElement, displayValues = _a.displayValues, onDisplayValuesChange = _a.onDisplayValuesChange, emptyOptions = _a.emptyOptions, activeDescendantId = _a.activeDescendantId, activeValue = _a.activeValue, OptionList2 = _a.OptionList, restProps = __rest$X(_a, ["prefixCls", "id", "open", "defaultOpen", "mode", "showSearch", "searchValue", "onSearch", "allowClear", "clearIcon", "showArrow", "inputIcon", "disabled", "loading", "getInputElement", "getPopupContainer", "placement", "animation", "transitionName", "dropdownStyle", "dropdownClassName", "dropdownMatchSelectWidth", "dropdownRender", "dropdownAlign", "showAction", "direction", "tokenSeparators", "tagRender", "optionLabelRender", "onPopupScroll", "onDropdownVisibleChange", "onFocus", "onBlur", "onKeyup", "onKeydown", "onMousedown", "onClear", "omitDomProps", "getRawInputElement", "displayValues", "onDisplayValuesChange", "emptyOptions", "activeDescendantId", "activeValue", "OptionList"]);
+      var onClear = _a.onClear, omitDomProps = _a.omitDomProps, getRawInputElement = _a.getRawInputElement, displayValues = _a.displayValues, onDisplayValuesChange = _a.onDisplayValuesChange, emptyOptions = _a.emptyOptions, activeDescendantId = _a.activeDescendantId, activeValue = _a.activeValue, OptionList2 = _a.OptionList, restProps = __rest$W(_a, ["prefixCls", "id", "open", "defaultOpen", "mode", "showSearch", "searchValue", "onSearch", "allowClear", "clearIcon", "showArrow", "inputIcon", "disabled", "loading", "getInputElement", "getPopupContainer", "placement", "animation", "transitionName", "dropdownStyle", "dropdownClassName", "dropdownMatchSelectWidth", "dropdownRender", "dropdownAlign", "showAction", "direction", "tokenSeparators", "tagRender", "optionLabelRender", "onPopupScroll", "onDropdownVisibleChange", "onFocus", "onBlur", "onKeyup", "onKeydown", "onMousedown", "onClear", "omitDomProps", "getRawInputElement", "displayValues", "onDisplayValuesChange", "emptyOptions", "activeDescendantId", "activeValue", "OptionList"]);
       var customizeInputElement = mode === "combobox" && getInputElement && getInputElement() || null;
       var customizeRawInputElement = typeof getRawInputElement === "function" && getRawInputElement();
       var domProps = _extends$1({}, restProps);
@@ -12216,7 +12216,7 @@ function useMobileTouchMove(inVirtual, listRef, callback) {
     document.removeEventListener("touchmove", noop3);
   });
 }
-var __rest$W = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$V = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -12571,7 +12571,7 @@ var List$3 = Vue.defineComponent({
     _a.virtual;
     var _a$component = _a.component, Component = _a$component === void 0 ? "div" : _a$component;
     _a.onScroll;
-    var _a$children = _a.children, children = _a$children === void 0 ? this.$slots.default : _a$children, style = _a.style, className = _a.class, restProps = __rest$W(_a, ["prefixCls", "height", "itemHeight", "fullHeight", "data", "itemKey", "virtual", "component", "onScroll", "children", "style", "class"]);
+    var _a$children = _a.children, children = _a$children === void 0 ? this.$slots.default : _a$children, style = _a.style, className = _a.class, restProps = __rest$V(_a, ["prefixCls", "height", "itemHeight", "fullHeight", "data", "itemKey", "virtual", "component", "onScroll", "children", "style", "class"]);
     var mergedClassName = classNames(prefixCls, className);
     var scrollTop = this.state.scrollTop;
     var _this$calRes = this.calRes, scrollHeight = _this$calRes.scrollHeight, offset3 = _this$calRes.offset, start = _this$calRes.start, end = _this$calRes.end;
@@ -12641,7 +12641,7 @@ function useProvideSelectProps(props3) {
 function useSelectProps() {
   return Vue.inject(SelectContextKey, {});
 }
-var __rest$V = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$U = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -12893,7 +12893,7 @@ var OptionList$2 = Vue.defineComponent({
           }
           var disabled = data8.disabled, title = data8.title;
           data8.children;
-          var style = data8.style, cls = data8.class, className = data8.className, otherProps = __rest$V(data8, ["disabled", "title", "children", "style", "class", "className"]);
+          var style = data8.style, cls = data8.class, className = data8.className, otherProps = __rest$U(data8, ["disabled", "title", "children", "style", "class", "className"]);
           var passedProps = omit$2(otherProps, omitFieldNameList);
           var selected = isSelected(value);
           var optionPrefixCls = "".concat(itemPrefixCls.value, "-option");
@@ -12946,7 +12946,7 @@ var OptionList$2 = Vue.defineComponent({
   }
 });
 var OptionList$3 = OptionList$2;
-var __rest$U = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$T = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -12960,7 +12960,7 @@ var __rest$U = globalThis && globalThis.__rest || function(s2, e2) {
   return t2;
 };
 function convertNodeToOption(node) {
-  var _a = node, key2 = _a.key, children = _a.children, _b = _a.props, value = _b.value, disabled = _b.disabled, restProps = __rest$U(_b, ["value", "disabled"]);
+  var _a = node, key2 = _a.key, children = _a.children, _b = _a.props, value = _b.value, disabled = _b.disabled, restProps = __rest$T(_b, ["value", "disabled"]);
   var child = children === null || children === void 0 ? void 0 : children.default;
   return _extends$1({
     key: key2,
@@ -14655,7 +14655,7 @@ var Content$2 = Vue.defineComponent({
     };
   }
 });
-var __rest$T = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$S = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -14762,7 +14762,7 @@ var Tooltip = Vue.defineComponent({
     return function() {
       var overlayClassName = props3.overlayClassName, trigger2 = props3.trigger, mouseEnterDelay = props3.mouseEnterDelay, mouseLeaveDelay = props3.mouseLeaveDelay, overlayStyle = props3.overlayStyle, prefixCls = props3.prefixCls, afterVisibleChange2 = props3.afterVisibleChange, transitionName2 = props3.transitionName, animation = props3.animation, placement = props3.placement, align = props3.align;
       props3.destroyTooltipOnHide;
-      var defaultVisible = props3.defaultVisible, restProps = __rest$T(props3, ["overlayClassName", "trigger", "mouseEnterDelay", "mouseLeaveDelay", "overlayStyle", "prefixCls", "afterVisibleChange", "transitionName", "animation", "placement", "align", "destroyTooltipOnHide", "defaultVisible"]);
+      var defaultVisible = props3.defaultVisible, restProps = __rest$S(props3, ["overlayClassName", "trigger", "mouseEnterDelay", "mouseLeaveDelay", "overlayStyle", "prefixCls", "afterVisibleChange", "transitionName", "animation", "placement", "align", "destroyTooltipOnHide", "defaultVisible"]);
       var extraProps = _extends$1({}, restProps);
       if (props3.visible !== void 0) {
         extraProps.popupVisible = props3.visible;
@@ -15519,7 +15519,7 @@ var SingleNumber = Vue.defineComponent({
     };
   }
 });
-var __rest$S = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$R = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -15552,7 +15552,7 @@ var ScrollNumber = Vue.defineComponent({
       _b.prefixCls;
       var count = _b.count, title = _b.title;
       _b.show;
-      var _b$component = _b.component, Tag2 = _b$component === void 0 ? "sup" : _b$component, className = _b.class, style = _b.style, restProps = __rest$S(_b, ["prefixCls", "count", "title", "show", "component", "class", "style"]);
+      var _b$component = _b.component, Tag2 = _b$component === void 0 ? "sup" : _b$component, className = _b.class, style = _b.style, restProps = __rest$R(_b, ["prefixCls", "count", "title", "show", "component", "class", "style"]);
       var newProps = _extends$1(_extends$1({}, restProps), {
         style,
         "data-show": props3.show,
@@ -15593,7 +15593,7 @@ var ScrollNumber = Vue.defineComponent({
 function isPresetColor(color) {
   return PresetColorTypes.indexOf(color) !== -1;
 }
-var __rest$R = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$Q = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -15636,7 +15636,7 @@ var Ribbon = Vue.defineComponent({
     });
     return function() {
       var _a, _b;
-      var className = attrs.class, style = attrs.style, restAttrs = __rest$R(attrs, ["class", "style"]);
+      var className = attrs.class, style = attrs.style, restAttrs = __rest$Q(attrs, ["class", "style"]);
       var colorStyle = {};
       var cornerColorStyle = {};
       if (props3.color && !colorInPreset.value) {
@@ -15881,7 +15881,7 @@ var placements$1 = {
   }
 };
 var placements$2 = placements$1;
-var __rest$Q = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$P = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -15995,7 +15995,7 @@ var Dropdown$2 = Vue.defineComponent({
       return props3.hideAction;
     });
     return function() {
-      var prefixCls = props3.prefixCls, arrow = props3.arrow, showAction = props3.showAction, overlayStyle = props3.overlayStyle, trigger2 = props3.trigger, placement = props3.placement, align = props3.align, getPopupContainer = props3.getPopupContainer, transitionName2 = props3.transitionName, animation = props3.animation, overlayClassName = props3.overlayClassName, otherProps = __rest$Q(props3, ["prefixCls", "arrow", "showAction", "overlayStyle", "trigger", "placement", "align", "getPopupContainer", "transitionName", "animation", "overlayClassName"]);
+      var prefixCls = props3.prefixCls, arrow = props3.arrow, showAction = props3.showAction, overlayStyle = props3.overlayStyle, trigger2 = props3.trigger, placement = props3.placement, align = props3.align, getPopupContainer = props3.getPopupContainer, transitionName2 = props3.transitionName, animation = props3.animation, overlayClassName = props3.overlayClassName, otherProps = __rest$P(props3, ["prefixCls", "arrow", "showAction", "overlayStyle", "trigger", "placement", "align", "getPopupContainer", "transitionName", "animation", "overlayClassName"]);
       return Vue.createVNode(Trigger, _objectSpread2$1(_objectSpread2$1({}, otherProps), {}, {
         "prefixCls": prefixCls,
         "ref": triggerRef,
@@ -16717,7 +16717,7 @@ var EllipsisOutlined = function EllipsisOutlined2(props3, context2) {
 EllipsisOutlined.displayName = "EllipsisOutlined";
 EllipsisOutlined.inheritAttrs = false;
 var EllipsisOutlined$1 = EllipsisOutlined;
-var __rest$P = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$O = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -16754,7 +16754,7 @@ var DropdownButton = Vue.defineComponent({
       _c.onVisibleChange;
       var _c$placement = _c.placement, placement = _c$placement === void 0 ? direction.value === "rtl" ? "bottomLeft" : "bottomRight" : _c$placement, href = _c.href, title = _c.title, _c$icon = _c.icon, icon = _c$icon === void 0 ? ((_b = slots.icon) === null || _b === void 0 ? void 0 : _b.call(slots)) || Vue.createVNode(EllipsisOutlined$1, null, null) : _c$icon, mouseEnterDelay = _c.mouseEnterDelay, mouseLeaveDelay = _c.mouseLeaveDelay, overlayClassName = _c.overlayClassName, overlayStyle = _c.overlayStyle, destroyPopupOnHide = _c.destroyPopupOnHide, onClick2 = _c.onClick;
       _c["onUpdate:visible"];
-      var restProps = __rest$P(_c, ["type", "disabled", "loading", "htmlType", "class", "overlay", "trigger", "align", "visible", "onVisibleChange", "placement", "href", "title", "icon", "mouseEnterDelay", "mouseLeaveDelay", "overlayClassName", "overlayStyle", "destroyPopupOnHide", "onClick", "onUpdate:visible"]);
+      var restProps = __rest$O(_c, ["type", "disabled", "loading", "htmlType", "class", "overlay", "trigger", "align", "visible", "onVisibleChange", "placement", "href", "title", "icon", "mouseEnterDelay", "mouseLeaveDelay", "overlayClassName", "overlayStyle", "destroyPopupOnHide", "onClick", "onUpdate:visible"]);
       var dropdownProps3 = {
         align,
         disabled,
@@ -16943,7 +16943,7 @@ var Dropdown = Vue.defineComponent({
 });
 Dropdown.Button = DropdownButton;
 var Dropdown$1 = Dropdown;
-var __rest$O = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$N = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -16994,7 +16994,7 @@ var BreadcrumbItem = Vue.defineComponent({
       var _a;
       var separator = (_a = getPropsSlot(slots, props3, "separator")) !== null && _a !== void 0 ? _a : "/";
       var children = getPropsSlot(slots, props3);
-      var cls = attrs.class, style = attrs.style, restAttrs = __rest$O(attrs, ["class", "style"]);
+      var cls = attrs.class, style = attrs.style, restAttrs = __rest$N(attrs, ["class", "style"]);
       var link;
       if (props3.href !== void 0) {
         link = Vue.createVNode("a", _objectSpread2$1({
@@ -18617,7 +18617,7 @@ var Breadcrumb = Vue.defineComponent({
     };
   }
 });
-var __rest$N = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$M = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -18646,7 +18646,7 @@ var BreadcrumbSeparator = Vue.defineComponent({
     return function() {
       var _a;
       attrs.separator;
-      var className = attrs.class, restAttrs = __rest$N(attrs, ["separator", "class"]);
+      var className = attrs.class, restAttrs = __rest$M(attrs, ["separator", "class"]);
       var children = flattenChildren((_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots));
       return Vue.createVNode("span", _objectSpread2$1({
         "class": ["".concat(prefixCls.value, "-separator"), className]
@@ -23165,7 +23165,7 @@ function RangerPicker() {
 }
 var InterRangerPicker = RangerPicker();
 var VCRangePicker = InterRangerPicker;
-var __rest$M = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$L = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -23261,7 +23261,7 @@ var VcCheckbox = Vue.defineComponent({
     };
     return function() {
       var _classNames;
-      var prefixCls = props3.prefixCls, name2 = props3.name, id = props3.id, type4 = props3.type, disabled = props3.disabled, readonly = props3.readonly, tabindex = props3.tabindex, autofocus = props3.autofocus, value = props3.value, required4 = props3.required, others = __rest$M(props3, ["prefixCls", "name", "id", "type", "disabled", "readonly", "tabindex", "autofocus", "value", "required"]);
+      var prefixCls = props3.prefixCls, name2 = props3.name, id = props3.id, type4 = props3.type, disabled = props3.disabled, readonly = props3.readonly, tabindex = props3.tabindex, autofocus = props3.autofocus, value = props3.value, required4 = props3.required, others = __rest$L(props3, ["prefixCls", "name", "id", "type", "disabled", "readonly", "tabindex", "autofocus", "value", "required"]);
       var className = attrs.class, onFocus2 = attrs.onFocus, onBlur2 = attrs.onBlur, onKeydown = attrs.onKeydown, onKeypress = attrs.onKeypress, onKeyup = attrs.onKeyup;
       var othersAndAttrs = _extends$1(_extends$1({}, others), attrs);
       var globalProps = Object.keys(othersAndAttrs).reduce(function(prev2, key2) {
@@ -23302,7 +23302,7 @@ var VcCheckbox = Vue.defineComponent({
     };
   }
 });
-var __rest$L = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$K = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -23381,7 +23381,7 @@ var Radio = Vue.defineComponent({
       var _classNames;
       var radioGroup = radioGroupContext;
       props3.prefixCls;
-      var _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$L(props3, ["prefixCls", "id"]);
+      var _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$K(props3, ["prefixCls", "id"]);
       var rProps = _extends$1({
         prefixCls: prefixCls.value,
         id
@@ -27841,7 +27841,7 @@ var NextArrow = function NextArrow2(_2, _ref2) {
   return nextArrow;
 };
 NextArrow.inheritAttrs = false;
-var __rest$K = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$J = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -28223,7 +28223,7 @@ var InnerSlider = {
         if (!nextState)
           return;
         _this6.animationEndCallback = setTimeout(function() {
-          var animating = nextState.animating, firstBatch = __rest$K(nextState, ["animating"]);
+          var animating = nextState.animating, firstBatch = __rest$J(nextState, ["animating"]);
           _this6.setState(firstBatch, function() {
             _this6.callbackTimers.push(setTimeout(function() {
               return _this6.setState({
@@ -28737,7 +28737,7 @@ var Slider$2 = Vue.defineComponent({
     }), this.$slots);
   }
 });
-var __rest$J = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$I = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -28908,7 +28908,7 @@ var Carousel = Vue.defineComponent({
     return function() {
       var _classNames2;
       var dots = props3.dots, arrows = props3.arrows, draggable = props3.draggable, effect = props3.effect;
-      var cls = attrs.class, style = attrs.style, restAttrs = __rest$J(attrs, ["class", "style"]);
+      var cls = attrs.class, style = attrs.style, restAttrs = __rest$I(attrs, ["class", "style"]);
       var fade = effect === "fade" ? true : props3.fade;
       var className = classNames(prefixCls.value, (_classNames2 = {}, _defineProperty$Y(_classNames2, "".concat(prefixCls.value, "-rtl"), direction.value === "rtl"), _defineProperty$Y(_classNames2, "".concat(prefixCls.value, "-vertical"), vertical.value), _defineProperty$Y(_classNames2, "".concat(cls), !!cls), _classNames2));
       return Vue.createVNode("div", {
@@ -29326,7 +29326,7 @@ var treeProps$1 = function treeProps() {
     }
   };
 };
-var __rest$I = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$H = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -29694,7 +29694,7 @@ var VcTreeNode = Vue.defineComponent({
       var _classNames;
       var _a = _extends$1(_extends$1({}, props3), attrs), eventKey = _a.eventKey, isLeaf3 = _a.isLeaf, isStart = _a.isStart, isEnd = _a.isEnd, domRef = _a.domRef, active = _a.active;
       _a.data;
-      var onMousemove = _a.onMousemove, selectable = _a.selectable, otherProps = __rest$I(_a, ["eventKey", "isLeaf", "isStart", "isEnd", "domRef", "active", "data", "onMousemove", "selectable"]);
+      var onMousemove = _a.onMousemove, selectable = _a.selectable, otherProps = __rest$H(_a, ["eventKey", "isLeaf", "isStart", "isEnd", "domRef", "active", "data", "onMousemove", "selectable"]);
       var _context$value6 = context2.value, prefixCls = _context$value6.prefixCls, filterTreeNode = _context$value6.filterTreeNode, keyEntities2 = _context$value6.keyEntities, dropContainerKey = _context$value6.dropContainerKey, dropTargetKey = _context$value6.dropTargetKey, draggingNodeKey = _context$value6.draggingNodeKey;
       var disabled = isDisabled.value;
       var dataOrAriaAttributeProps = pickAttrs(otherProps, {
@@ -29946,7 +29946,7 @@ function conductExpandParent(keyList, keyEntities) {
   });
   return _toConsumableArray(expandedKeys);
 }
-var __rest$H = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$G = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -30000,7 +30000,7 @@ function convertTreeToData(rootNodes) {
         disableCheckbox: disableCheckbox || disableCheckbox === "" || void 0
       };
       var slotsProps = _extends$1(_extends$1({}, props3), newProps);
-      var _props$title = props3.title, title = _props$title === void 0 ? (_a = slots.title) === null || _a === void 0 ? void 0 : _a.call(slots, slotsProps) : _props$title, _props$icon = props3.icon, icon = _props$icon === void 0 ? (_b = slots.icon) === null || _b === void 0 ? void 0 : _b.call(slots, slotsProps) : _props$icon, _props$switcherIcon = props3.switcherIcon, switcherIcon = _props$switcherIcon === void 0 ? (_c = slots.switcherIcon) === null || _c === void 0 ? void 0 : _c.call(slots, slotsProps) : _props$switcherIcon, rest = __rest$H(props3, ["title", "icon", "switcherIcon"]);
+      var _props$title = props3.title, title = _props$title === void 0 ? (_a = slots.title) === null || _a === void 0 ? void 0 : _a.call(slots, slotsProps) : _props$title, _props$icon = props3.icon, icon = _props$icon === void 0 ? (_b = slots.icon) === null || _b === void 0 ? void 0 : _b.call(slots, slotsProps) : _props$icon, _props$switcherIcon = props3.switcherIcon, switcherIcon = _props$switcherIcon === void 0 ? (_c = slots.switcherIcon) === null || _c === void 0 ? void 0 : _c.call(slots, slotsProps) : _props$switcherIcon, rest = __rest$G(props3, ["title", "icon", "switcherIcon"]);
       var children = (_d = slots.default) === null || _d === void 0 ? void 0 : _d.call(slots);
       var dataNode = _extends$1(_extends$1(_extends$1({}, rest), {
         title,
@@ -34664,7 +34664,7 @@ Form$1.install = function(app) {
   app.component(FormItemRest.name, FormItemRest);
   return app;
 };
-var __rest$G = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$F = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -34804,7 +34804,7 @@ var Cascader = Vue.defineComponent({
     return function() {
       var _ref3;
       var _a, _b;
-      var _props$notFoundConten = props3.notFoundContent, notFoundContent = _props$notFoundConten === void 0 ? (_a = slots.notFoundContent) === null || _a === void 0 ? void 0 : _a.call(slots) : _props$notFoundConten, _props$expandIcon = props3.expandIcon, expandIcon = _props$expandIcon === void 0 ? (_b = slots.expandIcon) === null || _b === void 0 ? void 0 : _b.call(slots) : _props$expandIcon, multiple = props3.multiple, bordered = props3.bordered, allowClear = props3.allowClear, choiceTransitionName = props3.choiceTransitionName, transitionName2 = props3.transitionName, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$G(props3, ["notFoundContent", "expandIcon", "multiple", "bordered", "allowClear", "choiceTransitionName", "transitionName", "id"]);
+      var _props$notFoundConten = props3.notFoundContent, notFoundContent = _props$notFoundConten === void 0 ? (_a = slots.notFoundContent) === null || _a === void 0 ? void 0 : _a.call(slots) : _props$notFoundConten, _props$expandIcon = props3.expandIcon, expandIcon = _props$expandIcon === void 0 ? (_b = slots.expandIcon) === null || _b === void 0 ? void 0 : _b.call(slots) : _props$expandIcon, multiple = props3.multiple, bordered = props3.bordered, allowClear = props3.allowClear, choiceTransitionName = props3.choiceTransitionName, transitionName2 = props3.transitionName, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$F(props3, ["notFoundContent", "expandIcon", "multiple", "bordered", "allowClear", "choiceTransitionName", "transitionName", "id"]);
       var mergedNotFoundContent = notFoundContent || renderEmpty2.value("Cascader");
       var mergedExpandIcon = expandIcon;
       if (!expandIcon) {
@@ -34940,7 +34940,7 @@ var checkboxProps = function checkboxProps2() {
   });
 };
 var CheckboxGroupContextKey = Symbol("CheckboxGroupContext");
-var __rest$F = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$E = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -34999,10 +34999,10 @@ var Checkbox$1 = Vue.defineComponent({
       var _classNames;
       var _a;
       var children = flattenChildren((_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots));
-      var indeterminate = props3.indeterminate, skipGroup = props3.skipGroup, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$F(props3, ["indeterminate", "skipGroup", "id"]);
+      var indeterminate = props3.indeterminate, skipGroup = props3.skipGroup, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$E(props3, ["indeterminate", "skipGroup", "id"]);
       var onMouseenter2 = attrs.onMouseenter, onMouseleave2 = attrs.onMouseleave;
       attrs.onInput;
-      var className = attrs.class, style = attrs.style, restAttrs = __rest$F(attrs, ["onMouseenter", "onMouseleave", "onInput", "class", "style"]);
+      var className = attrs.class, style = attrs.style, restAttrs = __rest$E(attrs, ["onMouseenter", "onMouseleave", "onInput", "class", "style"]);
       var checkboxProps3 = _extends$1(_extends$1(_extends$1({}, restProps), {
         id,
         prefixCls: prefixCls.value
@@ -35770,7 +35770,7 @@ function rangePickerProps() {
     }
   };
 }
-var __rest$E = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$D = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -35870,7 +35870,7 @@ function generateSinglePicker(generateConfig2, extraProps) {
           var _a, _b, _c, _d, _e, _f;
           var locale2 = _extends$1(_extends$1({}, contextLocale.value), props3.locale);
           var p2 = _extends$1(_extends$1({}, props3), attrs);
-          var _p$bordered = p2.bordered, bordered = _p$bordered === void 0 ? true : _p$bordered, placeholder = p2.placeholder, _p$suffixIcon = p2.suffixIcon, suffixIcon = _p$suffixIcon === void 0 ? (_a = slots.suffixIcon) === null || _a === void 0 ? void 0 : _a.call(slots) : _p$suffixIcon, _p$showToday = p2.showToday, showToday = _p$showToday === void 0 ? true : _p$showToday, transitionName2 = p2.transitionName, _p$allowClear = p2.allowClear, allowClear = _p$allowClear === void 0 ? true : _p$allowClear, _p$dateRender = p2.dateRender, dateRender = _p$dateRender === void 0 ? slots.dateRender : _p$dateRender, _p$renderExtraFooter = p2.renderExtraFooter, renderExtraFooter = _p$renderExtraFooter === void 0 ? slots.renderExtraFooter : _p$renderExtraFooter, _p$monthCellRender = p2.monthCellRender, monthCellRender = _p$monthCellRender === void 0 ? slots.monthCellRender || props3.monthCellContentRender || slots.monthCellContentRender : _p$monthCellRender, _p$clearIcon = p2.clearIcon, clearIcon = _p$clearIcon === void 0 ? (_b = slots.clearIcon) === null || _b === void 0 ? void 0 : _b.call(slots) : _p$clearIcon, _p$id = p2.id, id = _p$id === void 0 ? formItemContext.id.value : _p$id, restProps = __rest$E(p2, ["bordered", "placeholder", "suffixIcon", "showToday", "transitionName", "allowClear", "dateRender", "renderExtraFooter", "monthCellRender", "clearIcon", "id"]);
+          var _p$bordered = p2.bordered, bordered = _p$bordered === void 0 ? true : _p$bordered, placeholder = p2.placeholder, _p$suffixIcon = p2.suffixIcon, suffixIcon = _p$suffixIcon === void 0 ? (_a = slots.suffixIcon) === null || _a === void 0 ? void 0 : _a.call(slots) : _p$suffixIcon, _p$showToday = p2.showToday, showToday = _p$showToday === void 0 ? true : _p$showToday, transitionName2 = p2.transitionName, _p$allowClear = p2.allowClear, allowClear = _p$allowClear === void 0 ? true : _p$allowClear, _p$dateRender = p2.dateRender, dateRender = _p$dateRender === void 0 ? slots.dateRender : _p$dateRender, _p$renderExtraFooter = p2.renderExtraFooter, renderExtraFooter = _p$renderExtraFooter === void 0 ? slots.renderExtraFooter : _p$renderExtraFooter, _p$monthCellRender = p2.monthCellRender, monthCellRender = _p$monthCellRender === void 0 ? slots.monthCellRender || props3.monthCellContentRender || slots.monthCellContentRender : _p$monthCellRender, _p$clearIcon = p2.clearIcon, clearIcon = _p$clearIcon === void 0 ? (_b = slots.clearIcon) === null || _b === void 0 ? void 0 : _b.call(slots) : _p$clearIcon, _p$id = p2.id, id = _p$id === void 0 ? formItemContext.id.value : _p$id, restProps = __rest$D(p2, ["bordered", "placeholder", "suffixIcon", "showToday", "transitionName", "allowClear", "dateRender", "renderExtraFooter", "monthCellRender", "clearIcon", "id"]);
           var showTime = p2.showTime === "" ? true : p2.showTime;
           var format3 = p2.format;
           var additionalOverrideProps = {};
@@ -35983,7 +35983,7 @@ var SwapRightOutlined = function SwapRightOutlined2(props3, context2) {
 SwapRightOutlined.displayName = "SwapRightOutlined";
 SwapRightOutlined.inheritAttrs = false;
 var SwapRightOutlined$1 = SwapRightOutlined;
-var __rest$D = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$C = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -36084,7 +36084,7 @@ function generateRangePicker(generateConfig2, extraProps) {
         var locale2 = _extends$1(_extends$1({}, contextLocale.value), props3.locale);
         var p2 = _extends$1(_extends$1({}, props3), attrs);
         p2.prefixCls;
-        var _p$bordered = p2.bordered, bordered = _p$bordered === void 0 ? true : _p$bordered, placeholder = p2.placeholder, _p$suffixIcon = p2.suffixIcon, suffixIcon = _p$suffixIcon === void 0 ? (_a = slots.suffixIcon) === null || _a === void 0 ? void 0 : _a.call(slots) : _p$suffixIcon, _p$picker = p2.picker, picker = _p$picker === void 0 ? "date" : _p$picker, transitionName2 = p2.transitionName, _p$allowClear = p2.allowClear, allowClear = _p$allowClear === void 0 ? true : _p$allowClear, _p$dateRender = p2.dateRender, dateRender = _p$dateRender === void 0 ? slots.dateRender : _p$dateRender, _p$renderExtraFooter = p2.renderExtraFooter, renderExtraFooter = _p$renderExtraFooter === void 0 ? slots.renderExtraFooter : _p$renderExtraFooter, _p$separator = p2.separator, separator = _p$separator === void 0 ? (_b = slots.separator) === null || _b === void 0 ? void 0 : _b.call(slots) : _p$separator, _p$clearIcon = p2.clearIcon, clearIcon = _p$clearIcon === void 0 ? (_c = slots.clearIcon) === null || _c === void 0 ? void 0 : _c.call(slots) : _p$clearIcon, _p$id = p2.id, id = _p$id === void 0 ? formItemContext.id.value : _p$id, restProps = __rest$D(p2, ["prefixCls", "bordered", "placeholder", "suffixIcon", "picker", "transitionName", "allowClear", "dateRender", "renderExtraFooter", "separator", "clearIcon", "id"]);
+        var _p$bordered = p2.bordered, bordered = _p$bordered === void 0 ? true : _p$bordered, placeholder = p2.placeholder, _p$suffixIcon = p2.suffixIcon, suffixIcon = _p$suffixIcon === void 0 ? (_a = slots.suffixIcon) === null || _a === void 0 ? void 0 : _a.call(slots) : _p$suffixIcon, _p$picker = p2.picker, picker = _p$picker === void 0 ? "date" : _p$picker, transitionName2 = p2.transitionName, _p$allowClear = p2.allowClear, allowClear = _p$allowClear === void 0 ? true : _p$allowClear, _p$dateRender = p2.dateRender, dateRender = _p$dateRender === void 0 ? slots.dateRender : _p$dateRender, _p$renderExtraFooter = p2.renderExtraFooter, renderExtraFooter = _p$renderExtraFooter === void 0 ? slots.renderExtraFooter : _p$renderExtraFooter, _p$separator = p2.separator, separator = _p$separator === void 0 ? (_b = slots.separator) === null || _b === void 0 ? void 0 : _b.call(slots) : _p$separator, _p$clearIcon = p2.clearIcon, clearIcon = _p$clearIcon === void 0 ? (_c = slots.clearIcon) === null || _c === void 0 ? void 0 : _c.call(slots) : _p$clearIcon, _p$id = p2.id, id = _p$id === void 0 ? formItemContext.id.value : _p$id, restProps = __rest$C(p2, ["prefixCls", "bordered", "placeholder", "suffixIcon", "picker", "transitionName", "allowClear", "dateRender", "renderExtraFooter", "separator", "clearIcon", "id"]);
         delete restProps["onUpdate:value"];
         delete restProps["onUpdate:open"];
         var format3 = p2.format, showTime = p2.showTime;
@@ -36262,7 +36262,8 @@ var Row = function Row2(props3) {
     var component = _ref2.component, type4 = _ref2.type, showLabel = _ref2.showLabel, showContent = _ref2.showContent, rootLabelStyle = _ref2.labelStyle, rootContentStyle = _ref2.contentStyle;
     return items.map(function(item, index3) {
       var _a, _b;
-      var _ref3 = item.props || {}, _ref3$prefixCls = _ref3.prefixCls, itemPrefixCls = _ref3$prefixCls === void 0 ? prefixCls2 : _ref3$prefixCls, _ref3$span = _ref3.span, span = _ref3$span === void 0 ? 1 : _ref3$span, labelStyle2 = _ref3.labelStyle, contentStyle2 = _ref3.contentStyle, _ref3$label = _ref3.label, label = _ref3$label === void 0 ? (_b = (_a = item.children) === null || _a === void 0 ? void 0 : _a.label) === null || _b === void 0 ? void 0 : _b.call(_a) : _ref3$label;
+      var itemProps = item.props || {};
+      var _itemProps$prefixCls = itemProps.prefixCls, itemPrefixCls = _itemProps$prefixCls === void 0 ? prefixCls2 : _itemProps$prefixCls, _itemProps$span = itemProps.span, span = _itemProps$span === void 0 ? 1 : _itemProps$span, _itemProps$labelStyle = itemProps.labelStyle, labelStyle2 = _itemProps$labelStyle === void 0 ? itemProps["label-style"] : _itemProps$labelStyle, _itemProps$contentSty = itemProps.contentStyle, contentStyle2 = _itemProps$contentSty === void 0 ? itemProps["content-style"] : _itemProps$contentSty, _itemProps$label = itemProps.label, label = _itemProps$label === void 0 ? (_b = (_a = item.children) === null || _a === void 0 ? void 0 : _a.label) === null || _b === void 0 ? void 0 : _b.call(_a) : _itemProps$label;
       var children = getSlot(item);
       var className = getClass(item);
       var style = getStyle(item);
@@ -36272,8 +36273,8 @@ var Row = function Row2(props3) {
           "key": "".concat(type4, "-").concat(String(key2) || index3),
           "class": className,
           "style": style,
-          "labelStyle": _extends$1(_extends$1({}, rootLabelStyle.value), labelStyle2),
-          "contentStyle": _extends$1(_extends$1({}, rootContentStyle.value), contentStyle2),
+          "labelStyle": _extends$1(_extends$1({}, rootLabelStyle), labelStyle2),
+          "contentStyle": _extends$1(_extends$1({}, rootContentStyle), contentStyle2),
           "span": span,
           "colon": colon,
           "component": component,
@@ -36286,7 +36287,7 @@ var Row = function Row2(props3) {
       return [Vue.createVNode(Cell$2, {
         "key": "label-".concat(String(key2) || index3),
         "class": className,
-        "style": _extends$1(_extends$1(_extends$1({}, rootLabelStyle.value), style), labelStyle2),
+        "style": _extends$1(_extends$1(_extends$1({}, rootLabelStyle), style), labelStyle2),
         "span": 1,
         "colon": colon,
         "component": component[0],
@@ -36296,7 +36297,7 @@ var Row = function Row2(props3) {
       }, null), Vue.createVNode(Cell$2, {
         "key": "content-".concat(String(key2) || index3),
         "class": className,
-        "style": _extends$1(_extends$1(_extends$1({}, rootContentStyle.value), style), contentStyle2),
+        "style": _extends$1(_extends$1(_extends$1({}, rootContentStyle), style), contentStyle2),
         "span": span * 2 - 1,
         "component": component[1],
         "itemPrefixCls": itemPrefixCls,
@@ -36318,8 +36319,8 @@ var Row = function Row2(props3) {
       component: "th",
       type: "label",
       showLabel: true,
-      labelStyle,
-      contentStyle
+      labelStyle: labelStyle.value,
+      contentStyle: contentStyle.value
     })]), Vue.createVNode("tr", {
       "key": "content-".concat(index2),
       "class": "".concat(prefixCls, "-row")
@@ -36327,8 +36328,8 @@ var Row = function Row2(props3) {
       component: "td",
       type: "content",
       showContent: true,
-      labelStyle,
-      contentStyle
+      labelStyle: labelStyle.value,
+      contentStyle: contentStyle.value
     })])]);
   }
   return Vue.createVNode("tr", {
@@ -36339,8 +36340,8 @@ var Row = function Row2(props3) {
     type: "item",
     showLabel: true,
     showContent: true,
-    labelStyle,
-    contentStyle
+    labelStyle: labelStyle.value,
+    contentStyle: contentStyle.value
   })]);
 };
 var Row$1 = Row;
@@ -36797,7 +36798,7 @@ var getTouchParentScroll = function getTouchParentScroll2(root2, currentTarget, 
   }
   return false;
 };
-var __rest$C = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$B = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -37146,7 +37147,7 @@ var DrawerChild = Vue.defineComponent({
       var showMask = props3.showMask, maskClosable = props3.maskClosable, maskStyle = props3.maskStyle, keyboard = props3.keyboard;
       props3.getOpenCount;
       props3.scrollLocker;
-      var contentWrapperStyle = props3.contentWrapperStyle, style = props3.style, className = props3.class, otherProps = __rest$C(props3, ["width", "height", "open", "prefixCls", "placement", "level", "levelMove", "ease", "duration", "getContainer", "onChange", "afterVisibleChange", "showMask", "maskClosable", "maskStyle", "keyboard", "getOpenCount", "scrollLocker", "contentWrapperStyle", "style", "class"]);
+      var contentWrapperStyle = props3.contentWrapperStyle, style = props3.style, className = props3.class, otherProps = __rest$B(props3, ["width", "height", "open", "prefixCls", "placement", "level", "levelMove", "ease", "duration", "getContainer", "onChange", "afterVisibleChange", "showMask", "maskClosable", "maskStyle", "keyboard", "getOpenCount", "scrollLocker", "contentWrapperStyle", "style", "class"]);
       var open2 = $open && canOpen.value;
       var wrapperClassName = classNames(prefixCls, (_classnames = {}, _defineProperty$Y(_classnames, "".concat(prefixCls, "-").concat(placement), true), _defineProperty$Y(_classnames, "".concat(prefixCls, "-open"), open2), _defineProperty$Y(_classnames, className, !!className), _defineProperty$Y(_classnames, "no-mask", !showMask), _classnames));
       var placementName = horizontalBoolAndPlacementName.value.placementName;
@@ -37501,7 +37502,7 @@ var Portal = Vue.defineComponent({
     };
   }
 });
-var __rest$B = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$A = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -37546,7 +37547,7 @@ var DrawerWrapper = Vue.defineComponent({
     };
     return function() {
       props3.afterVisibleChange;
-      var getContainer4 = props3.getContainer, wrapperClassName = props3.wrapperClassName, forceRender = props3.forceRender, otherProps = __rest$B(props3, ["afterVisibleChange", "getContainer", "wrapperClassName", "forceRender"]);
+      var getContainer4 = props3.getContainer, wrapperClassName = props3.wrapperClassName, forceRender = props3.forceRender, otherProps = __rest$A(props3, ["afterVisibleChange", "getContainer", "wrapperClassName", "forceRender"]);
       var portal = null;
       if (!getContainer4) {
         return Vue.createVNode("div", {
@@ -37570,7 +37571,7 @@ var DrawerWrapper = Vue.defineComponent({
           "wrapperClassName": wrapperClassName
         }, {
           default: function _default9(_a) {
-            var visible = _a.visible, afterClose = _a.afterClose, rest = __rest$B(_a, ["visible", "afterClose"]);
+            var visible = _a.visible, afterClose = _a.afterClose, rest = __rest$A(_a, ["visible", "afterClose"]);
             return Vue.createVNode(Child, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({
               "ref": dom
             }, otherProps), rest), {}, {
@@ -37587,7 +37588,7 @@ var DrawerWrapper = Vue.defineComponent({
   }
 });
 var Drawer$1 = DrawerWrapper;
-var __rest$A = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$z = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -37894,7 +37895,7 @@ var Drawer = Vue.defineComponent({
       var _classnames2;
       props3.width;
       props3.height;
-      var visible = props3.visible, placement = props3.placement, mask = props3.mask, wrapClassName = props3.wrapClassName, className = props3.class, rest = __rest$A(props3, ["width", "height", "visible", "placement", "mask", "wrapClassName", "class"]);
+      var visible = props3.visible, placement = props3.placement, mask = props3.mask, wrapClassName = props3.wrapClassName, className = props3.class, rest = __rest$z(props3, ["width", "height", "visible", "placement", "mask", "wrapClassName", "class"]);
       var val = mask ? offsetStyle.value : {};
       var haveMask = mask ? "" : "no-mask";
       var vcDrawerProps = _extends$1(_extends$1(_extends$1(_extends$1({}, attrs), omit$2(rest, ["size", "closeIcon", "closable", "destroyOnClose", "drawerStyle", "headerStyle", "bodyStyle", "title", "push", "wrapStyle", "onAfterVisibleChange", "onClose", "onUpdate:visible"])), val), {
@@ -38505,8 +38506,8 @@ var Group$1 = Vue.defineComponent({
       var _a;
       return Vue.createVNode("span", {
         "class": cls.value,
-        "onMouseenter": props3.onMouseEnter,
-        "onMouseleave": props3.onMouseLeave,
+        "onMouseenter": props3.onMouseenter,
+        "onMouseleave": props3.onMouseleave,
         "onFocus": props3.onFocus,
         "onBlur": props3.onBlur
       }, [(_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots)]);
@@ -38587,7 +38588,7 @@ var defaultResult = _extends$1(_extends$1({}, isMobile()), {
   isMobile
 });
 var isMobile$1 = defaultResult;
-var __rest$z = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$y = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -38652,7 +38653,7 @@ var InputSearch = Vue.defineComponent({
     return function() {
       var _classNames;
       var _a, _b, _c, _d;
-      var disabled = props3.disabled, loading = props3.loading, _props$addonAfter = props3.addonAfter, addonAfter = _props$addonAfter === void 0 ? (_a = slots.addonAfter) === null || _a === void 0 ? void 0 : _a.call(slots) : _props$addonAfter, _props$suffix = props3.suffix, suffix = _props$suffix === void 0 ? (_b = slots.suffix) === null || _b === void 0 ? void 0 : _b.call(slots) : _props$suffix, restProps = __rest$z(props3, ["disabled", "loading", "addonAfter", "suffix"]);
+      var disabled = props3.disabled, loading = props3.loading, _props$addonAfter = props3.addonAfter, addonAfter = _props$addonAfter === void 0 ? (_a = slots.addonAfter) === null || _a === void 0 ? void 0 : _a.call(slots) : _props$addonAfter, _props$suffix = props3.suffix, suffix = _props$suffix === void 0 ? (_b = slots.suffix) === null || _b === void 0 ? void 0 : _b.call(slots) : _props$suffix, restProps = __rest$y(props3, ["disabled", "loading", "addonAfter", "suffix"]);
       var _props$enterButton = props3.enterButton, enterButton = _props$enterButton === void 0 ? (_d = (_c = slots.enterButton) === null || _c === void 0 ? void 0 : _c.call(slots)) !== null && _d !== void 0 ? _d : false : _props$enterButton;
       enterButton = enterButton || enterButton === "";
       var searchIcon = typeof enterButton === "boolean" ? Vue.createVNode(SearchOutlined$1, null, null) : null;
@@ -39169,7 +39170,7 @@ var EyeInvisibleOutlined = function EyeInvisibleOutlined2(props3, context2) {
 EyeInvisibleOutlined.displayName = "EyeInvisibleOutlined";
 EyeInvisibleOutlined.inheritAttrs = false;
 var EyeInvisibleOutlined$1 = EyeInvisibleOutlined;
-var __rest$y = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$x = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -39245,7 +39246,7 @@ var InputPassword = Vue.defineComponent({
       return getPrefixCls2("input", props3.inputPrefixCls);
     });
     var renderPassword = function renderPassword2() {
-      var size = props3.size, visibilityToggle = props3.visibilityToggle, restProps = __rest$y(props3, ["size", "visibilityToggle"]);
+      var size = props3.size, visibilityToggle = props3.visibilityToggle, restProps = __rest$x(props3, ["size", "visibilityToggle"]);
       var suffixIcon = visibilityToggle && getIcon2(prefixCls.value);
       var inputClassName = classNames(prefixCls.value, attrs.class, _defineProperty$Y({}, "".concat(prefixCls.value, "-").concat(size), !!size));
       var omittedProps = _extends$1(_extends$1(_extends$1({}, omit$2(restProps, ["suffix", "iconRender", "action"])), attrs), {
@@ -39832,7 +39833,7 @@ function getFixScaleEleTransPosition(width, height, left, top) {
   }
   return fixPos;
 }
-var __rest$x = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$w = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -39986,7 +39987,7 @@ var Group = Vue.defineComponent({
       registerImage
     });
     return function() {
-      var dialogProps = __rest$x(preview.value, []);
+      var dialogProps = __rest$w(preview.value, []);
       return Vue.createVNode(Vue.Fragment, null, [slots.default && slots.default(), Vue.createVNode(Preview$1, _objectSpread2$1(_objectSpread2$1({}, dialogProps), {}, {
         "ria-hidden": !isShowPreview.value,
         "visible": isShowPreview.value,
@@ -40289,7 +40290,7 @@ var Preview = Vue.defineComponent({
   }
 });
 var Preview$1 = Preview;
-var __rest$w = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$v = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -40477,7 +40478,7 @@ var ImageInternal = Vue.defineComponent({
     return function() {
       var prefixCls2 = props3.prefixCls, wrapperClassName = props3.wrapperClassName, fallback = props3.fallback, imgSrc = props3.src, placeholder = props3.placeholder, wrapperStyle2 = props3.wrapperStyle, rootClassName = props3.rootClassName;
       var width = attrs.width, height = attrs.height, crossorigin = attrs.crossorigin, decoding = attrs.decoding, alt = attrs.alt, sizes = attrs.sizes, srcset = attrs.srcset, usemap = attrs.usemap, cls = attrs.class, style = attrs.style;
-      var _a = preview.value, icons2 = _a.icons, maskClassName = _a.maskClassName, previewSrc = _a.src, dialogProps = __rest$w(_a, ["icons", "maskClassName", "src"]);
+      var _a = preview.value, icons2 = _a.icons, maskClassName = _a.maskClassName, previewSrc = _a.src, dialogProps = __rest$v(_a, ["icons", "maskClassName", "src"]);
       var wrappperClass = classNames(prefixCls2, wrapperClassName, rootClassName, _defineProperty$Y({}, "".concat(prefixCls2, "-error"), isError.value));
       var mergedSrc = isError.value && fallback ? fallback : previewSrc !== null && previewSrc !== void 0 ? previewSrc : imgSrc;
       var imgCommonProps = {
@@ -41209,7 +41210,7 @@ var useFrame = function() {
     });
   };
 };
-var __rest$v = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$u = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -41590,7 +41591,7 @@ var VcInputNumber = Vue.defineComponent({
       _a.onInput;
       _a.onPressEnter;
       _a.onStep;
-      var lazy = _a.lazy, className = _a.class, style = _a.style, inputProps3 = __rest$v(_a, ["prefixCls", "min", "max", "step", "defaultValue", "value", "disabled", "readonly", "keyboard", "controls", "autofocus", "stringMode", "parser", "formatter", "precision", "decimalSeparator", "onChange", "onInput", "onPressEnter", "onStep", "lazy", "class", "style"]);
+      var lazy = _a.lazy, className = _a.class, style = _a.style, inputProps3 = __rest$u(_a, ["prefixCls", "min", "max", "step", "defaultValue", "value", "disabled", "readonly", "keyboard", "controls", "autofocus", "stringMode", "parser", "formatter", "precision", "decimalSeparator", "onChange", "onInput", "onPressEnter", "onStep", "lazy", "class", "style"]);
       var upHandler = slots.upHandler, downHandler = slots.downHandler;
       var inputClassName = "".concat(prefixCls, "-input");
       var eventProps = {};
@@ -41643,7 +41644,7 @@ var VcInputNumber = Vue.defineComponent({
 function isValidValue(val) {
   return val !== void 0 && val !== null;
 }
-var __rest$u = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$t = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -41726,7 +41727,7 @@ var InputNumber = Vue.defineComponent({
     return function() {
       var _classNames;
       var _a, _b, _c;
-      var _d = _extends$1(_extends$1({}, attrs), props3), className = _d.class, bordered = _d.bordered, readonly = _d.readonly, style = _d.style, _d$addonBefore = _d.addonBefore, addonBefore = _d$addonBefore === void 0 ? (_a = slots.addonBefore) === null || _a === void 0 ? void 0 : _a.call(slots) : _d$addonBefore, _d$addonAfter = _d.addonAfter, addonAfter = _d$addonAfter === void 0 ? (_b = slots.addonAfter) === null || _b === void 0 ? void 0 : _b.call(slots) : _d$addonAfter, _d$prefix = _d.prefix, prefix = _d$prefix === void 0 ? (_c = slots.prefix) === null || _c === void 0 ? void 0 : _c.call(slots) : _d$prefix, _d$valueModifiers = _d.valueModifiers, valueModifiers = _d$valueModifiers === void 0 ? {} : _d$valueModifiers, others = __rest$u(_d, ["class", "bordered", "readonly", "style", "addonBefore", "addonAfter", "prefix", "valueModifiers"]);
+      var _d = _extends$1(_extends$1({}, attrs), props3), className = _d.class, bordered = _d.bordered, readonly = _d.readonly, style = _d.style, _d$addonBefore = _d.addonBefore, addonBefore = _d$addonBefore === void 0 ? (_a = slots.addonBefore) === null || _a === void 0 ? void 0 : _a.call(slots) : _d$addonBefore, _d$addonAfter = _d.addonAfter, addonAfter = _d$addonAfter === void 0 ? (_b = slots.addonAfter) === null || _b === void 0 ? void 0 : _b.call(slots) : _d$addonAfter, _d$prefix = _d.prefix, prefix = _d$prefix === void 0 ? (_c = slots.prefix) === null || _c === void 0 ? void 0 : _c.call(slots) : _d$prefix, _d$valueModifiers = _d.valueModifiers, valueModifiers = _d$valueModifiers === void 0 ? {} : _d$valueModifiers, others = __rest$t(_d, ["class", "bordered", "readonly", "style", "addonBefore", "addonAfter", "prefix", "valueModifiers"]);
       var preCls = prefixCls.value;
       var mergeSize = size.value;
       var inputNumberClass = classNames((_classNames = {}, _defineProperty$Y(_classNames, "".concat(preCls, "-lg"), mergeSize === "large"), _defineProperty$Y(_classNames, "".concat(preCls, "-sm"), mergeSize === "small"), _defineProperty$Y(_classNames, "".concat(preCls, "-rtl"), direction.value === "rtl"), _defineProperty$Y(_classNames, "".concat(preCls, "-readonly"), readonly), _defineProperty$Y(_classNames, "".concat(preCls, "-borderless"), !bordered), _classNames), className);
@@ -42111,7 +42112,7 @@ var index$b = _extends$1(Layout$1, {
     return app;
   }
 });
-var __rest$t = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$s = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -42242,7 +42243,7 @@ var Spin = Vue.defineComponent({
     var _spinClassName;
     var _a, _b;
     var _this$$props = this.$props, size = _this$$props.size, customizePrefixCls = _this$$props.prefixCls, _this$$props$tip = _this$$props.tip, tip = _this$$props$tip === void 0 ? (_b = (_a = this.$slots).tip) === null || _b === void 0 ? void 0 : _b.call(_a) : _this$$props$tip, wrapperClassName = _this$$props.wrapperClassName;
-    var _c = this.$attrs, cls = _c.class, style = _c.style, divProps = __rest$t(_c, ["class", "style"]);
+    var _c = this.$attrs, cls = _c.class, style = _c.style, divProps = __rest$s(_c, ["class", "style"]);
     var _this$configProvider = this.configProvider, getPrefixCls2 = _this$configProvider.getPrefixCls, direction = _this$configProvider.direction;
     var prefixCls = getPrefixCls2("spin", customizePrefixCls);
     var sSpinning = this.sSpinning;
@@ -42582,7 +42583,7 @@ var Pagination$1 = {
   prev_3: "\u5411\u524D 3 \u9875",
   next_3: "\u5411\u540E 3 \u9875"
 };
-var __rest$s = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$r = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -42917,7 +42918,7 @@ var VcPagination = Vue.defineComponent({
     var _classNames6;
     var _this$$props3 = this.$props, prefixCls = _this$$props3.prefixCls, disabled = _this$$props3.disabled, hideOnSinglePage = _this$$props3.hideOnSinglePage, total2 = _this$$props3.total, locale2 = _this$$props3.locale, showQuickJumper = _this$$props3.showQuickJumper, showLessItems = _this$$props3.showLessItems, showTitle = _this$$props3.showTitle, showTotal = _this$$props3.showTotal, simple = _this$$props3.simple, itemRender = _this$$props3.itemRender, showPrevNextJumpers = _this$$props3.showPrevNextJumpers, jumpPrevIcon = _this$$props3.jumpPrevIcon, jumpNextIcon = _this$$props3.jumpNextIcon, selectComponentClass = _this$$props3.selectComponentClass, selectPrefixCls = _this$$props3.selectPrefixCls, pageSizeOptions = _this$$props3.pageSizeOptions;
     var stateCurrent2 = this.stateCurrent, statePageSize = this.statePageSize;
-    var _a = splitAttrs(this.$attrs).extraAttrs, className = _a.class, restAttrs = __rest$s(_a, ["class"]);
+    var _a = splitAttrs(this.$attrs).extraAttrs, className = _a.class, restAttrs = __rest$r(_a, ["class"]);
     if (hideOnSinglePage === true && this.total <= statePageSize) {
       return null;
     }
@@ -43164,7 +43165,7 @@ var VcPagination = Vue.defineComponent({
     }, null)]);
   }
 });
-var __rest$r = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$q = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -43285,7 +43286,7 @@ var Pagination = Vue.defineComponent({
     };
     return function() {
       var _a;
-      var size = props3.size, _props$itemRender = props3.itemRender, itemRender = _props$itemRender === void 0 ? slots.itemRender : _props$itemRender, _props$buildOptionTex = props3.buildOptionText, buildOptionText = _props$buildOptionTex === void 0 ? slots.buildOptionText : _props$buildOptionTex, selectComponentClass = props3.selectComponentClass, responsive = props3.responsive, restProps = __rest$r(props3, ["size", "itemRender", "buildOptionText", "selectComponentClass", "responsive"]);
+      var size = props3.size, _props$itemRender = props3.itemRender, itemRender = _props$itemRender === void 0 ? slots.itemRender : _props$itemRender, _props$buildOptionTex = props3.buildOptionText, buildOptionText = _props$buildOptionTex === void 0 ? slots.buildOptionText : _props$buildOptionTex, selectComponentClass = props3.selectComponentClass, responsive = props3.responsive, restProps = __rest$q(props3, ["size", "itemRender", "buildOptionText", "selectComponentClass", "responsive"]);
       var isSmall = size === "small" || !!(((_a = breakpoint.value) === null || _a === void 0 ? void 0 : _a.xs) && !size && responsive);
       var paginationProps3 = _extends$1(_extends$1(_extends$1(_extends$1(_extends$1({}, restProps), getIconsProps(prefixCls.value)), {
         prefixCls: prefixCls.value,
@@ -43343,7 +43344,7 @@ var ItemMeta = Vue.defineComponent({
   }
 });
 var ListContextKey = Symbol("ListContextKey");
-var __rest$q = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$p = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -43402,7 +43403,7 @@ var Item2 = Vue.defineComponent({
     };
     return function() {
       var _a, _b, _c, _d, _e;
-      var className = attrs.class, restAttrs = __rest$q(attrs, ["class"]);
+      var className = attrs.class, restAttrs = __rest$p(attrs, ["class"]);
       var pre = prefixCls.value;
       var extra = (_a = props3.extra) !== null && _a !== void 0 ? _a : (_b = slots.extra) === null || _b === void 0 ? void 0 : _b.call(slots);
       var children = (_c = slots.default) === null || _c === void 0 ? void 0 : _c.call(slots);
@@ -44008,7 +44009,7 @@ var defaultProps$1 = {
   }
 };
 initDefaultProps$1(vcMentionsProps, defaultProps$1);
-var __rest$p = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$o = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -44212,8 +44213,8 @@ var Mentions$1 = Vue.defineComponent({
     });
     return function() {
       var measureLocation = state.measureLocation, measurePrefix = state.measurePrefix, measuring = state.measuring;
-      var prefixCls = props3.prefixCls, placement = props3.placement, transitionName2 = props3.transitionName, getPopupContainer = props3.getPopupContainer, direction = props3.direction, restProps = __rest$p(props3, ["prefixCls", "placement", "transitionName", "getPopupContainer", "direction"]);
-      var className = attrs.class, style = attrs.style, otherAttrs = __rest$p(attrs, ["class", "style"]);
+      var prefixCls = props3.prefixCls, placement = props3.placement, transitionName2 = props3.transitionName, getPopupContainer = props3.getPopupContainer, direction = props3.direction, restProps = __rest$o(props3, ["prefixCls", "placement", "transitionName", "getPopupContainer", "direction"]);
+      var className = attrs.class, style = attrs.style, otherAttrs = __rest$o(attrs, ["class", "style"]);
       var inputProps3 = omit$2(restProps, ["value", "prefix", "split", "validateSearch", "filterOption", "options", "loading"]);
       var textareaProps = _extends$1(_extends$1(_extends$1({}, inputProps3), otherAttrs), {
         onChange: noop$5,
@@ -44266,7 +44267,7 @@ var Option3 = Vue.defineComponent({
     return (_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots);
   }
 });
-var __rest$o = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$n = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -44408,8 +44409,8 @@ var Mentions = Vue.defineComponent({
     });
     return function() {
       var _classNames;
-      var disabled = props3.disabled, getPopupContainer = props3.getPopupContainer, _props$rows = props3.rows, rows = _props$rows === void 0 ? 1 : _props$rows, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$o(props3, ["disabled", "getPopupContainer", "rows", "id"]);
-      var className = attrs.class, otherAttrs = __rest$o(attrs, ["class"]);
+      var disabled = props3.disabled, getPopupContainer = props3.getPopupContainer, _props$rows = props3.rows, rows = _props$rows === void 0 ? 1 : _props$rows, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$n(props3, ["disabled", "getPopupContainer", "rows", "id"]);
+      var className = attrs.class, otherAttrs = __rest$n(attrs, ["class"]);
       var otherProps = omit$2(restProps, ["defaultValue", "onUpdate:value", "prefixCls"]);
       var mergedClassName = classNames(className, (_classNames = {}, _defineProperty$Y(_classNames, "".concat(prefixCls.value, "-disabled"), disabled), _defineProperty$Y(_classNames, "".concat(prefixCls.value, "-focused"), focused.value), _defineProperty$Y(_classNames, "".concat(prefixCls.value, "-rtl"), direction.value === "rtl"), _classNames));
       var mentionsProps3 = _extends$1(_extends$1(_extends$1(_extends$1({
@@ -44451,7 +44452,7 @@ var index$a = _extends$1(Mentions, {
     return app;
   }
 });
-var __rest$n = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$m = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -44601,7 +44602,7 @@ var Modal = Vue.defineComponent({
       var _classNames;
       var _a;
       props3.prefixCls;
-      var visible = props3.visible, wrapClassName = props3.wrapClassName, centered = props3.centered, getContainer4 = props3.getContainer, _props$closeIcon = props3.closeIcon, _closeIcon = _props$closeIcon === void 0 ? (_a = slots.closeIcon) === null || _a === void 0 ? void 0 : _a.call(slots) : _props$closeIcon, _props$focusTriggerAf = props3.focusTriggerAfterClose, focusTriggerAfterClose = _props$focusTriggerAf === void 0 ? true : _props$focusTriggerAf, restProps = __rest$n(props3, ["prefixCls", "visible", "wrapClassName", "centered", "getContainer", "closeIcon", "focusTriggerAfterClose"]);
+      var visible = props3.visible, wrapClassName = props3.wrapClassName, centered = props3.centered, getContainer4 = props3.getContainer, _props$closeIcon = props3.closeIcon, _closeIcon = _props$closeIcon === void 0 ? (_a = slots.closeIcon) === null || _a === void 0 ? void 0 : _a.call(slots) : _props$closeIcon, _props$focusTriggerAf = props3.focusTriggerAfterClose, focusTriggerAfterClose = _props$focusTriggerAf === void 0 ? true : _props$focusTriggerAf, restProps = __rest$m(props3, ["prefixCls", "visible", "wrapClassName", "centered", "getContainer", "closeIcon", "focusTriggerAfterClose"]);
       var wrapClassNameExtended = classNames(wrapClassName, (_classNames = {}, _defineProperty$Y(_classNames, "".concat(prefixCls.value, "-centered"), !!centered), _defineProperty$Y(_classNames, "".concat(prefixCls.value, "-wrap-rtl"), direction.value === "rtl"), _classNames));
       return Vue.createVNode(DialogWrap$1, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, restProps), attrs), {}, {
         "getContainer": getContainer4 || getPopupContainer.value,
@@ -45536,7 +45537,7 @@ var ArrowRightOutlined = function ArrowRightOutlined2(props3, context2) {
 ArrowRightOutlined.displayName = "ArrowRightOutlined";
 ArrowRightOutlined.inheritAttrs = false;
 var ArrowRightOutlined$1 = ArrowRightOutlined;
-var __rest$m = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$l = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -45613,7 +45614,7 @@ var TransButton = Vue.defineComponent({
     });
     return function() {
       var _a;
-      var noStyle = props3.noStyle, disabled = props3.disabled, restProps = __rest$m(props3, ["noStyle", "disabled"]);
+      var noStyle = props3.noStyle, disabled = props3.disabled, restProps = __rest$l(props3, ["noStyle", "disabled"]);
       var mergedStyle = {};
       if (!noStyle) {
         mergedStyle = _extends$1({}, inlineStyle);
@@ -45770,7 +45771,7 @@ var PageHeader = Vue.defineComponent({
   }
 });
 var index$9 = withInstall(PageHeader);
-var __rest$l = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$k = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -45930,7 +45931,7 @@ var Popconfirm = Vue.defineComponent({
     };
     return function() {
       var _a;
-      var placement = props3.placement, overlayClassName = props3.overlayClassName, restProps = __rest$l(props3, ["placement", "overlayClassName"]);
+      var placement = props3.placement, overlayClassName = props3.overlayClassName, restProps = __rest$k(props3, ["placement", "overlayClassName"]);
       var otherProps = omit$2(restProps, ["title", "content", "cancelText", "okText", "onUpdate:visible", "onConfirm", "onCancel"]);
       var overlayClassNames = classNames(prefixClsConfirm.value, overlayClassName);
       return Vue.createVNode(X, _objectSpread2$1(_objectSpread2$1({}, otherProps), {}, {
@@ -46014,7 +46015,7 @@ function getSuccessPercent(_ref) {
   }
   return percent;
 }
-var __rest$k = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$j = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -46055,7 +46056,7 @@ var sortGradient = function sortGradient2(gradients) {
   }).join(", ");
 };
 var handleGradient = function handleGradient2(strokeColor, directionConfig) {
-  var _strokeColor$from = strokeColor.from, from = _strokeColor$from === void 0 ? presetPrimaryColors.blue : _strokeColor$from, _strokeColor$to = strokeColor.to, to = _strokeColor$to === void 0 ? presetPrimaryColors.blue : _strokeColor$to, _strokeColor$directio = strokeColor.direction, direction = _strokeColor$directio === void 0 ? directionConfig === "rtl" ? "to left" : "to right" : _strokeColor$directio, rest = __rest$k(strokeColor, ["from", "to", "direction"]);
+  var _strokeColor$from = strokeColor.from, from = _strokeColor$from === void 0 ? presetPrimaryColors.blue : _strokeColor$from, _strokeColor$to = strokeColor.to, to = _strokeColor$to === void 0 ? presetPrimaryColors.blue : _strokeColor$to, _strokeColor$directio = strokeColor.direction, direction = _strokeColor$directio === void 0 ? directionConfig === "rtl" ? "to left" : "to right" : _strokeColor$directio, rest = __rest$j(strokeColor, ["from", "to", "direction"]);
   if (Object.keys(rest).length !== 0) {
     var sortedGradients = sortGradient(rest);
     return {
@@ -46172,7 +46173,7 @@ var propTypes = {
   trailWidth: Number,
   transition: String
 };
-var __rest$j = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$i = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -46272,7 +46273,7 @@ var VCCircle = Vue.defineComponent({
     return function() {
       var prefixCls = props3.prefixCls, strokeWidth = props3.strokeWidth, trailWidth = props3.trailWidth, gapDegree = props3.gapDegree, gapPosition = props3.gapPosition, trailColor = props3.trailColor, strokeLinecap = props3.strokeLinecap;
       props3.strokeColor;
-      var restProps = __rest$j(props3, ["prefixCls", "strokeWidth", "trailWidth", "gapDegree", "gapPosition", "trailColor", "strokeLinecap", "strokeColor"]);
+      var restProps = __rest$i(props3, ["prefixCls", "strokeWidth", "trailWidth", "gapDegree", "gapPosition", "trailColor", "strokeLinecap", "strokeColor"]);
       var _getPathStyles2 = getPathStyles(0, 100, trailColor, strokeWidth, gapDegree, gapPosition), pathString = _getPathStyles2.pathString, pathStyle = _getPathStyles2.pathStyle;
       delete restProps.percent;
       var gradient = strokeColorList.value.find(function(color) {
@@ -48253,7 +48254,7 @@ function getKeyboardValueMutator(e2, vertical, reverse) {
     return calculateNextValue(method4, value, props3);
   };
 }
-var __rest$i = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$h = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -48363,7 +48364,7 @@ function createSlider(Component) {
       defaultHandle: function defaultHandle(_a) {
         var index2 = _a.index;
         _a.directives;
-        var className = _a.className, style = _a.style, restProps = __rest$i(_a, ["index", "directives", "className", "style"]);
+        var className = _a.className, style = _a.style, restProps = __rest$h(_a, ["index", "directives", "className", "style"]);
         delete restProps.dragging;
         if (restProps.value === null) {
           return null;
@@ -49349,7 +49350,7 @@ var SliderTooltip = Vue.defineComponent({
     };
   }
 });
-var __rest$h = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$g = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -49495,7 +49496,7 @@ var Slider = Vue.defineComponent({
       blur
     });
     var handleWithTooltip = function handleWithTooltip2(_a) {
-      var tooltipPrefixCls = _a.tooltipPrefixCls, _b = _a.info, value = _b.value, dragging = _b.dragging, index2 = _b.index, restProps = __rest$h(_b, ["value", "dragging", "index"]);
+      var tooltipPrefixCls = _a.tooltipPrefixCls, _b = _a.info, value = _b.value, dragging = _b.dragging, index2 = _b.index, restProps = __rest$g(_b, ["value", "dragging", "index"]);
       var tipFormatter = props3.tipFormatter, tooltipVisible = props3.tooltipVisible, getTooltipPopupContainer = props3.getTooltipPopupContainer;
       var isTipFormatter = tipFormatter ? visibles.value[index2] || dragging : false;
       var visible = tooltipVisible || tooltipVisible === void 0 && isTipFormatter;
@@ -49523,7 +49524,7 @@ var Slider = Vue.defineComponent({
       });
     };
     return function() {
-      var customizeTooltipPrefixCls = props3.tooltipPrefixCls, range3 = props3.range, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$h(props3, ["tooltipPrefixCls", "range", "id"]);
+      var customizeTooltipPrefixCls = props3.tooltipPrefixCls, range3 = props3.range, _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$g(props3, ["tooltipPrefixCls", "range", "id"]);
       var tooltipPrefixCls = configProvider.getPrefixCls("tooltip", customizeTooltipPrefixCls);
       var cls = classNames(attrs.class, _defineProperty$Y({}, "".concat(prefixCls.value, "-rtl"), direction.value === "rtl"));
       if (direction.value === "rtl" && !restProps.vertical) {
@@ -49684,7 +49685,7 @@ var Space = Vue.defineComponent({
   }
 });
 var index$5 = withInstall(Space);
-var __rest$g = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$f = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -49737,7 +49738,7 @@ var Steps$1 = Vue.defineComponent({
       return Vue.createVNode("div", {
         "class": classString
       }, [children.map(function(child, index2) {
-        var _a2 = child.props || {}, _a$prefixCls = _a2.prefixCls, pre = _a$prefixCls === void 0 ? prefixCls : _a$prefixCls, restProps = __rest$g(_a2, ["prefixCls"]);
+        var _a2 = child.props || {}, _a$prefixCls = _a2.prefixCls, pre = _a$prefixCls === void 0 ? prefixCls : _a$prefixCls, restProps = __rest$f(_a2, ["prefixCls"]);
         var stepNumber = initial + index2;
         var stepProps = _extends$1(_extends$1({}, restProps), {
           stepNumber: stepNumber + 1,
@@ -50303,7 +50304,7 @@ var useProvideSticky = function useProvideSticky2() {
 var useInjectSticky = function useInjectSticky2() {
   return supportSticky;
 };
-var __rest$f = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$e = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -50434,7 +50435,7 @@ var Cell2 = Vue.defineComponent({
       if (Array.isArray(childNode) && childNode.length === 1) {
         childNode = childNode[0];
       }
-      var _g = cellProps || {}, cellColSpan = _g.colSpan, cellRowSpan = _g.rowSpan, cellStyle = _g.style, cellClassName = _g.class, restCellProps = __rest$f(_g, ["colSpan", "rowSpan", "style", "class"]);
+      var _g = cellProps || {}, cellColSpan = _g.colSpan, cellRowSpan = _g.rowSpan, cellStyle = _g.style, cellClassName = _g.class, restCellProps = __rest$e(_g, ["colSpan", "rowSpan", "style", "class"]);
       var mergedColSpan = (_d = cellColSpan !== void 0 ? cellColSpan : colSpan.value) !== null && _d !== void 0 ? _d : 1;
       var mergedRowSpan = (_e = cellRowSpan !== void 0 ? cellRowSpan : rowSpan.value) !== null && _e !== void 0 ? _e : 1;
       if (mergedColSpan === 0 || mergedRowSpan === 0) {
@@ -51188,7 +51189,7 @@ var Body = Vue.defineComponent({
   }
 });
 var EXPAND_COLUMN = {};
-var __rest$e = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$d = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -51220,7 +51221,7 @@ function flatColumns(columns) {
 }
 function revertForRtl(columns) {
   return columns.map(function(column) {
-    var fixed = column.fixed, restProps = __rest$e(column, ["fixed"]);
+    var fixed = column.fixed, restProps = __rest$d(column, ["fixed"]);
     var parsedFixed = fixed;
     if (fixed === "left") {
       parsedFixed = "right";
@@ -51389,7 +51390,7 @@ function useStickyOffsets(colWidthsRef, columnCountRef, directionRef) {
   });
   return stickyOffsets;
 }
-var __rest$d = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$c = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -51414,7 +51415,7 @@ function ColGroup(_ref) {
     if (width || additionalProps || mustInsert) {
       var _a = additionalProps || {};
       _a.columnType;
-      var restAdditionalProps = __rest$d(_a, ["columnType"]);
+      var restAdditionalProps = __rest$c(_a, ["columnType"]);
       cols.unshift(Vue.createVNode("col", _objectSpread2$1({
         "key": i2,
         "style": {
@@ -53053,7 +53054,7 @@ var CaretUpOutlined = function CaretUpOutlined2(props3, context2) {
 CaretUpOutlined.displayName = "CaretUpOutlined";
 CaretUpOutlined.inheritAttrs = false;
 var CaretUpOutlined$1 = CaretUpOutlined;
-var __rest$c = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$b = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -53101,7 +53102,7 @@ function convertChildrenToColumns() {
       var _Object$entries$_i = _slicedToArray$2(_Object$entries[_i], 2), k2 = _Object$entries$_i[0], v2 = _Object$entries$_i[1];
       props3[Vue.camelize(k2)] = v2;
     }
-    var _e = element.children || {}, children = _e.default, restSlots = __rest$c(_e, ["default"]);
+    var _e = element.children || {}, children = _e.default, restSlots = __rest$b(_e, ["default"]);
     var column = _extends$1(_extends$1(_extends$1({}, restSlots), props3), {
       style,
       class: cls
@@ -53463,7 +53464,7 @@ var FilterSearch = Vue.defineComponent({
     };
   }
 });
-var __rest$b = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$a = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -53534,7 +53535,7 @@ var MotionTreeNode = Vue.defineComponent({
     });
     return function() {
       props3.motion;
-      var motionNodes = props3.motionNodes, motionType = props3.motionType, active = props3.active, eventKey = props3.eventKey, otherProps = __rest$b(props3, ["motion", "motionNodes", "motionType", "active", "eventKey"]);
+      var motionNodes = props3.motionNodes, motionType = props3.motionType, active = props3.active, eventKey = props3.eventKey, otherProps = __rest$a(props3, ["motion", "motionNodes", "motionType", "active", "eventKey"]);
       if (motionNodes) {
         return Vue.createVNode(Vue.Transition, _objectSpread2$1(_objectSpread2$1({}, transitionProps.value), {}, {
           "appear": motionType === "show",
@@ -53549,7 +53550,7 @@ var MotionTreeNode = Vue.defineComponent({
             return [Vue.withDirectives(Vue.createVNode("div", {
               "class": "".concat(context2.value.prefixCls, "-treenode-motion")
             }, [motionNodes.map(function(treeNode) {
-              var restProps = __rest$b(treeNode.data, []), title = treeNode.title, key2 = treeNode.key, isStart = treeNode.isStart, isEnd = treeNode.isEnd;
+              var restProps = __rest$a(treeNode.data, []), title = treeNode.title, key2 = treeNode.key, isStart = treeNode.isStart, isEnd = treeNode.isEnd;
               delete restProps.children;
               return Vue.createVNode(VcTreeNode, _objectSpread2$1(_objectSpread2$1({}, restProps), {}, {
                 "title": title,
@@ -53623,7 +53624,7 @@ function getExpandRange(shorter, longer, key2) {
   }
   return longer.slice(longerStartIndex + 1);
 }
-var __rest$a = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$9 = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -53770,7 +53771,7 @@ var NodeList = Vue.defineComponent({
       _a.checkable;
       var disabled = _a.disabled, motion = _a.motion, height = _a.height, itemHeight = _a.itemHeight, virtual = _a.virtual, focusable = _a.focusable, activeItem = _a.activeItem, focused = _a.focused, tabindex = _a.tabindex, onKeydown = _a.onKeydown, onFocus2 = _a.onFocus, onBlur2 = _a.onBlur, onListChangeStart = _a.onListChangeStart;
       _a.onListChangeEnd;
-      var domProps = __rest$a(_a, ["prefixCls", "selectable", "checkable", "disabled", "motion", "height", "itemHeight", "virtual", "focusable", "activeItem", "focused", "tabindex", "onKeydown", "onFocus", "onBlur", "onListChangeStart", "onListChangeEnd"]);
+      var domProps = __rest$9(_a, ["prefixCls", "selectable", "checkable", "disabled", "motion", "height", "itemHeight", "virtual", "focusable", "activeItem", "focused", "tabindex", "onKeydown", "onFocus", "onBlur", "onListChangeStart", "onListChangeEnd"]);
       return Vue.createVNode(Vue.Fragment, null, [focused && activeItem && Vue.createVNode("span", {
         "style": HIDDEN_STYLE$1,
         "aria-live": "assertive"
@@ -53821,7 +53822,7 @@ var NodeList = Vue.defineComponent({
         }
       }), {
         default: function _default9(treeNode) {
-          var pos = treeNode.pos, restProps = __rest$a(treeNode.data, []), title = treeNode.title, key2 = treeNode.key, isStart = treeNode.isStart, isEnd = treeNode.isEnd;
+          var pos = treeNode.pos, restProps = __rest$9(treeNode.data, []), title = treeNode.title, key2 = treeNode.key, isStart = treeNode.isStart, isEnd = treeNode.isEnd;
           var mergedKey = getKey2(key2, pos);
           delete restProps.key;
           delete restProps.children;
@@ -55302,7 +55303,7 @@ function convertDirectoryKeysToNodes(treeData, keys2, fieldNames) {
   });
   return nodes;
 }
-var __rest$9 = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$8 = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -55493,7 +55494,7 @@ var DirectoryTree = Vue.defineComponent({
     var _useConfigInject = useConfigInject("tree", props3), prefixCls = _useConfigInject.prefixCls, direction = _useConfigInject.direction;
     return function() {
       var connectClassName = classNames("".concat(prefixCls.value, "-directory"), _defineProperty$Y({}, "".concat(prefixCls.value, "-directory-rtl"), direction.value === "rtl"), attrs.class);
-      var _props$icon = props3.icon, icon = _props$icon === void 0 ? slots.icon : _props$icon, _props$blockNode = props3.blockNode, blockNode = _props$blockNode === void 0 ? true : _props$blockNode, otherProps = __rest$9(props3, ["icon", "blockNode"]);
+      var _props$icon = props3.icon, icon = _props$icon === void 0 ? slots.icon : _props$icon, _props$blockNode = props3.blockNode, blockNode = _props$blockNode === void 0 ? true : _props$blockNode, otherProps = __rest$8(props3, ["icon", "blockNode"]);
       return Vue.createVNode(Tree$1, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, attrs), {}, {
         "icon": icon || getIcon,
         "ref": treeRef,
@@ -58019,7 +58020,7 @@ TreeNode.inheritAttrs = false;
 TreeNode.displayName = "ATreeSelectNode";
 TreeNode.isTreeSelectNode = true;
 var TreeNode$1 = TreeNode;
-var __rest$8 = globalThis && globalThis.__rest || function(s2, e2) {
+var __rest$7 = globalThis && globalThis.__rest || function(s2, e2) {
   var t2 = {};
   for (var p2 in s2) {
     if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
@@ -58059,7 +58060,7 @@ function convertChildrenToData(rootNodes) {
         disableCheckbox: disableCheckbox || disableCheckbox === "" || void 0
       };
       var slotsProps = _extends$1(_extends$1({}, props3), newProps);
-      var _props$title = props3.title, title = _props$title === void 0 ? (_a = slots.title) === null || _a === void 0 ? void 0 : _a.call(slots, slotsProps) : _props$title, _props$switcherIcon = props3.switcherIcon, switcherIcon = _props$switcherIcon === void 0 ? (_b = slots.switcherIcon) === null || _b === void 0 ? void 0 : _b.call(slots, slotsProps) : _props$switcherIcon, rest = __rest$8(props3, ["title", "switcherIcon"]);
+      var _props$title = props3.title, title = _props$title === void 0 ? (_a = slots.title) === null || _a === void 0 ? void 0 : _a.call(slots, slotsProps) : _props$title, _props$switcherIcon = props3.switcherIcon, switcherIcon = _props$switcherIcon === void 0 ? (_b = slots.switcherIcon) === null || _b === void 0 ? void 0 : _b.call(slots, slotsProps) : _props$switcherIcon, rest = __rest$7(props3, ["title", "switcherIcon"]);
       var children = (_c = slots.default) === null || _c === void 0 ? void 0 : _c.call(slots);
       var dataNode = _extends$1(_extends$1(_extends$1({}, rest), {
         title,
@@ -59028,19 +59029,6 @@ var index$2 = _extends$1(TreeSelect, {
     return app;
   }
 });
-var __rest$7 = globalThis && globalThis.__rest || function(s2, e2) {
-  var t2 = {};
-  for (var p2 in s2) {
-    if (Object.prototype.hasOwnProperty.call(s2, p2) && e2.indexOf(p2) < 0)
-      t2[p2] = s2[p2];
-  }
-  if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
-    for (var i2 = 0, p2 = Object.getOwnPropertySymbols(s2); i2 < p2.length; i2++) {
-      if (e2.indexOf(p2[i2]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p2[i2]))
-        t2[p2[i2]] = s2[p2[i2]];
-    }
-  return t2;
-};
 var timePickerProps = function timePickerProps2() {
   return {
     format: String,
@@ -59126,8 +59114,8 @@ function createTimePicker(generateConfig2) {
         emit("ok", value);
       };
       return function() {
-        var _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id, restProps = __rest$7(props3, ["id"]);
-        return Vue.createVNode(InternalTimePicker, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, attrs), omit$2(restProps, ["onUpdate:value", "onUpdate:open"])), {}, {
+        var _props$id = props3.id, id = _props$id === void 0 ? formItemContext.id.value : _props$id;
+        return Vue.createVNode(InternalTimePicker, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, attrs), omit$2(props3, ["onUpdate:value", "onUpdate:open"])), {}, {
           "id": id,
           "dropdownClassName": props3.popupClassName,
           "mode": void 0,
@@ -59192,8 +59180,8 @@ function createTimePicker(generateConfig2) {
         emit("calendarChange", values, dateStrings, info);
       };
       return function() {
-        var _props$id2 = props3.id, id = _props$id2 === void 0 ? formItemContext.id.value : _props$id2, restProps = __rest$7(props3, ["id"]);
-        return Vue.createVNode(InternalRangePicker, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, attrs), omit$2(restProps, ["onUpdate:open", "onUpdate:value"])), {}, {
+        var _props$id2 = props3.id, id = _props$id2 === void 0 ? formItemContext.id.value : _props$id2;
+        return Vue.createVNode(InternalRangePicker, _objectSpread2$1(_objectSpread2$1(_objectSpread2$1({}, attrs), omit$2(props3, ["onUpdate:open", "onUpdate:value"])), {}, {
           "id": id,
           "dropdownClassName": props3.popupClassName,
           "picker": "time",
@@ -60040,6 +60028,7 @@ var Base = Vue.defineComponent({
     }
     function onCopyClick(e2) {
       e2.preventDefault();
+      e2.stopPropagation();
       var copyable = props3.copyable;
       var copyConfig = _extends$1({}, _typeof$2(copyable) === "object" ? copyable : null);
       if (copyConfig.text === void 0) {
@@ -62355,7 +62344,7 @@ var components$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePr
   UploadDragger,
   LocaleProvider: LocaleProvider$1
 }, Symbol.toStringTag, { value: "Module" }));
-var version = "3.2.11";
+var version = "3.2.12";
 var install12 = function install13(app) {
   Object.keys(components$1).forEach(function(key2) {
     var component = components$1[key2];
