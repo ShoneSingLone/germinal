@@ -13,3 +13,4 @@ package-lock.json
 
 privateConfigs.js
 src_music_old
+build/make/PWA/__APP_VERSION

@@ -1,4 +1,4 @@
-# Info
+# Info 不要使用pnpm
 - 2022年8月20日
 	- 建议用npm，因为使用了`"file:./local_moduels"`,pnpm似乎还没有支持......
 	
