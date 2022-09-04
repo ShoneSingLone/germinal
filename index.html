@@ -108,21 +108,7 @@
     </script>
   </div>
   
-  <script>
-      (() => {
-          /**/
-          if ("serviceWorker" in navigator) {
-              const register = navigator.serviceWorker.register("./sw.js");
-              Notification
-                  .requestPermission()
-                  .then(function(result) {
-                      if (result === "granted") {
-                          window.__APP_IS_GRANTED = true;
-                      }
-                  });
-          }
-      })();
-  </script>
+  <script id="registrySW"></script>
 <script type="module" src="/src/main.js"></script>
 </body>
 
