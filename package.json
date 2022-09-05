@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "bs": "npm i --legacy-peer-deps && npm run make:language",
-    "start": "cross-env NODE_ENV=development vite --host --open",
+    "start": "cross-env NODE_ENV=development vite --host",
     "lint": "npm run lint:src && npm run lint:yapi",
     "lint:src": "prettier --write ./src",
     "lint:yapi": "prettier --write ./src_yapi",
@@ -46,6 +46,8 @@
     "ysrc": "file:./src_yapi/"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "babel-plugin-transform-commonjs": "^1.1.6",
     "@ventose/utils-node": "^0.0.11",
     "@vitejs/plugin-basic-ssl": "^0.1.2",
     "@vitejs/plugin-vue": "^1.9.3",
