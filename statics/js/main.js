@@ -1810,12 +1810,12 @@ const routes = [
       {
         name: "private",
         path: "/music/private",
-        component: () => __vitePreload(() => import("./PlayListPrivate.js"), true ? ["statics/js/PlayListPrivate.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListPrivate.377ed32a.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListCached.bd55b191.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },

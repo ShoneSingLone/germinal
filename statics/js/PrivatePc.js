@@ -1,5 +1,6 @@
 import { S as State_Music, A as Actions_Music } from "./State_Music.js";
-import { _ as _global__, x as setPagination, d as defItem, f as defDataGridOption, y as keys, z as getMany, C as getPaginationPageSize, F as setDataGridInfo, h as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, G as del, c as _export_sfc } from "./nprogress.js";
+import { p as privatePlaylist } from "./AllMusicClient.js";
+import { _ as _global__, x as setPagination, d as defItem, f as defDataGridOption, C as getPaginationPageSize, F as setDataGridInfo, h as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, c as _export_sfc } from "./nprogress.js";
 import "./main.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -30,20 +31,6 @@ const State_query = Vue.reactive({
 const playListFindNew = Vue.reactive(defDataGridOption({
   currentPlaylistPrivate: [],
   async queryTableList(vm) {
-    let props = await keys();
-    props = props.filter((name) => /^audio_/.test(name));
-    let cachedPlaylist = await getMany(props);
-    cachedPlaylist = cachedPlaylist.map((i) => i.records);
-    playListFindNew.currentPlaylistPrivate = cachedPlaylist.filter((record) => {
-      const isOk = (prop) => {
-        if (State_query[prop].value) {
-          return String(record[prop]).includes(State_query[prop].value);
-        } else {
-          return true;
-        }
-      };
-      return isOk("title") && isOk("artist") && isOk("album");
-    });
     const {
       page,
       size
@@ -73,12 +60,12 @@ const playListFindNew = Vue.reactive(defDataGridOption({
       prop: "album"
     }),
     ...defColActions({
-      width: 140,
+      width: 100,
       renderCell({
         record,
         index
       }) {
-        var _a, _b;
+        var _a;
         return defColActionsBtnlist({
           btns: [{
             text: (_a = $t("\u64AD\u653E")) == null ? void 0 : _a.label,
@@ -95,12 +82,6 @@ const playListFindNew = Vue.reactive(defDataGridOption({
               Actions_Music.pushSongToPlaylist(record);
               await Actions_Music.playSongById(record.id);
             }
-          }, {
-            text: (_b = $t("\u79FB\u9664")) == null ? void 0 : _b.label,
-            async onClick() {
-              await del(`audio_${record.id}`);
-              playListFindNew.queryTableList();
-            }
           }]
         });
       }
@@ -115,17 +96,21 @@ var _sfc_main = {
       playListFindNew
     };
   },
-  async mounted() {
-    const socket_url = `${__URL_WS_BASE}?token=${State_App.token}`;
-    const socket = new WebSocket(socket_url);
-    socket.addEventListener("message", function(event) {
-      debugger;
-      console.log("Message from server ", _global__.safeParse(event.data));
-    });
+  mounted() {
     const vm = this;
     vm.$watch(() => {
       return `${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
-    }, _global__.debounce(async function() {
+    }, _global__.debounce(function() {
+      vm.playListFindNew.currentPlaylistPrivate = privatePlaylist.filter((record) => {
+        const isOk = (prop) => {
+          if (vm.State_query[prop].value) {
+            return String(record[prop]).includes(vm.State_query[prop].value);
+          } else {
+            return true;
+          }
+        };
+        return isOk("title") && isOk("artist") && isOk("album");
+      });
       setPagination(vm.playListFindNew, {
         page: 1
       });
@@ -135,7 +120,7 @@ var _sfc_main = {
     });
   }
 };
-var PlayListCached_vue_vue_type_style_index_0_lang = "";
+var PrivatePc_vue_vue_type_style_index_0_lang = "";
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xGap = Vue.resolveComponent("xGap");
   const _component_xItem = Vue.resolveComponent("xItem");
@@ -163,5 +148,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     Vue.createVNode(_component_xDataGrid, { configs: $setup.playListFindNew }, null, 8, ["configs"])
   ], 64);
 }
-var PlayListCached = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-export { PlayListCached as default };
+var PrivatePc = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export { PrivatePc as default };

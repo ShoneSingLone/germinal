@@ -1,8 +1,13 @@
 #ViewMusic #nav-tab {
   height: 48px !important;
+  z-index: 1;
 }
 #ViewMusic #nav-tab .menu-icon {
   width: 32px;
   height: 32px;
   border-radius: 4px;
+}
+#ViewMusic .play-list-wrapper {
+  overflow: auto;
+  height: 90%;
 }

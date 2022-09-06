@@ -17,8 +17,10 @@ const contentToCache = [
   "./statics/js/ViewD.js",
   "./statics/js/UserOutlined.js",
   "./statics/js/State_Music.js",
+  "./statics/js/PrivatePc.js",
+  "./statics/js/PrivateMobile.js",
+  "./statics/js/PrivateLayout.js",
   "./statics/js/PlayListSinger.js",
-  "./statics/js/PlayListPrivate.js",
   "./statics/js/PlayListFindNew.js",
   "./statics/js/PlayListCached.js",
   "./statics/js/PlayList.js",
@@ -33,6 +35,7 @@ const contentToCache = [
   "./statics/js/Group.js",
   "./statics/js/FormRules.js",
   "./statics/js/Dev.js",
+  "./statics/js/AllMusicClient.js",
   "./statics/assets/yapi.633ceb78.css",
   "./statics/assets/nprogress.a83d0ede.css",
   "./statics/assets/main.b28e70ef.css",
@@ -47,11 +50,12 @@ const contentToCache = [
   "./statics/assets/bg2.26a7254b.jpg",
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
-  "./statics/assets/PlayListPrivate.377ed32a.css",
+  "./statics/assets/PrivateMobile.6771dfb3.css",
+  "./statics/assets/PlayListCached.bd55b191.css",
   "./statics/assets/MusicPlayer.cf1819bc.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
   "./statics/assets/LayoutMusicPc.8bcd892b.css",
-  "./statics/assets/LayoutMusicMobile.6e270f20.css",
+  "./statics/assets/LayoutMusicMobile.c97511e3.css",
   "./statics/assets/LayoutBasic.8c490128.css",
   "./statics/assets/GroupList.ebf21596.css",
   "./statics/assets/Group.a18abc63.css",
@@ -129,7 +133,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1662427734755");
+			const cache = await caches.open("1662483275588");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -147,7 +151,7 @@ self.addEventListener("fetch", e => {
 				return r;
 			}
 			const response = await fetch(e.request);
-			const cache = await caches.open("1662427734755");
+			const cache = await caches.open("1662483275588");
 			console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 			// cache.put(e.request, response.clone());
 			return response;
