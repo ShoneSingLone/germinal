@@ -129,11 +129,12 @@ export default defineConfig({
 		useVue(),
 		useVueJsx(),
 		svgHelper(),
-		// commonjsToEs(),
+		commonjsToEs(),
 		injectHtml({
 			/* windows平台 */
 			data: (() => {
 				return {
+					__envMode: process.env.NODE_ENV,
 					version: __APP_VERSION,
 					urlBase,
 					urlApiBase,

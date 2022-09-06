@@ -44,7 +44,9 @@ export const State_App = reactive({
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs || {},
-	isDev: import.meta.env.MODE === "development"
+	isDev: (() => {
+		return __envMode === "development";
+	})()
 });
 
 if (State_App.isDev) {
@@ -193,7 +195,7 @@ export const Actions_App = {
 			}
 		});
 	},
-	Logout: async () => {
+	async Logout() {
 		try {
 			const res = await API.user.logout();
 			/* 退出成功后清空token */

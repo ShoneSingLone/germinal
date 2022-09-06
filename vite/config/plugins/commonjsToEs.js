@@ -31,18 +31,13 @@ module.exports = function svgHelper(options = {}) {
 	return {
 		name: "commonjs-to-es-loader",
 		enforce: "pre",
-		resolveid(id) {
-			if (id.match(jsRegex)) {
-				return id;
-			}
-		},
-
 		async load(id) {
 			console.log("🚀 load id", id);
 			const [path] = id.split("?", 2);
 			if (!path.match(jsRegex)) {
 				return;
 			}
+			// return `console.log('hello')`;
 			return transform(path);
 		}
 	};
