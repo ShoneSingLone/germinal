@@ -72,6 +72,7 @@ const playListFindNew = reactive(
 				};
 				return isOk("title") && isOk("artist") && isOk("album");
 			});
+
 			const { page, size } = getPaginationPageSize(playListFindNew);
 			const total = playListFindNew.currentPlaylistPrivate.length;
 			const data = playListFindNew.currentPlaylistPrivate.slice(
@@ -83,20 +84,9 @@ const playListFindNew = reactive(
 		isHideFilter: true,
 		dataSource: [],
 		columns: {
-			...defCol({
-				label: $t("歌曲标题").label,
-				prop: "title",
-				width: 200
-			}),
-			...defCol({
-				label: $t("歌手").label,
-				width: 200,
-				prop: "artist"
-			}),
-			...defCol({
-				label: $t("所属专辑").label,
-				prop: "album"
-			}),
+			...defCol({ label: $t("歌曲标题").label, prop: "title", width: 200 }),
+			...defCol({ label: $t("歌手").label, width: 200, prop: "artist" }),
+			...defCol({ label: $t("所属专辑").label, prop: "album" }),
 			...defColActions({
 				width: 140,
 				renderCell({ record, index }) {
@@ -140,6 +130,13 @@ export default {
 		};
 	},
 	async mounted() {
+		const socket_url = `${__URL_WS_BASE}?token=${State_App.token}`;
+		const socket = new WebSocket(socket_url);
+		socket.addEventListener("message", function (event) {
+			debugger;
+			console.log("Message from server ", _.safeParse(event.data));
+		});
+
 		const vm = this;
 		vm.$watch(
 			() => {

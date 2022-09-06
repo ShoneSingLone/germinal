@@ -244,7 +244,7 @@ const parseContent = returnSentence => {
  */
 mylodash.asyncLoadText = function (url) {
 	mylodash.asyncLoadText.cache = (() => {
-		if (import.meta.env.MODE === "development") {
+		if (__envMode === "development") {
 			return {};
 		}
 		return mylodash.asyncLoadText.cache || {};

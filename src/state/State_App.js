@@ -3,9 +3,9 @@ import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
 import md5 from "md5";
-import $ from "jquery";
 
 const { $t } = State_UI;
+
 export const State_App = reactive({
 	isCurrentClientMobile: (() => {
 		if (/Mobi|Android|iPhone/i.test(navigator?.userAgent)) {
@@ -44,7 +44,9 @@ export const State_App = reactive({
 	count: 0,
 	isMobile: false,
 	configs: lStorage.appConfigs || {},
-	isDev: import.meta.env.MODE === "development"
+	isDev: (() => {
+		return __envMode === "development";
+	})()
 });
 
 if (State_App.isDev) {
@@ -193,7 +195,7 @@ export const Actions_App = {
 			}
 		});
 	},
-	Logout: async () => {
+	async Logout() {
 		try {
 			const res = await API.user.logout();
 			/* 退出成功后清空token */

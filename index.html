@@ -6,6 +6,7 @@
   <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
+        window.__envMode = "<%- __envMode %>";
 		window.__APP_VERSION = "<%- version %>";
 		window.__URL_API_VERSION = "/v1";
 		window.__URL_BASE = "<%- urlBase %>";
@@ -108,21 +109,7 @@
     </script>
   </div>
   
-  <script>
-      (() => {
-          /**/
-          if ("serviceWorker" in navigator) {
-              const register = navigator.serviceWorker.register("./sw.js");
-              Notification
-                  .requestPermission()
-                  .then(function(result) {
-                      if (result === "granted") {
-                          window.__APP_IS_GRANTED = true;
-                      }
-                  });
-          }
-      })();
-  </script>
+  <script id="registrySW"></script>
 <script type="module" src="/src/main.js"></script>
 </body>
 

@@ -4,11 +4,13 @@ import useVueJsx from "@vitejs/plugin-vue-jsx";
 import usePluginImport from "vite-plugin-importer";
 import path from "path";
 import svgHelper from "./vite/config/plugins/svg";
+import commonjsToEs from "./vite/config/plugins/commonjsToEs";
 import { injectHtml } from "vite-plugin-html";
 import importTo from "./vite/config/plugins/importTo";
 // import cssOnly from "rollup-plugin-css-only";
 import fs from "fs";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+
 const __APP_VERSION = Date.now().toString();
 const isPro = process.env.NODE_ENV === "production";
 const isLib = process.env.type === "lib";
@@ -32,11 +34,12 @@ const proxyTarget = isWinPlatform ? url.remote : url.remote;
 const urlBase = "www.singlone.work";
 const urlApiBase = `https://${urlBase}/s/api`;
 const urlWsBase = `wss://${urlBase}/ws`;
+const isHttps = true;
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
 	server: {
-		https: true,
+		https: isHttps,
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd())]
 		},
@@ -45,13 +48,13 @@ export default defineConfig({
 				target: proxyTarget,
 				changeOrigin: true,
 				secure: false
-			},
-			"^/devyapi": {
+			}
+			/* "^/devyapi": {
 				target: "http://localhost:3001/",
 				changeOrigin: true,
 				secure: false,
 				rewrite: path => path.replace(/^\/devyapi/, "")
-			}
+			} */
 		}
 	},
 	base: baseRoot,
@@ -126,27 +129,12 @@ export default defineConfig({
 		useVue(),
 		useVueJsx(),
 		svgHelper(),
-		/* 懒加载antd 自动加载对应的css */
-		/* usePluginImport({
-			libraryName: "ant-design-vue",
-			// css位置 
-			libraryDirectory: "es",
-			// 加载的类型（less、css） 
-			style: "css"
-			// customStyleName: (name) => {
-			//     console.log('🚀:','name', JSON.stringify(name, null, 2));
-			//     if (['layout-content'].includes(name)) {
-			//         name = 'layout';
-			//     }
-			//     const cssName = `ant-design-vue/es/${name}/style/index.css`;
-			//     console.log('🚀:', 'cssName', JSON.stringify(cssName, null, 2));
-			//     return cssName;
-			// },
-		}), */
+		commonjsToEs(),
 		injectHtml({
 			/* windows平台 */
 			data: (() => {
 				return {
+					__envMode: process.env.NODE_ENV,
 					version: __APP_VERSION,
 					urlBase,
 					urlApiBase,
