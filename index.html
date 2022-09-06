@@ -7,7 +7,8 @@
   <link rel="icon" href="./favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
-		window.__APP_VERSION = "1662223849976";
+        window.__envMode = "production";
+		window.__APP_VERSION = "1662427734755";
 		window.__URL_API_VERSION = "/v1";
 		window.__URL_BASE = "www.singlone.work";
 		window.__URL_API_BASE = "https://www.singlone.work/s/api";
@@ -28,7 +29,7 @@
   <link rel="modulepreload" href="./statics/js/UserOutlined.js">
   <link rel="modulepreload" href="./statics/js/form.js">
   <link rel="stylesheet" href="./statics/assets/nprogress.a83d0ede.css">
-  <link rel="stylesheet" href="./statics/assets/main.74c6849f.css">
+  <link rel="stylesheet" href="./statics/assets/main.b28e70ef.css">
 </head>
 
 <body>
@@ -123,21 +124,7 @@
     </script>
   </div>
   
-  <script>
-      (() => {
-          /**/
-          if ("serviceWorker" in navigator) {
-              const register = navigator.serviceWorker.register("./sw.js");
-              Notification
-                  .requestPermission()
-                  .then(function(result) {
-                      if (result === "granted") {
-                          window.__APP_IS_GRANTED = true;
-                      }
-                  });
-          }
-      })();
-  </script>
+  <script> (() => { /**/ if ("serviceWorker" in navigator) { const register = navigator.serviceWorker.register("./sw.js"); Notification .requestPermission() .then(function(result) { if (result === "granted") { window.__APP_IS_GRANTED = true; } }); } })(); </script>
 
 </body>
 

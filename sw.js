@@ -35,7 +35,7 @@ const contentToCache = [
   "./statics/js/Dev.js",
   "./statics/assets/yapi.633ceb78.css",
   "./statics/assets/nprogress.a83d0ede.css",
-  "./statics/assets/main.74c6849f.css",
+  "./statics/assets/main.b28e70ef.css",
   "./statics/assets/logo3.a354024b.png",
   "./statics/assets/logo2.f9552052.jpg",
   "./statics/assets/loading-0.07236f68.gif",
@@ -129,7 +129,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1662223849976");
+			const cache = await caches.open("1662427734755");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -147,7 +147,7 @@ self.addEventListener("fetch", e => {
 				return r;
 			}
 			const response = await fetch(e.request);
-			const cache = await caches.open("1662223849976");
+			const cache = await caches.open("1662427734755");
 			console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 			// cache.put(e.request, response.clone());
 			return response;

@@ -1,5 +1,5 @@
 import { S as State_Music, A as Actions_Music } from "./State_Music.js";
-import { _ as _global__, y as setPagination, d as defItem, f as defDataGridOption, F as keys, G as getMany, z as getPaginationPageSize, C as setDataGridInfo, h as defCol, w as defColActions, S as State_UI, x as defColActionsBtnlist, H as del, c as _export_sfc } from "./nprogress.js";
+import { _ as _global__, x as setPagination, d as defItem, f as defDataGridOption, C as keys, F as getMany, y as getPaginationPageSize, z as setDataGridInfo, h as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, G as del, c as _export_sfc } from "./nprogress.js";
 import "./main.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -116,6 +116,12 @@ var _sfc_main = {
     };
   },
   async mounted() {
+    const socket_url = `${__URL_WS_BASE}?token=${State_App.token}`;
+    const socket = new WebSocket(socket_url);
+    socket.addEventListener("message", function(event) {
+      debugger;
+      console.log("Message from server ", _global__.safeParse(event.data));
+    });
     const vm = this;
     vm.$watch(() => {
       return `${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;

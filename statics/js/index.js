@@ -1,9 +1,19 @@
-import { u as commonjsGlobal, a as __vitePreload } from "./nprogress.js";
-var mock = { exports: {} };
-(function(module, exports) {
+import { a as __vitePreload } from "./nprogress.js";
+var module = {
+  exports: {}
+};
+var exports = module.exports;
+(function() {
   (function webpackUniversalModuleDefinition(root, factory) {
-    module.exports = factory();
-  })(commonjsGlobal, function() {
+    if (typeof exports === "object" && typeof module === "object")
+      module.exports = factory();
+    else if (typeof define === "function" && define.amd)
+      define([], factory);
+    else if (typeof exports === "object")
+      exports["Mock"] = factory();
+    else
+      root["Mock"] = factory();
+  })(this, function() {
     return function(modules) {
       var installedModules = {};
       function __webpack_require__2(moduleId) {
@@ -121,16 +131,14 @@ var mock = { exports: {} };
               for (i2 = 0; i2 < options2.template.length; i2++) {
                 options2.context.path.push(i2);
                 options2.context.templatePath.push(i2);
-                result.push(
-                  Handler.gen(options2.template[i2], i2, {
-                    path: options2.context.path,
-                    templatePath: options2.context.templatePath,
-                    currentContext: result,
-                    templateCurrentContext: options2.template,
-                    root: options2.context.root || result,
-                    templateRoot: options2.context.templateRoot || options2.template
-                  })
-                );
+                result.push(Handler.gen(options2.template[i2], i2, {
+                  path: options2.context.path,
+                  templatePath: options2.context.templatePath,
+                  currentContext: result,
+                  templateCurrentContext: options2.template,
+                  root: options2.context.root || result,
+                  templateRoot: options2.context.templateRoot || options2.template
+                }));
                 options2.context.path.pop();
                 options2.context.templatePath.pop();
               }
@@ -138,16 +146,14 @@ var mock = { exports: {} };
               if (options2.rule.min === 1 && options2.rule.max === void 0) {
                 options2.context.path.push(options2.name);
                 options2.context.templatePath.push(options2.name);
-                result = Random.pick(
-                  Handler.gen(options2.template, void 0, {
-                    path: options2.context.path,
-                    templatePath: options2.context.templatePath,
-                    currentContext: result,
-                    templateCurrentContext: options2.template,
-                    root: options2.context.root || result,
-                    templateRoot: options2.context.templateRoot || options2.template
-                  })
-                );
+                result = Random.pick(Handler.gen(options2.template, void 0, {
+                  path: options2.context.path,
+                  templatePath: options2.context.templatePath,
+                  currentContext: result,
+                  templateCurrentContext: options2.template,
+                  root: options2.context.root || result,
+                  templateRoot: options2.context.templateRoot || options2.template
+                }));
                 options2.context.path.pop();
                 options2.context.templatePath.pop();
               } else {
@@ -171,16 +177,14 @@ var mock = { exports: {} };
                     for (ii = 0; ii < options2.template.length; ii++) {
                       options2.context.path.push(result.length);
                       options2.context.templatePath.push(ii);
-                      result.push(
-                        Handler.gen(options2.template[ii], result.length, {
-                          path: options2.context.path,
-                          templatePath: options2.context.templatePath,
-                          currentContext: result,
-                          templateCurrentContext: options2.template,
-                          root: options2.context.root || result,
-                          templateRoot: options2.context.templateRoot || options2.template
-                        })
-                      );
+                      result.push(Handler.gen(options2.template[ii], result.length, {
+                        path: options2.context.path,
+                        templatePath: options2.context.templatePath,
+                        currentContext: result,
+                        templateCurrentContext: options2.template,
+                        root: options2.context.root || result,
+                        templateRoot: options2.context.templateRoot || options2.template
+                      }));
                       options2.context.path.pop();
                       options2.context.templatePath.pop();
                     }
@@ -302,11 +306,7 @@ var mock = { exports: {} };
             for (var i2 = 0; i2 < options2.rule.count; i2++) {
               source += options2.template.source;
             }
-            return RE.Handler.gen(
-              RE.Parser.parse(
-                source
-              )
-            );
+            return RE.Handler.gen(RE.Parser.parse(source));
           }
         });
         Handler.extend({
@@ -362,16 +362,12 @@ var mock = { exports: {} };
             var keyPathParts = this.splitPathToArray(key2);
             var absolutePathParts = [];
             if (key2.charAt(0) === "/") {
-              absolutePathParts = [options2.context.path[0]].concat(
-                this.normalizePath(keyPathParts)
-              );
+              absolutePathParts = [options2.context.path[0]].concat(this.normalizePath(keyPathParts));
             } else {
               if (keyPathParts.length > 1) {
                 absolutePathParts = options2.context.path.slice(0);
                 absolutePathParts.pop();
-                absolutePathParts = this.normalizePath(
-                  absolutePathParts.concat(keyPathParts)
-                );
+                absolutePathParts = this.normalizePath(absolutePathParts.concat(keyPathParts));
               }
             }
             try {
@@ -790,38 +786,8 @@ var mock = { exports: {} };
       function(module2, exports2, __webpack_require__2) {
         (function(module3) {
           module3.exports = {
-            _adSize: [
-              "300x250",
-              "250x250",
-              "240x400",
-              "336x280",
-              "180x150",
-              "720x300",
-              "468x60",
-              "234x60",
-              "88x31",
-              "120x90",
-              "120x60",
-              "120x240",
-              "125x125",
-              "728x90",
-              "160x600",
-              "120x600",
-              "300x600"
-            ],
-            _screenSize: [
-              "320x200",
-              "320x240",
-              "640x480",
-              "800x480",
-              "800x480",
-              "1024x600",
-              "1024x768",
-              "1280x800",
-              "1440x900",
-              "1920x1200",
-              "2560x1600"
-            ],
+            _adSize: ["300x250", "250x250", "240x400", "336x280", "180x150", "720x300", "468x60", "234x60", "88x31", "120x90", "120x60", "120x240", "125x125", "728x90", "160x600", "120x600", "300x600"],
+            _screenSize: ["320x200", "320x240", "640x480", "800x480", "800x480", "1024x600", "1024x768", "1280x800", "1440x900", "1920x1200", "2560x1600"],
             _videoSize: ["720x480", "768x576", "1280x720", "1920x1080"],
             image: function(size, background, foreground, format, text) {
               if (arguments.length === 4) {
@@ -1081,11 +1047,7 @@ var mock = { exports: {} };
               saturation = 0.5;
             if (typeof value !== "number")
               value = 0.95;
-            return [
-              this._hue * 360,
-              saturation * 100,
-              value * 100
-            ];
+            return [this._hue * 360, saturation * 100, value * 100];
           }
         };
       },
@@ -1520,40 +1482,7 @@ var mock = { exports: {} };
             return this.pick(names);
           },
           last: function() {
-            var names = [
-              "Smith",
-              "Johnson",
-              "Williams",
-              "Brown",
-              "Jones",
-              "Miller",
-              "Davis",
-              "Garcia",
-              "Rodriguez",
-              "Wilson",
-              "Martinez",
-              "Anderson",
-              "Taylor",
-              "Thomas",
-              "Hernandez",
-              "Moore",
-              "Martin",
-              "Jackson",
-              "Thompson",
-              "White",
-              "Lopez",
-              "Lee",
-              "Gonzalez",
-              "Harris",
-              "Clark",
-              "Lewis",
-              "Robinson",
-              "Walker",
-              "Perez",
-              "Hall",
-              "Young",
-              "Allen"
-            ];
+            var names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Perez", "Hall", "Young", "Allen"];
             return this.pick(names);
           },
           name: function(middle) {
@@ -1586,9 +1515,7 @@ var mock = { exports: {} };
             return this.word() + "." + (tld || this.tld());
           },
           tld: function() {
-            return this.pick(
-              "com net org edu gov int mil cn com.cn net.cn gov.cn org.cn \u4E2D\u56FD \u4E2D\u56FD\u4E92\u8054.\u516C\u53F8 \u4E2D\u56FD\u4E92\u8054.\u7F51\u7EDC tel biz cc tv info name hk mobi asia cd travel pro museum coop aero ad ae af ag ai al am an ao aq ar as at au aw az ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz ca cc cf cg ch ci ck cl cm cn co cq cr cu cv cx cy cz de dj dk dm do dz ec ee eg eh es et ev fi fj fk fm fo fr ga gb gd ge gf gh gi gl gm gn gp gr gt gu gw gy hk hm hn hr ht hu id ie il in io iq ir is it jm jo jp ke kg kh ki km kn kp kr kw ky kz la lb lc li lk lr ls lt lu lv ly ma mc md mg mh ml mm mn mo mp mq mr ms mt mv mw mx my mz na nc ne nf ng ni nl no np nr nt nu nz om qa pa pe pf pg ph pk pl pm pn pr pt pw py re ro ru rw sa sb sc sd se sg sh si sj sk sl sm sn so sr st su sy sz tc td tf tg th tj tk tm tn to tp tr tt tv tw tz ua ug uk us uy va vc ve vg vn vu wf ws ye yu za zm zr zw".split(" ")
-            );
+            return this.pick("com net org edu gov int mil cn com.cn net.cn gov.cn org.cn \u4E2D\u56FD \u4E2D\u56FD\u4E92\u8054.\u516C\u53F8 \u4E2D\u56FD\u4E92\u8054.\u7F51\u7EDC tel biz cc tv info name hk mobi asia cd travel pro museum coop aero ad ae af ag ai al am an ao aq ar as at au aw az ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz ca cc cf cg ch ci ck cl cm cn co cq cr cu cv cx cy cz de dj dk dm do dz ec ee eg eh es et ev fi fj fk fm fo fr ga gb gd ge gf gh gi gl gm gn gp gr gt gu gw gy hk hm hn hr ht hu id ie il in io iq ir is it jm jo jp ke kg kh ki km kn kp kr kw ky kz la lb lc li lk lr ls lt lu lv ly ma mc md mg mh ml mm mn mo mp mq mr ms mt mv mw mx my mz na nc ne nf ng ni nl no np nr nt nu nz om qa pa pe pf pg ph pk pl pm pn pr pt pw py re ro ru rw sa sb sc sd se sg sh si sj sk sl sm sn so sr st su sy sz tc td tf tg th tj tk tm tn to tp tr tt tv tw tz ua ug uk us uy va vc ve vg vn vu wf ws ye yu za zm zr zw".split(" "));
           },
           email: function(domain) {
             return this.character("lower") + "." + this.word() + "@" + (domain || this.word() + "." + this.tld());
@@ -5697,37 +5624,7 @@ var mock = { exports: {} };
             return this.guid();
           },
           id: function() {
-            var id, sum = 0, rank = [
-              "7",
-              "9",
-              "10",
-              "5",
-              "8",
-              "4",
-              "2",
-              "1",
-              "6",
-              "3",
-              "7",
-              "9",
-              "10",
-              "5",
-              "8",
-              "4",
-              "2"
-            ], last = [
-              "1",
-              "0",
-              "X",
-              "9",
-              "8",
-              "7",
-              "6",
-              "5",
-              "4",
-              "3",
-              "2"
-            ];
+            var id, sum = 0, rank = ["7", "9", "10", "5", "8", "4", "2", "1", "6", "3", "7", "9", "10", "5", "8", "4", "2"], last = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
             id = this.pick(DICT).id + this.date("yyyyMMdd") + this.string("number", 3);
             for (var i2 = 0; i2 < id.length; i2++) {
               sum += id[i2] * rank[i2];
@@ -5871,14 +5768,14 @@ var mock = { exports: {} };
             }
             function i2() {
               var n3, l2, u3, t2, r2;
-              if (n3 = qt, l2 = f(), null === l2 && (l2 = al), null !== l2)
+              if (n3 = qt, l2 = f(), null === l2 && (l2 = al), null !== l2) {
                 if (u3 = qt, Wt++, t2 = d(), Wt--, null === t2 ? u3 = al : (qt = u3, u3 = il), null !== u3) {
                   for (t2 = [], r2 = h(), null === r2 && (r2 = a()); null !== r2; )
                     t2.push(r2), r2 = h(), null === r2 && (r2 = a());
                   null !== t2 ? (r2 = s(), null === r2 && (r2 = al), null !== r2 ? (Lt = n3, l2 = dl(l2, t2, r2), null === l2 ? (qt = n3, n3 = l2) : n3 = l2) : (qt = n3, n3 = il)) : (qt = n3, n3 = il);
                 } else
                   qt = n3, n3 = il;
-              else
+              } else
                 qt = n3, n3 = il;
               return n3;
             }
@@ -5965,14 +5862,14 @@ var mock = { exports: {} };
             }
             function Q() {
               var l2, u3, t2, r2, o2;
-              if (Wt++, l2 = qt, 91 === n2.charCodeAt(qt) ? (u3 = iu, qt++) : (u3 = null, 0 === Wt && e(au)), null !== u3)
+              if (Wt++, l2 = qt, 91 === n2.charCodeAt(qt) ? (u3 = iu, qt++) : (u3 = null, 0 === Wt && e(au)), null !== u3) {
                 if (94 === n2.charCodeAt(qt) ? (t2 = pl, qt++) : (t2 = null, 0 === Wt && e(vl)), null === t2 && (t2 = al), null !== t2) {
                   for (r2 = [], o2 = S(), null === o2 && (o2 = U()); null !== o2; )
                     r2.push(o2), o2 = S(), null === o2 && (o2 = U());
                   null !== r2 ? (93 === n2.charCodeAt(qt) ? (o2 = fu, qt++) : (o2 = null, 0 === Wt && e(su)), null !== o2 ? (Lt = l2, u3 = hu(t2, r2), null === u3 ? (qt = l2, l2 = u3) : l2 = u3) : (qt = l2, l2 = il)) : (qt = l2, l2 = il);
                 } else
                   qt = l2, l2 = il;
-              else
+              } else
                 qt = l2, l2 = il;
               return Wt--, null === l2 && (u3 = null, 0 === Wt && e(cu)), l2;
             }
@@ -6280,13 +6177,9 @@ var mock = { exports: {} };
               case "non-word-boundary":
                 break;
               case "digit":
-                return Random2.pick(
-                  NUMBER.split("")
-                );
+                return Random2.pick(NUMBER.split(""));
               case "non-digit":
-                return Random2.pick(
-                  (LOWER + UPPER + OTHER).split("")
-                );
+                return Random2.pick((LOWER + UPPER + OTHER).split(""));
               case "form-feed":
                 break;
               case "line-feed":
@@ -6294,34 +6187,22 @@ var mock = { exports: {} };
               case "carriage-return":
                 break;
               case "white-space":
-                return Random2.pick(
-                  SPACE.split("")
-                );
+                return Random2.pick(SPACE.split(""));
               case "non-white-space":
-                return Random2.pick(
-                  (LOWER + UPPER + NUMBER).split("")
-                );
+                return Random2.pick((LOWER + UPPER + NUMBER).split(""));
               case "tab":
                 break;
               case "vertical-tab":
                 break;
               case "word":
-                return Random2.pick(
-                  (LOWER + UPPER + NUMBER).split("")
-                );
+                return Random2.pick((LOWER + UPPER + NUMBER).split(""));
               case "non-word":
-                return Random2.pick(
-                  OTHER.replace("_", "").split("")
-                );
+                return Random2.pick(OTHER.replace("_", "").split(""));
             }
             return node.body || node.text;
           },
           alternate: function(node, result, cache) {
-            return this.gen(
-              Random2.boolean() ? node.left : node.right,
-              result,
-              cache
-            );
+            return this.gen(Random2.boolean() ? node.left : node.right, result, cache);
           },
           match: function(node, result, cache) {
             result = "";
@@ -6391,27 +6272,19 @@ var mock = { exports: {} };
           range: function(node, result, cache) {
             var min = this.gen(node.start, result, cache).charCodeAt();
             var max = this.gen(node.end, result, cache).charCodeAt();
-            return String.fromCharCode(
-              Random2.integer(min, max)
-            );
+            return String.fromCharCode(Random2.integer(min, max));
           },
           literal: function(node, result, cache) {
             return node.escaped ? node.body : node.text;
           },
           unicode: function(node, result, cache) {
-            return String.fromCharCode(
-              parseInt(node.code, 16)
-            );
+            return String.fromCharCode(parseInt(node.code, 16));
           },
           hex: function(node, result, cache) {
-            return String.fromCharCode(
-              parseInt(node.code, 16)
-            );
+            return String.fromCharCode(parseInt(node.code, 16));
           },
           octal: function(node, result, cache) {
-            return String.fromCharCode(
-              parseInt(node.code, 8)
-            );
+            return String.fromCharCode(parseInt(node.code, 8));
           },
           "back-reference": function(node, result, cache) {
             return cache[node.code] || "";
@@ -6452,17 +6325,13 @@ var mock = { exports: {} };
             case "array":
               result.items = [];
               Util2.each(template, function(value, index2) {
-                result.items.push(
-                  toJSONSchema(value, index2, result.path)
-                );
+                result.items.push(toJSONSchema(value, index2, result.path));
               });
               break;
             case "object":
               result.properties = [];
               Util2.each(template, function(value, name2) {
-                result.properties.push(
-                  toJSONSchema(value, name2, result.path)
-                );
+                result.properties.push(toJSONSchema(value, name2, result.path));
               });
               break;
           }
@@ -6611,21 +6480,14 @@ var mock = { exports: {} };
             if (result.length !== length)
               return false;
             for (var i2 = 0; i2 < keys.length; i2++) {
-              result.push.apply(
-                result,
-                this.diff(
-                  function() {
-                    var property;
-                    Util2.each(schema.properties, function(item) {
-                      if (item.name === keys[i2])
-                        property = item;
-                    });
-                    return property || schema.properties[i2];
-                  }(),
-                  data[keys[i2]],
-                  keys[i2]
-                )
-              );
+              result.push.apply(result, this.diff(function() {
+                var property;
+                Util2.each(schema.properties, function(item) {
+                  if (item.name === keys[i2])
+                    property = item;
+                });
+                return property || schema.properties[i2];
+              }(), data[keys[i2]], keys[i2]));
             }
             return result.length === length;
           },
@@ -6638,22 +6500,8 @@ var mock = { exports: {} };
               Assert.equal("items length", schema.path, data.length, schema.items.length, result);
             } else {
               if (rule.min !== void 0 && rule.max !== void 0) {
-                Assert.greaterThanOrEqualTo(
-                  "items",
-                  schema.path,
-                  data.length,
-                  Math.min(rule.min, rule.max) * schema.items.length,
-                  result,
-                  "[{utype}] array is too short: {path} must have at least {expected} elements but instance has {actual} elements"
-                );
-                Assert.lessThanOrEqualTo(
-                  "items",
-                  schema.path,
-                  data.length,
-                  Math.max(rule.min, rule.max) * schema.items.length,
-                  result,
-                  "[{utype}] array is too long: {path} must have at most {expected} elements but instance has {actual} elements"
-                );
+                Assert.greaterThanOrEqualTo("items", schema.path, data.length, Math.min(rule.min, rule.max) * schema.items.length, result, "[{utype}] array is too short: {path} must have at least {expected} elements but instance has {actual} elements");
+                Assert.lessThanOrEqualTo("items", schema.path, data.length, Math.max(rule.min, rule.max) * schema.items.length, result, "[{utype}] array is too long: {path} must have at most {expected} elements but instance has {actual} elements");
               }
               if (rule.min !== void 0 && rule.max === void 0) {
                 if (rule.count === 1)
@@ -6667,14 +6515,7 @@ var mock = { exports: {} };
             if (result.length !== length)
               return false;
             for (var i2 = 0; i2 < data.length; i2++) {
-              result.push.apply(
-                result,
-                this.diff(
-                  schema.items[i2 % schema.items.length],
-                  data[i2],
-                  i2 % schema.items.length
-                )
-              );
+              result.push.apply(result, this.diff(schema.items[i2 % schema.items.length], data[i2], i2 % schema.items.length));
             }
             return result.length === length;
           }
@@ -6920,7 +6761,9 @@ var mock = { exports: {} };
                 } catch (e) {
                 }
               }
-              that.dispatchEvent(new Event(event.type));
+              that.dispatchEvent(new Event(
+                event.type
+              ));
             }
             if (!item) {
               var xhr = createNativeXMLHttpRequest();
@@ -6943,7 +6786,9 @@ var mock = { exports: {} };
             this.match = true;
             this.custom.template = item;
             this.readyState = MockXMLHttpRequest.OPENED;
-            this.dispatchEvent(new Event("readystatechange"));
+            this.dispatchEvent(new Event(
+              "readystatechange"
+            ));
           },
           setRequestHeader: function(name, value) {
             if (!this.match) {
@@ -6967,27 +6812,35 @@ var mock = { exports: {} };
               return;
             }
             this.setRequestHeader("X-Requested-With", "MockXMLHttpRequest");
-            this.dispatchEvent(new Event("loadstart"));
+            this.dispatchEvent(new Event(
+              "loadstart"
+            ));
             if (this.custom.async)
               setTimeout(done, this.custom.timeout);
             else
               done();
             function done() {
               that.readyState = MockXMLHttpRequest.HEADERS_RECEIVED;
-              that.dispatchEvent(new Event("readystatechange"));
+              that.dispatchEvent(new Event(
+                "readystatechange"
+              ));
               that.readyState = MockXMLHttpRequest.LOADING;
-              that.dispatchEvent(new Event("readystatechange"));
+              that.dispatchEvent(new Event(
+                "readystatechange"
+              ));
               that.status = 200;
               that.statusText = HTTP_STATUS_CODES[200];
-              that.response = that.responseText = JSON.stringify(
-                convert(that.custom.template, that.custom.options),
-                null,
-                4
-              );
+              that.response = that.responseText = JSON.stringify(convert(that.custom.template, that.custom.options), null, 4);
               that.readyState = MockXMLHttpRequest.DONE;
-              that.dispatchEvent(new Event("readystatechange"));
-              that.dispatchEvent(new Event("load"));
-              that.dispatchEvent(new Event("loadend"));
+              that.dispatchEvent(new Event(
+                "readystatechange"
+              ));
+              that.dispatchEvent(new Event(
+                "load"
+              ));
+              that.dispatchEvent(new Event(
+                "loadend"
+              ));
             }
           },
           abort: function abort() {
@@ -7100,10 +6953,10 @@ var mock = { exports: {} };
       }
     ]);
   });
-})(mock);
-var Mock = mock.exports;
+}).call(module.exports);
+var Mock = module.exports;
 async function loadMockData() {
-  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/main.js","statics/assets/main.74c6849f.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
+  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
   Mock.setup({ timeout: 300 });
 }
 var index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
