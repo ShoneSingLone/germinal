@@ -44,12 +44,9 @@ export default defineConfig({
 			allow: [searchForWorkspaceRoot(process.cwd())]
 		},
 		proxy: {
-			"/v1": {
-				target: proxyTarget,
-				changeOrigin: true,
-				secure: false
-			}
-			/* "^/devyapi": {
+			"/v1": { target: proxyTarget, changeOrigin: true, secure: false }
+			/* ,
+			"^/devyapi": {
 				target: "http://localhost:3001/",
 				changeOrigin: true,
 				secure: false,
