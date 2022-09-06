@@ -43,6 +43,7 @@ const routes = [
 		path: "/",
 		component: ViewToolboxShell
 	},
+	/* Music Player */
 	{
 		name: "ViewMusic",
 		path: "/music",
@@ -50,7 +51,7 @@ const routes = [
 		meta: {
 			title: $t("Music").label
 		},
-		component: () => import("lsrc/views/ViewMusic/LayoutMusic.vue"),
+		component: () => import("lsrc/views/ViewMusic/LayoutMusic/LayoutMusic.vue"),
 		children: [
 			{
 				name: "new",
@@ -70,7 +71,8 @@ const routes = [
 			{
 				name: "private",
 				path: "/music/private",
-				component: () => import("lsrc/views/ViewMusic/PlayListPrivate.vue")
+				component: () =>
+					import("lsrc/views/ViewMusic/PlayList/Private/PrivateLayout.vue")
 			},
 			{
 				name: "cached",

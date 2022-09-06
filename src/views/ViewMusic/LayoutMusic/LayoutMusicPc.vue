@@ -38,7 +38,7 @@
 </template>
 <script lang="jsx">
 import { defineComponent, ref } from "vue";
-import MusicPlayer from "./MusicPlayer.vue";
+import MusicPlayer from "lsrc/views/ViewMusic/MusicPlayer.vue";
 import { State_Music } from "lsrc/state/State_Music";
 
 export default defineComponent({

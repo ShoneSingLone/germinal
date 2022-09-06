@@ -13,7 +13,7 @@
 
 <script lang="jsx">
 import { Actions_Music, State_Music } from "lsrc/state/State_Music";
-import privatePlaylist from "./assets/AllMusicClient";
+import privatePlaylist from "lsrc/views/ViewMusic/assets/AllMusicClient.js";
 import { reactive } from "vue";
 
 import {

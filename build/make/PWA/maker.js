@@ -46,8 +46,8 @@ const genLogo = (size, dist) => {
 		);
 	await fs.writeFile(pathD("../../../dist/index.html"), indexHTML);
 	/* manifest icons */
-	const iconSizeArray = [512, 32];
-	await Promise.all(iconSizeArray.map(size => genLogo(size)));
+	const iconSizeArray = [512, 256, 32];
+	await Promise.all(_n.map(iconSizeArray, size => genLogo(size)));
 
 	/* manifest */
 	await fs.writeFile(
@@ -56,13 +56,11 @@ const genLogo = (size, dist) => {
 			name: "Toolbox",
 			short_name: "Toolbox",
 			description: "ドラえもんの宝箱",
-			icons: iconSizeArray.map(size => {
-				return {
-					src: `./icon-${size}.png`,
-					sizes: `${size}x${size}`,
-					type: "image/png"
-				};
-			}),
+			icons: _n.map(iconSizeArray, size => ({
+				src: `./icon-${size}.png`,
+				sizes: `${size}x${size}`,
+				type: "image/png"
+			})),
 			start_url: "/",
 			display: "fullscreen",
 			theme_color: "#B12A34",
