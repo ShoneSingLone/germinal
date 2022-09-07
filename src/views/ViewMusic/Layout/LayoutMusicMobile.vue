@@ -1,5 +1,5 @@
 <template>
-	<div id="ViewMusic" class="flex vertical" style="height: 100vh">
+	<div id="ViewMusic" class="flex vertical" style="height: 100%">
 		<div id="nav-tab" class="flex width100 around middle elevation-2">
 			<div
 				v-for="item in State_Music.tabItems"
@@ -22,7 +22,7 @@
 <script lang="jsx">
 import { defineComponent, ref } from "vue";
 
-import MusicPlayer from "lsrc/views/ViewMusic/MusicPlayer.vue";
+import MusicPlayer from "lsrc/views/ViewMusic/Player/MusicPlayer.vue";
 import { State_Music } from "lsrc/state/State_Music";
 import { State_App } from "lsrc/state/State_App";
 

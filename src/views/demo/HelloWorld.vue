@@ -1,3 +1,4 @@
+mo
 <template>
 	<div>
 		<div>TestBoundless start</div>

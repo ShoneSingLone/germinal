@@ -51,7 +51,7 @@ const routes = [
 		meta: {
 			title: $t("Music").label
 		},
-		component: () => import("lsrc/views/ViewMusic/LayoutMusic/LayoutMusic.vue"),
+		component: () => import("lsrc/views/ViewMusic/Layout/LayoutMusic.vue"),
 		children: [
 			{
 				name: "new",
