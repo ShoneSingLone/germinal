@@ -34,7 +34,7 @@ var LayoutMusicMobile_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = {
   id: "ViewMusic",
   class: "flex vertical",
-  style: { "height": "100vh" }
+  style: { "height": "100%" }
 };
 const _hoisted_2 = {
   id: "nav-tab",

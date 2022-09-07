@@ -119,8 +119,7 @@ var _sfc_main = {
     const socket_url = `${__URL_WS_BASE}?token=${State_App.token}`;
     const socket = new WebSocket(socket_url);
     socket.addEventListener("message", function(event) {
-      debugger;
-      console.log("Message from server ", _global__.safeParse(event.data));
+      UI.notification.success(event.data);
     });
     const vm = this;
     vm.$watch(() => {

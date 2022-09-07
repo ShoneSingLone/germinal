@@ -1,0 +1,36 @@
+.PrivateMobileSongItem {
+  line-height: 20px;
+  height: 48px;
+  border-radius: 16px;
+}
+.PrivateMobileSongItem > .title {
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.PrivateMobileSongItem > .singer {
+  font-size: 12px;
+  text-indent: 16px;
+}
+#playlist-private-mobile {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+#playlist-private-mobile .wrapper {
+  height: 100%;
+}
+#playlist-private-mobile .song-item-wrapper {
+  position: absolute;
+  width: 100%;
+}
+#playlist-private-mobile .song-item-wrapper .song-item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 10px 10px 0;
+}

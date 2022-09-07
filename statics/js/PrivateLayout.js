@@ -6,7 +6,7 @@ import "./form.js";
 var _sfc_main = Vue.defineComponent({
   components: {
     PrivatePc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivatePc.js"), true ? ["statics/js/PrivatePc.js","statics/assets/PlayListCached.bd55b191.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/AllMusicClient.js"] : void 0)),
-    PrivateMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivateMobile.js"), true ? ["statics/js/PrivateMobile.js","statics/assets/PrivateMobile.6771dfb3.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/AllMusicClient.js"] : void 0))
+    PrivateMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivateMobile.js"), true ? ["statics/js/PrivateMobile.js","statics/assets/PrivateMobile.19d584d7.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/AllMusicClient.js"] : void 0))
   },
   setup() {
     return {

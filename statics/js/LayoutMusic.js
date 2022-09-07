@@ -5,8 +5,8 @@ import "./UserOutlined.js";
 import "./form.js";
 var _sfc_main = Vue.defineComponent({
   components: {
-    LayoutMusicMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicMobile.js"), true ? ["statics/js/LayoutMusicMobile.js","statics/assets/LayoutMusicMobile.c97511e3.css","statics/js/MusicPlayer.js","statics/assets/MusicPlayer.cf1819bc.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
-    LayoutMusicPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicPc.js"), true ? ["statics/js/LayoutMusicPc.js","statics/assets/LayoutMusicPc.8bcd892b.css","statics/js/MusicPlayer.js","statics/assets/MusicPlayer.cf1819bc.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
+    LayoutMusicMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicMobile.js"), true ? ["statics/js/LayoutMusicMobile.js","statics/assets/LayoutMusicMobile.c97511e3.css","statics/js/MusicPlayer.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/State_Music.js"] : void 0)),
+    LayoutMusicPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicPc.js"), true ? ["statics/js/LayoutMusicPc.js","statics/assets/LayoutMusicPc.8bcd892b.css","statics/js/MusicPlayer.js","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/State_Music.js"] : void 0))
   },
   setup() {
     return {

@@ -20,6 +20,8 @@ const contentToCache = [
   "./statics/js/PrivatePc.js",
   "./statics/js/PrivateMobile.js",
   "./statics/js/PrivateLayout.js",
+  "./statics/js/PlayerPc.js",
+  "./statics/js/PlayerMobile.js",
   "./statics/js/PlayListSinger.js",
   "./statics/js/PlayListFindNew.js",
   "./statics/js/PlayListCached.js",
@@ -50,9 +52,10 @@ const contentToCache = [
   "./statics/assets/bg2.26a7254b.jpg",
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
-  "./statics/assets/PrivateMobile.6771dfb3.css",
+  "./statics/assets/PrivateMobile.19d584d7.css",
+  "./statics/assets/PlayerPc.49f87c7a.css",
+  "./statics/assets/PlayerMobile.9cefdf14.css",
   "./statics/assets/PlayListCached.bd55b191.css",
-  "./statics/assets/MusicPlayer.cf1819bc.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
   "./statics/assets/LayoutMusicPc.8bcd892b.css",
   "./statics/assets/LayoutMusicMobile.c97511e3.css",
@@ -133,7 +136,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1662483275588");
+			const cache = await caches.open("1662575306667");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -151,7 +154,7 @@ self.addEventListener("fetch", e => {
 				return r;
 			}
 			const response = await fetch(e.request);
-			const cache = await caches.open("1662483275588");
+			const cache = await caches.open("1662575306667");
 			console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 			// cache.put(e.request, response.clone());
 			return response;
