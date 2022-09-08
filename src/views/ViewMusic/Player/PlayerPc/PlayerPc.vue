@@ -1,5 +1,5 @@
 <template>
-	<div id="ViewMusicPlayer" class="flex">
+	<div class="flex ViewMusicPlayer">
 		<MusicPlayerModel />
 		<xGap l="16" />
 		<!-- 上一曲，下一曲，播放，暂停 -->
@@ -38,9 +38,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-#ViewMusicPlayer {
-	width: 100%;
-
+.ViewMusicPlayer {
 	.site-layout .site-layout-background {
 		background: #fff;
 	}

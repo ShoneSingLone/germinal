@@ -1,4 +1,4 @@
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 
 interface i_success_or_fail {
 	/*请求函数*/

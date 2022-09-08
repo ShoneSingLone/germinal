@@ -26,7 +26,7 @@ import * as dnd from "reactabular-dnd";
 import * as resolve from "table-resolver";
 import axios from "axios";
 import CaseReport from "./CaseReport.js";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 import { initCrossRequest } from "client/components/Postman/CheckCrossInstall.js";
 import produce from "immer";
 import { InsertCodeMap } from "client/components/Postman/Postman.js";

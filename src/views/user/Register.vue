@@ -5,7 +5,7 @@ import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { State_Register } from "./State_Register";
 import { routeNames } from "lsrc/router/router";
 import PopoverContentVue from "./PopoverContent.vue";
-import { State_UI } from "@ventose/ui";
+import { State_UI } from "lsrc/ui";
 const { $t } = State_UI;
 
 const levelNames = {

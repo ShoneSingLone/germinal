@@ -1,5 +1,5 @@
 // progress bar
-import { setDocumentTitle, State_UI, _ } from "@ventose/ui";
+import { setDocumentTitle, State_UI, _ } from "lsrc/ui";
 import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
 import { Methods_App, State_App } from "ysrc/state/State_App";

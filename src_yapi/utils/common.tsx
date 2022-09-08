@@ -1,4 +1,4 @@
-import { _, $, VentoseUIWithInstall, State_UI } from "@ventose/ui";
+import { _, $, VentoseUIWithInstall, State_UI } from "lsrc/ui";
 import { router } from "ysrc/router/router.jsx";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";

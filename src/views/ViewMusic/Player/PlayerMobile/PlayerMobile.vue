@@ -1,5 +1,5 @@
 <template>
-	<div id="ViewMusicPlayer" class="flex center">
+	<div class="flex center ViewMusicPlayerMobile">
 		<div class="audio">
 			<MusicPlayerAudio />
 			<div class="flex center">
@@ -21,7 +21,7 @@ import MusicPlayerModel from "./MusicPlayerModel.vue";
 import MusicPlayerOpration from "./MusicPlayerOpration.vue";
 import MusicPlayerAudio from "./MusicPlayerAudio.vue";
 import { Actions_Music, State_Music } from "lsrc/state/State_Music";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 
 export default defineComponent({
 	components: {
@@ -51,7 +51,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-#ViewMusicPlayer {
+.ViewMusicPlayerMobile {
 	width: 100%;
 	position: relative;
 	height: 120px;

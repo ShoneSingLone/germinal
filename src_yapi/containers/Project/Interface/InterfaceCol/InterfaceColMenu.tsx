@@ -19,7 +19,7 @@ import {
 	Form
 } from "ant-design-vue";
 import { arrayChangeIndex } from "../../../../common.js";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 
 const TreeNode = Tree.TreeNode;
 const FormItem = Form.Item;

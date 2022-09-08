@@ -15,7 +15,7 @@ import {
 	defColActions,
 	State_UI,
 	defColActionsBtnlist
-} from "@ventose/ui";
+} from "lsrc/ui";
 
 const { $t } = State_UI;
 

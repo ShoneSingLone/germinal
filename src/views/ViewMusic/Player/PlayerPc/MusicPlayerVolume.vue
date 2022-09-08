@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { _, lStorage } from "@ventose/ui";
+import { _, lStorage } from "lsrc/ui";
 import {
 	Actions_Music,
 	Cpt_iconSound,

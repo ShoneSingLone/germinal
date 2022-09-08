@@ -2,7 +2,7 @@
 import logoImg from "../assets/logo2.jpg";
 import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
 import { State_App } from "lsrc/state/State_App";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 </script>
 
 <template>

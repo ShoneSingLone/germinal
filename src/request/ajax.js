@@ -1,4 +1,4 @@
-import { _, UI, lStorage, $ } from "@ventose/ui";
+import { _, UI, lStorage, $ } from "lsrc/ui";
 import axios from "axios";
 import { STATIC_WORD } from "../utils/common.words";
 import { State_App } from "./../state/State_App";

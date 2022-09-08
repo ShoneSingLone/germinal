@@ -1,5 +1,5 @@
 import { reactive, watch, computed } from "vue";
-import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
+import { lStorage, setCSSVariables, UI, _, State_UI } from "lsrc/ui";
 import { API } from "ysrc/api";
 import { router } from "ysrc/router/router";
 

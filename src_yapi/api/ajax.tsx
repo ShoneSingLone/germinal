@@ -1,4 +1,4 @@
-import { _, UI, lStorage, $ } from "@ventose/ui";
+import { _, UI, lStorage, $ } from "lsrc/ui";
 import axios from "axios";
 
 const ajax = axios.create({

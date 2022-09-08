@@ -16,7 +16,7 @@ import {
 } from "ant-design-vue";
 import constants from "ysrc/utils/variable";
 import AceEditor from "client/components/AceEditor/AceEditor";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 import { isJson, deepCopyJson, json5_parse } from "../../common.js";
 import axios from "axios";
 import ModalPostman from "../ModalPostman/index.js";

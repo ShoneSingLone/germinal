@@ -28,7 +28,7 @@ import {
 	defColActionsBtnlist,
 	getPaginationPageSize,
 	setDataGridInfo
-} from "@ventose/ui";
+} from "lsrc/ui";
 
 const { $t } = State_UI;
 

@@ -8,7 +8,7 @@ import {
 	defCol,
 	defColActions,
 	defColActionsBtnlist
-} from "@ventose/ui";
+} from "lsrc/ui";
 const { $t } = State_UI;
 
 export default defineComponent({

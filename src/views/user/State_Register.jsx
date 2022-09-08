@@ -9,7 +9,7 @@ import {
 	State_UI,
 	FormRules,
 	RegexFn
-} from "@ventose/ui";
+} from "lsrc/ui";
 import {
 	Actions_App,
 	getColor,

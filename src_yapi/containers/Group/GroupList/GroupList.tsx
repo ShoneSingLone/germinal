@@ -13,11 +13,11 @@ import {
 import axios from "axios";
 
 import GuideBtns from "ysrc/components/GuideBtns/GuideBtns";
-import { _, AllWasWell, pickValueFrom, validateForm } from "@ventose/ui";
+import { _, AllWasWell, pickValueFrom, validateForm } from "lsrc/ui";
 import "./GroupList.scss";
 import { defineComponent } from "vue";
 import { Methods_App, State_App } from "ysrc/state/State_App";
-import { UI } from "@ventose/ui";
+import { UI } from "lsrc/ui";
 import ViewAddGroup from "./ViewAddGroup.vue";
 import { API } from "ysrc/api";
 

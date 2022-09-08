@@ -7,7 +7,7 @@ import DevDemo from "lsrc/views/demo/HelloWorld.vue";
 import Webrtc from "lsrc/views/webrtc/Webrtc.vue";
 import ViewToolboxShell from "lsrc/views/ToolboxShell/ViewToolboxShell.vue";
 import { State_App, Actions_App } from "lsrc/state/State_App";
-import { _, setDocumentTitle, State_UI } from "@ventose/ui";
+import { _, setDocumentTitle, State_UI } from "lsrc/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
 
 const { $t } = State_UI;

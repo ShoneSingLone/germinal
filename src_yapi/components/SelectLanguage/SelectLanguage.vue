@@ -1,7 +1,7 @@
 <script setup>
 import { GlobalOutlined } from "@ant-design/icons-vue";
 import { computed } from "vue";
-import { State_UI } from "@ventose/ui";
+import { State_UI } from "lsrc/ui";
 
 const languageLabels = {
 	"zh-CN": { label: "简体中文", icon: "🇨🇳" },

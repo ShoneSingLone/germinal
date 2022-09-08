@@ -1,4 +1,4 @@
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 const { genId } = _;
 
 export const routeNames = {

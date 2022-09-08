@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import PageToolboxHome from "./PageToolboxHome.vue";
 import { appPlugins } from "lsrc/utils/common";
 import { State_App } from "lsrc/state/State_App";
-import { _, $ } from "@ventose/ui";
+import { _, $ } from "lsrc/ui";
 import { API } from "germinal_api";
 import { get, set, clear } from "idb-keyval";
 

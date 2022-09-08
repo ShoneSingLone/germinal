@@ -1,7 +1,7 @@
 import { LogoSVG } from "ysrc/components/LogoSVG";
 import { defineComponent } from "vue";
 import { Methods_App, State_App } from "ysrc/state/State_App";
-import { $ } from "@ventose/ui";
+import { $ } from "lsrc/ui";
 import { RouterLink } from "vue-router";
 
 const TipTitle = () => {

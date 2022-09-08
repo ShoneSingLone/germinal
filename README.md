@@ -145,7 +145,7 @@ return { label: "显示的对应语言", prop: "key" };
 
 ```js
 /* main.js 第一行 window._ 工具 常用工具函数 */
-import "@ventose/ui/loadCommonUtil.js";
+import "lsrc/ui/loadCommonUtil.js";
 ```
 
 ## appPlugins
@@ -224,7 +224,7 @@ App.vue 中完成
 
 ```js
 import {State_App} from "lsrc/state/State_App";
-import {defItem, ITEM_TYPE} from "@ventose/ui";
+import {defItem, ITEM_TYPE} from "lsrc/ui";
 import {watch} from "vue";
 
 - [ ] 自定义组件的校验如何处理?

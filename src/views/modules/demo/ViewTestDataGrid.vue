@@ -9,7 +9,7 @@ import {
 	State_UI,
 	defColActionsBtnlist,
 	UI
-} from "@ventose/ui";
+} from "lsrc/ui";
 import ViewTestFormItem from "./ViewTestFormItem.vue";
 const { $t } = State_UI;
 

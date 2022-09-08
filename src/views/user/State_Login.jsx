@@ -10,7 +10,7 @@ import {
 	State_UI,
 	FormRules,
 	RegexFn
-} from "@ventose/ui";
+} from "lsrc/ui";
 import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
 import { API } from "germinal_api";
 import { router, routeNames } from "lsrc/router/router";

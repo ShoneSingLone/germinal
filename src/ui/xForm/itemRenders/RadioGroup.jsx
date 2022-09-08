@@ -1,5 +1,5 @@
 import Radio, { RadioGroup, RadioButton } from "ant-design-vue/es/radio";
-import { _ } from "@ventose/ui";
+import _ from "lodash";
 /**
  * @Description
  * @date 2021-11-09

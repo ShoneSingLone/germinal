@@ -39,7 +39,7 @@ import {
 	AllWasWell,
 	validateForm,
 	FormRules
-} from "@ventose/ui";
+} from "lsrc/ui";
 import {
 	UserOutlined,
 	LockOutlined,

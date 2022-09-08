@@ -1,4 +1,4 @@
-import { _, $, VentoseUIWithInstall, State_UI } from "@ventose/ui";
+import { _, $, VentoseUIWithInstall, State_UI } from "lsrc/ui";
 import { router } from "lsrc/router/router";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
@@ -6,7 +6,6 @@ import STable from "@surely-vue/table";
 export { ITEM_OPTIONS } from "./common.options";
 export { STATIC_WORD } from "./common.words";
 dayjs.locale("zh-cn");
-
 /**
  * 复用配置
  * @param {*} app
@@ -17,7 +16,6 @@ export const appPlugins = {
 	install: (app, options /*{dependState, appPlugins}*/) => {
 		// app.use(VueVirtualScroller);
 		app.use(STable);
-
 		/* isUsePopover 全局监听 [data-ui-popover] */
 		app.use(VentoseUIWithInstall, {
 			appPlugins,

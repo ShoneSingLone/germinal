@@ -24,7 +24,6 @@
     "@ant-design/icons-vue": "^6.0.1",
     "@popperjs/core": "^2.10.2",
     "@surely-vue/table": "^2.4.7",
-    "@ventose/ui": "file:./local_modules/ui",
     "ant-design-vue": "^3.0.0-alpha.3",
     "axios": "^0.26.0",
     "dayjs": "^1.10.7",

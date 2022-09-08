@@ -1,5 +1,5 @@
 import { defineComponent } from "vue";
-import { lStorage, _ } from "@ventose/ui";
+import { lStorage, _ } from "lsrc/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 
 export default defineComponent({

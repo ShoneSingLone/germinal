@@ -88,7 +88,7 @@ export default defineConfig({
 			options.outDir = outDir;
 			options.lib = {
 				formats: ["umd"],
-				entry: path.resolve(__dirname, "local_modules/ui/index.tsx"),
+				entry: path.resolve(__dirname, "src/ui/index.tsx"),
 				name: "VentoseUI",
 				fileName: format => `${outPutName}.js`
 			};
@@ -172,7 +172,7 @@ export default defineConfig({
 				];
 
 				if (isLib) {
-					modules = modules.filter(i => i.name !== "@ventose/ui");
+					modules = modules.filter(i => i.name !== "lsrc/ui");
 				}
 
 				productPluginArray.push(

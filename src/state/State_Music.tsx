@@ -1,6 +1,6 @@
 import { API } from "germinal_api";
 import { reactive, watch, computed } from "vue";
-import { _, lStorage, setDocumentTitle } from "@ventose/ui";
+import { _, lStorage, setDocumentTitle } from "lsrc/ui";
 import { get, set } from "idb-keyval";
 import { State_App } from "lsrc/state/State_App";
 import axios from "axios";

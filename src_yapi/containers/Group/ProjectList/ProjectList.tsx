@@ -5,7 +5,7 @@ import { ErrMsg } from "ysrc/components/ErrMsg/ErrMsg";
 import "./ProjectList.scss";
 import { defineComponent } from "vue";
 import { Methods_App, State_App } from "ysrc/state/State_App";
-import { AllWasWell, pickValueFrom, UI, validateForm, _ } from "@ventose/ui";
+import { AllWasWell, pickValueFrom, UI, validateForm, _ } from "lsrc/ui";
 
 export default defineComponent({
 	props: [

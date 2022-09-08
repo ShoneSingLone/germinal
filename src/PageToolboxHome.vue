@@ -1,9 +1,9 @@
 <script>
 /*https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup*/
 import { defineComponent } from "vue";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 import { Actions_App } from "lsrc/state/State_App";
-import { setDocumentTitle } from "@ventose/ui";
+import { setDocumentTitle } from "lsrc/ui";
 
 export default defineComponent({
 	data() {

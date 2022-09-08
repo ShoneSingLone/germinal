@@ -1,5 +1,5 @@
 import { reactive, watch, computed } from "vue";
-import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
+import { lStorage, setCSSVariables, UI, _, State_UI } from "lsrc/ui";
 import { STATIC_WORD } from "lsrc/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
 import md5 from "md5";

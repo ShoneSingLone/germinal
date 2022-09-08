@@ -1,4 +1,4 @@
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 import constants from "ysrc/utils/variable";
 import { handlePath, nameLengthLimit } from "../../../../common.js";
 import { changeEditStatus } from "../../../../reducer/modules/interface.js";

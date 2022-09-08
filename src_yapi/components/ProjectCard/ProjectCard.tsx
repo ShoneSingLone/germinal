@@ -3,7 +3,7 @@ import { Card, Tooltip, Modal, Alert, Input, message } from "ant-design-vue";
 import constants from "ysrc/utils/variable";
 import produce from "immer";
 import { defineComponent } from "vue";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 import { State_App } from "ysrc/state/State_App";
 import { API } from "ysrc/api";
 

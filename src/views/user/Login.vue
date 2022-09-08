@@ -4,7 +4,7 @@ import LoginCredentials from "./LoginCredentials.vue";
 import LoginCredentialsMobile from "./LoginCredentialsMobile.vue";
 import { State_Login } from "./State_Login";
 import { routeNames } from "lsrc/router/router";
-import { _, State_UI } from "@ventose/ui";
+import { _, State_UI } from "lsrc/ui";
 import {
 	AlipayCircleFilled,
 	TaobaoCircleFilled,

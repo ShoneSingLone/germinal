@@ -7,7 +7,7 @@ import {
 	defCol,
 	defPagination,
 	State_UI
-} from "@ventose/ui";
+} from "lsrc/ui";
 const { $t } = State_UI;
 
 /* data */

@@ -35,7 +35,7 @@ import constants from "ysrc/utils/variable";
 const confirm = Modal.confirm;
 import { nameLengthLimit, entries, trim, htmlFilter } from "../../../../common";
 import "../Setting.scss";
-import { _ } from "@ventose/ui";
+import { _ } from "lsrc/ui";
 import ProjectTag from "./ProjectTag.js";
 // layout
 const formItemLayout = {
