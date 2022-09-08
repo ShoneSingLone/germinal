@@ -7,7 +7,7 @@
 </template>
 <script lang="jsx">
 import { defineComponent, defineAsyncComponent } from "vue";
-import { State_App } from "lsrc/state/State_App";
+import { State_App } from "@ventose/state/State_App";
 /* 
 State_App.count = 1;
 State_App.test = { position: "fixed", top: 0, "zIndex": 1 };

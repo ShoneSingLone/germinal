@@ -15,7 +15,7 @@ import {
 	getColor,
 	Mutations_App,
 	State_App
-} from "lsrc/state/State_App";
+} from "@ventose/state/State_App";
 import { getCaptcha } from "./State_Login";
 import { LockOutlined, MailOutlined } from "@ant-design/icons-vue";
 const { $t } = State_UI;

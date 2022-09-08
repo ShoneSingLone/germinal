@@ -1,12 +1,12 @@
 import NProgress from "nprogress"; // progress bar
 import { createRouter, createWebHashHistory } from "vue-router";
-import LayoutUser from "lsrc/layout/User.vue";
-import Login from "lsrc/views/user/Login.vue";
-import Register from "lsrc/views/user/Register.vue";
-import DevDemo from "lsrc/views/demo/HelloWorld.vue";
-import Webrtc from "lsrc/views/webrtc/Webrtc.vue";
-import ViewToolboxShell from "lsrc/views/ToolboxShell/ViewToolboxShell.vue";
-import { State_App, Actions_App } from "lsrc/state/State_App";
+import LayoutUser from "@ventose/layout/User.vue";
+import Login from "@ventose/views/user/Login.vue";
+import Register from "@ventose/views/user/Register.vue";
+import DevDemo from "@ventose/views/demo/HelloWorld.vue";
+import Webrtc from "@ventose/views/webrtc/Webrtc.vue";
+import ViewToolboxShell from "@ventose/views/ToolboxShell/ViewToolboxShell.vue";
+import { State_App, Actions_App } from "@ventose/state/State_App";
 import { _, setDocumentTitle, State_UI } from "@ventose/ui";
 import { ALL_DEFAULT_ROUTES } from "./routes";
 
@@ -51,33 +51,33 @@ const routes = [
 		meta: {
 			title: $t("Music").label
 		},
-		component: () => import("lsrc/views/ViewMusic/Layout/LayoutMusic.vue"),
+		component: () => import("@ventose/views/ViewMusic/Layout/LayoutMusic.vue"),
 		children: [
 			{
 				name: "new",
 				path: "/music/new",
-				component: () => import("lsrc/views/ViewMusic/PlayListFindNew.vue")
+				component: () => import("@ventose/views/ViewMusic/PlayListFindNew.vue")
 			},
 			{
 				name: "playlist",
 				path: "/music/playlist",
-				component: () => import("lsrc/views/ViewMusic/PlayList.vue")
+				component: () => import("@ventose/views/ViewMusic/PlayList.vue")
 			},
 			{
 				name: "singer",
 				path: "/music/singer",
-				component: () => import("lsrc/views/ViewMusic/PlayListSinger.vue")
+				component: () => import("@ventose/views/ViewMusic/PlayListSinger.vue")
 			},
 			{
 				name: "private",
 				path: "/music/private",
 				component: () =>
-					import("lsrc/views/ViewMusic/PlayList/Private/PrivateLayout.vue")
+					import("@ventose/views/ViewMusic/PlayList/Private/PrivateLayout.vue")
 			},
 			{
 				name: "cached",
 				path: "/music/cached",
-				component: () => import("lsrc/views/ViewMusic/PlayListCached.vue")
+				component: () => import("@ventose/views/ViewMusic/PlayListCached.vue")
 			}
 		]
 	},
@@ -85,7 +85,7 @@ const routes = [
 		name: "PageDashboard",
 		path: "/dashboard",
 		redirect: "/dashboard-workplace",
-		component: () => import("lsrc/layout/LayoutBasic.vue"),
+		component: () => import("@ventose/layout/LayoutBasic.vue"),
 		children: [
 			{
 				name: routeNames.dashboardWorkplace,
@@ -117,7 +117,7 @@ const routes = [
 	{
 		path: "/:pathMatch(.*)*",
 		name: "404",
-		component: () => import("lsrc/views/system/NotFound.vue")
+		component: () => import("@ventose/views/system/NotFound.vue")
 	}
 ];
 

@@ -51,7 +51,7 @@ const routes = [
 	{
 		path: "/:pathMatch(.*)*",
 		name: "404",
-		component: () => import("lsrc/views/system/NotFound.vue")
+		component: () => import("@ventose/views/system/NotFound.vue")
 	},
 	{
 		path: "/",

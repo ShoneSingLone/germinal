@@ -12,7 +12,7 @@
 </template>
 
 <script lang="jsx">
-import { Actions_Music, State_Music } from "lsrc/state/State_Music";
+import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 import { reactive } from "vue";
 import { getMany, keys, del } from "idb-keyval";
 

@@ -58,7 +58,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			vue: "vue/dist/vue.esm-bundler.js",
-			lsrc: path.resolve(__dirname, "./src")
+			"@ventose": path.resolve(__dirname, "./src")
 		}
 	},
 	build: (() => {
@@ -88,7 +88,7 @@ export default defineConfig({
 			options.outDir = outDir;
 			options.lib = {
 				formats: ["umd"],
-				entry: path.resolve(__dirname, "local_modules/ui/index.tsx"),
+				entry: path.resolve(__dirname, "src/ui/index.tsx"),
 				name: "VentoseUI",
 				fileName: format => `${outPutName}.js`
 			};

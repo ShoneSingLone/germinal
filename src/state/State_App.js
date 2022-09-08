@@ -1,6 +1,6 @@
 import { reactive, watch, computed } from "vue";
 import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
-import { STATIC_WORD } from "lsrc/utils/common.words";
+import { STATIC_WORD } from "@ventose/utils/common.words";
 import { API, SuccessOrFail } from "germinal_api";
 import md5 from "md5";
 
@@ -201,7 +201,7 @@ export const Actions_App = {
 			/* 退出成功后清空token */
 			State_App.token = "";
 			/* fixed循环引用 */
-			const { router, routeNames } = await import("lsrc/router/router");
+			const { router, routeNames } = await import("@ventose/router/router");
 			UI.message.success($t("成功", { action: $t("退出").label }).label);
 			await _.sleep(1000 * 1);
 			router.push({

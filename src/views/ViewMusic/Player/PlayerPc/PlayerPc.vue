@@ -1,5 +1,5 @@
 <template>
-	<div id="ViewMusicPlayer" class="flex">
+	<div class="flex ViewMusicPlayer">
 		<MusicPlayerModel />
 		<xGap l="16" />
 		<!-- 上一曲，下一曲，播放，暂停 -->
@@ -17,7 +17,7 @@ import MusicPlayerModel from "./MusicPlayerModel.vue";
 import MusicPlayerOpration from "./MusicPlayerOpration.vue";
 import MusicPlayerAudio from "./MusicPlayerAudio.vue";
 import MusicPlayerVolume from "./MusicPlayerVolume.vue";
-import { Actions_Music, State_Music } from "lsrc/state/State_Music";
+import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 
 export default defineComponent({
 	components: {
@@ -38,9 +38,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-#ViewMusicPlayer {
-	width: 100%;
-
+.ViewMusicPlayer {
 	.site-layout .site-layout-background {
 		background: #fff;
 	}

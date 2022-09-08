@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-import { State_Login } from "lsrc/views/user/State_Login.jsx";
+import { State_Login } from "@ventose/views/user/State_Login.jsx";
 </script>
 
 <template>

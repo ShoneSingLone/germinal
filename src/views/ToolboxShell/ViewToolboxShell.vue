@@ -1,5 +1,5 @@
 <script lang="jsx">
-import { State_App, Actions_App } from "lsrc/state/State_App";
+import { State_App, Actions_App } from "@ventose/state/State_App";
 import { State_UI, UI, $ } from "@ventose/ui";
 import { defineComponent } from "vue";
 import DesktopIconItem from "./DesktopIconItem.vue";

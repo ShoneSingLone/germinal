@@ -1,7 +1,7 @@
 <template>
 	<aButton
 		class="PrivateMobileSongItem elevation-1 flex vertical width100"
-		:loading="isLoading">
+		:loading="loading">
 		<div class="title">
 			{{ song.title }}
 		</div>
@@ -13,7 +13,7 @@
 
 <script lang="jsx">
 export default {
-	props: ["song", "isLoading"],
+	props: ["song", "loading"],
 	setup() {
 		return {};
 	},

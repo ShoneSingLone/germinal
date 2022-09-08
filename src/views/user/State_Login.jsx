@@ -11,9 +11,9 @@ import {
 	FormRules,
 	RegexFn
 } from "@ventose/ui";
-import { getColor, Actions_App, State_App } from "lsrc/state/State_App";
+import { getColor, Actions_App, State_App } from "@ventose/state/State_App";
 import { API } from "germinal_api";
-import { router, routeNames } from "lsrc/router/router";
+import { router, routeNames } from "@ventose/router/router";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 
 const { $t } = State_UI;

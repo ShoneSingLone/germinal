@@ -1,69 +1,20 @@
 <template>
-	<div id="playlist-private-mobile" ref="refWrapper" class="wrapper">
-		<!--    <div
-      style="position:fixed;top:0;z-index: 1;"
-      :styl-id="styleSongItem1"
-    >
-      <div>{{ blockCount }}</div>
-      <div>{{ positionBlock }}</div>
-      <div>{{ styleSongItem1 }}</div>
-      <div>{{ styleSongItem2 }}</div>
-      <div>{{ styleSongItem3 }}</div>
-    </div> -->
-		<div :style="wrapperStyle">
-			<!-- item1 -->
-			<div class="song-item-wrapper item1" :style="styleSongItem1">
-				<div
-					v-for="song in privatePlaylist1"
-					:key="song.id"
-					class="song-item"
-					@click="playSong(song)">
-					<PrivateMobileSongItem
-						:song="song"
-						:loading="isLoading === song.id" />
-				</div>
-			</div>
-			<!-- item2 -->
-			<div class="song-item-wrapper item2" :style="styleSongItem2">
-				<div
-					v-for="song in privatePlaylist2"
-					:key="song.id"
-					class="song-item"
-					@click="playSong(song)">
-					<PrivateMobileSongItem
-						:song="song"
-						:loading="isLoading === song.id" />
-				</div>
-			</div>
-			<!-- item3 -->
-			<div class="song-item-wrapper item3" :style="styleSongItem3">
-				<div
-					v-for="song in privatePlaylist3"
-					:key="song.id"
-					class="song-item"
-					@click="playSong(song)">
-					<PrivateMobileSongItem
-						:song="song"
-						:loading="isLoading === song.id" />
-				</div>
-			</div>
-		</div>
-	</div>
+	<xVirScroll :configs="configs">
+		<template #item="{ item }">
+			<PrivateMobileSongItem
+				:song="item"
+				:loading="currentLoadingSongId === item.id"
+				@click="playSong(item)" />
+		</template>
+	</xVirScroll>
 </template>
 
 <script>
-import { Actions_Music, State_Music } from "lsrc/state/State_Music";
-import privatePlaylist from "lsrc/views/ViewMusic/assets/AllMusicClient.js";
-import { reactive } from "vue";
+import { Actions_Music } from "@ventose/state/State_Music";
+import AllMusic from "@ventose/views/ViewMusic/assets/AllMusicClient.js";
 import PrivateMobileSongItem from "./PrivateMobileSongItem.vue";
 
-import { _, State_UI, $ } from "@ventose/ui";
-
-const { $t } = State_UI;
-
-const itemHeight = 48;
-const perCount = 10;
-const oneBlockHeight = 580;
+import { _ } from "@ventose/ui";
 
 export default {
 	components: {
@@ -74,95 +25,15 @@ export default {
 	},
 	data() {
 		return {
-			blockCount: 0,
-			isLoading: false,
-			wrapperStyle: {
-				height: 0
+			currentLoadingSongId: "",
+			configs: {
+				items: _.sortBy(AllMusic, ["artist", "album"]).reverse()
 			}
 		};
 	},
-	computed: {
-		positionBlock() {
-			return this.blockCount % 3;
-		},
-		privatePlaylist1() {
-			const position =
-				Number(this.styleSongItem1.match(/(\d)/g).join("")) / 580;
-			console.log("privatePlaylist1", position);
-			const start = position * 10;
-			const end = start + 10;
-			return privatePlaylist.slice(start, end).map((i, index) => ({
-				...i,
-				index: start + 1 + index
-			}));
-		},
-		privatePlaylist2() {
-			const position =
-				Number(this.styleSongItem2.match(/(\d)/g).join("")) / 580;
-			console.log("privatePlaylist2", position);
-			const start = position * 10;
-			const end = start + 10;
-			return privatePlaylist.slice(start, end).map((i, index) => ({
-				...i,
-				index: start + 1 + index
-			}));
-		},
-		privatePlaylist3() {
-			const position =
-				Number(this.styleSongItem3.match(/(\d)/g).join("")) / 580;
-			console.log("privatePlaylist3", position);
-			const start = position * 10;
-			const end = start + 10;
-			return privatePlaylist.slice(start, end).map((i, index) => ({
-				...i,
-				index: start + 1 + index
-			}));
-		},
-		/* style */
-		styleSongItem1() {
-			if (this.positionBlock === 0) {
-				return `transform:translateY(${this.blockCount * 580}px)`;
-			}
-			if (this.positionBlock === 1) {
-				return `transform:translateY(${(this.blockCount + 2) * 580}px)`;
-			}
-			return `transform:translateY(${(this.blockCount + 1) * 580}px)`;
-		},
-		styleSongItem2() {
-			if (this.positionBlock === 0) {
-				return `transform:translateY(${(this.blockCount + 1) * 580}px)`;
-			}
-			if (this.positionBlock === 1) {
-				return `transform:translateY(${this.blockCount * 580}px)`;
-			}
-			return `transform:translateY(${(this.blockCount - 1) * 580}px)`;
-		},
-		styleSongItem3() {
-			if (this.positionBlock === 0) {
-				return `transform:translateY(${(this.blockCount + 2) * 580}px)`;
-			}
-			if (this.positionBlock === 1) {
-				return `transform:translateY(${(this.blockCount + 1) * 580}px)`;
-			}
-			return `transform:translateY(${this.blockCount * 580}px)`;
-		}
-	},
-	mounted() {
-		const vm = this;
-		vm.wrapperStyle.height = `${privatePlaylist.length * itemHeight}px`;
-		vm.$wrapperEle = $(vm.$refs.refWrapper);
-		vm.$wrapperEle.on("scroll", function (event) {
-			const top = vm.$refs.refWrapper.scrollTop;
-			vm.blockCount = Math.floor(top / oneBlockHeight);
-			console.log("blockCount", vm.blockCount, "🚀 top", top);
-		});
-	},
-	befroeDestroy() {
-		this.$wrapperEle.off("scroll");
-	},
 	methods: {
 		async playSong(record) {
-			this.isLoading = record.id;
+			this.currentLoadingSongId = record.id;
 			try {
 				record.name = record.title;
 				record.song = {
@@ -176,7 +47,7 @@ export default {
 			} catch (error) {
 				console.error(error);
 			} finally {
-				this.isLoading = false;
+				this.currentLoadingSongId = false;
 			}
 		}
 	}
