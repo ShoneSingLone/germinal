@@ -12,8 +12,8 @@
 </template>
 
 <script lang="jsx">
-import { Actions_Music, State_Music } from "lsrc/state/State_Music";
-import privatePlaylist from "lsrc/views/ViewMusic/assets/AllMusicClient.js";
+import { Actions_Music, State_Music } from "@ventose/state/State_Music";
+import privatePlaylist from "@ventose/views/ViewMusic/assets/AllMusicClient.js";
 import { reactive } from "vue";
 
 import {
@@ -28,7 +28,7 @@ import {
 	defColActionsBtnlist,
 	getPaginationPageSize,
 	setDataGridInfo
-} from "lsrc/ui";
+} from "@ventose/ui";
 
 const { $t } = State_UI;
 

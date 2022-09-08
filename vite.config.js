@@ -58,7 +58,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			vue: "vue/dist/vue.esm-bundler.js",
-			lsrc: path.resolve(__dirname, "./src")
+			"@ventose": path.resolve(__dirname, "./src")
 		}
 	},
 	build: (() => {
@@ -172,7 +172,7 @@ export default defineConfig({
 				];
 
 				if (isLib) {
-					modules = modules.filter(i => i.name !== "lsrc/ui");
+					modules = modules.filter(i => i.name !== "@ventose/ui");
 				}
 
 				productPluginArray.push(

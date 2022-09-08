@@ -1,5 +1,5 @@
 // progress bar
-import { setDocumentTitle, State_UI, _ } from "lsrc/ui";
+import { setDocumentTitle, State_UI, _ } from "@ventose/ui";
 import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
 import { Methods_App, State_App } from "ysrc/state/State_App";
@@ -51,7 +51,7 @@ const routes = [
 	{
 		path: "/:pathMatch(.*)*",
 		name: "404",
-		component: () => import("lsrc/views/system/NotFound.vue")
+		component: () => import("@ventose/views/system/NotFound.vue")
 	},
 	{
 		path: "/",

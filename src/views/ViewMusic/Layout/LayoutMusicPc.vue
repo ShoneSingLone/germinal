@@ -38,8 +38,8 @@
 </template>
 <script lang="jsx">
 import { defineComponent, ref } from "vue";
-import MusicPlayer from "lsrc/views/ViewMusic/Player/MusicPlayer.vue";
-import { State_Music } from "lsrc/state/State_Music";
+import MusicPlayer from "@ventose/views/ViewMusic/Player/MusicPlayer.vue";
+import { State_Music } from "@ventose/state/State_Music";
 
 export default defineComponent({
 	components: {

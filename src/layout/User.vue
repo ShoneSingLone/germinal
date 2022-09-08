@@ -1,8 +1,8 @@
 <script setup>
 import logoImg from "../assets/logo2.jpg";
-import SelectLanguage from "lsrc/components/SelectLanguage/SelectLanguage.vue";
-import { State_App } from "lsrc/state/State_App";
-import { _ } from "lsrc/ui";
+import SelectLanguage from "@ventose/components/SelectLanguage/SelectLanguage.vue";
+import { State_App } from "@ventose/state/State_App";
+import { _ } from "@ventose/ui";
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 import $ from "jquery";
 
 const auth = "/shiro";

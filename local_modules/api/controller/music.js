@@ -1,4 +1,4 @@
-import { genAjax } from "lsrc/request/ajax";
+import { genAjax } from "@ventose/request/ajax";
 
 const ajax = genAjax({
 	baseURL: "https://www.singlone.work/s/wyapi",

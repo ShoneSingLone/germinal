@@ -17,7 +17,7 @@ import MusicPlayerModel from "./MusicPlayerModel.vue";
 import MusicPlayerOpration from "./MusicPlayerOpration.vue";
 import MusicPlayerAudio from "./MusicPlayerAudio.vue";
 import MusicPlayerVolume from "./MusicPlayerVolume.vue";
-import { Actions_Music, State_Music } from "lsrc/state/State_Music";
+import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 
 export default defineComponent({
 	components: {

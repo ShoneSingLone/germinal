@@ -10,7 +10,7 @@ import {
 	Actions_Music,
 	State_Music,
 	Cpt_iconPlayModel
-} from "lsrc/state/State_Music";
+} from "@ventose/state/State_Music";
 
 export default {
 	setup() {

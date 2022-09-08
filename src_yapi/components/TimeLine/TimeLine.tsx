@@ -9,7 +9,7 @@ import * as jsondiffpatch from "jsondiffpatch";
 const formattersHtml = jsondiffpatch.formatters.html;
 import { defineComponent } from "vue";
 import { State_App } from "ysrc/state/State_App";
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 
 const AddDiffView = props => {
 	const { title, content, className } = props;

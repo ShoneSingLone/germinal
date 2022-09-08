@@ -10,7 +10,7 @@ import {
 	compile,
 	markRaw
 } from "vue";
-import { defItem, UI, FormRules, RegexFn } from "lsrc/ui";
+import { defItem, UI, FormRules, RegexFn } from "@ventose/ui";
 import xIM from "./xIM/index";
 import TestXDataGrid from "./TestXDataGrid.vue";
 const PopoverContent = defineComponent(

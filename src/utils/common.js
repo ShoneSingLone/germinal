@@ -1,5 +1,5 @@
-import { _, $, VentoseUIWithInstall, State_UI } from "lsrc/ui";
-import { router } from "lsrc/router/router";
+import { _, $, VentoseUIWithInstall, State_UI } from "@ventose/ui";
+import { router } from "@ventose/router/router";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import STable from "@surely-vue/table";

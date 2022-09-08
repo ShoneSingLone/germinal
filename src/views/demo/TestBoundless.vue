@@ -1,6 +1,6 @@
 <script>
 import { defineComponent, markRaw } from "vue";
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 
 export default defineComponent({
 	data() {

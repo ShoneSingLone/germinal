@@ -1,7 +1,7 @@
 <script lang="jsx">
 import "./GroupSetting.scss";
 import { defineComponent } from "vue";
-import { UI, _ } from "lsrc/ui";
+import { UI, _ } from "@ventose/ui";
 
 export default defineComponent({
 	props: [

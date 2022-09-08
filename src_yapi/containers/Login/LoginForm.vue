@@ -30,7 +30,7 @@ import {
 	lStorage,
 	State_UI,
 	FormRules
-} from "lsrc/ui";
+} from "@ventose/ui";
 import { Methods_App, State_App } from "ysrc/state/State_App.jsx";
 import { API } from "ysrc/api";
 import { router } from "ysrc/router/router.jsx";

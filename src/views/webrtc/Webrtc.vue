@@ -1,5 +1,5 @@
 <script>
-import { routeNames } from "lsrc/router/router";
+import { routeNames } from "@ventose/router/router";
 import { defineComponent } from "vue";
 
 export default defineComponent({

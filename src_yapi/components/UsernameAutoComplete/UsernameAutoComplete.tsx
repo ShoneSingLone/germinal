@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
 import { API } from "ysrc/api";
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 
 /**
  * 用户名输入框自动完成组件

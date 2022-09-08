@@ -1,7 +1,7 @@
 <script lang="jsx">
 import "./Footer.scss";
 import { defineComponent } from "vue";
-import { $ } from "lsrc/ui";
+import { $ } from "@ventose/ui";
 
 const version = Date.now();
 

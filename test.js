@@ -3,7 +3,7 @@ const { compileTemplate } = require("vue/compiler-sfc");
 const res = compileTemplate({
 	id: JSON.stringify("id"),
 	source: `<script setup lang="jsx">
-    import TestPopover from "lsrc/views/demo/TestPopover.vue";
+    import TestPopover from "@ventose/views/demo/TestPopover.vue";
     </script>
     
     <template>

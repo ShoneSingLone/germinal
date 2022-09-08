@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import { Actions_Music } from "lsrc/state/State_Music";
-import privatePlaylist from "lsrc/views/ViewMusic/assets/AllMusicClient.js";
-import PrivateMobileSongItem from "lsrc/views/ViewMusic/PlayList/Private/PrivateMobileSongItem.vue";
+import { Actions_Music } from "@ventose/state/State_Music";
+import privatePlaylist from "@ventose/views/ViewMusic/assets/AllMusicClient.js";
+import PrivateMobileSongItem from "@ventose/views/ViewMusic/PlayList/Private/PrivateMobileSongItem.vue";
 import { defineComponent } from "vue";
 
-import { _, State_UI, $ } from "lsrc/ui";
+import { _, State_UI, $ } from "@ventose/ui";
 
 const { $t } = State_UI;
 

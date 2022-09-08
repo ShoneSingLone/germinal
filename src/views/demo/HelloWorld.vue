@@ -11,8 +11,8 @@ mo
 
 <script lang="jsx">
 import { defineComponent } from "vue";
-import TestPopover from "lsrc/views/demo/TestPopover.vue";
-import TestBoundless from "lsrc/views/demo/TestBoundless.vue";
+import TestPopover from "@ventose/views/demo/TestPopover.vue";
+import TestBoundless from "@ventose/views/demo/TestBoundless.vue";
 
 export default defineComponent({
 	components: {

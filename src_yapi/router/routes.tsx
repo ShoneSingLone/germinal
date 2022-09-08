@@ -1,5 +1,5 @@
-import NotFound from "lsrc/views/system/NotFound.vue";
-import { _ } from "lsrc/ui";
+import NotFound from "@ventose/views/system/NotFound.vue";
+import { _ } from "@ventose/ui";
 const { genId } = _;
 
 export const routeNames = {

@@ -2,7 +2,7 @@ import "./Breadcrumb.scss";
 
 import { defineComponent } from "vue";
 import { State_App } from "ysrc/state/State_App";
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 
 export const BreadcrumbNavigation = defineComponent({
 	setup() {

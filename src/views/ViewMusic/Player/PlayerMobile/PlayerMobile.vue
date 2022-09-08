@@ -20,8 +20,8 @@ import { defineComponent } from "vue";
 import MusicPlayerModel from "./MusicPlayerModel.vue";
 import MusicPlayerOpration from "./MusicPlayerOpration.vue";
 import MusicPlayerAudio from "./MusicPlayerAudio.vue";
-import { Actions_Music, State_Music } from "lsrc/state/State_Music";
-import { _ } from "lsrc/ui";
+import { Actions_Music, State_Music } from "@ventose/state/State_Music";
+import { _ } from "@ventose/ui";
 
 export default defineComponent({
 	components: {

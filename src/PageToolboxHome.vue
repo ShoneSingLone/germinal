@@ -1,9 +1,9 @@
 <script>
 /*https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup*/
 import { defineComponent } from "vue";
-import { _ } from "lsrc/ui";
-import { Actions_App } from "lsrc/state/State_App";
-import { setDocumentTitle } from "lsrc/ui";
+import { _ } from "@ventose/ui";
+import { Actions_App } from "@ventose/state/State_App";
+import { setDocumentTitle } from "@ventose/ui";
 
 export default defineComponent({
 	data() {
@@ -20,7 +20,7 @@ export default defineComponent({
 		/* HTML title */
 		setDocumentTitle(State_App.configs.title);
 		/* 菜单可以从API获取 */
-		const { MENUS_ALL_DEFAULT_ROUTES } = await import("lsrc/router/routes");
+		const { MENUS_ALL_DEFAULT_ROUTES } = await import("@ventose/router/routes");
 		State_App.menuTree = MENUS_ALL_DEFAULT_ROUTES;
 		this.isLoading = false;
 	}

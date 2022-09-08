@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import { Actions_Music } from "lsrc/state/State_Music";
-import AllMusic from "lsrc/views/ViewMusic/assets/AllMusicClient.js";
+import { Actions_Music } from "@ventose/state/State_Music";
+import AllMusic from "@ventose/views/ViewMusic/assets/AllMusicClient.js";
 import PrivateMobileSongItem from "./PrivateMobileSongItem.vue";
 
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 
 export default {
 	components: {

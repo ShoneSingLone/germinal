@@ -1,1 +1,1 @@
-import "lsrc/ui";
+import "@ventose/ui";

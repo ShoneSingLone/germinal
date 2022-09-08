@@ -11,7 +11,7 @@ import {
 	UI,
 	validateForm,
 	_
-} from "lsrc/ui";
+} from "@ventose/ui";
 import { State_App } from "ysrc/state/State_App.jsx";
 import { Methods_App } from "ysrc/state/State_App";
 import { API } from "../../api/index";

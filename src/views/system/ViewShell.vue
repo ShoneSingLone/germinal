@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter, useRoute } from "vue-router";
-// import { routeNames } from "lsrc/router/router";
+// import { routeNames } from "@ventose/router/router";
 
 const router = useRouter();
 function go() {

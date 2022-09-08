@@ -1,7 +1,7 @@
 <script>
 /*https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup*/
 import { defineComponent } from "vue";
-import { _ } from "lsrc/ui";
+import { _ } from "@ventose/ui";
 import Footer from "ysrc/components/Footer/Footer.vue";
 import Header from "ysrc/components/Header/Header";
 import { Methods_App, State_App } from "ysrc/state/State_App";

@@ -6,7 +6,7 @@
 </template>
 <script lang="jsx">
 import { defineComponent, defineAsyncComponent } from "vue";
-import { State_App } from "lsrc/state/State_App";
+import { State_App } from "@ventose/state/State_App";
 
 export default defineComponent({
 	components: {
