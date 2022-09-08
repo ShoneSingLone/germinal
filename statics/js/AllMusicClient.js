@@ -1,4 +1,4 @@
-var privatePlaylist = [
+var AllMusic = [
   {
     id: 0,
     album: "Irony",
@@ -17138,4 +17138,4 @@ var privatePlaylist = [
   },
   { id: 11290, album: "12\u65B0\u4F5C", artist: "\u5468\u6770\u4F26", title: "\u7231\u4F60\u6CA1\u5DEE" }
 ];
-export { privatePlaylist as p };
+export { AllMusic as A };

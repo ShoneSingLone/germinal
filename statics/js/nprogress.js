@@ -12029,7 +12029,7 @@ function useScrollTo(containerRef, mergedData, heights, props3, getKey3, collect
     }
     wrapperRaf.cancel(scroll);
     var data8 = mergedData.value;
-    var itemHeight = props3.itemHeight;
+    var itemHeight2 = props3.itemHeight;
     if (typeof arg === "number") {
       syncScrollTop(arg);
     } else if (arg && _typeof$3(arg) === "object") {
@@ -12059,7 +12059,7 @@ function useScrollTo(containerRef, mergedData, heights, props3, getKey3, collect
             var key2 = getKey3(data8[i2]);
             itemTop = stackTop;
             var cacheHeight = heights.get(key2);
-            itemBottom = itemTop + (cacheHeight === void 0 ? itemHeight : cacheHeight);
+            itemBottom = itemTop + (cacheHeight === void 0 ? itemHeight2 : cacheHeight);
             stackTop = itemBottom;
             if (i2 === index2 && cacheHeight === void 0) {
               needCollectHeight = true;
@@ -12289,12 +12289,12 @@ var List$3 = Vue.defineComponent({
   setup: function setup27(props3, _ref2) {
     var expose = _ref2.expose;
     var useVirtual = Vue.computed(function() {
-      var height = props3.height, itemHeight = props3.itemHeight, virtual = props3.virtual;
-      return !!(virtual !== false && height && itemHeight);
+      var height = props3.height, itemHeight2 = props3.itemHeight, virtual = props3.virtual;
+      return !!(virtual !== false && height && itemHeight2);
     });
     var inVirtual = Vue.computed(function() {
-      var height = props3.height, itemHeight = props3.itemHeight, data9 = props3.data;
-      return useVirtual.value && data9 && itemHeight * data9.length > height;
+      var height = props3.height, itemHeight2 = props3.itemHeight, data9 = props3.data;
+      return useVirtual.value && data9 && itemHeight2 * data9.length > height;
     });
     var state = Vue.reactive({
       scrollTop: 0,
@@ -12406,14 +12406,14 @@ var List$3 = Vue.defineComponent({
       var dataLen = mergedData.value.length;
       var data9 = mergedData.value;
       var scrollTop = state.scrollTop;
-      var itemHeight = props3.itemHeight, height = props3.height;
+      var itemHeight2 = props3.itemHeight, height = props3.height;
       var scrollTopHeight = scrollTop + height;
       for (var i2 = 0; i2 < dataLen; i2 += 1) {
         var item = data9[i2];
         var key2 = getKey3(item);
         var cacheHeight = heights.get(key2);
         if (cacheHeight === void 0) {
-          cacheHeight = itemHeight;
+          cacheHeight = itemHeight2;
         }
         var currentItemBottom = itemTop + cacheHeight;
         if (startIndex === void 0 && currentItemBottom >= scrollTop) {
@@ -53805,11 +53805,11 @@ var MotionFlattenData = {
   isStart: [],
   isEnd: []
 };
-function getMinimumRangeTransitionRange(list, virtual, height, itemHeight) {
+function getMinimumRangeTransitionRange(list, virtual, height, itemHeight2) {
   if (virtual === false || !height) {
     return list;
   }
-  return list.slice(0, Math.ceil(height / itemHeight) + 1);
+  return list.slice(0, Math.ceil(height / itemHeight2) + 1);
 }
 function itemKey(item) {
   var key2 = item.key, pos = item.pos;
@@ -53858,13 +53858,13 @@ var NodeList = Vue.defineComponent({
       var _ref5 = _slicedToArray$2(_ref3, 2), prevExpandedKeys = _ref5[0], prevData = _ref5[1];
       var diffExpanded = findExpandedKeys(prevExpandedKeys, expandedKeys2);
       if (diffExpanded.key !== null) {
-        var virtual = props3.virtual, height = props3.height, itemHeight = props3.itemHeight;
+        var virtual = props3.virtual, height = props3.height, itemHeight2 = props3.itemHeight;
         if (diffExpanded.add) {
           var keyIndex = prevData.findIndex(function(_ref6) {
             var key2 = _ref6.key;
             return key2 === diffExpanded.key;
           });
-          var rangeNodes = getMinimumRangeTransitionRange(getExpandRange(prevData, data8, diffExpanded.key), virtual, height, itemHeight);
+          var rangeNodes = getMinimumRangeTransitionRange(getExpandRange(prevData, data8, diffExpanded.key), virtual, height, itemHeight2);
           var newTransitionData = prevData.slice();
           newTransitionData.splice(keyIndex + 1, 0, MotionFlattenData);
           transitionData.value = newTransitionData;
@@ -53875,7 +53875,7 @@ var NodeList = Vue.defineComponent({
             var key2 = _ref7.key;
             return key2 === diffExpanded.key;
           });
-          var _rangeNodes = getMinimumRangeTransitionRange(getExpandRange(data8, prevData, diffExpanded.key), virtual, height, itemHeight);
+          var _rangeNodes = getMinimumRangeTransitionRange(getExpandRange(data8, prevData, diffExpanded.key), virtual, height, itemHeight2);
           var _newTransitionData = data8.slice();
           _newTransitionData.splice(_keyIndex + 1, 0, MotionFlattenData);
           transitionData.value = _newTransitionData;
@@ -53903,7 +53903,7 @@ var NodeList = Vue.defineComponent({
       var _a = _extends$1(_extends$1({}, props3), attrs), prefixCls = _a.prefixCls;
       _a.selectable;
       _a.checkable;
-      var disabled = _a.disabled, motion = _a.motion, height = _a.height, itemHeight = _a.itemHeight, virtual = _a.virtual, focusable = _a.focusable, activeItem = _a.activeItem, focused = _a.focused, tabindex = _a.tabindex, onKeydown = _a.onKeydown, onFocus2 = _a.onFocus, onBlur2 = _a.onBlur, onListChangeStart = _a.onListChangeStart;
+      var disabled = _a.disabled, motion = _a.motion, height = _a.height, itemHeight2 = _a.itemHeight, virtual = _a.virtual, focusable = _a.focusable, activeItem = _a.activeItem, focused = _a.focused, tabindex = _a.tabindex, onKeydown = _a.onKeydown, onFocus2 = _a.onFocus, onBlur2 = _a.onBlur, onListChangeStart = _a.onListChangeStart;
       _a.onListChangeEnd;
       var domProps = __rest$9(_a, ["prefixCls", "selectable", "checkable", "disabled", "motion", "height", "itemHeight", "virtual", "focusable", "activeItem", "focused", "tabindex", "onKeydown", "onFocus", "onBlur", "onListChangeStart", "onListChangeEnd"]);
       return Vue.createVNode(Vue.Fragment, null, [focused && activeItem && Vue.createVNode("span", {
@@ -53940,7 +53940,7 @@ var NodeList = Vue.defineComponent({
         "height": height,
         "fullHeight": false,
         "virtual": virtual,
-        "itemHeight": itemHeight,
+        "itemHeight": itemHeight2,
         "prefixCls": "".concat(prefixCls, "-list"),
         "ref": listRef,
         "onVisibleChange": function onVisibleChange(originList, fullList) {
@@ -54804,7 +54804,7 @@ var Tree$2 = Vue.defineComponent({
     return function() {
       var _classNames;
       var draggingNodeKey = dragState.draggingNodeKey, dropLevelOffset = dragState.dropLevelOffset, dropContainerKey = dragState.dropContainerKey, dropTargetKey = dragState.dropTargetKey, dropPosition = dragState.dropPosition, dragOverNodeKey = dragState.dragOverNodeKey;
-      var prefixCls = props3.prefixCls, showLine = props3.showLine, focusable = props3.focusable, _props$tabindex = props3.tabindex, tabindex = _props$tabindex === void 0 ? 0 : _props$tabindex, selectable = props3.selectable, showIcon = props3.showIcon, _props$icon = props3.icon, icon = _props$icon === void 0 ? slots.icon : _props$icon, switcherIcon = props3.switcherIcon, draggable = props3.draggable, checkable = props3.checkable, checkStrictly = props3.checkStrictly, disabled = props3.disabled, motion = props3.motion, loadData = props3.loadData, filterTreeNode = props3.filterTreeNode, height = props3.height, itemHeight = props3.itemHeight, virtual = props3.virtual, dropIndicatorRender2 = props3.dropIndicatorRender, onContextmenu2 = props3.onContextmenu, onScroll = props3.onScroll, direction = props3.direction;
+      var prefixCls = props3.prefixCls, showLine = props3.showLine, focusable = props3.focusable, _props$tabindex = props3.tabindex, tabindex = _props$tabindex === void 0 ? 0 : _props$tabindex, selectable = props3.selectable, showIcon = props3.showIcon, _props$icon = props3.icon, icon = _props$icon === void 0 ? slots.icon : _props$icon, switcherIcon = props3.switcherIcon, draggable = props3.draggable, checkable = props3.checkable, checkStrictly = props3.checkStrictly, disabled = props3.disabled, motion = props3.motion, loadData = props3.loadData, filterTreeNode = props3.filterTreeNode, height = props3.height, itemHeight2 = props3.itemHeight, virtual = props3.virtual, dropIndicatorRender2 = props3.dropIndicatorRender, onContextmenu2 = props3.onContextmenu, onScroll = props3.onScroll, direction = props3.direction;
       var className = attrs.class, style = attrs.style;
       var domProps = pickAttrs(_extends$1(_extends$1({}, props3), attrs), {
         aria: true,
@@ -54878,7 +54878,7 @@ var Tree$2 = Vue.defineComponent({
             "checkable": !!checkable,
             "motion": motion,
             "height": height,
-            "itemHeight": itemHeight,
+            "itemHeight": itemHeight2,
             "virtual": virtual,
             "focusable": focusable,
             "focused": focused.value,
@@ -55265,13 +55265,13 @@ var Tree$1 = Vue.defineComponent({
     };
     return function() {
       var _classNames;
-      var showIcon = props3.showIcon, showLine = props3.showLine, _props$switcherIcon = props3.switcherIcon, _switcherIcon = _props$switcherIcon === void 0 ? slots.switcherIcon : _props$switcherIcon, _props$icon = props3.icon, icon = _props$icon === void 0 ? slots.icon : _props$icon, blockNode = props3.blockNode, checkable = props3.checkable, selectable = props3.selectable, _props$fieldNames = props3.fieldNames, fieldNames = _props$fieldNames === void 0 ? props3.replaceFields : _props$fieldNames, _props$motion = props3.motion, motion = _props$motion === void 0 ? props3.openAnimation : _props$motion, _props$itemHeight = props3.itemHeight, itemHeight = _props$itemHeight === void 0 ? 28 : _props$itemHeight, onDoubleclick = props3.onDoubleclick, onDblclick = props3.onDblclick;
+      var showIcon = props3.showIcon, showLine = props3.showLine, _props$switcherIcon = props3.switcherIcon, _switcherIcon = _props$switcherIcon === void 0 ? slots.switcherIcon : _props$switcherIcon, _props$icon = props3.icon, icon = _props$icon === void 0 ? slots.icon : _props$icon, blockNode = props3.blockNode, checkable = props3.checkable, selectable = props3.selectable, _props$fieldNames = props3.fieldNames, fieldNames = _props$fieldNames === void 0 ? props3.replaceFields : _props$fieldNames, _props$motion = props3.motion, motion = _props$motion === void 0 ? props3.openAnimation : _props$motion, _props$itemHeight = props3.itemHeight, itemHeight2 = _props$itemHeight === void 0 ? 28 : _props$itemHeight, onDoubleclick = props3.onDoubleclick, onDblclick = props3.onDblclick;
       var newProps = _extends$1(_extends$1(_extends$1({}, attrs), omit$2(props3, ["onUpdate:checkedKeys", "onUpdate:expandedKeys", "onUpdate:selectedKeys", "onDoubleclick"])), {
         showLine: Boolean(showLine),
         dropIndicatorRender,
         fieldNames,
         icon,
-        itemHeight
+        itemHeight: itemHeight2
       });
       var children = slots.default ? filterEmpty(slots.default()) : void 0;
       return Vue.createVNode(Tree$2, _objectSpread2$1(_objectSpread2$1({}, newProps), {}, {
@@ -64732,10 +64732,10 @@ var RadioGroup = ({
   slots,
   listeners
 }) => {
-  _global__.omit(property2, ["options"]);
+  _.omit(property2, ["options"]);
   const renderOptions = () => {
     if (property2.isButton) {
-      return _global__.map(property2.options, (option) => {
+      return _.map(property2.options, (option) => {
         return Vue.createVNode(RadioButton, {
           "value": option.value
         }, {
@@ -64743,7 +64743,7 @@ var RadioGroup = ({
         });
       });
     }
-    return _global__.map(property2.options, (option) => {
+    return _.map(property2.options, (option) => {
       return Vue.createVNode(Radio, {
         "value": option.value
       }, {
@@ -64832,7 +64832,7 @@ const MutatingProps = (item, prop, val = null) => {
 const domClass = {
   tipsError: "ant-form-item-explain ant-form-item-explain-error"
 };
-var _sfc_main$b = Vue.defineComponent({
+var _sfc_main$c = Vue.defineComponent({
   name: "XItem",
   props: {
     modelValue: {
@@ -65123,7 +65123,7 @@ var _sfc_main$b = Vue.defineComponent({
     }, [Vue.createVNode(CurrentXItem, this.componentSettings, null), this.tipsVNode])]);
   }
 });
-var _sfc_main$a = Vue.defineComponent({
+var _sfc_main$b = Vue.defineComponent({
   name: "xForm",
   props: {
     labelStyle: {
@@ -65178,13 +65178,13 @@ var _export_sfc = (sfc, props3) => {
   }
   return target;
 };
-const _hoisted_1$5 = ["id"];
-function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$6 = ["id"];
+function _sfc_render$9(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("form", { id: _ctx.xFormId }, [
     Vue.renderSlot(_ctx.$slots, "default")
-  ], 8, _hoisted_1$5);
+  ], 8, _hoisted_1$6);
 }
-var xForm = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$8]]);
+var xForm = /* @__PURE__ */ _export_sfc(_sfc_main$b, [["render", _sfc_render$9]]);
 var SaveOutlined$2 = { "icon": { "tag": "svg", "attrs": { "viewBox": "64 64 896 896", "focusable": "false" }, "children": [{ "tag": "path", "attrs": { "d": "M893.3 293.3L730.7 130.7c-7.5-7.5-16.7-13-26.7-16V112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V338.5c0-17-6.7-33.2-18.7-45.2zM384 184h256v104H384V184zm456 656H184V184h136v136c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V205.8l136 136V840zM512 442c-79.5 0-144 64.5-144 144s64.5 144 144 144 144-64.5 144-144-64.5-144-144-144zm0 224c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80z" } }] }, "name": "save", "theme": "outlined" };
 var SaveOutlinedSvg = SaveOutlined$2;
 function _objectSpread$3(target) {
@@ -65450,7 +65450,7 @@ var xButton = Vue.defineComponent({
     });
   }
 });
-var _sfc_main$9 = Vue.defineComponent({
+var _sfc_main$a = Vue.defineComponent({
   name: "XButtonCountDown",
   props: {
     configs: {
@@ -65519,12 +65519,12 @@ var _sfc_main$9 = Vue.defineComponent({
     }
   }
 });
-function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xButton = Vue.resolveComponent("xButton");
   return Vue.openBlock(), Vue.createBlock(_component_xButton, { configs: _ctx.btnConfigs }, null, 8, ["configs"]);
 }
-var xButtonCountDown = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$7]]);
-var _sfc_main$8 = Vue.defineComponent({
+var xButtonCountDown = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$8]]);
+var _sfc_main$9 = Vue.defineComponent({
   name: "xGap",
   props: ["t", "l", "r", "b", "a", "f"],
   computed: {
@@ -65571,7 +65571,7 @@ const line = {};
 const CONFIGS_MAP = {
   line
 };
-var _sfc_main$7 = Vue.defineComponent({
+var _sfc_main$8 = Vue.defineComponent({
   name: "xCharts",
   props: {
     payload: {
@@ -65634,15 +65634,15 @@ var _sfc_main$7 = Vue.defineComponent({
     }
   }
 });
-const _hoisted_1$4 = ["id"];
-function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$5 = ["id"];
+function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("div", {
     id: _ctx.id,
     class: "x-charts flex flex1 center middle"
-  }, null, 8, _hoisted_1$4);
+  }, null, 8, _hoisted_1$5);
 }
-var xCharts = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$6]]);
-var _sfc_main$6 = Vue.defineComponent({
+var xCharts = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$7]]);
+var _sfc_main$7 = Vue.defineComponent({
   name: "xView",
   props: {
     isShow: {
@@ -65659,16 +65659,16 @@ var _sfc_main$6 = Vue.defineComponent({
     }
   }
 });
-const _hoisted_1$3 = ["id"];
-function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$4 = ["id"];
+function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.withDirectives((Vue.openBlock(), Vue.createElementBlock("div", { id: _ctx.id }, [
     Vue.renderSlot(_ctx.$slots, "default")
-  ], 8, _hoisted_1$3)), [
+  ], 8, _hoisted_1$4)), [
     [Vue.vShow, !!_ctx.isShow]
   ]);
 }
-var xView = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5]]);
-var _sfc_main$5 = Vue.defineComponent(Vue.markRaw({
+var xView = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$6]]);
+var _sfc_main$6 = Vue.defineComponent(Vue.markRaw({
   components: {
     LoadingOutlined: LoadingOutlined$1
   },
@@ -65720,7 +65720,7 @@ var _sfc_main$5 = Vue.defineComponent(Vue.markRaw({
   }
 }));
 var xIcon_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1$2 = ["id", "aria-label"];
+const _hoisted_1$3 = ["id", "aria-label"];
 const _hoisted_2$1 = {
   class: "next-loading next-open next-loading-inline",
   style: { "width": "100%", "height": "100%", "overflow": "hidden" }
@@ -65731,7 +65731,7 @@ const _hoisted_3$1 = /* @__PURE__ */ Vue.createElementVNode("div", { class: "nex
 const _hoisted_4 = { class: "next-loading-component next-loading-wrap" };
 const _hoisted_5 = /* @__PURE__ */ Vue.createElementVNode("div", { class: "next-loading-masker" }, null, -1);
 const _hoisted_6 = { class: "demo-basic" };
-function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_LoadingOutlined = Vue.resolveComponent("LoadingOutlined");
   return Vue.openBlock(), Vue.createElementBlock("span", {
     id: _ctx.id,
@@ -65748,9 +65748,9 @@ function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ])
-  ], 8, _hoisted_1$2);
+  ], 8, _hoisted_1$3);
 }
-var xIcon = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4]]);
+var xIcon = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5]]);
 function _isSlot$1(s2) {
   return typeof s2 === "function" || Object.prototype.toString.call(s2) === "[object Object]" && !Vue.isVNode(s2);
 }
@@ -65909,7 +65909,7 @@ function setDataGridInfo(StateBind, result = {
   }
 }
 const PAGE_SIZE_OPTIONS = ["10", "20", "30"];
-var _sfc_main$4 = Vue.defineComponent({
+var _sfc_main$5 = Vue.defineComponent({
   name: "xPagination",
   components: {
     Pagination: q
@@ -65952,7 +65952,7 @@ var _sfc_main$4 = Vue.defineComponent({
   }
 });
 lStorage.appConfigs.pagination;
-function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Pagination = Vue.resolveComponent("Pagination");
   return Vue.openBlock(), Vue.createBlock(_component_Pagination, {
     current: _ctx.pagination[_ctx.page],
@@ -65971,8 +65971,8 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   }, 8, ["current", "page-size-options", "total", "page-size", "show-total", "onShowSizeChange", "onChange"]);
 }
-var xPagination = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3]]);
-var _sfc_main$3 = Vue.defineComponent({
+var xPagination = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4]]);
+var _sfc_main$4 = Vue.defineComponent({
   name: "XDataGrid",
   components: {
     xPagination
@@ -66129,7 +66129,7 @@ var _sfc_main$3 = Vue.defineComponent({
   }
 });
 var xDataGrid_vue_vue_type_style_index_0_lang = "";
-var _sfc_main$2 = Vue.defineComponent({
+var _sfc_main$3 = Vue.defineComponent({
   name: "xColFilter",
   components: {
     SettingOutlined: SettingOutlined$1
@@ -66176,7 +66176,7 @@ var _sfc_main$2 = Vue.defineComponent({
     }
   }
 });
-function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aCheckbox = Vue.resolveComponent("aCheckbox");
   const _component_SettingOutlined = Vue.resolveComponent("SettingOutlined");
   const _component_aButton = Vue.resolveComponent("aButton");
@@ -66213,8 +66213,8 @@ function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   });
 }
-var xColFilter = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
-var _sfc_main$1 = Vue.defineComponent({
+var xColFilter = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3]]);
+var _sfc_main$2 = Vue.defineComponent({
   name: "xDataGridToolbar",
   components: {
     xColFilter
@@ -66281,17 +66281,17 @@ var _sfc_main$1 = Vue.defineComponent({
     }
   }
 });
-const _hoisted_1$1 = { class: "table-options" };
+const _hoisted_1$2 = { class: "table-options" };
 const _hoisted_2 = { class: "table-option-left flex flex1" };
 const _hoisted_3 = {
   key: 0,
   class: "table-filter flex"
 };
-function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xButton = Vue.resolveComponent("xButton");
   const _component_xGap = Vue.resolveComponent("xGap");
   const _component_xColFilter = Vue.resolveComponent("xColFilter");
-  return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$1, [
+  return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1$2, [
     Vue.createElementVNode("div", _hoisted_2, [
       Vue.renderSlot(_ctx.$slots, "default")
     ]),
@@ -66313,8 +66313,8 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     ])) : Vue.createCommentVNode("", true)
   ]);
 }
-var xDataGridToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
-var _sfc_main = Vue.defineComponent({
+var xDataGridToolbar = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
+var _sfc_main$1 = Vue.defineComponent({
   name: "xCellLabel",
   props: {
     configs: {
@@ -66363,8 +66363,8 @@ var _sfc_main = Vue.defineComponent({
     }
   }
 });
-const _hoisted_1 = ["title", "id"];
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+const _hoisted_1$1 = ["title", "id"];
+function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("div", {
     class: "ellipsis",
     title: _ctx.title,
@@ -66373,9 +66373,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     Vue.createElementVNode("span", null, [
       Vue.renderSlot(_ctx.$slots, "default")
     ])
-  ], 8, _hoisted_1);
+  ], 8, _hoisted_1$1);
 }
-var xCellLabel = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+var xCellLabel = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 const installUIDialogComponent = (UI2, {
   appPlugins,
   dependState
@@ -66545,6 +66545,164 @@ const installUIDialogComponent = (UI2, {
     }, options));
   });
 };
+var xVirScroll_vue_vue_type_style_index_0_lang = "";
+const itemHeight = 48;
+const oneBlockHeight = 580;
+const _sfc_main = Vue.defineComponent({
+  name: "XVirScroll",
+  props: {
+    configs: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  setup() {
+    return {};
+  },
+  data() {
+    return {
+      itemComponent: this.$slots.item,
+      blockCount: 0,
+      isLoading: false,
+      styleWrapperAll: {
+        height: 0
+      }
+    };
+  },
+  computed: {
+    allItems() {
+      return this.configs.items || [];
+    },
+    positionBlock() {
+      return this.blockCount % 3;
+    },
+    virs1() {
+      const position = Number(this.styleWrapper1.match(/(\d)/g).join("")) / 580;
+      console.log("virs1", position);
+      const start = position * 10;
+      const end = start + 10;
+      return this.allItems.slice(start, end).map((i2, index2) => ({
+        ...i2,
+        index: start + 1 + index2
+      }));
+    },
+    virs2() {
+      const position = Number(this.styleWrapper2.match(/(\d)/g).join("")) / 580;
+      console.log("virs2", position);
+      const start = position * 10;
+      const end = start + 10;
+      return this.allItems.slice(start, end).map((i2, index2) => ({
+        ...i2,
+        index: start + 1 + index2
+      }));
+    },
+    virs3() {
+      const position = Number(this.styleWrapper3.match(/(\d)/g).join("")) / 580;
+      console.log("virs3", position);
+      const start = position * 10;
+      const end = start + 10;
+      return this.allItems.slice(start, end).map((i2, index2) => ({
+        ...i2,
+        index: start + 1 + index2
+      }));
+    },
+    styleWrapper1() {
+      if (this.positionBlock === 0) {
+        return `transform:translateY(${this.blockCount * 580}px)`;
+      }
+      if (this.positionBlock === 1) {
+        return `transform:translateY(${(this.blockCount + 2) * 580}px)`;
+      }
+      return `transform:translateY(${(this.blockCount + 1) * 580}px)`;
+    },
+    styleWrapper2() {
+      if (this.positionBlock === 0) {
+        return `transform:translateY(${(this.blockCount + 1) * 580}px)`;
+      }
+      if (this.positionBlock === 1) {
+        return `transform:translateY(${this.blockCount * 580}px)`;
+      }
+      return `transform:translateY(${(this.blockCount - 1) * 580}px)`;
+    },
+    styleWrapper3() {
+      if (this.positionBlock === 0) {
+        return `transform:translateY(${(this.blockCount + 2) * 580}px)`;
+      }
+      if (this.positionBlock === 1) {
+        return `transform:translateY(${(this.blockCount + 1) * 580}px)`;
+      }
+      return `transform:translateY(${this.blockCount * 580}px)`;
+    }
+  },
+  mounted() {
+    const vm = this;
+    vm.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
+    vm.$wrapperEle = _global_$(vm.$refs.refWrapper);
+    vm.$wrapperEle.on("scroll", function(event) {
+      const top = vm.$refs.refWrapper.scrollTop;
+      vm.blockCount = Math.floor(top / oneBlockHeight);
+      console.log("blockCount", vm.blockCount, "\u{1F680} top", top);
+    });
+  },
+  beforeUnmount() {
+    this.$wrapperEle.off("scroll");
+  },
+  methods: {}
+});
+const _hoisted_1 = {
+  ref: "refWrapper",
+  class: "wrapper vir-item-component"
+};
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
+    Vue.createElementVNode("div", {
+      style: Vue.normalizeStyle(_ctx.styleWrapperAll)
+    }, [
+      Vue.createElementVNode("div", {
+        class: "vir-item-wrapper item1",
+        style: Vue.normalizeStyle(_ctx.styleWrapper1)
+      }, [
+        (Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(_ctx.virs1, (vir) => {
+          return Vue.openBlock(), Vue.createElementBlock("div", {
+            key: vir.id,
+            class: "vir-item"
+          }, [
+            (Vue.openBlock(), Vue.createBlock(Vue.resolveDynamicComponent(_ctx.itemComponent), { item: vir }, null, 8, ["item"]))
+          ]);
+        }), 128))
+      ], 4),
+      Vue.createElementVNode("div", {
+        class: "vir-item-wrapper item2",
+        style: Vue.normalizeStyle(_ctx.styleWrapper2)
+      }, [
+        (Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(_ctx.virs2, (vir) => {
+          return Vue.openBlock(), Vue.createElementBlock("div", {
+            key: vir.id,
+            class: "vir-item"
+          }, [
+            (Vue.openBlock(), Vue.createBlock(Vue.resolveDynamicComponent(_ctx.itemComponent), { item: vir }, null, 8, ["item"]))
+          ]);
+        }), 128))
+      ], 4),
+      Vue.createElementVNode("div", {
+        class: "vir-item-wrapper item3",
+        style: Vue.normalizeStyle(_ctx.styleWrapper3)
+      }, [
+        (Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(_ctx.virs3, (vir) => {
+          return Vue.openBlock(), Vue.createElementBlock("div", {
+            key: vir.id,
+            class: "vir-item"
+          }, [
+            (Vue.openBlock(), Vue.createBlock(Vue.resolveDynamicComponent(_ctx.itemComponent), { item: vir }, null, 8, ["item"]))
+          ]);
+        }), 128))
+      ], 4)
+    ], 4)
+  ], 512);
+}
+var xVirScroll = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 function installLoading(app, options = {}) {
   app.directive("loading", {
     updated(el, binding) {
@@ -66755,18 +66913,19 @@ window.jquery = $;
 const componentMyUI = {
   xButton,
   xRender,
-  xItem: _sfc_main$b,
+  xItem: _sfc_main$c,
   xForm,
   xButtonCountDown,
-  xGap: _sfc_main$8,
+  xGap: _sfc_main$9,
   xCharts,
   xView,
   xIcon,
-  xDataGrid: _sfc_main$3,
+  xDataGrid: _sfc_main$4,
   xDataGridToolbar,
   xColFilter,
   xPagination,
-  xCellLabel
+  xCellLabel,
+  xVirScroll
 };
 const components = {
   ...componentMyUI
@@ -66782,8 +66941,8 @@ const VentoseUIWithInstall = {
         name2 = component.name;
       } else {
         _global__.doNothing(name2, `miss name`);
-        debugger;
       }
+      console.log("\u{1F680} ~ file: index.tsx ~ line 121 ~ mylodash.each ~ component.name", component.name);
       app.component(component.name || name2, component);
     });
     app.use(Antd);

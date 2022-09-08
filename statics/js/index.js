@@ -6956,7 +6956,7 @@ var exports = module.exports;
 }).call(module.exports);
 var Mock = module.exports;
 async function loadMockData() {
-  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.a83d0ede.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
+  await __vitePreload(() => import("./auth.js"), true ? ["statics/js/auth.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0);
   Mock.setup({ timeout: 300 });
 }
 var index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({

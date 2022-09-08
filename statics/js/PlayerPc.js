@@ -216,10 +216,7 @@ var _sfc_main = Vue.defineComponent({
   }
 });
 var PlayerPc_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1 = {
-  id: "ViewMusicPlayer",
-  class: "flex"
-};
+const _hoisted_1 = { class: "flex ViewMusicPlayer" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_MusicPlayerModel = Vue.resolveComponent("MusicPlayerModel");
   const _component_xGap = Vue.resolveComponent("xGap");

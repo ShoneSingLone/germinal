@@ -30061,3 +30061,23 @@ div[id^=lazy-svg_] {
 .table-pagination {
 	padding: 10px 0;
 }
+.vir-item-component {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+.vir-item-component .wrapper {
+  height: 100%;
+}
+.vir-item-component .vir-item-wrapper {
+  position: absolute;
+  width: 100%;
+}
+.vir-item-component .vir-item-wrapper .vir-item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 10px 10px 0;
+}

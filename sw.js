@@ -39,7 +39,7 @@ const contentToCache = [
   "./statics/js/Dev.js",
   "./statics/js/AllMusicClient.js",
   "./statics/assets/yapi.633ceb78.css",
-  "./statics/assets/nprogress.a83d0ede.css",
+  "./statics/assets/nprogress.dce904f8.css",
   "./statics/assets/main.b28e70ef.css",
   "./statics/assets/logo3.a354024b.png",
   "./statics/assets/logo2.f9552052.jpg",
@@ -53,9 +53,10 @@ const contentToCache = [
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
   "./statics/assets/PrivateMobile.19d584d7.css",
-  "./statics/assets/PlayerPc.49f87c7a.css",
-  "./statics/assets/PlayerMobile.9cefdf14.css",
+  "./statics/assets/PlayerPc.f27b5265.css",
+  "./statics/assets/PlayerMobile.0be9359c.css",
   "./statics/assets/PlayListCached.bd55b191.css",
+  "./statics/assets/MusicPlayer.a8215aec.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
   "./statics/assets/LayoutMusicPc.8bcd892b.css",
   "./statics/assets/LayoutMusicMobile.c97511e3.css",
@@ -136,7 +137,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1662575306667");
+			const cache = await caches.open("1662651855302");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -154,7 +155,7 @@ self.addEventListener("fetch", e => {
 				return r;
 			}
 			const response = await fetch(e.request);
-			const cache = await caches.open("1662575306667");
+			const cache = await caches.open("1662651855302");
 			console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 			// cache.put(e.request, response.clone());
 			return response;

@@ -171,10 +171,7 @@ var _sfc_main = Vue.defineComponent({
   }
 });
 var PlayerMobile_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1 = {
-  id: "ViewMusicPlayer",
-  class: "flex center"
-};
+const _hoisted_1 = { class: "flex center ViewMusicPlayerMobile" };
 const _hoisted_2 = { class: "audio" };
 const _hoisted_3 = { class: "flex center" };
 const _hoisted_4 = { class: "flex MusicPlayerOpration" };
