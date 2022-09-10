@@ -1,5 +1,5 @@
 import { API } from "@ventose/api";
-import { reactive, watch, computed } from "vue";
+import { reactive, watch, computed, onMounted } from "vue";
 import { _, lStorage, setDocumentTitle } from "@ventose/ui";
 import { get, set } from "idb-keyval";
 import { State_App } from "@ventose/state/State_App";
@@ -39,6 +39,14 @@ export const State_Music = reactive({
 	currentTime: 0, //当前播放时间
 	duration: 0 //总播放时长
 });
+
+const STATE_MUSIC_PLAYLIST = "STATE_MUSIC_PLAYLIST";
+
+(async function recoverPlaylist() {
+	let playlist = await get(STATE_MUSIC_PLAYLIST);
+	playlist = playlist || [];
+	State_Music.playlist = playlist;
+})();
 
 let intervalTimer: NodeJS.Timer;
 
@@ -280,6 +288,18 @@ export const Cpt_iconPlayModel = computed(() => {
 	return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
 });
 
+const backupPlaylist = _.debounce(async function (playlist) {
+	playlist = JSON.parse(JSON.stringify(playlist));
+	await set(STATE_MUSIC_PLAYLIST, playlist);
+}, 300);
+
+watch(
+	() => State_Music.playlist.length,
+	() => {
+		backupPlaylist(State_Music.playlist);
+	}
+);
+
 watch(
 	() => State_Music.ended,
 	ended => {
@@ -287,5 +307,3 @@ watch(
 		Actions_Music.handlePlayEnd();
 	}
 );
-
-watch(State_Music, state => {});

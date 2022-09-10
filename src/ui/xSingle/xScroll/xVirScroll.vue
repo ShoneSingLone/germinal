@@ -127,7 +127,6 @@ export default defineComponent({
 		vm.$wrapperEle.on("scroll", function (event) {
 			const top = vm.$refs.refWrapper.scrollTop;
 			vm.blockCount = Math.floor(top / oneBlockHeight);
-			console.log("blockCount", vm.blockCount, "🚀 top", top);
 		});
 	},
 	beforeUnmount() {

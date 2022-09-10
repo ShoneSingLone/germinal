@@ -151,7 +151,6 @@ export default {
 						};
 						return isOk("title") && isOk("artist") && isOk("album");
 					});
-
 				setPagination(vm.playListFindNew, { page: 1 });
 				vm.playListFindNew.queryTableList();
 			}, 1000),
