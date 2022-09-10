@@ -2,8 +2,9 @@ import { createApp } from "vue";
 import PageToolboxHome from "./PageToolboxHome.vue";
 import { appPlugins } from "@ventose/utils/common";
 import { State_App } from "@ventose/state/State_App";
+import { State_Music } from "@ventose/state/State_Music";
 import { _, $ } from "@ventose/ui";
-import { API } from "germinal_api";
+import { API } from "@ventose/api";
 import { get, set, clear } from "idb-keyval";
 
 // import "./main.test"
@@ -28,11 +29,14 @@ async function main() {
 
 	try {
 		/* 测试API连通性，如果不可以用，就切换模拟数据 */
-		await API.common.testConnect();
+		State_Music.AllMusicClient = await API.common.loadAllMusicClient();
+		if (State_Music.AllMusicClient.length === 0) {
+			State_App.UseMockData = true;
+			const { loadMockData } = await import("@ventose/api/mock");
+			await loadMockData();
+		}
 	} catch (d) {
-		State_App.UseMockData = true;
-		const { loadMockData } = await import("germinal_api/mock");
-		await loadMockData();
+		console.log("🚀 ~ file: main.js ~ line 35 ~ main ~ d", d);
 	}
 
 	createApp(PageToolboxHome)
@@ -40,6 +44,7 @@ async function main() {
 			dependState: State_App
 		})
 		.mount("#app");
+	/* loading 动画 */
 	const $AppLoadingWrapper = $(`#app-loading-wrapper`);
 	await _.sleep(1000);
 	$AppLoadingWrapper.addClass("hide");

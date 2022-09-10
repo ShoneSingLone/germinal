@@ -27,7 +27,6 @@
     "ant-design-vue": "^3.0.0-alpha.3",
     "axios": "^0.26.0",
     "dayjs": "^1.10.7",
-    "germinal_api": "file:./local_modules/api",
     "idb-keyval": "^6.2.0",
     "immer": "^9.0.15",
     "jquery": "^3.6.0",
@@ -76,7 +75,6 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx,vue}": [
       "prettier --write ./src --ignore-unknown",
-      "prettier --write ./local_modules --ignore-unknown",
       "git add"
     ]
   },

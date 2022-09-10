@@ -1,4 +1,4 @@
-import { API } from "germinal_api";
+import { API } from "@ventose/api";
 import { reactive, watch, computed } from "vue";
 import { _, lStorage, setDocumentTitle } from "@ventose/ui";
 import { get, set } from "idb-keyval";
@@ -6,6 +6,7 @@ import { State_App } from "@ventose/state/State_App";
 import axios from "axios";
 
 export const State_Music = reactive({
+	AllMusicClient: [],
 	tabItems: [
 		{ key: "playlist", label: "当前播放列表", icon: "playlist" },
 		{ key: "new", label: "发现音乐", icon: "music" },
@@ -117,6 +118,9 @@ const cacheAudioVolume = _.debounce(function (audiovolume) {
 }, 1000);
 
 export const Actions_Music = {
+	async loadAllMusicClient() {
+		const res = await API.music.loadAllMusicClient();
+	},
 	playMethods,
 	palyPrevSong() {
 		const currentSongIndex = _.findIndex(State_Music.playlist, {

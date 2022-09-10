@@ -19,7 +19,7 @@ specifiers:
   eslint: ^6.8.0
   eslint-plugin-prettier: ^3.3.1
   eslint-plugin-vue: ^7.19.1
-  germinal_api: file:./local_modules/api
+  @ventose/api: file:./local_modules/api
   idb-keyval: ^6.2.0
   immer: ^9.0.15
   jimp: ^0.16.1
@@ -54,7 +54,7 @@ dependencies:
   ant-design-vue: 3.2.12_vue@3.2.39
   axios: 0.26.1
   dayjs: 1.11.5
-  germinal_api: file:local_modules/api
+  @ventose/api: file:local_modules/api
   idb-keyval: 6.2.0
   immer: 9.0.15
   jquery: 3.6.1
@@ -11007,7 +11007,7 @@ packages:
 
   file:local_modules/api:
     resolution: {directory: local_modules/api, type: directory}
-    name: germinal_api
+    name: @ventose/api
     version: 0.0.0
     dev: false
 

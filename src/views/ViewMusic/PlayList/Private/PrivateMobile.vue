@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import { Actions_Music } from "@ventose/state/State_Music";
-import AllMusic from "@ventose/views/ViewMusic/assets/AllMusicClient.js";
+import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 import PrivateMobileSongItem from "./PrivateMobileSongItem.vue";
 
 import { _ } from "@ventose/ui";
@@ -21,13 +20,19 @@ export default {
 		PrivateMobileSongItem
 	},
 	setup() {
-		return {};
+		return {
+			State_Music
+		};
 	},
 	data() {
+		const vm = this;
 		return {
 			currentLoadingSongId: "",
 			configs: {
-				items: _.sortBy(AllMusic, ["artist", "album"]).reverse()
+				items: _.sortBy(vm.State_Music.AllMusicClient, [
+					"artist",
+					"album"
+				]).reverse()
 			}
 		};
 	},

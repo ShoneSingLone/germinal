@@ -66,7 +66,6 @@ export default defineComponent({
 		},
 		virs1() {
 			const position = Number(this.styleWrapper1.match(/(\d)/g).join("")) / 580;
-			console.log("virs1", position);
 			const start = position * 10;
 			const end = start + 10;
 			return this.allItems.slice(start, end).map((i, index) => ({
@@ -76,7 +75,6 @@ export default defineComponent({
 		},
 		virs2() {
 			const position = Number(this.styleWrapper2.match(/(\d)/g).join("")) / 580;
-			console.log("virs2", position);
 			const start = position * 10;
 			const end = start + 10;
 			return this.allItems.slice(start, end).map((i, index) => ({
@@ -86,7 +84,6 @@ export default defineComponent({
 		},
 		virs3() {
 			const position = Number(this.styleWrapper3.match(/(\d)/g).join("")) / 580;
-			console.log("virs3", position);
 			const start = position * 10;
 			const end = start + 10;
 			return this.allItems.slice(start, end).map((i, index) => ({

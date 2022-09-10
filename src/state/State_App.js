@@ -1,7 +1,7 @@
 import { reactive, watch, computed } from "vue";
 import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
 import { STATIC_WORD } from "@ventose/utils/common.words";
-import { API, SuccessOrFail } from "germinal_api";
+import { API, SuccessOrFail } from "@ventose/api";
 import md5 from "md5";
 
 const { $t } = State_UI;
@@ -191,7 +191,7 @@ export const Actions_App = {
 			request: () => API.user.login(loginParams),
 			success: user => {
 				/* 设置token */
-				State_App.token = user.token;
+				user?.token && (State_App.token = user.token);
 			}
 		});
 	},
