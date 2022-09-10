@@ -66580,7 +66580,6 @@ const _sfc_main = Vue.defineComponent({
     },
     virs1() {
       const position = Number(this.styleWrapper1.match(/(\d)/g).join("")) / 580;
-      console.log("virs1", position);
       const start = position * 10;
       const end = start + 10;
       return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -66590,7 +66589,6 @@ const _sfc_main = Vue.defineComponent({
     },
     virs2() {
       const position = Number(this.styleWrapper2.match(/(\d)/g).join("")) / 580;
-      console.log("virs2", position);
       const start = position * 10;
       const end = start + 10;
       return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -66600,7 +66598,6 @@ const _sfc_main = Vue.defineComponent({
     },
     virs3() {
       const position = Number(this.styleWrapper3.match(/(\d)/g).join("")) / 580;
-      console.log("virs3", position);
       const start = position * 10;
       const end = start + 10;
       return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -66643,7 +66640,6 @@ const _sfc_main = Vue.defineComponent({
     vm.$wrapperEle.on("scroll", function(event) {
       const top = vm.$refs.refWrapper.scrollTop;
       vm.blockCount = Math.floor(top / oneBlockHeight);
-      console.log("blockCount", vm.blockCount, "\u{1F680} top", top);
     });
   },
   beforeUnmount() {
@@ -66942,7 +66938,6 @@ const VentoseUIWithInstall = {
       } else {
         _global__.doNothing(name2, `miss name`);
       }
-      console.log("\u{1F680} ~ file: index.tsx ~ line 121 ~ mylodash.each ~ component.name", component.name);
       app.component(component.name || name2, component);
     });
     app.use(Antd);
@@ -67232,4 +67227,4 @@ var exports$1 = module$1.exports;
   });
 }).call(module$1.exports);
 var NProgress = module$1.exports;
-export { AntdIcon as A, Button as B, getPaginationPageSize as C, Dropdown$1 as D, EVENT_TYPE as E, setDataGridInfo as F, del as G, Modal as H, J, Menu as M, NProgress as N, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, __vitePreload as a, setDocumentTitle as b, _export_sfc as c, defItem as d, AllWasWell as e, defDataGridOption as f, defPagination as g, defCol as h, Spin as i, dayjs as j, _global_$ as k, lStorage as l, get as m, ne as n, clear as o, set as p, q, AutoComplete$1 as r, setCSSVariables as s, te as t, defColActions as u, validateForm as v, defColActionsBtnlist as w, setPagination as x, keys as y, getMany as z };
+export { AntdIcon as A, Button as B, setDataGridInfo as C, Dropdown$1 as D, EVENT_TYPE as E, keys as F, getMany as G, del as H, J, Menu as M, NProgress as N, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, _global_$ as a, __vitePreload as b, setDocumentTitle as c, _export_sfc as d, defItem as e, AllWasWell as f, defDataGridOption as g, defPagination as h, defCol as i, Spin as j, dayjs as k, lStorage as l, get as m, ne as n, set as o, clear as p, q, AutoComplete$1 as r, setCSSVariables as s, te as t, defColActions as u, validateForm as v, defColActionsBtnlist as w, Modal as x, setPagination as y, getPaginationPageSize as z };

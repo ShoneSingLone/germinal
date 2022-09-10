@@ -16,7 +16,6 @@ const contentToCache = [
   "./statics/js/ViewF.js",
   "./statics/js/ViewD.js",
   "./statics/js/UserOutlined.js",
-  "./statics/js/State_Music.js",
   "./statics/js/PrivatePc.js",
   "./statics/js/PrivateMobile.js",
   "./statics/js/PrivateLayout.js",
@@ -24,7 +23,6 @@ const contentToCache = [
   "./statics/js/PlayerMobile.js",
   "./statics/js/PlayListSinger.js",
   "./statics/js/PlayListFindNew.js",
-  "./statics/js/PlayListCached.js",
   "./statics/js/PlayList.js",
   "./statics/js/NotFound.js",
   "./statics/js/MusicPlayer.js",
@@ -37,7 +35,9 @@ const contentToCache = [
   "./statics/js/Group.js",
   "./statics/js/FormRules.js",
   "./statics/js/Dev.js",
-  "./statics/js/AllMusicClient.js",
+  "./statics/js/CachedPc.js",
+  "./statics/js/CachedMobile.js",
+  "./statics/js/CachedLayout.js",
   "./statics/assets/yapi.633ceb78.css",
   "./statics/assets/nprogress.dce904f8.css",
   "./statics/assets/main.b28e70ef.css",
@@ -52,10 +52,10 @@ const contentToCache = [
   "./statics/assets/bg2.26a7254b.jpg",
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
+  "./statics/assets/PrivatePc.a91b9906.css",
   "./statics/assets/PrivateMobile.19d584d7.css",
   "./statics/assets/PlayerPc.f27b5265.css",
   "./statics/assets/PlayerMobile.0be9359c.css",
-  "./statics/assets/PlayListCached.bd55b191.css",
   "./statics/assets/MusicPlayer.a8215aec.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
   "./statics/assets/LayoutMusicPc.8bcd892b.css",
@@ -132,33 +132,34 @@ const contentToCache = [
   "./assets/svg/add.svg"
 ] || [];
 
-// Installing Service Worker
 self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1662651855302");
+			const cache = await caches.open("1662833752895");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
 	);
 });
 
-// Fetching content using Service Worker
 self.addEventListener("fetch", e => {
-	e.respondWith(
-		(async () => {
-			const r = await caches.match(e.request);
-
-			if (r) {
-				console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-				return r;
-			}
-			const response = await fetch(e.request);
-			const cache = await caches.open("1662651855302");
-			console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-			// cache.put(e.request, response.clone());
-			return response;
-		})()
-	);
+	if (
+		e.request.url ===
+		`https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
+	) {
+		e.respondWith(
+			(async () => {
+				const r = await caches.match(e.request);
+				if (r) {
+					return r;
+				}
+				const response = await fetch(e.request);
+				const cache = await caches.open("1662833752895");
+				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+				cache.put(e.request, response.clone());
+				return response;
+			})()
+		);
+	}
 });

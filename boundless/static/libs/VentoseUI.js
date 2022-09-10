@@ -66476,7 +66476,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
       },
       virs1() {
         const position = Number(this.styleWrapper1.match(/(\d)/g).join("")) / 580;
-        console.log("virs1", position);
         const start = position * 10;
         const end = start + 10;
         return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -66486,7 +66485,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
       },
       virs2() {
         const position = Number(this.styleWrapper2.match(/(\d)/g).join("")) / 580;
-        console.log("virs2", position);
         const start = position * 10;
         const end = start + 10;
         return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -66496,7 +66494,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
       },
       virs3() {
         const position = Number(this.styleWrapper3.match(/(\d)/g).join("")) / 580;
-        console.log("virs3", position);
         const start = position * 10;
         const end = start + 10;
         return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -66539,7 +66536,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
       vm.$wrapperEle.on("scroll", function(event) {
         const top = vm.$refs.refWrapper.scrollTop;
         vm.blockCount = Math.floor(top / oneBlockHeight);
-        console.log("blockCount", vm.blockCount, "\u{1F680} top", top);
       });
     },
     beforeUnmount() {
@@ -66960,7 +66956,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
         } else {
           _global__.doNothing(name2, `miss name`);
         }
-        console.log("\u{1F680} ~ file: index.tsx ~ line 121 ~ mylodash.each ~ component.name", component.name);
         app.component(component.name || name2, component);
       });
       app.use(Antd);

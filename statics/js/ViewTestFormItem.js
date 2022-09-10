@@ -1,4 +1,4 @@
-import { d as defItem, _ as _global__, S as State_UI, c as _export_sfc } from "./nprogress.js";
+import { e as defItem, _ as _global__, S as State_UI, d as _export_sfc } from "./nprogress.js";
 const {
   $t
 } = State_UI;

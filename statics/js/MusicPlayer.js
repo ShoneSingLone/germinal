@@ -1,9 +1,9 @@
-import { a as __vitePreload, c as _export_sfc } from "./nprogress.js";
+import { b as __vitePreload, d as _export_sfc } from "./nprogress.js";
 import { S as State_App } from "./main.js";
 var _sfc_main = Vue.defineComponent({
   components: {
-    PlayerMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerMobile.js"), true ? ["statics/js/PlayerMobile.js","statics/assets/PlayerMobile.0be9359c.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
-    PlayerPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerPc.js"), true ? ["statics/js/PlayerPc.js","statics/assets/PlayerPc.f27b5265.css","statics/js/State_Music.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
+    PlayerMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerMobile.js"), true ? ["statics/js/PlayerMobile.js","statics/assets/PlayerMobile.0be9359c.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
+    PlayerPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerPc.js"), true ? ["statics/js/PlayerPc.js","statics/assets/PlayerPc.f27b5265.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
   },
   setup() {
     return {

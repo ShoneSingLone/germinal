@@ -1,4 +1,4 @@
-import { a as __vitePreload } from "./nprogress.js";
+import { b as __vitePreload } from "./nprogress.js";
 var module = {
   exports: {}
 };

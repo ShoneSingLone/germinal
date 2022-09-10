@@ -1,4 +1,4 @@
-import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, s as setCSSVariables, S as State_UI, a as __vitePreload, b as setDocumentTitle, c as _export_sfc, d as defItem, E as EVENT_TYPE, v as validateForm, e as AllWasWell, f as defDataGridOption, g as defPagination, h as defCol, N as NProgress, J, M as Menu, t as te, n as ne, B as Button, D as Dropdown, X, i as Spin, q, j as dayjs, V as VentoseUIWithInstall, k as _global_$, m as get, o as clear, p as set } from "./nprogress.js";
+import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, a as _global_$, s as setCSSVariables, S as State_UI, b as __vitePreload, c as setDocumentTitle, d as _export_sfc, e as defItem, E as EVENT_TYPE, v as validateForm, f as AllWasWell, g as defDataGridOption, h as defPagination, i as defCol, N as NProgress, J, M as Menu, t as te, n as ne, B as Button, D as Dropdown, X, j as Spin, q, k as dayjs, V as VentoseUIWithInstall, m as get, o as set, p as clear } from "./nprogress.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, L as LockOutlined, M as MailOutlined } from "./UserOutlined.js";
 import { p as pickValueFrom } from "./form.js";
@@ -139,12 +139,20 @@ const user = {
   }
 };
 const common = {
-  async testConnect(params) {
-    return await ajax$1.get(URL.testConnection(), {
-      params: {
-        test: "isConnect"
+  async loadAllMusicClient(params) {
+    let res = [];
+    try {
+      const { status, data } = await axios.get(
+        "https://www.singlone.work/s/api/public/assets/AllMusicClient.json"
+      );
+      if (status === 200) {
+        res = data;
       }
-    });
+    } catch (error) {
+      console.log("\u{1F680} loadAllMusicClient:error", error);
+    } finally {
+      return res;
+    }
   }
 };
 const ajax = genAjax({
@@ -451,7 +459,22 @@ var module$1 = {
 var md5 = module$1.exports;
 const { $t: $t$5 } = State_UI;
 const State_App = Vue.reactive({
-  isCurrentClientMobile: (() => {
+  isCurrentClientMobile: false,
+  UseMockData: false,
+  theme: "light",
+  menuTree: [],
+  layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
+  collapsed: false,
+  arr_selectedMenuId: [],
+  token: lStorage[STATIC_WORD.ACCESS_TOKEN],
+  user: false,
+  count: 0,
+  isMobile: false,
+  configs: lStorage.appConfigs || {},
+  isDev: window.__envMode === "development"
+});
+(() => {
+  function checkDeviceType() {
     var _a2;
     if (/Mobi|Android|iPhone/i.test(navigator == null ? void 0 : navigator.userAgent)) {
       return true;
@@ -466,22 +489,16 @@ const State_App = Vue.reactive({
       return true;
     }
     return false;
-  })(),
-  UseMockData: false,
-  theme: "light",
-  menuTree: [],
-  layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
-  collapsed: false,
-  arr_selectedMenuId: [],
-  token: lStorage[STATIC_WORD.ACCESS_TOKEN],
-  user: false,
-  count: 0,
-  isMobile: false,
-  configs: lStorage.appConfigs || {},
-  isDev: (() => {
-    return __envMode === "development";
-  })()
-});
+  }
+  const setCurrentClientMobileValue = _global__.debounce(
+    function setCurrentClientMobileValue2() {
+      State_App.isCurrentClientMobile = checkDeviceType();
+    },
+    100
+  );
+  _global_$(window).on("resize", setCurrentClientMobileValue);
+  setCurrentClientMobileValue();
+})();
 if (State_App.isDev) {
   window.State_App = State_App;
 }
@@ -574,7 +591,7 @@ const Actions_App = {
     await SuccessOrFail({
       request: () => API.user.login(loginParams),
       success: (user2) => {
-        State_App.token = user2.token;
+        (user2 == null ? void 0 : user2.token) && (State_App.token = user2.token);
       }
     });
   },
@@ -1795,17 +1812,17 @@ const routes = [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "singer",
         path: "/music/singer",
-        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
@@ -1815,7 +1832,7 @@ const routes = [
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./PlayListCached.js"), true ? ["statics/js/PlayListCached.js","statics/assets/PlayListCached.bd55b191.css","statics/js/State_Music.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
@@ -6063,6 +6080,295 @@ function formatDuring(during) {
   ss2 = _global__.isNaN(ss2) ? "00" : ss2;
   return ii2 + ":" + ss2;
 }
+const State_Music = Vue.reactive({
+  AllMusicClient: [],
+  tabItems: [{
+    key: "playlist",
+    label: "\u5F53\u524D\u64AD\u653E\u5217\u8868",
+    icon: "playlist"
+  }, {
+    key: "new",
+    label: "\u53D1\u73B0\u97F3\u4E50",
+    icon: "music"
+  }, {
+    key: "singer",
+    label: "\u6B4C\u624B",
+    icon: "user"
+  }, {
+    key: "private",
+    label: "\u79C1\u85CF",
+    icon: "privateNet"
+  }, {
+    key: "cached",
+    label: "\u5DF2\u7F13\u5B58",
+    icon: "cached"
+  }],
+  songId: 0,
+  personalizedNewSong: [],
+  audio: new Audio(),
+  loopType: 0,
+  volume: (() => {
+    const volume = lStorage["PLAYER-VOLUME"];
+    if (volume) {
+      return volume * 100;
+    } else {
+      return 20;
+    }
+  })(),
+  playlist: [],
+  showPlayList: false,
+  id: 0,
+  url: "",
+  song: {},
+  isPlaying: false,
+  isPause: false,
+  sliderInput: false,
+  ended: false,
+  muted: false,
+  currentTime: 0,
+  duration: 0
+});
+const STATE_MUSIC_PLAYLIST = "STATE_MUSIC_PLAYLIST";
+(async function recoverPlaylist() {
+  let playlist = await get(STATE_MUSIC_PLAYLIST);
+  playlist = playlist || [];
+  State_Music.playlist = playlist;
+})();
+let intervalTimer;
+const LOOP_TYPE_NAME_ARRAY = ["playOrder", "playRandom", "playLoop", "playSingleLoop"];
+const playMethods = {
+  playLoop(currentSongIndex) {
+    var _a2, _b;
+    const next = currentSongIndex + 1;
+    if (next > State_Music.playlist.length - 1) {
+      Actions_Music.playSongById((_a2 = State_Music.playlist[0]) == null ? void 0 : _a2.id);
+    } else {
+      Actions_Music.playSongById((_b = State_Music.playlist[next]) == null ? void 0 : _b.id);
+    }
+  },
+  playRandom(currentSongIndex) {
+    var _a2, _b;
+    let next;
+    if (State_Music.playlist.length === 1) {
+      next = 0;
+      Actions_Music.playSongById((_a2 = State_Music.playlist[0]) == null ? void 0 : _a2.id);
+      return;
+    }
+    const max = State_Music.playlist.length - 1;
+    const min = 0;
+    const getNext = () => Math.floor(Math.random() * (max - min + 1)) + min;
+    next = getNext();
+    while (next === currentSongIndex) {
+      next = getNext();
+    }
+    Actions_Music.playSongById((_b = State_Music.playlist[next]) == null ? void 0 : _b.id);
+  },
+  playOrder(currentSongIndex) {
+    var _a2;
+    const next = currentSongIndex + 1;
+    if (next > State_Music.playlist.length - 1) {
+      Actions_Music.stopSong();
+    } else {
+      Actions_Music.playSongById((_a2 = State_Music.playlist[next]) == null ? void 0 : _a2.id);
+    }
+  },
+  playSingleLoop(currentSongIndex) {
+    var _a2;
+    Actions_Music.playSongById((_a2 = State_Music.playlist[currentSongIndex]) == null ? void 0 : _a2.id);
+  }
+};
+const cacheAudioBlob = async (records, url) => {
+  try {
+    let res = await axios.get(url.replace("http:", "").replace("https:", ""), {
+      responseType: "blob"
+    });
+    if (!res || !res.data)
+      return;
+    if (records.song) {
+      records.title = records.name;
+      records.artists = records.song.artists[0].name;
+      records.album = records.song.album.name;
+    }
+    const audioInfo = {
+      records: JSON.parse(JSON.stringify(records)),
+      blob: res.data
+    };
+    await set(`audio_${records.id}`, audioInfo);
+  } catch (err) {
+    console.error(err);
+  }
+};
+const cacheAudioVolume = _global__.debounce(function(audiovolume) {
+  lStorage["PLAYER-VOLUME"] = audiovolume;
+}, 1e3);
+const Actions_Music = {
+  async loadAllMusicClient() {
+    await API.music.loadAllMusicClient();
+  },
+  playMethods,
+  palyPrevSong() {
+    var _a2, _b;
+    const currentSongIndex = _global__.findIndex(State_Music.playlist, {
+      id: State_Music.songId
+    });
+    if (currentSongIndex > -1) {
+      if (currentSongIndex === 0) {
+        Actions_Music.playSongById((_a2 = State_Music.playlist[State_Music.playlist.length - 1]) == null ? void 0 : _a2.id);
+      } else {
+        Actions_Music.playSongById((_b = State_Music.playlist[currentSongIndex - 1]) == null ? void 0 : _b.id);
+      }
+    }
+  },
+  playNextSong() {
+    const currentSongIndex = _global__.findIndex(State_Music.playlist, {
+      id: State_Music.songId
+    });
+    if (currentSongIndex > -1) {
+      Actions_Music.playMethods.playLoop(currentSongIndex);
+    }
+  },
+  removeSongFromPlaylistByIndex(index) {
+    if (index <= State_Music.playlist.length - 1) {
+      State_Music.playlist.splice(index, 1);
+    }
+  },
+  handlePlayEnd() {
+    console.log("\u64AD\u653E\u7ED3\u675F", Cpt_iconPlayModel.value);
+    Actions_Music.stopSong();
+    const currentSongIndex = _global__.findIndex(State_Music.playlist, {
+      id: State_Music.songId
+    });
+    if (currentSongIndex > -1) {
+      Actions_Music.playMethods[Cpt_iconPlayModel.value](currentSongIndex);
+    }
+  },
+  setCurrentTime(val) {
+    State_Music.audio.currentTime = val;
+  },
+  intervalCurrentTime() {
+    State_Music.currentTime = parseInt(State_Music.audio.currentTime.toString());
+    State_Music.duration = parseInt(State_Music.audio.duration.toString());
+    State_Music.ended = State_Music.audio.ended;
+  },
+  setVolume(n) {
+    n = n > 100 ? 100 : n;
+    n = n < 0 ? 0 : n;
+    State_Music.volume = n;
+    const audioVolume = n / 100;
+    State_Music.audio.volume = audioVolume;
+    cacheAudioVolume(audioVolume);
+  },
+  async togglePlayModel() {
+    State_Music.loopType = (State_Music.loopType + 1) % LOOP_TYPE_NAME_ARRAY.length;
+  },
+  toggleVolumeMute() {
+    State_Music.muted = !State_Music.muted;
+    State_Music.audio.muted = State_Music.muted;
+  },
+  togglePlayOrPause() {
+    if (!State_Music.songId)
+      return;
+    State_Music.isPlaying = !State_Music.isPlaying;
+    if (State_Music.isPlaying) {
+      State_Music.audio.play();
+    } else {
+      State_Music.audio.pause();
+    }
+  },
+  pushSongToPlaylist(newSong) {
+    const id = newSong.id;
+    if (!_global__.some(State_Music.playlist, {
+      id
+    })) {
+      State_Music.playlist.push(newSong);
+    }
+  },
+  stopSong() {
+    State_Music.isPlaying = false;
+    State_Music.audio.pause();
+    State_Music.audio.currentTime = 0;
+    State_Music.currentTime = 0;
+    setDocumentTitle("Music");
+  },
+  async playSongById(id) {
+    if (!_global__.isInput(id)) {
+      return;
+    }
+    if (State_Music.isPlaying && id === State_Music.songId) {
+      return;
+    }
+    let record = _global__.find(State_Music.playlist, {
+      id
+    });
+    let audioSrc;
+    const audioInfo = await get(`audio_${id}`);
+    if (audioInfo) {
+      audioSrc = window.URL.createObjectURL(audioInfo.blob);
+    } else {
+      if (record.title) {
+        audioSrc = `https://www.singlone.work/s/api/v1/shiro/remote_music_file?id=${record.id}&token=${State_App.token}`;
+      } else {
+        const res = await API.music.getSongUrlBuId(id);
+        audioSrc = _global__.first(res == null ? void 0 : res.data).url;
+      }
+      cacheAudioBlob(record, audioSrc);
+    }
+    if (!audioSrc) {
+      return;
+    }
+    record.url = audioSrc;
+    State_Music.audio.src = audioSrc;
+    function canPlay() {
+      return new Promise((resolve) => {
+        State_Music.audio.oncanplay = function(event2) {
+          if (intervalTimer) {
+            clearInterval(intervalTimer);
+          }
+          intervalTimer = setInterval(Actions_Music.intervalCurrentTime, 1e3);
+          resolve(State_Music.duration);
+        };
+      });
+    }
+    Actions_Music.stopSong();
+    if (record) {
+      setDocumentTitle(record.name);
+    }
+    State_Music.audio.load();
+    await canPlay();
+    State_Music.audio.play();
+    State_Music.isPlaying = true;
+    State_Music.url = audioSrc;
+    State_Music.songId = id;
+    const audioVolume = State_Music.volume / 100;
+    State_Music.audio.volume = audioVolume;
+    cacheAudioVolume(audioVolume);
+  },
+  async updatePersonalizedNewSong() {
+    const {
+      result
+    } = await API.music.getPersonalizedNewSong();
+    State_Music.personalizedNewSong = result;
+    return State_Music.personalizedNewSong;
+  }
+};
+const Cpt_iconSound = Vue.computed(() => {
+  return State_Music.muted ? "soundMute" : "sound";
+});
+const Cpt_iconPlayModel = Vue.computed(() => {
+  return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
+});
+const backupPlaylist = _global__.debounce(async function(playlist) {
+  playlist = JSON.parse(JSON.stringify(playlist));
+  await set(STATE_MUSIC_PLAYLIST, playlist);
+}, 300);
+Vue.watch(() => State_Music.playlist.length, () => {
+  backupPlaylist(State_Music.playlist);
+});
+Vue.watch(() => State_Music.ended, (ended) => {
+  if (!ended)
+    return;
+  Actions_Music.handlePlayEnd();
+});
 async function main() {
   if (__APP_VERSION !== await get("__APP_VERSION")) {
     await clear();
@@ -6078,13 +6384,16 @@ async function main() {
     window.State_App = State_App;
   }
   try {
-    await API.common.testConnect();
+    State_Music.AllMusicClient = await API.common.loadAllMusicClient();
+    if (State_Music.AllMusicClient.length === 0) {
+      State_App.UseMockData = true;
+      const { loadMockData } = await __vitePreload(() => import("./index.js").then(function(n) {
+        return n.i;
+      }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css"] : void 0);
+      await loadMockData();
+    }
   } catch (d) {
-    State_App.UseMockData = true;
-    const { loadMockData } = await __vitePreload(() => import("./index.js").then(function(n) {
-      return n.i;
-    }), true ? ["statics/js/index.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css"] : void 0);
-    await loadMockData();
+    console.log("\u{1F680} ~ file: main.js ~ line 35 ~ main ~ d", d);
   }
   Vue.createApp(PageToolboxHome).use(appPlugins, {
     dependState: State_App
@@ -6096,4 +6405,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { API as A, State_App as S, _sfc_main$b as _, STATIC_WORD as a, Actions_App as b, _sfc_main$5 as c, formatDuring as f };
+export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, State_Music as a, STATIC_WORD as b, Actions_App as c, _sfc_main$5 as d, Cpt_iconSound as e, formatDuring as f };
