@@ -1,7 +1,7 @@
 <template>
 	<xVirScroll :configs="configs">
 		<template #item="{ item }">
-			<PrivateMobileSongItem
+			<CachedMobileSongItem
 				:song="item"
 				:loading="currentLoadingSongId === item.id"
 				@click="playSong(item)" />
@@ -11,13 +11,14 @@
 
 <script>
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
-import PrivateMobileSongItem from "./PrivateMobileSongItem.vue";
+import CachedMobileSongItem from "./CachedMobileSongItem.vue";
+import { getMany, keys, del } from "idb-keyval";
 
 import { _ } from "@ventose/ui";
 
 export default {
 	components: {
-		PrivateMobileSongItem
+		CachedMobileSongItem
 	},
 	setup() {
 		return {
@@ -29,14 +30,23 @@ export default {
 		return {
 			currentLoadingSongId: "",
 			configs: {
-				items: _.sortBy(vm.State_Music.AllMusicClient, [
-					"artist",
-					"album"
-				]).reverse()
+				items: []
 			}
 		};
 	},
+	async mounted() {
+		await this.loadCachedSong();
+	},
 	methods: {
+		async loadCachedSong() {
+			let props = await keys();
+			props = props.filter(name => /^audio_/.test(name));
+			let cachedPlaylist = await getMany(props);
+			this.configs.items = _.sortBy(
+				cachedPlaylist.map(i => i.records),
+				["artist", "album"]
+			).reverse();
+		},
 		async playSong(record) {
 			this.currentLoadingSongId = record.id;
 			try {

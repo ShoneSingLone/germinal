@@ -77,7 +77,8 @@ const routes = [
 			{
 				name: "cached",
 				path: "/music/cached",
-				component: () => import("@ventose/views/ViewMusic/PlayListCached.vue")
+				component: () =>
+					import("@ventose/views/ViewMusic/PlayList/Cached/CachedLayout.vue")
 			}
 		]
 	},

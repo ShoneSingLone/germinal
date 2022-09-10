@@ -1,13 +1,33 @@
 import { reactive, watch, computed } from "vue";
-import { lStorage, setCSSVariables, UI, _, State_UI } from "@ventose/ui";
+import { lStorage, setCSSVariables, UI, _, State_UI, $ } from "@ventose/ui";
 import { STATIC_WORD } from "@ventose/utils/common.words";
-import { API, SuccessOrFail } from "germinal_api";
+import { API, SuccessOrFail } from "@ventose/api";
 import md5 from "md5";
 
 const { $t } = State_UI;
 
 export const State_App = reactive({
-	isCurrentClientMobile: (() => {
+	isCurrentClientMobile: false,
+	UseMockData: false,
+	theme: "light",
+	menuTree: [],
+	layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
+	/*菜单折叠*/
+	collapsed: false,
+	/*当前选择菜单*/
+	arr_selectedMenuId: [
+		/*菜单需要id，需要提供id*/
+	],
+	token: lStorage[STATIC_WORD.ACCESS_TOKEN],
+	user: false,
+	count: 0,
+	isMobile: false,
+	configs: lStorage.appConfigs || {},
+	isDev: window.__envMode === "development"
+});
+
+(() => {
+	function checkDeviceType() {
 		if (/Mobi|Android|iPhone/i.test(navigator?.userAgent)) {
 			return true;
 		}
@@ -28,26 +48,16 @@ export const State_App = reactive({
 			return true;
 		}
 		return false;
-	})(),
-	UseMockData: false,
-	theme: "light",
-	menuTree: [],
-	layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
-	/*菜单折叠*/
-	collapsed: false,
-	/*当前选择菜单*/
-	arr_selectedMenuId: [
-		/*菜单需要id，需要提供id*/
-	],
-	token: lStorage[STATIC_WORD.ACCESS_TOKEN],
-	user: false,
-	count: 0,
-	isMobile: false,
-	configs: lStorage.appConfigs || {},
-	isDev: (() => {
-		return __envMode === "development";
-	})()
-});
+	}
+	const setCurrentClientMobileValue = _.debounce(
+		function setCurrentClientMobileValue() {
+			State_App.isCurrentClientMobile = checkDeviceType();
+		},
+		100
+	);
+	$(window).on("resize", setCurrentClientMobileValue);
+	setCurrentClientMobileValue();
+})();
 
 if (State_App.isDev) {
 	/* TODO:方便调试 must remove when in prod */
@@ -191,7 +201,7 @@ export const Actions_App = {
 			request: () => API.user.login(loginParams),
 			success: user => {
 				/* 设置token */
-				State_App.token = user.token;
+				user?.token && (State_App.token = user.token);
 			}
 		});
 	},

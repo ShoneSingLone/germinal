@@ -13,7 +13,6 @@
 
 <script lang="jsx">
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
-import privatePlaylist from "@ventose/views/ViewMusic/assets/AllMusicClient.js";
 import { reactive } from "vue";
 
 import {
@@ -73,29 +72,29 @@ const playListFindNew = reactive(
 				prop: "title",
 				width: 200
 				/* renderCell({ record }) {
-            return (
-              <span class="flex middle">
-                <a-avatar shape="square" src={record.picUrl} />
-                <xGap l="4" />
-                <span>{record.name}</span>
-              </span>
-            );
-          } */
+			return (
+			  <span class="flex middle">
+				<a-avatar shape="square" src={record.picUrl} />
+				<xGap l="4" />
+				<span>{record.name}</span>
+			  </span>
+			);
+		  } */
 			}),
 			...defCol({
 				label: $t("歌手").label,
 				width: 200,
 				prop: "artist"
 				/* renderCell({ record }) {
-            return <span>{record.song.artists[0].name}</span>;
-          } */
+			return <span>{record.song.artists[0].name}</span>;
+		  } */
 			}),
 			...defCol({
 				label: $t("所属专辑").label,
 				prop: "album"
 				/* renderCell({ record }) {
-            return <span>{record.song.album.name}</span>;
-          } */
+			return <span>{record.song.album.name}</span>;
+		  } */
 			}),
 			...defColActions({
 				width: 100,
@@ -139,8 +138,8 @@ export default {
 				return `${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
 			},
 			_.debounce(function () {
-				vm.playListFindNew.currentPlaylistPrivate = privatePlaylist.filter(
-					record => {
+				vm.playListFindNew.currentPlaylistPrivate =
+					vm.State_Music.AllMusicClient.filter(record => {
 						const isOk = prop => {
 							if (vm.State_query[prop].value) {
 								return String(record[prop]).includes(
@@ -151,9 +150,7 @@ export default {
 							}
 						};
 						return isOk("title") && isOk("artist") && isOk("album");
-					}
-				);
-
+					});
 				setPagination(vm.playListFindNew, { page: 1 });
 				vm.playListFindNew.queryTableList();
 			}, 1000),

@@ -12,7 +12,7 @@ import {
 	RegexFn
 } from "@ventose/ui";
 import { getColor, Actions_App, State_App } from "@ventose/state/State_App";
-import { API } from "germinal_api";
+import { API } from "@ventose/api";
 import { router, routeNames } from "@ventose/router/router";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 

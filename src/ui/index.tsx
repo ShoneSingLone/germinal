@@ -116,10 +116,6 @@ export const VentoseUIWithInstall = {
 			} else {
 				mylodash.doNothing(name, `miss name`);
 			}
-			console.log(
-				"🚀 ~ file: index.tsx ~ line 121 ~ mylodash.each ~ component.name",
-				component.name
-			);
 			app.component(component.name || name, component);
 		});
 		app.use(Antd);
