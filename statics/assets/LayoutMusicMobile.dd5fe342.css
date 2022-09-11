@@ -9,5 +9,6 @@
 }
 #ViewMusic .play-list-wrapper {
   overflow: auto;
+  overflow-x: hidden;
   height: 90%;
 }

@@ -62733,7 +62733,7 @@ ClassLayer.pt.vessel = function(conType, callback) {
 					  height:${config.area[1]};
 					  position:${config.fixed ? "fixed;" : "absolute;"}">
 				${conType && config.type != 2 ? "" : titleHTML}
-				<div id="${config.id || ""}" class="flex1 ${DOMS[5]}${config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` + (config.type == 0 && config.icon !== -1 ? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>' : "") + (config.type == 1 && conType ? "" : config.content || "") + '</div><span class="layui-layer-setwin">' + function() {
+				<div id="${config.id || ""}" class="${DOMS[5]}${config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` + (config.type == 0 && config.icon !== -1 ? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>' : "") + (config.type == 1 && conType ? "" : config.content || "") + '</div><span class="layui-layer-setwin">' + function() {
         var closebtn = ismax ? '<a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a>' : "";
         config.closeBtn && (closebtn += '<a class="layui-layer-ico ' + DOMS[7] + " " + DOMS[7] + (config.title ? config.closeBtn : config.type == 4 ? "1" : "2") + '" href="javascript:;"></a>');
         return closebtn;
@@ -66556,8 +66556,17 @@ const _sfc_main = Vue.defineComponent({
       default() {
         return {};
       }
+    },
+    top: {
+      type: Number,
+      default: 0
+    },
+    height: {
+      type: Number,
+      default: 0
     }
   },
+  emits: ["update:top", "update:height"],
   setup() {
     return {};
   },
@@ -66633,19 +66642,50 @@ const _sfc_main = Vue.defineComponent({
       return `transform:translateY(${this.blockCount * 580}px)`;
     }
   },
+  watch: {
+    top() {
+      this.setTop();
+    },
+    "allItems.length": {
+      immediate: true,
+      handler() {
+        this.updateTop();
+        this.setHeight();
+      }
+    }
+  },
   mounted() {
-    const vm = this;
-    vm.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
-    vm.$wrapperEle = _global_$(vm.$refs.refWrapper);
-    vm.$wrapperEle.on("scroll", function(event) {
-      const top = vm.$refs.refWrapper.scrollTop;
-      vm.blockCount = Math.floor(top / oneBlockHeight);
-    });
+    this.init();
   },
   beforeUnmount() {
     this.$wrapperEle.off("scroll");
   },
-  methods: {}
+  methods: {
+    setTop: _global__.debounce(function() {
+      if (this.$refs.refWrapper) {
+        this.$refs.refWrapper.scrollTo({
+          top: this.top,
+          behavior: "smooth"
+        });
+      }
+    }, 1e3),
+    init() {
+      this.$wrapperEle = _global_$(this.$refs.refWrapper);
+      this.$wrapperEle.on("scroll", () => this.updateTop());
+    },
+    updateTop(event) {
+      if (this.$refs.refWrapper) {
+        const top = this.$refs.refWrapper.scrollTop;
+        this.blockCount = Math.floor(top / oneBlockHeight);
+        this.$emit("update:top", top);
+      }
+    },
+    setHeight() {
+      const height = this.allItems.length * itemHeight;
+      this.styleWrapperAll.height = `${height}px`;
+      this.$emit("update:height", height);
+    }
+  }
 });
 const _hoisted_1 = {
   ref: "refWrapper",
@@ -66816,6 +66856,28 @@ const useModel = (type4) => {
       });
     });
   };
+};
+layer.loading = function(indexDelete) {
+  this.loading.count = this.loading.count || 1;
+  this.loading.deep = this.loading.deep || /* @__PURE__ */ new Set();
+  $("body").trigger("click");
+  if (indexDelete >= 0) {
+    if (this.loading.deep.has(indexDelete)) {
+      this.loading.deep.delete(indexDelete);
+      if (this.loading.deep.size === 0) {
+        layer.close(this.loading.index);
+      }
+    } else {
+      console.error("loading", indexDelete);
+    }
+  } else {
+    let indexAdd = this.loading.count++;
+    if (this.loading.deep.size === 0) {
+      this.loading.index = layer.load(1);
+    }
+    this.loading.deep.add(indexAdd);
+    return indexAdd;
+  }
 };
 const UI = {
   dialog: {

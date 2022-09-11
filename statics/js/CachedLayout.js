@@ -5,8 +5,8 @@ import "./UserOutlined.js";
 import "./form.js";
 var _sfc_main = Vue.defineComponent({
   components: {
-    CachedMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CachedMobile.js"), true ? ["statics/js/CachedMobile.js","statics/assets/PrivateMobile.19d584d7.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
-    CachedPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CachedPc.js"), true ? ["statics/js/CachedPc.js","statics/assets/PrivatePc.a91b9906.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
+    CachedMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CachedMobile.js"), true ? ["statics/js/CachedMobile.js","statics/assets/CachedMobile.b1bd76a0.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
+    CachedPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CachedPc.js"), true ? ["statics/js/CachedPc.js","statics/assets/FindNewPc.a8c036d6.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
   },
   setup() {
     return {

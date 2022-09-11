@@ -32,7 +32,6 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   }, 8, ["loading"]);
 }
 var CachedMobileSongItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
-var CachedMobile_vue_vue_type_style_index_0_lang = "";
 const _sfc_main = {
   components: {
     CachedMobileSongItem

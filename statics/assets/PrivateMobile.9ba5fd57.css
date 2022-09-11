@@ -1,0 +1,30 @@
+.PrivateMobileSongItem {
+  line-height: 20px;
+  height: 48px;
+  border-radius: 16px;
+}
+.PrivateMobileSongItem > .title {
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.PrivateMobileSongItem > .singer {
+  font-size: 12px;
+  text-indent: 16px;
+}
+.PrivateMobile {
+  position: relative;
+}
+.PrivateMobile .search-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  transform: translateX(160px);
+  transition: all 0.3s ease-in-out;
+}
+.PrivateMobile .search-wrapper.show {
+  transform: translateX(0);
+}

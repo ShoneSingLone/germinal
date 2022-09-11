@@ -167,10 +167,18 @@ const ajax = genAjax({
   }
 });
 const music = {
-  async getPersonalizedNewSong() {
+  async search(params = { limit: 60, offset: 1 }) {
     return await ajax({
       method: "GET",
-      url: "/personalized/newsong"
+      url: "/search",
+      params
+    });
+  },
+  async getPersonalizedNewSong(limit = 1e3) {
+    return await ajax({
+      method: "GET",
+      url: "/personalized/newsong",
+      params: { limit }
     });
   },
   async getSongUrlBuId(id) {
@@ -1812,7 +1820,7 @@ const routes = [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./PlayListFindNew.js"), true ? ["statics/js/PlayListFindNew.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
@@ -6405,4 +6413,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, State_Music as a, STATIC_WORD as b, Actions_App as c, _sfc_main$5 as d, Cpt_iconSound as e, formatDuring as f };
+export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, State_Music as a, STATIC_WORD as b, Actions_App as c, _sfc_main$5 as d, API as e, formatDuring as f, Cpt_iconSound as g };

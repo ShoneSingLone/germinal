@@ -40,7 +40,7 @@ const _hoisted_2 = {
   class: "flex width100 around middle elevation-2"
 };
 const _hoisted_3 = ["onClick"];
-const _hoisted_4 = { class: "flex1 play-list-wrapper" };
+const _hoisted_4 = { class: "flex1 play-list-wrapper flex vertical" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_RouterView = Vue.resolveComponent("RouterView");
