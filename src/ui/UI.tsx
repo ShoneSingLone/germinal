@@ -9,6 +9,7 @@ import {
 	notification
 } from "ant-design-vue";
 import _ from "lodash";
+import $ from "jquery";
 
 /* 静态方法，与APP实例无关，引用有直接可用 */
 
@@ -44,6 +45,32 @@ const useModel = type => {
 		});
 	};
 };
+
+layer.loading = function (indexDelete) {
+	this.loading.count = this.loading.count || 1;
+	this.loading.deep = this.loading.deep || new Set();
+	$("body").trigger("click");
+	if (indexDelete >= 0) {
+		if (this.loading.deep.has(indexDelete)) {
+			/* 如果size不是一，则不需要消失 */
+			this.loading.deep.delete(indexDelete);
+			if (this.loading.deep.size === 0) {
+				layer.close(this.loading.index);
+			}
+		} else {
+			console.error("loading", indexDelete);
+		}
+	} else {
+		/* 全局单例，如果有一个，如果loading，不需要new loading */
+		let indexAdd = this.loading.count++;
+		if (this.loading.deep.size === 0) {
+			this.loading.index = layer.load(1);
+		}
+		this.loading.deep.add(indexAdd);
+		return indexAdd;
+	}
+};
+
 export const UI = {
 	dialog: {
 		component: async (options: t_dialogOptions) => null,

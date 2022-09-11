@@ -42,8 +42,17 @@ export default defineComponent({
 			default() {
 				return {};
 			}
+		},
+		top: {
+			type: Number,
+			default: 0
+		},
+		height: {
+			type: Number,
+			default: 0
 		}
 	},
+	emits: ["update:top", "update:height"],
 	setup() {
 		return {};
 	},
@@ -121,9 +130,13 @@ export default defineComponent({
 		}
 	},
 	watch: {
+		top() {
+			this.setTop();
+		},
 		"allItems.length": {
 			immediate: true,
 			handler() {
+				this.updateTop();
 				this.setHeight();
 			}
 		}
@@ -135,16 +148,29 @@ export default defineComponent({
 		this.$wrapperEle.off("scroll");
 	},
 	methods: {
+		setTop: _.debounce(function () {
+			if (this.$refs.refWrapper) {
+				this.$refs.refWrapper.scrollTo({
+					top: this.top,
+					behavior: "smooth"
+				});
+			}
+		}, 1000),
 		init() {
-			const vm = this;
-			vm.$wrapperEle = $(vm.$refs.refWrapper);
-			vm.$wrapperEle.on("scroll", function (event) {
-				const top = vm.$refs.refWrapper.scrollTop;
-				vm.blockCount = Math.floor(top / oneBlockHeight);
-			});
+			this.$wrapperEle = $(this.$refs.refWrapper);
+			this.$wrapperEle.on("scroll", () => this.updateTop());
+		},
+		updateTop(event) {
+			if (this.$refs.refWrapper) {
+				const top = this.$refs.refWrapper.scrollTop;
+				this.blockCount = Math.floor(top / oneBlockHeight);
+				this.$emit("update:top", top);
+			}
 		},
 		setHeight() {
-			this.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
+			const height = this.allItems.length * itemHeight;
+			this.styleWrapperAll.height = `${height}px`;
+			this.$emit("update:height", height);
 		}
 	}
 });

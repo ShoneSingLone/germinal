@@ -299,7 +299,7 @@ ClassLayer.pt.vessel = function (conType, callback) {
 					  height:${config.area[1]};
 					  position:${config.fixed ? "fixed;" : "absolute;"}">
 				${conType && config.type != 2 ? "" : titleHTML}
-				<div id="${config.id || ""}" class="flex1 ${DOMS[5]}${
+				<div id="${config.id || ""}" class="${DOMS[5]}${
 				config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""
 			} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` +
 				(config.type == 0 && config.icon !== -1
