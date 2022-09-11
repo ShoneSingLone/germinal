@@ -69,28 +69,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-#playlist-private-mobile {
-	height: 100%;
-	overflow: auto;
-	overflow-x: hidden;
-	position: relative;
-
-	.wrapper {
-		height: 100%;
-	}
-
-	.song-item-wrapper {
-		position: absolute;
-		width: 100%;
-
-		.song-item {
-			display: flex;
-			align-items: center;
-			box-sizing: border-box;
-			font-size: 14px;
-			margin: 10px 10px 0;
-		}
-	}
-}
-</style>
+<style lang="less"></style>

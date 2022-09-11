@@ -120,19 +120,33 @@ export default defineComponent({
 			return `transform:translateY(${this.blockCount * 580}px)`;
 		}
 	},
+	watch: {
+		"allItems.length": {
+			immediate: true,
+			handler() {
+				this.setHeight();
+			}
+		}
+	},
 	mounted() {
-		const vm = this;
-		vm.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
-		vm.$wrapperEle = $(vm.$refs.refWrapper);
-		vm.$wrapperEle.on("scroll", function (event) {
-			const top = vm.$refs.refWrapper.scrollTop;
-			vm.blockCount = Math.floor(top / oneBlockHeight);
-		});
+		this.init();
 	},
 	beforeUnmount() {
 		this.$wrapperEle.off("scroll");
 	},
-	methods: {}
+	methods: {
+		init() {
+			const vm = this;
+			vm.$wrapperEle = $(vm.$refs.refWrapper);
+			vm.$wrapperEle.on("scroll", function (event) {
+				const top = vm.$refs.refWrapper.scrollTop;
+				vm.blockCount = Math.floor(top / oneBlockHeight);
+			});
+		},
+		setHeight() {
+			this.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
+		}
+	}
 });
 </script>
 
