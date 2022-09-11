@@ -1,19 +1,31 @@
 <template>
-	<aButton
-		class="PrivateMobileSongItem elevation-1 flex vertical width100"
+	<div
+		class="CachedMobileSongItem elevation-1 flex middle width100"
 		:loading="loading">
-		<div class="title">
-			{{ song.title }}
+		<div class="flex vertical start">
+			<div class="title">
+				{{ song.title }}
+			</div>
+			<div class="singer">
+				{{ song.index }}-{{ song.artist }}-{{ song.album }}
+			</div>
 		</div>
-		<div class="singer">
-			{{ song.index }}-{{ song.artist }}-{{ song.album }}
+		<xGap f="1" />
+		<div class="flex">
+			<aButton class="mr10 flex middle" @click="$emit('play')">
+				<xIcon icon="playsong" />
+			</aButton>
+			<aButton class="mr10 flex middle" @click="$emit('del')">
+				<xIcon icon="delete" />
+			</aButton>
 		</div>
-	</aButton>
+	</div>
 </template>
 
 <script lang="jsx">
 export default {
 	props: ["song", "loading"],
+	emits: ["del", "play"],
 	setup() {
 		return {};
 	},
@@ -26,12 +38,13 @@ export default {
 </script>
 
 <style lang="less">
-.PrivateMobileSongItem {
+.CachedMobileSongItem {
+	padding: 0 16px;
 	line-height: 20px;
 	height: 48px;
-	border-radius: 16px;
+	border-radius: 4px;
 
-	> .title {
+	.title {
 		width: 100%;
 		text-align: left;
 		overflow: hidden;
@@ -39,7 +52,7 @@ export default {
 		white-space: nowrap;
 	}
 
-	> .singer {
+	.singer {
 		font-size: 12px;
 		text-indent: 16px;
 	}

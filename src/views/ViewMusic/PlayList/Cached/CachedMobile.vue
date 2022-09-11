@@ -4,7 +4,8 @@
 			<CachedMobileSongItem
 				:song="item"
 				:loading="currentLoadingSongId === item.id"
-				@click="playSong(item)" />
+				@play="playSong(item)"
+				@del="removeSong(item)" />
 		</template>
 	</xVirScroll>
 </template>
@@ -46,6 +47,10 @@ export default {
 				cachedPlaylist.map(i => i.records),
 				["artist", "album"]
 			).reverse();
+		},
+		async removeSong(record) {
+			await del(`audio_${record.id}`);
+			await this.loadCachedSong();
 		},
 		async playSong(record) {
 			this.currentLoadingSongId = record.id;

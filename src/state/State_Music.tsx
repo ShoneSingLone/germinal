@@ -9,9 +9,9 @@ export const State_Music = reactive({
 	AllMusicClient: [],
 	tabItems: [
 		{ key: "playlist", label: "当前播放列表", icon: "playlist" },
-		{ key: "new", label: "发现音乐", icon: "music" },
-		{ key: "singer", label: "歌手", icon: "user" },
-		{ key: "private", label: "私藏", icon: "privateNet" },
+		{ key: "new", label: "发现音乐", icon: "privateNet" },
+		// { key: "singer", label: "歌手", icon: "music" },
+		{ key: "private", label: "私藏", icon: "user" },
 		{ key: "cached", label: "已缓存", icon: "cached" }
 	],
 	songId: 0,
@@ -154,9 +154,11 @@ export const Actions_Music = {
 			Actions_Music.playMethods.playLoop(currentSongIndex);
 		}
 	},
-	removeSongFromPlaylistByIndex(index) {
-		if (index <= State_Music.playlist.length - 1) {
-			State_Music.playlist.splice(index, 1);
+	removeSongFromPlaylistById(id) {
+		const itemIndex = _.findIndex(State_Music.playlist, { id });
+		if (itemIndex > -1) {
+			State_Music.playlist.splice(itemIndex, 1);
+			// State_Music.playlist = [...State_Music.playlist];
 		}
 	},
 	handlePlayEnd() {
