@@ -62,13 +62,14 @@ const routes = [
 			{
 				name: "playlist",
 				path: "/music/playlist",
-				component: () => import("@ventose/views/ViewMusic/PlayList.vue")
+				component: () =>
+					import("@ventose/views/ViewMusic/PlayList/Current/CurrentLayout.vue")
 			},
-			{
+			/* {
 				name: "singer",
 				path: "/music/singer",
 				component: () => import("@ventose/views/ViewMusic/PlayListSinger.vue")
-			},
+			}, */
 			{
 				name: "private",
 				path: "/music/private",
