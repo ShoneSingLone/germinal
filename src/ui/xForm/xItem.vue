@@ -4,6 +4,7 @@ import renders from "./itemRenders";
 import { MutatingProps } from "../common";
 import { checkXItem, EVENT_TYPE, TIPS_TYPE } from "../tools/validate";
 import { _ } from "../loadCommonUtil";
+import $ from "jquery";
 
 const domClass = {
 	tipsError: "ant-form-item-explain ant-form-item-explain-error"
@@ -55,6 +56,8 @@ export default defineComponent({
 		const handleConfigsValidate = eventType => {
 			configs.validate && configs.validate(eventType);
 		};
+
+		/* 需要一个事件分发，拦截所有事件，再根据配置信息   */
 		const listeners = {
 			"onUpdate:value": (val, ...args) => {
 				configs.value = val;
@@ -105,6 +108,7 @@ export default defineComponent({
 					}
 				}
 			});
+
 			_.each(propsWillDeleteFromConfigs, prop => {
 				delete currentConfigs[prop];
 			});
@@ -274,7 +278,15 @@ export default defineComponent({
 	created() {
 		/* domID */
 		MutatingProps(this, "configs.FormItemId", this.FormItemId);
+
+		/* $(`[formitemid="${this.FormItemId}"]`).on("blur", (e) => {
+			debugger;
+			this.componentSettings.listener();
+		}); */
 	},
+	/* beforeUnmount() {
+		$(`[formitemid="${this.FormItemId}"]`).off("blur");
+	}, */
 	methods: {
 		setTips(type = "", msg = "") {
 			MutatingProps(this, "configs.itemTips", { type, msg });

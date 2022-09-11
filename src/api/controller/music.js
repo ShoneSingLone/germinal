@@ -11,10 +11,18 @@ const ajax = genAjax({
 	}
 });
 export const music = {
-	async getPersonalizedNewSong() {
+	async search(params = { limit: 60, offset: 1 }) {
 		return await ajax({
 			method: "GET",
-			url: "/personalized/newsong"
+			url: "/search",
+			params
+		});
+	},
+	async getPersonalizedNewSong(limit = 1000) {
+		return await ajax({
+			method: "GET",
+			url: "/personalized/newsong",
+			params: { limit }
 		});
 	},
 	async getSongUrlBuId(id) {

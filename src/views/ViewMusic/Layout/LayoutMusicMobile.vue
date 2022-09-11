@@ -13,7 +13,7 @@
 				<xIcon :icon="item.icon" />
 			</div>
 		</div>
-		<div class="flex1 play-list-wrapper">
+		<div class="flex1 play-list-wrapper flex vertical">
 			<RouterView />
 		</div>
 		<MusicPlayer />
@@ -65,6 +65,7 @@ export default defineComponent({
 
 	.play-list-wrapper {
 		overflow: auto;
+		overflow-x: hidden;
 		height: 90%;
 	}
 }

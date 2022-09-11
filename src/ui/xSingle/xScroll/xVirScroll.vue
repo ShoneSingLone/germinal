@@ -42,8 +42,17 @@ export default defineComponent({
 			default() {
 				return {};
 			}
+		},
+		top: {
+			type: Number,
+			default: 0
+		},
+		height: {
+			type: Number,
+			default: 0
 		}
 	},
+	emits: ["update:top", "update:height"],
 	setup() {
 		return {};
 	},
@@ -120,19 +129,50 @@ export default defineComponent({
 			return `transform:translateY(${this.blockCount * 580}px)`;
 		}
 	},
+	watch: {
+		top() {
+			this.setTop();
+		},
+		"allItems.length": {
+			immediate: true,
+			handler() {
+				this.updateTop();
+				this.setHeight();
+			}
+		}
+	},
 	mounted() {
-		const vm = this;
-		vm.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
-		vm.$wrapperEle = $(vm.$refs.refWrapper);
-		vm.$wrapperEle.on("scroll", function (event) {
-			const top = vm.$refs.refWrapper.scrollTop;
-			vm.blockCount = Math.floor(top / oneBlockHeight);
-		});
+		this.init();
 	},
 	beforeUnmount() {
 		this.$wrapperEle.off("scroll");
 	},
-	methods: {}
+	methods: {
+		setTop: _.debounce(function () {
+			if (this.$refs.refWrapper) {
+				this.$refs.refWrapper.scrollTo({
+					top: this.top,
+					behavior: "smooth"
+				});
+			}
+		}, 1000),
+		init() {
+			this.$wrapperEle = $(this.$refs.refWrapper);
+			this.$wrapperEle.on("scroll", () => this.updateTop());
+		},
+		updateTop(event) {
+			if (this.$refs.refWrapper) {
+				const top = this.$refs.refWrapper.scrollTop;
+				this.blockCount = Math.floor(top / oneBlockHeight);
+				this.$emit("update:top", top);
+			}
+		},
+		setHeight() {
+			const height = this.allItems.length * itemHeight;
+			this.styleWrapperAll.height = `${height}px`;
+			this.$emit("update:height", height);
+		}
+	}
 });
 </script>
 

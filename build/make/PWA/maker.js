@@ -61,7 +61,7 @@ const genLogo = (size, dist) => {
 				sizes: `${size}x${size}`,
 				type: "image/png"
 			})),
-			start_url: "/",
+			start_url: "/germinal",
 			display: "fullscreen",
 			theme_color: "#B12A34",
 			background_color: "#B12A34"

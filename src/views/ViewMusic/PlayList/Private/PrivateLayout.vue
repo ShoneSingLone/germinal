@@ -8,8 +8,8 @@ import { State_App } from "@ventose/state/State_App";
 
 export default defineComponent({
 	components: {
-		PrivatePc: defineAsyncComponent(() => import("./PrivatePc.vue")),
-		PrivateMobile: defineAsyncComponent(() => import("./PrivateMobile.vue"))
+		PrivateMobile: defineAsyncComponent(() => import("./PrivateMobile.vue")),
+		PrivatePc: defineAsyncComponent(() => import("./PrivatePc.vue"))
 	},
 	setup() {
 		return {

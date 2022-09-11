@@ -56,7 +56,8 @@ const routes = [
 			{
 				name: "new",
 				path: "/music/new",
-				component: () => import("@ventose/views/ViewMusic/PlayListFindNew.vue")
+				component: () =>
+					import("@ventose/views/ViewMusic/PlayList/FindNew/FindNewLayout.vue")
 			},
 			{
 				name: "playlist",
