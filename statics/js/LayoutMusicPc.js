@@ -1,5 +1,5 @@
 import { M as MusicPlayer } from "./MusicPlayer.js";
-import { a as State_Music } from "./main.js";
+import { d as State_Music } from "./main.js";
 import { d as _export_sfc } from "./nprogress.js";
 import "./FormRules.js";
 import "./UserOutlined.js";

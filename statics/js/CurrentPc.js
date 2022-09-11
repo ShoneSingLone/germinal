@@ -1,4 +1,4 @@
-import { a as State_Music, A as Actions_Music } from "./main.js";
+import { d as State_Music, A as Actions_Music } from "./main.js";
 import { g as defDataGridOption, _ as _global__, i as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, d as _export_sfc } from "./nprogress.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -15,10 +15,6 @@ var _sfc_main = {
   data() {
     return {
       playListFindNew: defDataGridOption({
-        scroll: {
-          x: 300,
-          y: 300
-        },
         async queryTableList() {
           await _global__.sleep(1e3);
         },
@@ -63,17 +59,22 @@ var _sfc_main = {
             }
           }),
           ...defColActions({
-            width: 100,
+            width: 140,
             renderCell({
               record,
               index
             }) {
-              var _a;
+              var _a, _b;
               return defColActionsBtnlist({
                 btns: [{
                   text: (_a = $t("\u64AD\u653E")) == null ? void 0 : _a.label,
                   async onClick() {
                     await Actions_Music.playSongById(record.id);
+                  }
+                }, {
+                  text: (_b = $t("\u79FB\u9664")) == null ? void 0 : _b.label,
+                  async onClick() {
+                    Actions_Music.removeSongFromPlaylistById(record.id);
                   }
                 }]
               });
@@ -84,10 +85,10 @@ var _sfc_main = {
     };
   },
   watch: {
-    "State_Music.personalizedNewSong": {
+    "State_Music.playlist": {
       immediate: true,
-      handler(personalizedNewSong) {
-        this.playListFindNew.dataSource = personalizedNewSong;
+      handler(playlist) {
+        this.playListFindNew.dataSource = playlist;
       }
     }
   }
@@ -96,5 +97,5 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xDataGrid = Vue.resolveComponent("xDataGrid");
   return Vue.openBlock(), Vue.createBlock(_component_xDataGrid, { configs: $data.playListFindNew }, null, 8, ["configs"]);
 }
-var PlayListSinger = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-export { PlayListSinger as default };
+var CurrentPc = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export { CurrentPc as default };

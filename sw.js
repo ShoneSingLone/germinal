@@ -21,8 +21,6 @@ const contentToCache = [
   "./statics/js/PrivateLayout.js",
   "./statics/js/PlayerPc.js",
   "./statics/js/PlayerMobile.js",
-  "./statics/js/PlayListSinger.js",
-  "./statics/js/PlayList.js",
   "./statics/js/NotFound.js",
   "./statics/js/MusicPlayer.js",
   "./statics/js/LoginContainer.js",
@@ -37,6 +35,9 @@ const contentToCache = [
   "./statics/js/FindNewMobile.js",
   "./statics/js/FindNewLayout.js",
   "./statics/js/Dev.js",
+  "./statics/js/CurrentPc.js",
+  "./statics/js/CurrentMobile.js",
+  "./statics/js/CurrentLayout.js",
   "./statics/js/CachedPc.js",
   "./statics/js/CachedMobile.js",
   "./statics/js/CachedLayout.js",
@@ -66,7 +67,8 @@ const contentToCache = [
   "./statics/assets/Group.a18abc63.css",
   "./statics/assets/FindNewPc.a8c036d6.css",
   "./statics/assets/FindNewMobile.b5a845fe.css",
-  "./statics/assets/CachedMobile.b1bd76a0.css",
+  "./statics/assets/CurrentMobile.a6da3ff6.css",
+  "./statics/assets/CachedMobile.b0952789.css",
   "./index.html",
   "./favicon.ico",
   "./configs.jsx",
@@ -129,6 +131,7 @@ const contentToCache = [
   "./assets/svg/follow.svg",
   "./assets/svg/folderOpen.svg",
   "./assets/svg/feedback.svg",
+  "./assets/svg/delete.svg",
   "./assets/svg/copy.svg",
   "./assets/svg/copy-o.svg",
   "./assets/svg/cached.svg",
@@ -140,7 +143,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1662885494912");
+			const cache = await caches.open("1662917629404");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -159,7 +162,7 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1662885494912");
+				const cache = await caches.open("1662917629404");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;

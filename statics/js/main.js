@@ -481,22 +481,10 @@ const State_App = Vue.reactive({
   configs: lStorage.appConfigs || {},
   isDev: window.__envMode === "development"
 });
+VueRouter.useRoute();
 (() => {
   function checkDeviceType() {
-    var _a2;
-    if (/Mobi|Android|iPhone/i.test(navigator == null ? void 0 : navigator.userAgent)) {
-      return true;
-    }
-    if (navigator.userAgent.match(/Mobi/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
-      return true;
-    }
-    if (!((_a2 = navigator == null ? void 0 : navigator.userAgentData) == null ? void 0 : _a2.mobile)) {
-      return false;
-    }
-    if (/Android|iPhone|iPad|iPod/i.test(navigator == null ? void 0 : navigator.platform)) {
-      return true;
-    }
-    return false;
+    return true;
   }
   const setCurrentClientMobileValue = _global__.debounce(
     function setCurrentClientMobileValue2() {
@@ -1825,12 +1813,7 @@ const routes = [
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./PlayList.js"), true ? ["statics/js/PlayList.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
-      },
-      {
-        name: "singer",
-        path: "/music/singer",
-        component: () => __vitePreload(() => import("./PlayListSinger.js"), true ? ["statics/js/PlayListSinger.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
@@ -6090,27 +6073,28 @@ function formatDuring(during) {
 }
 const State_Music = Vue.reactive({
   AllMusicClient: [],
-  tabItems: [{
-    key: "playlist",
-    label: "\u5F53\u524D\u64AD\u653E\u5217\u8868",
-    icon: "playlist"
-  }, {
-    key: "new",
-    label: "\u53D1\u73B0\u97F3\u4E50",
-    icon: "music"
-  }, {
-    key: "singer",
-    label: "\u6B4C\u624B",
-    icon: "user"
-  }, {
-    key: "private",
-    label: "\u79C1\u85CF",
-    icon: "privateNet"
-  }, {
-    key: "cached",
-    label: "\u5DF2\u7F13\u5B58",
-    icon: "cached"
-  }],
+  tabItems: [
+    {
+      key: "playlist",
+      label: "\u5F53\u524D\u64AD\u653E\u5217\u8868",
+      icon: "playlist"
+    },
+    {
+      key: "new",
+      label: "\u53D1\u73B0\u97F3\u4E50",
+      icon: "privateNet"
+    },
+    {
+      key: "private",
+      label: "\u79C1\u85CF",
+      icon: "user"
+    },
+    {
+      key: "cached",
+      label: "\u5DF2\u7F13\u5B58",
+      icon: "cached"
+    }
+  ],
   songId: 0,
   personalizedNewSong: [],
   audio: new Audio(),
@@ -6235,9 +6219,12 @@ const Actions_Music = {
       Actions_Music.playMethods.playLoop(currentSongIndex);
     }
   },
-  removeSongFromPlaylistByIndex(index) {
-    if (index <= State_Music.playlist.length - 1) {
-      State_Music.playlist.splice(index, 1);
+  removeSongFromPlaylistById(id) {
+    const itemIndex = _global__.findIndex(State_Music.playlist, {
+      id
+    });
+    if (itemIndex > -1) {
+      State_Music.playlist.splice(itemIndex, 1);
     }
   },
   handlePlayEnd() {
@@ -6413,4 +6400,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, State_Music as a, STATIC_WORD as b, Actions_App as c, _sfc_main$5 as d, API as e, formatDuring as f, Cpt_iconSound as g };
+export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, STATIC_WORD as a, Actions_App as b, _sfc_main$5 as c, State_Music as d, API as e, formatDuring as f, Cpt_iconSound as g };
