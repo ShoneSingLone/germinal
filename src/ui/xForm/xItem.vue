@@ -280,7 +280,6 @@ export default defineComponent({
 		MutatingProps(this, "configs.FormItemId", this.FormItemId);
 
 		/* $(`[formitemid="${this.FormItemId}"]`).on("blur", (e) => {
-			debugger;
 			this.componentSettings.listener();
 		}); */
 	},

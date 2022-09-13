@@ -12,7 +12,7 @@ self.addEventListener("install", e => {
 });
 
 self.addEventListener("fetch", e => {
-	if (
+	/* if (
 		e.request.url ===
 		`https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
 	) {
@@ -29,5 +29,5 @@ self.addEventListener("fetch", e => {
 				return response;
 			})()
 		);
-	}
+	} */
 });

@@ -69,8 +69,7 @@ const playListFindNew = reactive(
 		columns: {
 			...defCol({
 				label: $t("歌曲标题").label,
-				prop: "title",
-				width: 200
+				prop: "title"
 				/* renderCell({ record }) {
 			return (
 			  <span class="flex middle">
@@ -83,7 +82,6 @@ const playListFindNew = reactive(
 			}),
 			...defCol({
 				label: $t("歌手").label,
-				width: 200,
 				prop: "artist"
 				/* renderCell({ record }) {
 			return <span>{record.song.artists[0].name}</span>;
@@ -135,7 +133,7 @@ export default {
 		const vm = this;
 		vm.$watch(
 			() => {
-				return `${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
+				return `${vm.State_Music.AllMusicClient.length}_${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
 			},
 			_.debounce(function () {
 				vm.playListFindNew.currentPlaylistPrivate =

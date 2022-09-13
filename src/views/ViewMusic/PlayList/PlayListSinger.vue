@@ -27,7 +27,6 @@ export default {
 	data() {
 		return {
 			playListFindNew: defDataGridOption({
-				scroll: { x: 300, y: 300 },
 				async queryTableList() {
 					await _.sleep(1000);
 				},

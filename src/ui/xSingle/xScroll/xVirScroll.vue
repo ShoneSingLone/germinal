@@ -50,9 +50,13 @@ export default defineComponent({
 		height: {
 			type: Number,
 			default: 0
+		},
+		scrollHeight: {
+			type: Number,
+			default: 0
 		}
 	},
-	emits: ["update:top", "update:height"],
+	emits: ["update:top", "update:height", "update:scrollHeight"],
 	setup() {
 		return {};
 	},
@@ -141,6 +145,12 @@ export default defineComponent({
 			}
 		}
 	},
+	updated() {
+		const height = this.$wrapperEle?.height();
+		if (height !== this.height) {
+			this.$emit("update:height", this.$wrapperEle?.height() || 0);
+		}
+	},
 	mounted() {
 		this.init();
 	},
@@ -170,7 +180,7 @@ export default defineComponent({
 		setHeight() {
 			const height = this.allItems.length * itemHeight;
 			this.styleWrapperAll.height = `${height}px`;
-			this.$emit("update:height", height);
+			this.$emit("update:scrollHeight", height);
 		}
 	}
 });
