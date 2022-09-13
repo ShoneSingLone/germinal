@@ -45,12 +45,10 @@ const playListFindNew = Vue.reactive(defDataGridOption({
   columns: {
     ...defCol({
       label: $t("\u6B4C\u66F2\u6807\u9898").label,
-      prop: "title",
-      width: 200
+      prop: "title"
     }),
     ...defCol({
       label: $t("\u6B4C\u624B").label,
-      width: 200,
       prop: "artist"
     }),
     ...defCol({
@@ -97,7 +95,7 @@ var _sfc_main = {
   mounted() {
     const vm = this;
     vm.$watch(() => {
-      return `${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
+      return `${vm.State_Music.AllMusicClient.length}_${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
     }, _global__.debounce(function() {
       vm.playListFindNew.currentPlaylistPrivate = vm.State_Music.AllMusicClient.filter((record) => {
         const isOk = (prop) => {

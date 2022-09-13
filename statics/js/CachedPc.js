@@ -1,4 +1,4 @@
-import { d as State_Music, A as Actions_Music } from "./main.js";
+import { d as State_Music, p as preprocessRecord, A as Actions_Music } from "./main.js";
 import { _ as _global__, y as setPagination, e as defItem, g as defDataGridOption, F as keys, G as getMany, z as getPaginationPageSize, C as setDataGridInfo, i as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, H as del, d as _export_sfc } from "./nprogress.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -32,7 +32,7 @@ const playListFindNew = Vue.reactive(defDataGridOption({
     let props = await keys();
     props = props.filter((name) => /^audio_/.test(name));
     let cachedPlaylist = await getMany(props);
-    cachedPlaylist = cachedPlaylist.map((i) => i.records);
+    cachedPlaylist = cachedPlaylist.map((i) => preprocessRecord(i.records));
     playListFindNew.currentPlaylistPrivate = cachedPlaylist.filter((record) => {
       const isOk = (prop) => {
         if (State_query[prop].value) {

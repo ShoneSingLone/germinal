@@ -6085,11 +6085,16 @@ function formatDuring(during) {
   return ii2 + ":" + ss2;
 }
 function preprocessRecord(record) {
-  const { song } = record;
+  const { song, artists, album, name } = record;
   if (song) {
     record.title = record.title || record.name;
     record.album = record.album || song.album.name;
     record.artist = record.artist || song.artists[0].name;
+  }
+  if (artists && name && album) {
+    record.title = name;
+    record.album = album.name;
+    record.artist = artists[0].name;
   }
   return record;
 }
@@ -6324,7 +6329,7 @@ const Actions_Music = {
     if (audioInfo) {
       audioSrc = window.URL.createObjectURL(audioInfo.blob);
     } else {
-      if (record.title) {
+      if (record.isPrivate) {
         audioSrc = `https://www.singlone.work/s/api/v1/shiro/remote_music_file?id=${record.id}&token=${State_App.token}`;
       } else {
         const res = await API.music.getSongUrlBuId(id);

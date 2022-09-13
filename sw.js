@@ -32,6 +32,7 @@ const contentToCache = [
   "./statics/js/Group.js",
   "./statics/js/FormRules.js",
   "./statics/js/FindNewPc.js",
+  "./statics/js/FindNewMobileSongItem.js",
   "./statics/js/FindNewMobile.js",
   "./statics/js/FindNewLayout.js",
   "./statics/js/Dev.js",
@@ -55,6 +56,7 @@ const contentToCache = [
   "./statics/assets/bg2.26a7254b.jpg",
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
+  "./statics/assets/PrivatePc.a91b9906.css",
   "./statics/assets/PrivateMobile.9ba5fd57.css",
   "./statics/assets/PlayerPc.f27b5265.css",
   "./statics/assets/PlayerMobile.0be9359c.css",
@@ -65,8 +67,8 @@ const contentToCache = [
   "./statics/assets/LayoutBasic.8c490128.css",
   "./statics/assets/GroupList.ebf21596.css",
   "./statics/assets/Group.a18abc63.css",
-  "./statics/assets/FindNewPc.a8c036d6.css",
-  "./statics/assets/FindNewMobile.b5a845fe.css",
+  "./statics/assets/FindNewMobileSongItem.602c8d07.css",
+  "./statics/assets/FindNewMobile.3920ea86.css",
   "./statics/assets/CurrentMobile.a6da3ff6.css",
   "./statics/assets/CachedMobile.b0952789.css",
   "./index.html",
@@ -143,7 +145,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1663060085337");
+			const cache = await caches.open("1663089958409");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -151,7 +153,7 @@ self.addEventListener("install", e => {
 });
 
 self.addEventListener("fetch", e => {
-	if (
+	/* if (
 		e.request.url ===
 		`https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
 	) {
@@ -162,11 +164,11 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1663060085337");
+				const cache = await caches.open("1663089958409");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;
 			})()
 		);
-	}
+	} */
 });

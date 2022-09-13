@@ -1,4 +1,4 @@
-import { d as State_Music, A as Actions_Music } from "./main.js";
+import { d as State_Music, p as preprocessRecord, A as Actions_Music } from "./main.js";
 import { g as defDataGridOption, _ as _global__, i as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, d as _export_sfc } from "./nprogress.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -36,7 +36,7 @@ var _sfc_main = {
                 "src": record.picUrl
               }, null), Vue.createVNode(Vue.resolveComponent("xGap"), {
                 "l": "4"
-              }, null), Vue.createVNode("span", null, [record.name])]);
+              }, null), Vue.createVNode("span", null, [record.title])]);
             }
           }),
           ...defCol({
@@ -46,7 +46,7 @@ var _sfc_main = {
             renderCell({
               record
             }) {
-              return Vue.createVNode("span", null, [record.song.artists[0].name]);
+              return Vue.createVNode("span", null, [record.artist]);
             }
           }),
           ...defCol({
@@ -55,7 +55,7 @@ var _sfc_main = {
             renderCell({
               record
             }) {
-              return Vue.createVNode("span", null, [record.song.album.name]);
+              return Vue.createVNode("span", null, [record.album]);
             }
           }),
           ...defColActions({
@@ -88,7 +88,7 @@ var _sfc_main = {
     "State_Music.playlist": {
       immediate: true,
       handler(playlist) {
-        this.playListFindNew.dataSource = playlist;
+        this.playListFindNew.dataSource = _global__.map(playlist, preprocessRecord);
       }
     }
   }

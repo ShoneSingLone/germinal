@@ -1,76 +1,9 @@
 import { d as State_Music, e as API, A as Actions_Music } from "./main.js";
 import { d as _export_sfc, e as defItem, _ as _global__, U as UI } from "./nprogress.js";
+import { F as FindNewMobileSongItem } from "./FindNewMobileSongItem.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
-var _sfc_main$1 = {
-  props: ["song", "loading", "isShowImg"],
-  setup() {
-    return {};
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    songSub() {
-      var _a, _b;
-      let {
-        index,
-        song,
-        album,
-        artists,
-        name
-      } = this.song;
-      if (album && artists) {
-        return `${index}-${(_a = artists[0]) == null ? void 0 : _a.name}-${album == null ? void 0 : album.name}`;
-      }
-      if (song) {
-        let {
-          album: album2,
-          artists: artists2,
-          name: name2
-        } = song;
-        return `${index}-${(_b = artists2[0]) == null ? void 0 : _b.name}-${album2 == null ? void 0 : album2.name}`;
-      }
-      return "";
-    },
-    styleBtn() {
-      var _a;
-      if (this.isShowImg) {
-        return `background:url(${(_a = this.song) == null ? void 0 : _a.picUrl}) right/contain no-repeat;`;
-      } else {
-        return {};
-      }
-    }
-  },
-  beforeUnmount() {
-    this.observer && this.observer.disconnect();
-  },
-  mounted() {
-  }
-};
-var FindNewMobileSongItem_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1$1 = { class: "title" };
-const _hoisted_2 = { class: "singer" };
-function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_aButton = Vue.resolveComponent("aButton");
-  return Vue.openBlock(), Vue.createBlock(_component_aButton, {
-    ref: "songItem",
-    class: "PrivateMobileSongItem elevation-1 flex vertical width100",
-    style: Vue.normalizeStyle($options.styleBtn),
-    loading: $props.loading
-  }, {
-    default: Vue.withCtx(() => {
-      var _a, _b;
-      return [
-        Vue.createElementVNode("div", _hoisted_1$1, Vue.toDisplayString(((_a = $props.song) == null ? void 0 : _a.name) || ((_b = $props.song) == null ? void 0 : _b.title)), 1),
-        Vue.createElementVNode("div", _hoisted_2, Vue.toDisplayString($options.songSub), 1)
-      ];
-    }),
-    _: 1
-  }, 8, ["style", "loading"]);
-}
-var FindNewMobileSongItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 var FindNewMobile_vue_vue_type_style_index_0_lang = "";
 const state = Vue.reactive({
   isShowSearchBox: false,
@@ -102,6 +35,7 @@ const _sfc_main = {
   },
   data() {
     return {
+      wrapperHeight: 0,
       scrollHeight: 0,
       scrollTop: 0,
       currentLoadingSongId: "",
@@ -133,7 +67,7 @@ const _sfc_main = {
       },
       () => {
         const search = this.state.configs.search.value;
-        if (search && this.scrollHeight < this.scrollTop) {
+        if (search && this.scrollHeight - this.scrollTop < this.wrapperHeight) {
           this.setItems(search, this.state.offset);
         }
       }
@@ -203,8 +137,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     Vue.createVNode(_component_xVirScroll, {
       top: $data.scrollTop,
       "onUpdate:top": _cache[0] || (_cache[0] = ($event) => $data.scrollTop = $event),
-      height: $data.scrollHeight,
-      "onUpdate:height": _cache[1] || (_cache[1] = ($event) => $data.scrollHeight = $event),
+      height: $data.wrapperHeight,
+      "onUpdate:height": _cache[1] || (_cache[1] = ($event) => $data.wrapperHeight = $event),
+      scrollHeight: $data.scrollHeight,
+      "onUpdate:scrollHeight": _cache[2] || (_cache[2] = ($event) => $data.scrollHeight = $event),
       configs: $setup.state.configs
     }, {
       item: Vue.withCtx(({ item }) => [
@@ -216,7 +152,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         }, null, 8, ["song", "loading", "is-show-img", "onClick"])
       ]),
       _: 1
-    }, 8, ["top", "height", "configs"])
+    }, 8, ["top", "height", "scrollHeight", "configs"])
   ]);
 }
 var FindNewMobile = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);

@@ -14,17 +14,3 @@
   font-size: 12px;
   text-indent: 16px;
 }
-.FindNewMobile {
-  position: relative;
-}
-.FindNewMobile .search-wrapper {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1;
-  transform: translateX(160px);
-  transition: all 0.3s ease-in-out;
-}
-.FindNewMobile .search-wrapper.show {
-  transform: translateX(0);
-}

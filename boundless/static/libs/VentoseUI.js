@@ -66460,9 +66460,13 @@ return (${scfObjSourceCode})(argVue,argPayload);
       height: {
         type: Number,
         default: 0
+      },
+      scrollHeight: {
+        type: Number,
+        default: 0
       }
     },
-    emits: ["update:top", "update:height"],
+    emits: ["update:top", "update:height", "update:scrollHeight"],
     setup() {
       return {};
     },
@@ -66550,6 +66554,13 @@ return (${scfObjSourceCode})(argVue,argPayload);
         }
       }
     },
+    updated() {
+      var _a, _b;
+      const height = (_a = this.$wrapperEle) == null ? void 0 : _a.height();
+      if (height !== this.height) {
+        this.$emit("update:height", ((_b = this.$wrapperEle) == null ? void 0 : _b.height()) || 0);
+      }
+    },
     mounted() {
       this.init();
     },
@@ -66579,7 +66590,7 @@ return (${scfObjSourceCode})(argVue,argPayload);
       setHeight() {
         const height = this.allItems.length * itemHeight;
         this.styleWrapperAll.height = `${height}px`;
-        this.$emit("update:height", height);
+        this.$emit("update:scrollHeight", height);
       }
     }
   });

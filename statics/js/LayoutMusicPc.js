@@ -33,9 +33,9 @@ var LayoutMusicPc_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = { class: "flex" };
 const _hoisted_2 = {
   class: "ant-layout-content elevation-1 flex1",
-  style: { "margin": "16px", "overflow": "auto" }
+  style: { "margin": "16px" }
 };
-const _hoisted_3 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "min-height": "360px" } };
+const _hoisted_3 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "overflow": "auto" } };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_AMenuItem = Vue.resolveComponent("AMenuItem");
