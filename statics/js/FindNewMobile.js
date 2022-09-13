@@ -37,9 +37,7 @@ var _sfc_main$1 = {
     styleBtn() {
       var _a;
       if (this.isShowImg) {
-        return {
-          background: `url(${(_a = this.song) == null ? void 0 : _a.picUrl})`
-        };
+        return `background:url(${(_a = this.song) == null ? void 0 : _a.picUrl}) right/contain no-repeat;`;
       } else {
         return {};
       }

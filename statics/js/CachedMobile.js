@@ -75,6 +75,11 @@ const _sfc_main = {
       }
     };
   },
+  watch: {
+    async "State_Music.cacheAudioCount"() {
+      await this.loadCachedSong();
+    }
+  },
   async mounted() {
     await this.loadCachedSong();
   },

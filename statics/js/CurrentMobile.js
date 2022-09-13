@@ -1,4 +1,4 @@
-import { A as Actions_Music, d as State_Music } from "./main.js";
+import { A as Actions_Music, d as State_Music, p as preprocessRecord } from "./main.js";
 import { a as _global_$, d as _export_sfc, _ as _global__ } from "./nprogress.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -25,16 +25,25 @@ var _sfc_main$1 = {
     }
   },
   mounted() {
-    _global_$(this.$refs.item.$el).on("mousedown", this.handleMousedown).on("mousemove", this.handleMousemove).on("mouseup", this.handleMouseup).on("mouseleave", this.handleMouseup);
+    _global_$(this.$refs.item.$el).on("mousedown", this.handleMousedown).on("mousemove", this.handleMousemove).on("mouseup", this.handleMouseup).on("mouseleave", this.handleMouseup).on("touchstart", this.handleMousedown).on("touchmove", this.handleMousemove).on("touchend", this.handleMouseup);
+  },
+  beforeUnmount() {
+    _global_$(this.$refs.item.$el).off("mousedown", this.handleMousedown).off("mousemove", this.handleMousemove).off("mouseup", this.handleMouseup).off("mouseleave", this.handleMouseup).off("touchstart", this.handleMousedown).off("touchmove", this.handleMousemove).off("touchend", this.handleMouseup);
   },
   methods: {
     handleMousedown(e) {
+      if (e.changedTouches) {
+        e = e.changedTouches[0];
+      }
       if (!this.isMove) {
         this.isMove = true;
         this.moveStart = e.clientX;
       }
     },
     handleMousemove(e) {
+      if (e.changedTouches) {
+        e = e.changedTouches[0];
+      }
       if (this.isMove) {
         const distance = this.moveStart - e.clientX;
         if (distance < 0) {
@@ -47,7 +56,7 @@ var _sfc_main$1 = {
         return;
       }
     },
-    handleMouseup() {
+    handleMouseup(e) {
       if (this.isMove) {
         this.isMove = false;
         if (this.width < 44) {
@@ -127,15 +136,7 @@ const _sfc_main = {
     "State_Music.playlist.length": {
       immediate: true,
       handler() {
-        this.configs.items = _global__.map(this.State_Music.playlist, (record) => {
-          const { song } = record;
-          if (song) {
-            record.title = record.name;
-            record.album = song.album.name;
-            record.artist = song.artists[0].name;
-          }
-          return record;
-        });
+        this.configs.items = _global__.map(this.State_Music.playlist, preprocessRecord);
       }
     }
   },

@@ -484,7 +484,20 @@ const State_App = Vue.reactive({
 VueRouter.useRoute();
 (() => {
   function checkDeviceType() {
-    return true;
+    var _a2;
+    if (/Mobi|Android|iPhone/i.test(navigator == null ? void 0 : navigator.userAgent)) {
+      return true;
+    }
+    if (navigator.userAgent.match(/Mobi/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+      return true;
+    }
+    if (!((_a2 = navigator == null ? void 0 : navigator.userAgentData) == null ? void 0 : _a2.mobile)) {
+      return false;
+    }
+    if (/Android|iPhone|iPad|iPod/i.test(navigator == null ? void 0 : navigator.platform)) {
+      return true;
+    }
+    return false;
   }
   const setCurrentClientMobileValue = _global__.debounce(
     function setCurrentClientMobileValue2() {
@@ -6071,7 +6084,17 @@ function formatDuring(during) {
   ss2 = _global__.isNaN(ss2) ? "00" : ss2;
   return ii2 + ":" + ss2;
 }
+function preprocessRecord(record) {
+  const { song } = record;
+  if (song) {
+    record.title = record.title || record.name;
+    record.album = record.album || song.album.name;
+    record.artist = record.artist || song.artists[0].name;
+  }
+  return record;
+}
 const State_Music = Vue.reactive({
+  cacheAudioCount: 0,
   AllMusicClient: [],
   tabItems: [
     {
@@ -6186,6 +6209,7 @@ const cacheAudioBlob = async (records, url) => {
       blob: res.data
     };
     await set(`audio_${records.id}`, audioInfo);
+    State_Music.cacheAudioCount++;
   } catch (err) {
     console.error(err);
   }
@@ -6400,4 +6424,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, STATIC_WORD as a, Actions_App as b, _sfc_main$5 as c, State_Music as d, API as e, formatDuring as f, Cpt_iconSound as g };
+export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, STATIC_WORD as a, Actions_App as b, _sfc_main$5 as c, State_Music as d, API as e, formatDuring as f, Cpt_iconSound as g, preprocessRecord as p };
