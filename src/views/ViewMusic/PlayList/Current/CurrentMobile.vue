@@ -9,7 +9,7 @@
 <script>
 import { State_Music } from "@ventose/state/State_Music";
 import CurrentMobileSongItem from "./CurrentMobileSongItem.vue";
-import { getMany, keys, del } from "idb-keyval";
+import { preprocessRecord } from "@ventose/utils/common";
 
 import { _, $ } from "@ventose/ui";
 
@@ -35,15 +35,7 @@ export default {
 		"State_Music.playlist.length": {
 			immediate: true,
 			handler() {
-				this.configs.items = _.map(this.State_Music.playlist, record => {
-					const { song } = record;
-					if (song) {
-						record.title = record.name;
-						record.album = song.album.name;
-						record.artist = song.artists[0].name;
-					}
-					return record;
-				});
+				this.configs.items = _.map(this.State_Music.playlist, preprocessRecord);
 			}
 		}
 	},

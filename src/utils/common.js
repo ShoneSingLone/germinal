@@ -47,3 +47,22 @@ export function formatDuring(during) {
 	ss = _.isNaN(ss) ? "00" : ss;
 	return ii + ":" + ss;
 }
+
+/**
+ *
+ * 播放列表展示需要的字段是 title album artist
+ * 次函数用于处理不符合格式要求的数据
+ *
+ * @export
+ * @param {any} record
+ * @returns
+ */
+export function preprocessRecord(record) {
+	const { song } = record;
+	if (song) {
+		record.title = record.title || record.name;
+		record.album = record.album || song.album.name;
+		record.artist = record.artist || song.artists[0].name;
+	}
+	return record;
+}
