@@ -31,8 +31,6 @@ const ROUTE = useRoute();
 
 (() => {
 	function checkDeviceType() {
-		return true;
-
 		if (/Mobi|Android|iPhone/i.test(navigator?.userAgent)) {
 			return true;
 		}

@@ -46,16 +46,35 @@ export default {
 			.on("mousedown", this.handleMousedown)
 			.on("mousemove", this.handleMousemove)
 			.on("mouseup", this.handleMouseup)
-			.on("mouseleave", this.handleMouseup);
+			.on("mouseleave", this.handleMouseup)
+			.on("touchstart", this.handleMousedown)
+			.on("touchmove", this.handleMousemove)
+			.on("touchend", this.handleMouseup);
+	},
+	beforeUnmount() {
+		$(this.$refs.item.$el)
+			.off("mousedown", this.handleMousedown)
+			.off("mousemove", this.handleMousemove)
+			.off("mouseup", this.handleMouseup)
+			.off("mouseleave", this.handleMouseup)
+			.off("touchstart", this.handleMousedown)
+			.off("touchmove", this.handleMousemove)
+			.off("touchend", this.handleMouseup);
 	},
 	methods: {
 		handleMousedown(e) {
+			if (e.changedTouches) {
+				e = e.changedTouches[0];
+			}
 			if (!this.isMove) {
 				this.isMove = true;
 				this.moveStart = e.clientX;
 			}
 		},
 		handleMousemove(e) {
+			if (e.changedTouches) {
+				e = e.changedTouches[0];
+			}
 			if (this.isMove) {
 				const distance = this.moveStart - e.clientX;
 				if (distance < 0) {
@@ -68,7 +87,7 @@ export default {
 				return;
 			}
 		},
-		handleMouseup() {
+		handleMouseup(e) {
 			if (this.isMove) {
 				this.isMove = false;
 				if (this.width < 44) {

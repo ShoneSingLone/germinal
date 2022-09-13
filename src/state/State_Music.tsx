@@ -6,6 +6,8 @@ import { State_App } from "@ventose/state/State_App";
 import axios from "axios";
 
 export const State_Music = reactive({
+	/* 每缓存成功一次音频，数值自增，作为可观察数据，响应式更新缓存数据列表 */
+	cacheAudioCount: 0,
 	AllMusicClient: [],
 	tabItems: [
 		{ key: "playlist", label: "当前播放列表", icon: "playlist" },
@@ -116,6 +118,7 @@ const cacheAudioBlob = async (records, url) => {
 			blob: res.data
 		};
 		await set(`audio_${records.id}`, audioInfo);
+		State_Music.cacheAudioCount++;
 	} catch (err) {
 		console.error(err);
 	}

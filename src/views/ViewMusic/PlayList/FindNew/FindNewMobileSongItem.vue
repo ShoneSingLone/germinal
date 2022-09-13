@@ -39,7 +39,7 @@ export default {
 		},
 		styleBtn() {
 			if (this.isShowImg) {
-				return { background: `url(${this.song?.picUrl})` };
+				return `background:url(${this.song?.picUrl}) right/contain no-repeat;`;
 			} else {
 				return {};
 			}
