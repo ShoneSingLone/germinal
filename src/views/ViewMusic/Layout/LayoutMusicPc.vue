@@ -3,11 +3,11 @@
 		<ALayoutSider class="elevation-2">
 			<AMenu v-model:selectedKeys="selectedKeys" theme="light" mode="inline">
 				<AMenuItem v-for="menuItem in State_Music.tabItems" :key="menuItem.key">
-					<span class="flex"
-						><xIcon :icon="menuItem.icon" class="mr8" />{{
+					<span class="flex">
+						<xIcon :icon="menuItem.icon" class="mr8" />{{
 							$t(menuItem.label).label
-						}}</span
-					>
+						}}
+					</span>
 				</AMenuItem>
 			</AMenu>
 		</ALayoutSider>
@@ -15,15 +15,13 @@
 			<ALayoutHeader style="background: #fff; padding: 0" class="elevation-1">
 				<!-- <a-breadcrumb style="margin: 16px 0"> <a-breadcrumb-item>User</a-breadcrumb-item> <a-breadcrumb-item>Bill</a-breadcrumb-item> </a-breadcrumb> -->
 			</ALayoutHeader>
-			<main
-				class="ant-layout-content elevation-1 flex1"
-				style="margin: 16px; overflow: auto">
+			<main class="ant-layout-content elevation-1 flex1" style="margin: 16px">
 				<div
 					style="
 						height: 100%;
 						padding: 24px;
 						background: rgb(255, 255, 255);
-						min-height: 360px;
+						overflow: auto;
 					">
 					<RouterView />
 				</div>

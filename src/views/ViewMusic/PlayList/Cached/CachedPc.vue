@@ -29,6 +29,7 @@ import {
 	getPaginationPageSize,
 	setDataGridInfo
 } from "@ventose/ui";
+import { preprocessRecord } from "@ventose/utils/common";
 
 const { $t } = State_UI;
 
@@ -60,7 +61,7 @@ const playListFindNew = reactive(
 			let props = await keys();
 			props = props.filter(name => /^audio_/.test(name));
 			let cachedPlaylist = await getMany(props);
-			cachedPlaylist = cachedPlaylist.map(i => i.records);
+			cachedPlaylist = cachedPlaylist.map(i => preprocessRecord(i.records));
 
 			playListFindNew.currentPlaylistPrivate = cachedPlaylist.filter(record => {
 				const isOk = prop => {

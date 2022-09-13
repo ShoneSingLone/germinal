@@ -4,6 +4,7 @@
 
 <script lang="jsx">
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
+import { preprocessRecord } from "@ventose/utils/common";
 
 import {
 	_,
@@ -43,7 +44,7 @@ export default {
 								<span class="flex middle">
 									<a-avatar shape="square" src={record.picUrl} />
 									<xGap l="4" />
-									<span>{record.name}</span>
+									<span>{record.title}</span>
 								</span>
 							);
 						}
@@ -53,14 +54,14 @@ export default {
 						width: 200,
 						prop: "artists_name",
 						renderCell({ record }) {
-							return <span>{record.song.artists[0].name}</span>;
+							return <span>{record.artist}</span>;
 						}
 					}),
 					...defCol({
 						label: $t("所属专辑").label,
 						prop: "album_name",
 						renderCell({ record }) {
-							return <span>{record.song.album.name}</span>;
+							return <span>{record.album}</span>;
 						}
 					}),
 					...defColActions({
@@ -92,7 +93,7 @@ export default {
 		"State_Music.playlist": {
 			immediate: true,
 			handler(playlist) {
-				this.playListFindNew.dataSource = playlist;
+				this.playListFindNew.dataSource = _.map(playlist, preprocessRecord);
 			}
 		}
 	}

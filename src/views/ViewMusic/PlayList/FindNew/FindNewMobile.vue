@@ -5,7 +5,8 @@
 		</div>
 		<xVirScroll
 			v-model:top="scrollTop"
-			v-model:height="scrollHeight"
+			v-model:height="wrapperHeight"
+			v-model:scrollHeight="scrollHeight"
 			:configs="state.configs">
 			<template #item="{ item }">
 				<FindNewMobileSongItem
@@ -57,6 +58,7 @@ export default {
 	data() {
 		const vm = this;
 		return {
+			wrapperHeight: 0,
 			scrollHeight: 0,
 			scrollTop: 0,
 			currentLoadingSongId: "",
@@ -88,7 +90,7 @@ export default {
 			},
 			() => {
 				const search = this.state.configs.search.value;
-				if (search && this.scrollHeight < this.scrollTop) {
+				if (search && this.scrollHeight - this.scrollTop < this.wrapperHeight) {
 					this.setItems(search, this.state.offset);
 				}
 			}

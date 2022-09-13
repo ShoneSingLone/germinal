@@ -51,7 +51,6 @@ export default defineComponent({
 			return this.State_App.project.projectList;
 		},
 		isShow() {
-			debugger;
 			return /(admin)|(owner)|(dev)/.test(this.State_App.user.role);
 		}
 	},
