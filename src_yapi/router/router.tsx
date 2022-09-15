@@ -1,6 +1,5 @@
 // progress bar
 import { setDocumentTitle, State_UI, _ } from "@ventose/ui";
-import NProgress from "nprogress";
 import { createRouter, createWebHashHistory } from "vue-router";
 import { Methods_App, State_App } from "ysrc/state/State_App";
 
@@ -67,14 +66,9 @@ export const router = createRouter({
 	routes
 });
 
-NProgress.configure({
-	showSpinner: false
-});
-
 // no redirect allowList
 
 router.beforeEach(async (to, from) => {
-	NProgress.start();
 	try {
 		if (!(await Methods_App.checkLoginState())) {
 			if (["/login"].includes(to.path)) {
@@ -107,6 +101,4 @@ router.beforeEach(async (to, from) => {
 	}
 });
 
-router.afterEach(() => {
-	NProgress.done();
-});
+router.afterEach(() => {});

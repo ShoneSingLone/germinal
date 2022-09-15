@@ -237,8 +237,7 @@ export const Actions_Music = {
 		if (audioInfo) {
 			audioSrc = window.URL.createObjectURL(audioInfo.blob);
 		} else {
-			/* 判断资源的来源，如果是private，需要 */
-			/* private resource id其实是扫描文件夹的下标，讲道理不太可能到10000000级别，但是讲道理应该设计一个标识，用来区分来源最好 */
+			/* 判断资源的来源，private处理方式不一样 */
 			if (record.isPrivate) {
 				audioSrc = `https://www.singlone.work/s/api/v1/shiro/remote_music_file?id=${record.id}&token=${State_App.token}`;
 			} else {

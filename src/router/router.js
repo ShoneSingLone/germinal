@@ -1,4 +1,3 @@
-import NProgress from "nprogress"; // progress bar
 import { createRouter, createWebHashHistory } from "vue-router";
 import LayoutUser from "@ventose/layout/User.vue";
 import Login from "@ventose/views/user/Login.vue";
@@ -129,10 +128,6 @@ export const router = createRouter({
 	routes
 });
 
-NProgress.configure({
-	showSpinner: false
-});
-
 const allowVisitPageWhenNoAccess = [
 	routeNames.devDemo,
 	routeNames.login,
@@ -148,7 +143,6 @@ router.beforeEach(async (to, from) => {
 	/*NOTICE:返回 false 以取消导航*/
 	/* https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB */
 	_.doNothing(to.path, from.path);
-	NProgress.start();
 	const hasAccessTokenHandler = async () => {
 		/* 没有权限可以访问的页面，比如登录，注册页面 */
 		const allowPath = allowVisitPageWhenNoAccess.map(name => toPath(name));
@@ -196,10 +190,7 @@ router.beforeEach(async (to, from) => {
 		if (to?.meta?.title) {
 			setDocumentTitle(to.meta.title);
 		}
-		NProgress.done();
 	}
 });
 
-router.afterEach(() => {
-	NProgress.done();
-});
+router.afterEach(() => {});
