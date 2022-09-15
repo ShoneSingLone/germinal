@@ -1,5 +1,5 @@
 import { G as GroupList } from "./GroupList.js";
-import { _ as _global__, x as Modal, e as defItem, v as validateForm, f as AllWasWell, U as UI } from "./nprogress.js";
+import { _ as _global__, x as Modal, e as defItem, v as validateForm, f as AllWasWell, U as UI } from "./index.js";
 import { S as State_App, A as API, M as Methods_App, p as pickRandomProperty, h as handlePath, r as router } from "./yapi.js";
 import { F as FormRules } from "./FormRules.js";
 import { p as pickValueFrom } from "./form.js";

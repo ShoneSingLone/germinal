@@ -1,4 +1,4 @@
-import { _ as _global__ } from "./nprogress.js";
+import { _ as _global__ } from "./index.js";
 const pickValueFrom = (configs) => {
   return _global__.reduce(
     configs,

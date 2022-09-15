@@ -63758,7 +63758,7 @@ src="${config.content[0]}">
   };
   _.asyncLoadText = function(url) {
     _.asyncLoadText.cache = (() => {
-      if (__envMode === "development") {
+      if (window.__envMode === "development") {
         return {};
       }
       return _.asyncLoadText.cache || {};

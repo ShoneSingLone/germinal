@@ -1,4 +1,4 @@
-import { a as _global_$, _ as _global__, U as UI, b as __vitePreload, N as NProgress, c as setDocumentTitle, S as State_UI, r as AutoComplete, d as _export_sfc, k as dayjs, V as VentoseUIWithInstall } from "./nprogress.js";
+import { a as _global_$, _ as _global__, U as UI, b as __vitePreload, c as setDocumentTitle, S as State_UI, r as AutoComplete, d as _export_sfc, k as dayjs, V as VentoseUIWithInstall } from "./index.js";
 var Footer = "";
 function _isSlot$1(s) {
   return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !Vue.isVNode(s);
@@ -278,12 +278,12 @@ const routes = [
   {
     path: "/dev",
     name: "home",
-    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Dev.js"), true ? ["statics/js/Dev.js","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: `/login`,
     name: "login",
-    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
+    component: () => __vitePreload(() => import("./LoginContainer.js"), true ? ["statics/js/LoginContainer.js","statics/assets/LoginContainer.3ebe9e70.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js"] : void 0),
     meta: {
       title: $t("\u7528\u6237\u767B\u5F55").label
     }
@@ -291,12 +291,12 @@ const routes = [
   {
     path: `/group`,
     name: "group",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: `/group/:groupId`,
     name: "groupView",
-    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/nprogress.js","statics/assets/nprogress.dce904f8.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
+    component: () => __vitePreload(() => import("./Group.js"), true ? ["statics/js/Group.js","statics/assets/Group.a18abc63.css","statics/js/GroupList.js","statics/assets/GroupList.ebf21596.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/form.js"] : void 0)
   },
   {
     path: "/:pathMatch(.*)*",
@@ -317,12 +317,8 @@ const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
   routes
 });
-NProgress.configure({
-  showSpinner: false
-});
 router.beforeEach(async (to, from) => {
   var _a;
-  NProgress.start();
   try {
     if (!await Methods_App.checkLoginState()) {
       if (["/login"].includes(to.path)) {
@@ -356,7 +352,6 @@ router.beforeEach(async (to, from) => {
   }
 });
 router.afterEach(() => {
-  NProgress.done();
 });
 const LOADING_STATUS = 0;
 const GUEST_STATUS = 1;

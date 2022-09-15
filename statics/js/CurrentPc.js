@@ -1,5 +1,5 @@
 import { d as State_Music, p as preprocessRecord, A as Actions_Music } from "./main.js";
-import { g as defDataGridOption, _ as _global__, i as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, d as _export_sfc } from "./nprogress.js";
+import { g as defDataGridOption, _ as _global__, i as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, d as _export_sfc } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";

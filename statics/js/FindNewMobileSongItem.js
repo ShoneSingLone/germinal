@@ -1,4 +1,4 @@
-import { d as _export_sfc } from "./nprogress.js";
+import { d as _export_sfc } from "./index.js";
 var _sfc_main = {
   props: ["song", "loading", "isShowImg"],
   setup() {

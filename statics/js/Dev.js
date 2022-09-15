@@ -1,5 +1,5 @@
 import { G as GroupList } from "./GroupList.js";
-import { d as _export_sfc } from "./nprogress.js";
+import { d as _export_sfc } from "./index.js";
 import "./yapi.js";
 import "./FormRules.js";
 import "./form.js";

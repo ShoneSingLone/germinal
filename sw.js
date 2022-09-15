@@ -1,8 +1,8 @@
 const contentToCache = [
   "./yapi.html",
   "./statics/js/yapi.js",
-  "./statics/js/nprogress.js",
   "./statics/js/main.js",
+  "./statics/js/index5.js",
   "./statics/js/index4.js",
   "./statics/js/index3.js",
   "./statics/js/index2.js",
@@ -43,11 +43,11 @@ const contentToCache = [
   "./statics/js/CachedMobile.js",
   "./statics/js/CachedLayout.js",
   "./statics/assets/yapi.633ceb78.css",
-  "./statics/assets/nprogress.dce904f8.css",
   "./statics/assets/main.b28e70ef.css",
   "./statics/assets/logo3.a354024b.png",
   "./statics/assets/logo2.f9552052.jpg",
   "./statics/assets/loading-0.07236f68.gif",
+  "./statics/assets/index.c3c657fb.css",
   "./statics/assets/icon.99942159.png",
   "./statics/assets/icon-ext.e2e7a838.png",
   "./statics/assets/bg5.c95becde.jpg",
@@ -145,7 +145,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1663089958409");
+			const cache = await caches.open("1663218488877");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -164,7 +164,7 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1663089958409");
+				const cache = await caches.open("1663218488877");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;

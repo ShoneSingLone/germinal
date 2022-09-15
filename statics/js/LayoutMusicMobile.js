@@ -1,6 +1,6 @@
 import { M as MusicPlayer } from "./MusicPlayer.js";
 import { d as State_Music, S as State_App } from "./main.js";
-import { d as _export_sfc } from "./nprogress.js";
+import { d as _export_sfc } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";

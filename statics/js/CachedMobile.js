@@ -1,5 +1,5 @@
 import { d as State_Music, A as Actions_Music } from "./main.js";
-import { d as _export_sfc, F as keys, G as getMany, _ as _global__, H as del } from "./nprogress.js";
+import { d as _export_sfc, F as keys, G as getMany, _ as _global__, H as del } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";

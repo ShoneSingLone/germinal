@@ -1,5 +1,5 @@
 import { d as State_Music, e as API, A as Actions_Music } from "./main.js";
-import { d as _export_sfc, e as defItem, _ as _global__, U as UI } from "./nprogress.js";
+import { d as _export_sfc, e as defItem, _ as _global__, U as UI } from "./index.js";
 import { F as FindNewMobileSongItem } from "./FindNewMobileSongItem.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
