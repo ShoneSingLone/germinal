@@ -4,7 +4,7 @@
 	"version": "3.5.1",
 	"mobile": "2.0.0",
 	"description": "Web 通用弹出层组件",
-	"main": "lsrc/layer.js",
+	"main": "@ventose/layer.js",
 	"license": "MIT",
 	"scripts": {
 		"run": "gulp"

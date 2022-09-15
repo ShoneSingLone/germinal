@@ -19,7 +19,7 @@
     "make:itemRender": "node ./build/make.js itemRender",
     "make:language": "node ./build/make.js language"
   },
-  "main": "lsrc/main.js",
+  "main": "src/main.js",
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "@popperjs/core": "^2.10.2",
@@ -33,9 +33,8 @@
     "json5": "^2.2.1",
     "jsondiffpatch": "^0.4.1",
     "lodash": "^4.17.21",
-    "lsrc": "file:./src/",
+    "@ventose": "file:./src/",
     "md5": "^2.3.0",
-    "nprogress": "^0.2.0",
     "sass": "^1.52.2",
     "vue": "^3.2.16",
     "vue-cli": "^2.9.6",
