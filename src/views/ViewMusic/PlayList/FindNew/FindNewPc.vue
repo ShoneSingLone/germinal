@@ -32,7 +32,8 @@ const state = reactive({
 		...defItem({
 			value: "",
 			prop: "search",
-			placeholder: "标题、歌手、所属专辑"
+			placeholder: "标题、歌手、所属专辑",
+			allowClear: true
 		}),
 		items: []
 	}

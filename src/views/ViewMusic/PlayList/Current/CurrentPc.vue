@@ -78,7 +78,7 @@ export default {
 									{
 										text: $t("移除")?.label,
 										async onClick() {
-											Actions_Music.removeSongFromPlaylistById(record.id);
+											Actions_Music.removeSongFromPlaylist(record);
 										}
 									}
 								]

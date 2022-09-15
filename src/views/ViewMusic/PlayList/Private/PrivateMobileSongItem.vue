@@ -1,6 +1,6 @@
 <template>
 	<aButton
-		class="PrivateMobileSongItem elevation-1 flex vertical width100"
+		class="PrivateMobileSongItem MobileSongItem elevation-1 flex vertical width100"
 		:loading="loading">
 		<div class="title">
 			{{ song.title }}
@@ -20,7 +20,11 @@ export default {
 	data() {
 		return {};
 	},
-	computed: {},
+	computed: {
+		asdf() {
+			return this.song;
+		}
+	},
 	mounted() {}
 };
 </script>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script>
         window.__envMode = "<%- __envMode %>";
 		window.__APP_VERSION = "<%- version %>";
 		window.__URL_API_VERSION = "/v1";
@@ -14,14 +14,32 @@
 		window.__URL_WS_BASE = "<%- urlWsBase %>";
 		window.__URL_STATIC_DIR = document.querySelector(`link[rel='icon']`).href.replace("favicon.ico", "");
   </script>
-  <title>--</title>
-</head>
+        <style>
 
-<body>
-<div id="app">
-</div>
-<div id="app-loading-wrapper">
-    <style>
+@font-face {
+    font-family: 'webfont';
+    font-display: swap;
+    src: url('./assets/font/'); /* IE9 */
+    src: url('./assets/font/?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./assets/font/webfont.woff2') format('woff2'),
+    url('./assets/font/webfont.woff') format('woff'), /* chrome、firefox */
+    url('./assets/font/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('./assets/font/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+
+*{
+font-family:webfont;
+}
+  
+  </style>
+        <title>--</title>
+    </head>
+
+    <body>
+        <div id="app">
+        </div>
+        <div id="app-loading-wrapper">
+            <style>
         #app-loading-wrapper {
             opacity: 1;
             transition: opacity 1.3s ease-out;
@@ -40,7 +58,7 @@
   
         @font-face {
             font-family: "Plex Sans VF";
-            src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/57225/IBMPlexSansVar-Roman.woff2") format("woff2-variations");
+            src: url("https:/s3-us-west-2.amazonaws.com/s.cdpn.io/57225/IBMPlexSansVar-Roman.woff2") format("woff2-variations");
             font-weight: 100 700;
             font-stretch: 85% 100%;
             font-display: swap;
@@ -96,8 +114,8 @@
             }
         }
     </style>
-    <div class="t" data-circletext="gnidaol gnidaol gnidaol"></div>
-    <script>
+            <div class="t" data-circletext="gnidaol gnidaol gnidaol"></div>
+            <script>
       (() => {
           const $el = document.querySelector("[data-circletext]");
           const text = $el.dataset.circletext;
@@ -107,10 +125,10 @@
           $el.innerHTML = html;
       });
     </script>
-  </div>
-  
-  <script id="registrySW"></script>
-<script type="module" src="/src/main.js"></script>
-</body>
+        </div>
+
+        <script id="registrySW"></script>
+        <script type="module" src="/src/main.js"></script>
+    </body>
 
 </html>

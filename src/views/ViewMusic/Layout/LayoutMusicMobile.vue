@@ -68,5 +68,20 @@ export default defineComponent({
 		overflow-x: hidden;
 		height: 90%;
 	}
+
+	.MobileSongItem {
+		.title {
+			font-weight: 700;
+			text-shadow: 1px 1px rgba(7, 6, 100, 0.1);
+			margin-right: 4px;
+		}
+
+		div {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			text-align: left;
+		}
+	}
 }
 </style>

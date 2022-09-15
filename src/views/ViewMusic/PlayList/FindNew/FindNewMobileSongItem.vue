@@ -1,7 +1,7 @@
 <template>
 	<aButton
 		ref="songItem"
-		class="PrivateMobileSongItem elevation-1 flex vertical width100"
+		class="PrivateMobileSongItem MobileSongItem elevation-1 flex vertical width100"
 		:style="styleBtn"
 		:loading="loading">
 		<div class="title">
@@ -79,8 +79,12 @@ export default {
 	}
 
 	> .singer {
+		width: 100%;
 		font-size: 12px;
 		text-indent: 16px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 }
 </style>

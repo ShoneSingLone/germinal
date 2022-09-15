@@ -1,9 +1,6 @@
 <template>
-	<div class="flex1 PrivateMobile" style="height: 100px">
-		<div :class="['search-wrapper', { show: state.isShowSearchBox }]">
-			<xItem :configs="state.configs.search" />
-		</div>
-		<xVirScroll :configs="state.configs">
+	<div class="flex vertical flex1 PrivateMobile height100 overflow-hidden">
+		<xVirScroll :configs="state.configs" class="flex1">
 			<template #item="{ item }">
 				<PrivateMobileSongItem
 					:song="item"
@@ -11,6 +8,9 @@
 					@click="playSong(item)" />
 			</template>
 		</xVirScroll>
+		<div class="search-wrapper padding10">
+			<xItem :configs="state.configs.search" />
+		</div>
 	</div>
 </template>
 
@@ -18,22 +18,14 @@
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 import PrivateMobileSongItem from "./PrivateMobileSongItem.vue";
 import { reactive } from "vue";
-
 import { _, defItem } from "@ventose/ui";
 const state = reactive({
-	isShowSearchBox: false,
 	configs: {
 		...defItem({
 			value: "",
 			prop: "search",
-			onFocus() {
-				console.log("focus");
-				state.isShowSearchBox = true;
-			},
-			onBlur() {
-				console.log("blur");
-				state.isShowSearchBox = false;
-			}
+			placeholder: "标题、歌手、所属专辑",
+			allowClear: true
 		}),
 		items: []
 	}
@@ -50,10 +42,8 @@ export default {
 		};
 	},
 	data() {
-		const vm = this;
 		return {
-			currentLoadingSongId: "",
-			isShowSearchBox: false
+			currentLoadingSongId: ""
 		};
 	},
 	watch: {
@@ -73,23 +63,15 @@ export default {
 					return isOk("title") || isOk("artist") || isOk("album");
 				});
 			}
-			this.state.configs.items = _.sortBy(allItems, [
-				"artist",
-				"album"
-			]).reverse();
+
+			this.state.configs.items = allItems;
 		}, 600),
 		async playSong(record) {
 			this.currentLoadingSongId = record.id;
 			try {
-				record.name = record.title;
-				record.song = {
-					album: {
-						name: record.album
-					},
-					artists: [{ name: record.artist }]
-				};
-				Actions_Music.pushSongToPlaylist(record);
-				await Actions_Music.playSongById(record.id);
+				Actions_Music.pushSongToPlaylist(this.state.configs.items, () =>
+					Actions_Music.playSongById(record.id)
+				);
 			} catch (error) {
 				console.error(error);
 			} finally {
@@ -103,18 +85,7 @@ export default {
 <style lang="less">
 .PrivateMobile {
 	position: relative;
-
-	.search-wrapper {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		z-index: 1;
-		transform: translateX(160px);
-		transition: all 0.3s ease-in-out;
-
-		&.show {
-			transform: translateX(0);
-		}
-	}
+	height: 100px;
+	overflow: hidden;
 }
 </style>

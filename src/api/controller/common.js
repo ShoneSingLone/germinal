@@ -6,7 +6,7 @@ export const common = {
 		let res = [];
 		try {
 			const { status, data } = await axios.get(
-				`https://www.singlone.work/s/api/public/assets/AllMusicClient.json?_t=${Date.now()}`
+				`https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
 			);
 			if (status === 200) {
 				res = data;
