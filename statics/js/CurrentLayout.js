@@ -5,8 +5,8 @@ import "./UserOutlined.js";
 import "./form.js";
 var _sfc_main = Vue.defineComponent({
   components: {
-    CurrentMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CurrentMobile.js"), true ? ["statics/js/CurrentMobile.js","statics/assets/CurrentMobile.a6da3ff6.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
-    CurrentPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CurrentPc.js"), true ? ["statics/js/CurrentPc.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
+    CurrentMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CurrentMobile.js"), true ? ["statics/js/CurrentMobile.js","statics/assets/CurrentMobile.85c51971.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
+    CurrentPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./CurrentPc.js"), true ? ["statics/js/CurrentPc.js","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
   },
   setup() {
     return {

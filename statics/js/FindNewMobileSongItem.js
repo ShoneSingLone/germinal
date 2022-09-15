@@ -52,7 +52,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aButton = Vue.resolveComponent("aButton");
   return Vue.openBlock(), Vue.createBlock(_component_aButton, {
     ref: "songItem",
-    class: "PrivateMobileSongItem elevation-1 flex vertical width100",
+    class: "PrivateMobileSongItem MobileSongItem elevation-1 flex vertical width100",
     style: Vue.normalizeStyle($options.styleBtn),
     loading: $props.loading
   }, {

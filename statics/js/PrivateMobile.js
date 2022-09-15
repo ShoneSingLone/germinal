@@ -11,22 +11,26 @@ var _sfc_main$1 = {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    asdf() {
+      return this.song;
+    }
+  },
   mounted() {
   }
 };
 var PrivateMobileSongItem_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1$1 = { class: "title" };
-const _hoisted_2 = { class: "singer" };
+const _hoisted_2$1 = { class: "singer" };
 function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aButton = Vue.resolveComponent("aButton");
   return Vue.openBlock(), Vue.createBlock(_component_aButton, {
-    class: "PrivateMobileSongItem elevation-1 flex vertical width100",
+    class: "PrivateMobileSongItem MobileSongItem elevation-1 flex vertical width100",
     loading: $props.loading
   }, {
     default: Vue.withCtx(() => [
       Vue.createElementVNode("div", _hoisted_1$1, Vue.toDisplayString($props.song.title), 1),
-      Vue.createElementVNode("div", _hoisted_2, Vue.toDisplayString($props.song.index) + "-" + Vue.toDisplayString($props.song.artist) + "-" + Vue.toDisplayString($props.song.album), 1)
+      Vue.createElementVNode("div", _hoisted_2$1, Vue.toDisplayString($props.song.index) + "-" + Vue.toDisplayString($props.song.artist) + "-" + Vue.toDisplayString($props.song.album), 1)
     ]),
     _: 1
   }, 8, ["loading"]);
@@ -34,19 +38,12 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
 var PrivateMobileSongItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 var PrivateMobile_vue_vue_type_style_index_0_lang = "";
 const state = Vue.reactive({
-  isShowSearchBox: false,
   configs: {
     ...defItem({
       value: "",
       prop: "search",
-      onFocus() {
-        console.log("focus");
-        state.isShowSearchBox = true;
-      },
-      onBlur() {
-        console.log("blur");
-        state.isShowSearchBox = false;
-      }
+      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91",
+      allowClear: true
     }),
     items: []
   }
@@ -63,8 +60,7 @@ const _sfc_main = {
   },
   data() {
     return {
-      currentLoadingSongId: "",
-      isShowSearchBox: false
+      currentLoadingSongId: ""
     };
   },
   watch: {
@@ -84,23 +80,15 @@ const _sfc_main = {
           return isOk("title") || isOk("artist") || isOk("album");
         });
       }
-      this.state.configs.items = _global__.sortBy(allItems, [
-        "artist",
-        "album"
-      ]).reverse();
+      this.state.configs.items = allItems;
     }, 600),
     async playSong(record) {
       this.currentLoadingSongId = record.id;
       try {
-        record.name = record.title;
-        record.song = {
-          album: {
-            name: record.album
-          },
-          artists: [{ name: record.artist }]
-        };
-        Actions_Music.pushSongToPlaylist(record);
-        await Actions_Music.playSongById(record.id);
+        Actions_Music.pushSongToPlaylist(
+          this.state.configs.items,
+          () => Actions_Music.playSongById(record.id)
+        );
       } catch (error) {
         console.error(error);
       } finally {
@@ -109,24 +97,16 @@ const _sfc_main = {
     }
   }
 };
-const _hoisted_1 = {
-  class: "flex1 PrivateMobile",
-  style: { "height": "100px" }
-};
+const _hoisted_1 = { class: "flex vertical flex1 PrivateMobile height100 overflow-hidden" };
+const _hoisted_2 = { class: "search-wrapper padding10" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_xItem = Vue.resolveComponent("xItem");
   const _component_PrivateMobileSongItem = Vue.resolveComponent("PrivateMobileSongItem");
   const _component_xVirScroll = Vue.resolveComponent("xVirScroll");
+  const _component_xItem = Vue.resolveComponent("xItem");
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
-    Vue.createElementVNode("div", {
-      class: Vue.normalizeClass(["search-wrapper", { show: $setup.state.isShowSearchBox }])
-    }, [
-      Vue.createVNode(_component_xItem, {
-        configs: $setup.state.configs.search
-      }, null, 8, ["configs"])
-    ], 2),
     Vue.createVNode(_component_xVirScroll, {
-      configs: $setup.state.configs
+      configs: $setup.state.configs,
+      class: "flex1"
     }, {
       item: Vue.withCtx(({ item }) => [
         Vue.createVNode(_component_PrivateMobileSongItem, {
@@ -136,7 +116,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         }, null, 8, ["song", "loading", "onClick"])
       ]),
       _: 1
-    }, 8, ["configs"])
+    }, 8, ["configs"]),
+    Vue.createElementVNode("div", _hoisted_2, [
+      Vue.createVNode(_component_xItem, {
+        configs: $setup.state.configs.search
+      }, null, 8, ["configs"])
+    ])
   ]);
 }
 var PrivateMobile = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);

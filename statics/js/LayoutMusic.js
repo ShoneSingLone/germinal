@@ -5,8 +5,8 @@ import "./UserOutlined.js";
 import "./form.js";
 var _sfc_main = Vue.defineComponent({
   components: {
-    LayoutMusicMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicMobile.js"), true ? ["statics/js/LayoutMusicMobile.js","statics/assets/LayoutMusicMobile.dd5fe342.css","statics/js/MusicPlayer.js","statics/assets/MusicPlayer.a8215aec.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
-    LayoutMusicPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicPc.js"), true ? ["statics/js/LayoutMusicPc.js","statics/assets/LayoutMusicPc.8bcd892b.css","statics/js/MusicPlayer.js","statics/assets/MusicPlayer.a8215aec.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
+    LayoutMusicMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicMobile.js"), true ? ["statics/js/LayoutMusicMobile.js","statics/assets/LayoutMusicMobile.bc764df1.css","statics/js/MusicPlayer.js","statics/assets/MusicPlayer.a8215aec.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
+    LayoutMusicPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./LayoutMusicPc.js"), true ? ["statics/js/LayoutMusicPc.js","statics/assets/LayoutMusicPc.8bcd892b.css","statics/js/MusicPlayer.js","statics/assets/MusicPlayer.a8215aec.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
   },
   setup() {
     return {

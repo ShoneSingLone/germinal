@@ -2,13 +2,11 @@ const contentToCache = [
   "./yapi.html",
   "./statics/js/yapi.js",
   "./statics/js/main.js",
-  "./statics/js/index5.js",
   "./statics/js/index4.js",
   "./statics/js/index3.js",
   "./statics/js/index2.js",
   "./statics/js/index.js",
   "./statics/js/form.js",
-  "./statics/js/auth.js",
   "./statics/js/ViewWorkplace.js",
   "./statics/js/ViewTestFormItem.js",
   "./statics/js/ViewTestDataGrid.js",
@@ -47,7 +45,7 @@ const contentToCache = [
   "./statics/assets/logo3.a354024b.png",
   "./statics/assets/logo2.f9552052.jpg",
   "./statics/assets/loading-0.07236f68.gif",
-  "./statics/assets/index.c3c657fb.css",
+  "./statics/assets/index.4b35110d.css",
   "./statics/assets/icon.99942159.png",
   "./statics/assets/icon-ext.e2e7a838.png",
   "./statics/assets/bg5.c95becde.jpg",
@@ -57,19 +55,20 @@ const contentToCache = [
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
   "./statics/assets/PrivatePc.a91b9906.css",
-  "./statics/assets/PrivateMobile.9ba5fd57.css",
+  "./statics/assets/PrivateMobile.8ba53e52.css",
   "./statics/assets/PlayerPc.f27b5265.css",
   "./statics/assets/PlayerMobile.0be9359c.css",
   "./statics/assets/MusicPlayer.a8215aec.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
   "./statics/assets/LayoutMusicPc.8bcd892b.css",
-  "./statics/assets/LayoutMusicMobile.dd5fe342.css",
+  "./statics/assets/LayoutMusicMobile.bc764df1.css",
   "./statics/assets/LayoutBasic.8c490128.css",
   "./statics/assets/GroupList.ebf21596.css",
   "./statics/assets/Group.a18abc63.css",
-  "./statics/assets/FindNewMobileSongItem.602c8d07.css",
-  "./statics/assets/FindNewMobile.3920ea86.css",
-  "./statics/assets/CurrentMobile.a6da3ff6.css",
+  "./statics/assets/FindNewPc.af50cece.css",
+  "./statics/assets/FindNewMobileSongItem.6d177723.css",
+  "./statics/assets/FindNewMobile.75edacf2.css",
+  "./statics/assets/CurrentMobile.85c51971.css",
   "./statics/assets/CachedMobile.b0952789.css",
   "./index.html",
   "./favicon.ico",
@@ -138,14 +137,19 @@ const contentToCache = [
   "./assets/svg/copy-o.svg",
   "./assets/svg/cached.svg",
   "./assets/svg/addGroup.svg",
-  "./assets/svg/add.svg"
+  "./assets/svg/add.svg",
+  "./assets/font/webfont.woff2",
+  "./assets/font/webfont.woff",
+  "./assets/font/webfont.ttf",
+  "./assets/font/webfont.svg",
+  "./assets/font/webfont.eot"
 ] || [];
 
 self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1663218488877");
+			const cache = await caches.open("1663261188348");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -153,7 +157,7 @@ self.addEventListener("install", e => {
 });
 
 self.addEventListener("fetch", e => {
-	/* if (
+	if (
 		e.request.url ===
 		`https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
 	) {
@@ -164,11 +168,11 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1663218488877");
+				const cache = await caches.open("1663261188348");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;
 			})()
 		);
-	} */
+	}
 });

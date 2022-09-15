@@ -74,7 +74,7 @@ var _sfc_main = {
                 }, {
                   text: (_b = $t("\u79FB\u9664")) == null ? void 0 : _b.label,
                   async onClick() {
-                    Actions_Music.removeSongFromPlaylistById(record.id);
+                    Actions_Music.removeSongFromPlaylist(record);
                   }
                 }]
               });

@@ -1,0 +1,25 @@
+#ViewMusic #nav-tab {
+  height: 48px !important;
+  z-index: 1;
+}
+#ViewMusic #nav-tab .menu-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+#ViewMusic .play-list-wrapper {
+  overflow: auto;
+  overflow-x: hidden;
+  height: 90%;
+}
+#ViewMusic .MobileSongItem .title {
+  font-weight: 700;
+  text-shadow: 1px 1px rgba(7, 6, 100, 0.1);
+  margin-right: 4px;
+}
+#ViewMusic .MobileSongItem div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}

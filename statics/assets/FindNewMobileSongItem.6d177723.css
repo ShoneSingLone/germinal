@@ -11,6 +11,10 @@
   white-space: nowrap;
 }
 .PrivateMobileSongItem > .singer {
+  width: 100%;
   font-size: 12px;
   text-indent: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -10,7 +10,8 @@ const state = Vue.reactive({
     ...defItem({
       value: "",
       prop: "search",
-      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91"
+      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91",
+      allowClear: true
     }),
     items: []
   }

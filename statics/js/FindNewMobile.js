@@ -6,19 +6,12 @@ import "./UserOutlined.js";
 import "./form.js";
 var FindNewMobile_vue_vue_type_style_index_0_lang = "";
 const state = Vue.reactive({
-  isShowSearchBox: false,
   configs: {
     ...defItem({
       value: "",
       prop: "search",
-      onFocus() {
-        console.log("focus");
-        state.isShowSearchBox = true;
-      },
-      onBlur() {
-        console.log("blur");
-        state.isShowSearchBox = false;
-      }
+      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91",
+      allowClear: true
     }),
     items: []
   }
@@ -38,8 +31,7 @@ const _sfc_main = {
       wrapperHeight: 0,
       scrollHeight: 0,
       scrollTop: 0,
-      currentLoadingSongId: "",
-      isShowSearchBox: false
+      currentLoadingSongId: ""
     };
   },
   watch: {
@@ -108,8 +100,10 @@ const _sfc_main = {
     async playSong(record) {
       this.currentLoadingSongId = record.id;
       try {
-        Actions_Music.pushSongToPlaylist(record);
-        await Actions_Music.playSongById(record.id);
+        Actions_Music.pushSongToPlaylist(
+          this.state.configs.items,
+          () => Actions_Music.playSongById(record.id)
+        );
       } catch (error) {
         console.error(error);
       } finally {
@@ -119,21 +113,15 @@ const _sfc_main = {
   }
 };
 const _hoisted_1 = {
-  class: "flex1 FindNewMobile",
+  class: "flex1 FindNewMobile height100 overflow-hidden flex vertical",
   style: { "height": "100px" }
 };
+const _hoisted_2 = { class: "search-wrapper padding10" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_xItem = Vue.resolveComponent("xItem");
   const _component_FindNewMobileSongItem = Vue.resolveComponent("FindNewMobileSongItem");
   const _component_xVirScroll = Vue.resolveComponent("xVirScroll");
+  const _component_xItem = Vue.resolveComponent("xItem");
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
-    Vue.createElementVNode("div", {
-      class: Vue.normalizeClass(["search-wrapper", { show: $setup.state.isShowSearchBox }])
-    }, [
-      Vue.createVNode(_component_xItem, {
-        configs: $setup.state.configs.search
-      }, null, 8, ["configs"])
-    ], 2),
     Vue.createVNode(_component_xVirScroll, {
       top: $data.scrollTop,
       "onUpdate:top": _cache[0] || (_cache[0] = ($event) => $data.scrollTop = $event),
@@ -141,6 +129,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       "onUpdate:height": _cache[1] || (_cache[1] = ($event) => $data.wrapperHeight = $event),
       scrollHeight: $data.scrollHeight,
       "onUpdate:scrollHeight": _cache[2] || (_cache[2] = ($event) => $data.scrollHeight = $event),
+      class: "flex1",
       configs: $setup.state.configs
     }, {
       item: Vue.withCtx(({ item }) => [
@@ -152,7 +141,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         }, null, 8, ["song", "loading", "is-show-img", "onClick"])
       ]),
       _: 1
-    }, 8, ["top", "height", "scrollHeight", "configs"])
+    }, 8, ["top", "height", "scrollHeight", "configs"]),
+    Vue.createElementVNode("div", _hoisted_2, [
+      Vue.createVNode(_component_xItem, {
+        configs: $setup.state.configs.search
+      }, null, 8, ["configs"])
+    ])
   ]);
 }
 var FindNewMobile = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);

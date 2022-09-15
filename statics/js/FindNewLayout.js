@@ -15,8 +15,8 @@ import "./form.js";
 })();
 var _sfc_main = Vue.defineComponent({
   components: {
-    FindNewMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewMobile.js"), true ? ["statics/js/FindNewMobile.js","statics/assets/FindNewMobile.3920ea86.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.602c8d07.css"] : void 0)),
-    FindNewPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewPc.js"), true ? ["statics/js/FindNewPc.js","statics/assets/FindNewMobile.3920ea86.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.602c8d07.css"] : void 0))
+    FindNewMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewMobile.js"), true ? ["statics/js/FindNewMobile.js","statics/assets/FindNewMobile.75edacf2.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.6d177723.css"] : void 0)),
+    FindNewPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewPc.js"), true ? ["statics/js/FindNewPc.js","statics/assets/FindNewPc.af50cece.css","statics/js/main.js","statics/assets/main.b28e70ef.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.6d177723.css"] : void 0))
   },
   setup() {
     return {

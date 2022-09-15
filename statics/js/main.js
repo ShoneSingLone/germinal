@@ -143,7 +143,7 @@ const common = {
     let res = [];
     try {
       const { status, data } = await axios.get(
-        `https://www.singlone.work/s/api/public/assets/AllMusicClient.json?_t=${Date.now()}`
+        `https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
       );
       if (status === 200) {
         res = data;
@@ -481,7 +481,6 @@ const State_App = Vue.reactive({
   configs: lStorage.appConfigs || {},
   isDev: window.__envMode === "development"
 });
-VueRouter.useRoute();
 (() => {
   function checkDeviceType() {
     var _a2;
@@ -1733,7 +1732,7 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.c3c657fb.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.c3c657fb.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index5.js"), ["statics/js/index5.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.c3c657fb.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.4b35110d.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.4b35110d.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.4b35110d.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 const ALL_DEFAULT_ROUTES = _global__.reduce(
   MODULES_DEFAULT_ROUTES,
@@ -1816,27 +1815,27 @@ const routes = [
     meta: {
       title: $t$1("Music").label
     },
-    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
         path: "/music/private",
-        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
@@ -1844,7 +1843,7 @@ const routes = [
     name: "PageDashboard",
     path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.c3c657fb.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
@@ -6130,6 +6129,7 @@ const State_Music = Vue.reactive({
     }
   })(),
   playlist: [],
+  playlistIdSet: /* @__PURE__ */ new Set([]),
   showPlayList: false,
   id: 0,
   url: "",
@@ -6146,7 +6146,10 @@ const STATE_MUSIC_PLAYLIST = "STATE_MUSIC_PLAYLIST";
 (async function recoverPlaylist() {
   let playlist = await get(STATE_MUSIC_PLAYLIST);
   playlist = playlist || [];
-  State_Music.playlist = playlist;
+  Actions_Music.setPlaylist(playlist);
+  State_Music.AllMusicClient = await get("AllMusicClient");
+  State_Music.AllMusicClient = await API.common.loadAllMusicClient();
+  await set("AllMusicClient", JSON.parse(JSON.stringify(State_Music.AllMusicClient)));
 })();
 let intervalTimer;
 const LOOP_TYPE_NAME_ARRAY = ["playOrder", "playRandom", "playLoop", "playSingleLoop"];
@@ -6217,6 +6220,30 @@ const cacheAudioVolume = _global__.debounce(function(audiovolume) {
   lStorage["PLAYER-VOLUME"] = audiovolume;
 }, 1e3);
 const Actions_Music = {
+  setPlaylist(playlist) {
+    State_Music.playlist = playlist;
+    State_Music.playlistIdSet = new Set(playlist.map((i) => i.id));
+  },
+  addSongToPlaylist(song) {
+    if (!State_Music.playlistIdSet.has(song.id)) {
+      State_Music.playlist.push(song);
+      State_Music.playlistIdSet.add(song.id);
+    }
+  },
+  clearPlaylist() {
+    State_Music.playlist = [];
+    State_Music.playlistIdSet.clear();
+  },
+  removeSongFromPlaylist(song) {
+    const id = song.id;
+    const itemIndex = _global__.findIndex(State_Music.playlist, {
+      id
+    });
+    if (itemIndex > -1) {
+      State_Music.playlist.splice(itemIndex, 1);
+      State_Music.playlistIdSet.delete(id);
+    }
+  },
   async loadAllMusicClient() {
     await API.music.loadAllMusicClient();
   },
@@ -6240,14 +6267,6 @@ const Actions_Music = {
     });
     if (currentSongIndex > -1) {
       Actions_Music.playMethods.playLoop(currentSongIndex);
-    }
-  },
-  removeSongFromPlaylistById(id) {
-    const itemIndex = _global__.findIndex(State_Music.playlist, {
-      id
-    });
-    if (itemIndex > -1) {
-      State_Music.playlist.splice(itemIndex, 1);
     }
   },
   handlePlayEnd() {
@@ -6293,14 +6312,18 @@ const Actions_Music = {
       State_Music.audio.pause();
     }
   },
-  pushSongToPlaylist(newSong) {
-    const id = newSong.id;
-    if (!_global__.some(State_Music.playlist, {
-      id
-    })) {
-      State_Music.playlist.push(newSong);
+  pushSongToPlaylist: _global__.debounce(function(newSong, fnDone) {
+    console.time("pushSongToPlaylist");
+    if (_global__.isArray(newSong)) {
+      _global__.each(newSong, Actions_Music.addSongToPlaylist);
+    } else {
+      Actions_Music.addSongToPlaylist(newSong);
     }
-  },
+    console.timeEnd("pushSongToPlaylist");
+    if (fnDone) {
+      fnDone();
+    }
+  }, 1e3),
   stopSong() {
     State_Music.isPlaying = false;
     State_Music.audio.pause();
@@ -6400,18 +6423,6 @@ async function main() {
     window.jquery = _global_$;
     window.$ = _global_$;
     window.State_App = State_App;
-  }
-  try {
-    State_Music.AllMusicClient = await API.common.loadAllMusicClient();
-    if (State_Music.AllMusicClient.length === 0) {
-      State_App.UseMockData = true;
-      const { loadMockData } = await __vitePreload(() => import("./index2.js").then(function(n) {
-        return n.i;
-      }), true ? ["statics/js/index2.js","statics/js/index.js","statics/assets/index.c3c657fb.css"] : void 0);
-      await loadMockData();
-    }
-  } catch (d) {
-    console.log("\u{1F680} ~ file: main.js ~ line 35 ~ main ~ d", d);
   }
   Vue.createApp(PageToolboxHome).use(appPlugins, {
     dependState: State_App

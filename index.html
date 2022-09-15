@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
   <link rel="manifest" href="./manifest/manifest.json">
-  <link rel="icon" href="./favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>
+        <link rel="icon" href="./favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script>
         window.__envMode = "production";
-		window.__APP_VERSION = "1663218488877";
+		window.__APP_VERSION = "1663261188348";
 		window.__URL_API_VERSION = "/v1";
 		window.__URL_BASE = "www.singlone.work";
 		window.__URL_API_BASE = "https://www.singlone.work/s/api";
 		window.__URL_WS_BASE = "wss://www.singlone.work/ws";
 		window.__URL_STATIC_DIR = document.querySelector(`link[rel='icon']`).href.replace("favicon.ico", "");
   </script>
-  <title>--</title>
+        <style>
+
+@font-face {
+    font-family: 'webfont';
+    font-display: swap;
+    src: url('./assets/font/'); /* IE9 */
+    src: url('./assets/font/?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./assets/font/webfont.woff2') format('woff2'),
+    url('./assets/font/webfont.woff') format('woff'), /* chrome、firefox */
+    url('./assets/font/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('./assets/font/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+
+*{
+font-family:webfont;
+}
+  
+  </style>
+        <title>--</title>
 				
 <script src="./boundless/static/libs/vue/3.2.31/vue.global.js"></script>
 <script src="./boundless/static/libs/vue/router/4.0.12/vue-router.global.min.js"></script>
@@ -23,20 +41,20 @@
 <script src="./boundless/static/libs/lodash.js"></script>
 <script src="./boundless/static/libs/jquery.js"></script>
 				
-  <script type="module" crossorigin src="./statics/js/main.js"></script>
-  <link rel="modulepreload" href="./statics/js/index.js">
-  <link rel="modulepreload" href="./statics/js/FormRules.js">
-  <link rel="modulepreload" href="./statics/js/UserOutlined.js">
-  <link rel="modulepreload" href="./statics/js/form.js">
-  <link rel="stylesheet" href="./statics/assets/index.c3c657fb.css">
-  <link rel="stylesheet" href="./statics/assets/main.b28e70ef.css">
-</head>
+      <script type="module" crossorigin src="./statics/js/main.js"></script>
+      <link rel="modulepreload" href="./statics/js/index.js">
+      <link rel="modulepreload" href="./statics/js/FormRules.js">
+      <link rel="modulepreload" href="./statics/js/UserOutlined.js">
+      <link rel="modulepreload" href="./statics/js/form.js">
+      <link rel="stylesheet" href="./statics/assets/index.4b35110d.css">
+      <link rel="stylesheet" href="./statics/assets/main.b28e70ef.css">
+    </head>
 
-<body>
-<div id="app">
-</div>
-<div id="app-loading-wrapper">
-    <style>
+    <body>
+        <div id="app">
+        </div>
+        <div id="app-loading-wrapper">
+            <style>
         #app-loading-wrapper {
             opacity: 1;
             transition: opacity 1.3s ease-out;
@@ -55,7 +73,7 @@
   
         @font-face {
             font-family: "Plex Sans VF";
-            src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/57225/IBMPlexSansVar-Roman.woff2") format("woff2-variations");
+            src: url("https:/s3-us-west-2.amazonaws.com/s.cdpn.io/57225/IBMPlexSansVar-Roman.woff2") format("woff2-variations");
             font-weight: 100 700;
             font-stretch: 85% 100%;
             font-display: swap;
@@ -111,8 +129,8 @@
             }
         }
     </style>
-    <div class="t" data-circletext="gnidaol gnidaol gnidaol"></div>
-    <script>
+            <div class="t" data-circletext="gnidaol gnidaol gnidaol"></div>
+            <script>
       (() => {
           const $el = document.querySelector("[data-circletext]");
           const text = $el.dataset.circletext;
@@ -122,10 +140,10 @@
           $el.innerHTML = html;
       });
     </script>
-  </div>
-  
-  <script> (() => { /**/ if ("serviceWorker" in navigator) { const register = navigator.serviceWorker.register("./sw.js"); Notification .requestPermission() .then(function(result) { if (result === "granted") { window.__APP_IS_GRANTED = true; } }); } })(); </script>
+        </div>
 
-</body>
+        <script> (() => { /**/ if ("serviceWorker" in navigator) { const register = navigator.serviceWorker.register("./sw.js"); Notification .requestPermission() .then(function(result) { if (result === "granted") { window.__APP_IS_GRANTED = true; } }); } })(); </script>
+        
+    </body>
 
 </html>
