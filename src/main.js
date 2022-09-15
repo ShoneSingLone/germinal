@@ -29,12 +29,14 @@ async function main() {
 
 	try {
 		/* 测试API连通性，如果不可以用，就切换模拟数据 */
-		State_Music.AllMusicClient = await API.common.loadAllMusicClient();
+		/* State_Music.AllMusicClient = await API.common.loadAllMusicClient();
+		await set("AllMusicClient", State_Music.AllMusicClient);
+	
 		if (State_Music.AllMusicClient.length === 0) {
 			State_App.UseMockData = true;
 			const { loadMockData } = await import("@ventose/api/mock");
 			await loadMockData();
-		}
+		} */
 	} catch (d) {
 		console.log("🚀 ~ file: main.js ~ line 35 ~ main ~ d", d);
 	}

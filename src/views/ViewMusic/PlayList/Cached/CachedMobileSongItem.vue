@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="CachedMobileSongItem elevation-1 flex middle width100"
+		class="CachedMobileSongItem MobileSongItem elevation-1 flex middle width100"
 		:loading="loading">
 		<div class="flex vertical start">
 			<div class="title">
@@ -10,15 +10,17 @@
 				{{ song.index }}-{{ song.artist }}-{{ song.album }}
 			</div>
 		</div>
-		<xGap f="1" />
-		<div class="flex">
-			<aButton class="mr10 flex middle" @click="$emit('play')">
-				<xIcon icon="playsong" />
-			</aButton>
-			<aButton class="mr10 flex middle" @click="$emit('del')">
-				<xIcon icon="delete" />
-			</aButton>
-		</div>
+		<span class="flex1 mr20" />
+		<span>
+			<div class="flex">
+				<aButton class="mr10 flex middle" @click="$emit('play')">
+					<xIcon icon="playsong" />
+				</aButton>
+				<aButton class="mr10 flex middle" @click="$emit('del')">
+					<xIcon icon="delete" />
+				</aButton>
+			</div>
+		</span>
 	</div>
 </template>
 

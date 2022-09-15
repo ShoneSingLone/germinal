@@ -3,7 +3,6 @@ import { lStorage, setCSSVariables, UI, _, State_UI, $ } from "@ventose/ui";
 import { STATIC_WORD } from "@ventose/utils/common.words";
 import { API, SuccessOrFail } from "@ventose/api";
 import md5 from "md5";
-import { useRoute } from "vue-router";
 
 const { $t } = State_UI;
 
@@ -26,8 +25,6 @@ export const State_App = reactive({
 	configs: lStorage.appConfigs || {},
 	isDev: window.__envMode === "development"
 });
-
-const ROUTE = useRoute();
 
 (() => {
 	function checkDeviceType() {

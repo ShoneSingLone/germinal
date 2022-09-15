@@ -5,7 +5,6 @@ specifiers:
   '@babel/core': ^7.18.13
   '@popperjs/core': ^2.10.2
   '@surely-vue/table': ^2.4.7
-  '@ventose': file:./src/
   '@ventose/utils-node': ^0.0.11
   '@vitejs/plugin-basic-ssl': ^0.1.2
   '@vitejs/plugin-vue': ^1.9.3
@@ -44,12 +43,12 @@ specifiers:
   vue-router: ^4.0.11
   vue3-virtual-scroller: ^0.2.3
   yorkie: ^2.0.0
+  ysrc: file:./src_yapi/
 
 dependencies:
   '@ant-design/icons-vue': 6.1.0_vue@3.2.39
   '@popperjs/core': 2.11.6
   '@surely-vue/table': 2.4.9_guvyiczv7j6rqzmatabil4k3dm
-  '@ventose': file:src
   ant-design-vue: 3.2.12_vue@3.2.39
   axios: 0.26.1
   dayjs: 1.11.5
@@ -65,6 +64,7 @@ dependencies:
   vue-cli: 2.9.6_lodash@4.17.21
   vue-router: 4.1.5_vue@3.2.39
   vue3-virtual-scroller: 0.2.3_rollup@2.79.0+vue@3.2.39
+  ysrc: file:src_yapi
 
 devDependencies:
   '@babel/core': 7.19.0
@@ -10466,9 +10466,9 @@ packages:
       strip-indent: 2.0.0
     dev: true
 
-  file:src:
-    resolution: {directory: src, type: directory}
-    name: '@ventose'
+  file:src_yapi:
+    resolution: {directory: src_yapi, type: directory}
+    name: ysrc
     version: 0.0.0
     dev: false
 

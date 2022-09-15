@@ -1,15 +1,17 @@
 <template>
-	<aButton
+	<span
 		ref="item"
-		class="CurrentMobileSongItem elevation-1 flex horizon width100 middle"
+		class="CurrentMobileSongItem MobileSongItem elevation-1 flex flex1 horizon middle"
 		:loading="loading"
 		:data-index="song.index"
 		@click="playSong">
-		<div class="title">
-			{{ song.title }}
+		<div>
+			<span class="title">
+				{{ song.title }}
+			</span>
+			<span class="singer"> {{ song.artist }}-{{ song.album }} </span>
 		</div>
-		<div class="singer">{{ song.artist }}-{{ song.album }}</div>
-	</aButton>
+	</span>
 	<div
 		:data-song-index="song.index"
 		:style="styleDelete"
@@ -42,7 +44,7 @@ export default {
 		}
 	},
 	mounted() {
-		$(this.$refs.item.$el)
+		$(this.$refs.item)
 			.on("mousedown", this.handleMousedown)
 			.on("mousemove", this.handleMousemove)
 			.on("mouseup", this.handleMouseup)
@@ -52,7 +54,7 @@ export default {
 			.on("touchend", this.handleMouseup);
 	},
 	beforeUnmount() {
-		$(this.$refs.item.$el)
+		$(this.$refs.item)
 			.off("mousedown", this.handleMousedown)
 			.off("mousemove", this.handleMousemove)
 			.off("mouseup", this.handleMouseup)
@@ -98,13 +100,12 @@ export default {
 			}
 		},
 		async removeSongFromPlaylist() {
-			Actions_Music.removeSongFromPlaylistById(this.song.id);
+			Actions_Music.removeSongFromPlaylist(this.song);
 		},
 		async playSong() {
 			const record = this.song;
 			this.loading = true;
 			try {
-				Actions_Music.pushSongToPlaylist(record);
 				await Actions_Music.playSongById(record.id);
 			} catch (error) {
 				console.error(error);
@@ -123,6 +124,10 @@ export default {
 	border-top-right-radius: 16px;
 	border-bottom-right-radius: 16px;
 	z-index: 1;
+	width: 1px;
+	background: white;
+	padding-right: 16px;
+	padding-left: 16px;
 
 	> .title {
 		width: 100%;

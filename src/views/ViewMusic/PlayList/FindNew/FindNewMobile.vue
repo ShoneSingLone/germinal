@@ -1,12 +1,12 @@
 <template>
-	<div class="flex1 FindNewMobile" style="height: 100px">
-		<div :class="['search-wrapper', { show: state.isShowSearchBox }]">
-			<xItem :configs="state.configs.search" />
-		</div>
+	<div
+		class="flex1 FindNewMobile height100 overflow-hidden flex vertical"
+		style="height: 100px">
 		<xVirScroll
 			v-model:top="scrollTop"
 			v-model:height="wrapperHeight"
 			v-model:scrollHeight="scrollHeight"
+			class="flex1"
 			:configs="state.configs">
 			<template #item="{ item }">
 				<FindNewMobileSongItem
@@ -16,6 +16,9 @@
 					@click="playSong(item)" />
 			</template>
 		</xVirScroll>
+		<div class="search-wrapper padding10">
+			<xItem :configs="state.configs.search" />
+		</div>
 	</div>
 </template>
 
@@ -27,19 +30,12 @@ import { reactive } from "vue";
 import { _, defItem, UI } from "@ventose/ui";
 
 const state = reactive({
-	isShowSearchBox: false,
 	configs: {
 		...defItem({
 			value: "",
 			prop: "search",
-			onFocus() {
-				console.log("focus");
-				state.isShowSearchBox = true;
-			},
-			onBlur() {
-				console.log("blur");
-				state.isShowSearchBox = false;
-			}
+			placeholder: "标题、歌手、所属专辑",
+			allowClear: true
 		}),
 		items: []
 	}
@@ -61,8 +57,7 @@ export default {
 			wrapperHeight: 0,
 			scrollHeight: 0,
 			scrollTop: 0,
-			currentLoadingSongId: "",
-			isShowSearchBox: false
+			currentLoadingSongId: ""
 		};
 	},
 	watch: {
@@ -131,8 +126,9 @@ export default {
 		async playSong(record) {
 			this.currentLoadingSongId = record.id;
 			try {
-				Actions_Music.pushSongToPlaylist(record);
-				await Actions_Music.playSongById(record.id);
+				Actions_Music.pushSongToPlaylist(this.state.configs.items, () =>
+					Actions_Music.playSongById(record.id)
+				);
 			} catch (error) {
 				console.error(error);
 			} finally {
@@ -146,18 +142,5 @@ export default {
 <style lang="less">
 .FindNewMobile {
 	position: relative;
-
-	.search-wrapper {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		z-index: 1;
-		transform: translateX(160px);
-		transition: all 0.3s ease-in-out;
-
-		&.show {
-			transform: translateX(0);
-		}
-	}
 }
 </style>

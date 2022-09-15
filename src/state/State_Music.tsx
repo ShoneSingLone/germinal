@@ -29,6 +29,7 @@ export const State_Music = reactive({
 		}
 	})(),
 	playlist: [], //播放列表,
+	playlistIdSet: new Set([]),
 	showPlayList: false,
 	id: 0,
 	url: "",
@@ -47,7 +48,13 @@ const STATE_MUSIC_PLAYLIST = "STATE_MUSIC_PLAYLIST";
 (async function recoverPlaylist() {
 	let playlist = await get(STATE_MUSIC_PLAYLIST);
 	playlist = playlist || [];
-	State_Music.playlist = playlist;
+	Actions_Music.setPlaylist(playlist);
+	State_Music.AllMusicClient = await get("AllMusicClient");
+	State_Music.AllMusicClient = await API.common.loadAllMusicClient();
+	await set(
+		"AllMusicClient",
+		JSON.parse(JSON.stringify(State_Music.AllMusicClient))
+	);
 })();
 
 let intervalTimer: NodeJS.Timer;
@@ -129,6 +136,28 @@ const cacheAudioVolume = _.debounce(function (audiovolume) {
 }, 1000);
 
 export const Actions_Music = {
+	setPlaylist(playlist) {
+		State_Music.playlist = playlist;
+		State_Music.playlistIdSet = new Set(playlist.map(i => i.id));
+	},
+	addSongToPlaylist(song) {
+		if (!State_Music.playlistIdSet.has(song.id)) {
+			State_Music.playlist.push(song);
+			State_Music.playlistIdSet.add(song.id);
+		}
+	},
+	clearPlaylist() {
+		State_Music.playlist = [];
+		State_Music.playlistIdSet.clear();
+	},
+	removeSongFromPlaylist(song) {
+		const id = song.id;
+		const itemIndex = _.findIndex(State_Music.playlist, { id });
+		if (itemIndex > -1) {
+			State_Music.playlist.splice(itemIndex, 1);
+			State_Music.playlistIdSet.delete(id);
+		}
+	},
 	async loadAllMusicClient() {
 		const res = await API.music.loadAllMusicClient();
 	},
@@ -155,13 +184,6 @@ export const Actions_Music = {
 		});
 		if (currentSongIndex > -1) {
 			Actions_Music.playMethods.playLoop(currentSongIndex);
-		}
-	},
-	removeSongFromPlaylistById(id) {
-		const itemIndex = _.findIndex(State_Music.playlist, { id });
-		if (itemIndex > -1) {
-			State_Music.playlist.splice(itemIndex, 1);
-			// State_Music.playlist = [...State_Music.playlist];
 		}
 	},
 	handlePlayEnd() {
@@ -210,12 +232,18 @@ export const Actions_Music = {
 			State_Music.audio.pause();
 		}
 	},
-	pushSongToPlaylist(newSong) {
-		const id = newSong.id;
-		if (!_.some(State_Music.playlist, { id })) {
-			State_Music.playlist.push(newSong);
+	pushSongToPlaylist: _.debounce(function (newSong, fnDone) {
+		console.time("pushSongToPlaylist");
+		if (_.isArray(newSong)) {
+			_.each(newSong, Actions_Music.addSongToPlaylist);
+		} else {
+			Actions_Music.addSongToPlaylist(newSong);
 		}
-	},
+		console.timeEnd("pushSongToPlaylist");
+		if (fnDone) {
+			fnDone();
+		}
+	}, 1000),
 	stopSong() {
 		State_Music.isPlaying = false;
 		State_Music.audio.pause();
