@@ -1,22 +1,27 @@
 <template>
 	<div id="ViewMusic" class="flex vertical" style="height: 100%">
-		<div id="nav-tab" class="flex width100 around middle elevation-2">
-			<div
-				v-for="item in State_Music.tabItems"
-				:key="item.key"
-				:class="{
-					'ant-btn-link': item.key === selectedKey,
-					'elevation-1': item.key === selectedKey,
-					'menu-icon flex middle center': true
-				}"
-				@click="handleClickSelectedKey(item.key)">
-				<xIcon :icon="item.icon" />
-			</div>
+		<div class="nav-tab top-nav flex width100 elevation-2">
+			<xIcon icon="gohome" @click="goHome" />
 		</div>
 		<div class="flex1 play-list-wrapper flex vertical">
 			<RouterView />
 		</div>
-		<MusicPlayer />
+		<div class="elevation-2">
+			<MusicPlayer />
+			<div class="nav-tab flex width100 around middle elevation-2">
+				<div
+					v-for="item in State_Music.tabItems"
+					:key="item.key"
+					:class="{
+						'ant-btn-link': item.key === selectedKey,
+						'elevation-1': item.key === selectedKey,
+						'menu-icon flex middle center': true
+					}"
+					@click="handleClickSelectedKey(item.key)">
+					<xIcon :icon="item.icon" />
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 <script lang="jsx">
@@ -43,6 +48,9 @@ export default defineComponent({
 		};
 	},
 	methods: {
+		goHome() {
+			this.$router.push({ path: "/" });
+		},
 		handleClickSelectedKey(viewName) {
 			this.$router.push({ path: `/music/${viewName}` });
 			this.selectedKey = viewName;
@@ -52,7 +60,7 @@ export default defineComponent({
 </script>
 <style lang="less">
 #ViewMusic {
-	#nav-tab {
+	.nav-tab {
 		height: 48px !important;
 		z-index: 1;
 
@@ -63,6 +71,13 @@ export default defineComponent({
 		}
 	}
 
+	.top-nav {
+		[aria-label="gohome"] {
+			width: 32px;
+			margin-left: 4px;
+		}
+	}
+
 	.play-list-wrapper {
 		overflow: auto;
 		overflow-x: hidden;
@@ -70,12 +85,6 @@ export default defineComponent({
 	}
 
 	.MobileSongItem {
-		.title {
-			font-weight: 700;
-			text-shadow: 1px 1px rgba(7, 6, 100, 0.1);
-			margin-right: 4px;
-		}
-
 		div {
 			overflow: hidden;
 			text-overflow: ellipsis;

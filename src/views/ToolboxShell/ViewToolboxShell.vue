@@ -3,6 +3,7 @@ import { State_App, Actions_App } from "@ventose/state/State_App";
 import { State_UI, UI, $ } from "@ventose/ui";
 import { defineComponent } from "vue";
 import DesktopIconItem from "./DesktopIconItem.vue";
+import ConfigsPanel from "./ConfigsPanel.vue";
 
 const $t = State_UI.$t;
 
@@ -11,7 +12,10 @@ export default defineComponent({
 		DesktopIconItem
 	},
 	setup() {
-		return { State_App };
+		return {
+			State_App,
+			Actions_App
+		};
 	},
 	data() {
 		const vm = this;
@@ -26,10 +30,34 @@ export default defineComponent({
 				}
 			}
 		};
+	},
+	computed: {
+		classBackground() {
+			return [
+				"toolbox-background-image flex1 layout-desktop-container bg",
+				this.State_App.bgFilter ? "filter" : "",
+				this.State_App.bg
+			]
+				.filter(i => !!i)
+				.join(" ");
+		}
+	},
+	methods: {
+		openConfigsPanel() {
+			UI.dialog.component({
+				title: "设定",
+				component: ConfigsPanel,
+				area: ["480px", "360px"],
+				hideButtons: true,
+				fullscreen: State_App.isCurrentClientMobile,
+				async onOk(instance) {
+					instance.close();
+				}
+			});
+		}
 	}
 });
 </script>
-
 <template>
 	<div class="view-toolbox-shell flex vertical">
 		<div class="view-toolbox-shell_header x-ui-glossy">
@@ -48,6 +76,12 @@ export default defineComponent({
 					<template #overlay>
 						<aMenu>
 							<aMenuItem>
+								<div class="flex" @click="openConfigsPanel">
+									<xIcon icon="user" />
+									打开配置面板
+								</div>
+							</aMenuItem>
+							<aMenuItem>
 								<div class="flex">
 									<xIcon icon="user" />
 									{{ State_App.user.email }}
@@ -65,9 +99,10 @@ export default defineComponent({
 				<xGap :r="10" />
 			</div>
 		</div>
-		<div class="flex1 layout-desktop-container bg4">
+		<div class="flex1 layout-desktop-container">
 			<DesktopIconItem :configs="desktopIconConfigs.music" />
 		</div>
+		<div :class="classBackground" />
 	</div>
 </template>
 
@@ -96,23 +131,36 @@ export default defineComponent({
 		left: 0px;
 		width: 100%;
 		height: 100%;
-		background: url("./imgs/bg1.jpg") center center/cover no-repeat;
+	}
+}
 
-		&.bg2 {
-			background-image: url("./imgs/bg2.jpg");
-		}
+.toolbox-background-image {
+	&.bg {
+		background: center center/cover no-repeat;
+	}
 
-		&.bg3 {
-			background-image: url("./imgs/bg3.jpg");
-		}
+	&.filter {
+		filter: blur(15px);
+	}
 
-		&.bg4 {
-			background-image: url("./imgs/bg4.jpg");
-		}
+	&.bg1 {
+		background-image: url("./imgs/bg1.jpg");
+	}
 
-		&.bg5 {
-			background-image: url("./imgs/bg5.jpg");
-		}
+	&.bg2 {
+		background-image: url("./imgs/bg2.jpg");
+	}
+
+	&.bg3 {
+		background-image: url("./imgs/bg3.jpg");
+	}
+
+	&.bg4 {
+		background-image: url("./imgs/bg4.jpg");
+	}
+
+	&.bg5 {
+		background-image: url("./imgs/bg5.jpg");
 	}
 }
 </style>

@@ -62,6 +62,8 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 			layer.open(
 				_.merge(
 					{
+						/* 传入自定义样式 */
+						contentClass: "flex1",
 						type: 1,
 						title: [title || ""],
 						area: area || ["800px", "520px"],
@@ -75,6 +77,11 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 							try {
 								app = createApp(
 									defineComponent({
+										mounted() {
+											if (options.fullscreen) {
+												layer.full(layerIndex);
+											}
+										},
 										data() {
 											options.__dialogInstance = this;
 											options.__elId = __elId;
@@ -164,7 +171,9 @@ export const installUIDialogComponent = (UI, { appPlugins, dependState }) => {
 										},
 										render() {
 											return (
-												<div class="flex vertical h100" data-el-id={__elId}>
+												<div
+													class="flex vertical h100 width100"
+													data-el-id={__elId}>
 													{this.renderContent}
 													{this.renderButtons}
 												</div>

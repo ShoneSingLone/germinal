@@ -321,6 +321,13 @@ export const Cpt_iconSound = computed(() => {
 export const Cpt_iconPlayModel = computed(() => {
 	return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
 });
+export const Cpt_currentSong = computed(() => {
+	return (
+		_.find(State_Music.playlist, { id: State_Music.songId }) || {
+			title: "--"
+		}
+	);
+});
 
 const backupPlaylist = _.debounce(async function (playlist) {
 	playlist = JSON.parse(JSON.stringify(playlist));

@@ -1,5 +1,8 @@
 <template>
 	<div class="flex ViewMusicPlayer">
+		<div class="title flex center" :style="styleAlbum">
+			{{ Cpt_currentSong.title }}
+		</div>
 		<MusicPlayerModel />
 		<xGap l="16" />
 		<!-- 上一曲，下一曲，播放，暂停 -->
@@ -17,7 +20,11 @@ import MusicPlayerModel from "./MusicPlayerModel.vue";
 import MusicPlayerOpration from "./MusicPlayerOpration.vue";
 import MusicPlayerAudio from "./MusicPlayerAudio.vue";
 import MusicPlayerVolume from "./MusicPlayerVolume.vue";
-import { Actions_Music, State_Music } from "@ventose/state/State_Music";
+import {
+	Actions_Music,
+	State_Music,
+	Cpt_currentSong
+} from "@ventose/state/State_Music";
 
 export default defineComponent({
 	components: {
@@ -28,17 +35,33 @@ export default defineComponent({
 	},
 	setup() {
 		return {
+			Cpt_currentSong,
 			State_Music
 		};
 	},
-	async mounted() {
-		await Actions_Music.updatePersonalizedNewSong();
+	computed: {
+		styleAlbum() {
+			console.log(this.Cpt_currentSong);
+			if (this.Cpt_currentSong.picUrl) {
+				return `background:url(${this.Cpt_currentSong.picUrl}) right/contain no-repeat;`;
+			} else {
+				return {};
+			}
+		}
 	}
 });
 </script>
 
 <style lang="less">
 .ViewMusicPlayer {
+	.title {
+		margin-right: 10px;
+		width: 200px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	.site-layout .site-layout-background {
 		background: #fff;
 	}

@@ -18,20 +18,8 @@
 import { State_Music, Actions_Music } from "@ventose/state/State_Music";
 import CurrentMobileSongItem from "./CurrentMobileSongItem.vue";
 import { preprocessRecord } from "@ventose/utils/common";
-import { _, $, defItem } from "@ventose/ui";
-import { reactive } from "vue";
-
-const state = reactive({
-	configs: {
-		...defItem({
-			value: "",
-			prop: "search",
-			placeholder: "标题、歌手、所属专辑",
-			allowClear: true
-		}),
-		items: []
-	}
-});
+import { _ } from "@ventose/ui";
+import { state, btnClear } from "./CurrentLayout.vue";
 
 export default {
 	components: {
@@ -40,36 +28,20 @@ export default {
 	setup() {
 		return {
 			state,
+			btnClear,
 			State_Music
 		};
 	},
 	data() {
 		const vm = this;
 		return {
-			currentLoadingSongId: "",
-			btnClear: {
-				text: "移除",
-				async onClick() {
-					if (vm.state.configs.search.value) {
-						_.each(
-							vm.state.configs.items,
-							Actions_Music.removeSongFromPlaylist
-						);
-					} else {
-						Actions_Music.clearPlaylist();
-					}
-				}
-			}
+			currentLoadingSongId: ""
 		};
 	},
 	watch: {
 		"State_Music.playlist.length": {
 			immediate: true,
 			handler(length) {
-				console.log(
-					"🚀 ~ file: CurrentMobile.vue ~ line 72 ~ handler ~ length",
-					length
-				);
 				this.setItems(this.state.configs.search.value);
 			}
 		},
