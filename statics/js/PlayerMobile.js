@@ -1,5 +1,5 @@
-import { d as State_Music, A as Actions_Music, C as Cpt_iconPlayModel, f as formatDuring } from "./main.js";
-import { d as _export_sfc, _ as _global__ } from "./index.js";
+import { d as State_Music, A as Actions_Music, C as Cpt_iconPlayModel, f as formatDuring, g as Cpt_currentSong } from "./main.js";
+import { d as _export_sfc } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
@@ -152,27 +152,17 @@ var _sfc_main = Vue.defineComponent({
   },
   setup() {
     Actions_Music.setVolume(100);
+    console.log("\u{1F680} ~ file: PlayerMobile.vue ~ line 38 ~ setup ~ Cpt_currentSong", Cpt_currentSong);
     return {
+      Cpt_currentSong,
       State_Music
     };
-  },
-  computed: {
-    currentSong() {
-      return _global__.find(this.State_Music.playlist, {
-        id: this.State_Music.songId
-      }) || {
-        title: "--"
-      };
-    }
-  },
-  async mounted() {
-    await Actions_Music.updatePersonalizedNewSong();
   }
 });
 var PlayerMobile_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1 = { class: "flex center ViewMusicPlayerMobile" };
 const _hoisted_2 = { class: "audio" };
-const _hoisted_3 = { class: "flex center" };
+const _hoisted_3 = { class: "flex center title" };
 const _hoisted_4 = { class: "flex MusicPlayerOpration" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_MusicPlayerAudio = Vue.resolveComponent("MusicPlayerAudio");
@@ -182,7 +172,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
     Vue.createElementVNode("div", _hoisted_2, [
       Vue.createVNode(_component_MusicPlayerAudio),
-      Vue.createElementVNode("div", _hoisted_3, Vue.toDisplayString(_ctx.currentSong.title), 1)
+      Vue.createElementVNode("div", _hoisted_3, Vue.toDisplayString(_ctx.Cpt_currentSong.title), 1)
     ]),
     Vue.createElementVNode("div", _hoisted_4, [
       Vue.createVNode(_component_MusicPlayerModel),

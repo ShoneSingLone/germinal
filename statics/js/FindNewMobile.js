@@ -1,21 +1,11 @@
 import { d as State_Music, e as API, A as Actions_Music } from "./main.js";
-import { d as _export_sfc, e as defItem, _ as _global__, U as UI } from "./index.js";
+import { d as _export_sfc, _ as _global__, U as UI } from "./index.js";
 import { F as FindNewMobileSongItem } from "./FindNewMobileSongItem.js";
+import { state } from "./FindNewLayout.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
 var FindNewMobile_vue_vue_type_style_index_0_lang = "";
-const state = Vue.reactive({
-  configs: {
-    ...defItem({
-      value: "",
-      prop: "search",
-      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91",
-      allowClear: true
-    }),
-    items: []
-  }
-});
 const _sfc_main = {
   components: {
     FindNewMobileSongItem

@@ -15,6 +15,7 @@ const contentToCache = [
   "./statics/js/ViewD.js",
   "./statics/js/UserOutlined.js",
   "./statics/js/PrivatePc.js",
+  "./statics/js/PrivateMobileSongItem.js",
   "./statics/js/PrivateMobile.js",
   "./statics/js/PrivateLayout.js",
   "./statics/js/PlayerPc.js",
@@ -35,17 +36,19 @@ const contentToCache = [
   "./statics/js/FindNewLayout.js",
   "./statics/js/Dev.js",
   "./statics/js/CurrentPc.js",
+  "./statics/js/CurrentMobileSongItem.js",
   "./statics/js/CurrentMobile.js",
   "./statics/js/CurrentLayout.js",
   "./statics/js/CachedPc.js",
+  "./statics/js/CachedMobileSongItem.js",
   "./statics/js/CachedMobile.js",
   "./statics/js/CachedLayout.js",
   "./statics/assets/yapi.633ceb78.css",
-  "./statics/assets/main.b28e70ef.css",
+  "./statics/assets/main.cf820984.css",
   "./statics/assets/logo3.a354024b.png",
   "./statics/assets/logo2.f9552052.jpg",
   "./statics/assets/loading-0.07236f68.gif",
-  "./statics/assets/index.4b35110d.css",
+  "./statics/assets/index.18c58ece.css",
   "./statics/assets/icon.99942159.png",
   "./statics/assets/icon-ext.e2e7a838.png",
   "./statics/assets/bg5.c95becde.jpg",
@@ -54,22 +57,22 @@ const contentToCache = [
   "./statics/assets/bg2.26a7254b.jpg",
   "./statics/assets/bg1.1081a1ca.jpg",
   "./statics/assets/background.d7103c44.svg",
-  "./statics/assets/PrivatePc.a91b9906.css",
-  "./statics/assets/PrivateMobile.8ba53e52.css",
-  "./statics/assets/PlayerPc.f27b5265.css",
+  "./statics/assets/PrivateMobileSongItem.040cbe64.css",
+  "./statics/assets/PrivateMobile.4b0db1a0.css",
+  "./statics/assets/PlayerPc.a0acd839.css",
   "./statics/assets/PlayerMobile.0be9359c.css",
   "./statics/assets/MusicPlayer.a8215aec.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
   "./statics/assets/LayoutMusicPc.8bcd892b.css",
-  "./statics/assets/LayoutMusicMobile.bc764df1.css",
+  "./statics/assets/LayoutMusicMobile.1b7c2feb.css",
+  "./statics/assets/LayoutMusic.db9552e9.css",
   "./statics/assets/LayoutBasic.8c490128.css",
   "./statics/assets/GroupList.ebf21596.css",
   "./statics/assets/Group.a18abc63.css",
-  "./statics/assets/FindNewPc.af50cece.css",
   "./statics/assets/FindNewMobileSongItem.6d177723.css",
   "./statics/assets/FindNewMobile.75edacf2.css",
-  "./statics/assets/CurrentMobile.85c51971.css",
-  "./statics/assets/CachedMobile.b0952789.css",
+  "./statics/assets/CurrentMobileSongItem.5c71672e.css",
+  "./statics/assets/CachedMobileSongItem.0ed29712.css",
   "./index.html",
   "./favicon.ico",
   "./configs.jsx",
@@ -128,6 +131,7 @@ const contentToCache = [
   "./assets/svg/mail.svg",
   "./assets/svg/logout.svg",
   "./assets/svg/lockStrok.svg",
+  "./assets/svg/gohome.svg",
   "./assets/svg/github.svg",
   "./assets/svg/follow.svg",
   "./assets/svg/folderOpen.svg",
@@ -135,6 +139,7 @@ const contentToCache = [
   "./assets/svg/delete.svg",
   "./assets/svg/copy.svg",
   "./assets/svg/copy-o.svg",
+  "./assets/svg/configs.svg",
   "./assets/svg/cached.svg",
   "./assets/svg/addGroup.svg",
   "./assets/svg/add.svg",
@@ -149,7 +154,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1663261188348");
+			const cache = await caches.open("1663347755439");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -157,7 +162,7 @@ self.addEventListener("install", e => {
 });
 
 self.addEventListener("fetch", e => {
-	if (
+	/* if (
 		e.request.url ===
 		`https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
 	) {
@@ -168,11 +173,11 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1663261188348");
+				const cache = await caches.open("1663347755439");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;
 			})()
 		);
-	}
+	} */
 });

@@ -1,21 +1,10 @@
 import { d as State_Music, e as API, A as Actions_Music } from "./main.js";
-import { d as _export_sfc, e as defItem, _ as _global__, U as UI } from "./index.js";
+import { d as _export_sfc, _ as _global__, U as UI } from "./index.js";
 import { F as FindNewMobileSongItem } from "./FindNewMobileSongItem.js";
+import { state } from "./FindNewLayout.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
-var FindNewPc_vue_vue_type_style_index_0_lang = "";
-const state = Vue.reactive({
-  configs: {
-    ...defItem({
-      value: "",
-      prop: "search",
-      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91",
-      allowClear: true
-    }),
-    items: []
-  }
-});
 const _sfc_main = {
   components: {
     FindNewMobileSongItem
@@ -31,8 +20,7 @@ const _sfc_main = {
       wrapperHeight: 0,
       scrollHeight: 0,
       scrollTop: 0,
-      currentLoadingSongId: "",
-      isShowSearchBox: false
+      currentLoadingSongId: ""
     };
   },
   watch: {
@@ -60,12 +48,6 @@ const _sfc_main = {
       },
       () => {
         const search = this.state.configs.search.value;
-        console.log(
-          search,
-          this.scrollHeight,
-          this.scrollTop,
-          this.wrapperHeight
-        );
         if (search && this.scrollHeight - this.scrollTop < this.wrapperHeight) {
           this.setItems(search, this.state.offset);
         }
@@ -107,8 +89,10 @@ const _sfc_main = {
     async playSong(record) {
       this.currentLoadingSongId = record.id;
       try {
-        Actions_Music.pushSongToPlaylist(record);
-        await Actions_Music.playSongById(record.id);
+        Actions_Music.pushSongToPlaylist(
+          this.state.configs.items,
+          () => Actions_Music.playSongById(record.id)
+        );
       } catch (error) {
         console.error(error);
       } finally {
@@ -117,19 +101,19 @@ const _sfc_main = {
     }
   }
 };
-const _hoisted_1 = {
-  class: "flex vertical",
-  style: { "height": "100%" }
-};
+const _hoisted_1 = { class: "flex1 height100 overflow-hidden flex vertical" };
+const _hoisted_2 = { class: "search-wrapper padding10" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xItem = Vue.resolveComponent("xItem");
   const _component_xGap = Vue.resolveComponent("xGap");
   const _component_FindNewMobileSongItem = Vue.resolveComponent("FindNewMobileSongItem");
   const _component_xVirScroll = Vue.resolveComponent("xVirScroll");
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
-    Vue.createVNode(_component_xItem, {
-      configs: $setup.state.configs.search
-    }, null, 8, ["configs"]),
+    Vue.createElementVNode("div", _hoisted_2, [
+      Vue.createVNode(_component_xItem, {
+        configs: $setup.state.configs.search
+      }, null, 8, ["configs"])
+    ]),
     Vue.createVNode(_component_xGap, { t: "16" }),
     Vue.createVNode(_component_xVirScroll, {
       top: $data.scrollTop,
@@ -138,7 +122,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       "onUpdate:height": _cache[1] || (_cache[1] = ($event) => $data.wrapperHeight = $event),
       scrollHeight: $data.scrollHeight,
       "onUpdate:scrollHeight": _cache[2] || (_cache[2] = ($event) => $data.scrollHeight = $event),
-      style: { "height": "580px" },
       class: "flex1",
       configs: $setup.state.configs
     }, {

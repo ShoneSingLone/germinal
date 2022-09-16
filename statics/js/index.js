@@ -62719,6 +62719,12 @@ ClassLayer.pt.vessel = function(conType, callback) {
     ${titype ? config.title[0] : config.title}
   </div >` : "";
   config.zIndex = zIndex;
+  const classContent = [
+    DOMS[5],
+    config.contentClass,
+    config.type == 0 && config.icon !== -1 ? "layui-layer-padding" : "",
+    config.type == 3 ? "layui-layer-loading" + config.icon : ""
+  ].filter((i2) => !!i2).join(" ");
   callback(
     [
       config.shade ? `<div class="${DOMS_SHADE}" id="${DOMS_SHADE}${times}" times="${times}" style="z-index:${zIndex - 1};"></div>` : "",
@@ -62733,7 +62739,7 @@ ClassLayer.pt.vessel = function(conType, callback) {
 					  height:${config.area[1]};
 					  position:${config.fixed ? "fixed;" : "absolute;"}">
 				${conType && config.type != 2 ? "" : titleHTML}
-				<div id="${config.id || ""}" class="${DOMS[5]}${config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` + (config.type == 0 && config.icon !== -1 ? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>' : "") + (config.type == 1 && conType ? "" : config.content || "") + '</div><span class="layui-layer-setwin">' + function() {
+				<div id="${config.id || ""}" class="${classContent}">` + (config.type == 0 && config.icon !== -1 ? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>' : "") + (config.type == 1 && conType ? "" : config.content || "") + '</div><span class="layui-layer-setwin">' + function() {
         var closebtn = ismax ? '<a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a>' : "";
         config.closeBtn && (closebtn += '<a class="layui-layer-ico ' + DOMS[7] + " " + DOMS[7] + (config.title ? config.closeBtn : config.type == 4 ? "1" : "2") + '" href="javascript:;"></a>');
         return closebtn;
@@ -65793,18 +65799,6 @@ function setPagination(StateTable, pagination) {
     StateTable.pagination[PAGINATION_MAP[prop]] = value;
   });
 }
-function getPaginationPageSize(StateTable) {
-  const PAGINATION_MAP = lStorage.appConfigs.pagination;
-  const pagination = StateTable.pagination;
-  const {
-    page,
-    size
-  } = PAGINATION_MAP;
-  return {
-    [page]: pagination[page],
-    [size]: pagination[size]
-  };
-}
 function defCol(options) {
   return {
     [options.prop]: {
@@ -65892,20 +65886,6 @@ function filterColIsShow(isShow, prop) {
     return isShow;
   } else {
     return true;
-  }
-}
-function setDataGridInfo(StateBind, result = {
-  data: []
-}) {
-  const {
-    data: data8 = [],
-    total: total2 = false
-  } = result;
-  StateBind.dataSource = data8;
-  if (total2 || total2 === 0) {
-    setPagination(StateBind, {
-      total: total2
-    });
   }
 }
 const PAGE_SIZE_OPTIONS = ["10", "20", "30"];
@@ -66416,6 +66396,7 @@ const installUIDialogComponent = (UI2, {
       }
     };
     layer.open(_global__.merge({
+      contentClass: "flex1",
       type: 1,
       title: [title || ""],
       area: area || ["800px", "520px"],
@@ -66426,6 +66407,11 @@ const installUIDialogComponent = (UI2, {
         handleEcsPress.on(layerIndex);
         try {
           app = Vue.createApp(Vue.defineComponent({
+            mounted() {
+              if (options.fullscreen) {
+                layer.full(layerIndex);
+              }
+            },
             data() {
               options.__dialogInstance = this;
               options.__elId = __elId;
@@ -66504,7 +66490,7 @@ const installUIDialogComponent = (UI2, {
             },
             render() {
               return Vue.createVNode("div", {
-                "class": "flex vertical h100",
+                "class": "flex vertical h100 width100",
                 "data-el-id": __elId
               }, [this.renderContent, this.renderButtons]);
             }
@@ -67016,4 +67002,4 @@ const VentoseUIWithInstall = {
     app.use(Antd);
   }
 };
-export { AntdIcon as A, Button as B, setDataGridInfo as C, Dropdown$1 as D, EVENT_TYPE as E, keys as F, getMany as G, del as H, J, Menu as M, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, _global_$ as a, __vitePreload as b, setDocumentTitle as c, _export_sfc as d, defItem as e, AllWasWell as f, defDataGridOption as g, defPagination as h, defCol as i, Spin as j, dayjs as k, lStorage as l, get as m, ne as n, set as o, clear as p, q, AutoComplete$1 as r, setCSSVariables as s, te as t, defColActions as u, validateForm as v, defColActionsBtnlist as w, Modal as x, setPagination as y, getPaginationPageSize as z };
+export { AntdIcon as A, Button as B, del as C, Dropdown$1 as D, EVENT_TYPE as E, J, Menu as M, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, _global_$ as a, __vitePreload as b, setDocumentTitle as c, _export_sfc as d, defItem as e, AllWasWell as f, defDataGridOption as g, defPagination as h, defCol as i, Spin as j, dayjs as k, lStorage as l, get as m, ne as n, set as o, clear as p, q, AutoComplete$1 as r, setCSSVariables as s, te as t, defColActions as u, validateForm as v, defColActionsBtnlist as w, Modal as x, keys as y, getMany as z };

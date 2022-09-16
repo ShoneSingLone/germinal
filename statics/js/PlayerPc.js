@@ -1,4 +1,4 @@
-import { d as State_Music, A as Actions_Music, C as Cpt_iconPlayModel, f as formatDuring, g as Cpt_iconSound } from "./main.js";
+import { d as State_Music, A as Actions_Music, C as Cpt_iconPlayModel, f as formatDuring, h as Cpt_iconSound, g as Cpt_currentSong } from "./main.js";
 import { d as _export_sfc, _ as _global__ } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -207,11 +207,19 @@ var _sfc_main = Vue.defineComponent({
   },
   setup() {
     return {
+      Cpt_currentSong,
       State_Music
     };
   },
-  async mounted() {
-    await Actions_Music.updatePersonalizedNewSong();
+  computed: {
+    styleAlbum() {
+      console.log(this.Cpt_currentSong);
+      if (this.Cpt_currentSong.picUrl) {
+        return `background:url(${this.Cpt_currentSong.picUrl}) right/contain no-repeat;`;
+      } else {
+        return {};
+      }
+    }
   }
 });
 var PlayerPc_vue_vue_type_style_index_0_lang = "";
@@ -223,6 +231,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_MusicPlayerAudio = Vue.resolveComponent("MusicPlayerAudio");
   const _component_MusicPlayerVolume = Vue.resolveComponent("MusicPlayerVolume");
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
+    Vue.createElementVNode("div", {
+      class: "title flex center",
+      style: Vue.normalizeStyle(_ctx.styleAlbum)
+    }, Vue.toDisplayString(_ctx.Cpt_currentSong.title), 5),
     Vue.createVNode(_component_MusicPlayerModel),
     Vue.createVNode(_component_xGap, { l: "16" }),
     Vue.createVNode(_component_MusicPlayerOpration),

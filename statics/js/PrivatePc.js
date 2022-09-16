@@ -1,148 +1,88 @@
 import { d as State_Music, A as Actions_Music } from "./main.js";
-import { _ as _global__, y as setPagination, e as defItem, g as defDataGridOption, z as getPaginationPageSize, C as setDataGridInfo, i as defCol, u as defColActions, S as State_UI, w as defColActionsBtnlist, d as _export_sfc } from "./index.js";
+import { P as PrivateMobileSongItem } from "./PrivateMobileSongItem.js";
+import { d as _export_sfc, _ as _global__ } from "./index.js";
+import { state } from "./PrivateLayout.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
-const {
-  $t
-} = State_UI;
-const State_query = Vue.reactive({
-  ...defItem({
-    value: "",
-    prop: "title",
-    label: $t("\u6B4C\u66F2\u6807\u9898").label,
-    placeholder: $t("\u6B4C\u66F2\u6807\u9898").label
-  }),
-  ...defItem({
-    value: "",
-    prop: "artist",
-    label: $t("\u6B4C\u624B").label,
-    placeholder: $t("\u6B4C\u624B").label
-  }),
-  ...defItem({
-    value: "",
-    prop: "album",
-    label: $t("\u6240\u5C5E\u4E13\u8F91").label,
-    placeholder: $t("\u6240\u5C5E\u4E13\u8F91").label
-  })
-});
-const playListFindNew = Vue.reactive(defDataGridOption({
-  currentPlaylistPrivate: [],
-  async queryTableList(vm) {
-    const {
-      page,
-      size
-    } = getPaginationPageSize(playListFindNew);
-    const total = playListFindNew.currentPlaylistPrivate.length;
-    const data = playListFindNew.currentPlaylistPrivate.slice((page - 1) * size, page * size);
-    setDataGridInfo(playListFindNew, {
-      data,
-      total
-    });
+const _sfc_main = {
+  components: {
+    PrivateMobileSongItem
   },
-  isHideFilter: true,
-  dataSource: [],
-  columns: {
-    ...defCol({
-      label: $t("\u6B4C\u66F2\u6807\u9898").label,
-      prop: "title"
-    }),
-    ...defCol({
-      label: $t("\u6B4C\u624B").label,
-      prop: "artist"
-    }),
-    ...defCol({
-      label: $t("\u6240\u5C5E\u4E13\u8F91").label,
-      prop: "album"
-    }),
-    ...defColActions({
-      width: 100,
-      renderCell({
-        record,
-        index
-      }) {
-        var _a;
-        return defColActionsBtnlist({
-          btns: [{
-            text: (_a = $t("\u64AD\u653E")) == null ? void 0 : _a.label,
-            async onClick() {
-              record.name = record.title;
-              record.song = {
-                album: {
-                  name: record.album
-                },
-                artists: [{
-                  name: record.artist
-                }]
-              };
-              Actions_Music.pushSongToPlaylist(record);
-              await Actions_Music.playSongById(record.id);
-            }
-          }]
-        });
-      }
-    })
-  }
-}));
-var _sfc_main = {
   setup() {
     return {
-      State_query,
       State_Music,
-      playListFindNew
+      state
     };
   },
-  mounted() {
-    const vm = this;
-    vm.$watch(() => {
-      return `${vm.State_Music.AllMusicClient.length}_${vm.State_query.title.value}_${vm.State_query.artist.value}_${vm.State_query.album.value}`;
-    }, _global__.debounce(function() {
-      vm.playListFindNew.currentPlaylistPrivate = vm.State_Music.AllMusicClient.filter((record) => {
-        const isOk = (prop) => {
-          if (vm.State_query[prop].value) {
-            return String(record[prop]).includes(vm.State_query[prop].value);
-          } else {
-            return true;
-          }
-        };
-        return isOk("title") && isOk("artist") && isOk("album");
-      });
-      setPagination(vm.playListFindNew, {
-        page: 1
-      });
-      vm.playListFindNew.queryTableList();
-    }, 1e3), {
-      immediate: true
-    });
+  data() {
+    return {
+      currentLoadingSongId: ""
+    };
+  },
+  watch: {
+    "state.configs.search.value": {
+      immediate: true,
+      handler(search) {
+        this.setItems(search);
+      }
+    }
+  },
+  methods: {
+    setItems: _global__.debounce(function(search) {
+      let allItems = this.State_Music.AllMusicClient;
+      if (search) {
+        allItems = _global__.filter(allItems, (record) => {
+          const isOk = (prop) => String(record[prop]).includes(search);
+          return isOk("title") || isOk("artist") || isOk("album");
+        });
+      }
+      this.state.configs.items = allItems;
+    }, 600),
+    async playSong(record) {
+      this.currentLoadingSongId = record.id;
+      try {
+        Actions_Music.pushSongToPlaylist(
+          this.state.configs.items,
+          () => Actions_Music.playSongById(record.id)
+        );
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.currentLoadingSongId = false;
+      }
+    }
   }
 };
-var PrivatePc_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1 = { class: "flex vertical flex1 height100 overflow-hidden" };
+const _hoisted_2 = { class: "search-wrapper padding10 flex width100" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_xGap = Vue.resolveComponent("xGap");
   const _component_xItem = Vue.resolveComponent("xItem");
-  const _component_xDataGridToolbar = Vue.resolveComponent("xDataGridToolbar");
-  const _component_xDataGrid = Vue.resolveComponent("xDataGrid");
-  return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
-    Vue.createVNode(_component_xDataGridToolbar, { configs: $setup.playListFindNew }, {
-      default: Vue.withCtx(() => [
-        Vue.createVNode(_component_xGap, { f: "1" }),
-        Vue.createVNode(_component_xItem, {
-          configs: $setup.State_query.title
-        }, null, 8, ["configs"]),
-        Vue.createVNode(_component_xGap, { l: "4" }),
-        Vue.createVNode(_component_xItem, {
-          configs: $setup.State_query.artist
-        }, null, 8, ["configs"]),
-        Vue.createVNode(_component_xGap, { l: "4" }),
-        Vue.createVNode(_component_xItem, {
-          configs: $setup.State_query.album
-        }, null, 8, ["configs"]),
-        Vue.createVNode(_component_xGap, { l: "4" })
+  const _component_xGap = Vue.resolveComponent("xGap");
+  const _component_PrivateMobileSongItem = Vue.resolveComponent("PrivateMobileSongItem");
+  const _component_xVirScroll = Vue.resolveComponent("xVirScroll");
+  return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
+    Vue.createElementVNode("div", _hoisted_2, [
+      Vue.createVNode(_component_xItem, {
+        configs: $setup.state.configs.search,
+        style: { "margin-right": "-10px" },
+        class: "flex1"
+      }, null, 8, ["configs"])
+    ]),
+    Vue.createVNode(_component_xGap, { t: "16" }),
+    Vue.createVNode(_component_xVirScroll, {
+      configs: $setup.state.configs,
+      class: "flex1"
+    }, {
+      item: Vue.withCtx(({ item }) => [
+        Vue.createVNode(_component_PrivateMobileSongItem, {
+          song: item,
+          loading: $data.currentLoadingSongId === item.id
+        }, null, 8, ["song", "loading"])
       ]),
       _: 1
-    }, 8, ["configs"]),
-    Vue.createVNode(_component_xDataGrid, { configs: $setup.playListFindNew }, null, 8, ["configs"])
-  ], 64);
+    }, 8, ["configs"])
+  ]);
 }
 var PrivatePc = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
 export { PrivatePc as default };

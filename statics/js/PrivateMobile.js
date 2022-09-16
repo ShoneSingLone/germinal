@@ -1,53 +1,11 @@
 import { d as State_Music, A as Actions_Music } from "./main.js";
-import { d as _export_sfc, e as defItem, _ as _global__ } from "./index.js";
+import { P as PrivateMobileSongItem } from "./PrivateMobileSongItem.js";
+import { d as _export_sfc, _ as _global__ } from "./index.js";
+import { state } from "./PrivateLayout.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
-var _sfc_main$1 = {
-  props: ["song", "loading"],
-  setup() {
-    return {};
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    asdf() {
-      return this.song;
-    }
-  },
-  mounted() {
-  }
-};
-var PrivateMobileSongItem_vue_vue_type_style_index_0_lang = "";
-const _hoisted_1$1 = { class: "title" };
-const _hoisted_2$1 = { class: "singer" };
-function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
-  const _component_aButton = Vue.resolveComponent("aButton");
-  return Vue.openBlock(), Vue.createBlock(_component_aButton, {
-    class: "PrivateMobileSongItem MobileSongItem elevation-1 flex vertical width100",
-    loading: $props.loading
-  }, {
-    default: Vue.withCtx(() => [
-      Vue.createElementVNode("div", _hoisted_1$1, Vue.toDisplayString($props.song.title), 1),
-      Vue.createElementVNode("div", _hoisted_2$1, Vue.toDisplayString($props.song.index) + "-" + Vue.toDisplayString($props.song.artist) + "-" + Vue.toDisplayString($props.song.album), 1)
-    ]),
-    _: 1
-  }, 8, ["loading"]);
-}
-var PrivateMobileSongItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 var PrivateMobile_vue_vue_type_style_index_0_lang = "";
-const state = Vue.reactive({
-  configs: {
-    ...defItem({
-      value: "",
-      prop: "search",
-      placeholder: "\u6807\u9898\u3001\u6B4C\u624B\u3001\u6240\u5C5E\u4E13\u8F91",
-      allowClear: true
-    }),
-    items: []
-  }
-});
 const _sfc_main = {
   components: {
     PrivateMobileSongItem

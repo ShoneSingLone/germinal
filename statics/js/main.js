@@ -143,7 +143,7 @@ const common = {
     let res = [];
     try {
       const { status, data } = await axios.get(
-        `https://www.singlone.work/s/api/public/assets/AllMusicClient.json`
+        `https://www.singlone.work/s/api/public/assets/AllMusicClient.json?_t=${Date.now()}`
       );
       if (status === 200) {
         res = data;
@@ -466,22 +466,26 @@ var module$1 = {
 })();
 var md5 = module$1.exports;
 const { $t: $t$5 } = State_UI;
-const State_App = Vue.reactive({
-  isCurrentClientMobile: false,
-  UseMockData: false,
-  theme: "light",
-  menuTree: [],
-  layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
-  collapsed: false,
-  arr_selectedMenuId: [],
-  token: lStorage[STATIC_WORD.ACCESS_TOKEN],
-  user: false,
-  count: 0,
-  isMobile: false,
-  configs: lStorage.appConfigs || {},
-  isDev: window.__envMode === "development"
-});
+const State_App = Vue.reactive(
+  lStorage.State_App || {
+    isCurrentClientMobile: false,
+    UseMockData: false,
+    theme: "light",
+    menuTree: [],
+    layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
+    collapsed: false,
+    arr_selectedMenuId: [],
+    token: "",
+    user: false,
+    count: 0,
+    isMobile: false,
+    bg: "bg1",
+    bgFilter: false,
+    configs: {}
+  }
+);
 (() => {
+  State_App.isDev = window.__envMode === "development";
   function checkDeviceType() {
     var _a2;
     if (/Mobi|Android|iPhone/i.test(navigator == null ? void 0 : navigator.userAgent)) {
@@ -500,7 +504,7 @@ const State_App = Vue.reactive({
   }
   const setCurrentClientMobileValue = _global__.debounce(
     function setCurrentClientMobileValue2() {
-      State_App.isCurrentClientMobile = checkDeviceType();
+      State_App.isCurrentClientMobile = lStorage.isCurrentClientMobile || checkDeviceType();
     },
     100
   );
@@ -547,7 +551,13 @@ Vue.watch(
     deep: true
   }
 );
+Vue.watch(State_App, () => {
+  lStorage.State_App = State_App;
+});
 const Actions_App = {
+  toggleMobile(value) {
+    State_App.isCurrentClientMobile = lStorage.isCurrentClientMobile = _global__.isBoolean(value) ? value : !lStorage.isCurrentClientMobile;
+  },
   async initAppConfigs(callback) {
     console.time("initAppConfigs");
     console.log("\u{1F680}:", "__APP_VERSION", JSON.stringify(__APP_VERSION, null, 2));
@@ -621,7 +631,7 @@ const Actions_App = {
   }
 };
 var App_less_vue_type_style_index_0_src_lang = "";
-const _sfc_main$c = Vue.defineComponent({
+const _sfc_main$d = Vue.defineComponent({
   data() {
     return {
       userAgent: navigator.userAgent,
@@ -641,7 +651,7 @@ const _sfc_main$c = Vue.defineComponent({
   }
 });
 const _hoisted_1$8 = /* @__PURE__ */ Vue.createTextVNode(" Loading...");
-function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aSpin = Vue.resolveComponent("aSpin");
   const _component_RouterView = Vue.resolveComponent("RouterView");
   return _ctx.isLoading ? (Vue.openBlock(), Vue.createBlock(_component_aSpin, { key: 0 }, {
@@ -651,10 +661,10 @@ function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
   })) : (Vue.openBlock(), Vue.createBlock(_component_RouterView, { key: 1 }));
 }
-var PageToolboxHome = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$5]]);
+var PageToolboxHome = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$6]]);
 var logoImg = "./statics/assets/logo2.f9552052.jpg";
 const _hoisted_1$7 = ["aria-label"];
-const _sfc_main$b = {
+const _sfc_main$c = {
   __name: "SelectLanguage",
   setup(__props) {
     const languageLabels = {
@@ -712,10 +722,10 @@ const _hoisted_4$4 = { class: "top" };
 const _hoisted_5$4 = { class: "header" };
 const _hoisted_6$4 = { href: "/" };
 const _hoisted_7$3 = ["src"];
-const _hoisted_8$1 = { class: "title" };
+const _hoisted_8$2 = { class: "title" };
 const _hoisted_9 = { class: "desc" };
 const _hoisted_10 = /* @__PURE__ */ Vue.createStaticVNode('<div class="footer"><div class="links"><a href="_self">\u5E2E\u52A9</a><a href="_self">\u9690\u79C1</a><a href="_self">\u6761\u6B3E</a></div><div class="copyright">Copyright \xA9 ventose</div></div>', 1);
-const _sfc_main$a = {
+const _sfc_main$b = {
   __name: "User",
   setup(__props) {
     return (_ctx, _cache) => {
@@ -726,7 +736,7 @@ const _sfc_main$a = {
       }, [
         Vue.createElementVNode("div", _hoisted_1$6, [
           Vue.createElementVNode("div", _hoisted_2$6, [
-            Vue.createVNode(_sfc_main$b, { class: "select-lang-trigger" })
+            Vue.createVNode(_sfc_main$c, { class: "select-lang-trigger" })
           ]),
           Vue.createElementVNode("div", _hoisted_3$5, [
             Vue.createElementVNode("div", _hoisted_4$4, [
@@ -737,7 +747,7 @@ const _sfc_main$a = {
                     class: "logo",
                     alt: "logo"
                   }, null, 8, _hoisted_7$3),
-                  Vue.createElementVNode("span", _hoisted_8$1, Vue.toDisplayString(_ctx.$t("login.title").label), 1)
+                  Vue.createElementVNode("span", _hoisted_8$2, Vue.toDisplayString(_ctx.$t("login.title").label), 1)
                 ])
               ]),
               Vue.createElementVNode("div", _hoisted_9, Vue.toDisplayString(_ctx.$t("layouts.userLayout.title").label), 1)
@@ -861,7 +871,7 @@ async function getCaptcha(params) {
     console.error(e2);
   }
 }
-var _sfc_main$9 = {
+var _sfc_main$a = {
   __name: "LoginCredentials",
   setup(__props) {
     return (_ctx, _cache) => {
@@ -893,7 +903,7 @@ const _hoisted_4$3 = {
 const _hoisted_5$3 = { class: "item-wrapper" };
 const _hoisted_6$3 = { class: "item-wrapper" };
 const _hoisted_7$2 = { class: "user-login-other" };
-const _sfc_main$8 = {
+const _sfc_main$9 = {
   __name: "Login",
   setup(__props) {
     const { $t: $t2 } = State_UI;
@@ -911,7 +921,7 @@ const _sfc_main$8 = {
             style: { "margin-bottom": "24px" },
             message: Vue.unref(State_Login).alertTips
           }, null, 8, ["message"])) : Vue.createCommentVNode("", true),
-          Vue.createVNode(_sfc_main$9),
+          Vue.createVNode(_sfc_main$a),
           Vue.createElementVNode("div", _hoisted_3$4, [
             Vue.createVNode(_component_aCheckbox, {
               checked: Vue.unref(State_Login).rememberMe,
@@ -1124,7 +1134,7 @@ const _hoisted_3$3 = { style: { width: "240px" } };
 const _hoisted_4$2 = { style: { "margin-top": "10px" } };
 const _hoisted_5$2 = { class: "flex" };
 const _hoisted_6$2 = { class: "item-wrapper flex" };
-const _sfc_main$7 = {
+const _sfc_main$8 = {
   __name: "Register",
   setup(__props) {
     const { $t: $t2 } = State_UI;
@@ -1267,7 +1277,7 @@ var xIM = Vue.defineComponent({
     }, [Vue.createTextVNode("test")]);
   }
 });
-var _sfc_main$6 = {
+var _sfc_main$7 = {
   __name: "TestXDataGrid",
   setup(__props) {
     const {
@@ -1383,8 +1393,8 @@ const _hoisted_4$1 = /* @__PURE__ */ Vue.createTextVNode(" v-uiPopover ");
 const _hoisted_5$1 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
 const _hoisted_6$1 = /* @__PURE__ */ Vue.createTextVNode(" iframe ");
 const _hoisted_7$1 = /* @__PURE__ */ Vue.createElementVNode("div", null, null, -1);
-const _hoisted_8 = /* @__PURE__ */ Vue.createTextVNode(" popover ");
-var _sfc_main$5 = {
+const _hoisted_8$1 = /* @__PURE__ */ Vue.createTextVNode(" popover ");
+var _sfc_main$6 = {
   __name: "TestPopover",
   setup(__props) {
     const PopoverContent = Vue.defineComponent(Vue.markRaw({
@@ -1487,13 +1497,13 @@ var _sfc_main$5 = {
         id: "target2",
         onClick: handlers.openTips
       }, {
-        default: Vue.withCtx(() => [_hoisted_8]),
+        default: Vue.withCtx(() => [_hoisted_8$1]),
         _: 1
-      }, 8, ["onClick"])])]), Vue.createVNode(_sfc_main$6)], 64);
+      }, 8, ["onClick"])])]), Vue.createVNode(_sfc_main$7)], 64);
     };
   }
 };
-const _sfc_main$4 = Vue.defineComponent({
+const _sfc_main$5 = Vue.defineComponent({
   data() {
     const vm = this;
     return {
@@ -1510,23 +1520,23 @@ const _sfc_main$4 = Vue.defineComponent({
     };
   }
 });
-function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xButton = Vue.resolveComponent("xButton");
   return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, null, [
     Vue.createVNode(_component_xButton, { configs: _ctx.configs_btn }, null, 8, ["configs"]),
     (Vue.openBlock(), Vue.createBlock(Vue.resolveDynamicComponent(_ctx.currentComponent)))
   ], 64);
 }
-var TestBoundless = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4]]);
-var _sfc_main$3 = Vue.defineComponent({
+var TestBoundless = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$5]]);
+var _sfc_main$4 = Vue.defineComponent({
   components: {
-    TestPopover: _sfc_main$5,
+    TestPopover: _sfc_main$6,
     TestBoundless
   }
 });
 const _hoisted_1$2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless start", -1);
 const _hoisted_2$2 = /* @__PURE__ */ Vue.createElementVNode("div", null, "TestBoundless end", -1);
-function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_TestBoundless = Vue.resolveComponent("TestBoundless");
   const _component_TestPopover = Vue.resolveComponent("TestPopover");
   const _component_RouterView = Vue.resolveComponent("RouterView");
@@ -1540,8 +1550,8 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     Vue.createVNode(_component_RouterView)
   ], 64);
 }
-var DevDemo = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3]]);
-const _sfc_main$2 = Vue.defineComponent({
+var DevDemo = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$4]]);
+const _sfc_main$3 = Vue.defineComponent({
   data() {
     return {
       tips: "tips"
@@ -1567,12 +1577,12 @@ const _sfc_main$2 = Vue.defineComponent({
     }
   }
 });
-function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("h1", null, Vue.toDisplayString(_ctx.tips), 1);
 }
-var Webrtc = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
+var Webrtc = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$3]]);
 var DesktopIconItem_vue_vue_type_style_index_0_lang = "";
-const _sfc_main$1 = Vue.defineComponent({
+const _sfc_main$2 = Vue.defineComponent({
   name: "DesktopIconItem",
   props: {
     configs: {
@@ -1597,7 +1607,7 @@ const _sfc_main$1 = Vue.defineComponent({
 const _hoisted_1$1 = ["title"];
 const _hoisted_2$1 = { class: "desktopicon_title mb10" };
 const _hoisted_3$1 = { class: "l" };
-function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
   return Vue.openBlock(), Vue.createElementBlock("div", {
     onClick: _cache[0] || (_cache[0] = (...args) => _ctx.configs.onClick && _ctx.configs.onClick(...args)),
     class: "desktopicon",
@@ -1614,7 +1624,100 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ], 8, _hoisted_1$1);
 }
-var DesktopIconItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
+var DesktopIconItem = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$2]]);
+var _sfc_main$1 = Vue.defineComponent({
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {
+          __elId: false
+        };
+      }
+    }
+  },
+  setup() {
+    return {
+      State_App
+    };
+  },
+  data() {
+    return {
+      formItems: {
+        ...defItem({
+          itemType: "RadioGroup",
+          value: State_App.isCurrentClientMobile,
+          prop: "isCurrentClientMobile",
+          label: "\u663E\u793A\u6A21\u5F0F",
+          options: [{
+            label: "PC",
+            value: false
+          }, {
+            label: "Mobile",
+            value: true
+          }],
+          onChange(e2) {
+            Actions_App.toggleMobile(e2.target.value);
+          }
+        }),
+        ...defItem({
+          itemType: "Switch",
+          value: State_App.bgFilter,
+          prop: "bgFilter",
+          label: "\u80CC\u666F\u78E8\u7802\u5316"
+        }),
+        ...defItem({
+          itemType: "RadioGroup",
+          value: State_App.bg,
+          prop: "bg",
+          label: "\u80CC\u666F\u56FE\u7247",
+          options: [1, 2, 3, 4, 5].map((i) => {
+            const bg = "bg" + i;
+            const classString = `toolbox-background-image bg ConfigsPanel imgBox ${bg}`;
+            return {
+              label: Vue.createVNode("div", {
+                "class": classString
+              }, null),
+              value: bg
+            };
+          }),
+          onChange(e2) {
+            State_App.bg = e2.target.value;
+          }
+        })
+      }
+    };
+  },
+  watch: {
+    "formItems.bgFilter.value"(bgFilter) {
+      State_App.bgFilter = bgFilter;
+    }
+  },
+  mounted() {
+    this.options.vm = this;
+  }
+});
+var ConfigsPanel_vue_vue_type_style_index_0_lang = "";
+function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_xGap = Vue.resolveComponent("xGap");
+  const _component_xItem = Vue.resolveComponent("xItem");
+  const _component_xForm = Vue.resolveComponent("xForm");
+  return Vue.openBlock(), Vue.createBlock(_component_xForm, {
+    class: "flex vertical width100",
+    "label-style": { "min-width": "120px", width: "unset" }
+  }, {
+    default: Vue.withCtx(() => [
+      (Vue.openBlock(true), Vue.createElementBlock(Vue.Fragment, null, Vue.renderList(_ctx.formItems, (item, prop) => {
+        return Vue.openBlock(), Vue.createElementBlock(Vue.Fragment, { key: prop }, [
+          Vue.createVNode(_component_xGap, { t: "10" }),
+          Vue.createVNode(_component_xItem, { configs: item }, null, 8, ["configs"])
+        ], 64);
+      }), 128))
+    ]),
+    _: 1
+  });
+}
+var ConfigsPanel = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render$1]]);
 const $t$2 = State_UI.$t;
 var _sfc_main = Vue.defineComponent({
   components: {
@@ -1622,7 +1725,8 @@ var _sfc_main = Vue.defineComponent({
   },
   setup() {
     return {
-      State_App
+      State_App,
+      Actions_App
     };
   },
   data() {
@@ -1640,6 +1744,25 @@ var _sfc_main = Vue.defineComponent({
         }
       }
     };
+  },
+  computed: {
+    classBackground() {
+      return ["toolbox-background-image flex1 layout-desktop-container bg", this.State_App.bgFilter ? "filter" : "", this.State_App.bg].filter((i) => !!i).join(" ");
+    }
+  },
+  methods: {
+    openConfigsPanel() {
+      UI.dialog.component({
+        title: "\u8BBE\u5B9A",
+        component: ConfigsPanel,
+        area: ["480px", "360px"],
+        hideButtons: true,
+        fullscreen: State_App.isCurrentClientMobile,
+        async onOk(instance) {
+          instance.close();
+        }
+      });
+    }
   }
 });
 var ViewToolboxShell_vue_vue_type_style_index_0_lang = "";
@@ -1651,8 +1774,9 @@ const _hoisted_3 = {
 };
 const _hoisted_4 = /* @__PURE__ */ Vue.createElementVNode("span", { class: "flex1" }, null, -1);
 const _hoisted_5 = ["src"];
-const _hoisted_6 = { class: "flex" };
-const _hoisted_7 = { class: "flex1 layout-desktop-container bg4" };
+const _hoisted_6 = /* @__PURE__ */ Vue.createTextVNode(" \u6253\u5F00\u914D\u7F6E\u9762\u677F ");
+const _hoisted_7 = { class: "flex" };
+const _hoisted_8 = { class: "flex1 layout-desktop-container" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_aAvatar = Vue.resolveComponent("aAvatar");
@@ -1671,7 +1795,19 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               default: Vue.withCtx(() => [
                 Vue.createVNode(_component_aMenuItem, null, {
                   default: Vue.withCtx(() => [
-                    Vue.createElementVNode("div", _hoisted_6, [
+                    Vue.createElementVNode("div", {
+                      class: "flex",
+                      onClick: _cache[0] || (_cache[0] = (...args) => _ctx.openConfigsPanel && _ctx.openConfigsPanel(...args))
+                    }, [
+                      Vue.createVNode(_component_xIcon, { icon: "user" }),
+                      _hoisted_6
+                    ])
+                  ]),
+                  _: 1
+                }),
+                Vue.createVNode(_component_aMenuItem, null, {
+                  default: Vue.withCtx(() => [
+                    Vue.createElementVNode("div", _hoisted_7, [
                       Vue.createVNode(_component_xIcon, { icon: "user" }),
                       Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.State_App.user.email), 1)
                     ])
@@ -1682,7 +1818,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   default: Vue.withCtx(() => [
                     Vue.createElementVNode("div", {
                       class: "flex",
-                      onClick: _cache[0] || (_cache[0] = (...args) => _ctx.Actions_App.Logout && _ctx.Actions_App.Logout(...args))
+                      onClick: _cache[1] || (_cache[1] = (...args) => _ctx.Actions_App.Logout && _ctx.Actions_App.Logout(...args))
                     }, [
                       Vue.createVNode(_component_xIcon, { icon: "logout" }),
                       Vue.createTextVNode(" " + Vue.toDisplayString(_ctx.$t("logout").label), 1)
@@ -1717,11 +1853,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         Vue.createVNode(_component_xGap, { r: 10 })
       ])
     ]),
-    Vue.createElementVNode("div", _hoisted_7, [
+    Vue.createElementVNode("div", _hoisted_8, [
       Vue.createVNode(_component_DesktopIconItem, {
         configs: _ctx.desktopIconConfigs.music
       }, null, 8, ["configs"])
-    ])
+    ]),
+    Vue.createElementVNode("div", {
+      class: Vue.normalizeClass(_ctx.classBackground)
+    }, null, 2)
   ]);
 }
 var ViewToolboxShell = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
@@ -1732,7 +1871,7 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.4b35110d.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.4b35110d.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.4b35110d.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.18c58ece.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.18c58ece.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.18c58ece.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 const ALL_DEFAULT_ROUTES = _global__.reduce(
   MODULES_DEFAULT_ROUTES,
@@ -1815,27 +1954,27 @@ const routes = [
     meta: {
       title: $t$1("Music").label
     },
-    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.db9552e9.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
         path: "/music/private",
-        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
@@ -1843,7 +1982,7 @@ const routes = [
     name: "PageDashboard",
     path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.4b35110d.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
@@ -1855,15 +1994,15 @@ const routes = [
   },
   NewRoute(routeNames.webrtc, Webrtc),
   NewRoute(routeNames.devDemo, DevDemo),
-  NewRoute(routeNames.login, _sfc_main$a, {
+  NewRoute(routeNames.login, _sfc_main$b, {
     redirect: toPath(routeNames.userLogin),
     children: [
-      NewRoute(routeNames.userLogin, _sfc_main$8, {
+      NewRoute(routeNames.userLogin, _sfc_main$9, {
         meta: {
           title: $t$1("user.login.login").label
         }
       }),
-      NewRoute(routeNames.register, _sfc_main$7, {
+      NewRoute(routeNames.register, _sfc_main$8, {
         meta: {
           title: $t$1("user.login.signup").label
         }
@@ -6398,6 +6537,13 @@ const Cpt_iconSound = Vue.computed(() => {
 const Cpt_iconPlayModel = Vue.computed(() => {
   return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
 });
+const Cpt_currentSong = Vue.computed(() => {
+  return _global__.find(State_Music.playlist, {
+    id: State_Music.songId
+  }) || {
+    title: "--"
+  };
+});
 const backupPlaylist = _global__.debounce(async function(playlist) {
   playlist = JSON.parse(JSON.stringify(playlist));
   await set(STATE_MUSIC_PLAYLIST, playlist);
@@ -6434,4 +6580,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$b as _, STATIC_WORD as a, Actions_App as b, _sfc_main$5 as c, State_Music as d, API as e, formatDuring as f, Cpt_iconSound as g, preprocessRecord as p };
+export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$c as _, STATIC_WORD as a, Actions_App as b, _sfc_main$6 as c, State_Music as d, API as e, formatDuring as f, Cpt_currentSong as g, Cpt_iconSound as h, preprocessRecord as p };
