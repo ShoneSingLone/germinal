@@ -6,9 +6,7 @@
 			<div class="title">
 				{{ song.title }}
 			</div>
-			<div class="singer">
-				{{ song.index }}-{{ song.artist }}-{{ song.album }}
-			</div>
+			<div class="singer">{{ song.artist }}-{{ song.album }}</div>
 		</div>
 		<span class="flex1 mr20" />
 		<span>

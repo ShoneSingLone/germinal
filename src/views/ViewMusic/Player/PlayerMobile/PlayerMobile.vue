@@ -2,8 +2,8 @@
 	<div class="flex center ViewMusicPlayerMobile">
 		<div class="audio">
 			<MusicPlayerAudio />
-			<div class="flex center">
-				{{ currentSong.title }}
+			<div class="flex center title">
+				{{ Cpt_currentSong.title }}
 			</div>
 		</div>
 
@@ -20,7 +20,11 @@ import { defineComponent } from "vue";
 import MusicPlayerModel from "./MusicPlayerModel.vue";
 import MusicPlayerOpration from "./MusicPlayerOpration.vue";
 import MusicPlayerAudio from "./MusicPlayerAudio.vue";
-import { Actions_Music, State_Music } from "@ventose/state/State_Music";
+import {
+	Actions_Music,
+	State_Music,
+	Cpt_currentSong
+} from "@ventose/state/State_Music";
 import { _ } from "@ventose/ui";
 
 export default defineComponent({
@@ -31,21 +35,14 @@ export default defineComponent({
 	},
 	setup() {
 		Actions_Music.setVolume(100);
+		console.log(
+			"🚀 ~ file: PlayerMobile.vue ~ line 38 ~ setup ~ Cpt_currentSong",
+			Cpt_currentSong
+		);
 		return {
+			Cpt_currentSong,
 			State_Music
 		};
-	},
-	computed: {
-		currentSong() {
-			return (
-				_.find(this.State_Music.playlist, { id: this.State_Music.songId }) || {
-					title: "--"
-				}
-			);
-		}
-	},
-	async mounted() {
-		await Actions_Music.updatePersonalizedNewSong();
 	}
 });
 </script>

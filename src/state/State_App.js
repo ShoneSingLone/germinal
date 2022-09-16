@@ -6,27 +6,31 @@ import md5 from "md5";
 
 const { $t } = State_UI;
 
-export const State_App = reactive({
-	isCurrentClientMobile: false,
-	UseMockData: false,
-	theme: "light",
-	menuTree: [],
-	layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
-	/*菜单折叠*/
-	collapsed: false,
-	/*当前选择菜单*/
-	arr_selectedMenuId: [
-		/*菜单需要id，需要提供id*/
-	],
-	token: lStorage[STATIC_WORD.ACCESS_TOKEN],
-	user: false,
-	count: 0,
-	isMobile: false,
-	configs: lStorage.appConfigs || {},
-	isDev: window.__envMode === "development"
-});
+export const State_App = reactive(
+	lStorage.State_App || {
+		isCurrentClientMobile: false,
+		UseMockData: false,
+		theme: "light",
+		menuTree: [],
+		layoutStyle: { header: { height: "64px" }, sider: { width: "200px" } },
+		/*菜单折叠*/
+		collapsed: false,
+		/*当前选择菜单*/
+		arr_selectedMenuId: [
+			/*菜单需要id，需要提供id*/
+		],
+		token: "",
+		user: false,
+		count: 0,
+		isMobile: false,
+		bg: "bg1",
+		bgFilter: false,
+		configs: {}
+	}
+);
 
 (() => {
+	State_App.isDev = window.__envMode === "development";
 	function checkDeviceType() {
 		if (/Mobi|Android|iPhone/i.test(navigator?.userAgent)) {
 			return true;
@@ -51,7 +55,9 @@ export const State_App = reactive({
 	}
 	const setCurrentClientMobileValue = _.debounce(
 		function setCurrentClientMobileValue() {
-			State_App.isCurrentClientMobile = checkDeviceType();
+			/* 如果custom自定义为mobile则一直为mobile，毕竟手机改PC显示有点门槛（其实也没有） */
+			State_App.isCurrentClientMobile =
+				lStorage.isCurrentClientMobile || checkDeviceType();
 		},
 		100
 	);
@@ -109,6 +115,10 @@ watch(
 	}
 );
 
+watch(State_App, () => {
+	lStorage.State_App = State_App;
+});
+
 /* Mutation 同步修改 */
 
 export const Mutations_App = {
@@ -122,6 +132,10 @@ export const Mutations_App = {
 
 /* Action 异步修改 效果同事务 自己去保证原子性 */
 export const Actions_App = {
+	toggleMobile(value) {
+		State_App.isCurrentClientMobile = lStorage.isCurrentClientMobile =
+			_.isBoolean(value) ? value : !lStorage.isCurrentClientMobile;
+	},
 	/* 初始化App 配置信息，配置信息可以从接口或者静态配置文件获取 */
 	async initAppConfigs(callback) {
 		console.time("initAppConfigs");

@@ -28,18 +28,7 @@ import { API } from "@ventose/api";
 import FindNewMobileSongItem from "./FindNewMobileSongItem.vue";
 import { reactive } from "vue";
 import { _, defItem, UI } from "@ventose/ui";
-
-const state = reactive({
-	configs: {
-		...defItem({
-			value: "",
-			prop: "search",
-			placeholder: "标题、歌手、所属专辑",
-			allowClear: true
-		}),
-		items: []
-	}
-});
+import { state } from "./FindNewLayout.vue";
 
 export default {
 	components: {

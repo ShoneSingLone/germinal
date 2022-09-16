@@ -2,22 +2,12 @@
 	<!-- <div :style="State_App.test">
     {{ State_App.count }}
   </div> -->
-	<LayoutMusicMobile v-if="State_App.isCurrentClientMobile" />
-	<LayoutMusicPc v-else />
+	<LayoutMusicMobile v-if="State_App.isCurrentClientMobile" class="music-app" />
+	<LayoutMusicPc v-else class="music-app" />
 </template>
 <script lang="jsx">
 import { defineComponent, defineAsyncComponent } from "vue";
 import { State_App } from "@ventose/state/State_App";
-/* 
-State_App.count = 1;
-State_App.test = { position: "fixed", top: 0, "zIndex": 1 };
-setInterval(() => {
-	console.log(State_App.count++);
-	if (State_App.count > 500) {
-		State_App.count = 1;
-	}
-	State_App.test.top = `${State_App.count}px`;
-}, 30); */
 
 export default defineComponent({
 	components: {
@@ -33,3 +23,13 @@ export default defineComponent({
 	}
 });
 </script>
+
+<style lang="less">
+.music-app {
+	.title {
+		font-weight: 700;
+		text-shadow: 1px 1px rgba(7, 6, 100, 0.1);
+		margin-right: 4px;
+	}
+}
+</style>

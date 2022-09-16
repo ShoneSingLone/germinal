@@ -1,12 +1,14 @@
 <template>
-	<div class="flex vertical" style="height: 100%">
-		<xItem :configs="state.configs.search" />
+	<div class="flex1 height100 overflow-hidden flex vertical">
+		<div class="search-wrapper padding10">
+			<xItem :configs="state.configs.search" />
+		</div>
+
 		<xGap t="16" />
 		<xVirScroll
 			v-model:top="scrollTop"
 			v-model:height="wrapperHeight"
 			v-model:scrollHeight="scrollHeight"
-			style="height: 580px"
 			class="flex1"
 			:configs="state.configs">
 			<template #item="{ item }">
@@ -24,20 +26,8 @@
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 import { API } from "@ventose/api";
 import FindNewMobileSongItem from "./FindNewMobileSongItem.vue";
-import { reactive } from "vue";
-import { _, defItem, UI } from "@ventose/ui";
-
-const state = reactive({
-	configs: {
-		...defItem({
-			value: "",
-			prop: "search",
-			placeholder: "标题、歌手、所属专辑",
-			allowClear: true
-		}),
-		items: []
-	}
-});
+import { _, UI } from "@ventose/ui";
+import { state } from "./FindNewLayout.vue";
 
 export default {
 	components: {
@@ -55,8 +45,7 @@ export default {
 			wrapperHeight: 0,
 			scrollHeight: 0,
 			scrollTop: 0,
-			currentLoadingSongId: "",
-			isShowSearchBox: false
+			currentLoadingSongId: ""
 		};
 	},
 	watch: {
@@ -84,12 +73,6 @@ export default {
 			},
 			() => {
 				const search = this.state.configs.search.value;
-				console.log(
-					search,
-					this.scrollHeight,
-					this.scrollTop,
-					this.wrapperHeight
-				);
 				if (search && this.scrollHeight - this.scrollTop < this.wrapperHeight) {
 					this.setItems(search, this.state.offset);
 				}
@@ -131,8 +114,9 @@ export default {
 		async playSong(record) {
 			this.currentLoadingSongId = record.id;
 			try {
-				Actions_Music.pushSongToPlaylist(record);
-				await Actions_Music.playSongById(record.id);
+				Actions_Music.pushSongToPlaylist(this.state.configs.items, () =>
+					Actions_Music.playSongById(record.id)
+				);
 			} catch (error) {
 				console.error(error);
 			} finally {
@@ -142,22 +126,3 @@ export default {
 	}
 };
 </script>
-
-<style lang="less">
-.FindNewMobile {
-	position: relative;
-
-	.search-wrapper {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		z-index: 1;
-		transform: translateX(160px);
-		transition: all 0.3s ease-in-out;
-
-		&.show {
-			transform: translateX(0);
-		}
-	}
-}
-</style>

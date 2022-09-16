@@ -272,6 +272,16 @@ ClassLayer.pt.vessel = function (conType, callback) {
 		: "";
 
 	config.zIndex = zIndex;
+
+	const classContent = [
+		DOMS[5],
+		config.contentClass,
+		config.type == 0 && config.icon !== -1 ? "layui-layer-padding" : "",
+		config.type == 3 ? "layui-layer-loading" + config.icon : ""
+	]
+		.filter(i => !!i)
+		.join(" ");
+
 	callback(
 		[
 			//遮罩
@@ -299,9 +309,7 @@ ClassLayer.pt.vessel = function (conType, callback) {
 					  height:${config.area[1]};
 					  position:${config.fixed ? "fixed;" : "absolute;"}">
 				${conType && config.type != 2 ? "" : titleHTML}
-				<div id="${config.id || ""}" class="${DOMS[5]}${
-				config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""
-			} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` +
+				<div id="${config.id || ""}" class="${classContent}">` +
 				(config.type == 0 && config.icon !== -1
 					? '<i class="layui-layer-ico layui-layer-ico' + config.icon + '"></i>'
 					: "") +

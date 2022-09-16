@@ -1,7 +1,7 @@
 <template>
 	<span
 		ref="item"
-		class="CurrentMobileSongItem MobileSongItem elevation-1 flex flex1 horizon middle"
+		class="CurrentMobileSongItem MobileSongItem elevation-1 flex flex1 horizon middle pointer elevation"
 		:loading="loading"
 		:data-index="song.index"
 		@click="playSong">

@@ -17,19 +17,8 @@
 <script>
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 import PrivateMobileSongItem from "./PrivateMobileSongItem.vue";
-import { reactive } from "vue";
-import { _, defItem } from "@ventose/ui";
-const state = reactive({
-	configs: {
-		...defItem({
-			value: "",
-			prop: "search",
-			placeholder: "标题、歌手、所属专辑",
-			allowClear: true
-		}),
-		items: []
-	}
-});
+import { _ } from "@ventose/ui";
+import { state } from "./PrivateLayout.vue";
 
 export default {
 	components: {

@@ -62,9 +62,9 @@ const genLogo = (size, dist) => {
 				type: "image/png"
 			})),
 			start_url: "/germinal",
-			display: "fullscreen",
-			theme_color: "#B12A34",
-			background_color: "#B12A34"
+			display: "standalone",
+			theme_color: "white",
+			background_color: "white"
 		})
 	);
 
