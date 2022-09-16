@@ -110,6 +110,9 @@ div[id^="svg-icon_"] {
 .w100 {
   width: 100%;
 }
+.overflow-hidden {
+  overflow: hidden;
+}
 .x-ui-glossy {
   position: relative;
   color: #fff;
