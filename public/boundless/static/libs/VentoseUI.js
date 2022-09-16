@@ -94628,7 +94628,7 @@
 					  height:${config.area[1]};
 					  position:${config.fixed ? "fixed;" : "absolute;"}">
 				${conType && config.type != 2 ? "" : titleHTML}
-				<div id="${config.id || ""}" class="flex1 ${DOMS[5]}${
+				<div id="${config.id || ""}" class="${DOMS[5]}${
 					config.type == 0 && config.icon !== -1 ? " layui-layer-padding" : ""
 				} ${config.type == 3 ? " layui-layer-loading" + config.icon : ""}">` +
 					(config.type == 0 && config.icon !== -1
@@ -95919,7 +95919,7 @@ src="${config.content[0]}">
 	};
 	_.asyncLoadText = function (url) {
 		_.asyncLoadText.cache = (() => {
-			if (__envMode === "development") {
+			if (window.__envMode === "development") {
 				return {};
 			}
 			return _.asyncLoadText.cache || {};
@@ -99245,8 +99245,21 @@ return (${scfObjSourceCode})(argVue,argPayload);
 				default() {
 					return {};
 				}
+			},
+			top: {
+				type: Number,
+				default: 0
+			},
+			height: {
+				type: Number,
+				default: 0
+			},
+			scrollHeight: {
+				type: Number,
+				default: 0
 			}
 		},
+		emits: ["update:top", "update:height", "update:scrollHeight"],
 		setup() {
 			return {};
 		},
@@ -99270,7 +99283,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
 			virs1() {
 				const position =
 					Number(this.styleWrapper1.match(/(\d)/g).join("")) / 580;
-				console.log("virs1", position);
 				const start = position * 10;
 				const end = start + 10;
 				return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -99281,7 +99293,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
 			virs2() {
 				const position =
 					Number(this.styleWrapper2.match(/(\d)/g).join("")) / 580;
-				console.log("virs2", position);
 				const start = position * 10;
 				const end = start + 10;
 				return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -99292,7 +99303,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
 			virs3() {
 				const position =
 					Number(this.styleWrapper3.match(/(\d)/g).join("")) / 580;
-				console.log("virs3", position);
 				const start = position * 10;
 				const end = start + 10;
 				return this.allItems.slice(start, end).map((i2, index2) => ({
@@ -99328,20 +99338,60 @@ return (${scfObjSourceCode})(argVue,argPayload);
 				return `transform:translateY(${this.blockCount * 580}px)`;
 			}
 		},
+		watch: {
+			top() {
+				this.setTop();
+			},
+			"allItems.length": {
+				immediate: true,
+				handler() {
+					this.updateTop();
+					this.setHeight();
+				}
+			}
+		},
+		updated() {
+			var _a, _b;
+			const height = (_a = this.$wrapperEle) == null ? void 0 : _a.height();
+			if (height !== this.height) {
+				this.$emit(
+					"update:height",
+					((_b = this.$wrapperEle) == null ? void 0 : _b.height()) || 0
+				);
+			}
+		},
 		mounted() {
-			const vm = this;
-			vm.styleWrapperAll.height = `${this.allItems.length * itemHeight}px`;
-			vm.$wrapperEle = _global_$(vm.$refs.refWrapper);
-			vm.$wrapperEle.on("scroll", function (event) {
-				const top = vm.$refs.refWrapper.scrollTop;
-				vm.blockCount = Math.floor(top / oneBlockHeight);
-				console.log("blockCount", vm.blockCount, "\u{1F680} top", top);
-			});
+			this.init();
 		},
 		beforeUnmount() {
 			this.$wrapperEle.off("scroll");
 		},
-		methods: {}
+		methods: {
+			setTop: _global__.debounce(function () {
+				if (this.$refs.refWrapper) {
+					this.$refs.refWrapper.scrollTo({
+						top: this.top,
+						behavior: "smooth"
+					});
+				}
+			}, 1e3),
+			init() {
+				this.$wrapperEle = _global_$(this.$refs.refWrapper);
+				this.$wrapperEle.on("scroll", () => this.updateTop());
+			},
+			updateTop(event) {
+				if (this.$refs.refWrapper) {
+					const top = this.$refs.refWrapper.scrollTop;
+					this.blockCount = Math.floor(top / oneBlockHeight);
+					this.$emit("update:top", top);
+				}
+			},
+			setHeight() {
+				const height = this.allItems.length * itemHeight;
+				this.styleWrapperAll.height = `${height}px`;
+				this.$emit("update:scrollHeight", height);
+			}
+		}
 	});
 	const _hoisted_1 = {
 		ref: "refWrapper",
@@ -99744,6 +99794,28 @@ return (${scfObjSourceCode})(argVue,argPayload);
 			});
 		};
 	};
+	layer.loading = function (indexDelete) {
+		this.loading.count = this.loading.count || 1;
+		this.loading.deep = this.loading.deep || /* @__PURE__ */ new Set();
+		$("body").trigger("click");
+		if (indexDelete >= 0) {
+			if (this.loading.deep.has(indexDelete)) {
+				this.loading.deep.delete(indexDelete);
+				if (this.loading.deep.size === 0) {
+					layer.close(this.loading.index);
+				}
+			} else {
+				console.error("loading", indexDelete);
+			}
+		} else {
+			let indexAdd = this.loading.count++;
+			if (this.loading.deep.size === 0) {
+				this.loading.index = layer.load(1);
+			}
+			this.loading.deep.add(indexAdd);
+			return indexAdd;
+		}
+	};
 	const UI = {
 		dialog: {
 			component: async options => null,
@@ -99870,10 +99942,6 @@ return (${scfObjSourceCode})(argVue,argPayload);
 				} else {
 					_global__.doNothing(name2, `miss name`);
 				}
-				console.log(
-					"\u{1F680} ~ file: index.tsx ~ line 121 ~ mylodash.each ~ component.name",
-					component.name
-				);
 				app.component(component.name || name2, component);
 			});
 			app.use(Antd);
