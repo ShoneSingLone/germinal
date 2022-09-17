@@ -26,9 +26,9 @@
 import { Actions_Music, State_Music } from "@ventose/state/State_Music";
 import { API } from "@ventose/api";
 import FindNewMobileSongItem from "./FindNewMobileSongItem.vue";
-import { reactive } from "vue";
-import { _, defItem, UI } from "@ventose/ui";
+import { _, UI } from "@ventose/ui";
 import { state } from "./FindNewLayout.vue";
+import { preprocessRecord } from "@ventose/utils/common";
 
 export default {
 	components: {
@@ -97,7 +97,7 @@ export default {
 						this.state.songCount = result.songCount;
 						this.state.configs.items = _.concat(
 							this.state.configs.items,
-							result?.songs || []
+							preprocessRecord(result?.songs || [])
 						);
 						++this.state.offset;
 						return;
@@ -108,7 +108,9 @@ export default {
 					UI.layer.loading(index);
 				}
 			} else {
-				this.state.configs.items = this.State_Music.personalizedNewSong;
+				this.state.configs.items = preprocessRecord(
+					this.State_Music.personalizedNewSong
+				);
 				return;
 			}
 		}, 1000),
@@ -127,9 +129,3 @@ export default {
 	}
 };
 </script>
-
-<style lang="less">
-.FindNewMobile {
-	position: relative;
-}
-</style>
