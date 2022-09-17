@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { Actions_Music, State_Music } from "@ventose/state/State_Music";
+import { State_Music } from "@ventose/state/State_Music";
 import CurrentMobileSongItem from "./CurrentMobileSongItem.vue";
 import { _ } from "@ventose/ui";
 import { state, btnClear } from "./CurrentLayout.vue";
@@ -37,39 +37,7 @@ export default {
 			currentLoadingSongId: ""
 		};
 	},
-	watch: {
-		"state.configs.search.value": {
-			immediate: true,
-			handler(search) {
-				this.setItems(search);
-			}
-		}
-	},
-	methods: {
-		setItems: _.debounce(function (search) {
-			let allItems = this.State_Music.playlist;
-			if (search) {
-				allItems = _.filter(allItems, record => {
-					const isOk = prop => String(record[prop]).includes(search);
-					return isOk("title") || isOk("artist") || isOk("album");
-				});
-			}
-
-			this.state.configs.items = allItems;
-		}, 600),
-		async playSong(record) {
-			this.currentLoadingSongId = record.id;
-			try {
-				Actions_Music.pushSongToPlaylist(this.state.configs.items, () =>
-					Actions_Music.playSongById(record.id)
-				);
-			} catch (error) {
-				console.error(error);
-			} finally {
-				this.currentLoadingSongId = false;
-			}
-		}
-	}
+	methods: {}
 };
 </script>
 

@@ -11,7 +11,8 @@
 			<template #item="{ item }">
 				<PrivateMobileSongItem
 					:song="item"
-					:loading="currentLoadingSongId === item.id" />
+					:loading="currentLoadingSongId === item.id"
+					@click="playSong(item)" />
 			</template>
 		</xVirScroll>
 	</div>

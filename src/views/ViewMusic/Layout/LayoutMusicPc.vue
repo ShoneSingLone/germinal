@@ -12,7 +12,12 @@
 			</AMenu>
 		</ALayoutSider>
 		<ALayout style="height: 100vh" class="flex vertical">
-			<ALayoutHeader style="background: #fff; padding: 0" class="elevation-1">
+			<ALayoutHeader
+				style="background: #fff; padding: 0"
+				class="elevation-1 flex middle">
+				<xButton :configs="{ onClick: goHome }" style="margin-left: 16px">
+					<xIcon icon="gohome" />
+				</xButton>
 				<!-- <a-breadcrumb style="margin: 16px 0"> <a-breadcrumb-item>User</a-breadcrumb-item> <a-breadcrumb-item>Bill</a-breadcrumb-item> </a-breadcrumb> -->
 			</ALayoutHeader>
 			<main class="ant-layout-content elevation-1 flex1" style="margin: 16px">
@@ -21,7 +26,7 @@
 						height: 100%;
 						padding: 24px;
 						background: rgb(255, 255, 255);
-						overflow: auto;
+						overflow: hidden;
 					">
 					<RouterView />
 				</div>
@@ -38,6 +43,7 @@
 import { defineComponent, ref } from "vue";
 import MusicPlayer from "@ventose/views/ViewMusic/Player/MusicPlayer.vue";
 import { State_Music } from "@ventose/state/State_Music";
+import { goHome } from "@ventose/router/router";
 
 export default defineComponent({
 	components: {
@@ -45,7 +51,8 @@ export default defineComponent({
 	},
 	setup() {
 		return {
-			State_Music
+			State_Music,
+			goHome
 		};
 	},
 	data() {
@@ -67,6 +74,11 @@ export default defineComponent({
 #ViewMusic {
 	.site-layout .site-layout-background {
 		background: #fff;
+	}
+
+	[aria-label="gohome"] {
+		display: inline-block;
+		width: 16px;
 	}
 
 	.ant-layout-sider {

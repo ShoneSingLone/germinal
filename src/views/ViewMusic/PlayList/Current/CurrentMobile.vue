@@ -15,9 +15,8 @@
 </template>
 
 <script>
-import { State_Music, Actions_Music } from "@ventose/state/State_Music";
+import { State_Music } from "@ventose/state/State_Music";
 import CurrentMobileSongItem from "./CurrentMobileSongItem.vue";
-import { preprocessRecord } from "@ventose/utils/common";
 import { _ } from "@ventose/ui";
 import { state, btnClear } from "./CurrentLayout.vue";
 
@@ -29,42 +28,18 @@ export default {
 		return {
 			state,
 			btnClear,
+
 			State_Music
 		};
 	},
 	data() {
-		const vm = this;
 		return {
 			currentLoadingSongId: ""
 		};
 	},
-	watch: {
-		"State_Music.playlist.length": {
-			immediate: true,
-			handler(length) {
-				this.setItems(this.state.configs.search.value);
-			}
-		},
-		"state.configs.search.value": {
-			immediate: true,
-			handler(search) {
-				this.setItems(search);
-			}
-		}
-	},
+	watch: {},
 	mounted() {},
-	methods: {
-		setItems: _.debounce(function (search) {
-			let allItems = _.map(this.State_Music.playlist, preprocessRecord);
-			if (search) {
-				allItems = _.filter(allItems, record => {
-					const isOk = prop => String(record[prop]).includes(search);
-					return isOk("title") || isOk("artist") || isOk("album");
-				});
-			}
-			this.state.configs.items = allItems;
-		}, 600)
-	}
+	methods: {}
 };
 </script>
 

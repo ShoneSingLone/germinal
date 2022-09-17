@@ -34,7 +34,7 @@ function module() {
 		menu: {
 			locale: true
 		},
-		title: "AntDesignVue-Pro",
+		title: "Toolbox",
 		pwa: false,
 		iconfontUrl: ""
 	};

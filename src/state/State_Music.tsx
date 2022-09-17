@@ -1,9 +1,10 @@
 import { API } from "@ventose/api";
 import { reactive, watch, computed, onMounted } from "vue";
-import { _, lStorage, setDocumentTitle } from "@ventose/ui";
-import { get, set } from "idb-keyval";
+import { _, lStorage, setDocumentTitle, UI } from "@ventose/ui";
+import { get, set, delMany } from "idb-keyval";
 import { State_App } from "@ventose/state/State_App";
 import axios from "axios";
+import { preprocessRecord } from "@ventose/utils/common";
 
 export const State_Music = reactive({
 	/* 每缓存成功一次音频，数值自增，作为可观察数据，响应式更新缓存数据列表 */
@@ -115,11 +116,6 @@ const cacheAudioBlob = async (records, url) => {
 			responseType: "blob"
 		});
 		if (!res || !res.data) return;
-		if (records.song) {
-			records.title = records.name;
-			records.artists = records.song.artists[0].name;
-			records.album = records.song.album.name;
-		}
 		const audioInfo = {
 			records: JSON.parse(JSON.stringify(records)),
 			blob: res.data
@@ -142,9 +138,14 @@ export const Actions_Music = {
 	},
 	addSongToPlaylist(song) {
 		if (!State_Music.playlistIdSet.has(song.id)) {
+			song = preprocessRecord(song);
 			State_Music.playlist.push(song);
 			State_Music.playlistIdSet.add(song.id);
 		}
+	},
+	async delCached(keys) {
+		await delMany(_.isArray(keys) ? keys : [keys]);
+		State_Music.cacheAudioCount++;
 	},
 	clearPlaylist() {
 		State_Music.playlist = [];
@@ -233,7 +234,6 @@ export const Actions_Music = {
 		}
 	},
 	pushSongToPlaylist: _.debounce(function (newSong, fnDone) {
-		console.time("pushSongToPlaylist");
 		if (_.isArray(newSong)) {
 			_.each(newSong, Actions_Music.addSongToPlaylist);
 		} else {
@@ -259,7 +259,12 @@ export const Actions_Music = {
 			return;
 		}
 		let record = _.find(State_Music.playlist, { id });
-
+		if (!record) {
+			UI.notification.error("no song info");
+			throw new Error("no song info");
+		}
+		record = preprocessRecord(record);
+		State_Music.song = record;
 		let audioSrc;
 		const audioInfo = await get(`audio_${id}`);
 		if (audioInfo) {
@@ -295,7 +300,7 @@ export const Actions_Music = {
 
 		Actions_Music.stopSong();
 		if (record) {
-			setDocumentTitle(record.name);
+			setDocumentTitle(`${record.title}-${record.artist}`);
 		}
 		State_Music.audio.load();
 		await canPlay();
@@ -322,6 +327,9 @@ export const Cpt_iconPlayModel = computed(() => {
 	return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
 });
 export const Cpt_currentSong = computed(() => {
+	if (State_Music.song?.title) {
+		return State_Music.song;
+	}
 	return (
 		_.find(State_Music.playlist, { id: State_Music.songId }) || {
 			title: "--"

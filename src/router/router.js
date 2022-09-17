@@ -46,7 +46,7 @@ const routes = [
 	{
 		name: "ViewMusic",
 		path: "/music",
-		redirect: "/music/new",
+		redirect: "/music/cached",
 		meta: {
 			title: $t("Music").label
 		},
@@ -127,6 +127,10 @@ export const router = createRouter({
 	history: createWebHashHistory(),
 	routes
 });
+
+export const goHome = () => {
+	router.push({ path: "/" });
+};
 
 const allowVisitPageWhenNoAccess = [
 	routeNames.devDemo,

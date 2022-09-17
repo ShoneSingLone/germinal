@@ -5,7 +5,8 @@
 <script lang="jsx">
 import { defineComponent, defineAsyncComponent, reactive } from "vue";
 import { State_App } from "@ventose/state/State_App";
-import { defItem } from "@ventose/ui";
+import { Actions_Music } from "@ventose/state/State_Music";
+import { defItem, _ } from "@ventose/ui";
 
 export const state = reactive({
 	configs: {
@@ -18,6 +19,15 @@ export const state = reactive({
 		items: []
 	}
 });
+
+export const btnClear = {
+	text: "移除所有",
+	async onClick() {
+		await Actions_Music.delCached(
+			_.map(state.configs.items, i => `audio_${i.id}`)
+		);
+	}
+};
 
 export default defineComponent({
 	components: {
