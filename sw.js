@@ -48,7 +48,7 @@ const contentToCache = [
   "./statics/assets/logo3.a354024b.png",
   "./statics/assets/logo2.f9552052.jpg",
   "./statics/assets/loading-0.07236f68.gif",
-  "./statics/assets/index.18c58ece.css",
+  "./statics/assets/index.5a8a9b62.css",
   "./statics/assets/icon.99942159.png",
   "./statics/assets/icon-ext.e2e7a838.png",
   "./statics/assets/bg5.c95becde.jpg",
@@ -63,13 +63,13 @@ const contentToCache = [
   "./statics/assets/PlayerMobile.0be9359c.css",
   "./statics/assets/MusicPlayer.a8215aec.css",
   "./statics/assets/LoginContainer.3ebe9e70.css",
-  "./statics/assets/LayoutMusicPc.8bcd892b.css",
-  "./statics/assets/LayoutMusicMobile.1b7c2feb.css",
+  "./statics/assets/LayoutMusicPc.06551fe4.css",
+  "./statics/assets/LayoutMusicMobile.ed216530.css",
   "./statics/assets/LayoutMusic.db9552e9.css",
   "./statics/assets/LayoutBasic.8c490128.css",
   "./statics/assets/GroupList.ebf21596.css",
   "./statics/assets/Group.a18abc63.css",
-  "./statics/assets/FindNewMobileSongItem.6d177723.css",
+  "./statics/assets/FindNewMobileSongItem.4da48bd9.css",
   "./statics/assets/FindNewMobile.75edacf2.css",
   "./statics/assets/CurrentMobileSongItem.5c71672e.css",
   "./statics/assets/CachedMobileSongItem.0ed29712.css",
@@ -131,6 +131,7 @@ const contentToCache = [
   "./assets/svg/mail.svg",
   "./assets/svg/logout.svg",
   "./assets/svg/lockStrok.svg",
+  "./assets/svg/home.svg",
   "./assets/svg/gohome.svg",
   "./assets/svg/github.svg",
   "./assets/svg/follow.svg",
@@ -154,7 +155,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1663347755439");
+			const cache = await caches.open("1663432537660");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -173,7 +174,7 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1663347755439");
+				const cache = await caches.open("1663432537660");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;

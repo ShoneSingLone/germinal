@@ -16,8 +16,8 @@ const state = Vue.reactive({
 });
 var _sfc_main = Vue.defineComponent({
   components: {
-    PrivateMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivateMobile.js"), true ? ["statics/js/PrivateMobile.js","statics/assets/PrivateMobile.4b0db1a0.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/PrivateMobileSongItem.js","statics/assets/PrivateMobileSongItem.040cbe64.css"] : void 0)),
-    PrivatePc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivatePc.js"), true ? ["statics/js/PrivatePc.js","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/PrivateMobileSongItem.js","statics/assets/PrivateMobileSongItem.040cbe64.css"] : void 0))
+    PrivateMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivateMobile.js"), true ? ["statics/js/PrivateMobile.js","statics/assets/PrivateMobile.4b0db1a0.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/PrivateMobileSongItem.js","statics/assets/PrivateMobileSongItem.040cbe64.css"] : void 0)),
+    PrivatePc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PrivatePc.js"), true ? ["statics/js/PrivatePc.js","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/PrivateMobileSongItem.js","statics/assets/PrivateMobileSongItem.040cbe64.css"] : void 0))
   },
   setup() {
     return {

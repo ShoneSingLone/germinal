@@ -1,5 +1,5 @@
 import { M as MusicPlayer } from "./MusicPlayer.js";
-import { d as State_Music } from "./main.js";
+import { a as State_Music, g as goHome } from "./main.js";
 import { d as _export_sfc } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -10,7 +10,8 @@ var _sfc_main = Vue.defineComponent({
   },
   setup() {
     return {
-      State_Music
+      State_Music,
+      goHome
     };
   },
   data() {
@@ -35,12 +36,13 @@ const _hoisted_2 = {
   class: "ant-layout-content elevation-1 flex1",
   style: { "margin": "16px" }
 };
-const _hoisted_3 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "overflow": "auto" } };
+const _hoisted_3 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "overflow": "hidden" } };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_AMenuItem = Vue.resolveComponent("AMenuItem");
   const _component_AMenu = Vue.resolveComponent("AMenu");
   const _component_ALayoutSider = Vue.resolveComponent("ALayoutSider");
+  const _component_xButton = Vue.resolveComponent("xButton");
   const _component_ALayoutHeader = Vue.resolveComponent("ALayoutHeader");
   const _component_RouterView = Vue.resolveComponent("RouterView");
   const _component_MusicPlayer = Vue.resolveComponent("MusicPlayer");
@@ -89,7 +91,20 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         default: Vue.withCtx(() => [
           Vue.createVNode(_component_ALayoutHeader, {
             style: { "background": "#fff", "padding": "0" },
-            class: "elevation-1"
+            class: "elevation-1 flex middle"
+          }, {
+            default: Vue.withCtx(() => [
+              Vue.createVNode(_component_xButton, {
+                configs: { onClick: _ctx.goHome },
+                style: { "margin-left": "16px" }
+              }, {
+                default: Vue.withCtx(() => [
+                  Vue.createVNode(_component_xIcon, { icon: "gohome" })
+                ]),
+                _: 1
+              }, 8, ["configs"])
+            ]),
+            _: 1
           }),
           Vue.createElementVNode("main", _hoisted_2, [
             Vue.createElementVNode("div", _hoisted_3, [

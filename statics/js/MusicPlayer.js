@@ -2,8 +2,8 @@ import { b as __vitePreload, d as _export_sfc } from "./index.js";
 import { S as State_App } from "./main.js";
 var _sfc_main = Vue.defineComponent({
   components: {
-    PlayerMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerMobile.js"), true ? ["statics/js/PlayerMobile.js","statics/assets/PlayerMobile.0be9359c.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
-    PlayerPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerPc.js"), true ? ["statics/js/PlayerPc.js","statics/assets/PlayerPc.a0acd839.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
+    PlayerMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerMobile.js"), true ? ["statics/js/PlayerMobile.js","statics/assets/PlayerMobile.0be9359c.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)),
+    PlayerPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./PlayerPc.js"), true ? ["statics/js/PlayerPc.js","statics/assets/PlayerPc.a0acd839.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0))
   },
   setup() {
     return {

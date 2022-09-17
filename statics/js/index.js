@@ -64490,6 +64490,12 @@ function del(key2, customStore = defaultGetStore()) {
     return promisifyRequest(store.transaction);
   });
 }
+function delMany(keys2, customStore = defaultGetStore()) {
+  return customStore("readwrite", (store) => {
+    keys2.forEach((key2) => store.delete(key2));
+    return promisifyRequest(store.transaction);
+  });
+}
 function clear(customStore = defaultGetStore()) {
   return customStore("readwrite", (store) => {
     store.clear();
@@ -67002,4 +67008,4 @@ const VentoseUIWithInstall = {
     app.use(Antd);
   }
 };
-export { AntdIcon as A, Button as B, del as C, Dropdown$1 as D, EVENT_TYPE as E, J, Menu as M, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, _global_$ as a, __vitePreload as b, setDocumentTitle as c, _export_sfc as d, defItem as e, AllWasWell as f, defDataGridOption as g, defPagination as h, defCol as i, Spin as j, dayjs as k, lStorage as l, get as m, ne as n, set as o, clear as p, q, AutoComplete$1 as r, setCSSVariables as s, te as t, defColActions as u, validateForm as v, defColActionsBtnlist as w, Modal as x, keys as y, getMany as z };
+export { AntdIcon as A, Button as B, getMany as C, Dropdown$1 as D, EVENT_TYPE as E, del as F, J, Menu as M, State_UI as S, UI as U, VentoseUIWithInstall as V, X, _global__ as _, _global_$ as a, __vitePreload as b, setDocumentTitle as c, _export_sfc as d, defItem as e, AllWasWell as f, defDataGridOption as g, defPagination as h, defCol as i, Spin as j, dayjs as k, lStorage as l, get as m, ne as n, set as o, delMany as p, q, clear as r, setCSSVariables as s, te as t, AutoComplete$1 as u, validateForm as v, defColActions as w, defColActionsBtnlist as x, Modal as y, keys as z };

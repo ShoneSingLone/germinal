@@ -1,4 +1,4 @@
-import { c as _sfc_main$1 } from "./main.js";
+import { d as _sfc_main$1 } from "./main.js";
 import "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";

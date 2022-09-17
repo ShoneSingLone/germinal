@@ -1,35 +1,14 @@
 import { d as _export_sfc } from "./index.js";
 var _sfc_main = {
   props: ["song", "loading", "isShowImg"],
-  setup() {
+  setup(props) {
+    console.log(props.song);
     return {};
   },
   data() {
     return {};
   },
   computed: {
-    songSub() {
-      var _a, _b;
-      let {
-        index,
-        song,
-        album,
-        artists,
-        name
-      } = this.song;
-      if (album && artists) {
-        return `${index}-${(_a = artists[0]) == null ? void 0 : _a.name}-${album == null ? void 0 : album.name}`;
-      }
-      if (song) {
-        let {
-          album: album2,
-          artists: artists2,
-          name: name2
-        } = song;
-        return `${index}-${(_b = artists2[0]) == null ? void 0 : _b.name}-${album2 == null ? void 0 : album2.name}`;
-      }
-      return "";
-    },
     styleBtn() {
       var _a;
       if (this.isShowImg) {
@@ -57,10 +36,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     loading: $props.loading
   }, {
     default: Vue.withCtx(() => {
-      var _a, _b;
+      var _a;
       return [
-        Vue.createElementVNode("div", _hoisted_1, Vue.toDisplayString(((_a = $props.song) == null ? void 0 : _a.name) || ((_b = $props.song) == null ? void 0 : _b.title)), 1),
-        Vue.createElementVNode("div", _hoisted_2, Vue.toDisplayString($options.songSub), 1)
+        Vue.createElementVNode("div", _hoisted_1, Vue.toDisplayString((_a = $props.song) == null ? void 0 : _a.title), 1),
+        Vue.createElementVNode("span", _hoisted_2, Vue.toDisplayString($props.song.index) + "- " + Vue.toDisplayString($props.song.artist) + "-" + Vue.toDisplayString($props.song.album), 1)
       ];
     }),
     _: 1

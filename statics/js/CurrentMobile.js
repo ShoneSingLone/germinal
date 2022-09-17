@@ -1,6 +1,6 @@
-import { d as State_Music, p as preprocessRecord } from "./main.js";
+import { a as State_Music } from "./main.js";
 import { C as CurrentMobileSongItem } from "./CurrentMobileSongItem.js";
-import { d as _export_sfc, _ as _global__ } from "./index.js";
+import { d as _export_sfc } from "./index.js";
 import { state, btnClear } from "./CurrentLayout.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -21,34 +21,10 @@ const _sfc_main = {
       currentLoadingSongId: ""
     };
   },
-  watch: {
-    "State_Music.playlist.length": {
-      immediate: true,
-      handler(length) {
-        this.setItems(this.state.configs.search.value);
-      }
-    },
-    "state.configs.search.value": {
-      immediate: true,
-      handler(search) {
-        this.setItems(search);
-      }
-    }
-  },
+  watch: {},
   mounted() {
   },
-  methods: {
-    setItems: _global__.debounce(function(search) {
-      let allItems = _global__.map(this.State_Music.playlist, preprocessRecord);
-      if (search) {
-        allItems = _global__.filter(allItems, (record) => {
-          const isOk = (prop) => String(record[prop]).includes(search);
-          return isOk("title") || isOk("artist") || isOk("album");
-        });
-      }
-      this.state.configs.items = allItems;
-    }, 600)
-  }
+  methods: {}
 };
 const _hoisted_1 = {
   class: "flex1 height100 overflow-hidden flex vertical",

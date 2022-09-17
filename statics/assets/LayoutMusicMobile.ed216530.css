@@ -8,13 +8,18 @@
   border-radius: 4px;
 }
 #ViewMusic .top-nav [aria-label="gohome"] {
-  width: 32px;
   margin-left: 4px;
 }
 #ViewMusic .play-list-wrapper {
   overflow: auto;
   overflow-x: hidden;
   height: 90%;
+}
+#ViewMusic .ant-btn-link.elevation {
+  border-radius: 50%;
+}
+#ViewMusic .ant-btn-link.elevation span {
+  transform: scale(1.2);
 }
 #ViewMusic .MobileSongItem div {
   overflow: hidden;

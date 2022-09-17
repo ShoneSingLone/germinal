@@ -1,6 +1,10 @@
 #ViewMusic .site-layout .site-layout-background {
   background: #fff;
 }
+#ViewMusic [aria-label="gohome"] {
+  display: inline-block;
+  width: 16px;
+}
 #ViewMusic .ant-layout-sider {
   position: relative;
   min-width: 0;

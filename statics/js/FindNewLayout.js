@@ -26,8 +26,8 @@ const state = Vue.reactive({
 });
 var _sfc_main = Vue.defineComponent({
   components: {
-    FindNewMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewMobile.js"), true ? ["statics/js/FindNewMobile.js","statics/assets/FindNewMobile.75edacf2.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.6d177723.css"] : void 0)),
-    FindNewPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewPc.js"), true ? ["statics/js/FindNewPc.js","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.6d177723.css"] : void 0))
+    FindNewMobile: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewMobile.js"), true ? ["statics/js/FindNewMobile.js","statics/assets/FindNewMobile.75edacf2.css","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.4da48bd9.css"] : void 0)),
+    FindNewPc: Vue.defineAsyncComponent(() => __vitePreload(() => import("./FindNewPc.js"), true ? ["statics/js/FindNewPc.js","statics/js/main.js","statics/assets/main.cf820984.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js","statics/js/FindNewMobileSongItem.js","statics/assets/FindNewMobileSongItem.4da48bd9.css"] : void 0))
   },
   setup() {
     return {

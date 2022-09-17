@@ -1,4 +1,4 @@
-import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, a as _global_$, s as setCSSVariables, S as State_UI, b as __vitePreload, c as setDocumentTitle, d as _export_sfc, e as defItem, E as EVENT_TYPE, v as validateForm, f as AllWasWell, g as defDataGridOption, h as defPagination, i as defCol, J, M as Menu, t as te, n as ne, B as Button, D as Dropdown, X, j as Spin, q, k as dayjs, V as VentoseUIWithInstall, m as get, o as set, p as clear } from "./index.js";
+import { A as AntdIcon, l as lStorage, _ as _global__, U as UI, a as _global_$, s as setCSSVariables, S as State_UI, b as __vitePreload, c as setDocumentTitle, d as _export_sfc, e as defItem, E as EVENT_TYPE, v as validateForm, f as AllWasWell, g as defDataGridOption, h as defPagination, i as defCol, J, M as Menu, t as te, n as ne, B as Button, D as Dropdown, X, j as Spin, q, k as dayjs, V as VentoseUIWithInstall, m as get, o as set, p as delMany, r as clear } from "./index.js";
 import { F as FormRules } from "./FormRules.js";
 import { U as UserOutlined, L as LockOutlined, M as MailOutlined } from "./UserOutlined.js";
 import { p as pickValueFrom } from "./form.js";
@@ -650,7 +650,7 @@ const _sfc_main$d = Vue.defineComponent({
     this.isLoading = false;
   }
 });
-const _hoisted_1$8 = /* @__PURE__ */ Vue.createTextVNode(" Loading...");
+const _hoisted_1$8 = /* @__PURE__ */ Vue.createTextVNode(" Loading... ");
 function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_aSpin = Vue.resolveComponent("aSpin");
   const _component_RouterView = Vue.resolveComponent("RouterView");
@@ -1871,7 +1871,7 @@ const routeNames$1 = {
 const toPath$1 = (name) => `/${name}`;
 const NewRoute$1 = (name, component, options = {}) => _global__.merge({ name, path: `/${name}`, component }, options);
 const menuTree = [];
-const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.18c58ece.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.18c58ece.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.18c58ece.css"]) : null };
+const MODULES_DEFAULT_ROUTES = { "../views/modules/demo/ViewTestDataGrid.vue": () => true ? __vitePreload(() => import("./ViewTestDataGrid.js"), ["statics/js/ViewTestDataGrid.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/ViewTestFormItem.js"]) : null, "../views/modules/demo/ViewTestFormItem.vue": () => true ? __vitePreload(() => import("./ViewTestFormItem.js"), ["statics/js/ViewTestFormItem.js","statics/js/index.js","statics/assets/index.5a8a9b62.css"]) : null, "../views/modules/dashboard/workplace/ViewWorkplace.vue": () => true ? __vitePreload(() => import("./ViewWorkplace.js"), ["statics/js/ViewWorkplace.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/index.vue": () => true ? __vitePreload(() => import("./index2.js"), ["statics/js/index2.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/ViewD.vue": () => true ? __vitePreload(() => import("./ViewD.js"), ["statics/js/ViewD.js","statics/js/index.js","statics/assets/index.5a8a9b62.css"]) : null, "../views/modules/dashboard/workplace/workplace/B/index.vue": () => true ? __vitePreload(() => import("./index3.js"), ["statics/js/index3.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/ViewF.jsx": () => true ? __vitePreload(() => import("./ViewF.js"), []) : null, "../views/modules/dashboard/workplace/workplace/B/C/index.vue": () => true ? __vitePreload(() => import("./index4.js"), ["statics/js/index4.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"]) : null, "../views/modules/dashboard/workplace/workplace/B/C/E/ViewIndex.vue": () => true ? __vitePreload(() => import("./ViewIndex.js"), ["statics/js/ViewIndex.js","statics/js/index.js","statics/assets/index.5a8a9b62.css"]) : null };
 _global__.doNothing("MODULES_DEFAULT_ROUTES", MODULES_DEFAULT_ROUTES);
 const ALL_DEFAULT_ROUTES = _global__.reduce(
   MODULES_DEFAULT_ROUTES,
@@ -1950,31 +1950,31 @@ const routes = [
   {
     name: "ViewMusic",
     path: "/music",
-    redirect: "/music/new",
+    redirect: "/music/cached",
     meta: {
       title: $t$1("Music").label
     },
-    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.db9552e9.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutMusic.js"), true ? ["statics/js/LayoutMusic.js","statics/assets/LayoutMusic.db9552e9.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: "new",
         path: "/music/new",
-        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./FindNewLayout.js"), true ? ["statics/js/FindNewLayout.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "playlist",
         path: "/music/playlist",
-        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CurrentLayout.js"), true ? ["statics/js/CurrentLayout.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "private",
         path: "/music/private",
-        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./PrivateLayout.js"), true ? ["statics/js/PrivateLayout.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       },
       {
         name: "cached",
         path: "/music/cached",
-        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
+        component: () => __vitePreload(() => import("./CachedLayout.js"), true ? ["statics/js/CachedLayout.js","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/FormRules.js","statics/js/UserOutlined.js","statics/js/form.js"] : void 0)
       }
     ]
   },
@@ -1982,7 +1982,7 @@ const routes = [
     name: "PageDashboard",
     path: "/dashboard",
     redirect: "/dashboard-workplace",
-    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.18c58ece.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
+    component: () => __vitePreload(() => import("./LayoutBasic.js"), true ? ["statics/js/LayoutBasic.js","statics/assets/LayoutBasic.8c490128.css","statics/js/index.js","statics/assets/index.5a8a9b62.css","statics/js/UserOutlined.js","statics/js/FormRules.js","statics/js/form.js"] : void 0),
     children: [
       {
         name: routeNames.dashboardWorkplace,
@@ -2019,6 +2019,9 @@ const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
   routes
 });
+const goHome = () => {
+  router.push({ path: "/" });
+};
 const allowVisitPageWhenNoAccess = [
   routeNames.devDemo,
   routeNames.login,
@@ -2078,7 +2081,8 @@ var router$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   __proto__: null,
   NewRoute,
   routeNames,
-  router
+  router,
+  goHome
 }, Symbol.toStringTag, { value: "Module" }));
 const re = () => ({ prefixCls: String, disabled: Boolean, tabindex: [Number, String], name: String, id: String, style: { type: Object, default: void 0 }, class: String, checked: Boolean, indeterminate: Boolean, ariaLabel: String }), le = () => ({ ignoreCellKey: Boolean, showHeaderScrollbar: Boolean, prefixCls: { type: String, default: "surely-table" }, columnDrag: { type: Boolean, default: false }, animateRows: { type: Boolean, default: true }, dropdownPrefixCls: { type: String, default: "ant-dropdown" }, columns: { type: Array, default: void 0 }, dataSource: { type: Array, default: () => [] }, virtual: { type: Boolean, default: void 0 }, xVirtual: { type: Boolean, default: void 0 }, rowHeight: { type: [Number, Function], default: void 0 }, autoHeaderHeight: { type: Boolean, default: false }, headerHeight: { type: [Number, Array] }, height: { type: [Number, String] }, maxHeight: { type: [Number, String] }, size: { type: String, default: "default" }, bordered: { type: Boolean, default: false }, wrapText: { type: Boolean, default: false }, loading: { type: [Boolean, Object], default: false }, pagination: { type: [Boolean, Object], default: void 0 }, direction: { type: String, default: void 0 }, stripe: { type: Boolean, default: false }, rowClassName: { type: [String, Function], default: void 0 }, sticky: { type: [Boolean, Object], default: false }, selectedRowKeys: { type: Array, default: void 0 }, expandFixed: { type: [Boolean, String], default: void 0 }, expandColumnWidth: { type: Number, default: void 0 }, expandedRowKeys: { type: Array, default: void 0 }, defaultExpandedRowKeys: { type: Array, default: void 0 }, expandedRowRender: { type: Function, default: void 0 }, expandRowByClick: { type: Boolean, default: void 0 }, expandIcon: { type: Function, default: void 0 }, defaultExpandAllRows: { type: Boolean, default: void 0 }, indentSize: Number, expandIconColumnIndex: Number, childrenColumnName: { type: String, default: void 0 }, rowExpandable: { type: Function, default: () => true }, rowSelection: { type: Object, default: void 0 }, rowHoverDelay: { type: Number, default: 50 }, rowKey: { type: [Function, String] }, customRow: { type: Function, default: () => ({}) }, customCell: { type: Function, default: () => ({}) }, customHeaderCell: { type: Function, default: () => ({}) }, customSummaryCellProps: { type: Function, default: () => ({}) }, showHeader: { type: Boolean, default: true }, showSorterTooltip: { type: Boolean, default: true }, getPopupContainer: { type: Function }, locale: { type: Object, default: void 0 }, scrollX: { type: [Number, String] }, scroll: { type: Object, default: void 0 }, rowDrag: { type: [Boolean] }, onChange: { type: Function }, summaryFixed: { type: [Boolean, String], default: false }, "onUpdate:selectedRowKeys": { type: Function }, onScroll: { type: Function }, "onUpdate:expandedRowKeys": { type: Function }, onResizeColumn: { type: Function, default: void 0 }, onRowDragEnd: { type: Function, default: void 0 }, onColumnDragEnd: { type: Function, default: void 0 }, "onUpdate:pagination": { type: Function } });
 function oe(e2, t) {
@@ -6216,19 +6220,26 @@ function formatDuring(during) {
   ss2 = _global__.isNaN(ss2) ? "00" : ss2;
   return ii2 + ":" + ss2;
 }
-function preprocessRecord(record) {
-  const { song, artists, album, name } = record;
-  if (song) {
-    record.title = record.title || record.name;
-    record.album = record.album || song.album.name;
-    record.artist = record.artist || song.artists[0].name;
+function preprocessRecord(records) {
+  function process(record) {
+    const { song, artists, album, name } = record;
+    if (song) {
+      record.title = record.title || record.name;
+      record.album = record.album || song.album.name;
+      record.artist = record.artist || song.artists[0].name;
+    }
+    if (artists && name && album) {
+      record.title = name;
+      record.album = album.name;
+      record.artist = artists[0].name;
+    }
+    return record;
   }
-  if (artists && name && album) {
-    record.title = name;
-    record.album = album.name;
-    record.artist = artists[0].name;
+  if (_global__.isArray(records)) {
+    return _global__.map(records, process);
+  } else {
+    return process(records);
   }
-  return record;
 }
 const State_Music = Vue.reactive({
   cacheAudioCount: 0,
@@ -6340,11 +6351,6 @@ const cacheAudioBlob = async (records, url) => {
     });
     if (!res || !res.data)
       return;
-    if (records.song) {
-      records.title = records.name;
-      records.artists = records.song.artists[0].name;
-      records.album = records.song.album.name;
-    }
     const audioInfo = {
       records: JSON.parse(JSON.stringify(records)),
       blob: res.data
@@ -6365,9 +6371,14 @@ const Actions_Music = {
   },
   addSongToPlaylist(song) {
     if (!State_Music.playlistIdSet.has(song.id)) {
+      song = preprocessRecord(song);
       State_Music.playlist.push(song);
       State_Music.playlistIdSet.add(song.id);
     }
+  },
+  async delCached(keys) {
+    await delMany(_global__.isArray(keys) ? keys : [keys]);
+    State_Music.cacheAudioCount++;
   },
   clearPlaylist() {
     State_Music.playlist = [];
@@ -6452,7 +6463,6 @@ const Actions_Music = {
     }
   },
   pushSongToPlaylist: _global__.debounce(function(newSong, fnDone) {
-    console.time("pushSongToPlaylist");
     if (_global__.isArray(newSong)) {
       _global__.each(newSong, Actions_Music.addSongToPlaylist);
     } else {
@@ -6480,6 +6490,12 @@ const Actions_Music = {
     let record = _global__.find(State_Music.playlist, {
       id
     });
+    if (!record) {
+      UI.notification.error("no song info");
+      throw new Error("no song info");
+    }
+    record = preprocessRecord(record);
+    State_Music.song = record;
     let audioSrc;
     const audioInfo = await get(`audio_${id}`);
     if (audioInfo) {
@@ -6511,7 +6527,7 @@ const Actions_Music = {
     }
     Actions_Music.stopSong();
     if (record) {
-      setDocumentTitle(record.name);
+      setDocumentTitle(`${record.title}-${record.artist}`);
     }
     State_Music.audio.load();
     await canPlay();
@@ -6538,6 +6554,10 @@ const Cpt_iconPlayModel = Vue.computed(() => {
   return LOOP_TYPE_NAME_ARRAY[State_Music.loopType];
 });
 const Cpt_currentSong = Vue.computed(() => {
+  var _a2;
+  if ((_a2 = State_Music.song) == null ? void 0 : _a2.title) {
+    return State_Music.song;
+  }
   return _global__.find(State_Music.playlist, {
     id: State_Music.songId
   }) || {
@@ -6580,4 +6600,4 @@ async function main() {
   $AppLoadingWrapper.remove();
 }
 main();
-export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$c as _, STATIC_WORD as a, Actions_App as b, _sfc_main$6 as c, State_Music as d, API as e, formatDuring as f, Cpt_currentSong as g, Cpt_iconSound as h, preprocessRecord as p };
+export { Actions_Music as A, Cpt_iconPlayModel as C, State_App as S, _sfc_main$c as _, State_Music as a, STATIC_WORD as b, Actions_App as c, _sfc_main$6 as d, API as e, formatDuring as f, goHome as g, Cpt_currentSong as h, Cpt_iconSound as i, preprocessRecord as p };

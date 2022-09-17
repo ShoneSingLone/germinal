@@ -1,4 +1,4 @@
-import { d as State_Music, e as API, A as Actions_Music } from "./main.js";
+import { a as State_Music, e as API, p as preprocessRecord, A as Actions_Music } from "./main.js";
 import { d as _export_sfc, _ as _global__, U as UI } from "./index.js";
 import { F as FindNewMobileSongItem } from "./FindNewMobileSongItem.js";
 import { state } from "./FindNewLayout.js";
@@ -71,7 +71,7 @@ const _sfc_main = {
             this.state.songCount = result.songCount;
             this.state.configs.items = _global__.concat(
               this.state.configs.items,
-              (result == null ? void 0 : result.songs) || []
+              preprocessRecord((result == null ? void 0 : result.songs) || [])
             );
             ++this.state.offset;
             return;
@@ -82,7 +82,9 @@ const _sfc_main = {
           UI.layer.loading(index);
         }
       } else {
-        this.state.configs.items = this.State_Music.personalizedNewSong;
+        this.state.configs.items = preprocessRecord(
+          this.State_Music.personalizedNewSong
+        );
         return;
       }
     }, 1e3),

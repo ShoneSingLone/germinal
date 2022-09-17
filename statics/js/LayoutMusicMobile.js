@@ -1,5 +1,5 @@
 import { M as MusicPlayer } from "./MusicPlayer.js";
-import { d as State_Music, S as State_App } from "./main.js";
+import { a as State_Music, S as State_App, g as goHome } from "./main.js";
 import { d as _export_sfc } from "./index.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -11,7 +11,8 @@ var _sfc_main = Vue.defineComponent({
   setup() {
     return {
       State_Music,
-      State_App
+      State_App,
+      goHome
     };
   },
   data() {
@@ -21,11 +22,6 @@ var _sfc_main = Vue.defineComponent({
     };
   },
   methods: {
-    goHome() {
-      this.$router.push({
-        path: "/"
-      });
-    },
     handleClickSelectedKey(viewName) {
       this.$router.push({
         path: `/music/${viewName}`
@@ -40,21 +36,27 @@ const _hoisted_1 = {
   class: "flex vertical",
   style: { "height": "100%" }
 };
-const _hoisted_2 = { class: "nav-tab top-nav flex width100 elevation-2" };
+const _hoisted_2 = { class: "nav-tab top-nav flex middle width100 elevation-2" };
 const _hoisted_3 = { class: "flex1 play-list-wrapper flex vertical" };
 const _hoisted_4 = { class: "elevation-2" };
-const _hoisted_5 = { class: "nav-tab flex width100 around middle elevation-2" };
+const _hoisted_5 = { class: "nav-tab flex width100 around middle" };
 const _hoisted_6 = ["onClick"];
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
+  const _component_aButton = Vue.resolveComponent("aButton");
   const _component_RouterView = Vue.resolveComponent("RouterView");
   const _component_MusicPlayer = Vue.resolveComponent("MusicPlayer");
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
     Vue.createElementVNode("div", _hoisted_2, [
-      Vue.createVNode(_component_xIcon, {
-        icon: "gohome",
+      Vue.createVNode(_component_aButton, {
+        class: "ml10",
         onClick: _ctx.goHome
-      }, null, 8, ["onClick"])
+      }, {
+        default: Vue.withCtx(() => [
+          Vue.createVNode(_component_xIcon, { icon: "home" })
+        ]),
+        _: 1
+      }, 8, ["onClick"])
     ]),
     Vue.createElementVNode("div", _hoisted_3, [
       Vue.createVNode(_component_RouterView)
@@ -66,8 +68,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           return Vue.openBlock(), Vue.createElementBlock("div", {
             key: item.key,
             class: Vue.normalizeClass({
-              "ant-btn-link": item.key === _ctx.selectedKey,
-              "elevation-1": item.key === _ctx.selectedKey,
+              "ant-btn-link elevation elevation-2": item.key === _ctx.selectedKey,
               "menu-icon flex middle center": true
             }),
             onClick: ($event) => _ctx.handleClickSelectedKey(item.key)

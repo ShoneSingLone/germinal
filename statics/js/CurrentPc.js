@@ -1,6 +1,6 @@
-import { d as State_Music, A as Actions_Music } from "./main.js";
+import { a as State_Music } from "./main.js";
 import { C as CurrentMobileSongItem } from "./CurrentMobileSongItem.js";
-import { d as _export_sfc, _ as _global__ } from "./index.js";
+import { d as _export_sfc } from "./index.js";
 import { state, btnClear } from "./CurrentLayout.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
@@ -21,39 +21,7 @@ const _sfc_main = {
       currentLoadingSongId: ""
     };
   },
-  watch: {
-    "state.configs.search.value": {
-      immediate: true,
-      handler(search) {
-        this.setItems(search);
-      }
-    }
-  },
-  methods: {
-    setItems: _global__.debounce(function(search) {
-      let allItems = this.State_Music.playlist;
-      if (search) {
-        allItems = _global__.filter(allItems, (record) => {
-          const isOk = (prop) => String(record[prop]).includes(search);
-          return isOk("title") || isOk("artist") || isOk("album");
-        });
-      }
-      this.state.configs.items = allItems;
-    }, 600),
-    async playSong(record) {
-      this.currentLoadingSongId = record.id;
-      try {
-        Actions_Music.pushSongToPlaylist(
-          this.state.configs.items,
-          () => Actions_Music.playSongById(record.id)
-        );
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.currentLoadingSongId = false;
-      }
-    }
-  }
+  methods: {}
 };
 const _hoisted_1 = { class: "flex vertical flex1 height100 overflow-hidden" };
 const _hoisted_2 = { class: "search-wrapper padding10 flex width100" };
