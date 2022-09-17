@@ -36,8 +36,7 @@ font-family:webfont;
     </head>
 
     <body>
-        <div id="app">
-        </div>
+        <div id="app"> </div>
         <div id="app-loading-wrapper">
             <style>
         #app-loading-wrapper {
@@ -123,7 +122,7 @@ font-family:webfont;
           const length = chars.length;
           const html = chars.map((char, i) => `<i style="--i: ${i / length}"><b>${char}</b></i>`).join("");
           $el.innerHTML = html;
-      });
+      })();
     </script>
         </div>
 

@@ -41,6 +41,7 @@ async function main() {
 		console.log("🚀 ~ file: main.js ~ line 35 ~ main ~ d", d);
 	}
 
+	/* const instance =  */
 	createApp(PageToolboxHome)
 		.use(appPlugins, {
 			dependState: State_App

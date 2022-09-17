@@ -9,8 +9,9 @@
 					@del="removeSong(item)" />
 			</template>
 		</xVirScroll>
-		<div class="search-wrapper padding10">
-			<xItem :configs="state.configs.search" />
+		<div class="search-wrapper padding10 flex">
+			<xItem :configs="state.configs.search" class="flex1 mr10" />
+			<xButton :configs="btnClear" />
 		</div>
 	</div>
 </template>
@@ -21,7 +22,7 @@ import CachedMobileSongItem from "./CachedMobileSongItem.vue";
 import { getMany, keys, del } from "idb-keyval";
 import { preprocessRecord } from "@ventose/utils/common";
 import { _ } from "@ventose/ui";
-import { state } from "./CachedLayout.vue";
+import { state, btnClear } from "./CachedLayout.vue";
 
 export default {
 	components: {
@@ -30,7 +31,8 @@ export default {
 	setup() {
 		return {
 			State_Music,
-			state
+			state,
+			btnClear
 		};
 	},
 	data() {

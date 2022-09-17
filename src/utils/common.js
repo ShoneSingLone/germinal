@@ -57,17 +57,24 @@ export function formatDuring(during) {
  * @param {any} record
  * @returns
  */
-export function preprocessRecord(record) {
-	const { song, artists, album, name } = record;
-	if (song) {
-		record.title = record.title || record.name;
-		record.album = record.album || song.album.name;
-		record.artist = record.artist || song.artists[0].name;
+export function preprocessRecord(records) {
+	function process(record) {
+		const { song, artists, album, name } = record;
+		if (song) {
+			record.title = record.title || record.name;
+			record.album = record.album || song.album.name;
+			record.artist = record.artist || song.artists[0].name;
+		}
+		if (artists && name && album) {
+			record.title = name;
+			record.album = album.name;
+			record.artist = artists[0].name;
+		}
+		return record;
 	}
-	if (artists && name && album) {
-		record.title = name;
-		record.album = album.name;
-		record.artist = artists[0].name;
+	if (_.isArray(records)) {
+		return _.map(records, process);
+	} else {
+		return process(records);
 	}
-	return record;
 }

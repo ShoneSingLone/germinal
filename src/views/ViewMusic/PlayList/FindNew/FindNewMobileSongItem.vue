@@ -5,18 +5,19 @@
 		:style="styleBtn"
 		:loading="loading">
 		<div class="title">
-			{{ song?.name || song?.title }}
+			{{ song?.title }}
 		</div>
-		<div class="singer">
-			{{ songSub }}
-		</div>
+		<span class="singer">
+			{{ song.index }}- {{ song.artist }}-{{ song.album }}
+		</span>
 	</aButton>
 </template>
 
 <script lang="jsx">
 export default {
 	props: ["song", "loading", "isShowImg"],
-	setup() {
+	setup(props) {
+		console.log(props.song);
 		return {};
 	},
 	data() {
@@ -25,18 +26,6 @@ export default {
 		};
 	},
 	computed: {
-		songSub() {
-			let { index, song, album, artists, name } = this.song;
-			if (album && artists) {
-				return `${index}-${artists[0]?.name}-${album?.name}`;
-			}
-
-			if (song) {
-				let { album, artists, name } = song;
-				return `${index}-${artists[0]?.name}-${album?.name}`;
-			}
-			return "";
-		},
 		styleBtn() {
 			if (this.isShowImg) {
 				return `background:url(${this.song?.picUrl}) right/contain no-repeat;`;
@@ -85,6 +74,7 @@ export default {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		text-align: left;
 	}
 }
 </style>

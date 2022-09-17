@@ -27,7 +27,7 @@ export default defineComponent({
 });
 </script>
 <template>
-	<aSpin v-if="isLoading"> Loading...</aSpin>
+	<aSpin v-if="isLoading"> Loading... </aSpin>
 	<RouterView v-else />
 </template>
 
