@@ -70,7 +70,6 @@ const contentToCache = [
   "./statics/assets/GroupList.ebf21596.css",
   "./statics/assets/Group.a18abc63.css",
   "./statics/assets/FindNewMobileSongItem.4da48bd9.css",
-  "./statics/assets/FindNewMobile.75edacf2.css",
   "./statics/assets/CurrentMobileSongItem.5c71672e.css",
   "./statics/assets/CachedMobileSongItem.0ed29712.css",
   "./index.html",
@@ -155,7 +154,7 @@ self.addEventListener("install", e => {
 	console.log("[Service Worker] Install");
 	e.waitUntil(
 		(async () => {
-			const cache = await caches.open("1663432537660");
+			const cache = await caches.open("1663433803900");
 			console.log("[Service Worker] Caching all: app shell and content");
 			await cache.addAll(contentToCache);
 		})()
@@ -174,7 +173,7 @@ self.addEventListener("fetch", e => {
 					return r;
 				}
 				const response = await fetch(e.request);
-				const cache = await caches.open("1663432537660");
+				const cache = await caches.open("1663433803900");
 				console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
 				cache.put(e.request, response.clone());
 				return response;
