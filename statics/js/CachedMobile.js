@@ -48,7 +48,7 @@ const _sfc_main = {
       );
       if (search) {
         allItems = _global__.filter(allItems, (record) => {
-          const isOk = (prop) => String(record[prop]).includes(search);
+          const isOk = (prop) => new RegExp(search, "ig").test(record[prop]);
           return isOk("title") || isOk("artist") || isOk("album");
         });
       }

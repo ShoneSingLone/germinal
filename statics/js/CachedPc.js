@@ -48,7 +48,7 @@ const _sfc_main = {
       );
       if (search) {
         allItems = _global__.filter(allItems, (record) => {
-          const isOk = (prop) => String(record[prop]).includes(search);
+          const isOk = (prop) => new RegExp(search, "ig").test(record[prop]);
           return isOk("title") || isOk("artist") || isOk("album");
         });
       }
@@ -73,7 +73,7 @@ const _sfc_main = {
     }
   }
 };
-const _hoisted_1 = { class: "flex vertical flex1 PrivateMobile height100 overflow-hidden" };
+const _hoisted_1 = { class: "flex vertical flex1 height100 overflow-hidden" };
 const _hoisted_2 = { class: "search-wrapper padding10 flex" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xItem = Vue.resolveComponent("xItem");

@@ -1,5 +1,5 @@
 import { b as __vitePreload, e as defItem, _ as _global__, d as _export_sfc } from "./index.js";
-import { S as State_App, a as State_Music, p as preprocessRecord, A as Actions_Music } from "./main.js";
+import { S as State_App, a as State_Music, A as Actions_Music } from "./main.js";
 import "./FormRules.js";
 import "./UserOutlined.js";
 import "./form.js";
@@ -15,14 +15,14 @@ const state = Vue.reactive({
   }
 });
 const setItems = _global__.debounce(function(search) {
-  let allItems = _global__.map(State_Music.playlist, preprocessRecord);
+  let allItems = this.State_Music.AllMusicClient;
   if (search) {
     allItems = _global__.filter(allItems, (record) => {
-      const isOk = (prop) => String(record[prop]).includes(search);
+      const isOk = (prop) => new RegExp(search, "ig").test(record[prop]);
       return isOk("title") || isOk("artist") || isOk("album");
     });
   }
-  state.configs.items = allItems;
+  this.state.configs.items = allItems;
 }, 600);
 Vue.watch(() => State_Music.playlist.length, () => {
   setItems(state.configs.search.value);
