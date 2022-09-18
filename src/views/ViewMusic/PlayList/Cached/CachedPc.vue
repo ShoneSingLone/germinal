@@ -1,5 +1,5 @@
 <template>
-	<div class="flex vertical flex1 PrivateMobile height100 overflow-hidden">
+	<div class="flex vertical flex1 height100 overflow-hidden">
 		<div class="search-wrapper padding10 flex">
 			<xItem :configs="state.configs.search" class="flex1 mr10" />
 			<xButton :configs="btnClear" style="margin-right: -10px" />
@@ -69,7 +69,7 @@ export default {
 
 			if (search) {
 				allItems = _.filter(allItems, record => {
-					const isOk = prop => String(record[prop]).includes(search);
+					const isOk = prop => new RegExp(search, "ig").test(record[prop]);
 					return isOk("title") || isOk("artist") || isOk("album");
 				});
 			}

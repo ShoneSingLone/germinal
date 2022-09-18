@@ -52,11 +52,10 @@ export default {
 			let allItems = this.State_Music.AllMusicClient;
 			if (search) {
 				allItems = _.filter(allItems, record => {
-					const isOk = prop => String(record[prop]).includes(search);
+					const isOk = prop => new RegExp(search, "ig").test(record[prop]);
 					return isOk("title") || isOk("artist") || isOk("album");
 				});
 			}
-
 			this.state.configs.items = allItems;
 		}, 600),
 		async playSong(record) {
