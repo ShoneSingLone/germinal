@@ -22,14 +22,14 @@ export const state = reactive({
 });
 
 export const setItems = _.debounce(function (search) {
-	let allItems = this.State_Music.AllMusicClient;
+	let allItems = State_Music.AllMusicClient;
 	if (search) {
 		allItems = _.filter(allItems, record => {
 			const isOk = prop => new RegExp(search, "ig").test(record[prop]);
 			return isOk("title") || isOk("artist") || isOk("album");
 		});
 	}
-	this.state.configs.items = allItems;
+	state.configs.items = allItems;
 }, 600);
 
 /* 播放列表长度变化 */

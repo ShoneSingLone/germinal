@@ -1,9 +1,7 @@
 <template>
 	<div id="ViewMusic" class="flex vertical" style="height: 100%">
 		<div class="nav-tab top-nav flex middle width100 elevation-2">
-			<aButton class="ml10" @click="goHome">
-				<xIcon icon="home" />
-			</aButton>
+			<xIcon class="ml16" icon="home" @click="goHome" />
 		</div>
 		<div class="flex1 play-list-wrapper flex vertical">
 			<RouterView />
@@ -86,6 +84,7 @@ export default defineComponent({
 
 	.ant-btn-link.elevation {
 		border-radius: 50%;
+
 		span {
 			transform: scale(1.2);
 		}

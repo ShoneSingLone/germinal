@@ -4,7 +4,8 @@
 			<AMenu v-model:selectedKeys="selectedKeys" theme="light" mode="inline">
 				<AMenuItem v-for="menuItem in State_Music.tabItems" :key="menuItem.key">
 					<span class="flex">
-						<xIcon :icon="menuItem.icon" class="mr8" />{{
+						<xGap l="10" />
+						<xIcon :icon="menuItem.icon" class="ml10" />{{
 							$t(menuItem.label).label
 						}}
 					</span>
