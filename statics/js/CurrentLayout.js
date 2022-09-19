@@ -15,7 +15,7 @@ const state = Vue.reactive({
   }
 });
 const setItems = _global__.debounce(function(search) {
-  let allItems = State_Music.AllMusicClient;
+  let allItems = State_Music.playlist;
   if (search) {
     allItems = _global__.filter(allItems, (record) => {
       const isOk = (prop) => new RegExp(search, "ig").test(record[prop]);
