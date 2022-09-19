@@ -22,7 +22,7 @@ export const state = reactive({
 });
 
 export const setItems = _.debounce(function (search) {
-	let allItems = State_Music.AllMusicClient;
+	let allItems = State_Music.playlist;
 	if (search) {
 		allItems = _.filter(allItems, record => {
 			const isOk = prop => new RegExp(search, "ig").test(record[prop]);
