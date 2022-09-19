@@ -15,14 +15,14 @@ const state = Vue.reactive({
   }
 });
 const setItems = _global__.debounce(function(search) {
-  let allItems = this.State_Music.AllMusicClient;
+  let allItems = State_Music.AllMusicClient;
   if (search) {
     allItems = _global__.filter(allItems, (record) => {
       const isOk = (prop) => new RegExp(search, "ig").test(record[prop]);
       return isOk("title") || isOk("artist") || isOk("album");
     });
   }
-  this.state.configs.items = allItems;
+  state.configs.items = allItems;
 }, 600);
 Vue.watch(() => State_Music.playlist.length, () => {
   setItems(state.configs.search.value);

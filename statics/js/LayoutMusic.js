@@ -12,6 +12,28 @@ var _sfc_main = Vue.defineComponent({
     return {
       State_App
     };
+  },
+  mounted_demo() {
+    var audioCtx = new AudioContext();
+    var button = this.$refs.button;
+    var pre = this.$refs.pre;
+    var myScript = this.$refs.script;
+    pre.innerHTML = myScript.innerHTML;
+    var channels = 2;
+    var frameCount = audioCtx.sampleRate * 2;
+    var myArrayBuffer = audioCtx.createBuffer(2, frameCount, audioCtx.sampleRate);
+    button.onclick = function() {
+      for (var channel = 0; channel < channels; channel++) {
+        var nowBuffering = myArrayBuffer.getChannelData(channel);
+        for (var i = 0; i < frameCount; i++) {
+          nowBuffering[i] = Math.random() * 2 - 1;
+        }
+      }
+      var source = audioCtx.createBufferSource();
+      source.buffer = myArrayBuffer;
+      source.connect(audioCtx.destination);
+      source.start();
+    };
   }
 });
 var LayoutMusic_vue_vue_type_style_index_0_lang = "";

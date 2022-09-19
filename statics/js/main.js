@@ -6349,6 +6349,7 @@ const cacheAudioBlob = async (records, url) => {
     let res = await axios.get(url.replace("http:", "").replace("https:", ""), {
       responseType: "blob"
     });
+    debugger;
     if (!res || !res.data)
       return;
     const audioInfo = {
@@ -6507,7 +6508,6 @@ const Actions_Music = {
         const res = await API.music.getSongUrlBuId(id);
         audioSrc = _global__.first(res == null ? void 0 : res.data).url;
       }
-      cacheAudioBlob(record, audioSrc);
     }
     if (!audioSrc) {
       return;
@@ -6516,6 +6516,16 @@ const Actions_Music = {
     State_Music.audio.src = audioSrc;
     function canPlay() {
       return new Promise((resolve) => {
+        State_Music.audio.onloadedmetadata = async (event2) => {
+          console.log("\u{1F680} ~ file: State_Music.tsx ~ line 292 ~ canPlay ~ event", event2);
+        };
+        State_Music.audio.oncanplaythrough = async (event2) => {
+          console.log("I think I can play through the entire ", event2);
+          const audioInfo2 = await get(`audio_${id}`);
+          if (!audioInfo2) {
+            cacheAudioBlob(record, audioSrc);
+          }
+        };
         State_Music.audio.oncanplay = function(event2) {
           if (intervalTimer) {
             clearInterval(intervalTimer);

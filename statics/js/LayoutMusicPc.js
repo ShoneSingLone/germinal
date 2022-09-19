@@ -38,6 +38,7 @@ const _hoisted_2 = {
 };
 const _hoisted_3 = { style: { "height": "100%", "padding": "24px", "background": "rgb(255, 255, 255)", "overflow": "hidden" } };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_xGap = Vue.resolveComponent("xGap");
   const _component_xIcon = Vue.resolveComponent("xIcon");
   const _component_AMenuItem = Vue.resolveComponent("AMenuItem");
   const _component_AMenu = Vue.resolveComponent("AMenu");
@@ -68,9 +69,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 }, {
                   default: Vue.withCtx(() => [
                     Vue.createElementVNode("span", _hoisted_1, [
+                      Vue.createVNode(_component_xGap, { l: "10" }),
                       Vue.createVNode(_component_xIcon, {
                         icon: menuItem.icon,
-                        class: "mr8"
+                        class: "ml10"
                       }, null, 8, ["icon"]),
                       Vue.createTextVNode(Vue.toDisplayString(_ctx.$t(menuItem.label).label), 1)
                     ])

@@ -43,20 +43,15 @@ const _hoisted_5 = { class: "nav-tab flex width100 around middle" };
 const _hoisted_6 = ["onClick"];
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_xIcon = Vue.resolveComponent("xIcon");
-  const _component_aButton = Vue.resolveComponent("aButton");
   const _component_RouterView = Vue.resolveComponent("RouterView");
   const _component_MusicPlayer = Vue.resolveComponent("MusicPlayer");
   return Vue.openBlock(), Vue.createElementBlock("div", _hoisted_1, [
     Vue.createElementVNode("div", _hoisted_2, [
-      Vue.createVNode(_component_aButton, {
-        class: "ml10",
+      Vue.createVNode(_component_xIcon, {
+        class: "ml16",
+        icon: "home",
         onClick: _ctx.goHome
-      }, {
-        default: Vue.withCtx(() => [
-          Vue.createVNode(_component_xIcon, { icon: "home" })
-        ]),
-        _: 1
-      }, 8, ["onClick"])
+      }, null, 8, ["onClick"])
     ]),
     Vue.createElementVNode("div", _hoisted_3, [
       Vue.createVNode(_component_RouterView)
