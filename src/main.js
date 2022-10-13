@@ -4,7 +4,6 @@ import { appPlugins } from "@ventose/utils/common";
 import { State_App } from "@ventose/state/State_App";
 import { State_Music } from "@ventose/state/State_Music";
 import { _, $ } from "@ventose/ui";
-import { API } from "@ventose/api";
 import { get, set, clear } from "idb-keyval";
 
 // import "./main.test"
